@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32922.545
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Client", "Dx11_Engine\Dx11_Engine.vcxproj", "{4E1E43E1-11C6-46E4-8DBE-E0F340D16A45}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engin_Source", "Engin_Source\Engin_Source.vcxproj", "{C1832D75-3CC0-4FCF-B191-D86756C3EAD8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Shader_Source", "Shader_Source\Shader_Source\Shader_Source.vcxitems", "{6CEBC7EE-85E4-415C-9EFE-92D934E4D7AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "솔루션 항목", "솔루션 항목", "{4AF1CFEA-ADF7-42C8-AC39-0E7730523463}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4E1E43E1-11C6-46E4-8DBE-E0F340D16A45}.Debug|x64.ActiveCfg = Debug|x64
+		{4E1E43E1-11C6-46E4-8DBE-E0F340D16A45}.Debug|x64.Build.0 = Debug|x64
+		{4E1E43E1-11C6-46E4-8DBE-E0F340D16A45}.Debug|x86.ActiveCfg = Debug|Win32
+		{4E1E43E1-11C6-46E4-8DBE-E0F340D16A45}.Debug|x86.Build.0 = Debug|Win32
+		{4E1E43E1-11C6-46E4-8DBE-E0F340D16A45}.Release|x64.ActiveCfg = Release|x64
+		{4E1E43E1-11C6-46E4-8DBE-E0F340D16A45}.Release|x64.Build.0 = Release|x64
+		{4E1E43E1-11C6-46E4-8DBE-E0F340D16A45}.Release|x86.ActiveCfg = Release|Win32
+		{4E1E43E1-11C6-46E4-8DBE-E0F340D16A45}.Release|x86.Build.0 = Release|Win32
+		{C1832D75-3CC0-4FCF-B191-D86756C3EAD8}.Debug|x64.ActiveCfg = Debug|x64
+		{C1832D75-3CC0-4FCF-B191-D86756C3EAD8}.Debug|x64.Build.0 = Debug|x64
+		{C1832D75-3CC0-4FCF-B191-D86756C3EAD8}.Debug|x86.ActiveCfg = Debug|Win32
+		{C1832D75-3CC0-4FCF-B191-D86756C3EAD8}.Debug|x86.Build.0 = Debug|Win32
+		{C1832D75-3CC0-4FCF-B191-D86756C3EAD8}.Release|x64.ActiveCfg = Release|x64
+		{C1832D75-3CC0-4FCF-B191-D86756C3EAD8}.Release|x64.Build.0 = Release|x64
+		{C1832D75-3CC0-4FCF-B191-D86756C3EAD8}.Release|x86.ActiveCfg = Release|Win32
+		{C1832D75-3CC0-4FCF-B191-D86756C3EAD8}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CC8FF43E-3982-44CD-9357-BDF4C4DA8798}
+	EndGlobalSection
+EndGlobal
