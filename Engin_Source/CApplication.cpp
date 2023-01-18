@@ -49,7 +49,7 @@ void CApplication::FixedUpdate()
 void CApplication::Render()
 {
 	Time::GetInstance()->Render(mHdc);
-	graphicDevice->Draw();
+	graphicDevice->Render();
 }
 
 void CApplication::Release()

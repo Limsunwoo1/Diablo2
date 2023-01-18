@@ -169,7 +169,7 @@
     <ClInclude Include="CResource.h" />
     <ClInclude Include="CResourceManager.h" />
     <ClInclude Include="CTime.h" />
-    <ClInclude Include="MeshRenderer.h" />
+    <ClInclude Include="CMeshRenderer.h" />
     <ClInclude Include="SceneManager.h" />
   </ItemGroup>
   <ItemGroup>
@@ -188,7 +188,7 @@
     <ClCompile Include="CResource.cpp" />
     <ClCompile Include="CResourceManager.cpp" />
     <ClCompile Include="CTime.cpp" />
-    <ClCompile Include="MeshRenderer.cpp" />
+    <ClCompile Include="CMeshRenderer.cpp" />
     <ClCompile Include="SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>

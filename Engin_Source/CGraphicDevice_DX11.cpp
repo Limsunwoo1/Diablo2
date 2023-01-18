@@ -189,6 +189,18 @@ namespace graphics
 
 		return true;
 	}
+	void CGraphicDevice_DX11::BindVertexBuffer(UINT StartSlot
+		, UINT NumBuffers
+		, ID3D11Buffer* const* ppVertexBuffers
+		, const UINT* pStrides
+		, const UINT* pOffsets)
+	{
+		mContext->IASetVertexBuffers(StartSlot, NumBuffers, ppVertexBuffers, pStrides, pOffsets);
+	}
+	void CGraphicDevice_DX11::BindIndexBuffer(ID3D11Buffer* pIndexBuffer, DXGI_FORMAT Format, UINT Offset)
+	{
+		mContext->IASetIndexBuffer(pIndexBuffer, Format, Offset);
+	}
 	void CGraphicDevice_DX11::BindViewPorts(D3D11_VIEWPORT* viewPort)
 	{
 		mContext->RSSetViewports(1, viewPort);
@@ -226,48 +238,104 @@ namespace graphics
 			break;
 		}
 	}
-	void CGraphicDevice_DX11::Draw()
+	void CGraphicDevice_DX11::Clear()
 	{
-		// 리소스 바인딩
-		D3D11_MAPPED_SUBRESOURCE sub = {};
-		mContext->Map(Renderer::triangleBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &sub);
-		memcpy(sub.pData, Renderer::vertexes, sizeof(Renderer::Vertex) * 4);
-		// 사용후 초기화
-		mContext->Unmap(Renderer::triangleBuffer, 0);
-
-		// 화면 지워주기
 		FLOAT backgroundColor[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
 		mContext->ClearRenderTargetView(mRenderTargetView.Get(), backgroundColor);
 		mContext->ClearDepthStencilView(mDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0);
-
-		// 상수 버퍼를 셰이더에 세팅
-		SetConstantBuffer(eShaderStage::VS, eCBType::Transform, Renderer::triangleConstantBuffer);
-
-		// ViewPort, RenderTarget
+	}
+	void CGraphicDevice_DX11::AdjustViewPorts()
+	{
+		// ViewPort, RenderTaget
 		RECT winRect;
 		GetClientRect(Application.GetHwnd(), &winRect);
 		mViewPort = { 0.0f, 0.0f, FLOAT(winRect.right - winRect.left), FLOAT(winRect.bottom - winRect.top), 0.0f, 1.0f };
 		BindViewPorts(&mViewPort);
 		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
-
-		// Input AssemBeler 단계에 버텍스 버퍼 정보 저장
-		UINT vertexSIze = sizeof(Renderer::Vertex);
-		UINT offset = 0;
-		mContext->IASetVertexBuffers(0, 1, &Renderer::triangleBuffer, &vertexSIze, &offset);
-		mContext->IASetIndexBuffer(Renderer::triangleIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
-
-		mContext->IASetInputLayout(Renderer::triangleLayout);
-		// 어떻게 그릴지에대한 도형 연결방법
-		mContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-		
-		// 생성한 셰이더 세팅
-		mContext->VSSetShader(Renderer::triangleVS,0 ,0);
-		mContext->PSSetShader(Renderer::trianglePS, 0, 0);
-
-		//mContext->Draw(3, 0);
-		mContext->DrawIndexed(6, 0, 0);
-
-		// 백버퍼에 그려준다
+	}
+	void CGraphicDevice_DX11::Draw()
+	{
+		mContext->Draw(0, 0);
+	}
+	void CGraphicDevice_DX11::DrawIndexed(UINT indexCount, UINT StartIndexLocation, UINT BaseVertexLocation)
+	{
+		mContext->DrawIndexed(indexCount, StartIndexLocation, BaseVertexLocation);
+	}
+	void CGraphicDevice_DX11::Present()
+	{
 		mSwapChain->Present(0, 0);
 	}
+	void CGraphicDevice_DX11::Render()
+	{
+		// 1. 화면 초기화
+		Clear();
+
+		// 2. 상수버퍼를 셰이더에 세팅
+		SetConstantBuffer(eShaderStage::VS, eCBType::Transform, Renderer::triangleConstantBuffer.Get());
+
+		// 3. 뷰포트 조정
+		AdjustViewPorts();
+
+		// 4. 버퍼 세팅
+		Renderer::mesh->BindBuffer();
+
+		// 5. 인풋레이아웃, 토폴로지 세팅 ( 그리기 방식 )
+		mContext->IASetInputLayout(Renderer::triangleLayout.Get());
+		mContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+		// 6. 생성한 셰이더 세팅
+		mContext->VSSetShader(Renderer::triangleVS.Get(), 0, 0);
+		mContext->PSSetShader(Renderer::trianglePS.Get(), 0, 0);
+
+		// 7. 그리기
+		Renderer::mesh->Render();
+
+		// 8. 스왑체인
+		Present();
+	}
 }
+
+		// 렌더 가이드라인
+		
+		// 리소스 바인딩
+		//D3D11_MAPPED_SUBRESOURCE sub = {};
+		//mContext->Map(Renderer::triangleBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &sub);
+		//memcpy(sub.pData, Renderer::vertexes, sizeof(Renderer::Vertex) * 4);
+		
+		// 사용후 초기화
+		//mContext->Unmap(Renderer::triangleBuffer, 0);
+
+		// 화면 지워주기
+		//FLOAT backgroundColor[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
+		//mContext->ClearRenderTargetView(mRenderTargetView.Get(), backgroundColor);
+		//mContext->ClearDepthStencilView(mDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0);
+
+		// 상수 버퍼를 셰이더에 세팅
+		//SetConstantBuffer(eShaderStage::VS, eCBType::Transform, Renderer::triangleConstantBuffer);
+
+		// ViewPort, RenderTarget
+		//RECT winRect;
+		//GetClientRect(Application.GetHwnd(), &winRect);
+		//mViewPort = { 0.0f, 0.0f, FLOAT(winRect.right - winRect.left), FLOAT(winRect.bottom - winRect.top), 0.0f, 1.0f };
+		//BindViewPorts(&mViewPort);
+		//mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
+
+		// Input AssemBeler 단계에 버텍스 버퍼 정보 저장
+		//UINT vertexSIze = sizeof(Renderer::Vertex);
+		//UINT offset = 0;
+		//mContext->IASetVertexBuffers(0, 1, &Renderer::triangleBuffer, &vertexSIze, &offset);
+		//mContext->IASetIndexBuffer(Renderer::triangleIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+
+		//mContext->IASetInputLayout(Renderer::triangleLayout);
+		
+		// 어떻게 그릴지에대한 도형 연결방법
+		//mContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		
+		// 생성한 셰이더 세팅
+		//mContext->VSSetShader(Renderer::triangleVS,0 ,0);
+		//mContext->PSSetShader(Renderer::trianglePS, 0, 0);
+
+		//mContext->DrawIndexed(6, 0, 0);
+
+		// 백버퍼에 그려준다
+		//mSwapChain->Present(0, 0);

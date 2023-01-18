@@ -43,6 +43,9 @@
     <Filter Include="ResourceManager\Shader">
       <UniqueIdentifier>{472b8aa6-6da7-47ac-b77d-22a58daccb99}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ResourceManager\Resource">
+      <UniqueIdentifier>{3d57ee96-6f61-4891-84fb-c563d25f6f7b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -60,9 +63,6 @@
     <ClCompile Include="CResourceManager.cpp">
       <Filter>ResourceManager</Filter>
     </ClCompile>
-    <ClCompile Include="CResource.cpp">
-      <Filter>ResourceManager</Filter>
-    </ClCompile>
     <ClCompile Include="CEntity.cpp">
       <Filter>Common\Entity</Filter>
     </ClCompile>
@@ -72,7 +72,7 @@
     <ClCompile Include="CRenderer.cpp">
       <Filter>CRenderer</Filter>
     </ClCompile>
-    <ClCompile Include="MeshRenderer.cpp">
+    <ClCompile Include="CMeshRenderer.cpp">
       <Filter>CRenderer</Filter>
     </ClCompile>
     <ClCompile Include="CGameObject.cpp">
@@ -96,6 +96,9 @@
     <ClCompile Include="CShader.cpp">
       <Filter>ResourceManager\Shader</Filter>
     </ClCompile>
+    <ClCompile Include="CResource.cpp">
+      <Filter>ResourceManager\Resource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -114,9 +117,6 @@
       <Filter>InputManager</Filter>
     </ClInclude>
     <ClInclude Include="CResourceManager.h">
-      <Filter>ResourceManager</Filter>
-    </ClInclude>
-    <ClInclude Include="CResource.h">
       <Filter>ResourceManager</Filter>
     </ClInclude>
     <ClInclude Include="CEntity.h">
@@ -140,7 +140,7 @@
     <ClInclude Include="CEnums.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="MeshRenderer.h">
+    <ClInclude Include="CMeshRenderer.h">
       <Filter>CRenderer</Filter>
     </ClInclude>
     <ClInclude Include="CGameObject.h">
@@ -163,6 +163,9 @@
     </ClInclude>
     <ClInclude Include="CShader.h">
       <Filter>ResourceManager\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="CResource.h">
+      <Filter>ResourceManager\Resource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
