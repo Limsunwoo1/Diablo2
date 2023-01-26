@@ -10,16 +10,8 @@ namespace Renderer
 	Mesh* mesh = nullptr;
 	// 상수 버퍼
 	Microsoft::WRL::ComPtr < ID3D11Buffer> triangleConstantBuffer = nullptr;
-	// 버텍스 셰이더
-	Microsoft::WRL::ComPtr < ID3DBlob> triangleVSBlob = nullptr;
-	Microsoft::WRL::ComPtr < ID3D11VertexShader> triangleVS = nullptr;
-
-	// 픽셀 셰이더
-	Microsoft::WRL::ComPtr < ID3DBlob> trianglePSBlob = nullptr;
-	Microsoft::WRL::ComPtr < ID3D11PixelShader> trianglePS = nullptr;
-
-	// 인풋 레이아웃 ( 정점 정보)
-	Microsoft::WRL::ComPtr < ID3D11InputLayout> triangleLayout = nullptr;
+	
+	Shader* shader = nullptr;
 
 	void SetUpState()
 	{
@@ -46,9 +38,9 @@ namespace Renderer
 		arrLayoutDesc[1].SemanticIndex = 0;
 
 		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 2
-			, triangleVSBlob->GetBufferPointer()
-			, triangleVSBlob->GetBufferSize()
-			, &triangleLayout);
+			, shader->GetVSBlobBufferPointer()
+			, shader->GetVSBlobBufferSize()
+			, shader->GetInputLayoutAddressOf());
 
 	}
 
@@ -88,7 +80,9 @@ namespace Renderer
 
 	void LoadShader()
 	{
-		graphics::GetDevice()->CreateShader();
+		shader = new Shader();
+		shader->Create(eShaderStage::VS, L"TriangleVS.hlsl", "VS_Test");
+		shader->Create(eShaderStage::PS, L"TrianglePS.hlsl", "PS_Test");
 	}
 
 	void Initialize()
@@ -113,6 +107,8 @@ namespace Renderer
 
 	void Release()
 	{
+		delete mesh;
+		delete shader;
 		// 버퍼
 		//triangleBuffer->Release();
 		//triangleIndexBuffer->Release();

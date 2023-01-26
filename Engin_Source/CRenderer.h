@@ -4,6 +4,7 @@
 #include "CGraphicDevice_DX11.h"
 
 #include "CMesh.h"
+#include "CShader.h"
 
 using namespace Math;
 using namespace graphics;
@@ -22,17 +23,8 @@ namespace Renderer
 	extern Mesh* mesh;
 	// 상수 버퍼
 	extern Microsoft::WRL::ComPtr <ID3D11Buffer> triangleConstantBuffer;
-
-	// 버텍스 셰이더
-	extern Microsoft::WRL::ComPtr <ID3DBlob> triangleVSBlob;
-	extern Microsoft::WRL::ComPtr <ID3D11VertexShader> triangleVS;
-
-	// 픽셀 셰이더
-	extern Microsoft::WRL::ComPtr <ID3DBlob> trianglePSBlob;
-	extern Microsoft::WRL::ComPtr <ID3D11PixelShader> trianglePS;
-
-	// input Layout
-	extern Microsoft::WRL::ComPtr <ID3D11InputLayout> triangleLayout;
+	// 쉐이더
+	extern Shader* shader;
 
 	void Initialize();
 	void Release();

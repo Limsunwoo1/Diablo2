@@ -157,6 +157,7 @@
     <ClInclude Include="CGraphicDevice_DX11.h" />
     <ClInclude Include="CLayer.h" />
     <ClInclude Include="CMesh.h" />
+    <ClInclude Include="CMeterial.h" />
     <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="CEntity.h" />
     <ClInclude Include="CInput.h" />
@@ -181,6 +182,7 @@
     <ClCompile Include="CInput.cpp" />
     <ClCompile Include="CLayer.cpp" />
     <ClCompile Include="CMesh.cpp" />
+    <ClCompile Include="CMeterial.cpp" />
     <ClCompile Include="CRenderer.cpp" />
     <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CShader.cpp" />
