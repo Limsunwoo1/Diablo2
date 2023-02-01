@@ -75,9 +75,6 @@
     <ClCompile Include="CRenderer.cpp">
       <Filter>CRenderer</Filter>
     </ClCompile>
-    <ClCompile Include="CMeshRenderer.cpp">
-      <Filter>CRenderer</Filter>
-    </ClCompile>
     <ClCompile Include="CGameObject.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
@@ -86,9 +83,6 @@
     </ClCompile>
     <ClCompile Include="CScene.cpp">
       <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="CLayer.cpp">
-      <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="CComponent.cpp">
       <Filter>Component</Filter>
@@ -105,6 +99,16 @@
     <ClCompile Include="CMeterial.cpp">
       <Filter>ResourceManager\Resource\Meterial</Filter>
     </ClCompile>
+    <ClCompile Include="CLayer.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CMeshRenderer.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CTransform.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CConstantBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -146,9 +150,6 @@
     <ClInclude Include="CEnums.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="CMeshRenderer.h">
-      <Filter>CRenderer</Filter>
-    </ClInclude>
     <ClInclude Include="CGameObject.h">
       <Filter>GameObject</Filter>
     </ClInclude>
@@ -157,9 +158,6 @@
     </ClInclude>
     <ClInclude Include="CScene.h">
       <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="CLayer.h">
-      <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="CComponent.h">
       <Filter>Component</Filter>
@@ -176,6 +174,16 @@
     <ClInclude Include="CMeterial.h">
       <Filter>ResourceManager\Resource\Meterial</Filter>
     </ClInclude>
+    <ClInclude Include="CLayer.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CMeshRenderer.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="CTransform.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="CConstantBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math.inl">

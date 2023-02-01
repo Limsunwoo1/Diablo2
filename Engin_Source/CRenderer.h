@@ -4,7 +4,12 @@
 #include "CGraphicDevice_DX11.h"
 
 #include "CMesh.h"
+#include "CommonInclude.h"
+#include "CGraphicDevice_DX11.h"
+
 #include "CShader.h"
+#include "CMesh.h"
+#include "CConstantBuffer.h"
 
 using namespace Math;
 using namespace graphics;
@@ -16,15 +21,10 @@ namespace Renderer
 		Vector4 color;
 	};
 
-	// 정점 데이터
 	extern Vertex vertexes[4];
-
-	// 버퍼
 	extern Mesh* mesh;
-	// 상수 버퍼
-	extern Microsoft::WRL::ComPtr <ID3D11Buffer> triangleConstantBuffer;
-	// 쉐이더
 	extern Shader* shader;
+	extern ConstantBuffer* constantBuffers[];
 
 	void Initialize();
 	void Release();

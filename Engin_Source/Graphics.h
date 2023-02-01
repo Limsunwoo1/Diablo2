@@ -27,4 +27,20 @@ namespace graphics
 		CS,
 		Count,
 	};
+
+	struct GpuBuffer
+	{
+		enum class eType
+		{
+			Buffer,
+			Texture,
+			UnknownType,
+		} type = eType::UnknownType;
+
+		D3D11_BUFFER_DESC desc;
+		Microsoft::WRL::ComPtr<ID3D11Buffer> buffer;
+
+		GpuBuffer() = default;
+		virtual ~GpuBuffer() = default;
+	};
 }

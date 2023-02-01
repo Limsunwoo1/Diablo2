@@ -297,24 +297,15 @@ namespace graphics
 	}
 	void CGraphicDevice_DX11::Render()
 	{
-		// 1. 화면 초기화
 		Clear();
+		//Renderer::constantBuffers[(UINT)eCBType::Transform]->SetPipline(eShaderStage::VS);
 
-		// 2. 상수버퍼를 셰이더에 세팅
-		SetConstantBuffer(eShaderStage::VS, eCBType::Transform, Renderer::triangleConstantBuffer.Get());
-
-		// 3. 뷰포트 조정
 		AdjustViewPorts();
 
-		// 4. 버퍼 세팅
 		Renderer::mesh->BindBuffer();
-
 		Renderer::shader->Binds();
-
-		// 7. 그리기
 		Renderer::mesh->Render();
 
-		// 8. 스왑체인
 		Present();
 	}
 }

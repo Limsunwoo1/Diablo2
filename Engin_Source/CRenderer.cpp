@@ -3,14 +3,9 @@
 
 namespace Renderer
 {
-	// 정점 데이터
 	Vertex vertexes[4] = {};
-
-	// 버퍼
 	Mesh* mesh = nullptr;
-	// 상수 버퍼
-	Microsoft::WRL::ComPtr < ID3D11Buffer> triangleConstantBuffer = nullptr;
-	
+	ConstantBuffer* constantBuffers[(UINT)eCBType::End] = {};
 	Shader* shader = nullptr;
 
 	void SetUpState()
@@ -50,10 +45,8 @@ namespace Renderer
 		mesh = new Mesh();
 		ResourceManager::GetInstance()->Insert<Mesh>(L"RectMesh", mesh);
 
-		// 버텍스버퍼
 		mesh->CreateVertexBuffer(vertexes, 4);
 
-		// 인덱스 버퍼
 		std::vector<UINT> indexs;
 		indexs.push_back(0);
 		indexs.push_back(1);
@@ -65,17 +58,10 @@ namespace Renderer
 
 		mesh->CreateIndexBuffer(indexs.data(), indexs.size());
 
-		// 상수 버퍼
-		D3D11_BUFFER_DESC csDesc = {};
-		csDesc.ByteWidth = sizeof(Vector4);
-		csDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_CONSTANT_BUFFER;
-		csDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
-		csDesc.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_WRITE;
-
-		graphics::GetDevice()->CreateBuffer(&csDesc, nullptr, &triangleConstantBuffer);
-
-		Vector4 pos(0.2f, 0.2f, 0.0f, 0.0f);
-		graphics::GetDevice()->BindConstantBuffer(triangleConstantBuffer.Get(), &pos, sizeof(Vector4));
+		Vector4 pos(0.4f, 0.4f, 0.0f, 0.0f);
+		constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer();
+		constantBuffers[(UINT)eCBType::Transform]->Create(sizeof(Vector4)); // 바이트 16 고정인 이유물어보기
+		constantBuffers[(UINT)eCBType::Transform]->Bind(&pos);
 	}
 
 	void LoadShader()
@@ -108,21 +94,14 @@ namespace Renderer
 	void Release()
 	{
 		delete mesh;
+		mesh = nullptr;
 		delete shader;
-		// 버퍼
-		//triangleBuffer->Release();
-		//triangleIndexBuffer->Release();
-		//triangleConstantBuffer->Release();
-
-		// VS
-		//triangleVSBlob->Release();
-		//triangleVS->Release();
-
-		// PS
-		//trianglePSBlob->Release();
-		//trianglePS->Release();
-
-		// Input Layout
-		//triangleLayout->Release();
+		shader = nullptr;
+		
+		for (size_t i = 0; i < (UINT)eCBType::End; ++i)
+		{
+			delete constantBuffers[i];
+			constantBuffers[i] = nullptr;
+		}
 	}
 }

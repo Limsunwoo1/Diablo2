@@ -1,35 +1,25 @@
 #pragma once
+#include "Math.h"
 #include "CEntity.h"
 
 class GameObject;
-class Component
+class Component : public Entity
 {
 public:
-	enum class eType
-	{
-		None,
-		Transform,
-		Camera,
-
-		//reder
-		Mesh,
-		SkyBox,
-		Decal,
-
-		Script,
-		End,
-	};
-
-	Component();
+	Component(eComponentType type);
 	virtual ~Component();
 
-	virtual void Initalize();
-	virtual void Update();
-	virtual void FixedUpdate();
-	virtual void Render();
+	virtual void Initalize() = 0;
+	virtual void Update() = 0;
+	virtual void FixedUpdate() = 0;
+	virtual void Render() = 0;
 
+	UINT GetOrder() { return (UINT)mType; }
+
+	GameObject* GetOwner() { return mOwner; }
+	void SetOwner(GameObject* owner) { mOwner = owner; }
 private:
-	const eType mType;
+	const eComponentType mType;
 	GameObject* mOwner;
 };
 

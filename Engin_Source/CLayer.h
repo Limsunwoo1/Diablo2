@@ -1,7 +1,7 @@
 #pragma once
 #include "CGameObject.h"
 
-class Layer
+class Layer : public Entity
 {
 public:
 	Layer();
@@ -12,6 +12,7 @@ public:
 	virtual void FixedUpdate();
 	virtual void Render();
 
+	void AddGameObject(GameObject* gameObject);
 
 private:
 	std::vector<GameObject*> mGameObjects;

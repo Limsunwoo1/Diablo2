@@ -13,6 +13,7 @@ public:
 	virtual void FixedUpdate();
 	virtual void Render();
 
+	void AddGameObject(GameObject* gameObj, const eLayerType type);
 private:
 	std::vector<Layer> mLayers;
 };

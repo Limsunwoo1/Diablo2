@@ -2,6 +2,7 @@
 #include "CRenderer.h"
 #include "CTime.h"
 #include "CInput.h"
+#include "SceneManager.h"
 
 using namespace graphics;
 
@@ -31,6 +32,7 @@ void CApplication::Initalize()
 	Input::GetInstance()->Initialize();
 
 	Renderer::Initialize();
+	SceneManager::GetInstance()->Initalize();
 }
 
 // 게임 로직 캐릭터 이동 등등 
@@ -39,16 +41,21 @@ void CApplication::Update()
 {
 	Time::GetInstance()->Update();
 	Input::GetInstance()->Update();
+
+	SceneManager::GetInstance()->Update();
 }
 
 // GPU update
 void CApplication::FixedUpdate()
 {
+	SceneManager::GetInstance()->FixedUpdate();
 }
 
 void CApplication::Render()
 {
 	Time::GetInstance()->Render(mHdc);
+	SceneManager::GetInstance()->Render();
+
 	graphicDevice->Render();
 }
 
