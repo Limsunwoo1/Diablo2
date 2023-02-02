@@ -3,7 +3,8 @@
 #include "CGraphicDevice_DX11.h"
 
 Mesh::Mesh()
-	: mVertexBuffer{}
+	: Resource(eResourceType::Mesh)
+	, mVertexBuffer{}
 	, mIndexBuffer{}
 	, mIndexCount(0)
 {

@@ -160,49 +160,6 @@ namespace graphics
 
 		return true;
 	}
-	bool CGraphicDevice_DX11::CreateShader()
-	{
-		//ID3DBlob* errorBlob = nullptr;
-
-		//std::filesystem::path shaderPath = std::filesystem::current_path().parent_path();
-		//shaderPath += "\\Shader_Source\\";
-
-		//// Vertex Shader
-		//std::wstring vsPath(shaderPath.c_str());
-		//vsPath += L"TriangleVS.hlsl";
-		//D3DCompileFromFile(vsPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-		//, "VS_Test", "vs_5_0", 0, 0, &Renderer::triangleVSBlob, &errorBlob);
-
-		//mDevice->CreateVertexShader(Renderer::triangleVSBlob->GetBufferPointer()
-		//							, Renderer::triangleVSBlob->GetBufferSize()
-		//							, nullptr, &Renderer::triangleVS);
-
-		//if (errorBlob)
-		//{
-		//	OutputDebugStringA((char*)errorBlob->GetBufferPointer());
-		//	errorBlob->Release();
-		//	errorBlob = nullptr;
-		//}
-
-		//// PixelShader
-		//std::wstring psPath(shaderPath.c_str());
-		//psPath += L"TrianglePS.hlsl";
-		//D3DCompileFromFile(psPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-		//	, "PS_Test", "ps_5_0", 0, 0, &Renderer::trianglePSBlob, &errorBlob);
-
-		//if (errorBlob)
-		//{
-		//	OutputDebugStringA((char*)errorBlob->GetBufferPointer());
-		//	errorBlob->Release();
-		//	errorBlob = nullptr;
-		//}
-
-		//mDevice->CreatePixelShader(Renderer::trianglePSBlob->GetBufferPointer()
-		//	, Renderer::trianglePSBlob->GetBufferSize()
-		//	, nullptr, &Renderer::trianglePS);
-
-		return true;
-	}
 	void CGraphicDevice_DX11::BindPrivitiveTopology(D3D11_PRIMITIVE_TOPOLOGY topology)
 	{
 		mContext->IASetPrimitiveTopology(topology);
@@ -263,6 +220,32 @@ namespace graphics
 			break;
 		case graphics::eShaderStage::CS:
 			mContext->CSSetConstantBuffers((UINT)type, 1, &buffer);
+			break;
+		default:
+			break;
+		}
+	}
+	void CGraphicDevice_DX11::SetShaderReource(eShaderStage stage, UINT slot, ID3D11ShaderResourceView* const* ppShaderResourceViews)
+	{
+		switch (stage)
+		{
+		case graphics::eShaderStage::VS:
+			mContext->VSSetShaderResources(slot, 1, ppShaderResourceViews);
+			break;
+		case graphics::eShaderStage::HS:
+			mContext->HSSetShaderResources(slot, 1, ppShaderResourceViews);
+			break;
+		case graphics::eShaderStage::DS:
+			mContext->DSSetShaderResources(slot, 1, ppShaderResourceViews);
+			break;
+		case graphics::eShaderStage::GS:
+			mContext->GSSetShaderResources(slot, 1, ppShaderResourceViews);
+			break;
+		case graphics::eShaderStage::PS:
+			mContext->PSSetShaderResources(slot, 1, ppShaderResourceViews);
+			break;
+		case graphics::eShaderStage::CS:
+			mContext->CSSetShaderResources(slot, 1, ppShaderResourceViews);
 			break;
 		default:
 			break;

@@ -5,7 +5,7 @@
 	class Resource
 	{
 	public:
-		Resource();
+		Resource(eResourceType type);
 		virtual ~Resource();
 
 		virtual HRESULT Load(const std::wstring& path) = 0;
@@ -19,6 +19,7 @@
 	private:
 		std::wstring mPath;
 		std::wstring mKey;
+		eResourceType mType;
 	};
 
 

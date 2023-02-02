@@ -49,6 +49,9 @@
     <Filter Include="ResourceManager\Resource\Meterial">
       <UniqueIdentifier>{9cdfe2a0-0a9b-450d-afa2-6f4e5495df3e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ResourceManager\Resource\Texture">
+      <UniqueIdentifier>{de4c0102-5e56-4aca-957d-c46e90ef5277}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -109,6 +112,9 @@
       <Filter>Component</Filter>
     </ClCompile>
     <ClCompile Include="CConstantBuffer.cpp" />
+    <ClCompile Include="CTexture.cpp">
+      <Filter>ResourceManager\Resource\Texture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -184,6 +190,9 @@
       <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="CConstantBuffer.h" />
+    <ClInclude Include="CTexture.h">
+      <Filter>ResourceManager\Resource\Texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Math.inl">

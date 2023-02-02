@@ -4,7 +4,8 @@
 using namespace graphics;
 
 Shader::Shader()
-    : mTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
+    : Resource(eResourceType::GraphicShader)
+    , mTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
 {
 }
 

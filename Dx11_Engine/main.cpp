@@ -3,10 +3,14 @@
 
 #include "framework.h"
 #include "Dx11_Engine.h"
+#include "Engin_Source//CApplication.h"
 
+#ifdef _DEBUG
 #pragma comment(lib, "..\\x64\\Debug\\Lib\\Engin_Source.lib")
+#else
+#pragma comment(lib, "..\\x64\\Release\\Lib\\Engin_Source.lib")
+#endif
 
-#include "Engin_Source/CApplication.h"
 
 #define MAX_LOADSTRING 100
 

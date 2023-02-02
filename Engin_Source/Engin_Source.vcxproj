@@ -165,6 +165,7 @@
     <ClInclude Include="CRenderer.h" />
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CShader.h" />
+    <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTransform.h" />
     <ClInclude Include="def.h" />
     <ClInclude Include="Graphics.h" />
@@ -189,6 +190,7 @@
     <ClCompile Include="CRenderer.cpp" />
     <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CShader.cpp" />
+    <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTransform.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="CResource.cpp" />

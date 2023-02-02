@@ -25,3 +25,18 @@ enum class eComponentType
 	Script,
 	End,
 };
+
+enum class eResourceType
+{
+	Mesh,
+	Texture,
+	Meterial,
+	Sound,
+	/*Font,*/
+	Prefab, // 파일로 저장된 정보
+	MeshData,
+	GraphicShader,
+	ComputeShader, // 병렬처리가 가능하게 해주는 쉐이더
+	Script,
+	End,
+};

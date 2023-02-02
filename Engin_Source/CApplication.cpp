@@ -54,9 +54,13 @@ void CApplication::FixedUpdate()
 void CApplication::Render()
 {
 	Time::GetInstance()->Render(mHdc);
+
+	graphicDevice->Clear();			  // 화면지우기
+	graphicDevice->AdjustViewPorts(); // 뷰보트 크기
+
 	SceneManager::GetInstance()->Render();
 
-	graphicDevice->Render();
+	graphicDevice->Present();		  // 스왑 체인
 }
 
 void CApplication::Release()
