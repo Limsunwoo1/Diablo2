@@ -81,7 +81,7 @@
     <ClCompile Include="CGameObject.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
+    <ClCompile Include="CSceneManager.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="CScene.cpp">
@@ -159,7 +159,7 @@
     <ClInclude Include="CGameObject.h">
       <Filter>GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="SceneManager.h">
+    <ClInclude Include="CSceneManager.h">
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="CScene.h">

@@ -9,21 +9,17 @@ public:
 	CApplication();
 	~CApplication();
 
-	// Running main engine loop
-	void Run();
-
 	virtual void Initalize();
-
-	// 게임 로직 캐릭터 이동 등등
 	// CPU Update
 	virtual void Update();
-	
 	// GPU Update
 	virtual void FixedUpdate();
-
 	virtual void Render();
 	
+	// Running main engine loop
+	void Run();
 	void Release();
+
 	void SetWindow(HWND hwnd, UINT width, UINT height);
 
 	void SetHwnd(HWND hwnd) { mHwnd = hwnd; }

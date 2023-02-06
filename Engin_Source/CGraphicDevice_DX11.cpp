@@ -160,6 +160,13 @@ namespace graphics
 
 		return true;
 	}
+	bool CGraphicDevice_DX11::CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc, ID3D11SamplerState** ppSamplerState)
+	{
+		if (FAILED(mDevice->CreateSamplerState(pSamplerDesc, ppSamplerState)))
+			return false;
+
+		return true;
+	}
 	void CGraphicDevice_DX11::BindPrivitiveTopology(D3D11_PRIMITIVE_TOPOLOGY topology)
 	{
 		mContext->IASetPrimitiveTopology(topology);
@@ -251,6 +258,40 @@ namespace graphics
 			break;
 		}
 	}
+	void CGraphicDevice_DX11::BindSamplers(eShaderStage stage, UINT slot, UINT NumSamplers, ID3D11SamplerState* const* ppSamplers)
+	{
+		switch (stage)
+		{
+		case graphics::eShaderStage::VS:
+			mContext->VSSetSamplers(slot, NumSamplers, ppSamplers);
+			break;
+		case graphics::eShaderStage::HS:
+			mContext->HSSetSamplers(slot, NumSamplers, ppSamplers);
+			break;
+		case graphics::eShaderStage::DS:
+			mContext->DSSetSamplers(slot, NumSamplers, ppSamplers);
+			break;
+		case graphics::eShaderStage::GS:
+			mContext->GSSetSamplers(slot, NumSamplers, ppSamplers);
+			break;
+		case graphics::eShaderStage::PS:
+			mContext->PSSetSamplers(slot, NumSamplers, ppSamplers);
+			break;
+		case graphics::eShaderStage::CS:
+			mContext->CSSetSamplers(slot, NumSamplers, ppSamplers);
+			break;
+		default:
+			break;
+		}
+	}
+	void CGraphicDevice_DX11::BindsSamplers(UINT slot, UINT NumSamplers, ID3D11SamplerState* const* ppSamplers)
+	{
+		mContext->VSSetSamplers(slot, NumSamplers, ppSamplers);
+		mContext->HSSetSamplers(slot, NumSamplers, ppSamplers);
+		mContext->DSSetSamplers(slot, NumSamplers, ppSamplers);
+		mContext->GSSetSamplers(slot, NumSamplers, ppSamplers);
+		mContext->PSSetSamplers(slot, NumSamplers, ppSamplers);
+	}
 	void CGraphicDevice_DX11::Clear()
 	{
 		FLOAT backgroundColor[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
@@ -277,19 +318,6 @@ namespace graphics
 	void CGraphicDevice_DX11::Present()
 	{
 		mSwapChain->Present(0, 0);
-	}
-	void CGraphicDevice_DX11::Render()
-	{
-		Clear();
-		//Renderer::constantBuffers[(UINT)eCBType::Transform]->SetPipline(eShaderStage::VS);
-
-		AdjustViewPorts();
-
-		Renderer::mesh->BindBuffer();
-		Renderer::shader->Binds();
-		Renderer::mesh->Render();
-
-		Present();
 	}
 }
 

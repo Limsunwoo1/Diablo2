@@ -1,9 +1,14 @@
-#include "SceneManager.h"
+#include "CSceneManager.h"
 #include "CTransform.h"
 #include "CRenderer.h"
+#include "CResourceManager.h"
 #include "CMeshRenderer.h"
+#include "CShader.h"
+#include "CMesh.h"
+#include "CTexture.h"
 
 SceneManager::SceneManager()
+	: mPlayScene(nullptr)
 {
 	
 }
@@ -19,14 +24,20 @@ void SceneManager::Initalize()
 
 	GameObject* obj = new GameObject();
 	Transform* tr = new Transform();
-	tr->SetPosition(Vector3(-0.4f, -0.4f, 0.0f));
+	//tr->SetPosition(Vector3(-0.4f, -0.4f, 0.0f));
 	obj->AddComponent(tr);
 
 	MeshRenderer* mr = new MeshRenderer();
 	obj->AddComponent(mr);
 
-	mr->SetMesh(Renderer::mesh);
-	mr->SetShader(Renderer::shader);
+	Shader* shader = ResourceManager::GetInstance()->Find<Shader>(L"RectShader");
+	Mesh* mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+
+	mr->SetShader(shader);
+	mr->SetMesh(mesh);
+
+	Texture* texture = ResourceManager::GetInstance()->Load<Texture>(L"SmileTexture", L"Smile.png");
+	texture->BidShader(eShaderStage::PS, 0);
 
 	mPlayScene->AddGameObject(obj, eLayerType::Player);
 }

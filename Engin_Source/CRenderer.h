@@ -19,12 +19,12 @@ namespace Renderer
 	{
 		Vector3 pos;
 		Vector4 color;
+		Vector2 uv;
 	};
 
 	extern Vertex vertexes[4];
-	extern Mesh* mesh;
-	extern Shader* shader;
 	extern ConstantBuffer* constantBuffers[];
+	extern Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerStates[];
 
 	void Initialize();
 	void Release();

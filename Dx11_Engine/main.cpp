@@ -52,7 +52,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     MSG msg;
 
     // 기본 메시지 루프입니다:
-    while (GetMessage(&msg, nullptr, 0, 0))
+    while (true)
     {
         // 일반적으로는 GetMessage를 사용
         // Qeue에서 메세지를 하나씩 빼와서 사용
@@ -109,6 +109,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
     }
 
+    Application.Release();
     return (int) msg.wParam;
 }
 

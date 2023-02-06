@@ -5,7 +5,9 @@
 Mesh::Mesh()
 	: Resource(eResourceType::Mesh)
 	, mVertexBuffer{}
+	, mVBDesc{}
 	, mIndexBuffer{}
+	, mIBDesc{}
 	, mIndexCount(0)
 {
 }

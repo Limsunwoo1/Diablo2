@@ -2,7 +2,8 @@
 #include "CRenderer.h"
 #include "CTime.h"
 #include "CInput.h"
-#include "SceneManager.h"
+#include "CSceneManager.h"
+#include "CResourceManager.h"
 
 using namespace graphics;
 
@@ -18,13 +19,6 @@ CApplication::~CApplication()
 {
 }
 
-// Running main engine loop
-void CApplication::Run()
-{
-	Update();
-	FixedUpdate();
-	Render();
-}
 
 void CApplication::Initalize()
 {
@@ -62,11 +56,22 @@ void CApplication::Render()
 
 	graphicDevice->Present();		  // 스왑 체인
 }
+// Running main engine loop
+void CApplication::Run()
+{
+	Update();
+	FixedUpdate();
+	Render();
+}
 
 void CApplication::Release()
 {
+	ResourceManager::GetInstance()->Release();
+
+
 	Time::GetInstance()->DestroyInstance();
 	Input::GetInstance()->DestroyInstance();
+	ResourceManager::GetInstance()->DestroyInstance();
 }
 
 void CApplication::SetWindow(HWND hwnd, UINT width, UINT height)

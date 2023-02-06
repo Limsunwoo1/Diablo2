@@ -2,6 +2,7 @@
 #include "CResource.h"
 #include "Graphics.h"
 
+using namespace Microsoft::WRL;
 class Shader : public Resource
 {
 public:
@@ -19,22 +20,22 @@ public:
 	void* GetVSBlobBufferPointer() { return mVSBlob->GetBufferPointer(); }
 	SIZE_T GetVSBlobBufferSize() { return mVSBlob->GetBufferSize(); }
 private:
-	Microsoft::WRL::ComPtr<ID3D11InputLayout> mInputLayout;
+	ComPtr<ID3D11InputLayout> mInputLayout;
 	D3D11_PRIMITIVE_TOPOLOGY mTopology;
 
-	Microsoft::WRL::ComPtr <ID3DBlob> mVSBlob;
-	Microsoft::WRL::ComPtr <ID3DBlob> mHSBlob;
-	Microsoft::WRL::ComPtr <ID3DBlob> mDSBlob;
-	Microsoft::WRL::ComPtr <ID3DBlob> mGSBlob;
-	Microsoft::WRL::ComPtr <ID3DBlob> mPSBlob;
+	ComPtr <ID3DBlob> mVSBlob;
+	ComPtr <ID3DBlob> mHSBlob;
+	ComPtr <ID3DBlob> mDSBlob;
+	ComPtr <ID3DBlob> mGSBlob;
+	ComPtr <ID3DBlob> mPSBlob;
 
 
-	Microsoft::WRL::ComPtr <ID3D11VertexShader> mVS;
-	Microsoft::WRL::ComPtr <ID3D11HullShader> mHS;
-	Microsoft::WRL::ComPtr <ID3D11DomainShader> mDS;
-	Microsoft::WRL::ComPtr <ID3D11GeometryShader> mGS;
-	Microsoft::WRL::ComPtr <ID3D11PixelShader> mPS;
+	ComPtr <ID3D11VertexShader>		mVS;
+	ComPtr <ID3D11HullShader>		mHS;
+	ComPtr <ID3D11DomainShader>		mDS;
+	ComPtr <ID3D11GeometryShader>	mGS;
+	ComPtr <ID3D11PixelShader>		mPS;
 
-	Microsoft::WRL::ComPtr <ID3DBlob> mErrorBlob;
+	ComPtr <ID3DBlob> mErrorBlob;
 };
 
