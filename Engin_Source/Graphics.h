@@ -8,8 +8,21 @@
 #pragma comment (lib, "d3d11.lib")
 #pragma comment (lib, "d3dcompiler.lib")
 
+#define CB_GETBINDSLOT(name) __CBUFFERBINDSLOT__##name##__
+#define CBUFFER(name, slot) static const int CB_GETBINDSLOT(name) = slot; struct alignas(16) name
+
+#define CBSLOT_TRANSFORM 0
+#define CBSLOT_MATERIAL 1
+
 namespace graphics
 {
+	enum class eCBType
+	{
+		Transform,
+		Material,
+		End,
+	};
+
 	enum class ValidationMode
 	{
 		Disabled,
@@ -34,6 +47,16 @@ namespace graphics
 		Linear,
 		Anisotropic,
 		End,
+	};
+
+	enum class eGpuParam
+	{
+		Int,
+		Float,
+		Vector2,
+		Vector3,
+		Vector4,
+		Matrix,
 	};
 
 	struct GpuBuffer

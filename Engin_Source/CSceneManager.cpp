@@ -6,6 +6,7 @@
 #include "CShader.h"
 #include "CMesh.h"
 #include "CTexture.h"
+#include "CMaterial.h"
 
 SceneManager::SceneManager()
 	: mPlayScene(nullptr)
@@ -24,16 +25,19 @@ void SceneManager::Initalize()
 
 	GameObject* obj = new GameObject();
 	Transform* tr = new Transform();
-	//tr->SetPosition(Vector3(-0.4f, -0.4f, 0.0f));
+	tr->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
 	obj->AddComponent(tr);
 
 	MeshRenderer* mr = new MeshRenderer();
 	obj->AddComponent(mr);
 
-	Shader* shader = ResourceManager::GetInstance()->Find<Shader>(L"RectShader");
 	Mesh* mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+	Material* material = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
 
-	mr->SetShader(shader);
+	Vector2 vec2(1.0f, 1.0f);
+	material->SetData(eGpuParam::Vector2, &vec2);
+
+	mr->SetMaterial(material);
 	mr->SetMesh(mesh);
 
 	Texture* texture = ResourceManager::GetInstance()->Load<Texture>(L"SmileTexture", L"Smile.png");

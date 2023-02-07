@@ -99,7 +99,7 @@
     <ClCompile Include="CResource.cpp">
       <Filter>ResourceManager\Resource</Filter>
     </ClCompile>
-    <ClCompile Include="CMeterial.cpp">
+    <ClCompile Include="CMaterial.cpp">
       <Filter>ResourceManager\Resource\Meterial</Filter>
     </ClCompile>
     <ClCompile Include="CLayer.cpp">
@@ -177,7 +177,7 @@
     <ClInclude Include="CResource.h">
       <Filter>ResourceManager\Resource</Filter>
     </ClInclude>
-    <ClInclude Include="CMeterial.h">
+    <ClInclude Include="CMaterial.h">
       <Filter>ResourceManager\Resource\Meterial</Filter>
     </ClInclude>
     <ClInclude Include="CLayer.h">

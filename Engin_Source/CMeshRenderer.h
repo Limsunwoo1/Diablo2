@@ -1,7 +1,7 @@
 #pragma once
 #include "CComponent.h"
 #include "CMesh.h"
-#include "CShader.h"
+#include "CMaterial.h"
 
 class MeshRenderer : public Component
 {
@@ -15,8 +15,9 @@ public:
 	virtual void Render() override;
 
 	void SetMesh(Mesh* mesh) {mMesh = mesh;}
-	void SetShader(Shader* shader) { mShader = shader;}
+	void SetMaterial(Material* material) { mMaterial = material;}
+
 private:
 	Mesh* mMesh;
-	Shader* mShader;
+	Material* mMaterial;
 };

@@ -1,5 +1,6 @@
 #include "CRenderer.h"
 #include "CResourceManager.h"
+#include "CMaterial.h"
 
 namespace Renderer
 {
@@ -48,9 +49,9 @@ namespace Renderer
 		// Sampler State
 
 		D3D11_SAMPLER_DESC samplerDesc = {};
-		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
-		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
-		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_MIRROR;
+		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_MIRROR;
+		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_MIRROR;
 		//D3D11_FILTER_MIN_POINT_MAG_MIP_LINEAR = 0x5,
 		//D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT = 0x10,
 		samplerDesc.Filter = D3D11_FILTER::D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT;
@@ -103,10 +104,11 @@ namespace Renderer
 		indexs.push_back(3);
 		mesh->CreateIndexBuffer(indexs.data(), (UINT)indexs.size());
 
-		Vector4 pos(0.2f, 0.2f, 0.0f, 0.0f);
-		constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer();
-		constantBuffers[(UINT)eCBType::Transform]->Create(sizeof(Vector4)); // 바이트 16 고정인 이유물어보기
-		constantBuffers[(UINT)eCBType::Transform]->Bind(&pos);
+		constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Transform);
+		constantBuffers[(UINT)eCBType::Transform]->Create(sizeof(TransformCB));
+
+		constantBuffers[(UINT)eCBType::Material] = new ConstantBuffer(eCBType::Material);
+		constantBuffers[(UINT)eCBType::Material]->Create(sizeof(MaterialCB));
 	}
 
 	void LoadShader()
@@ -118,28 +120,39 @@ namespace Renderer
 		ResourceManager::GetInstance()->Insert<Shader>(L"RectShader", shader);
 	}
 
+	void LoadMaterial()
+	{
+		Shader* shader = ResourceManager::GetInstance()->Find<Shader>(L"RectShader");
+
+		Material* material = new Material();
+		material->SetShader(shader);
+
+		ResourceManager::GetInstance()->Insert<Material>(L"RectMaterial", material);
+	}
+
 	void Initialize()
 	{
 		//RECT
 		vertexes[0].pos = Vector3(-0.5f, 0.5f, 0.5f);
 		vertexes[0].color = Vector4(0.f, 1.f, 0.f, 1.f);
-		vertexes[0].uv = Vector2(1.f, 1.f);
+		vertexes[0].uv = Vector2(0.f, 0.f);
 
 		vertexes[1].pos = Vector3(0.5f, 0.5f, 0.5f);
 		vertexes[1].color = Vector4(1.f, 1.f, 1.f, 1.f);
-		vertexes[1].uv = Vector2(0.f, 1.f);
+		vertexes[1].uv = Vector2(2.f, 0.f);
 
 		vertexes[2].pos = Vector3(0.5f, -0.5f, 0.5f);
 		vertexes[2].color = Vector4(1.f, 0.f, 0.f, 1.f);
-		vertexes[2].uv = Vector2(0.f, 0.f);
+		vertexes[2].uv = Vector2(2.f, 2.f);
 
 		vertexes[3].pos = Vector3(-0.5f, -0.5f, 0.5f);
 		vertexes[3].color = Vector4(0.f, 0.f, 1.f, 1.f);
-		vertexes[3].uv = Vector2(1.f, 0.f);
+		vertexes[3].uv = Vector2(0.f, 2.f);
 
 		LoadShader();
 		SetUpState();
 		LoadBuffer();
+		LoadMaterial();
 	}
 
 	void Release()

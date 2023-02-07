@@ -6,7 +6,7 @@ namespace graphics
 	class ConstantBuffer : GpuBuffer
 	{
 	public:
-		ConstantBuffer();
+		ConstantBuffer(eCBType type);
 		virtual ~ConstantBuffer();
 
 		bool Create(size_t size);
