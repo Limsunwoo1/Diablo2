@@ -1,78 +1,80 @@
 #pragma once
 #include "CResource.h"
 
+using namespace std;
 
-	class ResourceManager
+class ResourceManager
+{
+	SINGLE(ResourceManager);
+
+public:
+	typedef map<wstring, shared_ptr<Resource>>::iterator ResourceIter;
+
+	template <typename T>
+	shared_ptr<T> Find(const wstring& key)
 	{
-		SINGLE(ResourceManager);
+		ResourceIter iter = mResources.find(key);
 
-	public:
-		typedef std::map<std::wstring, Resource*>::iterator ResourceIter;
-
-		template <typename T>
-		T* Find(const std::wstring& key)
+		// 리소스가 이미 map 안에 존재할경우
+		if (iter != mResources.end())
 		{
-			ResourceIter iter = mResource.find(key);
+			return dynamic_pointer_cast<T>(iter->second);
+		}
 
-			// 리소스가 이미 map 안에 존재할경우
-			if (iter != mResource.end())
-			{
-				return dynamic_cast<T*>(iter->second);
-			}
+		return nullptr;
+	}
 
+	template <typename T>
+	shared_ptr<T> Load(const wstring& key, const wstring& path)
+	{
+		shared_ptr<T> resource = Find<T>(key);
+		// 해당 키로 이미 로딩된게 있으면 리소스를 반환
+		if (resource)
+			return resource;
+
+		// 리소스가 없는경우
+		resource = make_shared<T>();
+		if (FAILED(resource->Load(path)))
+		{
+			MessageBox(nullptr, L"image Load Failed!!", L"Error", MB_OK);
 			return nullptr;
 		}
 
-		template <typename T>
-		T* Load(const std::wstring& key, const std::wstring& path)
+		resource->SetKey(key);
+		resource->SetPath(path);
+
+		mResources.insert(make_pair(key, dynamic_pointer_cast<Resource>(resource)));
+
+		return resource;
+	}
+
+	template <typename T>
+	void Insert(const wstring& key, shared_ptr<T>resource)
+	{
+		if (key == L"")
 		{
-			T* resource = Find<T>(key);
-			// 해당 키로 이미 로딩된게 있으면 리소스를 반환
-			if (resource)
-				return resource;
-
-			// 리소스가 없는경우
-			resource = new T();
-			if (FAILED(resource->Load(path)))
-			{
-				MessageBox(nullptr, L"image Load Failed!!", L"Error", MB_OK);
-				delete resource;
-				return nullptr;
-			}
-
-			resource->SetKey(key);
-			resource->SetPath(path);
-
-			mResource.insert(std::make_pair(key, resource));
-
-			return dynamic_cast<T*>(resource);
+			MessageBox(nullptr, L"Image Load Failed", L"Input Key", MB_OK);
+			return;
 		}
 
-		template <typename T>
-		void Insert(const std::wstring& key, T* resource)
-		{
-			if (resource == nullptr
-				|| key == L"")
-				return;
+		mResources.insert(make_pair(key, dynamic_pointer_cast<Resource>(resource)));
+	}
 
-			mResource.insert(std::make_pair(key, resource));
-		}
+	//void Release(void)
+	//{
+	//	ResourceIter iter = mResource.begin();
+	//	for (; iter != mResource.end(); ++iter)
+	//	{
+	//		if (iter->second == nullptr)
+	//			continue;
 
-		void Release(void)
-		{
-			ResourceIter iter = mResource.begin();
-			for (; iter != mResource.end(); ++iter)
-			{
-				if (iter->second == nullptr)
-					continue;
+	//		delete (iter->second);
+	//		iter->second = nullptr;
+	//	}
+	//}
 
-				delete (iter->second);
-				iter->second = nullptr;
-			}
-		}
-
-	private:
-		std::map<std::wstring, Resource*> mResource;
-	};
+private:
+	map<wstring, shared_ptr<Resource>> mResources;
+};
 
 

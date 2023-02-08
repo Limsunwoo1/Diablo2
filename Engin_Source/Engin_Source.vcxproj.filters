@@ -52,6 +52,18 @@
     <Filter Include="ResourceManager\Resource\Texture">
       <UniqueIdentifier>{de4c0102-5e56-4aca-957d-c46e90ef5277}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Script">
+      <UniqueIdentifier>{bf617062-368d-4742-b921-4c59f48de5a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\MeshRenderer">
+      <UniqueIdentifier>{71b3b355-bd33-4033-89cf-1ff8d9c27035}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Transform">
+      <UniqueIdentifier>{139a6a05-46db-446c-a392-8cda2dad6d94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Contents">
+      <UniqueIdentifier>{da036296-540b-48a4-b435-1469108cfbeb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -105,15 +117,21 @@
     <ClCompile Include="CLayer.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="CMeshRenderer.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="CTransform.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="CConstantBuffer.cpp" />
     <ClCompile Include="CTexture.cpp">
       <Filter>ResourceManager\Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="CScript.cpp">
+      <Filter>Component\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="CMeshRenderer.cpp">
+      <Filter>Component\MeshRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="CTransform.cpp">
+      <Filter>Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerScript.cpp">
+      <Filter>Component\Script\Contents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -183,15 +201,21 @@
     <ClInclude Include="CLayer.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="CMeshRenderer.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="CTransform.h">
-      <Filter>Component</Filter>
-    </ClInclude>
     <ClInclude Include="CConstantBuffer.h" />
     <ClInclude Include="CTexture.h">
       <Filter>ResourceManager\Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="CScript.h">
+      <Filter>Component\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="CMeshRenderer.h">
+      <Filter>Component\MeshRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="CTransform.h">
+      <Filter>Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerScript.h">
+      <Filter>Component\Script\Contents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

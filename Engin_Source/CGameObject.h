@@ -1,5 +1,6 @@
 #pragma once
 #include "CComponent.h"
+#include "CScript.h"
 
 class GameObject
 {
@@ -39,5 +40,6 @@ public:
 private:
 	eState mState;
 	std::vector<Component*> mComponents;
+	std::vector<Component*> mScripts;
 };
 

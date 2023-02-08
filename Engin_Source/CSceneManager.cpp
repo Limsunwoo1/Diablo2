@@ -7,6 +7,7 @@
 #include "CMesh.h"
 #include "CTexture.h"
 #include "CMaterial.h"
+#include "CPlayerScript.h"
 
 SceneManager::SceneManager()
 	: mPlayScene(nullptr)
@@ -31,16 +32,19 @@ void SceneManager::Initalize()
 	MeshRenderer* mr = new MeshRenderer();
 	obj->AddComponent(mr);
 
-	Mesh* mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-	Material* material = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+	shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+	shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
 
 	Vector2 vec2(1.0f, 1.0f);
 	material->SetData(eGpuParam::Vector2, &vec2);
 
-	mr->SetMaterial(material);
-	mr->SetMesh(mesh);
+	mr->SetMaterial(material.get());
+	mr->SetMesh(mesh.get());
 
-	Texture* texture = ResourceManager::GetInstance()->Load<Texture>(L"SmileTexture", L"Smile.png");
+	PlayerScript* script = new PlayerScript();
+	obj->AddComponent(script);
+
+	shared_ptr<Texture>texture = ResourceManager::GetInstance()->Load<Texture>(L"SmileTexture", L"Smile.png");
 	texture->BidShader(eShaderStage::PS, 0);
 
 	mPlayScene->AddGameObject(obj, eLayerType::Player);

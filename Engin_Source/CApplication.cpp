@@ -66,7 +66,7 @@ void CApplication::Run()
 
 void CApplication::Release()
 {
-	ResourceManager::GetInstance()->Release();
+	//ResourceManager::GetInstance()->Release();
 
 
 	Time::GetInstance()->DestroyInstance();

@@ -23,3 +23,4 @@ private:									\
 	type();									\
 	~type();								\
 
+#define NEW_SHARED(name) std::make_shared<name>();

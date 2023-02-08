@@ -20,31 +20,7 @@ void Transform::Initalize()
 
 void Transform::Update()
 {
-	if (eKeyState::DOWN == Input::GetInstance()->GetkeyState(eKeyCode::DOWN))
-	{
-		mPosition.y -= 0.1f;
 
-		GetDevice()->BindsSamplers((UINT)eSamplerType::Point
-			, 1, Renderer::samplerStates[(UINT)eSamplerType::Point].GetAddressOf());
-	}
-
-	if (eKeyState::DOWN == Input::GetInstance()->GetkeyState(eKeyCode::UP))
-	{
-		mPosition.y += 0.1f;
-
-		GetDevice()->BindsSamplers((UINT)eSamplerType::Anisotropic
-			, 1, Renderer::samplerStates[(UINT)eSamplerType::Anisotropic].GetAddressOf());
-	}
-
-	if (eKeyState::DOWN == Input::GetInstance()->GetkeyState(eKeyCode::LEFT))
-	{
-		mPosition.x -= 0.1f;
-	}
-
-	if (eKeyState::DOWN == Input::GetInstance()->GetkeyState(eKeyCode::RIGHT))
-	{
-		mPosition.x += 0.1f;
-	}
 }
 
 void Transform::FixedUpdate()
