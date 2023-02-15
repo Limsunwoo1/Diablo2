@@ -29,8 +29,8 @@ void MeshRenderer::Render()
 {
 	GetOwner()->GetComponent<Transform>()->SetConstantBuffer();
 
-	mMesh->BindBuffer();
 	mMaterial->Bind();
+	mMesh->BindBuffer();
 
 	mMesh->Render();
 }

@@ -64,6 +64,9 @@
     <Filter Include="Component\Script\Contents">
       <UniqueIdentifier>{da036296-540b-48a4-b435-1469108cfbeb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Camera">
+      <UniqueIdentifier>{92ac6ecc-8e23-4550-a949-a52d1a5073a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -132,6 +135,9 @@
     </ClCompile>
     <ClCompile Include="CPlayerScript.cpp">
       <Filter>Component\Script\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="CCamera.cpp">
+      <Filter>Component\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -216,6 +222,9 @@
     </ClInclude>
     <ClInclude Include="CPlayerScript.h">
       <Filter>Component\Script\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="CCamera.h">
+      <Filter>Component\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

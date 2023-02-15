@@ -17,7 +17,7 @@ namespace Renderer
 		// 메모리 시작위치 오프셋
 		arrLayoutDesc[0].AlignedByteOffset = 0;
 		// 메모리 크기
-		arrLayoutDesc[0].Format = DXGI_FORMAT_R32G32B32_FLOAT;
+		arrLayoutDesc[0].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
 		// 구조 정보의 순서? 인풋 순서?
 		arrLayoutDesc[0].InputSlot = 0;
 		arrLayoutDesc[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
@@ -25,14 +25,14 @@ namespace Renderer
 		arrLayoutDesc[0].SemanticName = "POSITION";
 		arrLayoutDesc[0].SemanticIndex = 0;
 
-		arrLayoutDesc[1].AlignedByteOffset = 12;
+		arrLayoutDesc[1].AlignedByteOffset = 16;
 		arrLayoutDesc[1].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
 		arrLayoutDesc[1].InputSlot = 0;
 		arrLayoutDesc[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
 		arrLayoutDesc[1].SemanticName = "COLOR";
 		arrLayoutDesc[1].SemanticIndex = 0;
 
-		arrLayoutDesc[2].AlignedByteOffset = 28;
+		arrLayoutDesc[2].AlignedByteOffset = 32;
 		arrLayoutDesc[2].Format = DXGI_FORMAT_R32G32_FLOAT;
 		arrLayoutDesc[2].InputSlot = 0;
 		arrLayoutDesc[2].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
@@ -49,9 +49,9 @@ namespace Renderer
 		// Sampler State
 
 		D3D11_SAMPLER_DESC samplerDesc = {};
-		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_MIRROR;
-		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_MIRROR;
-		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_MIRROR;
+		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
 		//D3D11_FILTER_MIN_POINT_MAG_MIP_LINEAR = 0x5,
 		//D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT = 0x10,
 		samplerDesc.Filter = D3D11_FILTER::D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT;
@@ -114,8 +114,8 @@ namespace Renderer
 	void LoadShader()
 	{
 		std::shared_ptr<Shader> shader = std::make_shared<Shader>();
-		shader->Create(eShaderStage::VS, L"TriangleVS.hlsl", "VS_Test");
-		shader->Create(eShaderStage::PS, L"TrianglePS.hlsl", "PS_Test");
+		shader->Create(eShaderStage::VS, L"VS.hlsl", "VS_Test");
+		shader->Create(eShaderStage::PS, L"PS.hlsl", "PS_Test");
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"RectShader", shader);
 	}
@@ -133,21 +133,21 @@ namespace Renderer
 	void Initialize()
 	{
 		//RECT
-		vertexes[0].pos = Vector3(-0.5f, 0.5f, 0.5f);
+		vertexes[0].pos = Vector4(-0.5f, 0.5f, 0.5f, 1.0f);
 		vertexes[0].color = Vector4(0.f, 1.f, 0.f, 1.f);
 		vertexes[0].uv = Vector2(0.f, 0.f);
 
-		vertexes[1].pos = Vector3(0.5f, 0.5f, 0.5f);
+		vertexes[1].pos = Vector4(0.5f, 0.5f, 0.5f, 1.0f);
 		vertexes[1].color = Vector4(1.f, 1.f, 1.f, 1.f);
-		vertexes[1].uv = Vector2(2.f, 0.f);
+		vertexes[1].uv = Vector2(1.f, 0.f);
 
-		vertexes[2].pos = Vector3(0.5f, -0.5f, 0.5f);
+		vertexes[2].pos = Vector4(0.5f, -0.5f, 0.5f, 1.0f);
 		vertexes[2].color = Vector4(1.f, 0.f, 0.f, 1.f);
-		vertexes[2].uv = Vector2(2.f, 2.f);
+		vertexes[2].uv = Vector2(1.f, 1.f);
 
-		vertexes[3].pos = Vector3(-0.5f, -0.5f, 0.5f);
+		vertexes[3].pos = Vector4(-0.5f, -0.5f, 0.5f, 1.0f);
 		vertexes[3].color = Vector4(0.f, 0.f, 1.f, 1.f);
-		vertexes[3].uv = Vector2(0.f, 2.f);
+		vertexes[3].uv = Vector2(0.f, 1.f);
 
 		LoadShader();
 		SetUpState();

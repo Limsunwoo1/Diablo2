@@ -17,14 +17,16 @@ namespace Renderer
 {
 	struct Vertex
 	{
-		Vector3 pos;
+		Vector4 pos;
 		Vector4 color;
 		Vector2 uv;
 	};
 
 	CBUFFER(TransformCB, CBSLOT_TRANSFORM)
 	{
-		Vector4 pos;
+		Matrix world;
+		Matrix view;
+		Matrix projection;
 	};
 
 	CBUFFER(MaterialCB, CBSLOT_MATERIAL)

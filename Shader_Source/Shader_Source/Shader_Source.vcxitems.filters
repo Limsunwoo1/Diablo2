@@ -9,11 +9,14 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="$(MSBuildThisFileDirectory)..\TrianglePS.hlsl">
-      <Filter>PS</Filter>
-    </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)..\TriangleVS.hlsl">
+    <FxCompile Include="$(MSBuildThisFileDirectory)VS.hlsl">
       <Filter>VS</Filter>
     </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)PS.hlsl">
+      <Filter>PS</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)globals.hlsli" />
   </ItemGroup>
 </Project>

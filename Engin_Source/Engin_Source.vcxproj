@@ -150,6 +150,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h" />
+    <ClInclude Include="CCamera.h" />
     <ClInclude Include="CComponent.h" />
     <ClInclude Include="CConstantBuffer.h" />
     <ClInclude Include="CEngine.h" />
@@ -180,6 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp" />
+    <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CComponent.cpp" />
     <ClCompile Include="CConstantBuffer.cpp" />
     <ClCompile Include="CGameObject.cpp" />
