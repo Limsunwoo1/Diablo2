@@ -16,6 +16,8 @@ enum class eComponentType
 	Camera,
 	Mesh,
 	Collider,
+	MeshRenderer,
+	SpriteRenderer,
 	UI,
 	Script,
 	End,

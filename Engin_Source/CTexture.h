@@ -21,6 +21,7 @@ namespace graphics
 
 		virtual HRESULT Load(const std::wstring& path) override;
 		void BidShader(eShaderStage stage, UINT slot);
+		void Clear();
 
 	private:
 		ScratchImage mImage;

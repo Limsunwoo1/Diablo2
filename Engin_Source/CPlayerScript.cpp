@@ -41,7 +41,7 @@ void PlayerScript::Update()
 		pos.x -= 1.0f * Time::GetInstance()->DeltaTime();
 	}
 
-	transform->SetPosition(pos);
+	//transform->SetPosition(pos);
 }
 
 void PlayerScript::FixedUpdate()

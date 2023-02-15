@@ -232,7 +232,7 @@ namespace graphics
 			break;
 		}
 	}
-	void CGraphicDevice_DX11::SetShaderReource(eShaderStage stage, UINT slot, ID3D11ShaderResourceView* const* ppShaderResourceViews)
+	void CGraphicDevice_DX11::SetShaderResource(eShaderStage stage, UINT slot, ID3D11ShaderResourceView* const* ppShaderResourceViews)
 	{
 		switch (stage)
 		{

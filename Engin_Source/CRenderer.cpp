@@ -45,6 +45,12 @@ namespace Renderer
 			, shader->GetVSBlobBufferSize()
 			, shader->GetInputLayoutAddressOf());
 
+		std::shared_ptr<Shader> spriteshader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, spriteshader->GetVSBlobBufferPointer()
+			, spriteshader->GetVSBlobBufferSize()
+			, spriteshader->GetInputLayoutAddressOf());
+
 		// »ùÇÃ·¯Ãß°¡
 		// Sampler State
 
@@ -113,21 +119,40 @@ namespace Renderer
 
 	void LoadShader()
 	{
+		// Dafault
 		std::shared_ptr<Shader> shader = std::make_shared<Shader>();
-		shader->Create(eShaderStage::VS, L"VS.hlsl", "VS_Test");
-		shader->Create(eShaderStage::PS, L"PS.hlsl", "PS_Test");
+		shader->Create(eShaderStage::VS, L"VS.hlsl", "main");
+		shader->Create(eShaderStage::PS, L"PS.hlsl", "main");
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"RectShader", shader);
+
+		// Sprite
+		std::shared_ptr<Shader> spriteShader = std::make_shared<Shader>();
+		spriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
+		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
+
+		ResourceManager::GetInstance()->Insert<Shader>(L"SpriteShader", spriteShader);
 	}
 
 	void LoadMaterial()
 	{
-		std::shared_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"RectShader");
+		std::shared_ptr<Texture> texture = ResourceManager::GetInstance()->Load<Texture>(L"SmileTexture", L"Smile.png");
 
-		std::shared_ptr<Material>material = std::make_shared<Material>();
-		material->SetShader(shader.get());
+		// Dafault
+		std::shared_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"RectShader");
+		std::shared_ptr<Material> material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
 
 		ResourceManager::GetInstance()->Insert<Material>(L"RectMaterial", material);
+
+		std::shared_ptr <Texture> spriteTexture = ResourceManager::GetInstance()->Load<Texture>(L"DefaultSprite", L"DefaultSprite.png");
+		// Sprite
+		std::shared_ptr<Shader> spriteShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+		std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+		spriteMaterial->SetShader(spriteShader);
+		spriteMaterial->SetTexture(spriteTexture);
+		ResourceManager::GetInstance()->Insert<Material>(L"SpriteMaterial", spriteMaterial);
 	}
 
 	void Initialize()

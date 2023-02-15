@@ -10,8 +10,8 @@ public:
 		Prespective,
 		Orthographic,
 	};
-	__forceinline static Matrix& GetViewMatrix() { return mView; }
-	__forceinline static Matrix& GetProejctionMatrix() { return mProjection; }
+	__forceinline static Matrix& GetViewMatrix() { return View; }
+	__forceinline static Matrix& GetProejctionMatrix() { return Projection; }
 
 	Camera();
 	~Camera();
@@ -25,8 +25,11 @@ public:
 	void CreateProjectionMatrix();
 
 private:
-	static Matrix mView;
-	static Matrix mProjection;
+	static Matrix View;
+	static Matrix Projection;
+
+	Matrix mView;
+	Matrix mProjection;
 
 	eProjectionType mType;
 	float mAspectRatio; // Á¾È¾ºñ

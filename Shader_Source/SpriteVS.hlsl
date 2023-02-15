@@ -1,11 +1,6 @@
 #include "globals.hlsli"
 
-//cbuffer Transform : register(b0)
-//{
-//    row_major matrix world;
-//    row_major matrix view;
-//    row_major matrix projection;
-//}
+
 VSOut main(VSIn In)
 {
     VSOut Out = (VSOut) 0.f;

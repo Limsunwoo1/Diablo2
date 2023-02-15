@@ -9,6 +9,8 @@ public:
 	void Update();
 	void FixedUpdate();
 	void Render();
+
+	void Rlease();
 private:
 	Scene* mPlayScene;
 };

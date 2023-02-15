@@ -24,7 +24,7 @@ void Shader::Create(graphics::eShaderStage stage, const std::wstring& file, cons
 
     // Vertex Shader
     std::filesystem::path path = std::filesystem::current_path().parent_path();
-    path += "\\Shader_Source\\";
+    path += "\\Shader_Source\\Shader_Source\\";
 
     std::wstring shaderPath(path.c_str());
     shaderPath += file;

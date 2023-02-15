@@ -67,6 +67,9 @@
     <Filter Include="Component\Camera">
       <UniqueIdentifier>{92ac6ecc-8e23-4550-a949-a52d1a5073a0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\SpriteRenderer">
+      <UniqueIdentifier>{a83b23ea-db53-4b7c-9d00-6fce12810ff5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -138,6 +141,12 @@
     </ClCompile>
     <ClCompile Include="CCamera.cpp">
       <Filter>Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CSpriteRenderer.cpp">
+      <Filter>Component\SpriteRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="CCameraScript.cpp">
+      <Filter>Component\Script\Contents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -225,6 +234,12 @@
     </ClInclude>
     <ClInclude Include="CCamera.h">
       <Filter>Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CSpriteRenderer.h">
+      <Filter>Component\SpriteRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="CCameraScript.h">
+      <Filter>Component\Script\Contents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

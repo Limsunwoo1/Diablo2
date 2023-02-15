@@ -67,10 +67,12 @@ void CApplication::Run()
 void CApplication::Release()
 {
 	//ResourceManager::GetInstance()->Release();
+	SceneManager::GetInstance()->Rlease();
 
 
 	Time::GetInstance()->DestroyInstance();
 	Input::GetInstance()->DestroyInstance();
+	SceneManager::GetInstance()->DestroyInstance();
 	ResourceManager::GetInstance()->DestroyInstance();
 }
 
