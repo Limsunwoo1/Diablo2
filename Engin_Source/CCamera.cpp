@@ -43,11 +43,11 @@ void Camera::Render()
 void Camera::CreateViewMatrix()
 {
 	Transform* transform = GetOwner()->GetComponent<Transform>();
-	Vector3 pos = transform->GetPosition();
+	Vector3 camerapos = transform->GetPosition();
 
 	// Create Translate view matrix
 	View = Matrix::Identity;
-	View *= Matrix::CreateTranslation(-pos);
+	View *= Matrix::CreateTranslation(-camerapos);
 
 	// 회전 정보
 	Vector3 up = transform->Up();
