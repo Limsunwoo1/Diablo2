@@ -1,11 +1,13 @@
 #include "CShader.h"
 #include "CGraphicDevice_DX11.h"
-
-using namespace graphics;
+#include "CRenderer.h"
 
 Shader::Shader()
     : Resource(eResourceType::GraphicShader)
     , mTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
+    , mRSType(eRasterizeType::SolidBack)
+    , mDSType(eDepthStencilType::Less)
+    , mBLType(eBlendType::AlphaBlend)
 {
 }
 
@@ -64,4 +66,13 @@ void Shader::Binds()
     // shader
     GetDevice()->BindVertexShader(mVS.Get(), nullptr, 0);
     GetDevice()->BindPixelShader(mPS.Get(), nullptr, 0);
+
+
+    Microsoft::WRL::ComPtr<ID3D11RasterizerState>   RS = Renderer::RasterizeState[(UINT)mRSType];
+    Microsoft::WRL::ComPtr<ID3D11DepthStencilState> DS = Renderer::Depth_StencilState[(UINT)mDSType];
+    Microsoft::WRL::ComPtr<ID3D11BlendState>        BL = Renderer::BlendState[(UINT)mBLType];
+
+    GetDevice()->BindRasterizerState(RS.Get());
+    GetDevice()->BindDepthStencilState(DS.Get());
+    GetDevice()->BindBlendState(BL.Get());
 }

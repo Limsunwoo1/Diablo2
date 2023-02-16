@@ -13,6 +13,7 @@
 
 using namespace Math;
 using namespace graphics;
+using namespace Microsoft::WRL;
 namespace Renderer
 {
 	struct Vertex
@@ -41,7 +42,10 @@ namespace Renderer
 
 	extern Vertex vertexes[4];
 	extern ConstantBuffer* constantBuffers[];
-	extern Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerStates[];
+	extern ComPtr<ID3D11SamplerState> samplerStates[];
+	extern ComPtr<ID3D11RasterizerState> RasterizeState[];
+	extern ComPtr<ID3D11DepthStencilState> Depth_StencilState[];
+	extern ComPtr<ID3D11BlendState> BlendState[];
 
 	void Initialize();
 	void Release();

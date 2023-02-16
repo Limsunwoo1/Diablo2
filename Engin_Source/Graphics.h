@@ -49,6 +49,32 @@ namespace graphics
 		End,
 	};
 
+	enum class eRasterizeType
+	{
+		SolidBack,
+		SolidFront,
+		SolidNone,
+		WirefameNone,
+		End,
+	};
+
+	enum class eDepthStencilType
+	{
+		Less,
+		Greater,
+		NoWrite,
+		None,
+		End,
+	};
+
+	enum class eBlendType
+	{
+		Default,
+		AlphaBlend,
+		OneOne,
+		End,
+	};
+
 	enum class eGpuParam
 	{
 		Int,

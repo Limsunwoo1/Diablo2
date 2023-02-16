@@ -3,6 +3,7 @@
 #include "Graphics.h"
 
 using namespace Microsoft::WRL;
+using namespace graphics;
 class Shader : public Resource
 {
 public:
@@ -19,6 +20,11 @@ public:
 
 	void* GetVSBlobBufferPointer() { return mVSBlob->GetBufferPointer(); }
 	SIZE_T GetVSBlobBufferSize() { return mVSBlob->GetBufferSize(); }
+
+	void SetRasterize(eRasterizeType type) { mRSType = type; }
+	void SetDepthStencil(eDepthStencilType type) { mDSType = type; }
+	void SetBlend(eBlendType type) { mBLType = type; }
+
 private:
 	ComPtr<ID3D11InputLayout> mInputLayout;
 	D3D11_PRIMITIVE_TOPOLOGY mTopology;
@@ -35,6 +41,10 @@ private:
 	ComPtr <ID3D11DomainShader>		mDS;
 	ComPtr <ID3D11GeometryShader>	mGS;
 	ComPtr <ID3D11PixelShader>		mPS;
+
+	eRasterizeType		mRSType;
+	eDepthStencilType	mDSType;
+	eBlendType			mBLType;
 
 	ComPtr <ID3DBlob> mErrorBlob;
 };

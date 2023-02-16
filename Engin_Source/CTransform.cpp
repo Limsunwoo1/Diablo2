@@ -28,6 +28,14 @@ void Transform::Initalize()
 
 void Transform::Update()
 {
+	if (Input::GetInstance()->GetkeyState(eKeyCode::RIGHT) == eKeyState::DOWN)
+	{
+		mRotation.z += 1.0f;
+	}
+	else if (Input::GetInstance()->GetkeyState(eKeyCode::LEFT) == eKeyState::DOWN)
+	{
+		mRotation.z -= 1.0f;
+	}
 	// 실제 로직상 캐릭터이동 처리
 }
 
