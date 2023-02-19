@@ -77,9 +77,9 @@ namespace graphics
 
 	enum class eRenderingMode
 	{
-		Opaque,
-		CutOut,
-		Transparent,
+		Opaque,			 // 불투명
+		CutOut,			 // 투명 + 불투명 물체
+		Transparent,	 // 투명
 		End,
 	};
 
