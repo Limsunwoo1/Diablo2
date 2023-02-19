@@ -9,9 +9,10 @@ public:
 	void Update();
 	void FixedUpdate();
 	void Render();
-
 	void Rlease();
+
+	Scene* GetActiveScene() { return mActiveScene; }
 private:
-	Scene* mPlayScene;
+	Scene* mActiveScene;
 };
 

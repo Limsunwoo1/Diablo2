@@ -1,7 +1,8 @@
 #include "CMaterial.h"
 
 Material::Material()
-    :Resource(eResourceType::Meterial)
+    : Resource(eResourceType::Meterial)
+	, mMode(eRenderingMode::Opaque)
 {
 }
 

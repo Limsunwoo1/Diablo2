@@ -2,6 +2,10 @@
 #include "CGameObject.h"
 #include "CTransform.h"
 #include "CApplication.h"
+#include "CRenderer.h"
+#include "CSceneManager.h"
+#include "CMaterial.h"
+#include "CBaseRenderer.h"
 
 extern CApplication Application;
 
@@ -24,6 +28,7 @@ Camera::~Camera()
 
 void Camera::Initalize()
 {
+	EnableLayerMasks();
 }
 
 void Camera::Update()
@@ -34,10 +39,20 @@ void Camera::FixedUpdate()
 {
 	CreateViewMatrix();
 	CreateProjectionMatrix();
+
+	RegisterCameraInRenderer();
 }
 
 void Camera::Render()
 {
+	View = mView;
+	Projection = mProjection;
+
+	SortGameObjects();
+
+	RenderOpaqu();
+	RenderCutOut();
+	RenderTransparent();
 }
 
 void Camera::CreateViewMatrix()
@@ -46,8 +61,8 @@ void Camera::CreateViewMatrix()
 	Vector3 camerapos = transform->GetPosition();
 
 	// Create Translate view matrix
-	View = Matrix::Identity;
-	View *= Matrix::CreateTranslation(-camerapos);
+	mView = Matrix::Identity;
+	mView *= Matrix::CreateTranslation(-camerapos);
 
 	// 회전 정보
 	Vector3 up = transform->Up();
@@ -59,7 +74,7 @@ void Camera::CreateViewMatrix()
 	viewRotate._21 = right.y; viewRotate._22 = up.y; viewRotate._23 = forward.y;
 	viewRotate._31 = right.z; viewRotate._32 = up.z; viewRotate._33 = forward.z;
 
-	View *= viewRotate;
+	mView *= viewRotate;
 }
 
 void Camera::CreateProjectionMatrix()
@@ -72,7 +87,100 @@ void Camera::CreateProjectionMatrix()
 	mAspectRatio = width / height;
 
 	if (mType == eProjectionType::Prespective)
-		Projection = Matrix::CreatePerspectiveFieldOfViewLH(XM_2PI / 6.0f, mAspectRatio, mNear, mFar);
+		mProjection = Matrix::CreatePerspectiveFieldOfViewLH(XM_2PI / 6.0f, mAspectRatio, mNear, mFar);
 	else
-		Projection = Matrix::CreateOrthographicLH(width / 100.0f, height / 100.0f, mNear, mFar);
+		mProjection = Matrix::CreateOrthographicLH(width / 100.0f, height / 100.0f, mNear, mFar);
+}
+
+void Camera::RegisterCameraInRenderer()
+{
+	Renderer::Cameras.push_back(this);
+}
+
+void Camera::TrunLayerMast(eLayerType layer, bool enable)
+{
+	mLayerMasks.set((UINT)layer, enable);
+}
+
+void Camera::SortGameObjects()
+{
+	mOpaquGameObjects.clear();
+	mCutOutGameObjects.clear();
+	mTransparentGameObjects.clear();
+
+	Scene* scene = SceneManager::GetInstance()->GetActiveScene();
+	for (size_t i = 0; i < (UINT)eLayerType::End; ++i)
+	{
+		if (mLayerMasks[i] == false)
+			continue;
+
+		Layer& layer = scene->GetLayer((eLayerType)i);
+		GameObjects gameObjects = layer.GetGameObjects();
+		if (gameObjects.size() == 0)
+			continue;
+
+		for (GameObject* obj : gameObjects)
+		{
+			PushGameObjectToRenderingMode(obj);
+		}
+	}
+}
+
+void Camera::RenderOpaqu()
+{
+	for (GameObject* obj : mOpaquGameObjects)
+	{
+		if (obj == nullptr)
+			continue;
+
+		obj->Render();
+	}
+}
+
+void Camera::RenderCutOut()
+{
+	for (GameObject* obj : mCutOutGameObjects)
+	{
+		if (obj == nullptr)
+			continue;
+
+		obj->Render();
+	}
+}
+
+void Camera::RenderTransparent()
+{
+	for (GameObject* obj : mTransparentGameObjects)
+	{
+		if (obj == nullptr)
+			continue;
+
+		obj->Render();
+	}
+}
+
+void Camera::PushGameObjectToRenderingMode(GameObject* gameObject)
+{
+	BaseRenderer* renderer = gameObject->GetComponent<BaseRenderer>();
+
+	if (renderer == nullptr)
+		return;
+
+	std::shared_ptr<Material> material = renderer->GetMaterial();
+	eRenderingMode mode = material->GetRenderingMode();
+
+	switch (mode)
+	{
+	case graphics::eRenderingMode::Opaque:
+		mOpaquGameObjects.push_back(gameObject);
+		break;
+	case graphics::eRenderingMode::CutOut:
+		mCutOutGameObjects.push_back(gameObject);
+		break;
+	case graphics::eRenderingMode::Transparent:
+		mTransparentGameObjects.push_back(gameObject);
+		break;
+	default:
+		break;
+	}
 }

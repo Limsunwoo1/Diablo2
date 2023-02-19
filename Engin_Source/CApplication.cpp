@@ -52,7 +52,8 @@ void CApplication::Render()
 	graphicDevice->Clear();			  // 화면지우기
 	graphicDevice->AdjustViewPorts(); // 뷰보트 크기
 
-	SceneManager::GetInstance()->Render();
+	//SceneManager::GetInstance()->Render();
+	Renderer::Render();
 
 	graphicDevice->Present();		  // 스왑 체인
 }

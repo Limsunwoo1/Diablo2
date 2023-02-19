@@ -2,6 +2,7 @@
 #include "CComponent.h"
 
 using namespace Math;
+using namespace std;
 class Camera : public Component
 {
 public:
@@ -23,6 +24,18 @@ public:
 
 	void CreateViewMatrix();
 	void CreateProjectionMatrix();
+	void RegisterCameraInRenderer();
+
+	void TrunLayerMast(eLayerType layer, bool enable = true);
+	void EnableLayerMasks() { mLayerMasks.set(); }
+	void DisableLayerMasks() { mLayerMasks.reset(); }
+
+private:
+	void SortGameObjects();
+	void RenderOpaqu();
+	void RenderCutOut();
+	void RenderTransparent();
+	void PushGameObjectToRenderingMode(GameObject* gameObject);
 
 private:
 	static Matrix View;
@@ -38,5 +51,9 @@ private:
 	float mFar;
 	float mScale;
 
+	bitset<(UINT)eLayerType::End> mLayerMasks;
+	vector<GameObject*> mOpaquGameObjects;
+	vector<GameObject*> mCutOutGameObjects;
+	vector<GameObject*> mTransparentGameObjects;
 };
 

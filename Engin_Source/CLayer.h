@@ -1,6 +1,8 @@
 #pragma once
 #include "CGameObject.h"
 
+typedef const std::vector<GameObject*>& GameObjects;
+
 class Layer : public Entity
 {
 public:
@@ -13,8 +15,8 @@ public:
 	virtual void Render();
 
 	void AddGameObject(GameObject* gameObject);
+	const GameObjects GetGameObjects() { return mGameObjects; }
 
 private:
 	std::vector<GameObject*> mGameObjects;
 };
-

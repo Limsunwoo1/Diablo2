@@ -4,8 +4,7 @@
 
 
 MeshRenderer::MeshRenderer()
-	: Component(eComponentType::MeshRenderer)
-	, mMesh(nullptr)
+	: BaseRenderer(eComponentType::MeshRenderer)
 {
 }
 
@@ -29,10 +28,10 @@ void MeshRenderer::Render()
 {
 	GetOwner()->GetComponent<Transform>()->SetConstantBuffer();
 
-	mMaterial->Bind();
-	mMesh->BindBuffer();
+	GetMaterial()->Bind();
+	GetMesh()->BindBuffer();
 
-	mMesh->Render();
+	GetMesh()->Render();
 
-	mMaterial->Clear();
+	GetMaterial()->Clear();
 }

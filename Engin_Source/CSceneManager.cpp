@@ -13,7 +13,7 @@
 #include "CSpriteRenderer.h"
 
 SceneManager::SceneManager()
-	: mPlayScene(nullptr)
+	: mActiveScene(nullptr)
 {
 	
 }
@@ -24,8 +24,8 @@ SceneManager::~SceneManager()
 
 void SceneManager::Initalize()
 {
-	mPlayScene = new Scene();
-	mPlayScene->Initalize();
+	mActiveScene = new Scene();
+	mActiveScene->Initalize();
 
 	//Camera GameObject
 	GameObject* cameraObj = new GameObject();
@@ -39,13 +39,13 @@ void SceneManager::Initalize()
 	CameraScript* cameraScript = new CameraScript();
 	cameraObj->AddComponent(cameraScript);
 
-	mPlayScene->AddGameObject(cameraObj, eLayerType::Camera);
+	mActiveScene->AddGameObject(cameraObj, eLayerType::Camera);
 
 	// SMILE RECT
 	GameObject* obj = new GameObject();
 	Transform* tr = new Transform();
-	tr->SetPosition(Vector3(0.0f, 0.0f, 11.0f));
-	tr->SetScale(Vector3(3.0f, 3.0f, 3.0f));
+	tr->SetPosition(Vector3(0.0f, 0.0f, 10.0f));
+	tr->SetScale(Vector3(6.0f, 6.0f, 3.0f));
 	obj->AddComponent(tr);
 
 	MeshRenderer* mr = new MeshRenderer();
@@ -60,13 +60,13 @@ void SceneManager::Initalize()
 	mr->SetMaterial(material);
 	mr->SetMesh(mesh);
 
-	mPlayScene->AddGameObject(obj, eLayerType::Player);
+	mActiveScene->AddGameObject(obj, eLayerType::Player);
 
-	// SpriteObj
+	// LightObj
 	GameObject* spriteObj = new GameObject();
 	Transform* spriteTr = new Transform();
 	spriteTr->SetPosition(Vector3(0.0f, 0.0f, 10.0f));
-	spriteTr->SetScale(Vector3(3.0f, 3.0f, 3.0f));
+	spriteTr->SetScale(Vector3(6.0f, 6.0f, 3.0f));
 	spriteObj->AddComponent(spriteTr);
 
 	SpriteRenderer* sr = new SpriteRenderer();
@@ -74,32 +74,34 @@ void SceneManager::Initalize()
 
 	std::shared_ptr<Material> spriteMaterial = ResourceManager::GetInstance()->Find<Material>(L"SpriteMaterial");
 
-	//Vector2 vec2(1.0f, 1.0f);
-	//spriteMaterial->SetData(eGPUParam::Vector2, &vec2);
+	/*Vector2 vec2(1.0f, 1.0f);
+	spriteMaterial->SetData(eGPUParam::Vector2, &vec2);*/
 
 	sr->SetMaterial(spriteMaterial);
 	sr->SetMesh(mesh);
 
-	mPlayScene->AddGameObject(spriteObj, eLayerType::Player);
+	mActiveScene->AddGameObject(spriteObj, eLayerType::Player);
+
+	mActiveScene->Initalize();
 }
 
 void SceneManager::Update()
 {
-	mPlayScene->Update();
+	mActiveScene->Update();
 }
 
 void SceneManager::FixedUpdate()
 {
-	mPlayScene->FixedUpdate();
+	mActiveScene->FixedUpdate();
 }
 
 void SceneManager::Render()
 {
-	mPlayScene->Render();
+	mActiveScene->Render();
 }
 
 void SceneManager::Rlease()
 {
-	delete mPlayScene;
-	mPlayScene = nullptr;
+	delete mActiveScene;
+	mActiveScene = nullptr;
 }

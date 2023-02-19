@@ -75,6 +75,14 @@ namespace graphics
 		End,
 	};
 
+	enum class eRenderingMode
+	{
+		Opaque,
+		CutOut,
+		Transparent,
+		End,
+	};
+
 	enum class eGpuParam
 	{
 		Int,

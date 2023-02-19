@@ -11,6 +11,8 @@ namespace Renderer
 	ComPtr<ID3D11DepthStencilState> Depth_StencilState[(UINT)eDepthStencilType::End] = {};
 	ComPtr<ID3D11BlendState> BlendState[(UINT)eBlendType::End] = {};
 
+	std::vector<Camera*> Cameras;
+
 	void SetUpState()
 	{
 #pragma region InputLayout
@@ -121,7 +123,7 @@ namespace Renderer
 #pragma region DepthStencil State
 		D3D11_DEPTH_STENCIL_DESC dsDesc = {};
 		dsDesc.DepthEnable = true;
-		dsDesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS;
+		dsDesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS_EQUAL;
 		dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK::D3D11_DEPTH_WRITE_MASK_ALL;
 		dsDesc.StencilEnable = false;
 
@@ -238,6 +240,7 @@ namespace Renderer
 		// Sprite
 		std::shared_ptr<Shader> spriteShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
 		std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+		spriteMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		spriteMaterial->SetShader(spriteShader);
 		spriteMaterial->SetTexture(spriteTexture);
 		ResourceManager::GetInstance()->Insert<Material>(L"SpriteMaterial", spriteMaterial);
@@ -266,6 +269,19 @@ namespace Renderer
 		SetUpState();
 		LoadBuffer();
 		LoadMaterial();
+	}
+
+	void Render()
+	{
+		for (Camera* camera : Cameras)
+		{
+			if (camera == nullptr)
+				continue;
+
+			camera->Render();
+		}
+
+		Cameras.clear();
 	}
 
 	void Release()

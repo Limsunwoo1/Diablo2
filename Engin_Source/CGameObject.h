@@ -1,8 +1,9 @@
 #pragma once
+#include "CEntity.h"
 #include "CComponent.h"
 #include "CScript.h"
 
-class GameObject
+class GameObject : public Entity
 {
 public:
 	enum eState

@@ -10,6 +10,7 @@
 #include "CShader.h"
 #include "CMesh.h"
 #include "CConstantBuffer.h"
+#include "CCamera.h"
 
 using namespace Math;
 using namespace graphics;
@@ -47,7 +48,10 @@ namespace Renderer
 	extern ComPtr<ID3D11DepthStencilState> Depth_StencilState[];
 	extern ComPtr<ID3D11BlendState> BlendState[];
 
+	extern std::vector<Camera*> Cameras;
+
 	void Initialize();
 	void Release();
+	void Render();
 }
 

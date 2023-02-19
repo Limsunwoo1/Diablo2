@@ -25,9 +25,6 @@
     <Filter Include="Common\Entity">
       <UniqueIdentifier>{15958a95-deb4-4e85-a3c0-997c8be343ce}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CRenderer">
-      <UniqueIdentifier>{b4c6a6d5-02f3-4d76-b836-9ea5de57d11a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObject">
       <UniqueIdentifier>{b0526ed5-2817-468d-a35a-8706bd77ff3f}</UniqueIdentifier>
     </Filter>
@@ -55,9 +52,6 @@
     <Filter Include="Component\Script">
       <UniqueIdentifier>{bf617062-368d-4742-b921-4c59f48de5a9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\MeshRenderer">
-      <UniqueIdentifier>{71b3b355-bd33-4033-89cf-1ff8d9c27035}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component\Transform">
       <UniqueIdentifier>{139a6a05-46db-446c-a392-8cda2dad6d94}</UniqueIdentifier>
     </Filter>
@@ -67,8 +61,17 @@
     <Filter Include="Component\Camera">
       <UniqueIdentifier>{92ac6ecc-8e23-4550-a949-a52d1a5073a0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\SpriteRenderer">
+    <Filter Include="Component\Renderer">
+      <UniqueIdentifier>{57ce28ac-55b3-4aa2-83bf-cbf7c686e7fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Renderer\MeshRenderer">
+      <UniqueIdentifier>{71b3b355-bd33-4033-89cf-1ff8d9c27035}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Renderer\SpriteRenderer">
       <UniqueIdentifier>{a83b23ea-db53-4b7c-9d00-6fce12810ff5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\CRenderer">
+      <UniqueIdentifier>{b4c6a6d5-02f3-4d76-b836-9ea5de57d11a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -94,7 +97,7 @@
       <Filter>TimeManager</Filter>
     </ClCompile>
     <ClCompile Include="CRenderer.cpp">
-      <Filter>CRenderer</Filter>
+      <Filter>Graphics\CRenderer</Filter>
     </ClCompile>
     <ClCompile Include="CGameObject.cpp">
       <Filter>GameObject</Filter>
@@ -131,7 +134,7 @@
       <Filter>Component\Script</Filter>
     </ClCompile>
     <ClCompile Include="CMeshRenderer.cpp">
-      <Filter>Component\MeshRenderer</Filter>
+      <Filter>Component\Renderer\MeshRenderer</Filter>
     </ClCompile>
     <ClCompile Include="CTransform.cpp">
       <Filter>Component\Transform</Filter>
@@ -143,10 +146,13 @@
       <Filter>Component\Camera</Filter>
     </ClCompile>
     <ClCompile Include="CSpriteRenderer.cpp">
-      <Filter>Component\SpriteRenderer</Filter>
+      <Filter>Component\Renderer\SpriteRenderer</Filter>
     </ClCompile>
     <ClCompile Include="CCameraScript.cpp">
       <Filter>Component\Script\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="CBaseRenderer.cpp">
+      <Filter>Component\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -181,7 +187,7 @@
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="CRenderer.h">
-      <Filter>CRenderer</Filter>
+      <Filter>Graphics\CRenderer</Filter>
     </ClInclude>
     <ClInclude Include="CEngine.h">
       <Filter>Common</Filter>
@@ -224,7 +230,7 @@
       <Filter>Component\Script</Filter>
     </ClInclude>
     <ClInclude Include="CMeshRenderer.h">
-      <Filter>Component\MeshRenderer</Filter>
+      <Filter>Component\Renderer\MeshRenderer</Filter>
     </ClInclude>
     <ClInclude Include="CTransform.h">
       <Filter>Component\Transform</Filter>
@@ -236,10 +242,13 @@
       <Filter>Component\Camera</Filter>
     </ClInclude>
     <ClInclude Include="CSpriteRenderer.h">
-      <Filter>Component\SpriteRenderer</Filter>
+      <Filter>Component\Renderer\SpriteRenderer</Filter>
     </ClInclude>
     <ClInclude Include="CCameraScript.h">
       <Filter>Component\Script\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="CBaseRenderer.h">
+      <Filter>Component\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
