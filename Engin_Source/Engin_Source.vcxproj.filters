@@ -73,6 +73,9 @@
     <Filter Include="Graphics\CRenderer">
       <UniqueIdentifier>{b4c6a6d5-02f3-4d76-b836-9ea5de57d11a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\CBuffer">
+      <UniqueIdentifier>{b69d5e04-7372-47c3-a2ae-58a692eb07ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -126,7 +129,6 @@
     <ClCompile Include="CLayer.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="CConstantBuffer.cpp" />
     <ClCompile Include="CTexture.cpp">
       <Filter>ResourceManager\Resource\Texture</Filter>
     </ClCompile>
@@ -153,6 +155,9 @@
     </ClCompile>
     <ClCompile Include="CBaseRenderer.cpp">
       <Filter>Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="CConstantBuffer.cpp">
+      <Filter>Graphics\CBuffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -222,7 +227,6 @@
     <ClInclude Include="CLayer.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="CConstantBuffer.h" />
     <ClInclude Include="CTexture.h">
       <Filter>ResourceManager\Resource\Texture</Filter>
     </ClInclude>
@@ -249,6 +253,9 @@
     </ClInclude>
     <ClInclude Include="CBaseRenderer.h">
       <Filter>Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="CConstantBuffer.h">
+      <Filter>Graphics\CBuffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

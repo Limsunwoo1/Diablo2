@@ -100,10 +100,11 @@ namespace graphics
 			Buffer,
 			Texture,
 			UnknownType,
-		} type = eType::UnknownType;
+		};
 
-		D3D11_BUFFER_DESC desc;
+		D3D11_BUFFER_DESC desc = {};
 		Microsoft::WRL::ComPtr<ID3D11Buffer> buffer;
+		eType type =  eType::UnknownType;
 
 		GpuBuffer() = default;
 		virtual ~GpuBuffer() = default;

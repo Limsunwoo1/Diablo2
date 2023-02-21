@@ -11,7 +11,7 @@ Transform::Transform()
 	, mScale(Vector3::One)
 	, mRotation(Vector3::Zero)
 	, mPosition(Vector3::One)
-
+	, mParent(nullptr)
 {
 
 }
@@ -28,14 +28,7 @@ void Transform::Initalize()
 
 void Transform::Update()
 {
-	if (Input::GetInstance()->GetkeyState(eKeyCode::RIGHT) == eKeyState::DOWN)
-	{
-		mRotation.z += 1.0f;
-	}
-	else if (Input::GetInstance()->GetkeyState(eKeyCode::LEFT) == eKeyState::DOWN)
-	{
-		mRotation.z -= 1.0f;
-	}
+
 	// 실제 로직상 캐릭터이동 처리
 }
 
@@ -67,6 +60,8 @@ void Transform::FixedUpdate()
 	// 카메라 컴포넌트에서 세팅
 	// 뷰행렬, 프로젝션 행렬(투영)
 
+	if (mParent)
+		mWorld *= mParent->mWorld;
 
 	//SetConstantBuffer();
 }

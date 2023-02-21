@@ -14,6 +14,9 @@ public:
 	virtual void Render() override;
 
 	void SetConstantBuffer();
+	
+	void SetParent(Transform* parent) { mParent = parent; }
+	Transform* GetParent() { return mParent; }
 
 	Vector3 GetPosition() { return mPosition; }
 	Vector3 GetRotation() { return mRotation; }
@@ -27,6 +30,8 @@ public:
 	Vector3 Right() { return mRight; }
 	Vector3 Up() { return mUp; }
 private:
+	Transform* mParent;
+
 	Vector3 mForward;
 	Vector3 mRight;
 	Vector3 mUp;

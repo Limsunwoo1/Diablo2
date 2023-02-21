@@ -30,6 +30,8 @@ public:
 	void EnableLayerMasks() { mLayerMasks.set(); }
 	void DisableLayerMasks() { mLayerMasks.reset(); }
 
+	void SetProjectionType(eProjectionType type) { mType = type; }
+
 private:
 	void SortGameObjects();
 	void RenderOpaqu();

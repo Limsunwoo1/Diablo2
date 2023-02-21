@@ -47,6 +47,7 @@ void Material::Bind()
 	mTexture->BidShader(eShaderStage::PS, 0);
 
 	ConstantBuffer* pCB = Renderer::constantBuffers[(UINT)eCBType::Material];
+
 	pCB->Bind(&mCB);
 	pCB->SetPipline(eShaderStage::VS);
 	pCB->SetPipline(eShaderStage::PS);

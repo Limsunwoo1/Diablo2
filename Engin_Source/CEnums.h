@@ -6,6 +6,8 @@ enum class eLayerType
 	Camera,
 	Monster,
 	Player,
+
+	UI = 15,
 	End = 16,
 };
 

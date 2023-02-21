@@ -56,6 +56,12 @@ namespace Renderer
 			, spriteshader->GetVSBlobBufferPointer()
 			, spriteshader->GetVSBlobBufferSize()
 			, spriteshader->GetInputLayoutAddressOf());
+
+		std::shared_ptr<Shader> uishader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, uishader->GetVSBlobBufferPointer()
+			, uishader->GetVSBlobBufferSize()
+			, uishader->GetInputLayoutAddressOf());
 #pragma endregion
 #pragma region Sampler State
 		// »ùÇÃ·¯Ãß°¡
@@ -190,6 +196,11 @@ namespace Renderer
 
 		mesh->CreateVertexBuffer(vertexes, 4);
 
+		std::shared_ptr<Mesh>Playermesh = std::make_shared<Mesh>();
+		ResourceManager::GetInstance()->Insert<Mesh>(L"PlayerMesh", Playermesh);
+
+		Playermesh->CreateVertexBuffer(vertexes, 4);
+
 		std::vector<UINT> indexs;
 		indexs.push_back(0);
 		indexs.push_back(1);
@@ -199,6 +210,7 @@ namespace Renderer
 		indexs.push_back(2);
 		indexs.push_back(3);
 		mesh->CreateIndexBuffer(indexs.data(), (UINT)indexs.size());
+		Playermesh->CreateIndexBuffer(indexs.data(), (UINT)indexs.size());
 
 		constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Transform);
 		constantBuffers[(UINT)eCBType::Transform]->Create(sizeof(TransformCB));
@@ -222,28 +234,61 @@ namespace Renderer
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"SpriteShader", spriteShader);
+
+		// UI
+		std::shared_ptr<Shader> uiShader = std::make_shared<Shader>();
+		uiShader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
+		uiShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
+
+		ResourceManager::GetInstance()->Insert<Shader>(L"UIShader", uiShader);
+	}
+
+	void LoadTexture()
+	{
+		ResourceManager::GetInstance()->Load<Texture>(L"SmileTexture", L"Smile.png");
+		ResourceManager::GetInstance()->Load<Texture>(L"DefaultSprite", L"Light.png");
+		ResourceManager::GetInstance()->Load<Texture>(L"HPBarTexture", L"HPBar.png");
+
+		ResourceManager::GetInstance()->Load<Texture>(L"Diablo2_Town_Idle", L"diablo2_Town_Idle.png");
 	}
 
 	void LoadMaterial()
 	{
-		std::shared_ptr<Texture> texture = ResourceManager::GetInstance()->Load<Texture>(L"SmileTexture", L"Smile.png");
-
 		// Dafault
+		std::shared_ptr<Texture> texture = ResourceManager::GetInstance()->Find<Texture>(L"SmileTexture");
 		std::shared_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"RectShader");
 		std::shared_ptr<Material> material = std::make_shared<Material>();
 		material->SetShader(shader);
 		material->SetTexture(texture);
-
 		ResourceManager::GetInstance()->Insert<Material>(L"RectMaterial", material);
 
-		std::shared_ptr <Texture> spriteTexture = ResourceManager::GetInstance()->Load<Texture>(L"DefaultSprite", L"Light.png");
+
 		// Sprite
+		std::shared_ptr <Texture> spriteTexture = ResourceManager::GetInstance()->Find<Texture>(L"DefaultSprite");
 		std::shared_ptr<Shader> spriteShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
 		std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 		spriteMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		spriteMaterial->SetShader(spriteShader);
 		spriteMaterial->SetTexture(spriteTexture);
 		ResourceManager::GetInstance()->Insert<Material>(L"SpriteMaterial", spriteMaterial);
+		
+		// Diablo_Walk
+		std::shared_ptr <Texture> DiabloTexture = ResourceManager::GetInstance()->Find<Texture>(L"Diablo2_Town_Idle");
+		std::shared_ptr<Shader> DiabloShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+		std::shared_ptr<Material> DiabloMaterial = std::make_shared<Material>();
+		DiabloMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		DiabloMaterial->SetShader(DiabloShader);
+		DiabloMaterial->SetTexture(DiabloTexture);
+		ResourceManager::GetInstance()->Insert<Material>(L"DiabloMaterial", DiabloMaterial);
+
+		// UI
+		std::shared_ptr <Texture> uiTexture = ResourceManager::GetInstance()->Find<Texture>(L"HPBarTexture");
+		std::shared_ptr<Shader> uiShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+		std::shared_ptr<Material> uiMaterial = std::make_shared<Material>();
+		uiMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		uiMaterial->SetShader(uiShader);
+		uiMaterial->SetTexture(uiTexture);
+		ResourceManager::GetInstance()->Insert<Material>(L"UIMaterial", uiMaterial);
 	}
 
 	void Initialize()
@@ -268,6 +313,7 @@ namespace Renderer
 		LoadShader();
 		SetUpState();
 		LoadBuffer();
+		LoadTexture();
 		LoadMaterial();
 	}
 

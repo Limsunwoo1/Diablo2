@@ -20,6 +20,7 @@ Camera::Camera()
 	, mFar(1000.0f)
 	, mScale(1.0f)
 {
+	EnableLayerMasks();
 }
 
 Camera::~Camera()
@@ -28,7 +29,6 @@ Camera::~Camera()
 
 void Camera::Initalize()
 {
-	EnableLayerMasks();
 }
 
 void Camera::Update()
@@ -167,6 +167,10 @@ void Camera::PushGameObjectToRenderingMode(GameObject* gameObject)
 		return;
 
 	std::shared_ptr<Material> material = renderer->GetMaterial();
+
+	if (material == nullptr)
+		return;
+
 	eRenderingMode mode = material->GetRenderingMode();
 
 	switch (mode)

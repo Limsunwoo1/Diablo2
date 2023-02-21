@@ -22,6 +22,13 @@ void PlayerScript::Update()
 	Transform* transform = GetOwner()->GetComponent<Transform>();
 
 	Vector3 pos = transform->GetPosition();
+	Vector3 Rotation = transform->GetRotation();
+
+	if (Input::GetInstance()->GetkeyState(eKeyCode::R) == eKeyState::PRESSED)
+	{
+		Rotation.z += 1.0 * Time::GetInstance()->DeltaTime();
+		transform->SetRotation(Rotation);
+	}
 
 	if (Input::GetInstance()->GetkeyState(eKeyCode::W) == eKeyState::PRESSED)
 	{
@@ -34,14 +41,19 @@ void PlayerScript::Update()
 
 	if (Input::GetInstance()->GetkeyState(eKeyCode::D) == eKeyState::PRESSED)
 	{
-		pos.x += 1.0f * Time::GetInstance()->DeltaTime();
+		pos.x += 0.1f * Time::GetInstance()->DeltaTime();
 	}
 	else if (Input::GetInstance()->GetkeyState(eKeyCode::A) == eKeyState::PRESSED)
 	{
 		pos.x -= 1.0f * Time::GetInstance()->DeltaTime();
 	}
 
-	//transform->SetPosition(pos);
+	pos.x += 0.1f * Time::GetInstance()->DeltaTime();
+	transform->SetPosition(pos);
+
+
+	
+	
 }
 
 void PlayerScript::FixedUpdate()
