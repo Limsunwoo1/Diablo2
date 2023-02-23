@@ -1,4 +1,3 @@
-#include "globals.hlsli"
 
 struct VSIn
 {
@@ -14,10 +13,11 @@ struct VSOut
     float2 UV : TEXCOORD;
 };
 
-float4 main(VSOut In) : SV_Target
+VSOut main(VSIn _In)
 {
-    float4 color = (float) 0.0f;
-    color = defaultTexture.Sample(anisotropicSampler, In.UV);
+    VSOut Out = (VSOut) 0.f;
+    Out.Pos = _In.Pos;
+    Out.Color = _In.Color;
     
-    return color;
+    return Out;
 }

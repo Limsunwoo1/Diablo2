@@ -159,9 +159,11 @@
     <ClInclude Include="CEnums.h" />
     <ClInclude Include="CGameObject.h" />
     <ClInclude Include="CGraphicDevice_DX11.h" />
+    <ClInclude Include="CGridScript.h" />
     <ClInclude Include="CLayer.h" />
     <ClInclude Include="CMesh.h" />
     <ClInclude Include="CMaterial.h" />
+    <ClInclude Include="CObject.h" />
     <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="CEntity.h" />
     <ClInclude Include="CInput.h" />
@@ -174,6 +176,7 @@
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTransform.h" />
     <ClInclude Include="def.h" />
+    <ClInclude Include="CFadeRenderer.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="CResource.h" />
@@ -189,9 +192,11 @@
     <ClCompile Include="CCameraScript.cpp" />
     <ClCompile Include="CComponent.cpp" />
     <ClCompile Include="CConstantBuffer.cpp" />
+    <ClCompile Include="CFadeRenderer.cpp" />
     <ClCompile Include="CGameObject.cpp" />
     <ClCompile Include="CGraphicDevice_DX11.cpp" />
     <ClCompile Include="CEntity.cpp" />
+    <ClCompile Include="CGridScript.cpp" />
     <ClCompile Include="CInput.cpp" />
     <ClCompile Include="CLayer.cpp" />
     <ClCompile Include="CMesh.cpp" />

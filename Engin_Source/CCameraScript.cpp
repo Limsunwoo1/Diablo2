@@ -25,27 +25,27 @@ void CameraScript::Update()
 
 	if (Input::GetInstance()->GetkeyState(eKeyCode::D) == eKeyState::PRESSED)
 	{
-		pos.x += 3.0f * Time::GetInstance()->DeltaTime();
+		pos += 100.f * tr->Right() * Time::GetInstance()->DeltaTime();
 	}
 	else if (Input::GetInstance()->GetkeyState(eKeyCode::A) == eKeyState::PRESSED)
 	{
-		pos.x -= 3.0f * Time::GetInstance()->DeltaTime();
+		pos += 100.f * -tr->Right() * Time::GetInstance()->DeltaTime();
 	}
 	else if (Input::GetInstance()->GetkeyState(eKeyCode::W) == eKeyState::PRESSED)
 	{
-		pos.z += 3.0f * Time::GetInstance()->DeltaTime();
+		pos += 100.f * tr->Forward() * Time::GetInstance()->DeltaTime();
 	}
 	else if (Input::GetInstance()->GetkeyState(eKeyCode::S) == eKeyState::PRESSED)
 	{
-		pos.z -= 3.0f * Time::GetInstance()->DeltaTime();
+		pos += 100.f * -tr->Forward() * Time::GetInstance()->DeltaTime();
 	}
 	else if (Input::GetInstance()->GetkeyState(eKeyCode::Q) == eKeyState::PRESSED)
 	{
-		pos.y -= 3.0f * Time::GetInstance()->DeltaTime();
+		pos += 100.f * tr->Up() * Time::GetInstance()->DeltaTime();
 	}
 	else if (Input::GetInstance()->GetkeyState(eKeyCode::E) == eKeyState::PRESSED)
 	{
-		pos.y += 3.0f * Time::GetInstance()->DeltaTime();
+		pos += 100.f * -tr->Up() * Time::GetInstance()->DeltaTime();
 	}
 
 	tr->SetPosition(pos);

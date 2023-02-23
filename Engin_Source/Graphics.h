@@ -13,6 +13,8 @@
 
 #define CBSLOT_TRANSFORM 0
 #define CBSLOT_MATERIAL 1
+#define CBSLOT_GRID 2
+#define CBSLOT_FADE 3
 
 namespace graphics
 {
@@ -20,6 +22,8 @@ namespace graphics
 	{
 		Transform,
 		Material,
+		Grid,
+		Fade,
 		End,
 	};
 

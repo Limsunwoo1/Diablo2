@@ -32,6 +32,8 @@ public:
 
 	void SetProjectionType(eProjectionType type) { mType = type; }
 
+	float GetScale() { return mScale; }
+
 private:
 	void SortGameObjects();
 	void RenderOpaqu();

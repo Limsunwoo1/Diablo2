@@ -4,10 +4,12 @@ enum class eLayerType
 {
 	None = 0,
 	Camera,
+	Grid,
 	Monster,
 	Player,
 
-	UI = 15,
+	Fade,
+	UI,
 	End = 16,
 };
 
@@ -20,6 +22,7 @@ enum class eComponentType
 	Collider,
 	MeshRenderer,
 	SpriteRenderer,
+	FadeRenderer,
 	UI,
 	Script,
 	End,

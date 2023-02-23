@@ -41,6 +41,20 @@ namespace Renderer
 		Matrix matrix;
 	};
 
+	CBUFFER(GridCB, CBSLOT_GRID)
+	{
+		Vector4 cameraPosition;
+		Vector2 cameraScale;
+		Vector2 resolution;
+	};
+
+	CBUFFER(FadeCB, CBSLOT_FADE)
+	{
+		bool fade;
+		float delta;
+	};
+
+	extern Vertex FadeInOut[4];
 	extern Vertex vertexes[4];
 	extern ConstantBuffer* constantBuffers[];
 	extern ComPtr<ID3D11SamplerState> samplerStates[];

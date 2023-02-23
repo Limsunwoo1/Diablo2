@@ -159,6 +159,12 @@
     <ClCompile Include="CConstantBuffer.cpp">
       <Filter>Graphics\CBuffer</Filter>
     </ClCompile>
+    <ClCompile Include="CGridScript.cpp">
+      <Filter>Component\Script\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="CFadeRenderer.cpp">
+      <Filter>Component\Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -256,6 +262,15 @@
     </ClInclude>
     <ClInclude Include="CConstantBuffer.h">
       <Filter>Graphics\CBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="CGridScript.h">
+      <Filter>Component\Script\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="CFadeRenderer.h">
+      <Filter>Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="CObject.h">
+      <Filter>GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@
 namespace Renderer
 {
 	Vertex vertexes[4] = {};
+	Vertex FadeInOut[4] = {};
 	ConstantBuffer* constantBuffers[(UINT)eCBType::End] = {};
 	ComPtr<ID3D11SamplerState> samplerStates[(UINT)eSamplerType::End] = {};
 	ComPtr<ID3D11RasterizerState> RasterizeState[(UINT)eRasterizeType::End] = {};
@@ -62,6 +63,18 @@ namespace Renderer
 			, uishader->GetVSBlobBufferPointer()
 			, uishader->GetVSBlobBufferSize()
 			, uishader->GetInputLayoutAddressOf());
+
+		std::shared_ptr<Shader> gridshader = ResourceManager::GetInstance()->Find<Shader>(L"GridShader");
+		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, gridshader->GetVSBlobBufferPointer()
+			, gridshader->GetVSBlobBufferSize()
+			, gridshader->GetInputLayoutAddressOf());
+
+		std::shared_ptr<Shader> fadeShader = ResourceManager::GetInstance()->Find<Shader>(L"FadeShader");
+		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, fadeShader->GetVSBlobBufferPointer()
+			, fadeShader->GetVSBlobBufferSize()
+			, fadeShader->GetInputLayoutAddressOf());
 #pragma endregion
 #pragma region Sampler State
 		// »ùÇÃ·¯Ãß°¡
@@ -201,6 +214,11 @@ namespace Renderer
 
 		Playermesh->CreateVertexBuffer(vertexes, 4);
 
+		std::shared_ptr<Mesh>Fademesh = std::make_shared<Mesh>();
+		ResourceManager::GetInstance()->Insert<Mesh>(L"FadeMesh", Fademesh);
+
+		Fademesh->CreateVertexBuffer(FadeInOut, 4);
+
 		std::vector<UINT> indexs;
 		indexs.push_back(0);
 		indexs.push_back(1);
@@ -211,12 +229,19 @@ namespace Renderer
 		indexs.push_back(3);
 		mesh->CreateIndexBuffer(indexs.data(), (UINT)indexs.size());
 		Playermesh->CreateIndexBuffer(indexs.data(), (UINT)indexs.size());
+		Fademesh->CreateIndexBuffer(indexs.data(), (UINT)indexs.size());
 
 		constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Transform);
 		constantBuffers[(UINT)eCBType::Transform]->Create(sizeof(TransformCB));
 
 		constantBuffers[(UINT)eCBType::Material] = new ConstantBuffer(eCBType::Material);
 		constantBuffers[(UINT)eCBType::Material]->Create(sizeof(MaterialCB));
+
+		constantBuffers[(UINT)eCBType::Grid] = new ConstantBuffer(eCBType::Grid);
+		constantBuffers[(UINT)eCBType::Grid]->Create(sizeof(GridCB));
+
+		constantBuffers[(UINT)eCBType::Fade] = new ConstantBuffer(eCBType::Fade);
+		constantBuffers[(UINT)eCBType::Fade]->Create(sizeof(FadeCB));
 	}
 
 	void LoadShader()
@@ -241,6 +266,27 @@ namespace Renderer
 		uiShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"UIShader", uiShader);
+
+		// Grid
+		std::shared_ptr<Shader> gridShader = std::make_shared<Shader>();
+		gridShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
+		gridShader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
+		gridShader->SetRasterize(eRasterizeType::SolidNone);
+		gridShader->SetDepthStencil(eDepthStencilType::NoWrite);
+		gridShader->SetBlend(eBlendType::AlphaBlend);
+
+
+		ResourceManager::GetInstance()->Insert<Shader>(L"GridShader", gridShader);
+
+		// FadeInOut
+		std::shared_ptr<Shader> fadeShader = std::make_shared<Shader>();
+		fadeShader->Create(eShaderStage::VS, L"FadeInOutVS.hlsl", "main");
+		fadeShader->Create(eShaderStage::PS, L"FadeInOutPS.hlsl", "main");
+		fadeShader->SetRasterize(eRasterizeType::SolidNone);
+		fadeShader->SetDepthStencil(eDepthStencilType::NoWrite);
+		fadeShader->SetBlend(eBlendType::AlphaBlend);
+
+		ResourceManager::GetInstance()->Insert<Shader>(L"FadeShader", fadeShader);
 	}
 
 	void LoadTexture()
@@ -289,6 +335,18 @@ namespace Renderer
 		uiMaterial->SetShader(uiShader);
 		uiMaterial->SetTexture(uiTexture);
 		ResourceManager::GetInstance()->Insert<Material>(L"UIMaterial", uiMaterial);
+
+		// Grid
+		std::shared_ptr<Shader> GridShader = ResourceManager::GetInstance()->Find<Shader>(L"GridShader");
+		std::shared_ptr<Material> gridMaterial = std::make_shared<Material>();
+		gridMaterial->SetShader(GridShader);
+		ResourceManager::GetInstance()->Insert(L"GridMaterial", gridMaterial);
+
+		// FadeInOut
+		std::shared_ptr<Shader> FadeShader = ResourceManager::GetInstance()->Find<Shader>(L"FadeShader");
+		std::shared_ptr<Material> FadeMaterial = std::make_shared<Material>();
+		FadeMaterial->SetShader(FadeShader);
+		ResourceManager::GetInstance()->Insert(L"FadeMaterial", FadeMaterial);
 	}
 
 	void Initialize()
@@ -309,6 +367,23 @@ namespace Renderer
 		vertexes[3].pos = Vector4(-0.5f, -0.5f, 0.5f, 1.0f);
 		vertexes[3].color = Vector4(0.f, 0.f, 1.f, 1.f);
 		vertexes[3].uv = Vector2(0.f, 1.f);
+
+		// Fade
+		FadeInOut[0].pos = Vector4(-1.0f, 1.0f, 0.5f, 1.0f);
+		FadeInOut[0].color = Vector4(0.f, 0.f, 0.f, 0.f);
+		FadeInOut[0].uv = Vector2(0.f, 0.f);
+
+		FadeInOut[1].pos = Vector4(1.0f, 1.0f, 0.5f, 1.0f);
+		FadeInOut[1].color = Vector4(0.f, 0.f, 0.f, 1.f);
+		FadeInOut[1].uv = Vector2(1.f, 0.f);
+
+		FadeInOut[2].pos = Vector4(1.0f, -1.0f, 0.5f, 1.0f);
+		FadeInOut[2].color = Vector4(0.f, 0.f, 0.f, 1.f);
+		FadeInOut[2].uv = Vector2(1.f, 1.f);
+
+		FadeInOut[3].pos = Vector4(-1.0f, -1.0f, 0.5f, 1.0f);
+		FadeInOut[3].color = Vector4(0.f, 0.f, 0.f, 1.f);
+		FadeInOut[3].uv = Vector2(0.f, 1.f);
 
 		LoadShader();
 		SetUpState();

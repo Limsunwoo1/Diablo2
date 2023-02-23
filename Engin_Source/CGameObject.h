@@ -8,9 +8,9 @@ class GameObject : public Entity
 public:
 	enum eState
 	{
-		Active,
-		Paused,
-		Dead,
+		active,
+		paused,
+		dead,
 	};
 
 	GameObject();
@@ -21,6 +21,25 @@ public:
 	virtual void FixedUpdate();
 	virtual void Render();
 
+	template <typename T>
+	T* AddComponent()
+	{
+		T* component = new T();
+		eComponentType order = component->GetOrder();
+
+		if (order == eComponentType::Script)
+		{
+			mScripts.push_back(component);
+			component->SetOwner(this);
+		}
+		else
+		{
+			mComponents[(UINT)order] = component;
+			mComponents[(UINT)order]->SetOwner(this);
+		}
+
+		return component;
+	}
 	void AddComponent(Component* comp);
 
 	template <typename T>
@@ -37,6 +56,19 @@ public:
 
 		return nullptr;
 	}
+
+	bool IsDead()
+	{
+		if (mState == eState::dead)
+			return true;
+
+		return false;
+	}
+	void Pused() { mState = eState::paused; }
+	void Death() { mState = eState::dead; }
+	void Active() { mState = eState::active; }
+	eState GetState() { return mState; }
+
 
 private:
 	eState mState;

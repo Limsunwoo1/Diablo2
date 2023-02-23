@@ -38,6 +38,12 @@ void Shader::Create(graphics::eShaderStage stage, const std::wstring& file, cons
                          , mVSBlob.GetAddressOf()
                          , mErrorBlob.GetAddressOf());
 
+       /* if (mErrorBlob)
+        {
+            OutputDebugStringA((char*)mErrorBlob->GetBufferPointer());
+            mErrorBlob->Release();
+        }*/
+
         GetDevice()->CreateVertexShader(mVSBlob->GetBufferPointer()
                                                 , mVSBlob->GetBufferSize()
                                                 , nullptr
@@ -49,6 +55,12 @@ void Shader::Create(graphics::eShaderStage stage, const std::wstring& file, cons
                          , funcName.c_str(), "ps_5_0", 0, 0
                          , mPSBlob.GetAddressOf()
                          , mErrorBlob.GetAddressOf());
+
+        /*if (mErrorBlob)
+        {
+            OutputDebugStringA((char*)mErrorBlob->GetBufferPointer());
+            mErrorBlob->Release();
+        }*/
 
         GetDevice()->CreatePixelShader(mPSBlob->GetBufferPointer()
                                                , mPSBlob->GetBufferSize()

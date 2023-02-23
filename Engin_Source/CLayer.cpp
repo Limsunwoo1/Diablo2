@@ -10,7 +10,6 @@ Layer::~Layer()
 	{
 		if (obj == nullptr)
 			continue;
-
 		delete obj;
 		obj = nullptr;
 	}
@@ -21,6 +20,8 @@ void Layer::Initalize()
 	for (GameObject* obj: mGameObjects)
 	{
 		if (obj == nullptr)
+			continue;
+		if (obj->GetState() != GameObject::active)
 			continue;
 
 		obj->Initalize();
@@ -33,6 +34,8 @@ void Layer::Update()
 	{
 		if (obj == nullptr)
 			continue;
+		if (obj->GetState() != GameObject::active)
+			continue;
 
 		obj->Update();
 	}
@@ -44,6 +47,8 @@ void Layer::FixedUpdate()
 	{
 		if (obj == nullptr)
 			continue;
+		if (obj->GetState() != GameObject::active)
+			continue;
 
 		obj->FixedUpdate();
 	}
@@ -54,6 +59,8 @@ void Layer::Render()
 	for (GameObject* obj : mGameObjects)
 	{
 		if (obj == nullptr)
+			continue;
+		if (obj->GetState() != GameObject::active)
 			continue;
 
 		obj->Render();

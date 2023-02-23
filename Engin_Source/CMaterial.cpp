@@ -44,7 +44,8 @@ void Material::SetData(eGpuParam param, void* data)
 
 void Material::Bind()
 {
-	mTexture->BidShader(eShaderStage::PS, 0);
+	if(mTexture)
+		mTexture->BidShader(eShaderStage::PS, 0);
 
 	ConstantBuffer* pCB = Renderer::constantBuffers[(UINT)eCBType::Material];
 
@@ -57,5 +58,6 @@ void Material::Bind()
 
 void Material::Clear()
 {
-	mTexture->Clear();
+	if(!mTexture)
+		mTexture->Clear();
 }

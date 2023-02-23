@@ -1,17 +1,3 @@
-struct VSIn
-{
-    float4 Pos : POSITION;
-    float4 Color : COLOR;
-    float2 UV : TEXCOORD;
-};
-
-struct VSOut
-{
-    float4 Pos : SV_Position;
-    float4 Color : COLOR;
-    float2 UV : TEXCOORD;
-};
-
 cbuffer Transform : register(b0)
 {
     row_major matrix world;
@@ -27,6 +13,20 @@ cbuffer MaterialData : register(b1)
     float3 cbxyz;
     float4 cbxyzw;
     matrix cbmat;
+}
+
+
+cbuffer Grid : register(b2)
+{
+    float4 cameraPosition;
+    float2 cameraScale;
+    float2 resolution;
+}
+
+cbuffer FadeData : register(b3)
+{
+    bool fade;
+    float delta;
 }
 
 SamplerState pointSampler : register(s0);

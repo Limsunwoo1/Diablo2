@@ -1,9 +1,11 @@
 #include "CGameObject.h"
+#include "CTransform.h"
 
 GameObject::GameObject()
-	: mState(eState::Active)
+	: mState(eState::active)
 {
 	mComponents.resize((UINT)eComponentType::End);
+	Transform* tr = AddComponent<Transform>();
 }
 
 GameObject::~GameObject()
