@@ -6,10 +6,16 @@
 #include "CConstantBuffer.h"
 #include "CTime.h"
 
+#include "iostream"
 FadeRenderer::FadeRenderer()
 	: BaseRenderer(eComponentType::FadeRenderer)
-	, bfade(false)
-	, mDelta(0.0f)
+	, bFade(false)
+	, bRun(false)
+	, mEndTime(2.0f)
+	, mAccTime(0.0f)
+	, mStartValue(0.0f)
+	, mEndValue(0.0f)
+	, mCurValue(0.0f)
 {
 
 }
@@ -25,32 +31,22 @@ void FadeRenderer::Initalize()
 
 void FadeRenderer::Update()
 {
-	ConstantBuffer* CB = Renderer::constantBuffers[(UINT)eCBType::Fade];
-	Renderer::FadeCB data = {};
+	if (mAccTime > mEndTime)
+		Stop();
 
-	if (Input::GetInstance()->GetkeyState(eKeyCode::SPACE) == eKeyState::DOWN)
+	if (Input::GetInstance()->GetkeyState(eKeyCode::SPACE) == eKeyState::PRESSED)
 	{
-		if ((!bfade) && (mDelta <= 0.0f))
-		{
-			bfade = true;
-			mDelta = 0.0f;
-		}
-		else if (bfade && (mDelta >= 1.0f))
-		{
-			bfade = false;
-			mDelta = 1.0f;
-		}
+		if (!bRun)
+			InitValue(bFade);
 	}
 
-	if (bfade && (mDelta < 1.0f))
-		mDelta += Time::GetInstance()->DeltaTime();
-	if(!bfade && (mDelta > 0.0f))
-		mDelta -= Time::GetInstance()->DeltaTime();
+	if (!bRun)
+		return;
 
-	data.delta = mDelta;
-	CB->Bind(&data);
-	CB->SetPipline(eShaderStage::VS);
-	CB->SetPipline(eShaderStage::PS);
+	mAccTime += Time::GetInstance()->DeltaTime();
+	mCurValue = Lerp(mStartValue, mEndValue);
+
+	BindConstantBuffer();
 }
 
 void FadeRenderer::FixedUpdate()
@@ -68,4 +64,50 @@ void FadeRenderer::Render()
 	GetMesh()->Render();
 
 	GetMaterial()->Clear();
+}
+
+void FadeRenderer::BindConstantBuffer()
+{
+	ConstantBuffer* CB = Renderer::constantBuffers[(UINT)eCBType::Fade];
+	Renderer::FadeCB data = {};
+
+	data.alpha = mCurValue;
+	CB->Bind(&data);
+	CB->SetPipline(eShaderStage::VS);
+	CB->SetPipline(eShaderStage::PS);
+}
+
+void FadeRenderer::InitValue(bool fade)
+{
+	if (!bRun && !fade)		// Fade In
+	{
+		mStartValue = 0.0f;
+		mEndValue = 1.0f;
+	}
+	else if (!bRun && fade)	// Fade Out
+	{
+		mStartValue = 1.0f;
+		mEndValue = 0.0f;
+	}
+
+	bRun = true;
+}
+
+float FadeRenderer::Lerp(float startValue, float endValue)
+{
+	return (startValue * (mEndTime - mAccTime) + (endValue * mAccTime)) / mEndTime;
+}
+
+void FadeRenderer::Stop()
+{
+	if (bFade)
+		bFade = false;
+	else
+		bFade = true;
+
+	bRun = false;
+
+	mAccTime = 0.0f;
+	mStartValue = 0.0f;
+	mEndValue = 0.0f;
 }

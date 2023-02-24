@@ -12,7 +12,20 @@ public:
 	virtual void FixedUpdate() override;
 	virtual void Render() override;
 
+	void Stop();
+	void InitValue(bool fade = true);
+	float Lerp(float startValue, float endValue);
+	void BindConstantBuffer();
+	
+
 private:
-	bool bfade;
-	float mDelta;
+	bool bFade;
+	bool bRun;
+
+	float mEndTime;
+	float mAccTime;
+
+	float mStartValue;
+	float mEndValue;
+	float mCurValue;
 };

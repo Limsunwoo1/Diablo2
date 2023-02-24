@@ -25,8 +25,7 @@ cbuffer Grid : register(b2)
 
 cbuffer FadeData : register(b3)
 {
-    bool fade;
-    float delta;
+    float alpha;
 }
 
 SamplerState pointSampler : register(s0);

@@ -50,8 +50,7 @@ namespace Renderer
 
 	CBUFFER(FadeCB, CBSLOT_FADE)
 	{
-		bool fade;
-		float delta;
+		float alpha;
 	};
 
 	extern Vertex FadeInOut[4];

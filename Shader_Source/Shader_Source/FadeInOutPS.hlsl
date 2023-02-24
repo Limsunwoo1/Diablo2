@@ -15,7 +15,5 @@ struct VSOut
 
 float4 main(VSOut _In) : SV_Target
 {
-    
-    
-    return float4(0.0f, 0.0f, 0.0f, delta);
+    return float4(0.0f, 0.0f, 0.0f, alpha);
 }
