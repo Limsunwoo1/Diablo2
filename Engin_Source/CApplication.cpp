@@ -63,6 +63,12 @@ void CApplication::Run()
 	Update();
 	FixedUpdate();
 	Render();
+	Destroy();
+}
+
+void CApplication::Destroy()
+{
+
 }
 
 void CApplication::Release()

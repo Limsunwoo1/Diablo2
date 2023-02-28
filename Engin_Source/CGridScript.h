@@ -1,7 +1,7 @@
 #pragma once
 #include "CScript.h"
-#include "CCamera.h"
 
+class Camera;
 class GridScript : public Script
 {
 public:

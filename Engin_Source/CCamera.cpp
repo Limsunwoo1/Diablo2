@@ -97,7 +97,7 @@ void Camera::RegisterCameraInRenderer()
 	Renderer::Cameras.push_back(this);
 }
 
-void Camera::TrunLayerMast(eLayerType layer, bool enable)
+void Camera::TurnLayerMask(eLayerType layer, bool enable)
 {
 	mLayerMasks.set((UINT)layer, enable);
 }

@@ -76,6 +76,18 @@
     <Filter Include="Graphics\CBuffer">
       <UniqueIdentifier>{b69d5e04-7372-47c3-a2ae-58a692eb07ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\Base">
+      <UniqueIdentifier>{b12b62a6-dbbe-41f6-a8ae-24a4a95b97da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Layer">
+      <UniqueIdentifier>{b63ae51f-fb45-4a49-8756-41c3c22cd853}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Title">
+      <UniqueIdentifier>{344a85bb-7333-46f6-9e1d-186609917923}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Play">
+      <UniqueIdentifier>{6a8a25de-d181-4797-ae9f-ff66e636b58d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -108,9 +120,6 @@
     <ClCompile Include="CSceneManager.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="CScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="CComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -125,9 +134,6 @@
     </ClCompile>
     <ClCompile Include="CMaterial.cpp">
       <Filter>ResourceManager\Resource\Meterial</Filter>
-    </ClCompile>
-    <ClCompile Include="CLayer.cpp">
-      <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="CTexture.cpp">
       <Filter>ResourceManager\Resource\Texture</Filter>
@@ -164,6 +170,18 @@
     </ClCompile>
     <ClCompile Include="CFadeRenderer.cpp">
       <Filter>Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="CScene.cpp">
+      <Filter>Scene\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="CLayer.cpp">
+      <Filter>Scene\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayScene.cpp">
+      <Filter>Scene\Play</Filter>
+    </ClCompile>
+    <ClCompile Include="CTitleScene.cpp">
+      <Filter>Scene\Title</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -212,9 +230,6 @@
     <ClInclude Include="CSceneManager.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="CScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="CComponent.h">
       <Filter>Component</Filter>
     </ClInclude>
@@ -229,9 +244,6 @@
     </ClInclude>
     <ClInclude Include="CMaterial.h">
       <Filter>ResourceManager\Resource\Meterial</Filter>
-    </ClInclude>
-    <ClInclude Include="CLayer.h">
-      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="CTexture.h">
       <Filter>ResourceManager\Resource\Texture</Filter>
@@ -271,6 +283,18 @@
     </ClInclude>
     <ClInclude Include="CObject.h">
       <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="CScene.h">
+      <Filter>Scene\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="CLayer.h">
+      <Filter>Scene\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayScene.h">
+      <Filter>Scene\Play</Filter>
+    </ClInclude>
+    <ClInclude Include="CTitleScene.h">
+      <Filter>Scene\Title</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

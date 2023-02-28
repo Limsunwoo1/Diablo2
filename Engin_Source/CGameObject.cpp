@@ -3,6 +3,8 @@
 
 GameObject::GameObject()
 	: mState(eState::active)
+	, mType(eLayerType::None)
+	, mbDontDestroy(false)
 {
 	mComponents.resize((UINT)eComponentType::End);
 	Transform* tr = AddComponent<Transform>();

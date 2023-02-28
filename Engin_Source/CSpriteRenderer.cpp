@@ -1,6 +1,8 @@
 #include "CSpriteRenderer.h"
 #include "CGameObject.h"
 #include "CTransform.h"
+#include "CMesh.h"
+#include "CMaterial.h"
 
 SpriteRenderer::SpriteRenderer()
 	: BaseRenderer(eComponentType::SpriteRenderer)

@@ -3,7 +3,6 @@
 #include "Math.h"
 #include "CGraphicDevice_DX11.h"
 
-#include "CMesh.h"
 #include "CommonInclude.h"
 #include "CGraphicDevice_DX11.h"
 

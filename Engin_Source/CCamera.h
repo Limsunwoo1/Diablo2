@@ -26,7 +26,7 @@ public:
 	void CreateProjectionMatrix();
 	void RegisterCameraInRenderer();
 
-	void TrunLayerMast(eLayerType layer, bool enable = true);
+	void TurnLayerMask(eLayerType layer, bool enable = true);
 	void EnableLayerMasks() { mLayerMasks.set(); }
 	void DisableLayerMasks() { mLayerMasks.reset(); }
 

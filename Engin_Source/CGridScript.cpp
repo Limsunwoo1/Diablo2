@@ -4,6 +4,7 @@
 #include "CApplication.h"
 #include "CConstantBuffer.h"
 #include "CRenderer.h"
+#include "CCamera.h"
 
 extern CApplication Application;
 

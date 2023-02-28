@@ -14,7 +14,7 @@ public:
 	virtual void Render() override;
 
 	void SetConstantBuffer();
-	
+
 	void SetParent(Transform* parent) { mParent = parent; }
 	Transform* GetParent() { return mParent; }
 

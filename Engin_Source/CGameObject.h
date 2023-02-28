@@ -69,10 +69,17 @@ public:
 	void Active() { mState = eState::active; }
 	eState GetState() { return mState; }
 
+	bool IsDontDestroty() { return mbDontDestroy; }
+	void DontDestroy(bool enable) { mbDontDestroy = enable; }
+
+	eLayerType GetLayerType() { return mType; }
+	void SetLayerType(eLayerType type) { mType = type; }
 
 private:
 	eState mState;
+	eLayerType mType;
 	std::vector<Component*> mComponents;
 	std::vector<Component*> mScripts;
+	bool mbDontDestroy;
 };
 

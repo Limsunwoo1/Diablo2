@@ -1,7 +1,5 @@
 #pragma once
 #include "CBaseRenderer.h"
-#include "CMesh.h"
-#include "CMaterial.h"
 
 
 class SpriteRenderer : public BaseRenderer

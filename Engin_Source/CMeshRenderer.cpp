@@ -1,6 +1,8 @@
 #include "CMeshRenderer.h"
 #include "CGameObject.h"
 #include "CTransform.h"
+#include "CMesh.h"
+#include "CMaterial.h"
 
 
 MeshRenderer::MeshRenderer()
