@@ -4,6 +4,7 @@
 #include "framework.h"
 #include "Dx11_Engine.h"
 #include "Engin_Source//CApplication.h"
+#include "CEditor.h"
 
 #ifdef _DEBUG
 #pragma comment(lib, "..\\x64\\Debug\\Lib\\Engin_Source.lib")
@@ -26,6 +27,7 @@ WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
 
 CApplication Application;
+Editor _Editor;
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
@@ -82,6 +84,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             Application.Run();
+            _Editor.Run();
+
+            Application.Present();
             // 여기서 게임 실행 로직이 돌아가야한다.
 
             // 라이브러리

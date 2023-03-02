@@ -56,6 +56,21 @@ public:
 
 	Math::Vector2 GetMousePos() { return mMousePos; }
 	Math::Vector2 GetMousePos(HWND hWnd);
+
+	__forceinline bool GetKeyPress(eKeyCode key)
+	{
+		return mKeys[static_cast<UINT>(key)].state == eKeyState::PRESSED;
+	}
+
+	__forceinline bool GetKeyDown(eKeyCode key)
+	{
+		return mKeys[static_cast<UINT>(key)].state == eKeyState::DOWN;
+	}
+
+	__forceinline bool GetKeyUp(eKeyCode key)
+	{
+		return mKeys[static_cast<UINT>(key)].state == eKeyState::UP;
+	}
 private:
 	std::vector<Key> mKeys;
 	Math::Vector2 mMousePos;

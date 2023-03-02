@@ -5,7 +5,7 @@
 class Scene : public Entity
 {
 public:
-	Scene();
+	Scene(eSceneType);
 	virtual ~Scene();
 
 	virtual void Initalize();
@@ -20,7 +20,9 @@ public:
 	void AddGameObject(GameObject* gameObj, const eLayerType type);
 	Layer& GetLayer(eLayerType type) { return mLayers[(UINT)type]; }
 	std::vector<GameObject*> GetDontDestroyObjects();
+	eSceneType GetScenType() { return mType; }
 private:
 	std::vector<Layer> mLayers;
+	eSceneType mType;
 };
 

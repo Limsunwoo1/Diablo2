@@ -1,6 +1,7 @@
 #include "CRenderer.h"
 #include "CResourceManager.h"
 #include "CMaterial.h"
+#include "CSceneManager.h"
 
 namespace Renderer
 {
@@ -12,7 +13,7 @@ namespace Renderer
 	ComPtr<ID3D11DepthStencilState> Depth_StencilState[(UINT)eDepthStencilType::End] = {};
 	ComPtr<ID3D11BlendState> BlendState[(UINT)eBlendType::End] = {};
 
-	std::vector<Camera*> Cameras;
+	std::vector<Camera*> Cameras[(UINT)eSceneType::End];
 
 	void SetUpState()
 	{
@@ -394,15 +395,16 @@ namespace Renderer
 
 	void Render()
 	{
-		for (Camera* camera : Cameras)
+		eSceneType type = SceneManager::GetInstance()->GetActiveScene()->GetScenType();
+		for (Camera* cam : Cameras[(UINT)type])
 		{
-			if (camera == nullptr)
+			if (cam == nullptr)
 				continue;
 
-			camera->Render();
+			cam->Render();
 		}
 
-		Cameras.clear();
+		Cameras[(UINT)type].clear();
 	}
 
 	void Release()

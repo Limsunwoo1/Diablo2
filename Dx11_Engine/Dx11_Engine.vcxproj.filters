@@ -8,12 +8,18 @@
     <Filter Include="main">
       <UniqueIdentifier>{42fb56c6-3519-4c6e-9e93-1c49076abe37}</UniqueIdentifier>
     </Filter>
+    <Filter Include="CEditor">
+      <UniqueIdentifier>{5effa216-c21b-4eb9-b69a-895db86a7ea1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Dx11_Engine.h" />
+    <ClInclude Include="CEditor.h">
+      <Filter>CEditor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Dx11_Engine.rc">
@@ -31,6 +37,9 @@
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="CEditor.cpp">
+      <Filter>CEditor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@
 #include "CSceneManager.h"
 #include "CMaterial.h"
 #include "CBaseRenderer.h"
+#include "CSceneManager.h"
 
 extern CApplication Application;
 
@@ -94,7 +95,8 @@ void Camera::CreateProjectionMatrix()
 
 void Camera::RegisterCameraInRenderer()
 {
-	Renderer::Cameras.push_back(this);
+	eSceneType type = SceneManager::GetInstance()->GetActiveScene()->GetScenType();
+	Renderer::Cameras[(UINT)type].push_back(this);
 }
 
 void Camera::TurnLayerMask(eLayerType layer, bool enable)

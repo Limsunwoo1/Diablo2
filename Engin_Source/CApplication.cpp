@@ -54,9 +54,8 @@ void CApplication::Render()
 
 	//SceneManager::GetInstance()->Render();
 	Renderer::Render();
-
-	graphicDevice->Present();		  // 스왑 체인
 }
+
 // Running main engine loop
 void CApplication::Run()
 {
@@ -81,6 +80,11 @@ void CApplication::Release()
 	Input::GetInstance()->DestroyInstance();
 	SceneManager::GetInstance()->DestroyInstance();
 	ResourceManager::GetInstance()->DestroyInstance();
+}
+
+void CApplication::Present()
+{
+	graphicDevice->Present();		  // 스왑 체인
 }
 
 void CApplication::SetWindow(HWND hwnd, UINT width, UINT height)

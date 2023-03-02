@@ -9,9 +9,11 @@
 #include "CCameraScript.h"
 #include "CGridScript.h"
 #include "CObject.h"
+#include "CInput.h"
 
 
 TitleScene::TitleScene()
+	: Scene(eSceneType::Title)
 {
 
 }
@@ -27,7 +29,7 @@ void TitleScene::Initalize()
 	// Main Camera Game Object
 	GameObject* cameraObj = Object::Instantiate<GameObject>(eLayerType::Camera);
 	Camera* cameraComp = cameraObj->AddComponent<Camera>();
-	cameraComp->RegisterCameraInRenderer();
+	//cameraComp->RegisterCameraInRenderer();
 	cameraComp->TurnLayerMask(eLayerType::UI, false);
 	cameraObj->AddComponent<CameraScript>();
 	//renderer::cameras[0] = cameraComp;
@@ -77,6 +79,7 @@ void TitleScene::Initalize()
 	mr->SetMaterial(mateiral);
 	mr->SetMesh(mesh);
 	obj->AddComponent<PlayerScript>();
+	Object::DontDestroyOnLoad(obj);
 
 	//SMILE RECT CHild
 	GameObject* child = Object::Instantiate<GameObject>(eLayerType::Player);
@@ -109,6 +112,11 @@ void TitleScene::Initalize()
 void TitleScene::Update()
 {
 	Scene::Update();
+
+	if (Input::GetInstance()->GetKeyDown(eKeyCode::N))
+	{
+		SceneManager::GetInstance()->LoadScene(eSceneType::Play);
+	}
 }
 
 void TitleScene::FixedUpdate()

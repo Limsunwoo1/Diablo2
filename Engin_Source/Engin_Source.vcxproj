@@ -153,6 +153,8 @@
     <ClInclude Include="CBaseRenderer.h" />
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CCameraScript.h" />
+    <ClInclude Include="CCollider2D.h" />
+    <ClInclude Include="CCollisionManager.h" />
     <ClInclude Include="CComponent.h" />
     <ClInclude Include="CConstantBuffer.h" />
     <ClInclude Include="CEngine.h" />
@@ -164,11 +166,13 @@
     <ClInclude Include="CMesh.h" />
     <ClInclude Include="CMaterial.h" />
     <ClInclude Include="CObject.h" />
+    <ClInclude Include="CCollider3D.h" />
     <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="CEntity.h" />
     <ClInclude Include="CInput.h" />
     <ClInclude Include="CPlayerScript.h" />
     <ClInclude Include="CPlayScene.h" />
+    <ClInclude Include="CPrefab.h" />
     <ClInclude Include="CRenderer.h" />
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CScript.h" />
@@ -192,6 +196,8 @@
     <ClCompile Include="CBaseRenderer.cpp" />
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CCameraScript.cpp" />
+    <ClCompile Include="CCollider2D.cpp" />
+    <ClCompile Include="CCollisionManager.cpp" />
     <ClCompile Include="CComponent.cpp" />
     <ClCompile Include="CConstantBuffer.cpp" />
     <ClCompile Include="CFadeRenderer.cpp" />
@@ -203,8 +209,10 @@
     <ClCompile Include="CLayer.cpp" />
     <ClCompile Include="CMesh.cpp" />
     <ClCompile Include="CMaterial.cpp" />
+    <ClCompile Include="CCollider3D.cpp" />
     <ClCompile Include="CPlayerScript.cpp" />
     <ClCompile Include="CPlayScene.cpp" />
+    <ClCompile Include="CPrefab.cpp" />
     <ClCompile Include="CRenderer.cpp" />
     <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CScript.cpp" />

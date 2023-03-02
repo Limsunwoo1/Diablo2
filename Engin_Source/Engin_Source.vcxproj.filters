@@ -88,6 +88,21 @@
     <Filter Include="Scene\Play">
       <UniqueIdentifier>{6a8a25de-d181-4797-ae9f-ff66e636b58d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ResourceManager\Resource\Prefab">
+      <UniqueIdentifier>{d364c1a3-a1fe-4928-b9f4-ae1993f211c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider">
+      <UniqueIdentifier>{172f6c62-e552-46b1-9ddb-d9eb0fb679fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider\2D">
+      <UniqueIdentifier>{de9ac22b-cd15-4c0f-ac73-b0edbacf3835}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider\3D">
+      <UniqueIdentifier>{b3f2d8f1-a525-440e-9ded-943f81f910d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider\CollisionManager">
+      <UniqueIdentifier>{f6372125-3003-48f1-95cc-3bb3fdcdc101}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -182,6 +197,18 @@
     </ClCompile>
     <ClCompile Include="CTitleScene.cpp">
       <Filter>Scene\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="CPrefab.cpp">
+      <Filter>ResourceManager\Resource\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="CCollisionManager.cpp">
+      <Filter>Component\Collider\CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CCollider3D.cpp">
+      <Filter>Component\Collider\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="CCollider2D.cpp">
+      <Filter>Component\Collider\2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -295,6 +322,18 @@
     </ClInclude>
     <ClInclude Include="CTitleScene.h">
       <Filter>Scene\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="CPrefab.h">
+      <Filter>ResourceManager\Resource\Prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="CCollider3D.h">
+      <Filter>Component\Collider\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="CCollisionManager.h">
+      <Filter>Component\Collider\CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CCollider2D.h">
+      <Filter>Component\Collider\2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

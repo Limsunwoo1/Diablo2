@@ -20,6 +20,7 @@ public:
 	// Running main engine loop
 	void Run();
 	void Release();
+	void Present();
 
 	void SetWindow(HWND hwnd, UINT width, UINT height);
 
@@ -27,6 +28,7 @@ public:
 	HWND GetHwnd() { return mHwnd; }
 	UINT GetWidth() { return mWidth; }
 	UINT GetHeight() { return mHeight; }
+
 private:
 	bool initalized = false;
 	std::unique_ptr<graphics::CGraphicDevice_DX11> graphicDevice;

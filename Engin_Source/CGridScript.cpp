@@ -5,6 +5,7 @@
 #include "CConstantBuffer.h"
 #include "CRenderer.h"
 #include "CCamera.h"
+#include "CSceneManager.h"
 
 extern CApplication Application;
 
@@ -21,7 +22,8 @@ GridScript::~GridScript()
 
 void GridScript::Initalize()
 {
-	mCamera = Renderer::Cameras[0];
+	eSceneType type = SceneManager::GetInstance()->GetActiveScene()->GetScenType();
+	mCamera = Renderer::Cameras[(UINT)type][0];
 }
 
 void GridScript::Update()
