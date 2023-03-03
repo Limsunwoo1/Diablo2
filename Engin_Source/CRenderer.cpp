@@ -14,6 +14,106 @@ namespace Renderer
 	ComPtr<ID3D11BlendState> BlendState[(UINT)eBlendType::End] = {};
 
 	std::vector<Camera*> Cameras[(UINT)eSceneType::End];
+	std::vector<DebugMesh> debugMeshes;
+
+	void LoadMesh()
+	{
+		//RECT
+		vertexes[0].pos = Vector4(-0.5f, 0.5f, 0.5f, 1.0f);
+		vertexes[0].color = Vector4(0.f, 1.f, 0.f, 1.f);
+		vertexes[0].uv = Vector2(0.f, 0.f);
+
+		vertexes[1].pos = Vector4(0.5f, 0.5f, 0.5f, 1.0f);
+		vertexes[1].color = Vector4(1.f, 1.f, 1.f, 1.f);
+		vertexes[1].uv = Vector2(1.f, 0.f);
+
+		vertexes[2].pos = Vector4(0.5f, -0.5f, 0.5f, 1.0f);
+		vertexes[2].color = Vector4(1.f, 0.f, 0.f, 1.f);
+		vertexes[2].uv = Vector2(1.f, 1.f);
+
+		vertexes[3].pos = Vector4(-0.5f, -0.5f, 0.5f, 1.0f);
+		vertexes[3].color = Vector4(0.f, 0.f, 1.f, 1.f);
+		vertexes[3].uv = Vector2(0.f, 1.f);
+
+		// Fade
+		FadeInOut[0].pos = Vector4(-1.0f, 1.0f, 0.5f, 1.0f);
+		FadeInOut[0].color = Vector4(0.f, 0.f, 0.f, 0.f);
+		FadeInOut[0].uv = Vector2(0.f, 0.f);
+
+		FadeInOut[1].pos = Vector4(1.0f, 1.0f, 0.5f, 1.0f);
+		FadeInOut[1].color = Vector4(0.f, 0.f, 0.f, 1.f);
+		FadeInOut[1].uv = Vector2(1.f, 0.f);
+
+		FadeInOut[2].pos = Vector4(1.0f, -1.0f, 0.5f, 1.0f);
+		FadeInOut[2].color = Vector4(0.f, 0.f, 0.f, 1.f);
+		FadeInOut[2].uv = Vector2(1.f, 1.f);
+
+		FadeInOut[3].pos = Vector4(-1.0f, -1.0f, 0.5f, 1.0f);
+		FadeInOut[3].color = Vector4(0.f, 0.f, 0.f, 1.f);
+		FadeInOut[3].uv = Vector2(0.f, 1.f);
+
+		// Create Mesh
+		std::shared_ptr<Mesh>mesh = std::make_shared<Mesh>();
+		ResourceManager::GetInstance()->Insert<Mesh>(L"RectMesh", mesh);
+
+		mesh->CreateVertexBuffer(vertexes, 4);
+
+		std::shared_ptr<Mesh>Fademesh = std::make_shared<Mesh>();
+		ResourceManager::GetInstance()->Insert<Mesh>(L"FadeMesh", Fademesh);
+
+		Fademesh->CreateVertexBuffer(FadeInOut, 4);
+
+		std::vector<UINT> indexs;
+		indexs.push_back(0);
+		indexs.push_back(1);
+		indexs.push_back(2);
+
+		indexs.push_back(0);
+		indexs.push_back(2);
+		indexs.push_back(3);
+		mesh->CreateIndexBuffer(indexs.data(), (UINT)indexs.size());
+		Fademesh->CreateIndexBuffer(indexs.data(), (UINT)indexs.size());
+
+		// Circle Mesh
+		std::vector<Vertex> circleVertex;
+		Vertex center = {};
+		center.pos = Vector4(0.0f, 0.0f, 0.0f, 1.0f);
+		center.color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		center.uv = Vector2::Zero;
+
+		circleVertex.push_back(center);
+
+		int iSlice = 40;
+		float fRadius = 0.5f;
+		float fTheta = XM_2PI / (float)iSlice;
+
+		for (int i = 0; i < iSlice; ++i)
+		{
+			Vertex vtx = {};
+			vtx.pos = Vector4
+			(
+				fRadius * cosf(fTheta * (float)i)
+				, fRadius * sinf(fTheta * (float)i)
+				, 0.0f, 1.0f
+			);
+			vtx.color = center.color;
+
+			circleVertex.push_back(vtx);
+		}
+		indexs.clear();
+		for (int i = 0; i < iSlice - 2; i++)
+		{
+			indexs.push_back(i + 1);
+		}
+		indexs.push_back(1);
+
+		// Creat Mesh
+		std::shared_ptr<Mesh> circleMesh = std::make_shared<Mesh>();
+		ResourceManager::GetInstance()->Insert<Mesh>(L"CircleMesh", circleMesh);
+		circleMesh->CreateVertexBuffer(circleVertex.data(), circleVertex.size());
+		circleMesh->CreateIndexBuffer(indexs.data(), indexs.size());
+	}
+
 
 	void SetUpState()
 	{
@@ -190,7 +290,7 @@ namespace Renderer
 
 		blDesc.AlphaToCoverageEnable = false;
 		blDesc.IndependentBlendEnable = false;
-		 
+
 		blDesc.RenderTarget[0].BlendEnable = true;
 		blDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP::D3D11_BLEND_OP_ADD;
 		blDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
@@ -204,34 +304,6 @@ namespace Renderer
 
 	void LoadBuffer()
 	{
-		// Create Mesh
-		std::shared_ptr<Mesh>mesh = std::make_shared<Mesh>();
-		ResourceManager::GetInstance()->Insert<Mesh>(L"RectMesh", mesh);
-
-		mesh->CreateVertexBuffer(vertexes, 4);
-
-		std::shared_ptr<Mesh>Playermesh = std::make_shared<Mesh>();
-		ResourceManager::GetInstance()->Insert<Mesh>(L"PlayerMesh", Playermesh);
-
-		Playermesh->CreateVertexBuffer(vertexes, 4);
-
-		std::shared_ptr<Mesh>Fademesh = std::make_shared<Mesh>();
-		ResourceManager::GetInstance()->Insert<Mesh>(L"FadeMesh", Fademesh);
-
-		Fademesh->CreateVertexBuffer(FadeInOut, 4);
-
-		std::vector<UINT> indexs;
-		indexs.push_back(0);
-		indexs.push_back(1);
-		indexs.push_back(2);
-
-		indexs.push_back(0);
-		indexs.push_back(2);
-		indexs.push_back(3);
-		mesh->CreateIndexBuffer(indexs.data(), (UINT)indexs.size());
-		Playermesh->CreateIndexBuffer(indexs.data(), (UINT)indexs.size());
-		Fademesh->CreateIndexBuffer(indexs.data(), (UINT)indexs.size());
-
 		constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Transform);
 		constantBuffers[(UINT)eCBType::Transform]->Create(sizeof(TransformCB));
 
@@ -288,6 +360,18 @@ namespace Renderer
 		fadeShader->SetBlend(eBlendType::AlphaBlend);
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"FadeShader", fadeShader);
+
+		// Debug Shader
+		std::shared_ptr<Shader> DebugShader = std::make_shared<Shader>();
+		DebugShader->Create(eShaderStage::VS, L"DebugVS.hlsl", "main");
+		DebugShader->Create(eShaderStage::PS, L"DebugPS.hlsl", "main");
+
+		DebugShader->SetRasterize(eRasterizeType::SolidNone);
+		DebugShader->SetDepthStencil(eDepthStencilType::NoWrite);
+		DebugShader->SetBlend(eBlendType::AlphaBlend);
+
+		DebugShader->SetToplogy(D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_LINESTRIP);
+		ResourceManager::GetInstance()->Insert<Shader>(L"DebugShader", DebugShader);
 	}
 
 	void LoadTexture()
@@ -318,7 +402,7 @@ namespace Renderer
 		spriteMaterial->SetShader(spriteShader);
 		spriteMaterial->SetTexture(spriteTexture);
 		ResourceManager::GetInstance()->Insert<Material>(L"SpriteMaterial", spriteMaterial);
-		
+
 		// Diablo_Walk
 		std::shared_ptr <Texture> DiabloTexture = ResourceManager::GetInstance()->Find<Texture>(L"Diablo2_Town_Idle");
 		std::shared_ptr<Shader> DiabloShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
@@ -352,42 +436,9 @@ namespace Renderer
 
 	void Initialize()
 	{
-		//RECT
-		vertexes[0].pos = Vector4(-0.5f, 0.5f, 0.5f, 1.0f);
-		vertexes[0].color = Vector4(0.f, 1.f, 0.f, 1.f);
-		vertexes[0].uv = Vector2(0.f, 0.f);
-
-		vertexes[1].pos = Vector4(0.5f, 0.5f, 0.5f, 1.0f);
-		vertexes[1].color = Vector4(1.f, 1.f, 1.f, 1.f);
-		vertexes[1].uv = Vector2(1.f, 0.f);
-
-		vertexes[2].pos = Vector4(0.5f, -0.5f, 0.5f, 1.0f);
-		vertexes[2].color = Vector4(1.f, 0.f, 0.f, 1.f);
-		vertexes[2].uv = Vector2(1.f, 1.f);
-
-		vertexes[3].pos = Vector4(-0.5f, -0.5f, 0.5f, 1.0f);
-		vertexes[3].color = Vector4(0.f, 0.f, 1.f, 1.f);
-		vertexes[3].uv = Vector2(0.f, 1.f);
-
-		// Fade
-		FadeInOut[0].pos = Vector4(-1.0f, 1.0f, 0.5f, 1.0f);
-		FadeInOut[0].color = Vector4(0.f, 0.f, 0.f, 0.f);
-		FadeInOut[0].uv = Vector2(0.f, 0.f);
-
-		FadeInOut[1].pos = Vector4(1.0f, 1.0f, 0.5f, 1.0f);
-		FadeInOut[1].color = Vector4(0.f, 0.f, 0.f, 1.f);
-		FadeInOut[1].uv = Vector2(1.f, 0.f);
-
-		FadeInOut[2].pos = Vector4(1.0f, -1.0f, 0.5f, 1.0f);
-		FadeInOut[2].color = Vector4(0.f, 0.f, 0.f, 1.f);
-		FadeInOut[2].uv = Vector2(1.f, 1.f);
-
-		FadeInOut[3].pos = Vector4(-1.0f, -1.0f, 0.5f, 1.0f);
-		FadeInOut[3].color = Vector4(0.f, 0.f, 0.f, 1.f);
-		FadeInOut[3].uv = Vector2(0.f, 1.f);
-
 		LoadShader();
 		SetUpState();
+		LoadMesh();
 		LoadBuffer();
 		LoadTexture();
 		LoadMaterial();

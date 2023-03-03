@@ -11,6 +11,15 @@
     <Filter Include="CEditor">
       <UniqueIdentifier>{5effa216-c21b-4eb9-b69a-895db86a7ea1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="CEditor\DebugObject">
+      <UniqueIdentifier>{b3de12de-bdbc-43fb-863e-480e4dcadd1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CEditor\EditorObject">
+      <UniqueIdentifier>{26bbe5f9-0655-4e0f-8109-cf7c9133fb31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CEditor\Widget">
+      <UniqueIdentifier>{558ef21b-f6a1-481d-b663-8ec6fa2c7b72}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h" />
@@ -19,6 +28,15 @@
     <ClInclude Include="Dx11_Engine.h" />
     <ClInclude Include="CEditor.h">
       <Filter>CEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="CDebugObject.h">
+      <Filter>CEditor\DebugObject</Filter>
+    </ClInclude>
+    <ClInclude Include="CEditorObject.h">
+      <Filter>CEditor\EditorObject</Filter>
+    </ClInclude>
+    <ClInclude Include="CWidget.h">
+      <Filter>CEditor\Widget</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -40,6 +58,15 @@
     </ClCompile>
     <ClCompile Include="CEditor.cpp">
       <Filter>CEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="CDebugObject.cpp">
+      <Filter>CEditor\DebugObject</Filter>
+    </ClCompile>
+    <ClCompile Include="CEditorObject.cpp">
+      <Filter>CEditor\EditorObject</Filter>
+    </ClCompile>
+    <ClCompile Include="CWidget.cpp">
+      <Filter>CEditor\Widget</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

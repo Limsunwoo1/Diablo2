@@ -113,4 +113,15 @@ namespace graphics
 		GpuBuffer() = default;
 		virtual ~GpuBuffer() = default;
 	};
+
+	struct DebugMesh
+	{
+		eColliderType type;
+		Math::Vector3 position;
+		Math::Vector3 rotation;
+		Math::Vector3 scale;
+		float radius;
+		float duration;
+		float time;
+	};
 }

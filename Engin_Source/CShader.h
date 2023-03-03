@@ -25,6 +25,8 @@ public:
 	void SetDepthStencil(eDepthStencilType type) { mDSType = type; }
 	void SetBlend(eBlendType type) { mBLType = type; }
 
+	void SetToplogy(D3D11_PRIMITIVE_TOPOLOGY topology) { mTopology = topology; }
+
 private:
 	ComPtr<ID3D11InputLayout> mInputLayout;
 	D3D11_PRIMITIVE_TOPOLOGY mTopology;

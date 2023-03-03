@@ -132,14 +132,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CDebugObject.h" />
     <ClInclude Include="CEditor.h" />
+    <ClInclude Include="CEditorObject.h" />
+    <ClInclude Include="CWidget.h" />
     <ClInclude Include="Dx11_Engine.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CDebugObject.cpp" />
     <ClCompile Include="CEditor.cpp" />
+    <ClCompile Include="CEditorObject.cpp" />
+    <ClCompile Include="CWidget.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>

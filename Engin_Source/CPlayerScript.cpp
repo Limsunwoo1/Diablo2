@@ -26,7 +26,7 @@ void PlayerScript::Update()
 
 	if (Input::GetInstance()->GetkeyState(eKeyCode::R) == eKeyState::PRESSED)
 	{
-		Rotation.z += 1.0 * Time::GetInstance()->DeltaTime();
+		Rotation.z += 10.0 * Time::GetInstance()->DeltaTime();
 		transform->SetRotation(Rotation);
 	}
 
@@ -41,14 +41,13 @@ void PlayerScript::Update()
 
 	if (Input::GetInstance()->GetkeyState(eKeyCode::D) == eKeyState::PRESSED)
 	{
-		pos.x += 0.1f * Time::GetInstance()->DeltaTime();
+		pos.x += 1.0f * Time::GetInstance()->DeltaTime();
 	}
 	else if (Input::GetInstance()->GetkeyState(eKeyCode::A) == eKeyState::PRESSED)
 	{
 		pos.x -= 1.0f * Time::GetInstance()->DeltaTime();
 	}
 
-	pos.x += 0.1f * Time::GetInstance()->DeltaTime();
 	transform->SetPosition(pos);
 
 

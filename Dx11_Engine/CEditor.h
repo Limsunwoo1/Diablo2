@@ -1,7 +1,8 @@
 #pragma once
-#include "..//Editor_Source/CDebugObject.h"
-#include "..//Editor_Source/CWidget.h"
-#include "..//Editor_Source/CEditorObject.h"
+#include "CDebugObject.h"
+#include "CWidget.h"
+#include "CEditorObject.h"
+#include "..//Engin_Source/Graphics.h"
 
 class Editor
 {
@@ -16,11 +17,11 @@ public:
 	void FixedUpdate();
 	void Render();
 	void Release();
-	void DebugRender();
+	void DebugRender(graphics::DebugMesh& mesh);
 
 private:
 	std::vector<Widget> mWidgets;
 	std::vector<EditorObject> mEditorObjects;
-	std::vector<DebugObject> mDebugObjects;
+	std::vector<DebugObject*> mDebugObjects;
 };
 
