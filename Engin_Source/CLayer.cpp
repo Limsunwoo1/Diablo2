@@ -1,4 +1,6 @@
 #include "CLayer.h"
+#include "CRenderer.h"
+#include "CTransform.h"
 
 Layer::Layer()
 {

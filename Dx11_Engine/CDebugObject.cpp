@@ -1,6 +1,7 @@
 #include "CDebugObject.h"
 
 DebugObject::DebugObject()
+	: GameObject()
 {
 }
 

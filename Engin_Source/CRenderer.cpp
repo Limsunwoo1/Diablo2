@@ -13,6 +13,7 @@ namespace Renderer
 	ComPtr<ID3D11DepthStencilState> Depth_StencilState[(UINT)eDepthStencilType::End] = {};
 	ComPtr<ID3D11BlendState> BlendState[(UINT)eBlendType::End] = {};
 
+	Camera* mainCamera = nullptr;
 	std::vector<Camera*> Cameras[(UINT)eSceneType::End];
 	std::vector<DebugMesh> debugMeshes;
 
@@ -71,6 +72,8 @@ namespace Renderer
 		indexs.push_back(0);
 		indexs.push_back(2);
 		indexs.push_back(3);
+		indexs.push_back(0);
+
 		mesh->CreateIndexBuffer(indexs.data(), (UINT)indexs.size());
 		Fademesh->CreateIndexBuffer(indexs.data(), (UINT)indexs.size());
 
@@ -94,7 +97,7 @@ namespace Renderer
 			(
 				fRadius * cosf(fTheta * (float)i)
 				, fRadius * sinf(fTheta * (float)i)
-				, 0.0f, 1.0f
+				, 0.5f, 1.0f
 			);
 			vtx.color = center.color;
 
@@ -176,6 +179,13 @@ namespace Renderer
 			, fadeShader->GetVSBlobBufferPointer()
 			, fadeShader->GetVSBlobBufferSize()
 			, fadeShader->GetInputLayoutAddressOf());
+
+		std::shared_ptr<Shader> debugShader = ResourceManager::GetInstance()->Find<Shader>(L"DebugShader");
+		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, debugShader->GetVSBlobBufferPointer()
+			, debugShader->GetVSBlobBufferSize()
+			, debugShader->GetInputLayoutAddressOf());
+
 #pragma endregion
 #pragma region Sampler State
 		// »ùÇÃ·¯Ãß°¡
@@ -432,6 +442,13 @@ namespace Renderer
 		std::shared_ptr<Material> FadeMaterial = std::make_shared<Material>();
 		FadeMaterial->SetShader(FadeShader);
 		ResourceManager::GetInstance()->Insert(L"FadeMaterial", FadeMaterial);
+
+		// Debug
+		std::shared_ptr<Shader> debugShader = ResourceManager::GetInstance()->Find<Shader>(L"DebugShader");
+		std::shared_ptr<Material> debugMaterial = std::make_shared<Material>();
+		debugMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		debugMaterial->SetShader(debugShader);
+		ResourceManager::GetInstance()->Insert<Material>(L"DebugMaterial", debugMaterial);
 	}
 
 	void Initialize()

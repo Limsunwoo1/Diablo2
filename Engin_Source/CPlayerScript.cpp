@@ -30,6 +30,33 @@ void PlayerScript::Update()
 		transform->SetRotation(Rotation);
 	}
 
+	if (Input::GetInstance()->GetkeyState(eKeyCode::LEFT) == eKeyState::PRESSED)
+	{
+		Vector3 pos = transform->GetPosition();
+		pos.x -= 6.0f * Time::GetInstance()->DeltaTime();
+		transform->SetPosition(pos);
+	}
+
+	else if (Input::GetInstance()->GetkeyState(eKeyCode::RIGHT) == eKeyState::PRESSED)
+	{
+		Vector3 pos = transform->GetPosition();
+		pos.x += 6.0f * Time::GetInstance()->DeltaTime();
+		transform->SetPosition(pos);
+	}
+
+	if (Input::GetInstance()->GetkeyState(eKeyCode::DOWN) == eKeyState::PRESSED)
+	{
+		Vector3 pos = transform->GetPosition();
+		pos.z -= 6.0f * Time::GetInstance()->DeltaTime();
+		transform->SetPosition(pos);
+	}
+	else if (Input::GetInstance()->GetkeyState(eKeyCode::UP) == eKeyState::PRESSED)
+	{
+		Vector3 pos = transform->GetPosition();
+		pos.z += 6.0f * Time::GetInstance()->DeltaTime();
+		transform->SetPosition(pos);
+	}
+
 	if (Input::GetInstance()->GetkeyState(eKeyCode::W) == eKeyState::PRESSED)
 	{
 		pos.y += 1.0f * Time::GetInstance()->DeltaTime();
@@ -48,11 +75,7 @@ void PlayerScript::Update()
 		pos.x -= 1.0f * Time::GetInstance()->DeltaTime();
 	}
 
-	transform->SetPosition(pos);
-
-
-	
-	
+	//transform->SetPosition(pos);
 }
 
 void PlayerScript::FixedUpdate()

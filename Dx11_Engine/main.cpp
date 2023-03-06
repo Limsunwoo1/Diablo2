@@ -123,6 +123,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
 
     Application.Release();
+    _Editor.Release();
     return (int) msg.wParam;
 }
 
@@ -178,6 +179,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    Application.SetWindow(hWnd, 1600, 900);
    Application.Initalize();
+   _Editor.Initalize();
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 

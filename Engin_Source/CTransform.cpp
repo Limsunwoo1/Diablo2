@@ -75,8 +75,8 @@ void Transform::SetConstantBuffer()
 {
 	Renderer::TransformCB trCb = {};
 	trCb.world = mWorld;
-	trCb.view = Camera::GetViewMatrix();
-	trCb.projection = Camera::GetProejctionMatrix();
+	trCb.view = Camera::GetGpuViewMatrix();
+	trCb.projection = Camera::GetGpuProejctionMatrix();
 	// 
 
 	ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::Transform];

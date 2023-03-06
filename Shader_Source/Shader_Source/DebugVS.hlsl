@@ -8,5 +8,5 @@ float4 main( float4 pos : POSITION ) : SV_POSITION
     float4 ProPosition = mul(viewPosition, projection);
     
     
-	return pos;
+    return ProPosition;
 }
