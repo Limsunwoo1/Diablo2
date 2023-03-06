@@ -73,6 +73,8 @@ void Editor::Update()
 
 void Editor::FixedUpdate()
 {
+	Renderer::debugMeshes.clear();
+
 	for (EditorObject* obj : mEditorObjects)
 	{
 		if (!obj)
@@ -92,7 +94,7 @@ void Editor::Render()
 		obj->Render();
 	}
 
-	for (DebugObject* obj : mDebugObjects)
+	/*for (DebugObject* obj : mDebugObjects)
 	{
 		if (!obj)
 			continue;
@@ -106,7 +108,7 @@ void Editor::Render()
 			continue;
 
 		obj->Render();
-	}
+	}*/
 }
 
 void Editor::Release()

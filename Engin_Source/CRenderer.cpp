@@ -380,7 +380,7 @@ namespace Renderer
 		DebugShader->SetDepthStencil(eDepthStencilType::NoWrite);
 		DebugShader->SetBlend(eBlendType::AlphaBlend);
 
-		DebugShader->SetToplogy(D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_LINESTRIP);
+		DebugShader->SetToplogy(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 		ResourceManager::GetInstance()->Insert<Shader>(L"DebugShader", DebugShader);
 	}
 

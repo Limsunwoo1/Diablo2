@@ -16,14 +16,13 @@ PlayScene::~PlayScene()
 
 void PlayScene::Initalize()
 {
-	Scene::Initalize();
-
 	GameObject* cameraObj = Object::Instantiate<GameObject>(eLayerType::Camera, this);
 	Camera* cameraComp = cameraObj->AddComponent<Camera>();
 	//cameraComp->RegisterCameraInRenderer();
 	cameraComp->TurnLayerMask(eLayerType::UI, false);
 	cameraObj->AddComponent<CameraScript>();
 
+	Scene::Initalize();
 }
 
 void PlayScene::Update()

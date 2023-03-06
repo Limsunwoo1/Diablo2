@@ -77,7 +77,7 @@ void TitleScene::Initalize()
 	collider->SetType(eColliderType::Rect);
 
 	MeshRenderer* mr = obj->AddComponent<MeshRenderer>();
-	std::shared_ptr<Material> mateiral = ResourceManager::GetInstance()->Find<Material>(L"DebugMaterial");
+	std::shared_ptr<Material> mateiral = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
 	mr->SetMaterial(mateiral);
 	std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
 	mr->SetMesh(mesh);
