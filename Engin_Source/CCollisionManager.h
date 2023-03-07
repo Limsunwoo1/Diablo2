@@ -13,9 +13,9 @@ union ColliderID
 	UINT64 id;
 };
 
-class CCollisionManager
+class CollisionManager
 {
-	SINGLE(CCollisionManager);
+	SINGLE(CollisionManager);
 public:
 	void Initalize();
 	void Update();
@@ -26,6 +26,8 @@ public:
 	void LayerCollision(class Scene* scene, eLayerType left, eLayerType right);
 	void ColliderCollision(class Collider2D* left, Collider2D* right);
 	bool Intersect(Collider2D* left, Collider2D* right);
+	bool Rect_VS_Rect(Collider2D* left, Collider2D* right);
+	bool Circle_VS_Circle(Collider2D* left, Collider2D* right);
 
 private:
 	bitset<(UINT)eLayerType::End> mLayerCollisionMatrix[(UINT)eLayerType::End];

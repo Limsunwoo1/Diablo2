@@ -1,23 +1,24 @@
 #include "CCollisionManager.h"
 #include "CSceneManager.h"
 #include "CCollider2D.h"
+#include "CTransform.h"
 
-CCollisionManager::CCollisionManager()
+CollisionManager::CollisionManager()
 {
 
 }
 
-CCollisionManager::~CCollisionManager()
+CollisionManager::~CollisionManager()
 {
 
 }
 
-void CCollisionManager::Initalize()
+void CollisionManager::Initalize()
 {
 
 }
 
-void CCollisionManager::Update()
+void CollisionManager::Update()
 {
 	Scene* scene = SceneManager::GetInstance()->GetActiveScene();
 	for (UINT row = 0; row < (UINT)eLayerType::End; ++row)
@@ -33,15 +34,15 @@ void CCollisionManager::Update()
 	}
 }
 
-void CCollisionManager::FixedUpdate()
+void CollisionManager::FixedUpdate()
 {
 }
 
-void CCollisionManager::Render()
+void CollisionManager::Render()
 {
 }
 
-void CCollisionManager::CollisionlayerCheck(eLayerType left, eLayerType right, bool enable)
+void CollisionManager::CollisionlayerCheck(eLayerType left, eLayerType right, bool enable)
 {
 	int row = 0;
 	int col = 0;
@@ -60,7 +61,7 @@ void CCollisionManager::CollisionlayerCheck(eLayerType left, eLayerType right, b
 	mLayerCollisionMatrix[row][col] = enable;
 }
 
-void CCollisionManager::LayerCollision(Scene* scene, eLayerType left, eLayerType right)
+void CollisionManager::LayerCollision(Scene* scene, eLayerType left, eLayerType right)
 {
 	const std::vector<GameObject*>& lefts = scene->GetGameObject(left);
 	const std::vector<GameObject*>& rights = scene->GetGameObject(right);
@@ -78,7 +79,7 @@ void CCollisionManager::LayerCollision(Scene* scene, eLayerType left, eLayerType
 				continue;
 			if (right->GetComponent<Collider2D>() == nullptr)
 				continue;
-			if (left = right)
+			if (left == right)
 				continue;
 
 			ColliderCollision(left->GetComponent<Collider2D>(), right->GetComponent<Collider2D>());
@@ -86,12 +87,12 @@ void CCollisionManager::LayerCollision(Scene* scene, eLayerType left, eLayerType
 	}
 }
 
-void CCollisionManager::ColliderCollision(Collider2D* left, Collider2D* right)
+void CollisionManager::ColliderCollision(Collider2D* left, Collider2D* right)
 {
 	// 두 충돌체의 레이어로 구성된 ID 확인
 	ColliderID colliderID;
-	colliderID.left = (UINT)left;
-	colliderID.right = (UINT)right;
+	colliderID.left = (UINT)left->GetID();
+	colliderID.right = (UINT)right->GetID();
 
 	// 이전 충돌정보를 검색한다
 	// 만약 충돌정보가 없는 상태라면
@@ -154,7 +155,87 @@ void CCollisionManager::ColliderCollision(Collider2D* left, Collider2D* right)
 	}
 }
 
-bool CCollisionManager::Intersect(Collider2D* left, Collider2D* right)
+bool CollisionManager::Intersect(Collider2D* left, Collider2D* right)
 {
+	eColliderType leftType = left->GetType();
+	eColliderType rightType = right->GetType();
+
+	if (leftType == eColliderType::Rect && rightType == eColliderType::Rect)
+		return Rect_VS_Rect(left, right);
+	else if (leftType == eColliderType::Circle && rightType == eColliderType::Circle)
+		return Circle_VS_Circle(left, right);
+	
+	return false;
+}
+
+bool CollisionManager::Rect_VS_Rect(Collider2D* left, Collider2D* right)
+{
+	// Rect vs Rect
+
+	// 0 ----- 1
+	// l       l
+	// 3 ----- 2
+	static const Vector3 arrLocalPos[4] =
+	{
+		Vector3{-0.5f, 0.5f, 0.0f}
+		,Vector3{0.5f, 0.5f, 0.0f}
+		,Vector3{0.5f, -0.5f, 0.0f}
+		,Vector3{-0.5f, -0.5f, 0.0f}
+	};
+
+	Transform* leftTransform = left->GetOwner()->GetComponent<Transform>();
+	Transform* rightTransform = right->GetOwner()->GetComponent<Transform>();
+
+	Matrix leftMatrix = leftTransform->GetWorldMatrix();
+	Matrix rightMatrix = rightTransform->GetWorldMatrix();
+
+	// 분리축 벡터 ( 투영 벡터 )
+	Vector3 Axis[4] = {};
+	Axis[0] = Vector3::Transform(arrLocalPos[1], leftMatrix);
+	Axis[1] = Vector3::Transform(arrLocalPos[3], leftMatrix);
+	Axis[2] = Vector3::Transform(arrLocalPos[1], rightMatrix);
+	Axis[3] = Vector3::Transform(arrLocalPos[3], rightMatrix);
+
+	Axis[0] -= Vector3::Transform(arrLocalPos[0], leftMatrix);
+	Axis[1] -= Vector3::Transform(arrLocalPos[0], leftMatrix);
+	Axis[2] -= Vector3::Transform(arrLocalPos[0], rightMatrix);
+	Axis[3] -= Vector3::Transform(arrLocalPos[0], rightMatrix);
+
+	for (int i = 0; i < 4; ++i)
+	{
+		Axis[i].z = 0.0f; // z 값 초기화
+	}
+
+	Vector3 vc = left->GetPosition() - right->GetPosition();
+	vc.z = 0.0f;
+
+	Vector3 centerDir = vc;
+	for (int i = 0; i < 4; ++i)
+	{
+		Vector3 vA = Axis[i];
+		vA.Normalize();
+
+		float projDist = 0.0f;
+		for (int j = 0; j < 4; ++j)
+		{
+			projDist += fabsf(Axis[j].Dot(vA) * 0.5f);
+		}
+
+		if (projDist < fabsf(centerDir.Dot(vA)))
+			return false;
+	}
+	return true;
+}
+
+bool CollisionManager::Circle_VS_Circle(Collider2D* left, Collider2D* right)
+{
+	Transform* leftTransform = left->GetOwner()->GetComponent<Transform>();
+	Transform* rightTransform = right->GetOwner()->GetComponent<Transform>();
+
+	Vector3 leftPos = left->GetPosition();
+	Vector3 rightPos = right->GetPosition();
+
+	
+
 	return true;
 }

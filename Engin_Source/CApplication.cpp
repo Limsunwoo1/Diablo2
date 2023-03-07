@@ -4,6 +4,7 @@
 #include "CInput.h"
 #include "CSceneManager.h"
 #include "CResourceManager.h"
+#include "CCollisionManager.h"
 
 using namespace graphics;
 
@@ -24,7 +25,7 @@ void CApplication::Initalize()
 {
 	Time::GetInstance()->Initialize();
 	Input::GetInstance()->Initialize();
-
+	CollisionManager::GetInstance()->Initalize();
 	Renderer::Initialize();
 	SceneManager::GetInstance()->Initalize();
 }
@@ -35,13 +36,14 @@ void CApplication::Update()
 {
 	Time::GetInstance()->Update();
 	Input::GetInstance()->Update();
-
+	CollisionManager::GetInstance()->Update();
 	SceneManager::GetInstance()->Update();
 }
 
 // GPU update
 void CApplication::FixedUpdate()
 {
+	CollisionManager::GetInstance()->FixedUpdate();
 	SceneManager::GetInstance()->FixedUpdate();
 }
 
@@ -79,6 +81,7 @@ void CApplication::Release()
 	Time::GetInstance()->DestroyInstance();
 	Input::GetInstance()->DestroyInstance();
 	SceneManager::GetInstance()->DestroyInstance();
+	CollisionManager::GetInstance()->DestroyInstance();
 	ResourceManager::GetInstance()->DestroyInstance();
 }
 

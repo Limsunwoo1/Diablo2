@@ -3,6 +3,7 @@
 #include "CGameObject.h"
 #include "CRenderer.h"
 
+UINT Collider2D::ColliderNumber = 0;
 
 Collider2D::Collider2D()
 	: Component(eComponentType::Collider)
@@ -11,8 +12,9 @@ Collider2D::Collider2D()
 	, mSize(Vector2::One)
 	, mCenter(Vector2::Zero)
 	, mbTrigger(false)
+	, mID(0)
 {
-	
+	mID = ColliderNumber++;
 }
 
 Collider2D::~Collider2D()
@@ -39,6 +41,7 @@ void Collider2D::FixedUpdate()
 
 	Vector3 position = mTransform->GetPosition();
 	Vector3 colliderPos = position + Vector3(mCenter.x, mCenter.y, 0.0f);
+	mPosition = colliderPos;
 
 	Matrix scaleMatrix = Matrix::CreateScale(scale);
 	Matrix rotationMatrix;
@@ -53,7 +56,7 @@ void Collider2D::FixedUpdate()
 
 	DebugMesh meshAttricbute = {};
 	meshAttricbute.position = Vector3(colliderPos.x, colliderPos.y, colliderPos.z);
-	meshAttricbute.radius = 1.0f;
+	meshAttricbute.radius = mSize.x;
 	meshAttricbute.rotation = rotation;
 	meshAttricbute.scale = scale;
 	meshAttricbute.type = mType;
