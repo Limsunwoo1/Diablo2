@@ -30,6 +30,7 @@ Camera::~Camera()
 
 void Camera::Initalize()
 {
+	RegisterCameraInRenderer();
 }
 
 void Camera::Update()

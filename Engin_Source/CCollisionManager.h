@@ -1,5 +1,33 @@
 #pragma once
-class CCollisionManager
+#include "CEngine.h"
+
+using namespace std;
+
+union ColliderID
 {
+	struct
+	{
+		UINT32 left;
+		UINT32 right;
+	};
+	UINT64 id;
 };
 
+class CCollisionManager
+{
+	SINGLE(CCollisionManager);
+public:
+	void Initalize();
+	void Update();
+	void FixedUpdate();
+	void Render();
+
+	void CollisionlayerCheck(eLayerType left, eLayerType right, bool enable = true);
+	void LayerCollision(class Scene* scene, eLayerType left, eLayerType right);
+	void ColliderCollision(class Collider2D* left, Collider2D* right);
+	bool Intersect(Collider2D* left, Collider2D* right);
+
+private:
+	bitset<(UINT)eLayerType::End> mLayerCollisionMatrix[(UINT)eLayerType::End];
+	map<UINT64, bool> mCollisionMap;
+};

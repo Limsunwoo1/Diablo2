@@ -29,7 +29,7 @@ public:
 
 		if (order == eComponentType::Script)
 		{
-			mScripts.push_back(component);
+			mScripts.push_back(dynamic_cast<Script*>(component));
 			component->SetOwner(this);
 		}
 		else
@@ -57,6 +57,8 @@ public:
 		return nullptr;
 	}
 
+	const std::vector<Script*>& GetScripts() { return mScripts; }
+
 	bool IsDead()
 	{
 		if (mState == eState::dead)
@@ -80,7 +82,7 @@ protected:
 private:
 	eState mState;
 	eLayerType mType;
-	std::vector<Component*> mScripts;
+	std::vector<Script*> mScripts;
 	bool mbDontDestroy;
 };
 

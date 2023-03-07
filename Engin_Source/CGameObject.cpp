@@ -113,7 +113,7 @@ void GameObject::AddComponent(Component* comp)
 
 	if (order == eComponentType::Script)
 	{
-		mScripts.push_back(comp);
+		mScripts.push_back(dynamic_cast<Script*>(comp));
 		comp->SetOwner(this);
 		return;
 	}

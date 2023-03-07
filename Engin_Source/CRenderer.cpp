@@ -20,36 +20,36 @@ namespace Renderer
 	void LoadMesh()
 	{
 		//RECT
-		vertexes[0].pos = Vector4(-0.5f, 0.5f, 0.5f, 1.0f);
+		vertexes[0].pos = Vector4(-0.5f, 0.5f, 0.0f, 1.0f);
 		vertexes[0].color = Vector4(0.f, 1.f, 0.f, 1.f);
 		vertexes[0].uv = Vector2(0.f, 0.f);
 
-		vertexes[1].pos = Vector4(0.5f, 0.5f, 0.5f, 1.0f);
+		vertexes[1].pos = Vector4(0.5f, 0.5f, 0.0f, 1.0f);
 		vertexes[1].color = Vector4(1.f, 1.f, 1.f, 1.f);
 		vertexes[1].uv = Vector2(1.f, 0.f);
 
-		vertexes[2].pos = Vector4(0.5f, -0.5f, 0.5f, 1.0f);
+		vertexes[2].pos = Vector4(0.5f, -0.5f, 0.0f, 1.0f);
 		vertexes[2].color = Vector4(1.f, 0.f, 0.f, 1.f);
 		vertexes[2].uv = Vector2(1.f, 1.f);
 
-		vertexes[3].pos = Vector4(-0.5f, -0.5f, 0.5f, 1.0f);
+		vertexes[3].pos = Vector4(-0.5f, -0.5f, 0.0f, 1.0f);
 		vertexes[3].color = Vector4(0.f, 0.f, 1.f, 1.f);
 		vertexes[3].uv = Vector2(0.f, 1.f);
 
 		// Fade
-		FadeInOut[0].pos = Vector4(-1.0f, 1.0f, 0.5f, 1.0f);
+		FadeInOut[0].pos = Vector4(-1.0f, 1.0f, 0.0f, 1.0f);
 		FadeInOut[0].color = Vector4(0.f, 0.f, 0.f, 0.f);
 		FadeInOut[0].uv = Vector2(0.f, 0.f);
 
-		FadeInOut[1].pos = Vector4(1.0f, 1.0f, 0.5f, 1.0f);
+		FadeInOut[1].pos = Vector4(1.0f, 1.0f, 0.0f, 1.0f);
 		FadeInOut[1].color = Vector4(0.f, 0.f, 0.f, 1.f);
 		FadeInOut[1].uv = Vector2(1.f, 0.f);
 
-		FadeInOut[2].pos = Vector4(1.0f, -1.0f, 0.5f, 1.0f);
+		FadeInOut[2].pos = Vector4(1.0f, -1.0f, 0.0f, 1.0f);
 		FadeInOut[2].color = Vector4(0.f, 0.f, 0.f, 1.f);
 		FadeInOut[2].uv = Vector2(1.f, 1.f);
 
-		FadeInOut[3].pos = Vector4(-1.0f, -1.0f, 0.5f, 1.0f);
+		FadeInOut[3].pos = Vector4(-1.0f, -1.0f, 0.0f, 1.0f);
 		FadeInOut[3].color = Vector4(0.f, 0.f, 0.f, 1.f);
 		FadeInOut[3].uv = Vector2(0.f, 1.f);
 
@@ -77,16 +77,38 @@ namespace Renderer
 		mesh->CreateIndexBuffer(indexs.data(), (UINT)indexs.size());
 		Fademesh->CreateIndexBuffer(indexs.data(), (UINT)indexs.size());
 
+		// Debug
+		vertexes[0].pos = Vector4(-0.5f, 0.5f, -0.00001f, 1.0f);
+		vertexes[0].color = Vector4(0.f, 1.f, 0.f, 1.f);
+		vertexes[0].uv = Vector2(0.f, 0.f);
+
+		vertexes[1].pos = Vector4(0.5f, 0.5f, -0.00001f, 1.0f);
+		vertexes[1].color = Vector4(1.f, 1.f, 1.f, 1.f);
+		vertexes[1].uv = Vector2(1.f, 0.f);
+
+		vertexes[2].pos = Vector4(0.5f, -0.5f, -0.00001f, 1.0f);
+		vertexes[2].color = Vector4(1.f, 0.f, 0.f, 1.f);
+		vertexes[2].uv = Vector2(1.f, 1.f);
+
+		vertexes[3].pos = Vector4(-0.5f, -0.5f, -0.00001f, 1.0f);
+		vertexes[3].color = Vector4(0.f, 0.f, 1.f, 1.f);
+		vertexes[3].uv = Vector2(0.f, 1.f);
+
+		std::shared_ptr<Mesh> DebugMesh = std::make_shared<Mesh>();
+		ResourceManager::GetInstance()->Insert<Mesh>(L"DebugRectMesh", DebugMesh);
+		DebugMesh->CreateVertexBuffer(vertexes, 4);
+		DebugMesh->CreateIndexBuffer(indexs.data(), indexs.size());
+
 		// Circle Mesh
 		std::vector<Vertex> circleVertex;
 		Vertex center = {};
-		center.pos = Vector4(0.0f, 0.0f, 0.0f, 1.0f);
+		center.pos = Vector4(0.0f, 0.0f, -0.00001f, 1.0f);
 		center.color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 		center.uv = Vector2::Zero;
 
 		circleVertex.push_back(center);
 
-		int iSlice = 40;
+		int iSlice = 80;
 		float fRadius = 0.5f;
 		float fTheta = XM_2PI / (float)iSlice;
 
@@ -97,13 +119,14 @@ namespace Renderer
 			(
 				fRadius * cosf(fTheta * (float)i)
 				, fRadius * sinf(fTheta * (float)i)
-				, 0.5f, 1.0f
+				, -0.00001f, 1.0f
 			);
 			vtx.color = center.color;
 
 			circleVertex.push_back(vtx);
 		}
 		indexs.clear();
+
 		for (int i = 0; i < iSlice - 2; i++)
 		{
 			indexs.push_back(i + 1);

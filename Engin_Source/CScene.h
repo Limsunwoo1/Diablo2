@@ -20,6 +20,7 @@ public:
 	void AddGameObject(GameObject* gameObj, const eLayerType type);
 	Layer& GetLayer(eLayerType type) { return mLayers[(UINT)type]; }
 	std::vector<GameObject*> GetDontDestroyObjects();
+	const std::vector<GameObject*>& GetGameObject(const eLayerType type);
 	eSceneType GetScenType() { return mType; }
 private:
 	std::vector<Layer> mLayers;

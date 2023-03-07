@@ -21,11 +21,11 @@ public:
 	void* GetVSBlobBufferPointer() { return mVSBlob->GetBufferPointer(); }
 	SIZE_T GetVSBlobBufferSize() { return mVSBlob->GetBufferSize(); }
 
-	void SetRasterize(eRasterizeType type) { mRSType = type; }
-	void SetDepthStencil(eDepthStencilType type) { mDSType = type; }
-	void SetBlend(eBlendType type) { mBLType = type; }
-
 	void SetToplogy(D3D11_PRIMITIVE_TOPOLOGY topology) { mTopology = topology; }
+	void SetRasterize(eRasterizeType type)			{ mRSType = type; }
+	void SetDepthStencil(eDepthStencilType type)	{ mDSType = type; }
+	void SetBlend(eBlendType type)					{ mBLType = type; }
+
 
 private:
 	ComPtr<ID3D11InputLayout> mInputLayout;

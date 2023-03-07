@@ -68,3 +68,8 @@ std::vector<GameObject*> Scene::GetDontDestroyObjects()
 
 	return gameObjects;
 }
+
+const std::vector<GameObject*>& Scene::GetGameObject(const eLayerType type)
+{
+	return mLayers[(UINT)type].GetGameObjects();
+}

@@ -60,7 +60,7 @@ namespace Renderer
 	extern ComPtr<ID3D11DepthStencilState> Depth_StencilState[];
 	extern ComPtr<ID3D11BlendState> BlendState[];
 
-	extern std::vector<Camera*> Cameras[(UINT)eSceneType::End];
+	extern std::vector<Camera*> Cameras[];
 	extern std::vector<DebugMesh> debugMeshes;
 
 	extern Camera* mainCamera;

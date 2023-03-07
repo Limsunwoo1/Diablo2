@@ -21,12 +21,10 @@ void Editor::Initalize()
 	mDebugObjects.resize((UINT)eColliderType::End);
 
 	// Rect
-	std::shared_ptr<Mesh> rectMesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+	std::shared_ptr<Mesh> rectMesh = ResourceManager::GetInstance()->Find<Mesh>(L"DebugRectMesh");
 	std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"DebugMaterial");
 
 	mDebugObjects[(UINT)eColliderType::Rect] = new DebugObject();
-	mDebugObjects[(UINT)eColliderType::Rect]->AddComponent<Transform>();
-
 	MeshRenderer* meshRenderer = mDebugObjects[(UINT)eColliderType::Rect]->AddComponent<MeshRenderer>();
 	meshRenderer->SetMesh(rectMesh);
 	meshRenderer->SetMaterial(material);
@@ -35,9 +33,8 @@ void Editor::Initalize()
 	std::shared_ptr<Mesh> circleMesh = ResourceManager::GetInstance()->Find<Mesh>(L"CircleMesh");
 
 	mDebugObjects[(UINT)eColliderType::Circle] = new DebugObject();
-	mDebugObjects[(UINT)eColliderType::Circle]->AddComponent<Transform>();
 
-	MeshRenderer* circleRenderer = mDebugObjects[(UINT)eColliderType::Rect]->AddComponent<MeshRenderer>();
+	MeshRenderer* circleRenderer = mDebugObjects[(UINT)eColliderType::Circle]->AddComponent<MeshRenderer>();
 	circleRenderer->SetMesh(circleMesh);
 	circleRenderer->SetMaterial(material);
 	
@@ -46,7 +43,7 @@ void Editor::Initalize()
 	EditorObject* girdObject = new EditorObject();
 	MeshRenderer* gridMr = girdObject->AddComponent<MeshRenderer>();
 	gridMr->SetMesh(ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh"));
-	gridMr->SetMaterial(ResourceManager::GetInstance()->Find<Material>(L"DebugMaterial"));
+	gridMr->SetMaterial(ResourceManager::GetInstance()->Find<Material>(L"GridMaterial"));
 	GridScript* gridScript = girdObject->AddComponent<GridScript>();
 	gridScript->SetCamera(Renderer::mainCamera);
 
@@ -73,8 +70,6 @@ void Editor::Update()
 
 void Editor::FixedUpdate()
 {
-	Renderer::debugMeshes.clear();
-
 	for (EditorObject* obj : mEditorObjects)
 	{
 		if (!obj)
@@ -94,35 +89,18 @@ void Editor::Render()
 		obj->Render();
 	}
 
-	/*for (DebugObject* obj : mDebugObjects)
+	for (DebugMesh& mesh : Renderer::debugMeshes)
 	{
-		if (!obj)
-			continue;
 
-		obj->Render();
+		DebugRender(mesh);
 	}
 
-	for (Widget* obj : mWidgets)
-	{
-		if (!obj)
-			continue;
-
-		obj->Render();
-	}*/
+	Renderer::debugMeshes.clear();
 }
 
 void Editor::Release()
 {
 	for (auto* obj : mWidgets)
-	{
-		if (!obj)
-			continue;
-
-		delete obj;
-		obj = nullptr;
-	}
-
-	for (auto* obj : mDebugObjects)
 	{
 		if (!obj)
 			continue;
@@ -139,6 +117,9 @@ void Editor::Release()
 		delete obj;
 		obj = nullptr;
 	}
+
+	delete mDebugObjects[(UINT)eColliderType::Rect];
+	delete mDebugObjects[(UINT)eColliderType::Circle];
 }
 
 void Editor::DebugRender(graphics::DebugMesh& mesh)
