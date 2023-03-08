@@ -1,11 +1,12 @@
 #pragma once
 #include "CScript.h"
 
+using namespace Math;
 class PlayerScript : public Script
 {
 public:
 	PlayerScript();
-	~PlayerScript();
+	virtual ~PlayerScript();
 
 	virtual void Initalize() override;
 	virtual void Update() override;
@@ -14,6 +15,7 @@ public:
 
 	
 private:
-
+	Vector3 mArrivePos;
+	bool mbRun;
 };
 

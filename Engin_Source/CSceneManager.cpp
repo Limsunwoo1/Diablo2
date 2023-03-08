@@ -1,6 +1,7 @@
 #include "CSceneManager.h"
 #include "CTitleScene.h"
 #include "CPlayScene.h"
+#include "CEnddingScene.h"
 
 SceneManager::SceneManager()
 	: mActiveScene(nullptr)
@@ -18,6 +19,7 @@ void SceneManager::Initalize()
 
 	mScenes[(UINT)eSceneType::Title] = new TitleScene();
 	mScenes[(UINT)eSceneType::Play] = new PlayScene();
+	mScenes[(UINT)eSceneType::Endding] = new EnddingScene();
 
 	mActiveScene = mScenes[(UINT)eSceneType::Title];
 

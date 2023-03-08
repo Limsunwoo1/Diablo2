@@ -103,6 +103,18 @@
     <Filter Include="Component\Collider\CollisionManager">
       <UniqueIdentifier>{f6372125-3003-48f1-95cc-3bb3fdcdc101}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\Endding">
+      <UniqueIdentifier>{4f8f4121-2f61-4db4-b9b2-bc0ad185ea68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Player">
+      <UniqueIdentifier>{32e8fb5f-d7cd-46bc-a97a-820af09abe78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Monster">
+      <UniqueIdentifier>{fa13cf5a-ca24-47f2-810d-4d48d89c3fb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Tile">
+      <UniqueIdentifier>{88de094b-8ce4-4d6b-b79f-c99c7cf4aca6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -209,6 +221,18 @@
     </ClCompile>
     <ClCompile Include="CCollider2D.cpp">
       <Filter>Component\Collider\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="CEnddingScene.cpp">
+      <Filter>Scene\Endding</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayer.cpp">
+      <Filter>GameObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonster.cpp">
+      <Filter>GameObject\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CTile.cpp">
+      <Filter>GameObject\Tile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -334,6 +358,18 @@
     </ClInclude>
     <ClInclude Include="CCollider2D.h">
       <Filter>Component\Collider\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="CEnddingScene.h">
+      <Filter>Scene\Endding</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonster.h">
+      <Filter>GameObject\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayer.h">
+      <Filter>GameObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CTile.h">
+      <Filter>GameObject\Tile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

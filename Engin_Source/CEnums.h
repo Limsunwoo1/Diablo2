@@ -4,6 +4,7 @@ enum class eSceneType
 {
 	Title,
 	Play,
+	Endding,
 	End,
 };
 

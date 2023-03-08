@@ -6,6 +6,8 @@
 
 PlayerScript::PlayerScript()
 	: Script()
+	, mArrivePos(Vector3::Zero)
+	, mbRun(false)
 {
 }
 
@@ -24,7 +26,27 @@ void PlayerScript::Update()
 	Vector3 pos = transform->GetPosition();
 	Vector3 Rotation = transform->GetRotation();
 
-	if (Input::GetInstance()->GetkeyState(eKeyCode::R) == eKeyState::PRESSED)
+	if (Input::GetInstance()->GetKeyDown(eKeyCode::RBTN))
+	{
+		Vector2 mousePos = Input::GetInstance()->GetMousePos();
+		mArrivePos = Vector3(mousePos.x, mousePos.y, 1.0f);
+		mbRun = true;
+	}
+
+	if (!mbRun)
+		return;
+
+	Vector3 vec = mArrivePos - pos;
+	vec.z = 0.0f;
+
+	if (vec.x <= 1.0f && vec.y <= 1.0f)
+		mbRun = false;
+
+	vec.Normalize();
+	pos += vec * Time::GetInstance()->DeltaTime();
+
+	transform->SetPosition(pos);
+	/*if (Input::GetInstance()->GetkeyState(eKeyCode::R) == eKeyState::PRESSED)
 	{
 		Rotation.z += 10.0 * Time::GetInstance()->DeltaTime();
 		transform->SetRotation(Rotation);
@@ -73,7 +95,7 @@ void PlayerScript::Update()
 	else if (Input::GetInstance()->GetkeyState(eKeyCode::A) == eKeyState::PRESSED)
 	{
 		pos.x -= 1.0f * Time::GetInstance()->DeltaTime();
-	}
+	}*/
 
 	//transform->SetPosition(pos);
 }
