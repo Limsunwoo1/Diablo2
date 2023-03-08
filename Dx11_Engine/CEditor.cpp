@@ -134,16 +134,15 @@ void Editor::DebugRender(graphics::DebugMesh& mesh)
 	if (mesh.type == eColliderType::Rect)
 		tr->SetScale(mesh.scale);
 	else if(mesh.type == eColliderType::Circle)
-		tr->SetScale(mesh.scale / 2.0f);
+		tr->SetScale(mesh.scale);
 
-	tr->SetScale(mesh.scale);
 
 	BaseRenderer* renderer = debugObj->GetComponent<BaseRenderer>();
-	Camera* camera = Renderer::mainCamera;
 
 	tr->FixedUpdate();
 
-	GpuCameraMatrix(Renderer::mainCamera);
+	Camera* camera = Renderer::mainCamera;
+	GpuCameraMatrix(camera);
 
 	debugObj->Render();
 }
