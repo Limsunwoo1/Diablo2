@@ -76,7 +76,8 @@ void TitleScene::Initalize()
 		/*tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
 		tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));*/
 		Collider2D* collider = obj->AddComponent<Collider2D>();
-		collider->SetType(eColliderType::Rect);
+		collider->SetType(eColliderType::Circle);
+		collider->SetSize(Vector2(1.0f, 1.0f));
 
 		MeshRenderer* mr = obj->AddComponent<MeshRenderer>();
 		std::shared_ptr<Material> mateiral = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
@@ -96,7 +97,7 @@ void TitleScene::Initalize()
 		/*tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
 		tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));*/
 		Collider2D* collider = obj->AddComponent<Collider2D>();
-		collider->SetType(eColliderType::Rect);
+		collider->SetType(eColliderType::Circle);
 		collider->SetSize(Vector2(1.0f, 1.0f));
 
 		MeshRenderer* mr = obj->AddComponent<MeshRenderer>();

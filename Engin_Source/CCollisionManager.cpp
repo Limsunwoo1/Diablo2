@@ -3,6 +3,8 @@
 #include "CCollider2D.h"
 #include "CTransform.h"
 
+#include <iostream>
+
 CollisionManager::CollisionManager()
 {
 
@@ -235,11 +237,22 @@ bool CollisionManager::Circle_VS_Circle(Collider2D* left, Collider2D* right)
 	Vector3 leftPos = left->GetPosition();
 	Vector3 rightPos = right->GetPosition();
 
-	Vector3 vect = leftPos - rightPos;
+	Vector2 leftScale = left->GetSize();
+	Vector2 rightScale = right->GetSize();
 
-	float len = vect.Length();
+	Vector3 vect = leftPos - rightPos;
+	vect.z = 0.0f;
+
+	float dist = vect.Length();
+
+	float len = sqrt((vect.x * vect.x) + (vect.y + vect.y));
+
+	float sum = leftScale.x / 2.0f + rightScale.x / 2.0f;
+
+	if (dist <= sum)
+		return true;
+	else
+		return false;
 
 	
-
-	return true;
 }

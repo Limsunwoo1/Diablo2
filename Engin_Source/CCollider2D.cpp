@@ -56,7 +56,7 @@ void Collider2D::FixedUpdate()
 
 	DebugMesh meshAttricbute = {};
 	meshAttricbute.position = Vector3(colliderPos.x, colliderPos.y, colliderPos.z);
-	meshAttricbute.radius = mSize.x;
+	meshAttricbute.radius = mSize.x / 2.0f;
 	meshAttricbute.rotation = rotation;
 	meshAttricbute.scale = scale;
 	meshAttricbute.type = mType;

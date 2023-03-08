@@ -4,6 +4,7 @@
 #include "CEditorObject.h"
 #include "..//Engin_Source/Graphics.h"
 
+class Camera;
 class Editor
 {
 public:

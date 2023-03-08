@@ -28,6 +28,8 @@ public:
 	eColliderType GetType() { return mType; }
 
 	void SetSize(Vector2 size) { mSize = size; }
+	Vector2 GetSize() { return mSize; }
+
 	void SetCenter(Vector2 center) { mCenter = center; }
 	bool IsTrigger() { return mbTrigger; }
 
