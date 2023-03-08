@@ -164,7 +164,7 @@ bool CollisionManager::Intersect(Collider2D* left, Collider2D* right)
 		return Rect_VS_Rect(left, right);
 	else if (leftType == eColliderType::Circle && rightType == eColliderType::Circle)
 		return Circle_VS_Circle(left, right);
-	
+
 	return false;
 }
 
@@ -234,6 +234,10 @@ bool CollisionManager::Circle_VS_Circle(Collider2D* left, Collider2D* right)
 
 	Vector3 leftPos = left->GetPosition();
 	Vector3 rightPos = right->GetPosition();
+
+	Vector3 vect = leftPos - rightPos;
+
+	float len = vect.Length();
 
 	
 

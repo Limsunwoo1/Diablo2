@@ -19,6 +19,7 @@ public:
 	void Release();
 	void DebugRender(graphics::DebugMesh& mesh);
 
+	void GpuCameraMatrix(Camera* camera);
 private:
 	std::vector<Widget*> mWidgets;
 	std::vector<EditorObject*> mEditorObjects;

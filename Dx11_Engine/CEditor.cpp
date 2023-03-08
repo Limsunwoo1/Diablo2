@@ -130,18 +130,26 @@ void Editor::DebugRender(graphics::DebugMesh& mesh)
 	tr->SetPosition(mesh.position);
 	tr->SetRotation(mesh.rotation);
 
-	if (mesh.type == eColliderType::Rect)
+	// 레이어별 차이
+	/*if (mesh.type == eColliderType::Rect)
 		tr->SetScale(mesh.scale);
 	else if(mesh.type == eColliderType::Circle)
-		tr->SetScale(mesh.scale);
+		tr->SetScale(mesh.scale);*/
+
+	tr->SetScale(mesh.scale);
 
 	BaseRenderer* renderer = debugObj->GetComponent<BaseRenderer>();
 	Camera* camera = Renderer::mainCamera;
 
 	tr->FixedUpdate();
 
-	Camera::SetGpuViewMatrix(Renderer::mainCamera->GetViewMatrix());
-	Camera::SetGpuProjectionMatrix(Renderer::mainCamera->GetProjectionMatrix());
+	GpuCameraMatrix(Renderer::mainCamera);
 
 	debugObj->Render();
+}
+
+void Editor::GpuCameraMatrix(Camera* camera)
+{
+	Camera::SetGpuViewMatrix(camera->GetViewMatrix());
+	Camera::SetGpuProjectionMatrix(camera->GetProjectionMatrix());
 }
