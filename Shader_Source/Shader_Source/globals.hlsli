@@ -28,6 +28,16 @@ cbuffer FadeData : register(b3)
     float alpha;
 }
 
+cbuffer Animation : register(b4)
+{
+    float2 leftTop;
+    float2 size;
+    float2 offset;
+    float2 atalsSize;
+    
+    uint used;
+}
+
 SamplerState pointSampler : register(s0);
 SamplerState linearSampler : register(s1);
 SamplerState anisotropicSampler : register(s2);

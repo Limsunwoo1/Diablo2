@@ -106,14 +106,35 @@
     <Filter Include="Scene\Endding">
       <UniqueIdentifier>{4f8f4121-2f61-4db4-b9b2-bc0ad185ea68}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject\Player">
-      <UniqueIdentifier>{32e8fb5f-d7cd-46bc-a97a-820af09abe78}</UniqueIdentifier>
+    <Filter Include="Scene\CharacterSlelect">
+      <UniqueIdentifier>{d730a097-d129-4736-ae9f-87feb7136708}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject\Monster">
+    <Filter Include="Component\Animator">
+      <UniqueIdentifier>{1ef1ac80-798a-4d7a-82b8-a07db9857490}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Animator\Animation">
+      <UniqueIdentifier>{240483f3-f7a5-471a-ba70-b078c5675750}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Contents\Monster">
       <UniqueIdentifier>{fa13cf5a-ca24-47f2-810d-4d48d89c3fb0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject\Tile">
+    <Filter Include="Component\Script\Contents\Tile">
       <UniqueIdentifier>{88de094b-8ce4-4d6b-b79f-c99c7cf4aca6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Contents\CameraScript">
+      <UniqueIdentifier>{123dd523-dc47-4efb-a5cd-86c53a54ae26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Contents\PlayerScript">
+      <UniqueIdentifier>{e60f674c-4df8-4884-9444-0ac7e777459c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Contents\GridScript">
+      <UniqueIdentifier>{0368b3fc-a0ad-44ef-b99d-124be2c9738b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\BackGround">
+      <UniqueIdentifier>{38e1adc6-06cd-4cbb-860f-2386a877d6d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\CreateCharacter">
+      <UniqueIdentifier>{44e86d1d-20de-4eb5-8fa1-b721b4686de0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -162,7 +183,7 @@
     <ClCompile Include="CMaterial.cpp">
       <Filter>ResourceManager\Resource\Meterial</Filter>
     </ClCompile>
-    <ClCompile Include="CTexture.cpp">
+    <ClCompile Include="CTexture2D.cpp">
       <Filter>ResourceManager\Resource\Texture</Filter>
     </ClCompile>
     <ClCompile Include="CScript.cpp">
@@ -174,26 +195,17 @@
     <ClCompile Include="CTransform.cpp">
       <Filter>Component\Transform</Filter>
     </ClCompile>
-    <ClCompile Include="CPlayerScript.cpp">
-      <Filter>Component\Script\Contents</Filter>
-    </ClCompile>
     <ClCompile Include="CCamera.cpp">
       <Filter>Component\Camera</Filter>
     </ClCompile>
     <ClCompile Include="CSpriteRenderer.cpp">
       <Filter>Component\Renderer\SpriteRenderer</Filter>
     </ClCompile>
-    <ClCompile Include="CCameraScript.cpp">
-      <Filter>Component\Script\Contents</Filter>
-    </ClCompile>
     <ClCompile Include="CBaseRenderer.cpp">
       <Filter>Component\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="CConstantBuffer.cpp">
       <Filter>Graphics\CBuffer</Filter>
-    </ClCompile>
-    <ClCompile Include="CGridScript.cpp">
-      <Filter>Component\Script\Contents</Filter>
     </ClCompile>
     <ClCompile Include="CFadeRenderer.cpp">
       <Filter>Component\Renderer</Filter>
@@ -225,14 +237,35 @@
     <ClCompile Include="CEnddingScene.cpp">
       <Filter>Scene\Endding</Filter>
     </ClCompile>
-    <ClCompile Include="CPlayer.cpp">
-      <Filter>GameObject\Player</Filter>
-    </ClCompile>
     <ClCompile Include="CMonster.cpp">
-      <Filter>GameObject\Monster</Filter>
+      <Filter>Component\Script\Contents\Monster</Filter>
     </ClCompile>
     <ClCompile Include="CTile.cpp">
-      <Filter>GameObject\Tile</Filter>
+      <Filter>Component\Script\Contents\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="CCharacterSelect.cpp">
+      <Filter>Scene\CharacterSlelect</Filter>
+    </ClCompile>
+    <ClCompile Include="CAnimator.cpp">
+      <Filter>Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="CAnimation.cpp">
+      <Filter>Component\Animator\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="CBackGround.cpp">
+      <Filter>GameObject\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="CCameraScript.cpp">
+      <Filter>Component\Script\Contents\CameraScript</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerScript.cpp">
+      <Filter>Component\Script\Contents\PlayerScript</Filter>
+    </ClCompile>
+    <ClCompile Include="CGridScript.cpp">
+      <Filter>Component\Script\Contents\GridScript</Filter>
+    </ClCompile>
+    <ClCompile Include="CCreateCharacter.cpp">
+      <Filter>Scene\CreateCharacter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -296,7 +329,7 @@
     <ClInclude Include="CMaterial.h">
       <Filter>ResourceManager\Resource\Meterial</Filter>
     </ClInclude>
-    <ClInclude Include="CTexture.h">
+    <ClInclude Include="CTexture2D.h">
       <Filter>ResourceManager\Resource\Texture</Filter>
     </ClInclude>
     <ClInclude Include="CScript.h">
@@ -308,26 +341,17 @@
     <ClInclude Include="CTransform.h">
       <Filter>Component\Transform</Filter>
     </ClInclude>
-    <ClInclude Include="CPlayerScript.h">
-      <Filter>Component\Script\Contents</Filter>
-    </ClInclude>
     <ClInclude Include="CCamera.h">
       <Filter>Component\Camera</Filter>
     </ClInclude>
     <ClInclude Include="CSpriteRenderer.h">
       <Filter>Component\Renderer\SpriteRenderer</Filter>
     </ClInclude>
-    <ClInclude Include="CCameraScript.h">
-      <Filter>Component\Script\Contents</Filter>
-    </ClInclude>
     <ClInclude Include="CBaseRenderer.h">
       <Filter>Component\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="CConstantBuffer.h">
       <Filter>Graphics\CBuffer</Filter>
-    </ClInclude>
-    <ClInclude Include="CGridScript.h">
-      <Filter>Component\Script\Contents</Filter>
     </ClInclude>
     <ClInclude Include="CFadeRenderer.h">
       <Filter>Component\Renderer</Filter>
@@ -363,13 +387,34 @@
       <Filter>Scene\Endding</Filter>
     </ClInclude>
     <ClInclude Include="CMonster.h">
-      <Filter>GameObject\Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="CPlayer.h">
-      <Filter>GameObject\Player</Filter>
+      <Filter>Component\Script\Contents\Monster</Filter>
     </ClInclude>
     <ClInclude Include="CTile.h">
-      <Filter>GameObject\Tile</Filter>
+      <Filter>Component\Script\Contents\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="CCharacterSelect.h">
+      <Filter>Scene\CharacterSlelect</Filter>
+    </ClInclude>
+    <ClInclude Include="CAnimator.h">
+      <Filter>Component\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="CAnimation.h">
+      <Filter>Component\Animator\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="CBackGround.h">
+      <Filter>GameObject\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="CCameraScript.h">
+      <Filter>Component\Script\Contents\CameraScript</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerScript.h">
+      <Filter>Component\Script\Contents\PlayerScript</Filter>
+    </ClInclude>
+    <ClInclude Include="CGridScript.h">
+      <Filter>Component\Script\Contents\GridScript</Filter>
+    </ClInclude>
+    <ClInclude Include="CCreateCharacter.h">
+      <Filter>Scene\CreateCharacter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

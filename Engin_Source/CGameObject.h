@@ -1,8 +1,8 @@
 #pragma once
 #include "CEntity.h"
 #include "CComponent.h"
-#include "CScript.h"
 
+class Script;
 class GameObject : public Entity
 {
 public:
@@ -66,7 +66,7 @@ public:
 
 		return false;
 	}
-	void Pused() { mState = eState::paused; }
+	void Paused() { mState = eState::paused; }
 	void Death() { mState = eState::dead; }
 	void Active() { mState = eState::active; }
 	eState GetState() { return mState; }

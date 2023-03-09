@@ -1,0 +1,76 @@
+#include "CAnimation.h"
+#include "CTime.h"
+
+
+Animation::Animation()
+	: mAnimator(nullptr)
+	, mAtlas(nullptr)
+	, mSpriteSheet{}
+	, mIndex(-1) // 0 번째가 인덱스인경우가있으므로 음수로 초기화
+	, mTime(0.0f)
+	, mbComplete(false)
+{
+
+}
+
+Animation::~Animation()
+{
+
+}
+
+void Animation::Update()
+{
+	if (mbComplete)
+		return;
+
+	// 시간체크
+	mTime += Time::GetInstance()->DeltaTime();
+
+	// 누적 시간이 해당 프레임의 유지시간을 넘어서면
+	// 다음프레임으로 이동
+	if (mSpriteSheet[mIndex].duration < mTime)
+	{
+		mTime -= mSpriteSheet[mIndex].duration;
+		++mIndex;
+
+		if (mSpriteSheet.size() <= mIndex)
+		{
+			mbComplete = true;
+			mIndex = (int)mSpriteSheet.size() - 1;
+		}
+	}
+}
+
+void Animation::FixedUpdate()
+{
+
+}
+
+void Animation::Render()
+{
+
+}
+
+void Animation::Create(const wstring& name, shared_ptr<Texture2D> atlas
+	, Vector2 leftTop, Vector2 size, Vector2 offset
+	, UINT columnLength, UINT spriteLenght, float duration)
+{
+
+}
+
+void Animation::BindShader()
+{
+
+}
+
+void Animation::Reset()
+{
+	mTime = 0.0f;
+	mIndex = 0;
+	mbComplete = false;
+}
+
+void Animation::Clear()
+{
+
+}

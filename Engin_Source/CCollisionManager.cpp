@@ -191,7 +191,7 @@ bool CollisionManager::Rect_VS_Rect(Collider2D* left, Collider2D* right)
 	Matrix leftMatrix = leftTransform->GetWorldMatrix();
 	Matrix rightMatrix = rightTransform->GetWorldMatrix();
 
-	// 분리축 벡터 ( 투영 벡터 )
+	// 분리축 벡터 4 개 구하기
 	Vector3 Axis[4] = {};
 	Axis[0] = Vector3::Transform(arrLocalPos[1], leftMatrix);
 	Axis[1] = Vector3::Transform(arrLocalPos[3], leftMatrix);
@@ -245,7 +245,7 @@ bool CollisionManager::Circle_VS_Circle(Collider2D* left, Collider2D* right)
 
 	float dist = vect.Length();
 
-	float len = sqrt((vect.x * vect.x) + (vect.y + vect.y));
+	float len = sqrt((vect.x * vect.x) + (vect.y * vect.y));
 
 	float sum = leftScale.x / 2.0f + rightScale.x / 2.0f;
 

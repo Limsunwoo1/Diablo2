@@ -2,6 +2,7 @@
 #include "CTransform.h"
 #include "CGameObject.h"
 #include "CRenderer.h"
+#include "CScript.h"
 
 UINT Collider2D::ColliderNumber = 0;
 
@@ -13,6 +14,7 @@ Collider2D::Collider2D()
 	, mCenter(Vector2::Zero)
 	, mbTrigger(false)
 	, mID(0)
+	, mRadius(0.0f)
 {
 	mID = ColliderNumber++;
 }
@@ -56,7 +58,7 @@ void Collider2D::FixedUpdate()
 
 	DebugMesh meshAttricbute = {};
 	meshAttricbute.position = Vector3(colliderPos.x, colliderPos.y, colliderPos.z);
-	meshAttricbute.radius = mSize.x / 2.0f;
+	meshAttricbute.radius = mRadius;
 	meshAttricbute.rotation = rotation;
 	meshAttricbute.scale = scale;
 	meshAttricbute.type = mType;

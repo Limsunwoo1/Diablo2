@@ -84,9 +84,9 @@ void Camera::CreateProjectionMatrix()
 	RECT winRect;
 	GetClientRect(Application.GetHwnd(), &winRect);
 
-	float width = winRect.right - winRect.left;
-	float height = winRect.bottom - winRect.top;
-	mAspectRatio = width / height;
+	float width = (float)(winRect.right - winRect.left);
+	float height = (float)(winRect.bottom - winRect.top);
+	mAspectRatio = (float)(width / height);
 
 	if (mType == eProjectionType::Prespective)
 		mProjection = Matrix::CreatePerspectiveFieldOfViewLH(XM_2PI / 6.0f, mAspectRatio, mNear, mFar);

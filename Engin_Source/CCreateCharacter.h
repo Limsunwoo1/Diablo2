@@ -1,11 +1,11 @@
 #pragma once
 #include "CScene.h"
 
-class TitleScene : public Scene
+class CreateCharactorScene : public Scene
 {
 public:
-	TitleScene();
-	virtual ~TitleScene();
+	CreateCharactorScene();
+	virtual ~CreateCharactorScene();
 
 	virtual void Initalize();
 	virtual void Update();
@@ -14,7 +14,6 @@ public:
 
 	virtual void OnEnter();
 	virtual void OnExit();
-
 private:
-	
+
 };

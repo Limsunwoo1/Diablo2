@@ -4,6 +4,8 @@ enum class eSceneType
 {
 	Title,
 	Play,
+	Selecte,
+	Create,
 	Endding,
 	End,
 };
@@ -12,6 +14,7 @@ enum class eLayerType
 {
 	None = 0,
 	Camera,
+	BackGround,
 	Grid,
 	Monster,
 	Player,
@@ -31,6 +34,7 @@ enum class eComponentType
 	MeshRenderer,
 	SpriteRenderer,
 	FadeRenderer,
+	Animator,
 	UI,
 	Script,
 	End,

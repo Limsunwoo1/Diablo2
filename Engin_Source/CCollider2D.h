@@ -35,6 +35,9 @@ public:
 
 	UINT GetID() { return mID; }
 	Vector3 GetPosition() { return mPosition; }
+
+	void SetRadius(float radius) { mRadius = radius; }
+	float GetRadius() { return mRadius; }
 	
 private:
 	static UINT ColliderNumber;
@@ -45,6 +48,8 @@ private:
 	Vector2 mSize;
 	Vector2 mCenter;
 	Vector3 mPosition;
+	float mRadius;
+
 	bool mbTrigger;
 };
 

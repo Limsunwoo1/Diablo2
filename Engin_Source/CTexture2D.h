@@ -13,11 +13,11 @@ using namespace Microsoft::WRL;
 
 namespace graphics
 {
-	class Texture : public Resource
+	class Texture2D : public Resource
 	{
 	public:
-		Texture();
-		virtual ~Texture();
+		Texture2D();
+		virtual ~Texture2D();
 
 		virtual HRESULT Load(const std::wstring& path) override;
 		void BidShader(eShaderStage stage, UINT slot);

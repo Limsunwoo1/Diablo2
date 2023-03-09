@@ -1,19 +1,19 @@
-#include "CTexture.h"
+#include "CTexture2D.h"
 
 
 namespace graphics
 {
-	Texture::Texture()
+	Texture2D::Texture2D()
 		: Resource(eResourceType::Texture)
 		, mDesc{}
 	{
 	}
 
-	Texture::~Texture()
+	Texture2D::~Texture2D()
 	{
 	}
 
-	HRESULT Texture::Load(const std::wstring& name)
+	HRESULT Texture2D::Load(const std::wstring& name)
 	{
 		std::filesystem::path parentPath = std::filesystem::current_path().parent_path();
 		std::wstring fullPath = parentPath.wstring() + L"\\Resource\\" + name;
@@ -53,11 +53,11 @@ namespace graphics
 		return S_OK;
 	}
 
-	void Texture::BidShader(eShaderStage stage, UINT slot)
+	void Texture2D::BidShader(eShaderStage stage, UINT slot)
 	{
 		GetDevice()->SetShaderResource(stage, slot, mSRV.GetAddressOf());
 	}
-	void Texture::Clear()
+	void Texture2D::Clear()
 	{
 		ID3D11ShaderResourceView* srv = nullptr;
 

@@ -1,7 +1,7 @@
 #pragma once
-#include "CGameObject.h"
+#include "CScript.h"
 
-class Monster : public GameObject
+class Monster : public Script
 {
 public:
 	Monster();

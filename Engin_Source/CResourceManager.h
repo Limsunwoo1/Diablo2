@@ -37,6 +37,7 @@ public:
 		if (FAILED(resource->Load(path)))
 		{
 			MessageBox(nullptr, L"image Load Failed!!", L"Error", MB_OK);
+			assert(false);
 			return nullptr;
 		}
 

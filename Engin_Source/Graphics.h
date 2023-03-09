@@ -15,6 +15,7 @@
 #define CBSLOT_MATERIAL 1
 #define CBSLOT_GRID 2
 #define CBSLOT_FADE 3
+#define CBSLOT_ANIMATION 4
 
 namespace graphics
 {
@@ -24,6 +25,7 @@ namespace graphics
 		Material,
 		Grid,
 		Fade,
+		Animation,
 		End,
 	};
 

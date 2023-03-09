@@ -1,7 +1,9 @@
 #pragma once
 #include <string>
 #include <Windows.h>
+#include <assert.h>
 
+#include <functional>
 #include <vector>
 #include <list>
 #include <map>

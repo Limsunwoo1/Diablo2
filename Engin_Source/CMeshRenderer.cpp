@@ -28,6 +28,9 @@ void MeshRenderer::FixedUpdate()
 
 void MeshRenderer::Render()
 {
+	if (GetOwner()->GetState() != GameObject::active)
+		return;
+
 	GetOwner()->GetComponent<Transform>()->SetConstantBuffer();
 
 	GetMaterial()->Bind();

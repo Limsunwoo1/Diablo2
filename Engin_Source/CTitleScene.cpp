@@ -4,7 +4,7 @@
 #include "CMeshRenderer.h"
 #include "CSpriteRenderer.h"
 #include "CResourceManager.h"
-#include "CTexture.h"
+#include "CTexture2D.h"
 #include "CPlayerScript.h"
 #include "CCameraScript.h"
 #include "CGridScript.h"
@@ -12,6 +12,7 @@
 #include "CInput.h"
 #include "CCollider2D.h"
 #include "CCollisionManager.h"
+#include "CBackGround.h"
 
 
 TitleScene::TitleScene()
@@ -32,81 +33,106 @@ void TitleScene::Initalize()
 	//cameraComp->RegisterCameraInRenderer();
 	cameraComp->TurnLayerMask(eLayerType::UI, false);
 	cameraObj->AddComponent<CameraScript>();
+	cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
 	Renderer::mainCamera = cameraComp;
 	//renderer::cameras[0] = cameraComp;
+	// BackGround
+	{
+		/*BackGround* ground = Object::Instantiate<BackGround>(eLayerType::BackGround);
+		ground->SetName(L"BackGround");
+		
+		ground->FindTextuer2D(L"TitleTexture", L"UI\\Title_01.png");
+		Transform* tr = ground->GetComponent<Transform>();
+		tr->SetScale(Vector3(8.0f, 7.0f, 0.0f));
 
-	// UI Camera
-	/*GameObject* cameraUIObj = Object::Instantiate<GameObject>(eLayerType::Camera);
-	Camera* cameraUIComp = cameraUIObj->AddComponent<Camera>();
-	cameraUIComp->SetProjectionType(Camera::eProjectionType::Orthographic);
-	cameraUIComp->DisableLayerMasks();
-	cameraUIComp->TurnLayerMask(eLayerType::UI, true);*/
+		MeshRenderer* mr = ground->AddComponent<MeshRenderer>();
 
-	// Grid Object
-	/*GameObject* gridObject = Object::Instantiate<GameObject>(eLayerType::None);
-	MeshRenderer* gridMr = gridObject->AddComponent<MeshRenderer>();
-	gridMr->SetMesh(ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh"));
-	gridMr->SetMaterial(ResourceManager::GetInstance()->Find<Material>(L"GridMaterial"));
-	GridScript* gridScript = gridObject->AddComponent<GridScript>();
-	gridScript->SetCamera(cameraComp);*/
+		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"FadeMesh");
+		std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		mr->SetMesh(mesh);
+		mr->SetMaterial(material);*/
+	}
 
+	// BackGround2
+	{
+		BackGround* ground = Object::Instantiate<BackGround>(eLayerType::BackGround);
+		ground->SetName(L"BackGround2");
 
+		ground->FindTextuer2D(L"TitleTexture2", L"UI\\Title_02.png");
+		Transform* tr = ground->GetComponent<Transform>();
+		tr->SetScale(Vector3(8.0f, 6.0f, 0.0f));
 
+		MeshRenderer* mr = ground->AddComponent<MeshRenderer>();
 
-	// Light Object
-	/*GameObject* spriteObj = Object::Instantiate<GameObject>(eLayerType::Player);
-	spriteObj->SetName(L"LIGHT");
-	Transform* spriteTr = spriteObj->GetComponent<Transform>();
-	spriteTr->SetPosition(Vector3(0.0f, 0.0f, 11.0f));
-	spriteTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
+		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"FadeMesh");
+		std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		mr->SetMesh(mesh);
+		mr->SetMaterial(material);
 
-	SpriteRenderer* sr = spriteObj->AddComponent<SpriteRenderer>();
-	std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-	std::shared_ptr<Material> spriteMaterial = ResourceManager::GetInstance()->Find<Material>(L"SpriteMaterial");
-	sr->SetMaterial(spriteMaterial);
-	sr->SetMesh(mesh);*/
+		//ground->Paused();
+	}
 
+	// Logo
+	{
+		BackGround* ground = Object::Instantiate<BackGround>(eLayerType::BackGround);
+		ground->SetName(L"BackGround3");
+		ground->SetRenderMode(eRenderingMode::Transparent);
+
+		ground->FindTextuer2D(L"TitleLogo", L"UI\\Diablo_II_Logo.png");
+		Transform* tr = ground->GetComponent<Transform>();
+		tr->SetScale(Vector3(2.0f, 0.8f, 0.0f));
+		tr->SetPosition(Vector3(1.0f, 4.5f, 1.0f));
+
+		MeshRenderer* mr = ground->AddComponent<MeshRenderer>();
+
+		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"FadeMesh");
+		std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		mr->SetMesh(mesh);
+		mr->SetMaterial(material);
+
+		//ground->Paused();
+	}
 
 	//SMILE RECT
-	{
-		GameObject* obj = Object::Instantiate<GameObject>(eLayerType::Player);
-		obj->SetName(L"SMILE");
-		Transform* tr = obj->GetComponent<Transform>();
-		tr->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
-		/*tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
-		tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));*/
-		Collider2D* collider = obj->AddComponent<Collider2D>();
-		collider->SetType(eColliderType::Circle);
-		collider->SetSize(Vector2(1.0f, 1.0f));
+	//{
+	//	GameObject* obj = Object::Instantiate<GameObject>(eLayerType::Player);
+	//	obj->SetName(L"SMILE");
+	//	Transform* tr = obj->GetComponent<Transform>();
+	//	tr->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
+	//	/*tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
+	//	tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));*/
+	//	Collider2D* collider = obj->AddComponent<Collider2D>();
+	//	collider->SetType(eColliderType::Circle);
+	//	collider->SetSize(Vector2(1.0f, 1.0f));
 
-		MeshRenderer* mr = obj->AddComponent<MeshRenderer>();
-		std::shared_ptr<Material> mateiral = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
-		mr->SetMaterial(mateiral);
-		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-		mr->SetMesh(mesh);
-		obj->AddComponent<PlayerScript>();
-		Object::DontDestroyOnLoad(obj);
-	}
+	//	MeshRenderer* mr = obj->AddComponent<MeshRenderer>();
+	//	std::shared_ptr<Material> mateiral = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+	//	mr->SetMaterial(mateiral);
+	//	std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+	//	mr->SetMesh(mesh);
+	//	obj->AddComponent<PlayerScript>();
+	//	Object::DontDestroyOnLoad(obj);
+	//}
 
 	//SMILE RECT 2
-	{
-		GameObject* obj = Object::Instantiate<GameObject>(eLayerType::Monster);
-		obj->SetName(L"SMILE");
-		Transform* tr = obj->GetComponent<Transform>();
-		tr->SetPosition(Vector3(2.0f, 0.0f, 5.0f));
-		/*tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
-		tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));*/
-		Collider2D* collider = obj->AddComponent<Collider2D>();
-		collider->SetType(eColliderType::Circle);
-		collider->SetSize(Vector2(1.0f, 1.0f));
+	//{
+	//	GameObject* obj = Object::Instantiate<GameObject>(eLayerType::Monster);
+	//	obj->SetName(L"SMILE");
+	//	Transform* tr = obj->GetComponent<Transform>();
+	//	tr->SetPosition(Vector3(2.0f, 0.0f, 5.0f));
+	//	/*tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
+	//	tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));*/
+	//	Collider2D* collider = obj->AddComponent<Collider2D>();
+	//	collider->SetType(eColliderType::Circle);
+	//	collider->SetSize(Vector2(1.0f, 1.0f));
 
-		MeshRenderer* mr = obj->AddComponent<MeshRenderer>();
-		std::shared_ptr<Material> mateiral = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
-		mr->SetMaterial(mateiral);
-		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-		mr->SetMesh(mesh);
-		Object::DontDestroyOnLoad(obj);
-	}
+	//	MeshRenderer* mr = obj->AddComponent<MeshRenderer>();
+	//	std::shared_ptr<Material> mateiral = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+	//	mr->SetMaterial(mateiral);
+	//	std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+	//	mr->SetMesh(mesh);
+	//	Object::DontDestroyOnLoad(obj);
+	//}
 
 	//SMILE RECT CHild
 	/*GameObject* child = Object::Instantiate<GameObject>(eLayerType::Player);
@@ -143,9 +169,9 @@ void TitleScene::Update()
 {
 	Scene::Update();
 
-	if (Input::GetInstance()->GetKeyDown(eKeyCode::N))
+	if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN))
 	{
-		SceneManager::GetInstance()->LoadScene(eSceneType::Play);
+		SceneManager::GetInstance()->LoadScene(eSceneType::Selecte);
 	}
 }
 

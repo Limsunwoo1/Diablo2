@@ -348,6 +348,9 @@ namespace Renderer
 
 		constantBuffers[(UINT)eCBType::Fade] = new ConstantBuffer(eCBType::Fade);
 		constantBuffers[(UINT)eCBType::Fade]->Create(sizeof(FadeCB));
+
+		constantBuffers[(UINT)eCBType::Animation] = new ConstantBuffer(eCBType::Animation);
+		constantBuffers[(UINT)eCBType::Animation]->Create(sizeof(AnimationCB));
 	}
 
 	void LoadShader()
@@ -409,17 +412,17 @@ namespace Renderer
 
 	void LoadTexture()
 	{
-		ResourceManager::GetInstance()->Load<Texture>(L"SmileTexture", L"Smile.png");
-		ResourceManager::GetInstance()->Load<Texture>(L"DefaultSprite", L"Light.png");
-		ResourceManager::GetInstance()->Load<Texture>(L"HPBarTexture", L"HPBar.png");
+		ResourceManager::GetInstance()->Load<Texture2D>(L"SmileTexture", L"Smile.png");
+		ResourceManager::GetInstance()->Load<Texture2D>(L"DefaultSprite", L"Light.png");
+		ResourceManager::GetInstance()->Load<Texture2D>(L"HPBarTexture", L"HPBar.png");
 
-		ResourceManager::GetInstance()->Load<Texture>(L"Diablo2_Town_Idle", L"diablo2_Town_Idle.png");
+		ResourceManager::GetInstance()->Load<Texture2D>(L"Diablo2_Town_Idle", L"diablo2_Town_Idle.png");
 	}
 
 	void LoadMaterial()
 	{
 		// Dafault
-		std::shared_ptr<Texture> texture = ResourceManager::GetInstance()->Find<Texture>(L"SmileTexture");
+		std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"SmileTexture");
 		std::shared_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"RectShader");
 		std::shared_ptr<Material> material = std::make_shared<Material>();
 		material->SetShader(shader);
@@ -428,7 +431,7 @@ namespace Renderer
 
 
 		// Sprite
-		std::shared_ptr <Texture> spriteTexture = ResourceManager::GetInstance()->Find<Texture>(L"DefaultSprite");
+		std::shared_ptr <Texture2D> spriteTexture = ResourceManager::GetInstance()->Find<Texture2D>(L"DefaultSprite");
 		std::shared_ptr<Shader> spriteShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
 		std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 		spriteMaterial->SetRenderingMode(eRenderingMode::Transparent);
@@ -437,7 +440,7 @@ namespace Renderer
 		ResourceManager::GetInstance()->Insert<Material>(L"SpriteMaterial", spriteMaterial);
 
 		// Diablo_Walk
-		std::shared_ptr <Texture> DiabloTexture = ResourceManager::GetInstance()->Find<Texture>(L"Diablo2_Town_Idle");
+		std::shared_ptr <Texture2D> DiabloTexture = ResourceManager::GetInstance()->Find<Texture2D>(L"Diablo2_Town_Idle");
 		std::shared_ptr<Shader> DiabloShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
 		std::shared_ptr<Material> DiabloMaterial = std::make_shared<Material>();
 		DiabloMaterial->SetRenderingMode(eRenderingMode::Transparent);
@@ -446,7 +449,7 @@ namespace Renderer
 		ResourceManager::GetInstance()->Insert<Material>(L"DiabloMaterial", DiabloMaterial);
 
 		// UI
-		std::shared_ptr <Texture> uiTexture = ResourceManager::GetInstance()->Find<Texture>(L"HPBarTexture");
+		std::shared_ptr <Texture2D> uiTexture = ResourceManager::GetInstance()->Find<Texture2D>(L"HPBarTexture");
 		std::shared_ptr<Shader> uiShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
 		std::shared_ptr<Material> uiMaterial = std::make_shared<Material>();
 		uiMaterial->SetRenderingMode(eRenderingMode::Transparent);

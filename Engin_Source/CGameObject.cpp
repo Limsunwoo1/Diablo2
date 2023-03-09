@@ -1,5 +1,6 @@
 #include "CGameObject.h"
 #include "CTransform.h"
+#include "CScript.h"
 
 GameObject::GameObject()
 	: mState(eState::active)

@@ -1,6 +1,8 @@
 #include "CSceneManager.h"
 #include "CTitleScene.h"
 #include "CPlayScene.h"
+#include "CCharacterSelect.h"
+#include "CCreateCharacter.h"
 #include "CEnddingScene.h"
 
 SceneManager::SceneManager()
@@ -19,6 +21,8 @@ void SceneManager::Initalize()
 
 	mScenes[(UINT)eSceneType::Title] = new TitleScene();
 	mScenes[(UINT)eSceneType::Play] = new PlayScene();
+	mScenes[(UINT)eSceneType::Selecte] = new CharacterSelectScene();
+	mScenes[(UINT)eSceneType::Create] = new CreateCharactorScene();
 	mScenes[(UINT)eSceneType::Endding] = new EnddingScene();
 
 	mActiveScene = mScenes[(UINT)eSceneType::Title];
