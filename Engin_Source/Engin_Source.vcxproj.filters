@@ -136,6 +136,9 @@
     <Filter Include="Scene\CreateCharacter">
       <UniqueIdentifier>{44e86d1d-20de-4eb5-8fa1-b721b4686de0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Player">
+      <UniqueIdentifier>{429f8f77-7d5d-42db-b49d-b665d6264d96}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -266,6 +269,9 @@
     </ClCompile>
     <ClCompile Include="CCreateCharacter.cpp">
       <Filter>Scene\CreateCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayer.cpp">
+      <Filter>GameObject\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -415,6 +421,9 @@
     </ClInclude>
     <ClInclude Include="CCreateCharacter.h">
       <Filter>Scene\CreateCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="Cplayer.h">
+      <Filter>GameObject\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

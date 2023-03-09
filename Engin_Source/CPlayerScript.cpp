@@ -26,6 +26,8 @@ void PlayerScript::Update()
 	Vector3 pos = transform->GetPosition();
 	Vector3 Rotation = transform->GetRotation();
 
+	std::cout << pos.x << " : X ÁÂÇ¥" << pos.y << " : Y ÁÂÇ¥" << std::endl;
+
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::RBTN))
 	{
 		Vector2 mousePos = Input::GetInstance()->GetMousePos();

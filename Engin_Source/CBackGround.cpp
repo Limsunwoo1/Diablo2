@@ -48,6 +48,7 @@ std::shared_ptr<Texture2D> BackGround::FindTextuer2D(const std::wstring& name, c
 	{
 		mTextuer2D = std::make_shared<Texture2D>();
 		mTextuer2D->Load(path);
+		ResourceManager::GetInstance()->Insert<Texture2D>(name, mTextuer2D);
 	}
 
 	return mTextuer2D;

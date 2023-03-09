@@ -3,8 +3,6 @@
 #include "CCollider2D.h"
 #include "CTransform.h"
 
-#include <iostream>
-
 CollisionManager::CollisionManager()
 {
 
