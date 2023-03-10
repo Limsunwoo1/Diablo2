@@ -400,5 +400,7 @@ FodyWeavers.xsd
 *.sln.iml
 
 ## 폴더무시
-/!DirectXTex
-/!.lib
+External*
+!External/DirectXTex
+External/DirectXTex/*
+!External/DirectXTex/lib
