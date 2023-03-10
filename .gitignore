@@ -404,3 +404,12 @@ External*
 !External/DirectXTex
 External/DirectXTex/*
 !External/DirectXTex/lib
+
+!/External/
+/External/*
+
+!/External/DirectXTex/
+/External/DirectXTex/*
+
+!/External/DirectXTex/lib/
+/External/DirectXTex/lib/*
