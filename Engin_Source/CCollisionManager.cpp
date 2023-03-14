@@ -29,7 +29,6 @@ void CollisionManager::Update()
 			{
 				LayerCollision(scene, (eLayerType)row, (eLayerType)column);
 			}
-
 		}
 	}
 }
@@ -206,9 +205,8 @@ bool CollisionManager::Rect_VS_Rect(Collider2D* left, Collider2D* right)
 	Axis[1] = Axis[1] * leftScale;
 
 	Vector3 rightScale = Vector3(right->GetSize().x, right->GetSize().y, 1.0f);
-	Axis[2] = Axis[2] * leftScale;
-	Axis[3] = Axis[3] * leftScale;
-
+	Axis[2] = Axis[2] * rightScale;
+	Axis[3] = Axis[3] * rightScale;
 
 	for (int i = 0; i < 4; ++i)
 	{
@@ -260,6 +258,4 @@ bool CollisionManager::Circle_VS_Circle(Collider2D* left, Collider2D* right)
 		return true;
 	else
 		return false;
-
-	
 }
