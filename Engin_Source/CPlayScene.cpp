@@ -16,6 +16,7 @@
 #include "Cplayer.h"
 
 
+
 PlayScene::PlayScene()
 	: Scene(eSceneType::Play)
 {
@@ -53,6 +54,7 @@ void PlayScene::Initalize()
 	{
 		Player* player = Object::Instantiate<Player>(eLayerType::Player, this);
 		player->AddComponent<PlayerScript>();
+		player->SetName(L"Zelda");
 
 		Collider2D* collider = player->AddComponent<Collider2D>();
 		collider->SetSize(Vector2(1.0f, 1.0f));
@@ -60,16 +62,19 @@ void PlayScene::Initalize()
 
 		SpriteRenderer* spr = player->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-		std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
-
-		std::shared_ptr<Texture2D> texture = std::make_shared<Texture2D>();
-		texture->Load(L"test.png");
-		ResourceManager::GetInstance()->Insert<Texture2D>(L"test", texture);
+		std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"SpriteMaterial");
 
 		spr->SetMesh(mesh);
 		spr->SetMaterial(material);
 
+		std::shared_ptr<Texture2D> texture = std::make_shared<Texture2D>();
+		texture->Load(L"Zelda.png");
+		ResourceManager::GetInstance()->Insert(L"Zelda", texture);
+
 		Animator* animator = player->AddComponent<Animator>();
+
+		animator->Create(L"Idle", texture, Vector2(0.0f, 0.0f), Vector2(120.f, 130.f), Vector2(0.0f, 0.0f), 3, 0.1f);
+		animator->Play(L"Idle");
 	}
 
 	Scene::Initalize();

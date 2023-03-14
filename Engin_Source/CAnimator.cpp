@@ -42,8 +42,10 @@ void Animator::Update()
 		if (events)
 			events->mCompleteEvent();
 
-		mActiveAnimation->Update();
+		mActiveAnimation->Reset();
 	}
+
+	mActiveAnimation->Update();
 }
 
 void Animator::FixedUpdate()
@@ -58,7 +60,7 @@ void Animator::Render()
 
 
 bool Animator::Create(const wstring& name, shared_ptr<Texture2D> atlas, Vector2 leftTop
-	, Vector2 size, Vector2 offset, UINT columnLength
+	, Vector2 size, Vector2 offset
 	, UINT spriteLength, float duation)
 {
 	if (atlas == nullptr)
@@ -69,7 +71,7 @@ bool Animator::Create(const wstring& name, shared_ptr<Texture2D> atlas, Vector2 
 		return false;
 
 	animation = new Animation();
-	animation->Create(name, atlas, leftTop, size, offset, columnLength, spriteLength, duation);
+	animation->Create(name, atlas, leftTop, size, offset, spriteLength, duation);
 
 	mAnimations.insert(make_pair(name, animation));
 }

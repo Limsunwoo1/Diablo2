@@ -3,6 +3,7 @@
 #include "CTransform.h"
 #include "CMesh.h"
 #include "CMaterial.h"
+#include "CAnimator.h"
 
 SpriteRenderer::SpriteRenderer()
 	: BaseRenderer(eComponentType::SpriteRenderer)
@@ -31,6 +32,10 @@ void SpriteRenderer::Render()
 
 	GetMaterial()->Bind();
 	GetMesh()->BindBuffer();
+
+	Animator* animator = GetOwner()->GetComponent<Animator>();
+	if (animator)
+		animator->Binds();
 
 	GetMesh()->Render();
 

@@ -34,6 +34,7 @@ public:
 	bool IsTrigger() { return mbTrigger; }
 
 	UINT GetID() { return mID; }
+
 	Vector3 GetPosition() { return mPosition; }
 
 	void SetRadius(float radius) { mRadius = radius; }

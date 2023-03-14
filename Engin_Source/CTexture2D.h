@@ -20,8 +20,11 @@ namespace graphics
 		virtual ~Texture2D();
 
 		virtual HRESULT Load(const std::wstring& path) override;
-		void BidShader(eShaderStage stage, UINT slot);
+		void BindShader(eShaderStage stage, UINT slot);
 		void Clear();
+
+		UINT GetHeight() { return (UINT)(mImage.GetMetadata().height); }
+		UINT GetWidth() { return (UINT)(mImage.GetMetadata().width); }
 
 	private:
 		ScratchImage mImage;

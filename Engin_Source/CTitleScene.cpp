@@ -13,6 +13,10 @@
 #include "CCollider2D.h"
 #include "CCollisionManager.h"
 #include "CBackGround.h"
+#include "CApplication.h"
+#include "CAnimator.h"
+
+extern CApplication Application;
 
 
 TitleScene::TitleScene()
@@ -35,6 +39,13 @@ void TitleScene::Initalize()
 	cameraObj->AddComponent<CameraScript>();
 	cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
 	Renderer::mainCamera = cameraComp;
+
+	RECT winRect;
+	GetClientRect(Application.GetHwnd(), &winRect);
+
+	float width = (float)(winRect.right - winRect.left);
+	float height = (float)(winRect.bottom - winRect.top);
+
 	//renderer::cameras[0] = cameraComp;
 	// BackGround
 	{
@@ -60,7 +71,7 @@ void TitleScene::Initalize()
 
 		ground->FindTextuer2D(L"TitleTexture2", L"UI\\Title_02.png");
 		Transform* tr = ground->GetComponent<Transform>();
-		tr->SetScale(Vector3(8.0f, 6.0f, 0.0f));
+		tr->SetScale(Vector3(width / 100.f, height / 100.f, 0.0f));
 
 		MeshRenderer* mr = ground->AddComponent<MeshRenderer>();
 

@@ -1,5 +1,6 @@
 #include "CAnimation.h"
 #include "CTime.h"
+#include "CRenderer.h"
 
 
 Animation::Animation()
@@ -53,14 +54,44 @@ void Animation::Render()
 
 void Animation::Create(const wstring& name, shared_ptr<Texture2D> atlas
 	, Vector2 leftTop, Vector2 size, Vector2 offset
-	, UINT columnLength, UINT spriteLenght, float duration)
+	, UINT spriteLenght, float duration)
 {
+	mAnimationName = name;
 
+	mAtlas = atlas;
+	float width = (float)atlas->GetWidth();
+	float height = (float)atlas->GetHeight();
+
+	for (int i = 0; i < spriteLenght; ++i)
+	{
+		// API 와는 다르게 0~ 1 사이의 비율좌표로 위치를 표현한다
+		Sprite sprite = {};
+		sprite.leftTop = Vector2((leftTop.x + (size.x * (float)i)) / width
+								, leftTop.y / height);
+		sprite.size = Vector2(size.x / width, size.y / height);
+		sprite.offset = offset;
+		sprite.duration = duration;
+		sprite.atlasSize = Vector2(200.0f / width, 200.0f / height);
+
+		mSpriteSheet.push_back(sprite);
+	}
 }
 
 void Animation::BindShader()
 {
+	mAtlas->BindShader(eShaderStage::PS, 12);
 
+	ConstantBuffer* CB = Renderer::constantBuffers[(UINT)eCBType::Animation];
+
+	Renderer::AnimationCB info = {};
+	info.type = (UINT)eAnimationType::SecondDimension;
+	info.leftTop = mSpriteSheet[mIndex].leftTop;
+	info.offset = mSpriteSheet[mIndex].offset;
+	info.size = mSpriteSheet[mIndex].size;
+	info.atlasSize = mSpriteSheet[mIndex].atlasSize;
+
+	CB->Bind(&info);
+	CB->SetPipline(eShaderStage::PS);
 }
 
 void Animation::Reset()

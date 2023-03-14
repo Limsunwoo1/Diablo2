@@ -38,7 +38,7 @@ public:
 	virtual void Render() override;
 
 	bool Create(const wstring& name, shared_ptr<Texture2D> atlas, Vector2 leftTop
-					, Vector2 size, Vector2 offset, UINT columnLength
+					, Vector2 size, Vector2 offset
 					, UINT spriteLength, float duation);
 
 	Animation* FindAnimation(const wstring& name);

@@ -64,3 +64,11 @@ enum class eColliderType
 	Sphere,
 	End,
 };
+
+enum class eAnimationType
+{
+	None,
+	SecondDimension,
+	ThirdDimension,
+	End,
+};
