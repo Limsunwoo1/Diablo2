@@ -19,10 +19,10 @@ Animation::~Animation()
 
 }
 
-void Animation::Update()
+UINT Animation::Update()
 {
 	if (mbComplete)
-		return;
+		return FAIL_EVENT;
 
 	// 시간체크
 	mTime += Time::GetInstance()->DeltaTime();
@@ -39,7 +39,11 @@ void Animation::Update()
 			mbComplete = true;
 			mIndex = (int)mSpriteSheet.size() - 1;
 		}
+
+		return mIndex;
 	}
+
+	return FAIL_EVENT;
 }
 
 void Animation::FixedUpdate()
@@ -103,5 +107,12 @@ void Animation::Reset()
 
 void Animation::Clear()
 {
+	mAtlas->Clear(12);
 
+	ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::Animation];
+	Renderer::AnimationCB info = {};
+	info.type = (UINT)eCBType::Animation;
+
+	cb->Bind(&info);
+	cb->SetPipline(eShaderStage::PS);
 }

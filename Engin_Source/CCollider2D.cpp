@@ -46,6 +46,7 @@ void Collider2D::FixedUpdate()
 	mPosition = colliderPos;
 
 	Matrix scaleMatrix = Matrix::CreateScale(scale);
+
 	Matrix rotationMatrix;
 	rotationMatrix = Matrix::CreateRotationX(rotation.x);
 	rotationMatrix *= Matrix::CreateRotationY(rotation.y);

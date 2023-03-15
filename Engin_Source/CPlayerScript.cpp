@@ -3,6 +3,7 @@
 #include "CGameObject.h"
 #include "CInput.h"
 #include "CTime.h"
+#include "CAnimator.h"
 
 PlayerScript::PlayerScript()
 	: Script()
@@ -17,6 +18,11 @@ PlayerScript::~PlayerScript()
 
 void PlayerScript::Initalize()
 {
+	Animator* animator = GetOwner()->GetComponent<Animator>();
+	//animator->GetStartEvent(L"Idle") = bind(&PlayerScript::Start, this);
+	//animator->GetCompleteEvent(L"Idle") = bind(&PlayerScript::Start, this);
+	//animator->GetEndEvent(L"Idle") = bind(&PlayerScript::Start, this);
+	//animator->GetEvent(L"Idle", 2) = bind(&PlayerScript::Start, this);
 }
 
 void PlayerScript::Update()
@@ -48,58 +54,7 @@ void PlayerScript::Update()
 	pos += vec * Time::GetInstance()->DeltaTime();
 
 	transform->SetPosition(pos);
-	/*if (Input::GetInstance()->GetkeyState(eKeyCode::R) == eKeyState::PRESSED)
-	{
-		Rotation.z += 10.0 * Time::GetInstance()->DeltaTime();
-		transform->SetRotation(Rotation);
-	}
 
-	if (Input::GetInstance()->GetkeyState(eKeyCode::LEFT) == eKeyState::PRESSED)
-	{
-		Vector3 pos = transform->GetPosition();
-		pos.x -= 6.0f * Time::GetInstance()->DeltaTime();
-		transform->SetPosition(pos);
-	}
-
-	else if (Input::GetInstance()->GetkeyState(eKeyCode::RIGHT) == eKeyState::PRESSED)
-	{
-		Vector3 pos = transform->GetPosition();
-		pos.x += 6.0f * Time::GetInstance()->DeltaTime();
-		transform->SetPosition(pos);
-	}
-
-	if (Input::GetInstance()->GetkeyState(eKeyCode::DOWN) == eKeyState::PRESSED)
-	{
-		Vector3 pos = transform->GetPosition();
-		pos.z -= 6.0f * Time::GetInstance()->DeltaTime();
-		transform->SetPosition(pos);
-	}
-	else if (Input::GetInstance()->GetkeyState(eKeyCode::UP) == eKeyState::PRESSED)
-	{
-		Vector3 pos = transform->GetPosition();
-		pos.z += 6.0f * Time::GetInstance()->DeltaTime();
-		transform->SetPosition(pos);
-	}
-
-	if (Input::GetInstance()->GetkeyState(eKeyCode::W) == eKeyState::PRESSED)
-	{
-		pos.y += 1.0f * Time::GetInstance()->DeltaTime();
-	}
-	else if (Input::GetInstance()->GetkeyState(eKeyCode::S) == eKeyState::PRESSED)
-	{
-		pos.y -= 1.0f * Time::GetInstance()->DeltaTime();
-	}
-
-	if (Input::GetInstance()->GetkeyState(eKeyCode::D) == eKeyState::PRESSED)
-	{
-		pos.x += 1.0f * Time::GetInstance()->DeltaTime();
-	}
-	else if (Input::GetInstance()->GetkeyState(eKeyCode::A) == eKeyState::PRESSED)
-	{
-		pos.x -= 1.0f * Time::GetInstance()->DeltaTime();
-	}*/
-
-	//transform->SetPosition(pos);
 }
 
 void PlayerScript::FixedUpdate()
@@ -107,5 +62,17 @@ void PlayerScript::FixedUpdate()
 }
 
 void PlayerScript::Render()
+{
+}
+
+void PlayerScript::Start()
+{
+}
+
+void PlayerScript::Action()
+{
+}
+
+void PlayerScript::End()
 {
 }

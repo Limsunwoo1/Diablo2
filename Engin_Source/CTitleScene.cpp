@@ -71,6 +71,14 @@ void TitleScene::Initalize()
 
 		ground->FindTextuer2D(L"TitleTexture2", L"UI\\Title_02.png");
 		Transform* tr = ground->GetComponent<Transform>();
+		float X = width / 100.f;
+		float temp = (X * 100.f) - width;
+		X = X + (temp / width);
+
+		float Y = height / 100.f;
+		temp = (Y * 100.f) - height;
+		Y = Y + (temp / height);
+
 		tr->SetScale(Vector3(width / 100.f, height / 100.f, 0.0f));
 
 		MeshRenderer* mr = ground->AddComponent<MeshRenderer>();

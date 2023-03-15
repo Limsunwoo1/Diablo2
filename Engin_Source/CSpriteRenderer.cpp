@@ -40,4 +40,6 @@ void SpriteRenderer::Render()
 	GetMesh()->Render();
 
 	GetMaterial()->Clear();
+	if (animator)
+		animator->Clear();
 }

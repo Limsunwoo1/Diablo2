@@ -56,6 +56,7 @@ void PlayScene::Initalize()
 		player->AddComponent<PlayerScript>();
 		player->SetName(L"Zelda");
 
+
 		Collider2D* collider = player->AddComponent<Collider2D>();
 		collider->SetSize(Vector2(1.0f, 1.0f));
 		collider->SetType(eColliderType::Rect);

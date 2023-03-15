@@ -35,17 +35,24 @@ void Animator::Update()
 	if (mActiveAnimation == nullptr)
 		return;
 
-	if (mActiveAnimation->IsComplete() && mbLoop)
-	{
-		Events* events = FindEvents(mActiveAnimation->AnimationName());
+	Events* events = FindEvents(mActiveAnimation->AnimationName());
 
+	if (mActiveAnimation->IsComplete())
+	{
 		if (events)
 			events->mCompleteEvent();
 
+		if(mbLoop)
 		mActiveAnimation->Reset();
 	}
 
-	mActiveAnimation->Update();
+	UINT spriteIndex = mActiveAnimation->Update();
+
+	if (spriteIndex != -1)
+	{
+		if(events->mEvents[spriteIndex].mEvent)
+			events->mEvents[spriteIndex].mEvent();
+	}
 }
 
 void Animator::FixedUpdate()
@@ -74,6 +81,10 @@ bool Animator::Create(const wstring& name, shared_ptr<Texture2D> atlas, Vector2 
 	animation->Create(name, atlas, leftTop, size, offset, spriteLength, duation);
 
 	mAnimations.insert(make_pair(name, animation));
+
+	Events* events = new Events();
+	events->mEvents.resize(spriteLength);
+	mEvents.insert(make_pair(name, events));
 }
 
 Animation* Animator::FindAnimation(const wstring& name)
@@ -101,15 +112,15 @@ Animator::Events* Animator::FindEvents(const wstring& name)
 void Animator::Play(const wstring& name, bool loop)
 {
 	Animation* preveAnimation = mActiveAnimation;
-	Events* events = FindEvents(preveAnimation->AnimationName());
+	Events* events = nullptr;
+	if(preveAnimation)
+		events = FindEvents(preveAnimation->AnimationName());
 
 	if (events)
 		events->mEndEvent();
 
 	mActiveAnimation = FindAnimation(name);
-	if (mActiveAnimation)
-		mActiveAnimation->Reset();
-
+	mActiveAnimation->Reset();
 	mbLoop = loop;
 
 	events = FindEvents(mActiveAnimation->AnimationName());
@@ -153,4 +164,11 @@ function<void()>& Animator::GetEndEvent(const wstring& name)
 	Events* events = FindEvents(name);
 
 	return events->mEndEvent.mEvent;
+}
+
+function<void()>& Animator::GetEvent(const wstring& name, UINT index)
+{
+	Events* events = FindEvents(name);
+
+	return events->mEvents[index].mEvent;
 }

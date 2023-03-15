@@ -13,6 +13,9 @@ public:
 	virtual void FixedUpdate() override;
 	virtual void Render() override;
 
+	void Start();
+	void Action();
+	void End();
 	
 private:
 	Vector3 mArrivePos;

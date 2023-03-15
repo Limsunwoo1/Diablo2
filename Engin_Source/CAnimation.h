@@ -32,7 +32,7 @@ public:
 	Animation();
 	virtual ~Animation();
 
-	void Update();
+	UINT Update();
 	void FixedUpdate();
 	void Render();
 

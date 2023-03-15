@@ -22,11 +22,13 @@ public:
 					mEvent();
 			}
 
-			std::function<void()> mEvent;
+			function<void()> mEvent;
 		};
 		Event mStarteEvent;
 		Event mCompleteEvent;
 		Event mEndEvent;
+
+		vector<Event> mEvents;
 	};
 
 	Animator();
@@ -51,6 +53,7 @@ public:
 	function<void()>& GetStartEvent(const wstring& name);
 	function<void()>& GetCompleteEvent(const wstring& name);
 	function<void()>& GetEndEvent(const wstring& name);
+	function<void()>& GetEvent(const wstring& name, UINT index);
 private:
 	map<wstring, Animation*> mAnimations;
 	map<wstring, Events*> mEvents;

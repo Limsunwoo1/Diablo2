@@ -22,6 +22,7 @@ namespace graphics
 		virtual HRESULT Load(const std::wstring& path) override;
 		void BindShader(eShaderStage stage, UINT slot);
 		void Clear();
+		void Clear(UINT startSlot);
 
 		UINT GetHeight() { return (UINT)(mImage.GetMetadata().height); }
 		UINT GetWidth() { return (UINT)(mImage.GetMetadata().width); }
