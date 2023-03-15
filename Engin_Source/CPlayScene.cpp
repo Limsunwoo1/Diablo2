@@ -69,13 +69,15 @@ void PlayScene::Initalize()
 		spr->SetMaterial(material);
 
 		std::shared_ptr<Texture2D> texture = std::make_shared<Texture2D>();
-		texture->Load(L"Zelda.png");
+		texture->Load(L"Diablo2_Walk.png");
 		ResourceManager::GetInstance()->Insert(L"Zelda", texture);
 
 		Animator* animator = player->AddComponent<Animator>();
 
-		animator->Create(L"Idle", texture, Vector2(0.0f, 0.0f), Vector2(120.f, 130.f), Vector2(0.0f, 0.0f), 3, 0.1f);
+		animator->Create(L"Idle", texture, Vector2(0.0f, 0.0f), Vector2(60.f, 75.875f), Vector2(0.0f, 0.0f), 8, 0.1f);
 		animator->Play(L"Idle");
+
+		// 60 75.875f
 	}
 
 	Scene::Initalize();

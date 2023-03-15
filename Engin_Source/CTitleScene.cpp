@@ -71,13 +71,6 @@ void TitleScene::Initalize()
 
 		ground->FindTextuer2D(L"TitleTexture2", L"UI\\Title_02.png");
 		Transform* tr = ground->GetComponent<Transform>();
-		float X = width / 100.f;
-		float temp = (X * 100.f) - width;
-		X = X + (temp / width);
-
-		float Y = height / 100.f;
-		temp = (Y * 100.f) - height;
-		Y = Y + (temp / height);
 
 		tr->SetScale(Vector3(width / 100.f, height / 100.f, 0.0f));
 
@@ -93,22 +86,23 @@ void TitleScene::Initalize()
 
 	// Logo
 	{
-		BackGround* ground = Object::Instantiate<BackGround>(eLayerType::BackGround);
-		ground->SetName(L"BackGround3");
-		ground->SetRenderMode(eRenderingMode::Transparent);
+		GameObject* logo = Object::Instantiate<GameObject>(eLayerType::Player);
+		Transform* tr = logo->GetComponent<Transform>();
+		tr->SetScale(Vector3(8.0f, 12.0f, 1.0f));
 
-		ground->FindTextuer2D(L"TitleLogo", L"UI\\Diablo_II_Logo.png");
-		Transform* tr = ground->GetComponent<Transform>();
-		tr->SetScale(Vector3(2.0f, 0.8f, 0.0f));
-		tr->SetPosition(Vector3(1.0f, 4.5f, 1.0f));
+		SpriteRenderer* sr = logo->AddComponent<SpriteRenderer>();
+		
+		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"SpriteMaterial");
+		sr->SetMesh(mesh);
+		sr->SetMaterial(material);
 
-		MeshRenderer* mr = ground->AddComponent<MeshRenderer>();
+		Animator* animator = logo->AddComponent<Animator>();
+		std::shared_ptr<Texture2D> tex = std::make_shared<Texture2D>();
+		tex->Load(L"UI\\Logo.png");
 
-		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"FadeMesh");
-		std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
-		mr->SetMesh(mesh);
-		mr->SetMaterial(material);
-
+		animator->Create(L"Logo", tex, Vector2(0.0f, 0.0f), 216.f, Vector2::Zero, 15, 0.1f);
+		animator->Play(L"Logo");
 		//ground->Paused();
 	}
 

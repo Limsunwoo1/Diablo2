@@ -81,6 +81,28 @@ void Animation::Create(const wstring& name, shared_ptr<Texture2D> atlas
 	}
 }
 
+void Animation::Create(const wstring& name, shared_ptr<Texture2D> atlas, Vector2 leftTop, float size, Vector2 offset, UINT spriteLenght, float duration)
+{
+	mAnimationName = name;
+
+	mAtlas = atlas;
+	float width = (float)atlas->GetWidth();
+	float height = (float)atlas->GetHeight();
+
+	for (int i = 0; i < spriteLenght; ++i)
+	{
+		// API 와는 다르게 0~ 1 사이의 비율좌표로 위치를 표현한다
+		Sprite sprite = {};
+		sprite.leftTop = Vector2(0.0f,  (size * (float)i) / height);
+		sprite.size = Vector2(1.0f, size / height);
+		sprite.offset = offset;
+		sprite.duration = duration;
+		sprite.atlasSize = Vector2(1.0f, 1.0f);
+
+		mSpriteSheet.push_back(sprite);
+	}
+}
+
 void Animation::BindShader()
 {
 	mAtlas->BindShader(eShaderStage::PS, 12);

@@ -25,4 +25,4 @@ private:									\
 
 #define NEW_SHARED(name) std::make_shared<name>();
 
-#define FAIL_EVENT -1;
+#define FAIL_EVENT -1
