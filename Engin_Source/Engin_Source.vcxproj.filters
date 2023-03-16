@@ -139,6 +139,12 @@
     <Filter Include="GameObject\Player">
       <UniqueIdentifier>{429f8f77-7d5d-42db-b49d-b665d6264d96}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\StructuredBuffer">
+      <UniqueIdentifier>{cab8050e-ee15-4a20-adb8-56c6525e439c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Light">
+      <UniqueIdentifier>{2107e2f8-1c12-459a-8741-320521680000}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -272,6 +278,12 @@
     </ClCompile>
     <ClCompile Include="CPlayer.cpp">
       <Filter>GameObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CStructuredBuffer.cpp">
+      <Filter>Graphics\StructuredBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="CLight.cpp">
+      <Filter>Component\Light</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -424,6 +436,12 @@
     </ClInclude>
     <ClInclude Include="Cplayer.h">
       <Filter>GameObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CStructuredBuffer.h">
+      <Filter>Graphics\StructuredBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="CLight.h">
+      <Filter>Component\Light</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

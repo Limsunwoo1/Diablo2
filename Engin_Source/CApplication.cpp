@@ -111,4 +111,11 @@ void CApplication::SetWindow(HWND hwnd, UINT width, UINT height)
 	SetWindowPos(mHwnd, nullptr, 0, 0, rt.right - rt.left, rt.bottom - rt.top, 0);
 	ShowWindow(mHwnd, true);
 	UpdateWindow(mHwnd);
+
+	/*HMENU menu = {};
+	LPRECT rect = {};
+
+	GetMenuItemRect(hwnd, menu, 0, rect);
+
+	rect;*/
 }

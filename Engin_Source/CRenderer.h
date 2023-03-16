@@ -72,6 +72,7 @@ namespace Renderer
 
 	extern std::vector<Camera*> Cameras[];
 	extern std::vector<DebugMesh> debugMeshes;
+	extern std::vector<LightAttribute> lights;
 
 	extern Camera* mainCamera;
 

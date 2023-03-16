@@ -2,6 +2,7 @@
 #include "CResourceManager.h"
 #include "CMaterial.h"
 #include "CSceneManager.h"
+#include "CLight.h"
 
 namespace Renderer
 {
@@ -16,6 +17,7 @@ namespace Renderer
 	Camera* mainCamera = nullptr;
 	std::vector<Camera*> Cameras[(UINT)eSceneType::End];
 	std::vector<DebugMesh> debugMeshes;
+	std::vector<LightAttribute> lights;
 
 	void LoadMesh()
 	{

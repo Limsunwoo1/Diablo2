@@ -37,6 +37,7 @@ enum class eComponentType
 	Animator,
 	UI,
 	Script,
+	Light,
 	End,
 };
 
@@ -70,5 +71,13 @@ enum class eAnimationType
 	None,
 	SecondDimension,
 	ThirdDimension,
+	End,
+};
+
+enum class eLightType
+{
+	Directional,
+	Point,
+	Spot,
 	End,
 };

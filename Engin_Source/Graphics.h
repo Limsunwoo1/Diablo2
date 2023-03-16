@@ -99,6 +99,12 @@ namespace graphics
 		Matrix,
 	};
 
+	enum class eSRVType
+	{
+		None,
+		End,
+	};
+
 	struct GpuBuffer
 	{
 		enum class eType
@@ -125,5 +131,20 @@ namespace graphics
 		float radius;
 		float duration;
 		float time;
+	};
+
+	struct LightAttribute
+	{
+		Math::Vector4 diffuse;
+		Math::Vector4 specular;
+		Math::Vector4 ambient;
+		Math::Vector4 emissive;
+		Math::Vector4 position;
+		Math::Vector4 Direction;
+
+		eLightType type;
+		float radius;
+		float angle;
+		int padding;
 	};
 }
