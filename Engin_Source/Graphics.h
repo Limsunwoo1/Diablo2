@@ -11,11 +11,12 @@
 #define CB_GETBINDSLOT(name) __CBUFFERBINDSLOT__##name##__
 #define CBUFFER(name, slot) static const int CB_GETBINDSLOT(name) = slot; struct alignas(16) name
 
-#define CBSLOT_TRANSFORM 0
-#define CBSLOT_MATERIAL 1
-#define CBSLOT_GRID 2
-#define CBSLOT_FADE 3
-#define CBSLOT_ANIMATION 4
+#define CBSLOT_TRANSFORM		0
+#define CBSLOT_MATERIAL			1
+#define CBSLOT_GRID				2
+#define CBSLOT_FADE				3
+#define CBSLOT_ANIMATION		4
+#define CBSLOT_NUMBEROFLIGHT	5
 
 namespace graphics
 {
@@ -26,6 +27,7 @@ namespace graphics
 		Grid,
 		Fade,
 		Animation,
+		Light,
 		End,
 	};
 
@@ -138,9 +140,8 @@ namespace graphics
 		Math::Vector4 diffuse;
 		Math::Vector4 specular;
 		Math::Vector4 ambient;
-		Math::Vector4 emissive;
 		Math::Vector4 position;
-		Math::Vector4 Direction;
+		Math::Vector4 direction;
 
 		eLightType type;
 		float radius;

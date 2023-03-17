@@ -10,6 +10,7 @@
 #include "CMesh.h"
 #include "CConstantBuffer.h"
 #include "CCamera.h"
+#include "CStructuredBuffer.h"
 
 using namespace Math;
 using namespace graphics;
@@ -50,6 +51,9 @@ namespace Renderer
 	CBUFFER(FadeCB, CBSLOT_FADE)
 	{
 		float alpha;
+		float padding1;
+		float padding2;
+		float padding3;
 	};
 
 	CBUFFER(AnimationCB, CBSLOT_ANIMATION)
@@ -60,6 +64,12 @@ namespace Renderer
 		Vector2 atlasSize;
 
 		UINT type;
+	};
+
+	// NumberOfLight
+	CBUFFER(LightCB, CBSLOT_NUMBEROFLIGHT)
+	{
+		UINT numberOfLight;
 	};
 
 	extern Vertex FadeInOut[4];
@@ -73,11 +83,16 @@ namespace Renderer
 	extern std::vector<Camera*> Cameras[];
 	extern std::vector<DebugMesh> debugMeshes;
 	extern std::vector<LightAttribute> lights;
+	extern StructuredBuffer* LightBuffer;
 
 	extern Camera* mainCamera;
 
 	void Initialize();
-	void Release();
 	void Render();
+	void Release();
+
+	// Renderer
+	void PushLightAttribute(LightAttribute lightAttribute);
+	void BindLights();
 }
 

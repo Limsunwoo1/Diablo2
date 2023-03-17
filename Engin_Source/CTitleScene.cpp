@@ -15,6 +15,7 @@
 #include "CBackGround.h"
 #include "CApplication.h"
 #include "CAnimator.h"
+#include "CLight.h"
 
 extern CApplication Application;
 
@@ -31,6 +32,16 @@ TitleScene::~TitleScene()
 
 void TitleScene::Initalize()
 {
+	// Light
+	{
+		GameObject* directionalLight = Object::Instantiate<GameObject>(eLayerType::Player);
+		Transform* tr = directionalLight->GetComponent<Transform>();
+		tr->SetPosition(Vector3(0.0f, 0.0f, -100.f));
+		Light* lightcomp = directionalLight->AddComponent<Light>();
+		lightcomp->SetType(eLightType::Directional);
+		lightcomp->SetDiffuse(Vector4(1.0f, 0.0f, 1.0f, 1.0f));
+	}
+	
 	// Main Camera Game Object
 	GameObject* cameraObj = Object::Instantiate<GameObject>(eLayerType::Camera);
 	Camera* cameraComp = cameraObj->AddComponent<Camera>();

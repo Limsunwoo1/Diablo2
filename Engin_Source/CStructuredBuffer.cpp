@@ -62,7 +62,7 @@ namespace graphics
 		}
 		else
 		{
-			GetDevice()->BindBuffer(buffer.Get(), data, mSize);
+			GetDevice()->BindBuffer(buffer.Get(), data, mSize * bufferCount);
 		}
 	}
 

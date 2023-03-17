@@ -3,6 +3,7 @@
 #include "CGameObject.h"
 #include "CRenderer.h"
 #include "CScript.h"
+#include "CCamera.h"
 
 UINT Collider2D::ColliderNumber = 0;
 
@@ -69,6 +70,9 @@ void Collider2D::FixedUpdate()
 
 void Collider2D::Render()
 {
+	Matrix world = GetOwner()->GetComponent<Transform>()->GetWorldMatrix();
+	Matrix view = Renderer::mainCamera->GetViewMatrix();
+	Matrix projection = Renderer::mainCamera->GetProjectionMatrix();
 
 }
 

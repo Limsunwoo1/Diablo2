@@ -29,9 +29,9 @@ void Light::FixedUpdate()
 	Transform* tr = GetOwner()->GetComponent<Transform>();
 	Vector3 position = tr->GetPosition();
 	mAttribute.position = Vector4(position.x, position.y, position.z, 1.0f);
-	mAttribute.Direction = Vector4(tr->Right().x, tr->Right().y, tr->Right().z, 1.0f);
+	mAttribute.direction = Vector4(tr->Right().x, tr->Right().y, tr->Right().z, 1.0f);
 
-	Renderer::lights.push_back(mAttribute);
+	Renderer::PushLightAttribute(mAttribute);
 }
 
 void Light::Render()

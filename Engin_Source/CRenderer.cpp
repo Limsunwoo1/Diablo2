@@ -18,6 +18,7 @@ namespace Renderer
 	std::vector<Camera*> Cameras[(UINT)eSceneType::End];
 	std::vector<DebugMesh> debugMeshes;
 	std::vector<LightAttribute> lights;
+	StructuredBuffer* LightBuffer;
 
 	void LoadMesh()
 	{
@@ -353,6 +354,13 @@ namespace Renderer
 
 		constantBuffers[(UINT)eCBType::Animation] = new ConstantBuffer(eCBType::Animation);
 		constantBuffers[(UINT)eCBType::Animation]->Create(sizeof(AnimationCB));
+
+		constantBuffers[(UINT)eCBType::Light] = new ConstantBuffer(eCBType::Light);
+		constantBuffers[(UINT)eCBType::Light]->Create(sizeof(LightCB));
+
+		// Structed buffer
+		LightBuffer = new StructuredBuffer();
+		LightBuffer->Create(sizeof(LightAttribute), 128, eSRVType::None, nullptr);
 	}
 
 	void LoadShader()
@@ -491,6 +499,8 @@ namespace Renderer
 
 	void Render()
 	{
+		BindLights();
+
 		eSceneType type = SceneManager::GetInstance()->GetActiveScene()->GetScenType();
 		for (Camera* cam : Cameras[(UINT)type])
 		{
@@ -501,6 +511,7 @@ namespace Renderer
 		}
 
 		Cameras[(UINT)type].clear();
+		lights.clear();
 	}
 
 	void Release()
@@ -510,5 +521,28 @@ namespace Renderer
 			delete constantBuffers[i];
 			constantBuffers[i] = nullptr;
 		}
+
+		delete LightBuffer;
+		LightBuffer = nullptr;
+	}
+
+	void PushLightAttribute(LightAttribute lightAttribute)
+	{
+		lights.push_back(lightAttribute);
+	}
+
+	void BindLights()
+	{
+		LightBuffer->Bind(lights.data(), lights.size());
+		LightBuffer->SetPipeline(eShaderStage::VS, 13);
+		LightBuffer->SetPipeline(eShaderStage::PS, 13);
+
+		LightCB trCb = {};
+		trCb.numberOfLight = lights.size();
+
+		ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::Light];
+		cb->Bind(&trCb);
+		cb->SetPipline(eShaderStage::VS);
+		cb->SetPipline(eShaderStage::PS);
 	}
 }

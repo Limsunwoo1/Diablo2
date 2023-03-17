@@ -14,6 +14,7 @@
 #include "CBackGround.h"
 #include "CAnimator.h"
 #include "Cplayer.h"
+#include "CLight.h"
 
 
 
@@ -29,6 +30,15 @@ PlayScene::~PlayScene()
 
 void PlayScene::Initalize()
 {
+	{
+		GameObject* directionalLight = Object::Instantiate<GameObject>(eLayerType::Player, this);
+		Transform* tr = directionalLight->GetComponent<Transform>();
+		tr->SetPosition(Vector3(0.0f, 0.0f, -100.f));
+		Light* lightcomp = directionalLight->AddComponent<Light>();
+		lightcomp->SetType(eLightType::Directional);
+		lightcomp->SetDiffuse(Vector4(1.0f, 0.0f, 1.0f, 1.0f));
+	}
+
 	// Main Camera Game Object
 	{
 		GameObject* cameraObj = Object::Instantiate<GameObject>(eLayerType::Camera, this);

@@ -28,6 +28,14 @@ cbuffer Grid : register(b2)
 cbuffer FadeData : register(b3)
 {
     float alpha;
+    float padding1;
+    float padding2;
+    float padding3;
+}
+
+cbuffer NumberOfLight : register(b5)
+{
+    uint numberOfLight;
 }
 
 cbuffer Animation : register(b4)
@@ -51,3 +59,26 @@ Texture2D defaultTexture : register(t0);
 
 // Atlas Texture
 Texture2D atlasTexture : register(t12);
+
+void CalculateLight(in out LightColor  pLightColor, float3 position, int index)
+{
+    if (0 == lightAttributes[index].type)
+    {
+        pLightColor.diffuse += lightAttributes[index].color.diffuse;
+    }
+    else if (1 == lightAttributes[index].type)
+    {
+        float length = distance(lightAttributes[index].position.xy, position.xy);
+
+        if (length < lightAttributes[index].radius)
+        {
+            float ratio = 1.0f - (length / lightAttributes[index].radius);
+            pLightColor.diffuse += lightAttributes[index].color.diffuse * ratio;
+
+        }
+    }
+    else
+    {
+        
+    }
+}
