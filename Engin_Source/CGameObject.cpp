@@ -122,3 +122,8 @@ void GameObject::AddComponent(Component* comp)
 	mComponents[(UINT)order] = comp;
 	mComponents[(UINT)order]->SetOwner(this);
 }
+
+void GameObject::InitAnimation()
+{
+
+}

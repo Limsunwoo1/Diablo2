@@ -48,6 +48,8 @@ public:
 
 	Animation* FindAnimation(const wstring& name);
 	Events* FindEvents(const wstring& name);
+
+	Animation* GetPlayAnimation() { return mActiveAnimation; }
 	void Play(const wstring& name, bool loop = true);
 
 	void Binds();

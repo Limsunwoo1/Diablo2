@@ -128,7 +128,7 @@ void Editor::DebugRender(graphics::DebugMesh& mesh)
 
 	Transform* tr = debugObj->GetComponent<Transform>();
 	tr->SetPosition(mesh.position);
-	tr->SetRotation(mesh.rotation);
+	tr->SetRotation(Vector3(XM_2PI / 60.f, XM_2PI / 60.f, mesh.rotation.z));
 
 	// 레이어별 차이
 	if (mesh.type == eColliderType::Rect)

@@ -39,7 +39,7 @@ void TitleScene::Initalize()
 		tr->SetPosition(Vector3(0.0f, 0.0f, -100.f));
 		Light* lightcomp = directionalLight->AddComponent<Light>();
 		lightcomp->SetType(eLightType::Directional);
-		lightcomp->SetDiffuse(Vector4(1.0f, 0.0f, 1.0f, 1.0f));
+		lightcomp->SetDiffuse(Vector4(0.5f, 0.0f, 0.5f, 1.0f));
 	}
 	
 	// Main Camera Game Object

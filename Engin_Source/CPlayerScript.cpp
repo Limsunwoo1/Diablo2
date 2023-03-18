@@ -4,6 +4,7 @@
 #include "CInput.h"
 #include "CTime.h"
 #include "CAnimator.h"
+#include "CPlayer.h"
 
 PlayerScript::PlayerScript()
 	: Script()
@@ -27,7 +28,7 @@ void PlayerScript::Initalize()
 
 void PlayerScript::Update()
 {
-	Transform* transform = GetOwner()->GetComponent<Transform>();
+	/*Transform* transform = GetOwner()->GetComponent<Transform>();
 
 	Vector3 pos = transform->GetPosition();
 	Vector3 Rotation = transform->GetRotation();
@@ -53,8 +54,79 @@ void PlayerScript::Update()
 	vec.Normalize();
 	pos += vec * Time::GetInstance()->DeltaTime();
 
-	transform->SetPosition(pos);
+	transform->SetPosition(pos);*/
+	Player* player = dynamic_cast<Player*>(GetOwner());
 
+	if (player == nullptr)
+		return;
+
+	Transform* tr = player->GetComponent<Transform>();
+	Vector3 pos = tr->GetPosition();
+
+	float speed = 3.f;
+
+	if (Input::GetInstance()->GetKeyPress(eKeyCode::UP))
+	{
+		if (player->PlayerDirection(1))
+		{
+			player->SetState(Player::State::Move);
+			pos += speed * tr->Up() * Time::GetInstance()->DeltaTime();
+		}
+	}
+	else if (Input::GetInstance()->GetKeyPress(eKeyCode::DOWN))
+	{
+		if (player->PlayerDirection(3))
+		{
+			player->SetState(Player::State::Move);
+			pos += speed * -tr->Up() * Time::GetInstance()->DeltaTime();
+		}
+	}
+	if (Input::GetInstance()->GetKeyPress(eKeyCode::RIGHT))
+	{
+		if (player->PlayerDirection(2))
+		{
+			player->SetState(Player::State::Move);
+			pos += speed * tr->Right() * Time::GetInstance()->DeltaTime();
+		}
+
+	}
+	else if (Input::GetInstance()->GetKeyPress(eKeyCode::LEFT))
+	{
+		if (player->PlayerDirection(4))
+		{
+			player->SetState(Player::State::Move);
+			pos += speed * -tr->Right() * Time::GetInstance()->DeltaTime();
+		}
+	}
+
+	if (player->GetDirection() == 1)
+	{
+		if(Input::GetInstance()->GetKeyUp(eKeyCode::UP))
+			player->SetState(Player::State::Idle);
+	}
+	else if (player->GetDirection() == 2)
+	{
+		if (Input::GetInstance()->GetKeyUp(eKeyCode::RIGHT))
+			player->SetState(Player::State::Idle);
+	}
+	else if (player->GetDirection() == 3)
+	{
+		if (Input::GetInstance()->GetKeyUp(eKeyCode::DOWN))
+			player->SetState(Player::State::Idle);
+	}
+	else if (player->GetDirection() == 4)
+	{
+		if (Input::GetInstance()->GetKeyUp(eKeyCode::LEFT))
+			player->SetState(Player::State::Idle);
+	}
+
+	if (Input::GetInstance()->GetKeyPress(eKeyCode::A))
+	{
+		player->SetState(Player::State::Attack);
+	}
+
+
+	tr->SetPosition(pos);
 }
 
 void PlayerScript::FixedUpdate()
@@ -75,4 +147,14 @@ void PlayerScript::Action()
 
 void PlayerScript::End()
 {
+}
+
+void PlayerScript::Idle()
+{
+
+}
+
+void PlayerScript::Move()
+{
+
 }

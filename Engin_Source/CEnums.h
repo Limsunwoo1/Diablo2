@@ -35,9 +35,9 @@ enum class eComponentType
 	SpriteRenderer,
 	FadeRenderer,
 	Animator,
+	Light,
 	UI,
 	Script,
-	Light,
 	End,
 };
 

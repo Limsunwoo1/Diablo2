@@ -178,7 +178,7 @@
     <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="CEntity.h" />
     <ClInclude Include="CInput.h" />
-    <ClInclude Include="Cplayer.h" />
+    <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CPlayerScript.h" />
     <ClInclude Include="CPlayScene.h" />
     <ClInclude Include="CPrefab.h" />

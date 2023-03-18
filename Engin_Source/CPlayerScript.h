@@ -16,6 +16,9 @@ public:
 	void Start();
 	void Action();
 	void End();
+
+	void Idle();
+	void Move();
 	
 private:
 	Vector3 mArrivePos;

@@ -1,8 +1,7 @@
 #pragma once
 #include "CEntity.h"
-#include "CComponent.h"
+#include "CScript.h"
 
-class Script;
 class GameObject : public Entity
 {
 public:
@@ -20,6 +19,8 @@ public:
 	virtual void Update();
 	virtual void FixedUpdate();
 	virtual void Render();
+
+	virtual void InitAnimation();
 
 	template <typename T>
 	T* AddComponent()

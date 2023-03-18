@@ -434,7 +434,7 @@
     <ClInclude Include="CCreateCharacter.h">
       <Filter>Scene\CreateCharacter</Filter>
     </ClInclude>
-    <ClInclude Include="Cplayer.h">
+    <ClInclude Include="CPlayer.h">
       <Filter>GameObject\Player</Filter>
     </ClInclude>
     <ClInclude Include="CStructuredBuffer.h">

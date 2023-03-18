@@ -13,7 +13,7 @@
 #include "CCollisionManager.h"
 #include "CBackGround.h"
 #include "CAnimator.h"
-#include "Cplayer.h"
+#include "CPlayer.h"
 #include "CLight.h"
 
 
@@ -64,8 +64,6 @@ void PlayScene::Initalize()
 	{
 		Player* player = Object::Instantiate<Player>(eLayerType::Player, this);
 		player->AddComponent<PlayerScript>();
-		player->SetName(L"Zelda");
-
 
 		Collider2D* collider = player->AddComponent<Collider2D>();
 		collider->SetSize(Vector2(1.0f, 1.0f));
@@ -78,14 +76,8 @@ void PlayScene::Initalize()
 		spr->SetMesh(mesh);
 		spr->SetMaterial(material);
 
-		std::shared_ptr<Texture2D> texture = std::make_shared<Texture2D>();
-		texture->Load(L"Diablo2_Walk.png");
-		ResourceManager::GetInstance()->Insert(L"Zelda", texture);
-
-		Animator* animator = player->AddComponent<Animator>();
-
-		animator->Create(L"Idle", texture, Vector2(0.0f, 0.0f), Vector2(60.f, 75.875f), Vector2(0.0f, 0.0f), 8, 0.1f);
-		animator->Play(L"Idle");
+		player->InitAnimation();
+		player->PlayAnimation(L"WalkDown");
 
 		// 60 75.875f
 	}
