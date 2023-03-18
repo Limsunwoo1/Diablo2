@@ -64,65 +64,75 @@ void PlayerScript::Update()
 	Vector3 pos = tr->GetPosition();
 
 	float speed = 3.f;
-
-	if (Input::GetInstance()->GetKeyPress(eKeyCode::UP))
+	if (player->GetState() != Player::State::Attack
+		&& player->GetState() != Player::State::Skil)
 	{
-		if (player->PlayerDirection(1))
+		if (Input::GetInstance()->GetKeyPress(eKeyCode::UP))
 		{
-			player->SetState(Player::State::Move);
-			pos += speed * tr->Up() * Time::GetInstance()->DeltaTime();
+			if (player->PlayerDirection(1))
+			{
+				player->SetState(Player::State::Move);
+				pos += speed * tr->Up() * Time::GetInstance()->DeltaTime();
+			}
 		}
-	}
-	else if (Input::GetInstance()->GetKeyPress(eKeyCode::DOWN))
-	{
-		if (player->PlayerDirection(3))
+		else if (Input::GetInstance()->GetKeyPress(eKeyCode::DOWN))
 		{
-			player->SetState(Player::State::Move);
-			pos += speed * -tr->Up() * Time::GetInstance()->DeltaTime();
-		}
-	}
-	if (Input::GetInstance()->GetKeyPress(eKeyCode::RIGHT))
-	{
-		if (player->PlayerDirection(2))
-		{
-			player->SetState(Player::State::Move);
-			pos += speed * tr->Right() * Time::GetInstance()->DeltaTime();
+			if (player->PlayerDirection(3))
+			{
+				player->SetState(Player::State::Move);
+				pos += speed * -tr->Up() * Time::GetInstance()->DeltaTime();
+			}
 		}
 
-	}
-	else if (Input::GetInstance()->GetKeyPress(eKeyCode::LEFT))
-	{
-		if (player->PlayerDirection(4))
-		{
-			player->SetState(Player::State::Move);
-			pos += speed * -tr->Right() * Time::GetInstance()->DeltaTime();
-		}
-	}
 
-	if (player->GetDirection() == 1)
-	{
-		if(Input::GetInstance()->GetKeyUp(eKeyCode::UP))
-			player->SetState(Player::State::Idle);
-	}
-	else if (player->GetDirection() == 2)
-	{
-		if (Input::GetInstance()->GetKeyUp(eKeyCode::RIGHT))
-			player->SetState(Player::State::Idle);
-	}
-	else if (player->GetDirection() == 3)
-	{
-		if (Input::GetInstance()->GetKeyUp(eKeyCode::DOWN))
-			player->SetState(Player::State::Idle);
-	}
-	else if (player->GetDirection() == 4)
-	{
-		if (Input::GetInstance()->GetKeyUp(eKeyCode::LEFT))
-			player->SetState(Player::State::Idle);
+		if (Input::GetInstance()->GetKeyPress(eKeyCode::RIGHT))
+		{
+			if (player->PlayerDirection(2))
+			{
+				player->SetState(Player::State::Move);
+				pos += speed * tr->Right() * Time::GetInstance()->DeltaTime();
+			}
+
+		}
+		else if (Input::GetInstance()->GetKeyPress(eKeyCode::LEFT))
+		{
+			if (player->PlayerDirection(4))
+			{
+				player->SetState(Player::State::Move);
+				pos += speed * -tr->Right() * Time::GetInstance()->DeltaTime();
+			}
+		}
+
+
+		if (player->GetDirection() == 1)
+		{
+			if (Input::GetInstance()->GetKeyUp(eKeyCode::UP))
+				player->SetState(Player::State::Idle);
+		}
+		else if (player->GetDirection() == 2)
+		{
+			if (Input::GetInstance()->GetKeyUp(eKeyCode::RIGHT))
+				player->SetState(Player::State::Idle);
+		}
+		else if (player->GetDirection() == 3)
+		{
+			if (Input::GetInstance()->GetKeyUp(eKeyCode::DOWN))
+				player->SetState(Player::State::Idle);
+		}
+		else if (player->GetDirection() == 4)
+		{
+			if (Input::GetInstance()->GetKeyUp(eKeyCode::LEFT))
+				player->SetState(Player::State::Idle);
+		}
 	}
 
 	if (Input::GetInstance()->GetKeyPress(eKeyCode::A))
 	{
 		player->SetState(Player::State::Attack);
+	}
+	else if (Input::GetInstance()->GetKeyPress(eKeyCode::S))
+	{
+		player->SetState(Player::State::Skil);
 	}
 
 

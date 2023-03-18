@@ -36,7 +36,7 @@ void PlayScene::Initalize()
 		tr->SetPosition(Vector3(0.0f, 0.0f, -100.f));
 		Light* lightcomp = directionalLight->AddComponent<Light>();
 		lightcomp->SetType(eLightType::Directional);
-		lightcomp->SetDiffuse(Vector4(1.0f, 0.0f, 1.0f, 1.0f));
+		lightcomp->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 	}
 
 	// Main Camera Game Object
@@ -68,6 +68,9 @@ void PlayScene::Initalize()
 		Collider2D* collider = player->AddComponent<Collider2D>();
 		collider->SetSize(Vector2(1.0f, 1.0f));
 		collider->SetType(eColliderType::Rect);
+
+		Transform* tr = player->GetComponent<Transform>();
+		tr->SetScale(Vector3(2.0f, 2.0f, 1.0f));
 
 		SpriteRenderer* spr = player->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");

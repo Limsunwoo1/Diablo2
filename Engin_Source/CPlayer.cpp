@@ -60,6 +60,8 @@ void Player::InitAnimation()
 		animator->Create(L"WalkLeft", texture, Vector2(0.0f, 75.875 * 3), Vector2(60.f, 75.875f), Vector2(0.0f, 0.0f), 8, 0.1f);
 		animator->Create(L"WalkUp", texture, Vector2(0.0f, 75.875 * 8), Vector2(60.f, 75.875f), Vector2(0.0f, 0.0f), 8, 0.1f);
 		animator->Create(L"WalkRight", texture, Vector2(0.0f, 75.875 * 11), Vector2(60.f, 75.875f), Vector2(0.0f, 0.0f), 8, 0.1f);
+
+		//60 75.875
 	}
 
 	{
@@ -73,6 +75,32 @@ void Player::InitAnimation()
 		animator->Create(L"IdleRight", texture, Vector2(0.0f, 72.f * 11), Vector2(66.f, 72.f), Vector2(0.0f, 0.0f), 8, 0.1f);
 
 		// 66  72
+	}
+
+	{
+		std::shared_ptr<Texture2D> texture = std::make_shared<Texture2D>();
+		texture->Load(L"attack1.png");
+		ResourceManager::GetInstance()->Insert(L"PlayerAttack", texture);
+
+		animator->Create(L"AttackDown", texture, Vector2(0.0f, 0.0f), Vector2(124.95f, 78.8125f), Vector2(0.0f, 0.0f), 20, 0.03f);
+		animator->Create(L"AttackLeft", texture, Vector2(0.0f, 78.8125f * 3), Vector2(124.95f, 78.8125f), Vector2(0.0f, 0.0f), 20, 0.03f);
+		animator->Create(L"AttackUp", texture, Vector2(0.0f, 78.8125f * 8), Vector2(124.95f, 78.8125f), Vector2(0.0f, 0.0f), 20, 0.03f);
+		animator->Create(L"AttackRight", texture, Vector2(0.0f, 78.8125f * 11), Vector2(124.95f, 78.8125f), Vector2(0.0f, 0.0f), 20, 0.03f);
+
+		// 124.95  78.8125
+	}
+
+	{
+		std::shared_ptr<Texture2D> texture = std::make_shared<Texture2D>();
+		texture->Load(L"skill1.png");
+		ResourceManager::GetInstance()->Insert(L"PlayerSKil", texture);
+
+		animator->Create(L"SkilDown", texture, Vector2(0.0f, 0.0f), Vector2(88.7857142857f, 91.9375f), Vector2(0.0f, 0.0f), 14, 0.1f);
+		animator->Create(L"SkilLeft", texture, Vector2(0.0f, 91.9375f * 3), Vector2(88.7857142857f, 91.9375f), Vector2(0.0f, 0.0f), 14, 0.1f);
+		animator->Create(L"SkilUp", texture, Vector2(0.0f, 91.9375f * 8), Vector2(88.7857142857f, 91.9375f), Vector2(0.0f, 0.0f), 14, 0.1f);
+		animator->Create(L"SkilRight", texture, Vector2(0.0f, 91.9375f * 11), Vector2(88.7857142857f, 91.9375f), Vector2(0.0f, 0.0f), 14, 0.1f);
+
+		// 88.7857142857 91.9375
 	}
 }
 
@@ -167,12 +195,70 @@ void Player::Move()
 
 void Player::Attack()
 {
+	Animator* animator = GetComponent<Animator>();
+	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
 
+	if (name.find(L"Attack") == wstring::npos)
+	{
+		if (GetDirection() == 1)
+			animator->Play(L"AttackUp", false);
+		else if (GetDirection() == 2)
+			animator->Play(L"AttackRight", false);
+		else if (GetDirection() == 3)
+			animator->Play(L"AttackDown", false);
+		else if (GetDirection() == 4)
+			animator->Play(L"AttackLeft", false);
+	}
+	else
+	{
+		if (animator->GetPlayAnimation()->IsComplete())
+		{
+			mState = State::Idle;
+
+			if (GetDirection() == 1)
+				animator->Play(L"IdleUp");
+			else if (GetDirection() == 2)
+				animator->Play(L"IdleRight");
+			else if (GetDirection() == 3)
+				animator->Play(L"IdleDown");
+			else if (GetDirection() == 4)
+				animator->Play(L"IdleLeft");
+		}
+	}
 }
 
 void Player::SKil()
 {
+	Animator* animator = GetComponent<Animator>();
+	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
 
+	if (name.find(L"Skil") == wstring::npos)
+	{
+		if (GetDirection() == 1)
+			animator->Play(L"SkilUp", false);
+		else if (GetDirection() == 2)
+			animator->Play(L"SkilRight", false);
+		else if (GetDirection() == 3)
+			animator->Play(L"SkilDown", false);
+		else if (GetDirection() == 4)
+			animator->Play(L"SkilLeft", false);
+	}
+	else
+	{
+		if (animator->GetPlayAnimation()->IsComplete())
+		{
+			mState = State::Idle;
+
+			if (GetDirection() == 1)
+				animator->Play(L"IdleUp");
+			else if (GetDirection() == 2)
+				animator->Play(L"IdleRight");
+			else if (GetDirection() == 3)
+				animator->Play(L"IdleDown");
+			else if (GetDirection() == 4)
+				animator->Play(L"IdleLeft");
+		}
+	}
 }
 
 void Player::Hit()
