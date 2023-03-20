@@ -128,11 +128,15 @@ void PlayerScript::Update()
 
 	if (Input::GetInstance()->GetKeyPress(eKeyCode::A))
 	{
-		player->SetState(Player::State::Attack);
+		if(player->GetState() == Player::State::Idle
+			|| player->GetState() == Player::State::Move)
+			player->SetState(Player::State::Attack);
 	}
 	else if (Input::GetInstance()->GetKeyPress(eKeyCode::S))
 	{
-		player->SetState(Player::State::Skil);
+		if (player->GetState() == Player::State::Idle
+			|| player->GetState() == Player::State::Move)
+			player->SetState(Player::State::Skil);
 	}
 
 
