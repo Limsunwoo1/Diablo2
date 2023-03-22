@@ -24,12 +24,23 @@ namespace graphics
 		void Clear();
 		void Clear(UINT startSlot);
 
+		bool Create(UINT width, UINT height, DXGI_FORMAT format, UINT bindFlag);
+
 		UINT GetHeight() { return (UINT)(mImage.GetMetadata().height); }
 		UINT GetWidth() { return (UINT)(mImage.GetMetadata().width); }
+
+		ComPtr<ID3D11Texture2D> GetTexteur()		{ return mTexture; }
+		ComPtr<ID3D11DepthStencilView> GetDSV()		{ return mDSV; }
+		ComPtr<ID3D11RenderTargetView> GetRTV()		{ return mRTV; }
+		ComPtr<ID3D11UnorderedAccessView> GetUAV()	{ return mUAV; }
+		ComPtr<ID3D11ShaderResourceView> GetSRV()	{ return mSRV; }
 
 	private:
 		ScratchImage mImage;
 		ComPtr<ID3D11Texture2D> mTexture;
+		ComPtr<ID3D11DepthStencilView> mDSV;
+		ComPtr<ID3D11RenderTargetView> mRTV;
+		ComPtr<ID3D11UnorderedAccessView> mUAV;
 		ComPtr<ID3D11ShaderResourceView> mSRV;
 		D3D11_TEXTURE2D_DESC mDesc;
 	};

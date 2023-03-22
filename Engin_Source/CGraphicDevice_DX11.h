@@ -2,6 +2,7 @@
 #include "Graphics.h"
 
 using namespace Microsoft::WRL;
+using namespace std;
 
 namespace graphics
 {
@@ -12,13 +13,16 @@ namespace graphics
 		~CGraphicDevice_DX11();
 
 		bool CreateSwapChain(DXGI_SWAP_CHAIN_DESC* desc);
-		bool CreateTextur(D3D11_TEXTURE2D_DESC* desc, ID3D11Texture2D** ppTexture2D);
+		bool CreateTexture(D3D11_TEXTURE2D_DESC* desc, ID3D11Texture2D** ppTexture2D);
 
 		bool CreateInputLayout(D3D11_INPUT_ELEMENT_DESC* desc, UINT NumElements, const void* byteCode, SIZE_T bytecodeLength, ID3D11InputLayout** ppInputLayout);
 		bool CreateBuffer(D3D11_BUFFER_DESC* desc, D3D11_SUBRESOURCE_DATA* data, ID3D11Buffer** buffer);
+		bool CreateUnorderedAccessView(ID3D11Resource* pResource, const D3D11_UNORDERED_ACCESS_VIEW_DESC* pDesc, ID3D11UnorderedAccessView** ppUAView);
+		bool CreateDepthStencilView(ID3D11Resource* pResource, const D3D11_DEPTH_STENCIL_VIEW_DESC* pDesc, ID3D11DepthStencilView** ppDepthStencilView);
 		bool CreateShaderResourceView(ID3D11Resource* pResource, const D3D11_SHADER_RESOURCE_VIEW_DESC* pDesc, ID3D11ShaderResourceView** ppSRView);
 		bool CreateVertexShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11ClassLinkage* pClassLinkage, ID3D11VertexShader** ppVertexShader);
 		bool CreatePixelShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11ClassLinkage* pClassLinkage, ID3D11PixelShader** ppVertexShader);
+		bool CreateComputeShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11ClassLinkage* pClassLinkage, ID3D11ComputeShader** ppComputeShader);
 		bool CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc, ID3D11SamplerState** ppSamplerState);
 		bool CreateRasterizerState(const D3D11_RASTERIZER_DESC* pRasterizerdesc, ID3D11RasterizerState** ppRasterizerState);
 		bool CreateDepthStencilState(const D3D11_DEPTH_STENCIL_DESC* pDepthStencildesc, ID3D11DepthStencilState** ppDepthStencilState);
@@ -49,26 +53,28 @@ namespace graphics
 		void Present();
 
 		ID3D11Device* GetID3D11Device() { return mDevice.Get(); }
+		ID3D11DeviceContext* GetID3D11DeviceContext() { return mContext.Get(); }
 
 	private:
 		// GPU 객체 생성 그래픽카드와 연결되는 기본적인객체
-		ComPtr <ID3D11Device> mDevice;
+		ComPtr<ID3D11Device> mDevice;
 		// GPU read write 디바이스에 직접 접근하지 않고 이 객체를 통해 GPU에 명령을 내린다
-		ComPtr <ID3D11DeviceContext> mContext;
+		ComPtr<ID3D11DeviceContext> mContext;
 
 		// 최종적으로 그려지는 도화지
-		ComPtr <ID3D11Texture2D> mRenderTarget;
 		// 렌더타겟 객체에 접근하기위한 객체 (직접접근X View를 통한 우회접근)
-		ComPtr <ID3D11RenderTargetView> mRenderTargetView; // 렌더 타겟 접근 권한 - iter 같은 개념
+		ComPtr <ID3D11Texture2D> mRenderTarget;
+		ComPtr<ID3D11RenderTargetView> mRenderTargetView; // 렌더 타겟 접근 권한 - iter 같은 개념
 
-		ComPtr <ID3D11Texture2D> mDepthStencilBuffer;
+		//ComPtr <ID3D11Texture2D> mDepthStencilBuffer;
 		// 마찬가지로 딮 스텐실 버퍼에 접근하기위한 객체
-		ComPtr <ID3D11DepthStencilView> mDepthStencilView;
+		//ComPtr <ID3D11DepthStencilView> mDepthStencilView;
+		shared_ptr<class Texture2D> mDepthStencilBuffer;
 
 		// 화면에 최정적으로 그려지는
 		// 백퍼버(Frame Buffer)를 관리하고, 실제로 화면에 렌더링 하는
 		// 역할을 담당하는 객체
-		ComPtr <IDXGISwapChain> mSwapChain;
+		ComPtr<IDXGISwapChain> mSwapChain;
 
 		// 텍스쳐 로딩할때 사용된다.
 		// 안티엘리어싱 (계단현상 방지)
