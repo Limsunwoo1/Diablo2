@@ -143,9 +143,11 @@ Math::Vector2 Input::GetMouseWorldPos()
 	graphics::GetDevice()->GetID3D11DeviceContext()->RSGetViewports(&numVIewPorts, &viewport);
 
 	// ½ºÅ©¸° ÁÂÇ¥¸¦ NDC ÁÂÇ¥·Î º¯È¯
-	float ndcX = ((2.0f * mouse.x) / viewport.Width) - 1.0f;
-	float ndcY = 1.0f - ((2.0f * mouse.y) / viewport.Height);
+	/*float ndcX = ((2.0f * mouse.x) / viewport.Width) - 1.0f;
+	float ndcY = 1.0f - ((2.0f * mouse.y) / viewport.Height);*/
 
+	float ndcX = (2.0f * mouse.x / viewport.Width - 1.0f);
+	float ndcY = (-2.0f * mouse.y / viewport.Height + 1.0f);
 	/*float ndcX = (2.0f * mouse.x);
 	ndcX /= viewport.Width;
 	ndcX -= 1.0f;
@@ -158,21 +160,21 @@ Math::Vector2 Input::GetMouseWorldPos()
 
 	// NDC ÁÂÇ¥¸¦ ¿ùµå ÁÂÇ¥·Î º¯È¯
 	Math::Vector3 nearPoint(ndcX, ndcY, 0.0f);
-
 	Math::Vector3 result;
-
-	Math::Matrix projection1 = Renderer::mainCamera->GetProjectionMatrix();
-	Math::Matrix view2 = Renderer::mainCamera->GetViewMatrix();
 
 	Math::Matrix projection = Renderer::mainCamera->GetProjectionMatrix().Invert();
 	Math::Matrix view = Renderer::mainCamera->GetViewMatrix().Invert();
+
+	Math::Vector3::Transform(nearPoint, projection, result);
+	Math::Vector3::Transform(result, view, result);
+
+	/*Math::Matrix projection1 = Renderer::mainCamera->GetProjectionMatrix();
+	Math::Matrix view2 = Renderer::mainCamera->GetViewMatrix();*/
 
 	/*Math::Matrix mat;
 	mat = projection;
 	mat *= view;*/
 
-	Math::Vector3::Transform(nearPoint, projection, result);
-	Math::Vector3::Transform(result, view, result);
 
 	result.x;
 	result.y;
