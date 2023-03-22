@@ -146,11 +146,11 @@ void PlayerScript::Update()
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::RBTN))
 	{
 		Vector2 point = Input::GetInstance()->GetMousePos();
-		Vector2 mouse = Input::GetInstance()->test();
+		Vector2 mouse = Input::GetInstance()->GetMouseWorldPos();
 
 		Input::GetInstance()->GetMouseWorldPos();
-		std::cout << pos.x << " : X ÁÂÇ¥" << pos.y << " : Y ÁÂÇ¥" << std::endl;
-		std::cout << mouse.x << " : X ¸¶¿ì½º" << mouse.y << " : Y ¸¶¿ì½º" << std::endl;
+		std::cout << pos.x << " : X ÁÂÇ¥  " << pos.y << " : Y ÁÂÇ¥" << std::endl;
+		std::cout << mouse.x << " : X ¸¶¿ì½º  " << mouse.y << " : Y ¸¶¿ì½º" << std::endl;
 		int a = 0;
 	}
 }

@@ -135,28 +135,6 @@ Math::Vector2 Input::GetMousePos(HWND hWnd)
 
 Math::Vector2 Input::GetMouseWorldPos()
 {
-	Math::Vector2 vMousePos(-99999.f, -99999.f);
-	
-	if (GetFocus())
-	{
-		test();
-		POINT mousePos = {};
-		GetCursorPos(&mousePos);
-		ScreenToClient(Application.GetHwnd(), &mousePos);
-		vMousePos.x = (float)mousePos.x;
-		vMousePos.y = (float)mousePos.y;
-
-		float pointX = (2.0f * vMousePos.x / 1600.f - 1.0f);
-		float pointY = (2.0f * vMousePos.y / 900.f + 1.0f);
-
-		return Math::Vector2(pointX, pointY);
-	}
-
-	return vMousePos;
-}
-
-Math::Vector2 Input::test()
-{
 	Vector2 mouse = GetMousePos();
 
 	// viewport Å©±â
@@ -166,24 +144,35 @@ Math::Vector2 Input::test()
 
 	// ½ºÅ©¸° ÁÂÇ¥¸¦ NDC ÁÂÇ¥·Î º¯È¯
 	float ndcX = ((2.0f * mouse.x) / viewport.Width) - 1.0f;
-	float ndcY = 1.0f -((2.0f * mouse.y) / viewport.Height);
+	float ndcY = 1.0f - ((2.0f * mouse.y) / viewport.Height);
+
+	/*float ndcX = (2.0f * mouse.x);
+	ndcX /= viewport.Width;
+	ndcX -= 1.0f;
+
+	float ndcY = (2.0f * mouse.y);
+	ndcY /= viewport.Height;
+	ndcY -= 1.0f;*/
+
 	float ndxZ = 1.0f;
 
 	// NDC ÁÂÇ¥¸¦ ¿ùµå ÁÂÇ¥·Î º¯È¯
-	Math::Vector3 newrPoint(ndcX, ndcY, 0.0f);
-	Math::Vector3 farPoint(ndcX, ndcY, ndxZ);
+	Math::Vector3 nearPoint(ndcX, ndcY, 0.0f);
+
+	Math::Vector3 result;
+
+	Math::Matrix projection1 = Renderer::mainCamera->GetProjectionMatrix();
+	Math::Matrix view2 = Renderer::mainCamera->GetViewMatrix();
 
 	Math::Matrix projection = Renderer::mainCamera->GetProjectionMatrix().Invert();
 	Math::Matrix view = Renderer::mainCamera->GetViewMatrix().Invert();
 
-	Math::Vector3 nearPointWorld, farPointWorld;
-
-	Math::Matrix mat;
+	/*Math::Matrix mat;
 	mat = projection;
-	mat *= view;
-	
-	Math::Vector3 result;
-	Math::Vector3::Transform(farPoint, mat, result);
+	mat *= view;*/
+
+	Math::Vector3::Transform(nearPoint, projection, result);
+	Math::Vector3::Transform(result, view, result);
 
 	result.x;
 	result.y;
