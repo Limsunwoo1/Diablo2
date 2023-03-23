@@ -80,7 +80,7 @@ void PlayScene::Initalize()
 		spr->SetMaterial(material);
 
 		player->InitAnimation();
-		player->PlayAnimation(L"WalkDown");
+		player->PlayAnimation(L"Walk0");
 
 		// 60 75.875f
 	}

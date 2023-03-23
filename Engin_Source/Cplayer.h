@@ -46,8 +46,9 @@ private:
 
 	UINT mDamege;
 
-	// (1)12시, 2(3시), 3(6시), 4(9시) 
-	std::bitset<4> mDirection;
+	// 0 (6시 방향) 4(9시 방향) 8(12시방향) 12(3시 방향) 
+	std::bitset<16> mDirection;
+	UINT mIndex;
 	State mState;
 };
 

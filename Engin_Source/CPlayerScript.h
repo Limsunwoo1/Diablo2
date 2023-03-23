@@ -19,9 +19,12 @@ public:
 
 	void Idle();
 	void Move();
+
+	float PickAngle(Vector2 point);
 	
 private:
 	Vector3 mArrivePos;
+	Vector2 mPickPoint;
 	bool mbRun;
 };
 

@@ -10,6 +10,7 @@ Player::Player()
 	, mHP(10)
 	, mMP(10)
 	, mDamege(5)
+	, mIndex(0)
 {
 
 }
@@ -56,11 +57,19 @@ void Player::InitAnimation()
 		texture->Load(L"Diablo2_Walk.png");
 		ResourceManager::GetInstance()->Insert(L"PlayerWalk", texture);
 
-		animator->Create(L"WalkDown", texture, Vector2(0.0f, 0.0f), Vector2(60.f, 75.875f), Vector2(0.0f, 0.0f), 8, 0.1f);
-		animator->Create(L"WalkLeft", texture, Vector2(0.0f, 75.875 * 3), Vector2(60.f, 75.875f), Vector2(0.0f, 0.0f), 8, 0.1f);
-		animator->Create(L"WalkUp", texture, Vector2(0.0f, 75.875 * 8), Vector2(60.f, 75.875f), Vector2(0.0f, 0.0f), 8, 0.1f);
-		animator->Create(L"WalkRight", texture, Vector2(0.0f, 75.875 * 11), Vector2(60.f, 75.875f), Vector2(0.0f, 0.0f), 8, 0.1f);
+		/*animator->Create(L"Walk0", texture, Vector2(0.0f, 0.0f), Vector2(60.f, 75.875f), Vector2(0.0f, 0.0f), 8, 0.1f);
+		animator->Create(L"WalkUp", texture, Vector2(0.0f, 75.875 * 8), Vector2(60.f, 75.875f), Vector2(0.0f, 0.0f), 8, 0.1f);*/
 
+		float x = 60.f;
+		float y = 75.875f;
+
+		for (int i = 0; i < mDirection.size(); ++i)
+		{
+			wstring name = L"Walk";
+			name += std::to_wstring(i);
+
+			animator->Create(name, texture, Vector2(0.0f, y * i), Vector2(x, y), Vector2(0.0f, 0.0f), 8, 0.1f);
+		}
 		//60 75.875
 	}
 
@@ -69,10 +78,16 @@ void Player::InitAnimation()
 		texture->Load(L"Diablo2_Idle.png");
 		ResourceManager::GetInstance()->Insert(L"PlayerIdle", texture);
 
-		animator->Create(L"IdleDown", texture, Vector2(0.0f, 0.0f), Vector2(66.f, 72.f), Vector2(0.0f, 0.0f), 8, 0.1f);
-		animator->Create(L"IdleLeft", texture, Vector2(0.0f, 72.f * 3), Vector2(66.f, 72.f), Vector2(0.0f, 0.0f), 8, 0.1f);
-		animator->Create(L"IdleUp", texture, Vector2(0.0f, 72.f * 8), Vector2(66.f, 72.f), Vector2(0.0f, 0.0f), 8, 0.1f);
-		animator->Create(L"IdleRight", texture, Vector2(0.0f, 72.f * 11), Vector2(66.f, 72.f), Vector2(0.0f, 0.0f), 8, 0.1f);
+		float x = 66.f;
+		float y = 72.f;
+
+		for (int i = 0; i < mDirection.size(); ++i)
+		{
+			wstring name = L"Idle";
+			name += std::to_wstring(i);
+
+			animator->Create(name, texture, Vector2(0.0f, y * i), Vector2(x, y), Vector2(0.0f, 0.0f), 8, 0.1f);
+		}
 
 		// 66  72
 	}
@@ -82,11 +97,17 @@ void Player::InitAnimation()
 		texture->Load(L"attack1.png");
 		ResourceManager::GetInstance()->Insert(L"PlayerAttack", texture);
 
-		animator->Create(L"AttackDown", texture, Vector2(0.0f, 0.0f), Vector2(124.95f, 78.8125f), Vector2(0.0f, 0.0f), 20, 0.03f);
-		animator->Create(L"AttackLeft", texture, Vector2(0.0f, 78.8125f * 3), Vector2(124.95f, 78.8125f), Vector2(0.0f, 0.0f), 20, 0.03f);
-		animator->Create(L"AttackUp", texture, Vector2(0.0f, 78.8125f * 8), Vector2(124.95f, 78.8125f), Vector2(0.0f, 0.0f), 20, 0.03f);
-		animator->Create(L"AttackRight", texture, Vector2(0.0f, 78.8125f * 11), Vector2(124.95f, 78.8125f), Vector2(0.0f, 0.0f), 20, 0.03f);
+		float x = 124.95f;
+		float y = 78.8125f;
 
+		for (int i = 0; i < mDirection.size(); ++i)
+		{
+			wstring name = L"Attack";
+			name += std::to_wstring(i);
+
+			animator->Create(name, texture, Vector2(0.0f, y * i), Vector2(x, y), Vector2(0.0f, 0.0f), 8, 0.1f);
+
+		}
 		// 124.95  78.8125
 	}
 
@@ -95,10 +116,17 @@ void Player::InitAnimation()
 		texture->Load(L"skill1.png");
 		ResourceManager::GetInstance()->Insert(L"PlayerSKil", texture);
 
-		animator->Create(L"SkilDown", texture, Vector2(0.0f, 0.0f), Vector2(88.7857142857f, 91.9375f), Vector2(0.0f, 0.0f), 14, 0.1f);
-		animator->Create(L"SkilLeft", texture, Vector2(0.0f, 91.9375f * 3), Vector2(88.7857142857f, 91.9375f), Vector2(0.0f, 0.0f), 14, 0.1f);
-		animator->Create(L"SkilUp", texture, Vector2(0.0f, 91.9375f * 8), Vector2(88.7857142857f, 91.9375f), Vector2(0.0f, 0.0f), 14, 0.1f);
-		animator->Create(L"SkilRight", texture, Vector2(0.0f, 91.9375f * 11), Vector2(88.7857142857f, 91.9375f), Vector2(0.0f, 0.0f), 14, 0.1f);
+		float x = 88.7857142857f;
+		float y = 91.9375f;
+
+		for (int i = 0; i < mDirection.size(); ++i)
+		{
+			wstring name = L"Skil";
+			name += std::to_wstring(i);
+
+			animator->Create(name, texture, Vector2(0.0f, y * i), Vector2(x, y), Vector2(0.0f, 0.0f), 8, 0.1f);
+
+		}
 
 		// 88.7857142857 91.9375
 	}
@@ -107,7 +135,7 @@ void Player::InitAnimation()
 void Player::PlayAnimation(const std::wstring& name)
 {
 	Animator* animator = this->GetComponent<Animator>();
-	if(animator)
+	if (animator)
 		animator->Play(name);
 }
 
@@ -117,18 +145,21 @@ bool Player::PlayerDirection(int index)
 		return false;
 
 	mDirection.reset();
-	mDirection[index - 1] = 1;
+	mDirection[index] = 1;
+	mIndex = index;
 
 	return true;
 }
 
 UINT Player::GetDirection()
 {
-	for (int i = 0; i < mDirection.size(); ++i)
+	// index Å½»ö
+	/*for (int i = 0; i < mDirection.size(); ++i)
 	{
 		if (mDirection[i] > 0)
-			return i + 1;
-	}
+			return i;
+	}*/
+	return mIndex;
 }
 
 void Player::SetState(State state)
@@ -168,6 +199,9 @@ void Player::Idle()
 	Animator* animator = GetComponent<Animator>();
 	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
 
+	int index = -1;
+
+
 	if (mDirection[0] == true && name == L"WalkUp")
 		animator->Play(L"IdleUp");
 	else if (mDirection[2] == true && name == L"WalkDown")
@@ -176,21 +210,34 @@ void Player::Idle()
 		animator->Play(L"IdleRight");
 	else if (mDirection[3] == true && name == L"WalkLeft")
 		animator->Play(L"IdleLeft");
+
+
 }
 
 void Player::Move()
 {
 	Animator* animator = GetComponent<Animator>();
 	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
+	UINT index = GetDirection();
 
-	if (mDirection[0] == true && name != L"WalkUp")
+	wstring playName = L"Walk";
+	playName += std::to_wstring(index);
+
+	if (playName == name)
+		return;
+
+	animator->Play(playName);
+
+	/*if (mDirection[0] == true && name != L"WalkUp")
 		animator->Play(L"WalkUp");
-	else if(mDirection[2] == true && name != L"WalkDown")
+	else if (mDirection[2] == true && name != L"WalkDown")
 		animator->Play(L"WalkDown");
 	else if (mDirection[1] == true && name != L"WalkRight")
 		animator->Play(L"WalkRight");
 	else if (mDirection[3] == true && name != L"WalkLeft")
-		animator->Play(L"WalkLeft");
+		animator->Play(L"WalkLeft");*/
+
+
 }
 
 void Player::Attack()

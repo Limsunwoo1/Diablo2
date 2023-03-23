@@ -11,6 +11,7 @@ PlayerScript::PlayerScript()
 	: Script()
 	, mArrivePos(Vector3::Zero)
 	, mbRun(false)
+	, mPickPoint(Vector2::Zero)
 {
 }
 
@@ -65,7 +66,7 @@ void PlayerScript::Update()
 	Vector3 pos = tr->GetPosition();
 
 	float speed = 3.f;
-	if (player->GetState() != Player::State::Attack
+	/*if (player->GetState() != Player::State::Attack
 		&& player->GetState() != Player::State::Skil)
 	{
 		if (Input::GetInstance()->GetKeyPress(eKeyCode::UP))
@@ -125,7 +126,7 @@ void PlayerScript::Update()
 			if (Input::GetInstance()->GetKeyUp(eKeyCode::LEFT))
 				player->SetState(Player::State::Idle);
 		}
-	}
+	}*/
 
 	if (Input::GetInstance()->GetKeyPress(eKeyCode::A))
 	{
@@ -141,18 +142,106 @@ void PlayerScript::Update()
 	}
 
 
-	tr->SetPosition(pos);
-
-	if (Input::GetInstance()->GetKeyDown(eKeyCode::RBTN))
+	if (Input::GetInstance()->GetKeyPress(eKeyCode::RBTN))
 	{
-		Vector2 point = Input::GetInstance()->GetMousePos();
 		Vector2 mouse = Input::GetInstance()->GetMouseWorldPos();
+		mPickPoint = mouse;
+		float angle = PickAngle(mPickPoint);
 
-		std::cout << pos.x << " : X 좌표  " << pos.y << " : Y 좌표" << std::endl;
+		pos = tr->GetPosition();
+		Vector2 vec = mPickPoint - Vector2(pos.x, pos.y);
 
-		std::cout << mouse.x << " : X 마우스  " << mouse.y << " : Y 마우스" << std::endl;
+		if (vec.x <= 0.f)
+		{
+			if (0.0f >= angle && angle < 22.5f)
+			{
+				player->PlayerDirection(0);
+			}
+			else if (angle >= 22.5f && angle < 50.f)
+			{
+				player->PlayerDirection(1);
+			}
+			else if (angle >= 50.f && angle < 75.5f)
+			{
+				player->PlayerDirection(2);
+			}
+			else if (angle >= 75.5f && angle < 90.f)
+			{
+				player->PlayerDirection(3);
+			}
+			else if (angle >= 90.f && angle < 115.f)
+			{
+				player->PlayerDirection(4);
+			}
+			else if (angle >= 115.f && angle < 140.f)
+			{
+				player->PlayerDirection(5);
+			}
+			else if (angle >= 140.f && angle < 165.5f)
+			{
+				player->PlayerDirection(6);
+			}
+			else
+			{
+				player->PlayerDirection(7);
+			}
+		}
+		else
+		{
+			if (0.0f >= angle && angle < 22.5f)
+			{
+				player->PlayerDirection(8);
+			}
+			else if (angle >= 22.5f && angle < 50.f)
+			{
+				player->PlayerDirection(9);
+			}
+			else if (angle >= 50.f && angle < 75.5f)
+			{
+				player->PlayerDirection(10);
+			}
+			else if (angle >= 75.5f && angle < 90.f)
+			{
+				player->PlayerDirection(11);
+			}
+			else if (angle >= 90.f && angle < 115.f)
+			{
+				player->PlayerDirection(12);
+			}
+			else if (angle >= 115.f && angle < 140.f)
+			{
+				player->PlayerDirection(13);
+			}
+			else if (angle >= 140.f && angle < 165.5f)
+			{
+				player->PlayerDirection(14);
+			}
+			else
+			{
+				player->PlayerDirection(15);
+			}
+		}
+
+		player->SetState(Player::State::Move);
+		cout << "각도  " << angle << endl;
 		int a = 0;
 	}
+
+	if (mPickPoint != Vector2::Zero)
+	{
+		Vector3 vec = mPickPoint - pos;
+
+		if (fabs(vec.x) < 0.1f && fabs(vec.y) < 0.1f)
+		{
+			mPickPoint = Vector2::Zero;
+			return;
+		}
+
+		vec.Normalize();
+		pos += vec * Time::GetInstance()->DeltaTime() * speed;
+	}
+
+	tr->SetPosition(pos);
 }
 
 void PlayerScript::FixedUpdate()
@@ -183,4 +272,29 @@ void PlayerScript::Idle()
 void PlayerScript::Move()
 {
 
+}
+
+float PlayerScript::PickAngle(Vector2 point)
+{
+	Transform* tr = GetOwner()->GetComponent<Transform>();
+
+	Vector3 pos = tr->GetPosition();
+	Vector2 vec = point - Vector2(pos.x, pos.y);
+
+	
+	Vector2 Vec1 = Vector2(0.0f, 0.0f);
+
+	if (vec.x <= 0.f)
+		Vec1 = Vector2(0.0f, -1.0f);
+	else
+		Vec1 = Vector2(0.0f, 1.0f);
+
+	Vec1.Normalize();
+	vec.Normalize();
+
+	float that = Vec1.Dot(vec);
+	float radian = acos(that);
+	float angle = XMConvertToDegrees(radian);
+
+	return angle;
 }
