@@ -148,12 +148,11 @@ void PlayerScript::Update()
 		mPickPoint = mouse;
 		float angle = PickAngle(mPickPoint);
 
-		pos = tr->GetPosition();
 		Vector2 vec = mPickPoint - Vector2(pos.x, pos.y);
 
-		if (vec.x <= 0.f)
+		if (vec.x <= 0.0f)
 		{
-			if (0.0f >= angle && angle < 22.5f)
+			if (angle >= 0.0f && angle < 22.5f)
 			{
 				player->PlayerDirection(0);
 			}
@@ -185,10 +184,12 @@ void PlayerScript::Update()
 			{
 				player->PlayerDirection(7);
 			}
+
+			cout << "true" << endl;
 		}
 		else
 		{
-			if (0.0f >= angle && angle < 22.5f)
+			if (angle >= 0.0f && angle < 22.5f)
 			{
 				player->PlayerDirection(8);
 			}
@@ -220,9 +221,12 @@ void PlayerScript::Update()
 			{
 				player->PlayerDirection(15);
 			}
+
+			cout << "false" << endl;
 		}
 
 		player->SetState(Player::State::Move);
+		cout << "방향  " << vec.x << endl;
 		cout << "각도  " << angle << endl;
 		int a = 0;
 	}
@@ -234,6 +238,7 @@ void PlayerScript::Update()
 		if (fabs(vec.x) < 0.1f && fabs(vec.y) < 0.1f)
 		{
 			mPickPoint = Vector2::Zero;
+			player->SetState(Player::State::Idle);
 			return;
 		}
 

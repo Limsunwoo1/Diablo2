@@ -141,7 +141,7 @@ void Player::PlayAnimation(const std::wstring& name)
 
 bool Player::PlayerDirection(int index)
 {
-	if (index - 1 > mDirection.size())
+	if (index >= mDirection.size())
 		return false;
 
 	mDirection.reset();
@@ -198,20 +198,14 @@ void Player::Idle()
 {
 	Animator* animator = GetComponent<Animator>();
 	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
+	
+	wstring playName = L"Idle";
+	playName += std::to_wstring(mIndex);
 
-	int index = -1;
+	if (playName == name)
+		return;
 
-
-	if (mDirection[0] == true && name == L"WalkUp")
-		animator->Play(L"IdleUp");
-	else if (mDirection[2] == true && name == L"WalkDown")
-		animator->Play(L"IdleDown");
-	else if (mDirection[1] == true && name == L"WalkRight")
-		animator->Play(L"IdleRight");
-	else if (mDirection[3] == true && name == L"WalkLeft")
-		animator->Play(L"IdleLeft");
-
-
+	animator->Play(playName);
 }
 
 void Player::Move()
@@ -227,6 +221,7 @@ void Player::Move()
 		return;
 
 	animator->Play(playName);
+	cout << " ÀÎµ¦½º  " << index << endl;
 
 	/*if (mDirection[0] == true && name != L"WalkUp")
 		animator->Play(L"WalkUp");
@@ -244,6 +239,8 @@ void Player::Attack()
 {
 	Animator* animator = GetComponent<Animator>();
 	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
+
+
 
 	if (name.find(L"Attack") == wstring::npos)
 	{
