@@ -70,6 +70,7 @@ void PlayScene::Initalize()
 		collider->SetType(eColliderType::Rect);
 
 		Transform* tr = player->GetComponent<Transform>();
+		tr->SetPosition(Vector3::Zero);
 		tr->SetScale(Vector3(2.0f, 2.0f, 1.0f));
 
 		SpriteRenderer* spr = player->AddComponent<SpriteRenderer>();

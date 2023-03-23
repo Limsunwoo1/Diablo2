@@ -136,11 +136,19 @@ Math::Vector2 Input::GetMousePos(HWND hWnd)
 Math::Vector2 Input::GetMouseWorldPos()
 {
 	Vector2 mouse = GetMousePos();
+	Math::Viewport mathViewport;
 
 	// viewport Å©±â
 	D3D11_VIEWPORT viewport;
 	UINT numVIewPorts = 1;
 	graphics::GetDevice()->GetID3D11DeviceContext()->RSGetViewports(&numVIewPorts, &viewport);
+
+	mathViewport.x = viewport.TopLeftX;
+	mathViewport.y = viewport.TopLeftY;
+	mathViewport.width = viewport.Width;
+	mathViewport.height = viewport.Height;
+	mathViewport.minDepth = viewport.MinDepth;
+	mathViewport.maxDepth = viewport.MaxDepth;
 
 	// ½ºÅ©¸° ÁÂÇ¥¸¦ NDC ÁÂÇ¥·Î º¯È¯
 	/*float ndcX = ((2.0f * mouse.x) / viewport.Width) - 1.0f;
@@ -148,6 +156,7 @@ Math::Vector2 Input::GetMouseWorldPos()
 
 	float ndcX = (2.0f * mouse.x / viewport.Width - 1.0f);
 	float ndcY = (-2.0f * mouse.y / viewport.Height + 1.0f);
+
 	/*float ndcX = (2.0f * mouse.x);
 	ndcX /= viewport.Width;
 	ndcX -= 1.0f;
@@ -160,13 +169,19 @@ Math::Vector2 Input::GetMouseWorldPos()
 
 	// NDC ÁÂÇ¥¸¦ ¿ùµå ÁÂÇ¥·Î º¯È¯
 	Math::Vector3 nearPoint(ndcX, ndcY, 0.0f);
-	Math::Vector3 result;
 
-	Math::Matrix projection = Renderer::mainCamera->GetProjectionMatrix().Invert();
-	Math::Matrix view = Renderer::mainCamera->GetViewMatrix().Invert();
+	/*Math::Matrix projection = Renderer::mainCamera->GetProjectionMatrix().Invert();
+	Math::Matrix view = Renderer::mainCamera->GetViewMatrix().Invert();*/
 
-	Math::Vector3::Transform(nearPoint, projection, result);
-	Math::Vector3::Transform(result, view, result);
+	Math::Matrix projection = Renderer::mainCamera->GetProjectionMatrix();
+	Math::Matrix view = Renderer::mainCamera->GetViewMatrix();
+	Vector3 result = mathViewport.Unproject(Vector3(mouse.x, mouse.y, 1.0f), projection, view, Math::Matrix::Identity);
+
+
+	/*Math::Vector3::Transform(nearPoint, projection, result);
+	Math::Vector3::Transform(result, view, result);*/
+
+	
 
 	/*Math::Matrix projection1 = Renderer::mainCamera->GetProjectionMatrix();
 	Math::Matrix view2 = Renderer::mainCamera->GetViewMatrix();*/
@@ -176,9 +191,6 @@ Math::Vector2 Input::GetMouseWorldPos()
 	mat *= view;*/
 
 
-	result.x;
-	result.y;
-	result.z = 0.0f;
 	int a = 0;
 
 	return Math::Vector2(result.x, result.y);

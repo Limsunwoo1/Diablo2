@@ -142,9 +142,10 @@ void PlayerScript::Update()
 	}
 
 
-	if (Input::GetInstance()->GetKeyPress(eKeyCode::RBTN))
+	if (Input::GetInstance()->GetKeyDown(eKeyCode::RBTN))
 	{
 		Vector2 mouse = Input::GetInstance()->GetMouseWorldPos();
+		cout << "X 포즈  " << mouse.x << "  Y포즈   " << mouse.y << endl;
 		mPickPoint = mouse;
 		float angle = PickAngle(mPickPoint);
 
@@ -184,8 +185,6 @@ void PlayerScript::Update()
 			{
 				player->PlayerDirection(7);
 			}
-
-			cout << "true" << endl;
 		}
 		else
 		{
@@ -221,13 +220,10 @@ void PlayerScript::Update()
 			{
 				player->PlayerDirection(15);
 			}
-
-			cout << "false" << endl;
 		}
 
+
 		player->SetState(Player::State::Move);
-		cout << "방향  " << vec.x << endl;
-		cout << "각도  " << angle << endl;
 		int a = 0;
 	}
 
