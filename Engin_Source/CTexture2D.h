@@ -21,10 +21,14 @@ namespace graphics
 
 		virtual HRESULT Load(const std::wstring& path) override;
 		void BindShader(eShaderStage stage, UINT slot);
-		void Clear();
-		void Clear(UINT startSlot);
+		void BIndUnorderedAccessView(UINT startSlot);
+		void ClearUnorderedAccessView(UINT startSlot);
 
 		bool Create(UINT width, UINT height, DXGI_FORMAT format, UINT bindFlag);
+		bool Create(ComPtr<ID3D11Texture2D> texture);
+
+		void Clear();
+		void Clear(UINT startSlot);
 
 		UINT GetHeight() { return (UINT)(mImage.GetMetadata().height); }
 		UINT GetWidth() { return (UINT)(mImage.GetMetadata().width); }

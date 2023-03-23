@@ -65,11 +65,16 @@ namespace graphics
 		if (!CreateSwapChain(&swapChainDesc))											  // 스왑체인 생성
 			return;
 
+		mRenderTargetTxture = make_shared<Texture2D>();
+		ComPtr<ID3D11Texture2D> renderTarget;
+
 		// Get Render Target for SwapChain
-		hr = mSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)mRenderTarget.GetAddressOf());
+		hr = mSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)renderTarget.GetAddressOf());
+
+		mRenderTargetTxture->Create(renderTarget);
 
 		// Get Render Target View
-		hr = mDevice->CreateRenderTargetView(mRenderTarget.Get(), nullptr, mRenderTargetView.GetAddressOf());
+		//hr = mDevice->CreateRenderTargetView(mRenderTarget.Get(), nullptr, mRenderTargetView.GetAddressOf());
 
 		D3D11_TEXTURE2D_DESC depthBuffer = {};
 		depthBuffer.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL;
@@ -87,20 +92,20 @@ namespace graphics
 		depthBuffer.MipLevels = 0;														  // 사이즈별로 연산을 줄이기위해 미리 몇장의 여분을 더 그려둠
 		depthBuffer.MiscFlags = 0;
 
-		mDepthStencilBuffer = make_shared<Texture2D>();
-		mDepthStencilBuffer->Create(1600, 900, DXGI_FORMAT_D24_UNORM_S8_UINT, D3D11_BIND_DEPTH_STENCIL);
+		mDepthStencilBufferTextuer = make_shared<Texture2D>();
+		mDepthStencilBufferTextuer->Create(1600, 900, DXGI_FORMAT_D24_UNORM_S8_UINT, D3D11_BIND_DEPTH_STENCIL);
 
-		if (!CreateTexture(&depthBuffer, mDepthStencilBuffer->GetTexteur().GetAddressOf()))   // DepthStencilBuffer 생성
+		if (!CreateTexture(&depthBuffer, mDepthStencilBufferTextuer->GetTexteur().GetAddressOf()))   // DepthStencilBuffer 생성
 			return;
 
-		if (FAILED(mDevice->CreateDepthStencilView(mDepthStencilBuffer->GetTexteur().Get(), nullptr, mDepthStencilBuffer->GetDSV().GetAddressOf())))
+		if (FAILED(mDevice->CreateDepthStencilView(mDepthStencilBufferTextuer->GetTexteur().Get(), nullptr, mDepthStencilBufferTextuer->GetDSV().GetAddressOf())))
 			return;
 
 		RECT winRect;
 		GetClientRect(Application.GetHwnd(), &winRect);
 		mViewPort = { 0.0f, 0.0f, FLOAT(winRect.right - winRect.left), FLOAT(winRect.bottom - winRect.top), 0.0f, 1.0f };
 		BindViewPorts(&mViewPort);
-		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilBuffer->GetDSV().Get());
+		mContext->OMSetRenderTargets(1, mRenderTargetTxture->GetRTV().GetAddressOf(), mDepthStencilBufferTextuer->GetDSV().Get());
 	}
 
 	CGraphicDevice_DX11::~CGraphicDevice_DX11()
@@ -147,6 +152,13 @@ namespace graphics
 		// System -> GPU
 		// GPU에 보낼 데이터를 버퍼라고도 함
 		if (FAILED(mDevice->CreateBuffer(desc, data, buffer)))
+			return false;
+
+		return true;
+	}
+	bool CGraphicDevice_DX11::CreateRenderTargetView(ID3D11Resource* pResource, const D3D11_RENDER_TARGET_VIEW_DESC* pDesc, ID3D11RenderTargetView** ppRTView)
+	{
+		if (FAILED(mDevice->CreateRenderTargetView(pResource, pDesc, ppRTView)))
 			return false;
 
 		return true;
@@ -250,9 +262,15 @@ namespace graphics
 	{
 		mContext->PSSetShader(pPixelShader, ppClassInstances, NumClassInstances);
 	}
+	void CGraphicDevice_DX11::BindComputeShader(ID3D11ComputeShader* pComputeShader, ID3D11ClassInstance* const* ppClassInstances, UINT NumClassInstances)
+	{
+	}
 	void CGraphicDevice_DX11::BindViewPorts(D3D11_VIEWPORT* viewPort)
 	{
 		mContext->RSSetViewports(1, viewPort);
+	}
+	void CGraphicDevice_DX11::Dispatch(UINT ThreadGroupCountX, UINT ThreadGroupCountY, UINT ThreadGroupCountZ)
+	{
 	}
 	void CGraphicDevice_DX11::BindBuffer(ID3D11Buffer* buffer, void* data, UINT size)
 	{
@@ -261,7 +279,7 @@ namespace graphics
 		memcpy(sub.pData, data, size);
 		mContext->Unmap(buffer, 0);
 	}
-	void CGraphicDevice_DX11::SetConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer)
+	void CGraphicDevice_DX11::BindConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer)
 	{
 		switch (stage)
 		{
@@ -287,7 +305,7 @@ namespace graphics
 			break;
 		}
 	}
-	void CGraphicDevice_DX11::SetShaderResource(eShaderStage stage, UINT slot, ID3D11ShaderResourceView* const* ppShaderResourceViews)
+	void CGraphicDevice_DX11::BindShaderResource(eShaderStage stage, UINT slot, ID3D11ShaderResourceView* const* ppShaderResourceViews)
 	{
 		switch (stage)
 		{
@@ -312,6 +330,9 @@ namespace graphics
 		default:
 			break;
 		}
+	}
+	void CGraphicDevice_DX11::BindUnorderdAccessView(UINT slot, UINT numUAVs, ID3D11UnorderedAccessView* const* ppUAV, const UINT* pUAVInitalCounts)
+	{
 	}
 	void CGraphicDevice_DX11::BindSamplers(eShaderStage stage, UINT slot, UINT NumSamplers, ID3D11SamplerState* const* ppSamplers)
 	{
@@ -362,8 +383,8 @@ namespace graphics
 	void CGraphicDevice_DX11::Clear()
 	{
 		FLOAT backgroundColor[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
-		mContext->ClearRenderTargetView(mRenderTargetView.Get(), backgroundColor);
-		mContext->ClearDepthStencilView(mDepthStencilBuffer->GetDSV().Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0);
+		mContext->ClearRenderTargetView(mRenderTargetTxture->GetRTV().Get(), backgroundColor);
+		mContext->ClearDepthStencilView(mDepthStencilBufferTextuer->GetDSV().Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0);
 	}
 	void CGraphicDevice_DX11::AdjustViewPorts()
 	{
@@ -372,7 +393,7 @@ namespace graphics
 		GetClientRect(Application.GetHwnd(), &winRect);
 		mViewPort = { 0.0f, 0.0f, FLOAT(winRect.right - winRect.left), FLOAT(winRect.bottom - winRect.top), 0.0f, 1.0f };
 		BindViewPorts(&mViewPort);
-		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilBuffer->GetDSV().Get());
+		mContext->OMSetRenderTargets(1, mRenderTargetTxture->GetRTV().GetAddressOf(), mDepthStencilBufferTextuer->GetDSV().Get());
 	}
 	void CGraphicDevice_DX11::Draw()
 	{

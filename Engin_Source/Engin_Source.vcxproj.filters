@@ -145,6 +145,9 @@
     <Filter Include="Component\Light">
       <UniqueIdentifier>{2107e2f8-1c12-459a-8741-320521680000}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ResourceManager\Resource\ComputeShader">
+      <UniqueIdentifier>{25cdd07c-4497-4856-8858-8c41b115b045}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -284,6 +287,12 @@
     </ClCompile>
     <ClCompile Include="CLight.cpp">
       <Filter>Component\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="CComputeShader.cpp">
+      <Filter>ResourceManager\Resource\ComputeShader</Filter>
+    </ClCompile>
+    <ClCompile Include="CPaintShader.cpp">
+      <Filter>ResourceManager\Resource\ComputeShader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -442,6 +451,12 @@
     </ClInclude>
     <ClInclude Include="CLight.h">
       <Filter>Component\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="CComputeShader.h">
+      <Filter>ResourceManager\Resource\ComputeShader</Filter>
+    </ClInclude>
+    <ClInclude Include="CpaintShader.h">
+      <Filter>ResourceManager\Resource\ComputeShader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -56,18 +56,29 @@ namespace graphics
 
 	void Texture2D::BindShader(eShaderStage stage, UINT slot)
 	{
-		GetDevice()->SetShaderResource(stage, slot, mSRV.GetAddressOf());
+		GetDevice()->BindShaderResource(stage, slot, mSRV.GetAddressOf());
+	}
+	void Texture2D::BIndUnorderedAccessView(UINT startSlot)
+	{
+		UINT i = -1;
+		GetDevice()->BindUnorderdAccessView(startSlot, 1, mUAV.GetAddressOf(), &i);
+	}
+	void Texture2D::ClearUnorderedAccessView(UINT startSlot)
+	{
+		ID3D11UnorderedAccessView* pUAV = nullptr;
+		UINT i = -1;
+		GetDevice()->BindUnorderdAccessView(startSlot, 1, &pUAV , &i);
 	}
 	void Texture2D::Clear()
 	{
 		ID3D11ShaderResourceView* srv = nullptr;
 
-		GetDevice()->SetShaderResource(eShaderStage::VS, 0, &srv);
-		GetDevice()->SetShaderResource(eShaderStage::DS, 0, &srv);
-		GetDevice()->SetShaderResource(eShaderStage::GS, 0, &srv);
-		GetDevice()->SetShaderResource(eShaderStage::HS, 0, &srv);
-		GetDevice()->SetShaderResource(eShaderStage::CS, 0, &srv);
-		GetDevice()->SetShaderResource(eShaderStage::PS, 0, &srv);
+		GetDevice()->BindShaderResource(eShaderStage::VS, 0, &srv);
+		GetDevice()->BindShaderResource(eShaderStage::DS, 0, &srv);
+		GetDevice()->BindShaderResource(eShaderStage::GS, 0, &srv);
+		GetDevice()->BindShaderResource(eShaderStage::HS, 0, &srv);
+		GetDevice()->BindShaderResource(eShaderStage::CS, 0, &srv);
+		GetDevice()->BindShaderResource(eShaderStage::PS, 0, &srv);
 
 	}
 
@@ -75,12 +86,12 @@ namespace graphics
 	{
 		ID3D11ShaderResourceView* srv = nullptr;
 
-		GetDevice()->SetShaderResource(eShaderStage::VS, startSlot, &srv);
-		GetDevice()->SetShaderResource(eShaderStage::DS, startSlot, &srv);
-		GetDevice()->SetShaderResource(eShaderStage::GS, startSlot, &srv);
-		GetDevice()->SetShaderResource(eShaderStage::HS, startSlot, &srv);
-		GetDevice()->SetShaderResource(eShaderStage::CS, startSlot, &srv);
-		GetDevice()->SetShaderResource(eShaderStage::PS, startSlot, &srv);
+		GetDevice()->BindShaderResource(eShaderStage::VS, startSlot, &srv);
+		GetDevice()->BindShaderResource(eShaderStage::DS, startSlot, &srv);
+		GetDevice()->BindShaderResource(eShaderStage::GS, startSlot, &srv);
+		GetDevice()->BindShaderResource(eShaderStage::HS, startSlot, &srv);
+		GetDevice()->BindShaderResource(eShaderStage::CS, startSlot, &srv);
+		GetDevice()->BindShaderResource(eShaderStage::PS, startSlot, &srv);
 	}
 	bool Texture2D::Create(UINT width, UINT height, DXGI_FORMAT format, UINT bindFlag)
 	{
@@ -108,6 +119,12 @@ namespace graphics
 				return false;
 		}
 
+		if (bindFlag & D3D11_BIND_FLAG::D3D11_BIND_RENDER_TARGET)
+		{
+			if (!GetDevice()->CreateRenderTargetView(mTexture.Get(), nullptr, mRTV.GetAddressOf()))
+				return false;
+		}
+
 		if (bindFlag & D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE)
 		{
 			D3D11_SHADER_RESOURCE_VIEW_DESC tSRVDesc = {};
@@ -127,6 +144,48 @@ namespace graphics
 			tUAVDesc.Texture2D.MipSlice = 0;
 			tUAVDesc.ViewDimension = D3D11_UAV_DIMENSION::D3D11_UAV_DIMENSION_TEXTURE2D;
 
+
+			if (!GetDevice()->CreateUnorderedAccessView(mTexture.Get(), nullptr, mUAV.GetAddressOf()))
+				return false;
+		}
+
+		return true;
+	}
+	bool Texture2D::Create(ComPtr<ID3D11Texture2D> texture)
+	{
+		mTexture = texture;
+		mTexture->GetDesc(&mDesc);
+
+		if (mDesc.BindFlags & D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL)
+		{
+			if (!GetDevice()->CreateDepthStencilView(mTexture.Get(), nullptr, mDSV.GetAddressOf()))
+				return false;
+		}
+
+		if (mDesc.BindFlags & D3D11_BIND_FLAG::D3D11_BIND_RENDER_TARGET)
+		{
+			if (!GetDevice()->CreateRenderTargetView(mTexture.Get(), nullptr, mRTV.GetAddressOf()))
+				return false;
+		}
+
+		if (mDesc.BindFlags & D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE)
+		{
+			D3D11_SHADER_RESOURCE_VIEW_DESC tSRVDesc = {};
+			tSRVDesc.Format = mDesc.Format;
+			tSRVDesc.Texture2D.MipLevels = 1;
+			tSRVDesc.Texture2D.MostDetailedMip = 0;
+			tSRVDesc.ViewDimension = D3D11_SRV_DIMENSION::D3D11_SRV_DIMENSION_TEXTURE2D;
+
+			if (!GetDevice()->CreateShaderResourceView(mTexture.Get(), nullptr, mSRV.GetAddressOf()))
+				return false;
+		}
+
+		if (mDesc.BindFlags & D3D11_BIND_FLAG::D3D11_BIND_UNORDERED_ACCESS)
+		{
+			D3D11_UNORDERED_ACCESS_VIEW_DESC tUAVDesc = {};
+			tUAVDesc.Format = mDesc.Format;
+			tUAVDesc.Texture2D.MipSlice = 0;
+			tUAVDesc.ViewDimension = D3D11_UAV_DIMENSION::D3D11_UAV_DIMENSION_TEXTURE2D;
 
 			if (!GetDevice()->CreateUnorderedAccessView(mTexture.Get(), nullptr, mUAV.GetAddressOf()))
 				return false;

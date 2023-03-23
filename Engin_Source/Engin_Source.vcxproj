@@ -160,6 +160,7 @@
     <ClInclude Include="CCollider2D.h" />
     <ClInclude Include="CCollisionManager.h" />
     <ClInclude Include="CComponent.h" />
+    <ClInclude Include="CComputeShader.h" />
     <ClInclude Include="CConstantBuffer.h" />
     <ClInclude Include="CCreateCharacter.h" />
     <ClInclude Include="CEnddingScene.h" />
@@ -178,6 +179,7 @@
     <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="CEntity.h" />
     <ClInclude Include="CInput.h" />
+    <ClInclude Include="CpaintShader.h" />
     <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CPlayerScript.h" />
     <ClInclude Include="CPlayScene.h" />
@@ -214,6 +216,7 @@
     <ClCompile Include="CCollider2D.cpp" />
     <ClCompile Include="CCollisionManager.cpp" />
     <ClCompile Include="CComponent.cpp" />
+    <ClCompile Include="CComputeShader.cpp" />
     <ClCompile Include="CConstantBuffer.cpp" />
     <ClCompile Include="CCreateCharacter.cpp" />
     <ClCompile Include="CEnddingScene.cpp" />
@@ -229,6 +232,7 @@
     <ClCompile Include="CMaterial.cpp" />
     <ClCompile Include="CCollider3D.cpp" />
     <ClCompile Include="CMonster.cpp" />
+    <ClCompile Include="CPaintShader.cpp" />
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CPlayerScript.cpp" />
     <ClCompile Include="CPlayScene.cpp" />

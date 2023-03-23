@@ -17,6 +17,7 @@ namespace graphics
 
 		bool CreateInputLayout(D3D11_INPUT_ELEMENT_DESC* desc, UINT NumElements, const void* byteCode, SIZE_T bytecodeLength, ID3D11InputLayout** ppInputLayout);
 		bool CreateBuffer(D3D11_BUFFER_DESC* desc, D3D11_SUBRESOURCE_DATA* data, ID3D11Buffer** buffer);
+		bool CreateRenderTargetView(ID3D11Resource* pResource, const D3D11_RENDER_TARGET_VIEW_DESC* pDesc, ID3D11RenderTargetView** ppRTView);
 		bool CreateUnorderedAccessView(ID3D11Resource* pResource, const D3D11_UNORDERED_ACCESS_VIEW_DESC* pDesc, ID3D11UnorderedAccessView** ppUAView);
 		bool CreateDepthStencilView(ID3D11Resource* pResource, const D3D11_DEPTH_STENCIL_VIEW_DESC* pDesc, ID3D11DepthStencilView** ppDepthStencilView);
 		bool CreateShaderResourceView(ID3D11Resource* pResource, const D3D11_SHADER_RESOURCE_VIEW_DESC* pDesc, ID3D11ShaderResourceView** ppSRView);
@@ -34,10 +35,13 @@ namespace graphics
 		void BindIndexBuffer(ID3D11Buffer* pIndexBuffer, DXGI_FORMAT Format, UINT Offset);
 		void BindVertexShader(ID3D11VertexShader* pVertexShader, ID3D11ClassInstance* const* ppClassInstances, UINT NumClassInstances);
 		void BindPixelShader(ID3D11PixelShader* pPixelShader, ID3D11ClassInstance* const* ppClassInstances, UINT NumClassInstances);
-		void BindViewPorts(D3D11_VIEWPORT* viewPort);
+		void BindComputeShader(ID3D11ComputeShader* pComputeShader, ID3D11ClassInstance* const* ppClassInstances, UINT NumClassInstances);
 		void BindBuffer(ID3D11Buffer* buffer, void* data, UINT size);
-		void SetConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer);
-		void SetShaderResource(eShaderStage stage, UINT slot, ID3D11ShaderResourceView* const* ppShaderResourceViews);
+		void BindViewPorts(D3D11_VIEWPORT* viewPort);
+		void Dispatch(UINT ThreadGroupCountX, UINT ThreadGroupCountY, UINT ThreadGroupCountZ);
+		void BindConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer);
+		void BindShaderResource(eShaderStage stage, UINT slot, ID3D11ShaderResourceView* const* ppShaderResourceViews);
+		void BindUnorderdAccessView(UINT slot, UINT numUAVs, ID3D11UnorderedAccessView* const* ppUAV, const UINT* pUAVInitalCounts);
 		void BindSamplers(eShaderStage stage, UINT slot, UINT NumSamplers, ID3D11SamplerState* const* ppSamplers);
 		void BindsSamplers(UINT slot, UINT NumSamplers, ID3D11SamplerState* const* ppSamplers);
 		void BindRasterizerState(ID3D11RasterizerState* pRasterizerState);
@@ -61,15 +65,8 @@ namespace graphics
 		// GPU read write 디바이스에 직접 접근하지 않고 이 객체를 통해 GPU에 명령을 내린다
 		ComPtr<ID3D11DeviceContext> mContext;
 
-		// 최종적으로 그려지는 도화지
-		// 렌더타겟 객체에 접근하기위한 객체 (직접접근X View를 통한 우회접근)
-		ComPtr <ID3D11Texture2D> mRenderTarget;
-		ComPtr<ID3D11RenderTargetView> mRenderTargetView; // 렌더 타겟 접근 권한 - iter 같은 개념
-
-		//ComPtr <ID3D11Texture2D> mDepthStencilBuffer;
-		// 마찬가지로 딮 스텐실 버퍼에 접근하기위한 객체
-		//ComPtr <ID3D11DepthStencilView> mDepthStencilView;
-		shared_ptr<class Texture2D> mDepthStencilBuffer;
+		shared_ptr<class Texture2D> mRenderTargetTxture;
+		shared_ptr<class Texture2D> mDepthStencilBufferTextuer;
 
 		// 화면에 최정적으로 그려지는
 		// 백퍼버(Frame Buffer)를 관리하고, 실제로 화면에 렌더링 하는
