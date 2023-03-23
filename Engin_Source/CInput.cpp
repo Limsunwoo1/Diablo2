@@ -193,7 +193,7 @@ Math::Vector2 Input::GetMouseWorldPos()
 
 	int a = 0;
 
-	return Math::Vector2(result.x, result.y);
+	return Math::Vector2(result.x, result.y + 0.7f);
 }
 
 
