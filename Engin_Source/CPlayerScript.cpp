@@ -142,10 +142,9 @@ void PlayerScript::Update()
 	}
 
 
-	if (Input::GetInstance()->GetKeyDown(eKeyCode::RBTN))
+	if (Input::GetInstance()->GetKeyPress(eKeyCode::RBTN))
 	{
 		Vector2 mouse = Input::GetInstance()->GetMouseWorldPos();
-		cout << "X 포즈  " << mouse.x << "  Y포즈   " << mouse.y << endl;
 		mPickPoint = mouse;
 		float angle = PickAngle(mPickPoint);
 

@@ -45,7 +45,7 @@ namespace graphics
 			, mCSBlob.GetAddressOf()
 			, mErrorBlob.GetAddressOf());
 
-		 /*if (mErrorBlob)
+		/* if (mErrorBlob)
 		 {
 			 OutputDebugStringA((char*)mErrorBlob->GetBufferPointer());
 			 mErrorBlob->Release();

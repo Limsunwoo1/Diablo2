@@ -456,13 +456,22 @@ namespace Renderer
 	void LoadMaterial()
 	{
 		// Dafault
-		std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"PaintTexture");
+		std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"SmileTexture");
 		std::shared_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"RectShader");
 		std::shared_ptr<Material> material = std::make_shared<Material>();
 		material->SetShader(shader);
 		material->SetTexture(texture);
 		ResourceManager::GetInstance()->Insert<Material>(L"RectMaterial", material);
 
+		// paint
+		{
+			std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"PaintTexture");
+			std::shared_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"RectShader");
+			std::shared_ptr<Material> material = std::make_shared<Material>();
+			material->SetShader(shader);
+			material->SetTexture(texture);
+			ResourceManager::GetInstance()->Insert<Material>(L"noiseMaterial", material);
+		}
 
 		// Sprite
 		std::shared_ptr <Texture2D> spriteTexture = ResourceManager::GetInstance()->Find<Texture2D>(L"DefaultSprite");

@@ -35,24 +35,24 @@ void CreateCharactorScene::Initalize()
 	cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
 	Renderer::mainCamera = cameraComp;
 
-	//// BackGround2
-	//{
-	//	BackGround* ground = Object::Instantiate<BackGround>(eLayerType::BackGround, this);
-	//	ground->SetName(L"BackGround5");
+	// BackGround2
+	{
+		BackGround* ground = Object::Instantiate<BackGround>(eLayerType::BackGround, this);
+		ground->SetName(L"BackGround5");
 
-	//	ground->FindTextuer2D(L"TitleTexture5", L"UI\\charactercreationsCreate.png");
-	//	Transform* tr = ground->GetComponent<Transform>();
-	//	tr->SetScale(Vector3(8.0f, 6.0f, 0.0f));
+		ground->FindTextuer2D(L"TitleTexture5", L"UI\\charactercreationsCreate.png");
+		Transform* tr = ground->GetComponent<Transform>();
+		tr->SetScale(Vector3(8.0f, 6.0f, 0.0f));
 
-	//	MeshRenderer* mr = ground->AddComponent<MeshRenderer>();
+		MeshRenderer* mr = ground->AddComponent<MeshRenderer>();
 
-	//	std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"FadeMesh");
-	//	std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
-	//	mr->SetMesh(mesh);
-	//	mr->SetMaterial(material);
+		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"FadeMesh");
+		std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		mr->SetMesh(mesh);
+		mr->SetMaterial(material);
 
-	//	//ground->Paused();
-	//}
+		//ground->Paused();
+	}
 
 	Scene::Initalize();
 }

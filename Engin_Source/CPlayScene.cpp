@@ -72,7 +72,7 @@ void PlayScene::Initalize()
 
 	// Player
 	{
-		/*Player* player = Object::Instantiate<Player>(eLayerType::Player, this);
+		Player* player = Object::Instantiate<Player>(eLayerType::Player, this);
 		player->AddComponent<PlayerScript>();
 
 		Collider2D* collider = player->AddComponent<Collider2D>();
@@ -91,9 +91,9 @@ void PlayScene::Initalize()
 		spr->SetMaterial(material);
 
 		player->InitAnimation();
-		player->PlayAnimation(L"Walk0");*/
+		player->PlayAnimation(L"Walk0");
 
-		// 60 75.875f
+		//60 75.875f
 	}
 
 	//SMILE RECT
@@ -102,6 +102,7 @@ void PlayScene::Initalize()
 		obj->SetName(L"SMILE");
 		Transform* tr = obj->GetComponent<Transform>();
 		tr->SetPosition(Vector3(2.0f, 0.0f, 5.0f));
+		tr->SetScale(Vector3(2.0f, 2.0f, 2.0f));
 		//tr->SetScale(Vector3(2.0f, 1.0f, 1.0f));
 		//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2 / 2.0f));
 		//tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
@@ -112,7 +113,7 @@ void PlayScene::Initalize()
 		//collider->SetSize(Vector2(1.5f, 1.5f));
 
 		SpriteRenderer* sr = obj->AddComponent<SpriteRenderer>();
-		std::shared_ptr<Material> mateiral = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		std::shared_ptr<Material> mateiral = ResourceManager::GetInstance()->Find<Material>(L"noiseMaterial");
 		mateiral->Clear();
 		sr->SetMaterial(mateiral);
 		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
@@ -130,6 +131,10 @@ void PlayScene::Update()
 
 void PlayScene::FixedUpdate()
 {
+	shared_ptr<PaintShader> paintShader = ResourceManager::GetInstance()->Find<PaintShader>(L"PaintShader");
+	paintShader->OnExcute();
+
+
 	Scene::FixedUpdate();
 }
 

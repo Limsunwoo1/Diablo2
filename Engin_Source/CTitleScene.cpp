@@ -75,47 +75,47 @@ void TitleScene::Initalize()
 		mr->SetMaterial(material);*/
 	}
 
-	// BackGround2
-	//{
-	//	BackGround* ground = Object::Instantiate<BackGround>(eLayerType::BackGround);
-	//	ground->SetName(L"BackGround2");
+	 //BackGround2
+	{
+		BackGround* ground = Object::Instantiate<BackGround>(eLayerType::BackGround);
+		ground->SetName(L"BackGround2");
 
-	//	ground->FindTextuer2D(L"TitleTexture2", L"UI\\Title_02.png");
-	//	Transform* tr = ground->GetComponent<Transform>();
+		ground->FindTextuer2D(L"TitleTexture2", L"UI\\Title_02.png");
+		Transform* tr = ground->GetComponent<Transform>();
 
-	//	tr->SetScale(Vector3(width / 100.f, height / 100.f, 0.0f));
+		tr->SetScale(Vector3(width / 100.f, height / 100.f, 0.0f));
 
-	//	MeshRenderer* mr = ground->AddComponent<MeshRenderer>();
+		MeshRenderer* mr = ground->AddComponent<MeshRenderer>();
 
-	//	std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"FadeMesh");
-	//	std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
-	//	mr->SetMesh(mesh);
-	//	mr->SetMaterial(material);
+		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"FadeMesh");
+		std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		mr->SetMesh(mesh);
+		mr->SetMaterial(material);
 
-	//	//ground->Paused();
-	//}
+		//ground->Paused();
+	}
 
-	//// Logo
-	//{
-	//	GameObject* logo = Object::Instantiate<GameObject>(eLayerType::Player);
-	//	Transform* tr = logo->GetComponent<Transform>();
-	//	tr->SetScale(Vector3(8.0f, 12.0f, 1.0f));
+	// Logo
+	{
+		GameObject* logo = Object::Instantiate<GameObject>(eLayerType::Player);
+		Transform* tr = logo->GetComponent<Transform>();
+		tr->SetScale(Vector3(8.0f, 12.0f, 1.0f));
 
-	//	SpriteRenderer* sr = logo->AddComponent<SpriteRenderer>();
-	//	
-	//	std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-	//	std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"SpriteMaterial");
-	//	sr->SetMesh(mesh);
-	//	sr->SetMaterial(material);
+		SpriteRenderer* sr = logo->AddComponent<SpriteRenderer>();
+		
+		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"SpriteMaterial");
+		sr->SetMesh(mesh);
+		sr->SetMaterial(material);
 
-	//	Animator* animator = logo->AddComponent<Animator>();
-	//	std::shared_ptr<Texture2D> tex = std::make_shared<Texture2D>();
-	//	tex->Load(L"UI\\Logo.png");
+		Animator* animator = logo->AddComponent<Animator>();
+		std::shared_ptr<Texture2D> tex = std::make_shared<Texture2D>();
+		tex->Load(L"UI\\Logo.png");
 
-	//	animator->Create(L"Logo", tex, Vector2(0.0f, 0.0f), 216.f, Vector2::Zero, 15, 0.1f);
-	//	animator->Play(L"Logo");
-	//	//ground->Paused();
-	//}
+		animator->Create(L"Logo", tex, Vector2(0.0f, 0.0f), 216.f, Vector2::Zero, 15, 0.1f);
+		animator->Play(L"Logo");
+		//ground->Paused();
+	}
 
 	//SMILE RECT
 	//{
