@@ -23,6 +23,7 @@ namespace graphics
 	}
 	ComputeShader::~ComputeShader()
 	{
+
 	}
 	HRESULT ComputeShader::Load(const std::wstring& path)
 	{

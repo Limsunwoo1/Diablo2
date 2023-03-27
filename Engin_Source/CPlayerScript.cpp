@@ -223,7 +223,6 @@ void PlayerScript::Update()
 
 
 		player->SetState(Player::State::Move);
-		int a = 0;
 	}
 
 	if (mPickPoint != Vector2::Zero)
@@ -241,7 +240,9 @@ void PlayerScript::Update()
 		pos += vec * Time::GetInstance()->DeltaTime() * speed;
 	}
 
-	tr->SetPosition(pos);
+	if(player->GetState() == Player::State::Idle
+		|| player->GetState() == Player::State::Move)
+		tr->SetPosition(pos);
 }
 
 void PlayerScript::FixedUpdate()

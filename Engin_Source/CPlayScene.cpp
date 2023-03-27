@@ -102,7 +102,7 @@ void PlayScene::Initalize()
 		obj->SetName(L"SMILE");
 		Transform* tr = obj->GetComponent<Transform>();
 		tr->SetPosition(Vector3(2.0f, 0.0f, 5.0f));
-		tr->SetScale(Vector3(2.0f, 2.0f, 2.0f));
+		tr->SetScale(Vector3(4.0f, 4.0f, 2.0f));
 		//tr->SetScale(Vector3(2.0f, 1.0f, 1.0f));
 		//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2 / 2.0f));
 		//tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));

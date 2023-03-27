@@ -12,6 +12,7 @@ namespace graphics
 
 	Texture2D::~Texture2D()
 	{
+		
 	}
 
 	HRESULT Texture2D::Load(const std::wstring& name)

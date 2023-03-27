@@ -105,7 +105,7 @@ void Player::InitAnimation()
 			wstring name = L"Attack";
 			name += std::to_wstring(i);
 
-			animator->Create(name, texture, Vector2(0.0f, y * i), Vector2(x, y), Vector2(0.0f, 0.0f), 8, 0.1f);
+			animator->Create(name, texture, Vector2(0.0f, y * i), Vector2(x, y), Vector2(0.0f, 0.0f), 20, 0.03f);
 
 		}
 		// 124.95  78.8125
@@ -124,7 +124,7 @@ void Player::InitAnimation()
 			wstring name = L"Skil";
 			name += std::to_wstring(i);
 
-			animator->Create(name, texture, Vector2(0.0f, y * i), Vector2(x, y), Vector2(0.0f, 0.0f), 8, 0.1f);
+			animator->Create(name, texture, Vector2(0.0f, y * i), Vector2(x, y), Vector2(0.0f, 0.0f), 14, 0.06f);
 
 		}
 
@@ -240,33 +240,19 @@ void Player::Attack()
 	Animator* animator = GetComponent<Animator>();
 	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
 
+	wstring playName = L"Attack";
+	playName += std::to_wstring(mIndex);
 
 
 	if (name.find(L"Attack") == wstring::npos)
 	{
-		if (GetDirection() == 1)
-			animator->Play(L"AttackUp", false);
-		else if (GetDirection() == 2)
-			animator->Play(L"AttackRight", false);
-		else if (GetDirection() == 3)
-			animator->Play(L"AttackDown", false);
-		else if (GetDirection() == 4)
-			animator->Play(L"AttackLeft", false);
+		animator->Play(playName, false);
 	}
 	else
 	{
 		if (animator->GetPlayAnimation()->IsComplete())
 		{
 			mState = State::Idle;
-
-			if (GetDirection() == 1)
-				animator->Play(L"IdleUp");
-			else if (GetDirection() == 2)
-				animator->Play(L"IdleRight");
-			else if (GetDirection() == 3)
-				animator->Play(L"IdleDown");
-			else if (GetDirection() == 4)
-				animator->Play(L"IdleLeft");
 		}
 	}
 }
@@ -276,31 +262,18 @@ void Player::SKil()
 	Animator* animator = GetComponent<Animator>();
 	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
 
+	wstring playName = L"Skil";
+	playName += std::to_wstring(mIndex);
+
 	if (name.find(L"Skil") == wstring::npos)
 	{
-		if (GetDirection() == 1)
-			animator->Play(L"SkilUp", false);
-		else if (GetDirection() == 2)
-			animator->Play(L"SkilRight", false);
-		else if (GetDirection() == 3)
-			animator->Play(L"SkilDown", false);
-		else if (GetDirection() == 4)
-			animator->Play(L"SkilLeft", false);
+		animator->Play(playName, false);
 	}
 	else
 	{
 		if (animator->GetPlayAnimation()->IsComplete())
 		{
 			mState = State::Idle;
-
-			if (GetDirection() == 1)
-				animator->Play(L"IdleUp");
-			else if (GetDirection() == 2)
-				animator->Play(L"IdleRight");
-			else if (GetDirection() == 3)
-				animator->Play(L"IdleDown");
-			else if (GetDirection() == 4)
-				animator->Play(L"IdleLeft");
 		}
 	}
 }
