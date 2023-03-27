@@ -50,6 +50,7 @@ namespace graphics
 		);
 
 		mSRV->GetResource((ID3D11Resource**)mTexture.GetAddressOf());
+		mTexture->GetDesc(&mDesc);
 
 		return S_OK;
 	}
@@ -116,12 +117,6 @@ namespace graphics
 		if (bindFlag & D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL)
 		{
 			if (!GetDevice()->CreateDepthStencilView(mTexture.Get(), nullptr, mDSV.GetAddressOf()))
-				return false;
-		}
-
-		if (bindFlag & D3D11_BIND_FLAG::D3D11_BIND_RENDER_TARGET)
-		{
-			if (!GetDevice()->CreateRenderTargetView(mTexture.Get(), nullptr, mRTV.GetAddressOf()))
 				return false;
 		}
 

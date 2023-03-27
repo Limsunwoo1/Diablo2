@@ -48,6 +48,14 @@ cbuffer Animation : register(b4)
     uint animationType;
 }
 
+cbuffer Time : register(b6)
+{
+    float deltatime;
+    float time;
+    float padding_;
+    float padding_1;
+}
+
 StructuredBuffer<LightAttribute> lightAttributes : register(t13);
 
 SamplerState pointSampler : register(s0);
@@ -56,6 +64,9 @@ SamplerState anisotropicSampler : register(s2);
 
 // Defualt Texture
 Texture2D defaultTexture : register(t0);
+
+// Defualt Texture
+Texture2D noiseTexture : register(t2);
 
 // Atlas Texture
 Texture2D atlasTexture : register(t12);

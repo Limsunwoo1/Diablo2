@@ -17,6 +17,7 @@
 #define CBSLOT_FADE				3
 #define CBSLOT_ANIMATION		4
 #define CBSLOT_NUMBEROFLIGHT	5
+#define CBSLOT_TIME				6
 
 namespace graphics
 {
@@ -28,6 +29,7 @@ namespace graphics
 		Fade,
 		Animation,
 		Light,
+		Time,
 		End,
 	};
 

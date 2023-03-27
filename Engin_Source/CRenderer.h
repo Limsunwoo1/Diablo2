@@ -72,6 +72,14 @@ namespace Renderer
 		UINT numberOfLight;
 	};
 
+	CBUFFER(TimeCB, CBSLOT_TIME)
+	{
+		float deltatime;
+		float time;
+		float padding_;
+		float padding_1;
+	};
+
 	extern Vertex FadeInOut[4];
 	extern Vertex vertexes[4];
 	extern ConstantBuffer* constantBuffers[];
@@ -87,6 +95,8 @@ namespace Renderer
 
 	extern Camera* mainCamera;
 
+	extern float Time;
+
 	void Initialize();
 	void Render();
 	void Release();
@@ -94,5 +104,6 @@ namespace Renderer
 	// Renderer
 	void PushLightAttribute(LightAttribute lightAttribute);
 	void BindLights();
+	void BindTime();
 }
 

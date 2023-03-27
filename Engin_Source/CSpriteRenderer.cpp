@@ -34,12 +34,12 @@ void SpriteRenderer::Render()
 	GetMesh()->BindBuffer();
 
 	Animator* animator = GetOwner()->GetComponent<Animator>();
-	if (animator)
+	if (animator != nullptr)
 		animator->Binds();
 
 	GetMesh()->Render();
-
 	GetMaterial()->Clear();
-	if (animator)
+
+	if (animator != nullptr)
 		animator->Clear();
 }

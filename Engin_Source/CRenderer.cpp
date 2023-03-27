@@ -3,6 +3,8 @@
 #include "CMaterial.h"
 #include "CSceneManager.h"
 #include "CLight.h"
+#include "CpaintShader.h"
+#include "CTime.h"
 
 namespace Renderer
 {
@@ -19,6 +21,8 @@ namespace Renderer
 	std::vector<DebugMesh> debugMeshes;
 	std::vector<LightAttribute> lights;
 	StructuredBuffer* LightBuffer;
+
+	float Time = 0.0f;
 
 	void LoadMesh()
 	{
@@ -358,6 +362,9 @@ namespace Renderer
 		constantBuffers[(UINT)eCBType::Light] = new ConstantBuffer(eCBType::Light);
 		constantBuffers[(UINT)eCBType::Light]->Create(sizeof(LightCB));
 
+		constantBuffers[(UINT)eCBType::Time] = new ConstantBuffer(eCBType::Time);
+		constantBuffers[(UINT)eCBType::Time]->Create(sizeof(TimeCB));
+
 		// Structed buffer
 		LightBuffer = new StructuredBuffer();
 		LightBuffer->Create(sizeof(LightAttribute), 128, eSRVType::None, nullptr);
@@ -418,6 +425,12 @@ namespace Renderer
 
 		DebugShader->SetToplogy(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 		ResourceManager::GetInstance()->Insert<Shader>(L"DebugShader", DebugShader);
+
+		// Paint Shader
+		std::shared_ptr<PaintShader> paintShader = std::make_shared<PaintShader>();
+		paintShader->Create(L"PaintCS.hlsl", "main");
+
+		ResourceManager::GetInstance()->Insert<PaintShader>(L"PaintShader", paintShader);
 	}
 
 	void LoadTexture()
@@ -427,12 +440,23 @@ namespace Renderer
 		ResourceManager::GetInstance()->Load<Texture2D>(L"HPBarTexture", L"HPBar.png");
 
 		ResourceManager::GetInstance()->Load<Texture2D>(L"Diablo2_Town_Idle", L"diablo2_Town_Idle.png");
+
+		// Create
+		std::shared_ptr<Texture2D> uavTexture = std::make_shared<Texture2D>();
+		uavTexture->Create(1024, 1024, DXGI_FORMAT_B8G8R8A8_UNORM, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS);
+		ResourceManager::GetInstance()->Insert<Texture2D>(L"PaintTexture", uavTexture);
+
+
+		ResourceManager::GetInstance()->Load<Texture2D>(L"Noise", L"noise.png");
+		std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"Noise");
+		texture->BindShader(graphics::eShaderStage::CS, 2);
+		texture->BindShader(graphics::eShaderStage::PS, 2);
 	}
 
 	void LoadMaterial()
 	{
 		// Dafault
-		std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"SmileTexture");
+		std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"PaintTexture");
 		std::shared_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"RectShader");
 		std::shared_ptr<Material> material = std::make_shared<Material>();
 		material->SetShader(shader);
@@ -500,6 +524,7 @@ namespace Renderer
 	void Render()
 	{
 		BindLights();
+		BindTime();
 
 		eSceneType type = SceneManager::GetInstance()->GetActiveScene()->GetScenType();
 		for (Camera* cam : Cameras[(UINT)type])
@@ -544,5 +569,24 @@ namespace Renderer
 		cb->Bind(&trCb);
 		cb->SetPipline(eShaderStage::VS);
 		cb->SetPipline(eShaderStage::PS);
+	}
+
+	void BindTime()
+	{
+		Time += Time::GetInstance()->DeltaTime();
+		if (Time >= 1.0f)
+			Time -= 1.0f;
+
+		std::cout << Time << std::endl;
+
+		TimeCB tCb = {};
+		tCb.deltatime = Time::GetInstance()->DeltaTime();
+		tCb.time = Time;
+
+		ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::Time];
+		cb->Bind(&tCb);
+		cb->SetPipline(eShaderStage::VS);
+		cb->SetPipline(eShaderStage::PS);
+		cb->SetPipline(eShaderStage::CS);
 	}
 }

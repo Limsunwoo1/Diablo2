@@ -196,7 +196,7 @@ void Player::Run()
 
 void Player::Idle()
 {
-	Animator* animator = GetComponent<Animator>();
+	Animator* animator = this->GetComponent<Animator>();
 	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
 	
 	wstring playName = L"Idle";

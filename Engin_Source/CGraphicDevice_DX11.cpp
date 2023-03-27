@@ -95,10 +95,10 @@ namespace graphics
 		mDepthStencilBufferTextuer = make_shared<Texture2D>();
 		mDepthStencilBufferTextuer->Create(1600, 900, DXGI_FORMAT_D24_UNORM_S8_UINT, D3D11_BIND_DEPTH_STENCIL);
 
-		if (!CreateTexture(&depthBuffer, mDepthStencilBufferTextuer->GetTexteur().GetAddressOf()))   // DepthStencilBuffer 持失
+		if (!CreateTexture(&depthBuffer, mDepthStencilBufferTextuer->GetTexture().GetAddressOf()))   // DepthStencilBuffer 持失
 			return;
 
-		if (FAILED(mDevice->CreateDepthStencilView(mDepthStencilBufferTextuer->GetTexteur().Get(), nullptr, mDepthStencilBufferTextuer->GetDSV().GetAddressOf())))
+		if (FAILED(mDevice->CreateDepthStencilView(mDepthStencilBufferTextuer->GetTexture().Get(), nullptr, mDepthStencilBufferTextuer->GetDSV().GetAddressOf())))
 			return;
 
 		RECT winRect;
@@ -264,6 +264,7 @@ namespace graphics
 	}
 	void CGraphicDevice_DX11::BindComputeShader(ID3D11ComputeShader* pComputeShader, ID3D11ClassInstance* const* ppClassInstances, UINT NumClassInstances)
 	{
+		mContext->CSSetShader(pComputeShader, ppClassInstances, NumClassInstances);
 	}
 	void CGraphicDevice_DX11::BindViewPorts(D3D11_VIEWPORT* viewPort)
 	{
@@ -271,6 +272,7 @@ namespace graphics
 	}
 	void CGraphicDevice_DX11::Dispatch(UINT ThreadGroupCountX, UINT ThreadGroupCountY, UINT ThreadGroupCountZ)
 	{
+		mContext->Dispatch(ThreadGroupCountX, ThreadGroupCountY, ThreadGroupCountZ);
 	}
 	void CGraphicDevice_DX11::BindBuffer(ID3D11Buffer* buffer, void* data, UINT size)
 	{
@@ -333,6 +335,7 @@ namespace graphics
 	}
 	void CGraphicDevice_DX11::BindUnorderdAccessView(UINT slot, UINT numUAVs, ID3D11UnorderedAccessView* const* ppUAV, const UINT* pUAVInitalCounts)
 	{
+		mContext->CSSetUnorderedAccessViews(slot, numUAVs, ppUAV, pUAVInitalCounts);
 	}
 	void CGraphicDevice_DX11::BindSamplers(eShaderStage stage, UINT slot, UINT NumSamplers, ID3D11SamplerState* const* ppSamplers)
 	{

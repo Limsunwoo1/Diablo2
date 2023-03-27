@@ -66,7 +66,7 @@ void Animation::Create(const wstring& name, shared_ptr<Texture2D> atlas
 	float width = (float)atlas->GetWidth();
 	float height = (float)atlas->GetHeight();
 
-	for (int i = 0; i < spriteLenght; ++i)
+	for (UINT i = 0; i < spriteLenght; ++i)
 	{
 		// API 와는 다르게 0~ 1 사이의 비율좌표로 위치를 표현한다
 		Sprite sprite = {};

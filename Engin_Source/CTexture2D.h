@@ -30,10 +30,10 @@ namespace graphics
 		void Clear();
 		void Clear(UINT startSlot);
 
-		UINT GetHeight() { return (UINT)(mImage.GetMetadata().height); }
-		UINT GetWidth() { return (UINT)(mImage.GetMetadata().width); }
+		UINT GetHeight() { return mDesc.Height; }
+		UINT GetWidth() { return mDesc.Width; }
 
-		ComPtr<ID3D11Texture2D> GetTexteur()		{ return mTexture; }
+		ComPtr<ID3D11Texture2D> GetTexture()		{ return mTexture; }
 		ComPtr<ID3D11DepthStencilView> GetDSV()		{ return mDSV; }
 		ComPtr<ID3D11RenderTargetView> GetRTV()		{ return mRTV; }
 		ComPtr<ID3D11UnorderedAccessView> GetUAV()	{ return mUAV; }

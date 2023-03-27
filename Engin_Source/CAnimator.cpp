@@ -85,6 +85,8 @@ bool Animator::Create(const wstring& name, shared_ptr<Texture2D> atlas, Vector2 
 	Events* events = new Events();
 	events->mEvents.resize(spriteLength);
 	mEvents.insert(make_pair(name, events));
+
+	return true;
 }
 
 bool Animator::Create(const wstring& name, shared_ptr<Texture2D> atlas, Vector2 leftTop, float size, Vector2 offset, UINT spriteLength, float duation)
@@ -104,6 +106,8 @@ bool Animator::Create(const wstring& name, shared_ptr<Texture2D> atlas, Vector2 
 	Events* events = new Events();
 	events->mEvents.resize(spriteLength);
 	mEvents.insert(make_pair(name, events));
+
+	return true;
 }
 
 Animation* Animator::FindAnimation(const wstring& name)

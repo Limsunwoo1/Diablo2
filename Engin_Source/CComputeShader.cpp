@@ -1,5 +1,7 @@
 #include "CComputeShader.h"
 #include "CGraphicDevice_DX11.h"
+#include "CRenderer.h"
+#include "CTime.h"
 
 namespace graphics
 {
@@ -15,6 +17,9 @@ namespace graphics
 		, mGroupZ(0)
 
 	{
+		mThreadGropCountX = 32;
+		mThreadGropCountY = 32;
+		mThreadGropCountZ = 1;
 	}
 	ComputeShader::~ComputeShader()
 	{
@@ -40,7 +45,7 @@ namespace graphics
 			, mCSBlob.GetAddressOf()
 			, mErrorBlob.GetAddressOf());
 
-		/* if (mErrorBlob)
+		 /*if (mErrorBlob)
 		 {
 			 OutputDebugStringA((char*)mErrorBlob->GetBufferPointer());
 			 mErrorBlob->Release();
@@ -58,12 +63,18 @@ namespace graphics
 		Binds();
 
 		GetDevice()->BindComputeShader(mCS.Get(), nullptr, 0);
-		GetDevice()->Dispatch(mThreadGropCountX, mThreadGropCountY, mThreadGropCountZ);
+		GetDevice()->Dispatch(mGroupX, mGroupY, mGroupZ);
 
 		Clear();
 	}
 	void ComputeShader::Binds()
 	{
+		Renderer::TimeCB tCb = {};
+		tCb.deltatime = Time::GetInstance()->DeltaTime();
+
+		ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::Time];
+		cb->Bind(&tCb);
+		cb->SetPipline(eShaderStage::CS);
 	}
 	void ComputeShader::Clear()
 	{
