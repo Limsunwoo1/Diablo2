@@ -148,6 +148,12 @@
     <Filter Include="ResourceManager\Resource\ComputeShader">
       <UniqueIdentifier>{25cdd07c-4497-4856-8858-8c41b115b045}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\PlayerSkilFire">
+      <UniqueIdentifier>{2e7fc52e-f93b-409b-8beb-824380e9f982}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\PlayerSkilFire\FireBall">
+      <UniqueIdentifier>{dbe63faa-d2ae-442b-8d18-ee268c7b6821}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -293,6 +299,12 @@
     </ClCompile>
     <ClCompile Include="CPaintShader.cpp">
       <Filter>ResourceManager\Resource\ComputeShader</Filter>
+    </ClCompile>
+    <ClCompile Include="CSkilFire.cpp">
+      <Filter>GameObject\PlayerSkilFire</Filter>
+    </ClCompile>
+    <ClCompile Include="CSkilFireBall.cpp">
+      <Filter>GameObject\PlayerSkilFire\FireBall</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -457,6 +469,12 @@
     </ClInclude>
     <ClInclude Include="CpaintShader.h">
       <Filter>ResourceManager\Resource\ComputeShader</Filter>
+    </ClInclude>
+    <ClInclude Include="CSkilFire.h">
+      <Filter>GameObject\PlayerSkilFire</Filter>
+    </ClInclude>
+    <ClInclude Include="CSkilFireBall.h">
+      <Filter>GameObject\PlayerSkilFire\FireBall</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

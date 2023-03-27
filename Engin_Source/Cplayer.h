@@ -33,6 +33,8 @@ public:
 	bool PlayerDirection(int index);
 	UINT GetDirection();
 
+	void ActiveSkilFireBall();
+
 private:
 	void Run();
 	void Idle();

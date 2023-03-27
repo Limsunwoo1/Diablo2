@@ -76,7 +76,7 @@ void PlayScene::Initalize()
 		player->AddComponent<PlayerScript>();
 
 		Collider2D* collider = player->AddComponent<Collider2D>();
-		collider->SetSize(Vector2(1.0f, 1.0f));
+		collider->SetSize(Vector2(0.5f, 0.5f));
 		collider->SetType(eColliderType::Rect);
 
 		Transform* tr = player->GetComponent<Transform>();

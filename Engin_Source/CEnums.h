@@ -18,6 +18,8 @@ enum class eLayerType
 	Grid,
 	Monster,
 	Player,
+	MonsterSkil,
+	PlayerSKil,
 
 	Fade,
 	UI,

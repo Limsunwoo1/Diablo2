@@ -58,7 +58,8 @@ public:
 			return;
 		}
 
-		mResources.insert(make_pair(key, dynamic_pointer_cast<Resource>(resource)));
+		if(Find<T>(key) == nullptr)
+			mResources.insert(make_pair(key, dynamic_pointer_cast<Resource>(resource)));
 	}
 
 	//void Release(void)

@@ -4,6 +4,9 @@
 #include "CMaterial.h"
 #include "CTexture2D.h"
 #include "CAnimator.h"
+#include "CSkilFireBall.h"
+#include "CObject.h"
+#include "CSceneManager.h"
 
 Player::Player()
 	: GameObject()
@@ -162,6 +165,23 @@ UINT Player::GetDirection()
 	return mIndex;
 }
 
+void Player::ActiveSkilFireBall()
+{
+	SkilFireBall* skil = new SkilFireBall(this);
+	Object::Instantiate<SkilFireBall>(eLayerType::PlayerSKil, skil);
+
+	Animator* animator = skil->GetComponent<Animator>();
+
+	wstring skliName = L"FireBall";
+	skliName += std::to_wstring(mIndex);
+
+	animator->Play(skliName, false);
+
+	Transform* tr = skil->GetComponent<Transform>();
+	Transform* mTr = GetComponent<Transform>();
+	tr->SetPosition(mTr->GetPosition());
+}
+
 void Player::SetState(State state)
 {
 	if (state == mState)
@@ -268,6 +288,7 @@ void Player::SKil()
 	if (name.find(L"Skil") == wstring::npos)
 	{
 		animator->Play(playName, false);
+		//ActiveSkilFireBall();
 	}
 	else
 	{
