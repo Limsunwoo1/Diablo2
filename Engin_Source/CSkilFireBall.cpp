@@ -72,5 +72,4 @@ void SkilFireBall::InitAnimation()
 		// 96.92857142  96.9375
 	}
 
-	SkilFireBall::InitAnimation();
 }

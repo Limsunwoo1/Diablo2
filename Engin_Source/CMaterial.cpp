@@ -44,13 +44,24 @@ void Material::SetData(eGpuParam param, void* data)
 
 void Material::Bind()
 {
-	if(mTexture)
-		mTexture->BindShader(eShaderStage::PS, 0);
+	for (int i = 0; i < (UINT)eTextureSlot::End; ++i)
+	{
+		if (mTexture[i] == nullptr)
+			continue;
+
+		mTexture[i]->BindShaderResource(eShaderStage::VS, i);
+		mTexture[i]->BindShaderResource(eShaderStage::HS, i);
+		mTexture[i]->BindShaderResource(eShaderStage::DS, i);
+		mTexture[i]->BindShaderResource(eShaderStage::GS, i);
+		mTexture[i]->BindShaderResource(eShaderStage::PS, i);
+		mTexture[i]->BindShaderResource(eShaderStage::CS, i);
+	}
 
 	ConstantBuffer* pCB = Renderer::constantBuffers[(UINT)eCBType::Material];
 
 	pCB->SetData(&mCB);
 	pCB->Bind(eShaderStage::VS);
+	pCB->Bind(eShaderStage::GS);
 	pCB->Bind(eShaderStage::PS);
 
 	mShader->Binds();
@@ -58,6 +69,11 @@ void Material::Bind()
 
 void Material::Clear()
 {
-	if(mTexture)
-		mTexture->Clear();
+	for (int i = 0; i < (UINT)eTextureSlot::End; ++i)
+	{
+		if (mTexture[i] == nullptr)
+			continue;
+
+		mTexture[i]->Clear();
+	}
 }

@@ -56,7 +56,7 @@ namespace graphics
 		return S_OK;
 	}
 
-	void Texture2D::BindShader(eShaderStage stage, UINT slot)
+	void Texture2D::BindShaderResource(eShaderStage stage, UINT slot)
 	{
 		GetDevice()->BindShaderResource(stage, slot, mSRV.GetAddressOf());
 	}

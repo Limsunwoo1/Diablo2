@@ -105,7 +105,7 @@ void Animation::Create(const wstring& name, shared_ptr<Texture2D> atlas, Vector2
 
 void Animation::BindShader()
 {
-	mAtlas->BindShader(eShaderStage::PS, 12);
+	mAtlas->BindShaderResource(eShaderStage::PS, 12);
 
 	ConstantBuffer* CB = Renderer::constantBuffers[(UINT)eCBType::Animation];
 

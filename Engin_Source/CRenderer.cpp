@@ -452,11 +452,13 @@ namespace Renderer
 		// Particle Shader
 		std::shared_ptr<Shader> particleShader = std::make_shared<Shader>();
 		particleShader->Create(eShaderStage::VS, L"ParticleVS.hlsl", "main");
+		particleShader->Create(eShaderStage::GS, L"ParticleGS.hlsl", "main");
 		particleShader->Create(eShaderStage::PS, L"ParticlePS.hlsl", "main");
 
 		particleShader->SetRasterize(eRasterizeType::SolidNone);
 		particleShader->SetDepthStencil(eDepthStencilType::NoWrite);
 		particleShader->SetBlend(eBlendType::AlphaBlend);
+		particleShader->SetToplogy(D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_POINTLIST);
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"ParticleShader", particleShader);
 	}
@@ -468,6 +470,7 @@ namespace Renderer
 		ResourceManager::GetInstance()->Load<Texture2D>(L"HPBarTexture", L"HPBar.png");
 
 		ResourceManager::GetInstance()->Load<Texture2D>(L"Diablo2_Town_Idle", L"diablo2_Town_Idle.png");
+		ResourceManager::GetInstance()->Load<Texture2D>(L"CartoonSmoke", L"particle\\CartoonSmoke.png");
 
 		// Create
 		std::shared_ptr<Texture2D> uavTexture = std::make_shared<Texture2D>();
@@ -477,8 +480,8 @@ namespace Renderer
 
 		ResourceManager::GetInstance()->Load<Texture2D>(L"Noise", L"noise.png");
 		std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"Noise");
-		texture->BindShader(graphics::eShaderStage::CS, 2);
-		texture->BindShader(graphics::eShaderStage::PS, 2);
+		texture->BindShaderResource(graphics::eShaderStage::CS, 2);
+		texture->BindShaderResource(graphics::eShaderStage::PS, 2);
 	}
 
 	void LoadMaterial()
@@ -488,7 +491,7 @@ namespace Renderer
 		std::shared_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"RectShader");
 		std::shared_ptr<Material> material = std::make_shared<Material>();
 		material->SetShader(shader);
-		material->SetTexture(texture);
+		material->SetTexture(eTextureSlot::T0, texture);
 		ResourceManager::GetInstance()->Insert<Material>(L"RectMaterial", material);
 
 		// paint
@@ -497,7 +500,7 @@ namespace Renderer
 			std::shared_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"RectShader");
 			std::shared_ptr<Material> material = std::make_shared<Material>();
 			material->SetShader(shader);
-			material->SetTexture(texture);
+			material->SetTexture(eTextureSlot::T0, texture);
 			ResourceManager::GetInstance()->Insert<Material>(L"noiseMaterial", material);
 		}
 
@@ -507,7 +510,7 @@ namespace Renderer
 		std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 		spriteMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		spriteMaterial->SetShader(spriteShader);
-		spriteMaterial->SetTexture(spriteTexture);
+		spriteMaterial->SetTexture(eTextureSlot::T0, spriteTexture);
 		ResourceManager::GetInstance()->Insert<Material>(L"SpriteMaterial", spriteMaterial);
 
 		// Diablo_Walk
@@ -516,7 +519,7 @@ namespace Renderer
 		std::shared_ptr<Material> DiabloMaterial = std::make_shared<Material>();
 		DiabloMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		DiabloMaterial->SetShader(DiabloShader);
-		DiabloMaterial->SetTexture(DiabloTexture);
+		DiabloMaterial->SetTexture(eTextureSlot::T0, DiabloTexture);
 		ResourceManager::GetInstance()->Insert<Material>(L"DiabloMaterial", DiabloMaterial);
 
 		// UI
@@ -525,7 +528,7 @@ namespace Renderer
 		std::shared_ptr<Material> uiMaterial = std::make_shared<Material>();
 		uiMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		uiMaterial->SetShader(uiShader);
-		uiMaterial->SetTexture(uiTexture);
+		uiMaterial->SetTexture(eTextureSlot::T0, uiTexture);
 		ResourceManager::GetInstance()->Insert<Material>(L"UIMaterial", uiMaterial);
 
 		// Grid
@@ -630,6 +633,7 @@ namespace Renderer
 		ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::Time];
 		cb->SetData(&tCb);
 		cb->Bind(eShaderStage::VS);
+		cb->Bind(eShaderStage::GS);
 		cb->Bind(eShaderStage::PS);
 		cb->Bind(eShaderStage::CS);
 	}

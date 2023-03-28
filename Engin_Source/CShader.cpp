@@ -67,6 +67,24 @@ void Shader::Create(graphics::eShaderStage stage, const std::wstring& file, cons
                                                , nullptr
                                                , mPS.GetAddressOf());
     }
+    else if (stage == graphics::eShaderStage::GS)
+    {
+        D3DCompileFromFile(shaderPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
+            , funcName.c_str(), "gs_5_0", 0, 0
+            , mGSBlob.GetAddressOf()
+            , mErrorBlob.GetAddressOf());
+
+        /* if (mErrorBlob)
+         {
+             OutputDebugStringA((char*)mErrorBlob->GetBufferPointer());
+             mErrorBlob->Release();
+         }*/
+
+        GetDevice()->CreateGeometryShader(mGSBlob->GetBufferPointer()
+            , mGSBlob->GetBufferSize()
+            , nullptr
+            , mGS.GetAddressOf());
+    }
 }
 
 void Shader::Binds()
@@ -77,6 +95,9 @@ void Shader::Binds()
 
     // shader
     GetDevice()->BindVertexShader(mVS.Get(), nullptr, 0);
+    GetDevice()->BindHullShader(mHS.Get(), nullptr, 0);
+    GetDevice()->BindDomainShader(mDS.Get(), nullptr, 0);
+    GetDevice()->BindGeometryShader(mGS.Get(), nullptr, 0);
     GetDevice()->BindPixelShader(mPS.Get(), nullptr, 0);
 
 
