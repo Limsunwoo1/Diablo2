@@ -64,6 +64,7 @@ void CApplication::Run()
 	Update();
 	FixedUpdate();
 	Render();
+
 	Destroy();
 }
 

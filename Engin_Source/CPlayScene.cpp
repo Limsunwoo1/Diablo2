@@ -58,6 +58,7 @@ void PlayScene::Initalize()
 		cameraObj->AddComponent<CameraScript>();
 		cameraComp->SetProjectionType(Camera::eProjectionType::Prespective);
 		Renderer::mainCamera = cameraComp;
+		mMainCamera = cameraComp;
 	}
 	// Ui Camera
 	{
@@ -156,7 +157,8 @@ void PlayScene::Render()
 
 void PlayScene::OnEnter()
 {
-
+	if (mMainCamera)
+		Renderer::mainCamera = mMainCamera;
 }
 
 void PlayScene::OnExit()

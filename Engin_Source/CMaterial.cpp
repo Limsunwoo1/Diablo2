@@ -58,6 +58,6 @@ void Material::Bind()
 
 void Material::Clear()
 {
-	if(!mTexture)
+	if(mTexture)
 		mTexture->Clear();
 }

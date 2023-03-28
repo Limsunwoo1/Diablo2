@@ -46,7 +46,7 @@ void Collider2D::FixedUpdate()
 	Vector3 colliderPos = position + Vector3(mCenter.x, mCenter.y, 0.0f);
 	mPosition = colliderPos;
 
-	Matrix scaleMatrix = Matrix::CreateScale(scale);
+	/*Matrix scaleMatrix = Matrix::CreateScale(scale);
 
 	Matrix rotationMatrix;
 	rotationMatrix = Matrix::CreateRotationX(rotation.x);
@@ -56,7 +56,7 @@ void Collider2D::FixedUpdate()
 	Matrix positionMatrix;
 	positionMatrix.Translation(Vector3(colliderPos.x, colliderPos.y, colliderPos.z));
 
-	Matrix worldMatrix = scaleMatrix * rotationMatrix * positionMatrix;
+	Matrix worldMatrix = scaleMatrix * rotationMatrix * positionMatrix;*/
 
 	DebugMesh meshAttricbute = {};
 	meshAttricbute.position = Vector3(colliderPos.x, colliderPos.y, colliderPos.z);
@@ -70,10 +70,11 @@ void Collider2D::FixedUpdate()
 
 void Collider2D::Render()
 {
-	Matrix world = GetOwner()->GetComponent<Transform>()->GetWorldMatrix();
-	Matrix view = Renderer::mainCamera->GetViewMatrix();
-	Matrix projection = Renderer::mainCamera->GetProjectionMatrix();
+	//Matrix world = GetOwner()->GetComponent<Transform>()->GetWorldMatrix();
+	//Matrix view = Renderer::mainCamera->GetViewMatrix();
+	//Matrix projection = Renderer::mainCamera->GetProjectionMatrix();
 
+	//GetOwner()->GetComponent<Transform>()->SetConstantBuffer();
 }
 
 void Collider2D::OnCollisionEnter(Collider2D* collider)

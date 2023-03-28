@@ -25,5 +25,8 @@ public:
 private:
 	std::vector<Layer> mLayers;
 	eSceneType mType;
+
+protected:
+	class Camera* mMainCamera;
 };
 

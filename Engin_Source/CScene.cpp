@@ -2,6 +2,7 @@
 
 Scene::Scene(eSceneType type)
 	: mType(type)
+	, mMainCamera(nullptr)
 {
 	mLayers.resize((UINT)eLayerType::End);
 }

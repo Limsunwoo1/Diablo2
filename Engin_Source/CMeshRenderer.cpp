@@ -33,10 +33,11 @@ void MeshRenderer::Render()
 
 	GetOwner()->GetComponent<Transform>()->SetConstantBuffer();
 
-	GetMaterial()->Bind();
 	GetMesh()->BindBuffer();
+	GetMaterial()->Bind();
 
 	GetMesh()->Render();
-
+	
+	// 바인딩 되어있는 텍스처 클리어
 	GetMaterial()->Clear();
 }

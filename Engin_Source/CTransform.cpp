@@ -62,8 +62,6 @@ void Transform::FixedUpdate()
 
 	if (mParent)
 		mWorld *= mParent->mWorld;
-
-	//SetConstantBuffer();
 }
 
 void Transform::Render()
