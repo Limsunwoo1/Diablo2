@@ -14,6 +14,7 @@ public:
 	bool CreateIndexBuffer(void* data, UINT count);
 	void BindBuffer();
 	void Render();
+	void RenderInstanced(UINT count);
 
 private:
 	Microsoft::WRL::ComPtr<ID3D11Buffer> mVertexBuffer;

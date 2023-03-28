@@ -74,8 +74,8 @@ namespace graphics
 		tCb.deltatime = Time::GetInstance()->DeltaTime();
 
 		ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::Time];
-		cb->Bind(&tCb);
-		cb->SetPipline(eShaderStage::CS);
+		cb->SetData(&tCb);
+		cb->Bind(eShaderStage::CS);
 	}
 	void ComputeShader::Clear()
 	{

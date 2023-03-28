@@ -1,9 +1,9 @@
-#include "CStructuredBuffer.h"
+#include "CStructedBuffer.h"
 #include "CGraphicDevice_DX11.h"
 
 namespace graphics
 {
-	StructuredBuffer::StructuredBuffer()
+	StructedBuffer::StructedBuffer()
 		: mSRV(nullptr)
 		, mType(eSRVType::None)
 		, mSize(0)
@@ -12,12 +12,12 @@ namespace graphics
 
 	}
 
-	StructuredBuffer::~StructuredBuffer()
+	StructedBuffer::~StructedBuffer()
 	{
 
 	}
 
-	bool StructuredBuffer::Create(UINT size, UINT stride, eSRVType type, void* data)
+	bool StructedBuffer::Create(UINT size, UINT stride, eSRVType type, void* data)
 	{
 		mType = type;
 		mSize = size;
@@ -54,7 +54,7 @@ namespace graphics
 		return true;
 	}
 
-	void StructuredBuffer::Bind(void* data, UINT bufferCount)
+	void StructedBuffer::SetData(void* data, UINT bufferCount)
 	{
 		if (mStride < bufferCount)
 		{
@@ -66,7 +66,7 @@ namespace graphics
 		}
 	}
 
-	void StructuredBuffer::SetPipeline(eShaderStage stage, UINT slot)
+	void StructedBuffer::Bind(eShaderStage stage, UINT slot)
 	{
 		GetDevice()->BindShaderResource(stage, slot, mSRV.GetAddressOf());
 	}

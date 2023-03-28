@@ -116,8 +116,8 @@ void Animation::BindShader()
 	info.size = mSpriteSheet[mIndex].size;
 	info.atlasSize = mSpriteSheet[mIndex].atlasSize;
 
-	CB->Bind(&info);
-	CB->SetPipline(eShaderStage::PS);
+	CB->SetData(&info);
+	CB->Bind(eShaderStage::PS);
 }
 
 void Animation::Reset()
@@ -135,6 +135,6 @@ void Animation::Clear()
 	Renderer::AnimationCB info = {};
 	info.type = (UINT)eCBType::Animation;
 
-	cb->Bind(&info);
-	cb->SetPipline(eShaderStage::PS);
+	cb->SetData(&info);
+	cb->Bind(eShaderStage::PS);
 }

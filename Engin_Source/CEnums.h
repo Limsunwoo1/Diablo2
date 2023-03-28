@@ -21,6 +21,7 @@ enum class eLayerType
 	MonsterSkil,
 	PlayerSKil,
 
+	Particle,
 	Fade,
 	UI,
 	End = 16,
@@ -37,6 +38,7 @@ enum class eComponentType
 	SpriteRenderer,
 	FadeRenderer,
 	Animator,
+	ParticleSystem,
 	Light,
 	UI,
 	Script,

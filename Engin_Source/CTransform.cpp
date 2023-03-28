@@ -80,6 +80,6 @@ void Transform::SetConstantBuffer()
 	// 
 
 	ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::Transform];
-	cb->Bind(&trCb);
-	cb->SetPipline(eShaderStage::VS);
+	cb->SetData(&trCb);
+	cb->Bind(eShaderStage::VS);
 }

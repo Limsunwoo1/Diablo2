@@ -38,7 +38,7 @@ void Shader::Create(graphics::eShaderStage stage, const std::wstring& file, cons
                          , mVSBlob.GetAddressOf()
                          , mErrorBlob.GetAddressOf());
 
-       /* if (mErrorBlob)
+        /*if (mErrorBlob)
         {
             OutputDebugStringA((char*)mErrorBlob->GetBufferPointer());
             mErrorBlob->Release();

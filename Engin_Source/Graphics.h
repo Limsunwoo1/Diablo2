@@ -18,6 +18,7 @@
 #define CBSLOT_ANIMATION		4
 #define CBSLOT_NUMBEROFLIGHT	5
 #define CBSLOT_TIME				6
+#define CBSLOT_ParticleSystem	7
 
 namespace graphics
 {
@@ -29,6 +30,7 @@ namespace graphics
 		Fade,
 		Animation,
 		Light,
+		ParticleSystem,
 		Time,
 		End,
 	};
@@ -149,5 +151,16 @@ namespace graphics
 		float radius;
 		float angle;
 		int padding;
+	};
+
+	struct Particle
+	{
+		Math::Vector4 position;
+		Math::Vector4 direction;
+
+		float lifeTime;
+		float time;
+		float speed;
+		UINT active;
 	};
 }

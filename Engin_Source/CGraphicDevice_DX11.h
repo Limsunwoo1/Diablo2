@@ -53,6 +53,7 @@ namespace graphics
 
 		void Draw();
 		void DrawIndexed(UINT indexCount, UINT StartIndexLocation, UINT BaseVertexLocation);
+		void DrawIndexedInstanced(UINT IndexCountPerInstance, UINT InstanceCount, UINT StartIndexLocation, INT BaseVertexLocation, UINT StartInstanceLocation);
 
 		void Present();
 
@@ -65,8 +66,8 @@ namespace graphics
 		// GPU read write 디바이스에 직접 접근하지 않고 이 객체를 통해 GPU에 명령을 내린다
 		ComPtr<ID3D11DeviceContext> mContext;
 
-		shared_ptr<class Texture2D> mRenderTargetTxture;
-		shared_ptr<class Texture2D> mDepthStencilBufferTextuer;
+		shared_ptr<class Texture2D> mRenderTargetTexture;
+		shared_ptr<class Texture2D> mDepthStencilBufferTexture;
 
 		// 화면에 최정적으로 그려지는
 		// 백퍼버(Frame Buffer)를 관리하고, 실제로 화면에 렌더링 하는

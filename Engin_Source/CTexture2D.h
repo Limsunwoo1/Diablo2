@@ -39,6 +39,8 @@ namespace graphics
 		ComPtr<ID3D11UnorderedAccessView> GetUAV()	{ return mUAV; }
 		ComPtr<ID3D11ShaderResourceView> GetSRV()	{ return mSRV; }
 
+		void SetTexture(ComPtr<ID3D11Texture2D> texture) { mTexture = texture; }
+
 	private:
 		ScratchImage mImage;
 		ComPtr<ID3D11Texture2D> mTexture;

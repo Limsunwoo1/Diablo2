@@ -10,8 +10,8 @@ namespace graphics
 		virtual ~ConstantBuffer();
 
 		bool Create(size_t size);
-		void Bind(void* data);
-		void SetPipline(eShaderStage stage);
+		void SetData(void* data);
+		void Bind(eShaderStage stage);
 	private:
 		const eCBType mType;
 	};

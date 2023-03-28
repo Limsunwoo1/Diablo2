@@ -10,7 +10,7 @@
 #include "CMesh.h"
 #include "CConstantBuffer.h"
 #include "CCamera.h"
-#include "CStructuredBuffer.h"
+#include "CStructedBuffer.h"
 
 using namespace Math;
 using namespace graphics;
@@ -80,6 +80,11 @@ namespace Renderer
 		float padding_1;
 	};
 
+	CBUFFER(ParticleSystemCB, CBSLOT_ParticleSystem)
+	{
+		Vector4 color;
+	};
+
 	extern Vertex FadeInOut[4];
 	extern Vertex vertexes[4];
 	extern ConstantBuffer* constantBuffers[];
@@ -91,7 +96,7 @@ namespace Renderer
 	extern std::vector<Camera*> Cameras[];
 	extern std::vector<DebugMesh> debugMeshes;
 	extern std::vector<LightAttribute> lights;
-	extern StructuredBuffer* LightBuffer;
+	extern StructedBuffer* LightBuffer;
 
 	extern Camera* mainCamera;
 

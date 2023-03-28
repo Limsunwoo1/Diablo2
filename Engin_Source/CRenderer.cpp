@@ -20,12 +20,20 @@ namespace Renderer
 	std::vector<Camera*> Cameras[(UINT)eSceneType::End];
 	std::vector<DebugMesh> debugMeshes;
 	std::vector<LightAttribute> lights;
-	StructuredBuffer* LightBuffer;
+	StructedBuffer* LightBuffer;
 
 	float Time = 0.0f;
 
 	void LoadMesh()
 	{
+		//Point Mesh
+		Vertex v = {};
+		shared_ptr<Mesh> pointMesh = make_shared<Mesh>();
+		ResourceManager::GetInstance()->Insert(L"PointMesh", pointMesh);
+		pointMesh->CreateVertexBuffer(&v, 1);
+		UINT pointIndex = 0;
+		pointMesh->CreateIndexBuffer(&pointIndex, 1);
+
 		//RECT
 		vertexes[0].pos = Vector4(-0.5f, 0.5f, 0.0f, 1.0f);
 		vertexes[0].color = Vector4(0.f, 1.f, 0.f, 1.f);
@@ -216,6 +224,12 @@ namespace Renderer
 			, debugShader->GetVSBlobBufferSize()
 			, debugShader->GetInputLayoutAddressOf());
 
+		std::shared_ptr<Shader> particleShader = ResourceManager::GetInstance()->Find<Shader>(L"ParticleShader");
+		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, particleShader->GetVSBlobBufferPointer()
+			, particleShader->GetVSBlobBufferSize()
+			, particleShader->GetInputLayoutAddressOf());
+
 #pragma endregion
 #pragma region Sampler State
 		// »ùÇÃ·¯Ãß°¡
@@ -365,8 +379,11 @@ namespace Renderer
 		constantBuffers[(UINT)eCBType::Time] = new ConstantBuffer(eCBType::Time);
 		constantBuffers[(UINT)eCBType::Time]->Create(sizeof(TimeCB));
 
+		constantBuffers[(UINT)eCBType::ParticleSystem] = new ConstantBuffer(eCBType::ParticleSystem);
+		constantBuffers[(UINT)eCBType::ParticleSystem]->Create(sizeof(ParticleSystemCB));
+
 		// Structed buffer
-		LightBuffer = new StructuredBuffer();
+		LightBuffer = new StructedBuffer();
 		LightBuffer->Create(sizeof(LightAttribute), 128, eSRVType::None, nullptr);
 	}
 
@@ -431,6 +448,17 @@ namespace Renderer
 		paintShader->Create(L"PaintCS.hlsl", "main");
 
 		ResourceManager::GetInstance()->Insert<PaintShader>(L"PaintShader", paintShader);
+
+		// Particle Shader
+		std::shared_ptr<Shader> particleShader = std::make_shared<Shader>();
+		particleShader->Create(eShaderStage::VS, L"ParticleVS.hlsl", "main");
+		particleShader->Create(eShaderStage::PS, L"ParticlePS.hlsl", "main");
+
+		particleShader->SetRasterize(eRasterizeType::SolidNone);
+		particleShader->SetDepthStencil(eDepthStencilType::NoWrite);
+		particleShader->SetBlend(eBlendType::AlphaBlend);
+
+		ResourceManager::GetInstance()->Insert<Shader>(L"ParticleShader", particleShader);
 	}
 
 	void LoadTexture()
@@ -518,6 +546,13 @@ namespace Renderer
 		debugMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		debugMaterial->SetShader(debugShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"DebugMaterial", debugMaterial);
+
+		// Particle
+		std::shared_ptr<Shader> particleShader = ResourceManager::GetInstance()->Find<Shader>(L"ParticleShader");
+		std::shared_ptr<Material> particleMaterial = std::make_shared<Material>();
+		particleMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		particleMaterial->SetShader(particleShader);
+		ResourceManager::GetInstance()->Insert<Material>(L"ParticleMaterial", particleMaterial);
 	}
 
 	void Initialize()
@@ -567,17 +602,17 @@ namespace Renderer
 
 	void BindLights()
 	{
-		LightBuffer->Bind(lights.data(), lights.size());
-		LightBuffer->SetPipeline(eShaderStage::VS, 13);
-		LightBuffer->SetPipeline(eShaderStage::PS, 13);
+		LightBuffer->SetData(lights.data(), lights.size());
+		LightBuffer->Bind(eShaderStage::VS, 13);
+		LightBuffer->Bind(eShaderStage::PS, 13);
 
 		LightCB trCb = {};
 		trCb.numberOfLight = lights.size();
 
 		ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::Light];
-		cb->Bind(&trCb);
-		cb->SetPipline(eShaderStage::VS);
-		cb->SetPipline(eShaderStage::PS);
+		cb->SetData(&trCb);
+		cb->Bind(eShaderStage::VS);
+		cb->Bind(eShaderStage::PS);
 	}
 
 	void BindTime()
@@ -593,9 +628,9 @@ namespace Renderer
 		tCb.time = Time;
 
 		ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::Time];
-		cb->Bind(&tCb);
-		cb->SetPipline(eShaderStage::VS);
-		cb->SetPipline(eShaderStage::PS);
-		cb->SetPipline(eShaderStage::CS);
+		cb->SetData(&tCb);
+		cb->Bind(eShaderStage::VS);
+		cb->Bind(eShaderStage::PS);
+		cb->Bind(eShaderStage::CS);
 	}
 }

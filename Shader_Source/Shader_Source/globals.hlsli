@@ -1,4 +1,5 @@
 #include "Light.hlsli"
+#include "Particle.hlsli"
 
 cbuffer Transform : register(b0)
 {
@@ -56,7 +57,13 @@ cbuffer Time : register(b6)
     float padding_1;
 }
 
+cbuffer ParticleSystem : register(b7)
+{
+    float4 particleColor;
+}
+
 StructuredBuffer<LightAttribute> lightAttributes : register(t13);
+StructuredBuffer<Particle> particleBuffer : register(t15);
 
 SamplerState pointSampler : register(s0);
 SamplerState linearSampler : register(s1);

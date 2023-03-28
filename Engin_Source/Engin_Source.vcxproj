@@ -184,6 +184,7 @@
     <ClInclude Include="CEntity.h" />
     <ClInclude Include="CInput.h" />
     <ClInclude Include="CpaintShader.h" />
+    <ClInclude Include="CParticleSystem.h" />
     <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CPlayerScript.h" />
     <ClInclude Include="CPlayScene.h" />
@@ -195,7 +196,7 @@
     <ClInclude Include="CSkilFire.h" />
     <ClInclude Include="CSkilFireBall.h" />
     <ClInclude Include="CSpriteRenderer.h" />
-    <ClInclude Include="CStructuredBuffer.h" />
+    <ClInclude Include="CStructedBuffer.h" />
     <ClInclude Include="CTexture2D.h" />
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CTitleScene.h" />
@@ -239,6 +240,7 @@
     <ClCompile Include="CCollider3D.cpp" />
     <ClCompile Include="CMonster.cpp" />
     <ClCompile Include="CPaintShader.cpp" />
+    <ClCompile Include="CParticleSystem.cpp" />
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CPlayerScript.cpp" />
     <ClCompile Include="CPlayScene.cpp" />
@@ -250,7 +252,7 @@
     <ClCompile Include="CSkilFire.cpp" />
     <ClCompile Include="CSkilFireBall.cpp" />
     <ClCompile Include="CSpriteRenderer.cpp" />
-    <ClCompile Include="CStructuredBuffer.cpp" />
+    <ClCompile Include="CStructedBuffer.cpp" />
     <ClCompile Include="CTexture2D.cpp" />
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTitleScene.cpp" />

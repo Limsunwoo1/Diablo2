@@ -48,7 +48,7 @@ void CameraScript::Update()
 		pos += 100.f * -tr->Up() * Time::GetInstance()->DeltaTime();
 	}
 
-	//tr->SetPosition(pos);
+	tr->SetPosition(pos);
 }
 
 void CameraScript::FixedUpdate()

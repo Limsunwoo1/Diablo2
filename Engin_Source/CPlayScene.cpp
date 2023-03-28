@@ -16,7 +16,7 @@
 #include "CPlayer.h"
 #include "CLight.h"
 #include "CpaintShader.h"
-
+#include "CParticleSystem.h"
 
 
 PlayScene::PlayScene()
@@ -56,7 +56,7 @@ void PlayScene::Initalize()
 		//cameraComp->RegisterCameraInRenderer();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		cameraObj->AddComponent<CameraScript>();
-		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
+		cameraComp->SetProjectionType(Camera::eProjectionType::Prespective);
 		Renderer::mainCamera = cameraComp;
 	}
 	// Ui Camera
@@ -118,6 +118,17 @@ void PlayScene::Initalize()
 		sr->SetMaterial(mateiral);
 		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
 		sr->SetMesh(mesh);
+	}
+
+	//Particle
+	{
+		GameObject* obj = Object::Instantiate<GameObject>(eLayerType::Particle, this);
+		obj->SetName(L"Particle");
+
+		Transform* tr = obj->GetComponent<Transform>();
+		tr->SetPosition(Vector3(0.0f, 0.0f, 100.0f));
+
+		obj->AddComponent<ParticleSystem>();
 	}
 
 	Scene::Initalize();

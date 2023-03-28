@@ -52,9 +52,9 @@ void GridScript::Update()
 	data.cameraScale = Vector2(scale, scale);
 	data.resolution = resolution;
 
-	CB->Bind(&data);
-	CB->SetPipline(eShaderStage::VS);
-	CB->SetPipline(eShaderStage::PS);
+	CB->SetData(&data);
+	CB->Bind(eShaderStage::VS);
+	CB->Bind(eShaderStage::PS);
 }
 
 void GridScript::FixedUpdate()

@@ -72,9 +72,9 @@ void FadeRenderer::BindConstantBuffer()
 	Renderer::FadeCB data = {};
 
 	data.alpha = mCurValue;
-	CB->Bind(&data);
-	CB->SetPipline(eShaderStage::VS);
-	CB->SetPipline(eShaderStage::PS);
+	CB->SetData(&data);
+	CB->Bind(eShaderStage::VS);
+	CB->Bind(eShaderStage::PS);
 }
 
 void FadeRenderer::InitValue(bool fade)

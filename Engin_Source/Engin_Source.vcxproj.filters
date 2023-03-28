@@ -154,6 +154,9 @@
     <Filter Include="GameObject\PlayerSkilFire\FireBall">
       <UniqueIdentifier>{dbe63faa-d2ae-442b-8d18-ee268c7b6821}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Renderer\ParticleSystem">
+      <UniqueIdentifier>{22b8c067-b63b-4d4f-89b1-8e953c016594}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -288,7 +291,7 @@
     <ClCompile Include="CPlayer.cpp">
       <Filter>GameObject\Player</Filter>
     </ClCompile>
-    <ClCompile Include="CStructuredBuffer.cpp">
+    <ClCompile Include="CStructedBuffer.cpp">
       <Filter>Graphics\StructuredBuffer</Filter>
     </ClCompile>
     <ClCompile Include="CLight.cpp">
@@ -305,6 +308,9 @@
     </ClCompile>
     <ClCompile Include="CSkilFireBall.cpp">
       <Filter>GameObject\PlayerSkilFire\FireBall</Filter>
+    </ClCompile>
+    <ClCompile Include="CParticleSystem.cpp">
+      <Filter>Component\Renderer\ParticleSystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -458,7 +464,7 @@
     <ClInclude Include="CPlayer.h">
       <Filter>GameObject\Player</Filter>
     </ClInclude>
-    <ClInclude Include="CStructuredBuffer.h">
+    <ClInclude Include="CStructedBuffer.h">
       <Filter>Graphics\StructuredBuffer</Filter>
     </ClInclude>
     <ClInclude Include="CLight.h">
@@ -475,6 +481,9 @@
     </ClInclude>
     <ClInclude Include="CSkilFireBall.h">
       <Filter>GameObject\PlayerSkilFire\FireBall</Filter>
+    </ClInclude>
+    <ClInclude Include="CParticleSystem.h">
+      <Filter>Component\Renderer\ParticleSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

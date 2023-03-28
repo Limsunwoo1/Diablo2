@@ -1,7 +1,6 @@
 #include "globals.hlsli"
 
 RWTexture2D<float4> tex : register(u0);
-RWTexture2D<float4> noise : register(u1);
 
 // SV_GroupID : 스레드에 속한 그룹의 좌표
 // SV_GroupThreadID : 그룹 내에서 스레드의 좌표
@@ -29,7 +28,7 @@ void main( uint3 DTid : SV_DispatchThreadID, uint DIndex : SV_GroupIndex)
     float v = ((float(DTid.y) / float(DIndex)) + time) * 0.5f;
 
     float fcolor = DIndex * time;
-    float4 color = noiseTexture.SampleLevel(anisotropicSampler, float2(u, v), 0);
+    float4 color = noiseTexture.SampleLevel(pointSampler, float2(u, v), 0);
     //float3 col = color.xyz;
     float k = random(float2(u, v));
     color.x *= k;
