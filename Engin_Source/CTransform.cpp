@@ -82,7 +82,7 @@ void Transform::SetConstantBuffer()
 	cb->Bind(eShaderStage::VS);
 	cb->Bind(eShaderStage::HS);
 	cb->Bind(eShaderStage::DS);
-	cb->Bind(eShaderStage::HS);
+	cb->Bind(eShaderStage::GS);
 	cb->Bind(eShaderStage::PS);
 	cb->Bind(eShaderStage::CS);
 }

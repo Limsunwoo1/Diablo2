@@ -458,7 +458,7 @@ namespace Renderer
 		particleShader->SetRasterize(eRasterizeType::SolidNone);
 		particleShader->SetDepthStencil(eDepthStencilType::NoWrite);
 		particleShader->SetBlend(eBlendType::AlphaBlend);
-		particleShader->SetToplogy(D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_POINTLIST);
+		particleShader->SetToplogy(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"ParticleShader", particleShader);
 	}

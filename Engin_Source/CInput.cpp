@@ -160,7 +160,6 @@ Math::Vector2 Input::GetMouseWorldPos()
 	/*float ndcX = (2.0f * mouse.x);
 	ndcX /= viewport.Width;
 	ndcX -= 1.0f;
-
 	float ndcY = (2.0f * mouse.y);
 	ndcY /= viewport.Height;
 	ndcY -= 1.0f;*/
@@ -181,7 +180,7 @@ Math::Vector2 Input::GetMouseWorldPos()
 	/*Math::Vector3::Transform(nearPoint, projection, result);
 	Math::Vector3::Transform(result, view, result);*/
 
-	
+
 
 	/*Math::Matrix projection1 = Renderer::mainCamera->GetProjectionMatrix();
 	Math::Matrix view2 = Renderer::mainCamera->GetViewMatrix();*/
@@ -195,5 +194,3 @@ Math::Vector2 Input::GetMouseWorldPos()
 
 	return Math::Vector2(result.x, result.y + 0.7f);
 }
-
-

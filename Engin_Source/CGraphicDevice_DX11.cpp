@@ -328,7 +328,7 @@ namespace graphics
 			mContext->DSSetConstantBuffers((UINT)type, 1, &buffer);
 			break;
 		case graphics::eShaderStage::GS:
-			mContext->HSSetConstantBuffers((UINT)type, 1, &buffer);
+			mContext->GSSetConstantBuffers((UINT)type, 1, &buffer);
 			break;
 		case graphics::eShaderStage::PS:
 			mContext->PSSetConstantBuffers((UINT)type, 1, &buffer);

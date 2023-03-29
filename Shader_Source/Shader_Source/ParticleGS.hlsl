@@ -3,13 +3,13 @@
 
 struct VSOut
 {
-    float4 pos : SV_Position;
+    float4 Pos : SV_Position;
     uint iInstance : SV_InstanceID;
 };
 
 struct GSOutput
 {
-	float4 pos : SV_POSITION;
+	float4 Pos : SV_POSITION;
     float2 UV : TEXCOORD;
 };
 
@@ -22,20 +22,20 @@ void main(point VSOut input[1], inout TriangleStream< GSOutput > output )
         return;
 	
     // 로컬좌표에 파티클 포지션을 더한다
-    float3 vWorldPos = input[0].pos.xyz + particleBuffer[input[0].iInstance].position.xyz;
-    float3 vViewPos = mul(float4(vWorldPos, 1.0f), view);
+    float3 vWorldPos = input[0].Pos.xyz + particleBuffer[input[0].iInstance].position.xyz;
+    float4 vViewPos = mul(float4(vWorldPos, 1.0f), view);
     
     float3 NewPos[4] =
     {
-        vViewPos + float3(-0.5f, 0.5f, 0.0f) * float3(50.f, 5.0f, 1.0f),
-        vViewPos + float3(0.5f, 0.5f, 0.0f) * float3(50.f, 5.0f, 1.0f),
-        vViewPos + float3(0.5f, -0.5f, 0.0f) * float3(50.f, 5.0f, 1.0f),
-        vViewPos + float3(-0.5f, -0.5f, 0.0f) * float3(50.f, 5.0f, 1.0f),
+        vViewPos.xyz + float3(-0.5f, 0.5f, 0.0f) * float3(50.f, 50.0f, 1.0f),
+        vViewPos.xyz + float3(0.5f, 0.5f, 0.0f) * float3(50.f, 50.0f, 1.0f),
+        vViewPos.xyz + float3(0.5f, -0.5f, 0.0f) * float3(50.f, 50.0f, 1.0f),
+        vViewPos.xyz + float3(-0.5f, -0.5f, 0.0f) * float3(50.f, 50.0f, 1.0f)
     };
     
     for (int i = 0; i < 4; ++i)
     {
-        Out[i].pos = mul(float4(NewPos[i], 1.0f), projection);
+        Out[i].Pos = mul(float4(NewPos[i], 1.0f), projection);
     }
     
     
@@ -58,6 +58,7 @@ void main(point VSOut input[1], inout TriangleStream< GSOutput > output )
     output.Append(Out[2]);
     output.Append(Out[3]);
     output.RestartStrip();
+    
     
     //for (uint i = 0; i < 3; i++)
     //{

@@ -31,31 +31,23 @@ void PlayerScript::Initalize()
 void PlayerScript::Update()
 {
 	/*Transform* transform = GetOwner()->GetComponent<Transform>();
-
 	Vector3 pos = transform->GetPosition();
 	Vector3 Rotation = transform->GetRotation();
-
-	std::cout << pos.x << " : X ÁÂÇ¥" << pos.y << " : Y ÁÂÇ¥" << std::endl;
-
+	std::cout << pos.x << " : X ????" << pos.y << " : Y ????" << std::endl;
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::RBTN))
 	{
 		Vector2 mousePos = Input::GetInstance()->GetMousePos();
 		mArrivePos = Vector3(mousePos.x, mousePos.y, 1.0f);
 		mbRun = true;
 	}
-
 	if (!mbRun)
 		return;
-
 	Vector3 vec = mArrivePos - pos;
 	vec.z = 0.0f;
-
 	if (vec.x <= 1.0f && vec.y <= 1.0f)
 		mbRun = false;
-
 	vec.Normalize();
 	pos += vec * Time::GetInstance()->DeltaTime();
-
 	transform->SetPosition(pos);*/
 	Player* player = dynamic_cast<Player*>(GetOwner());
 
@@ -85,8 +77,6 @@ void PlayerScript::Update()
 				pos += speed * -tr->Up() * Time::GetInstance()->DeltaTime();
 			}
 		}
-
-
 		if (Input::GetInstance()->GetKeyPress(eKeyCode::RIGHT))
 		{
 			if (player->PlayerDirection(2))
@@ -94,7 +84,6 @@ void PlayerScript::Update()
 				player->SetState(Player::State::Move);
 				pos += speed * tr->Right() * Time::GetInstance()->DeltaTime();
 			}
-
 		}
 		else if (Input::GetInstance()->GetKeyPress(eKeyCode::LEFT))
 		{
@@ -104,8 +93,6 @@ void PlayerScript::Update()
 				pos += speed * -tr->Right() * Time::GetInstance()->DeltaTime();
 			}
 		}
-
-
 		if (player->GetDirection() == 1)
 		{
 			if (Input::GetInstance()->GetKeyUp(eKeyCode::UP))
@@ -130,7 +117,7 @@ void PlayerScript::Update()
 
 	if (Input::GetInstance()->GetKeyPress(eKeyCode::A))
 	{
-		if(player->GetState() == Player::State::Idle
+		if (player->GetState() == Player::State::Idle
 			|| player->GetState() == Player::State::Move)
 			player->SetState(Player::State::Attack);
 	}
@@ -240,7 +227,7 @@ void PlayerScript::Update()
 		pos += vec * Time::GetInstance()->DeltaTime() * speed;
 	}
 
-	if(player->GetState() == Player::State::Idle
+	if (player->GetState() == Player::State::Idle
 		|| player->GetState() == Player::State::Move)
 		tr->SetPosition(pos);
 }
@@ -282,7 +269,7 @@ float PlayerScript::PickAngle(Vector2 point)
 	Vector3 pos = tr->GetPosition();
 	Vector2 vec = point - Vector2(pos.x, pos.y);
 
-	
+
 	Vector2 Vec1 = Vector2(0.0f, 0.0f);
 
 	if (vec.x <= 0.f)
