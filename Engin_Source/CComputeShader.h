@@ -9,6 +9,7 @@ namespace graphics
 	class ComputeShader : public Resource
 	{
 	public:
+		ComputeShader(UINT threadGropCountX, UINT threadGropCountY, UINT threadGropCountZ);
 		ComputeShader();
 		virtual ~ComputeShader();
 

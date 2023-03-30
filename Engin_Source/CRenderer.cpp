@@ -24,8 +24,19 @@ namespace Renderer
 
 	float Time = 0.0f;
 
+	void Initialize()
+	{
+		LoadShader();
+		SetUpState();
+		LoadMesh();
+		LoadBuffer();
+		LoadTexture();
+		LoadMaterial();
+	}
+
 	void LoadMesh()
 	{
+#pragma region POINT MESH
 		//Point Mesh
 		Vertex v = {};
 		shared_ptr<Mesh> pointMesh = make_shared<Mesh>();
@@ -33,7 +44,19 @@ namespace Renderer
 		pointMesh->CreateVertexBuffer(&v, 1);
 		UINT pointIndex = 0;
 		pointMesh->CreateIndexBuffer(&pointIndex, 1);
+#pragma endregion
+#pragma region INDEX
+		std::vector<UINT> indexs;
+		indexs.push_back(0);
+		indexs.push_back(1);
+		indexs.push_back(2);
 
+		indexs.push_back(0);
+		indexs.push_back(2);
+		indexs.push_back(3);
+		indexs.push_back(0);
+#pragma endregion
+#pragma region RECT MESH
 		//RECT
 		vertexes[0].pos = Vector4(-0.5f, 0.5f, 0.0f, 1.0f);
 		vertexes[0].color = Vector4(0.f, 1.f, 0.f, 1.f);
@@ -51,6 +74,13 @@ namespace Renderer
 		vertexes[3].color = Vector4(0.f, 0.f, 1.f, 1.f);
 		vertexes[3].uv = Vector2(0.f, 1.f);
 
+		// Create Mesh
+		std::shared_ptr<Mesh>mesh = std::make_shared<Mesh>();
+		ResourceManager::GetInstance()->Insert<Mesh>(L"RectMesh", mesh);
+		mesh->CreateVertexBuffer(vertexes, 4);
+		mesh->CreateIndexBuffer(indexs.data(), (UINT)indexs.size());
+#pragma endregion
+#pragma region FADE MESH
 		// Fade
 		FadeInOut[0].pos = Vector4(-1.0f, 1.0f, 0.0f, 1.0f);
 		FadeInOut[0].color = Vector4(0.f, 0.f, 0.f, 0.f);
@@ -68,30 +98,14 @@ namespace Renderer
 		FadeInOut[3].color = Vector4(0.f, 0.f, 0.f, 1.f);
 		FadeInOut[3].uv = Vector2(0.f, 1.f);
 
-		// Create Mesh
-		std::shared_ptr<Mesh>mesh = std::make_shared<Mesh>();
-		ResourceManager::GetInstance()->Insert<Mesh>(L"RectMesh", mesh);
-
-		mesh->CreateVertexBuffer(vertexes, 4);
 
 		std::shared_ptr<Mesh>Fademesh = std::make_shared<Mesh>();
 		ResourceManager::GetInstance()->Insert<Mesh>(L"FadeMesh", Fademesh);
 
 		Fademesh->CreateVertexBuffer(FadeInOut, 4);
-
-		std::vector<UINT> indexs;
-		indexs.push_back(0);
-		indexs.push_back(1);
-		indexs.push_back(2);
-
-		indexs.push_back(0);
-		indexs.push_back(2);
-		indexs.push_back(3);
-		indexs.push_back(0);
-
-		mesh->CreateIndexBuffer(indexs.data(), (UINT)indexs.size());
 		Fademesh->CreateIndexBuffer(indexs.data(), (UINT)indexs.size());
-
+#pragma endregion
+#pragma region DEBUG MESH
 		// Debug
 		vertexes[0].pos = Vector4(-0.5f, 0.5f, -0.00001f, 1.0f);
 		vertexes[0].color = Vector4(0.f, 1.f, 0.f, 1.f);
@@ -113,7 +127,8 @@ namespace Renderer
 		ResourceManager::GetInstance()->Insert<Mesh>(L"DebugRectMesh", DebugMesh);
 		DebugMesh->CreateVertexBuffer(vertexes, 4);
 		DebugMesh->CreateIndexBuffer(indexs.data(), indexs.size());
-
+#pragma endregion
+#pragma region CIRCLE MESH
 		// Circle Mesh
 		std::vector<Vertex> circleVertex;
 		Vertex center = {};
@@ -153,8 +168,8 @@ namespace Renderer
 		ResourceManager::GetInstance()->Insert<Mesh>(L"CircleMesh", circleMesh);
 		circleMesh->CreateVertexBuffer(circleVertex.data(), circleVertex.size());
 		circleMesh->CreateIndexBuffer(indexs.data(), indexs.size());
+#pragma endregion
 	}
-
 
 	void SetUpState()
 	{
@@ -358,6 +373,7 @@ namespace Renderer
 
 	void LoadBuffer()
 	{
+#pragma region CONSTANT BUFFER
 		constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Transform);
 		constantBuffers[(UINT)eCBType::Transform]->Create(sizeof(TransformCB));
 
@@ -381,35 +397,41 @@ namespace Renderer
 
 		constantBuffers[(UINT)eCBType::ParticleSystem] = new ConstantBuffer(eCBType::ParticleSystem);
 		constantBuffers[(UINT)eCBType::ParticleSystem]->Create(sizeof(ParticleSystemCB));
-
+#pragma endregion
+#pragma region STRUCTED BUFER
 		// Structed buffer
 		LightBuffer = new StructedBuffer();
 		LightBuffer->Create(sizeof(LightAttribute), 128, eSRVType::None, nullptr);
+#pragma endregion
 	}
 
 	void LoadShader()
 	{
+#pragma region DEFAULT SHDAER
 		// Dafault
 		std::shared_ptr<Shader> shader = std::make_shared<Shader>();
 		shader->Create(eShaderStage::VS, L"VS.hlsl", "main");
 		shader->Create(eShaderStage::PS, L"PS.hlsl", "main");
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"RectShader", shader);
-
+#pragma endregion
+#pragma region SPRITE SHADER
 		// Sprite
 		std::shared_ptr<Shader> spriteShader = std::make_shared<Shader>();
 		spriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"SpriteShader", spriteShader);
-
+#pragma endregion
+#pragma region UI SHADER
 		// UI
 		std::shared_ptr<Shader> uiShader = std::make_shared<Shader>();
 		uiShader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
 		uiShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"UIShader", uiShader);
-
+#pragma endregion
+#pragma region GRID SHADER
 		// Grid
 		std::shared_ptr<Shader> gridShader = std::make_shared<Shader>();
 		gridShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
@@ -418,9 +440,9 @@ namespace Renderer
 		gridShader->SetDepthStencil(eDepthStencilType::NoWrite);
 		gridShader->SetBlend(eBlendType::AlphaBlend);
 
-
 		ResourceManager::GetInstance()->Insert<Shader>(L"GridShader", gridShader);
-
+#pragma endregion
+#pragma region FADE SHADER
 		// FadeInOut
 		std::shared_ptr<Shader> fadeShader = std::make_shared<Shader>();
 		fadeShader->Create(eShaderStage::VS, L"FadeInOutVS.hlsl", "main");
@@ -430,7 +452,8 @@ namespace Renderer
 		fadeShader->SetBlend(eBlendType::AlphaBlend);
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"FadeShader", fadeShader);
-
+#pragma endregion
+#pragma region DEBUG SHADER
 		// Debug Shader
 		std::shared_ptr<Shader> DebugShader = std::make_shared<Shader>();
 		DebugShader->Create(eShaderStage::VS, L"DebugVS.hlsl", "main");
@@ -442,13 +465,15 @@ namespace Renderer
 
 		DebugShader->SetToplogy(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 		ResourceManager::GetInstance()->Insert<Shader>(L"DebugShader", DebugShader);
-
+#pragma endregion
+#pragma region PAINT SHADER
 		// Paint Shader
 		std::shared_ptr<PaintShader> paintShader = std::make_shared<PaintShader>();
 		paintShader->Create(L"PaintCS.hlsl", "main");
 
 		ResourceManager::GetInstance()->Insert<PaintShader>(L"PaintShader", paintShader);
-
+#pragma endregion
+#pragma region PARTICLE SHADER
 		// Particle Shader
 		std::shared_ptr<Shader> particleShader = std::make_shared<Shader>();
 		particleShader->Create(eShaderStage::VS, L"ParticleVS.hlsl", "main");
@@ -461,23 +486,27 @@ namespace Renderer
 		particleShader->SetToplogy(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"ParticleShader", particleShader);
+#pragma endregion
 	}
 
 	void LoadTexture()
 	{
+#pragma region LOAD
 		ResourceManager::GetInstance()->Load<Texture2D>(L"SmileTexture", L"Smile.png");
 		ResourceManager::GetInstance()->Load<Texture2D>(L"DefaultSprite", L"Light.png");
 		ResourceManager::GetInstance()->Load<Texture2D>(L"HPBarTexture", L"HPBar.png");
 
 		ResourceManager::GetInstance()->Load<Texture2D>(L"Diablo2_Town_Idle", L"diablo2_Town_Idle.png");
 		ResourceManager::GetInstance()->Load<Texture2D>(L"CartoonSmoke", L"particle\\CartoonSmoke.png");
-
+#pragma endregion
+#pragma region DYNAMIC
 		// Create
 		std::shared_ptr<Texture2D> uavTexture = std::make_shared<Texture2D>();
 		uavTexture->Create(1024, 1024, DXGI_FORMAT_B8G8R8A8_UNORM, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS);
 		ResourceManager::GetInstance()->Insert<Texture2D>(L"PaintTexture", uavTexture);
+#pragma endregion
 
-
+		// CS 과제용 노이즈텍스쳐
 		ResourceManager::GetInstance()->Load<Texture2D>(L"Noise", L"noise.png");
 		std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"Noise");
 		texture->BindShaderResource(graphics::eShaderStage::CS, 2);
@@ -486,6 +515,7 @@ namespace Renderer
 
 	void LoadMaterial()
 	{
+#pragma region DEFAULT MATERIAL
 		// Dafault
 		std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"SmileTexture");
 		std::shared_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"RectShader");
@@ -493,7 +523,8 @@ namespace Renderer
 		material->SetShader(shader);
 		material->SetTexture(eTextureSlot::T0, texture);
 		ResourceManager::GetInstance()->Insert<Material>(L"RectMaterial", material);
-
+#pragma endregion
+#pragma region PAINT MATERIAL
 		// paint
 		{
 			std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"PaintTexture");
@@ -503,7 +534,8 @@ namespace Renderer
 			material->SetTexture(eTextureSlot::T0, texture);
 			ResourceManager::GetInstance()->Insert<Material>(L"noiseMaterial", material);
 		}
-
+#pragma endregion
+#pragma region SPTRITE MATERIAL
 		// Sprite
 		std::shared_ptr <Texture2D> spriteTexture = ResourceManager::GetInstance()->Find<Texture2D>(L"DefaultSprite");
 		std::shared_ptr<Shader> spriteShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
@@ -512,6 +544,7 @@ namespace Renderer
 		spriteMaterial->SetShader(spriteShader);
 		spriteMaterial->SetTexture(eTextureSlot::T0, spriteTexture);
 		ResourceManager::GetInstance()->Insert<Material>(L"SpriteMaterial", spriteMaterial);
+#pragma endregion
 
 		// Diablo_Walk
 		std::shared_ptr <Texture2D> DiabloTexture = ResourceManager::GetInstance()->Find<Texture2D>(L"Diablo2_Town_Idle");
@@ -521,7 +554,7 @@ namespace Renderer
 		DiabloMaterial->SetShader(DiabloShader);
 		DiabloMaterial->SetTexture(eTextureSlot::T0, DiabloTexture);
 		ResourceManager::GetInstance()->Insert<Material>(L"DiabloMaterial", DiabloMaterial);
-
+#pragma region UI MATERIAL
 		// UI
 		std::shared_ptr <Texture2D> uiTexture = ResourceManager::GetInstance()->Find<Texture2D>(L"HPBarTexture");
 		std::shared_ptr<Shader> uiShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
@@ -530,42 +563,37 @@ namespace Renderer
 		uiMaterial->SetShader(uiShader);
 		uiMaterial->SetTexture(eTextureSlot::T0, uiTexture);
 		ResourceManager::GetInstance()->Insert<Material>(L"UIMaterial", uiMaterial);
-
+#pragma endregion
+#pragma region GRID MATERIAL
 		// Grid
 		std::shared_ptr<Shader> GridShader = ResourceManager::GetInstance()->Find<Shader>(L"GridShader");
 		std::shared_ptr<Material> gridMaterial = std::make_shared<Material>();
 		gridMaterial->SetShader(GridShader);
 		ResourceManager::GetInstance()->Insert(L"GridMaterial", gridMaterial);
-
+#pragma endregion
+#pragma region FADE MATERIAL
 		// FadeInOut
 		std::shared_ptr<Shader> FadeShader = ResourceManager::GetInstance()->Find<Shader>(L"FadeShader");
 		std::shared_ptr<Material> FadeMaterial = std::make_shared<Material>();
 		FadeMaterial->SetShader(FadeShader);
 		ResourceManager::GetInstance()->Insert(L"FadeMaterial", FadeMaterial);
-
+#pragma endregion
+#pragma region DEBUG MATERIAL
 		// Debug
 		std::shared_ptr<Shader> debugShader = ResourceManager::GetInstance()->Find<Shader>(L"DebugShader");
 		std::shared_ptr<Material> debugMaterial = std::make_shared<Material>();
 		debugMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		debugMaterial->SetShader(debugShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"DebugMaterial", debugMaterial);
-
+#pragma endregion
+#pragma region PARTICLE MATERIAL
 		// Particle
 		std::shared_ptr<Shader> particleShader = ResourceManager::GetInstance()->Find<Shader>(L"ParticleShader");
 		std::shared_ptr<Material> particleMaterial = std::make_shared<Material>();
 		particleMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		particleMaterial->SetShader(particleShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"ParticleMaterial", particleMaterial);
-	}
-
-	void Initialize()
-	{
-		LoadShader();
-		SetUpState();
-		LoadMesh();
-		LoadBuffer();
-		LoadTexture();
-		LoadMaterial();
+#pragma endregion
 	}
 
 	void Render()

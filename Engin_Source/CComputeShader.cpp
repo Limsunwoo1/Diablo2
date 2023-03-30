@@ -5,6 +5,19 @@
 
 namespace graphics
 {
+	ComputeShader::ComputeShader(UINT threadGropCountX, UINT threadGropCountY, UINT threadGropCountZ)
+		: Resource(eResourceType::ComputeShader)
+		, mCSBlob(nullptr)
+		, mCS(nullptr)
+		, mThreadGropCountX(threadGropCountX)
+		, mThreadGropCountY(threadGropCountY)
+		, mThreadGropCountZ(threadGropCountZ)
+		, mGroupX(0)
+		, mGroupY(0)
+		, mGroupZ(0)
+	{
+
+	}
 	ComputeShader::ComputeShader()
 		: Resource(eResourceType::ComputeShader)
 		, mCSBlob(nullptr)

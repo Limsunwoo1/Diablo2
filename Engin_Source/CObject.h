@@ -14,7 +14,8 @@ namespace Object
 		Scene* scene = SceneManager::GetInstance()->GetActiveScene();
 		Layer& layer = scene->GetLayer(type);
 		layer.AddGameObject(gameObject);
-		
+		gameObject->Initalize();
+
 		return gameObject;
 	}
 
@@ -24,6 +25,7 @@ namespace Object
 		T* gameObj = new T();
 		Layer& layer = scene->GetLayer(type);
 		layer.AddGameObject(gameObj);
+		gameObject->Initalize();
 
 		return gameObj;
 	}
@@ -34,6 +36,7 @@ namespace Object
 		Scene* scene = SceneManager::GetInstance()->GetActiveScene();
 		Layer& layer = scene->GetLayer(type);
 		layer.AddGameObject(obj);
+		gameObject->Initalize();
 
 		return dynamic_cast<T*>(obj);
 	}
@@ -48,6 +51,7 @@ namespace Object
 
 		Transform* transform = gameObject->GetComponent<Transform>();
 		transform->SetParent(parent);
+		gameObject->Initalize();
 
 		return gameObject;
 	}
@@ -64,6 +68,8 @@ namespace Object
 		transform->SetPosition(position);
 		transform->SetRotation(rotation);
 
+		gameObject->Initalize();
+
 		return gameObject;
 	}
 
@@ -79,6 +85,8 @@ namespace Object
 		transform->SetParent(parent);
 		transform->SetPosition(position);
 		transform->SetRotation(rotation);
+
+		gameObject->Initalize();
 
 		return gameObject;
 	}

@@ -20,6 +20,10 @@ namespace graphics
 		virtual ~Texture2D();
 
 		virtual HRESULT Load(const std::wstring& path) override;
+
+		void LoadFile(const std::wstring& name);
+		void InitializeResource();
+
 		void BindShaderResource(eShaderStage stage, UINT slot);
 		void BIndUnorderedAccessView(UINT startSlot);
 		void ClearUnorderedAccessView(UINT startSlot);

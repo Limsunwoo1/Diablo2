@@ -34,21 +34,7 @@ GameObject::~GameObject()
 
 void GameObject::Initalize()
 {
-	for (Component* comp : mComponents)
-	{
-		if (comp == nullptr)
-			continue;
-
-		comp->Initalize();
-	}
-
-	for (Component* script : mScripts)
-	{
-		if (script == nullptr)
-			continue;
-
-		script->Initalize();
-	}
+	
 }
 
 void GameObject::Update()
@@ -111,6 +97,7 @@ void GameObject::Render()
 void GameObject::AddComponent(Component* comp)
 {
 	eComponentType order = comp->GetOrder();
+	comp->Initalize();
 
 	if (order == eComponentType::Script)
 	{

@@ -38,6 +38,7 @@ public:
 			mComponents[(UINT)order] = component;
 			mComponents[(UINT)order]->SetOwner(this);
 		}
+		component->Initalize();
 
 		return component;
 	}

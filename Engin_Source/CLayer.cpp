@@ -19,15 +19,7 @@ Layer::~Layer()
 
 void Layer::Initalize()
 {
-	for (GameObject* obj: mGameObjects)
-	{
-		if (obj == nullptr)
-			continue;
-		if (obj->GetState() != GameObject::active)
-			continue;
-
-		obj->Initalize();
-	}
+	
 }
 
 void Layer::Update()

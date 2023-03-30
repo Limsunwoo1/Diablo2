@@ -19,6 +19,17 @@ ParticleSystem::ParticleSystem()
 	, mEndColor(Vector4::Zero)
 	, mStartLifeTime(0.0f)
 {
+	
+} 
+
+ParticleSystem::~ParticleSystem()
+{
+	delete mBuffer;
+	mBuffer = nullptr;
+}
+
+void ParticleSystem::Initalize()
+{
 	shared_ptr<Mesh> pointrect = ResourceManager::GetInstance()->Find<Mesh>(L"PointMesh");
 	this->SetMesh(pointrect);
 
@@ -46,16 +57,6 @@ ParticleSystem::ParticleSystem()
 	mCount = 144;
 	mBuffer = new StructedBuffer();
 	mBuffer->Create(sizeof(Particle), mCount, eSRVType::None, particles);
-} 
-
-ParticleSystem::~ParticleSystem()
-{
-	delete mBuffer;
-	mBuffer = nullptr;
-}
-
-void ParticleSystem::Initalize()
-{
 }
 
 void ParticleSystem::Update()
