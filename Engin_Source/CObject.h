@@ -25,7 +25,7 @@ namespace Object
 		T* gameObj = new T();
 		Layer& layer = scene->GetLayer(type);
 		layer.AddGameObject(gameObj);
-		gameObject->Initalize();
+		gameObj->Initalize();
 
 		return gameObj;
 	}
@@ -36,7 +36,7 @@ namespace Object
 		Scene* scene = SceneManager::GetInstance()->GetActiveScene();
 		Layer& layer = scene->GetLayer(type);
 		layer.AddGameObject(obj);
-		gameObject->Initalize();
+		obj->Initalize();
 
 		return dynamic_cast<T*>(obj);
 	}

@@ -2,7 +2,9 @@
 #include "CBaseRenderer.h"
 
 using namespace std;
+using namespace graphics;
 
+class ParticleShader;
 class ParticleSystem : public BaseRenderer
 {
 public:
@@ -16,6 +18,7 @@ public:
 
 private:
 	class StructedBuffer* mBuffer;
+	shared_ptr<ParticleShader> mCS;
 
 	UINT mCount;
 	Vector4 mStartSize;

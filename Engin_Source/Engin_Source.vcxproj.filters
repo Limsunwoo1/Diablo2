@@ -157,6 +157,12 @@
     <Filter Include="Component\Renderer\ParticleSystem">
       <UniqueIdentifier>{22b8c067-b63b-4d4f-89b1-8e953c016594}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ResourceManager\Resource\ComputeShader\Paint">
+      <UniqueIdentifier>{f3f0bf7f-af3c-46a1-bb39-e19189da7a1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ResourceManager\Resource\ComputeShader\Particle">
+      <UniqueIdentifier>{38e30a1f-f609-426b-818c-881bb94de46a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -300,9 +306,6 @@
     <ClCompile Include="CComputeShader.cpp">
       <Filter>ResourceManager\Resource\ComputeShader</Filter>
     </ClCompile>
-    <ClCompile Include="CPaintShader.cpp">
-      <Filter>ResourceManager\Resource\ComputeShader</Filter>
-    </ClCompile>
     <ClCompile Include="CSkilFire.cpp">
       <Filter>GameObject\PlayerSkilFire</Filter>
     </ClCompile>
@@ -311,6 +314,12 @@
     </ClCompile>
     <ClCompile Include="CParticleSystem.cpp">
       <Filter>Component\Renderer\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="CPaintShader.cpp">
+      <Filter>ResourceManager\Resource\ComputeShader\Paint</Filter>
+    </ClCompile>
+    <ClCompile Include="CParticleShader.cpp">
+      <Filter>ResourceManager\Resource\ComputeShader\Particle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -473,9 +482,6 @@
     <ClInclude Include="CComputeShader.h">
       <Filter>ResourceManager\Resource\ComputeShader</Filter>
     </ClInclude>
-    <ClInclude Include="CpaintShader.h">
-      <Filter>ResourceManager\Resource\ComputeShader</Filter>
-    </ClInclude>
     <ClInclude Include="CSkilFire.h">
       <Filter>GameObject\PlayerSkilFire</Filter>
     </ClInclude>
@@ -484,6 +490,12 @@
     </ClInclude>
     <ClInclude Include="CParticleSystem.h">
       <Filter>Component\Renderer\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="CpaintShader.h">
+      <Filter>ResourceManager\Resource\ComputeShader\Paint</Filter>
+    </ClInclude>
+    <ClInclude Include="CParticleShader.h">
+      <Filter>ResourceManager\Resource\ComputeShader\Particle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

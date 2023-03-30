@@ -13,10 +13,6 @@ Scene::~Scene()
 
 void Scene::Initalize()
 {
-	for (Layer& layer : mLayers)
-	{
-		layer.Initalize();
-	}
 }
 
 void Scene::Update()

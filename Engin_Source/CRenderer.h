@@ -83,6 +83,8 @@ namespace Renderer
 	CBUFFER(ParticleSystemCB, CBSLOT_ParticleSystem)
 	{
 		Vector4 color;
+		UINT elementCount;
+		float delta;
 	};
 
 	extern Vertex FadeInOut[4];

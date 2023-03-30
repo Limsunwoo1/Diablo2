@@ -184,6 +184,7 @@
     <ClInclude Include="CEntity.h" />
     <ClInclude Include="CInput.h" />
     <ClInclude Include="CpaintShader.h" />
+    <ClInclude Include="CParticleShader.h" />
     <ClInclude Include="CParticleSystem.h" />
     <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CPlayerScript.h" />
@@ -240,6 +241,7 @@
     <ClCompile Include="CCollider3D.cpp" />
     <ClCompile Include="CMonster.cpp" />
     <ClCompile Include="CPaintShader.cpp" />
+    <ClCompile Include="CParticleShader.cpp" />
     <ClCompile Include="CParticleSystem.cpp" />
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CPlayerScript.cpp" />

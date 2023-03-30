@@ -60,6 +60,8 @@ cbuffer Time : register(b6)
 cbuffer ParticleSystem : register(b7)
 {
     float4 particleColor;
+    uint elementCount;
+    float delta;
 }
 
 StructuredBuffer<LightAttribute> lightAttributes : register(t13);

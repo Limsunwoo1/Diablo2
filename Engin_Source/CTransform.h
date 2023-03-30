@@ -23,7 +23,7 @@ public:
 	Vector3 GetScale() { return mScale; }
 
 	void SetPosition(Vector3 position) { mPosition = position; }
-	void SetRotation(Vector3 rotation) { mRotation = rotation; }
+	void SetRotation(Vector3 degree) { mRotation = degree; }
 	void SetScale(Vector3 scale) { mScale = scale; }
 
 	Vector3 Forward() { return mForward; }

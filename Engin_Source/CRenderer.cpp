@@ -24,16 +24,6 @@ namespace Renderer
 
 	float Time = 0.0f;
 
-	void Initialize()
-	{
-		LoadShader();
-		SetUpState();
-		LoadMesh();
-		LoadBuffer();
-		LoadTexture();
-		LoadMaterial();
-	}
-
 	void LoadMesh()
 	{
 #pragma region POINT MESH
@@ -401,7 +391,7 @@ namespace Renderer
 #pragma region STRUCTED BUFER
 		// Structed buffer
 		LightBuffer = new StructedBuffer();
-		LightBuffer->Create(sizeof(LightAttribute), 128, eSRVType::None, nullptr);
+		LightBuffer->Create(sizeof(LightAttribute), 128, eSRVType::SRV, nullptr);
 #pragma endregion
 	}
 
@@ -420,6 +410,7 @@ namespace Renderer
 		std::shared_ptr<Shader> spriteShader = std::make_shared<Shader>();
 		spriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
+		spriteShader->SetRasterize(eRasterizeType::SolidNone);
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"SpriteShader", spriteShader);
 #pragma endregion
@@ -496,7 +487,7 @@ namespace Renderer
 		ResourceManager::GetInstance()->Load<Texture2D>(L"DefaultSprite", L"Light.png");
 		ResourceManager::GetInstance()->Load<Texture2D>(L"HPBarTexture", L"HPBar.png");
 
-		ResourceManager::GetInstance()->Load<Texture2D>(L"Diablo2_Town_Idle", L"diablo2_Town_Idle.png");
+		//ResourceManager::GetInstance()->Load<Texture2D>(L"Diablo2_Town_Idle", L"diablo2_Town_Idle.png");
 		ResourceManager::GetInstance()->Load<Texture2D>(L"CartoonSmoke", L"particle\\CartoonSmoke.png");
 #pragma endregion
 #pragma region DYNAMIC
@@ -596,6 +587,16 @@ namespace Renderer
 #pragma endregion
 	}
 
+	void Initialize()
+	{
+		LoadShader();
+		SetUpState();
+		LoadMesh();
+		LoadBuffer();
+		LoadTexture();
+		LoadMaterial();
+	}
+
 	void Render()
 	{
 		BindLights();
@@ -634,8 +635,8 @@ namespace Renderer
 	void BindLights()
 	{
 		LightBuffer->SetData(lights.data(), lights.size());
-		LightBuffer->Bind(eShaderStage::VS, 13);
-		LightBuffer->Bind(eShaderStage::PS, 13);
+		LightBuffer->BindSRV(eShaderStage::VS, 13);
+		LightBuffer->BindSRV(eShaderStage::PS, 13);
 
 		LightCB trCb = {};
 		trCb.numberOfLight = lights.size();

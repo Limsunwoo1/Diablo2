@@ -107,7 +107,8 @@ namespace graphics
 
 	enum class eSRVType
 	{
-		None,
+		SRV,
+		UAV,
 		End,
 	};
 
