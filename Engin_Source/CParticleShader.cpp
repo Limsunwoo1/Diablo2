@@ -16,9 +16,9 @@ graphics::ParticleShader::~ParticleShader()
 
 void graphics::ParticleShader::Binds()
 {
-	mBuffer->BindUAV(eShaderStage::CS, 1);
+	mBuffer->BindUAV(eShaderStage::CS, 0);
 
-	mGroupX = mBuffer->GetStride() / mThreadGropCountX;
+	mGroupX = mBuffer->GetStride() / mThreadGropCountX + 1;
 	mGroupY = 1;
 	mGroupZ = 1;
 }

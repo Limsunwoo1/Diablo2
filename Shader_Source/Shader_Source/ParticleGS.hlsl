@@ -22,15 +22,16 @@ void main(point VSOut input[1], inout TriangleStream< GSOutput > output )
         return;
 	
     // 로컬좌표에 파티클 포지션을 더한다
+    //float3 vWorldPos = mul(float4(input[0].Pos.xyz + particleBuffer[input[0].iInstance].position.xyz, 1.0f), world);
     float3 vWorldPos = input[0].Pos.xyz + particleBuffer[input[0].iInstance].position.xyz;
     float4 vViewPos = mul(float4(vWorldPos, 1.0f), view);
     
     float3 NewPos[4] =
     {
-        vViewPos.xyz + float3(-0.5f, 0.5f, 0.0f) * float3(50.f, 50.0f, 1.0f),
-        vViewPos.xyz + float3(0.5f, 0.5f, 0.0f) * float3(50.f, 50.0f, 1.0f),
-        vViewPos.xyz + float3(0.5f, -0.5f, 0.0f) * float3(50.f, 50.0f, 1.0f),
-        vViewPos.xyz + float3(-0.5f, -0.5f, 0.0f) * float3(50.f, 50.0f, 1.0f)
+        vViewPos.xyz + float3(-0.5f, 0.5f, 0.0f)/* * float3(50.f, 50.0f, 1.0f)*/,
+        vViewPos.xyz + float3(0.5f, 0.5f, 0.0f)/* * float3(50.f, 50.0f, 1.0f)*/,
+        vViewPos.xyz + float3(0.5f, -0.5f, 0.0f) /** float3(50.f, 50.0f, 1.0f)*/,
+        vViewPos.xyz + float3(-0.5f, -0.5f, 0.0f)/* * float3(50.f, 50.0f, 1.0f)*/
     };
     
     for (int i = 0; i < 4; ++i)

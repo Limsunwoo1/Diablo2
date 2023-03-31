@@ -80,9 +80,10 @@ namespace Renderer
 		float padding_1;
 	};
 
-	CBUFFER(ParticleSystemCB, CBSLOT_ParticleSystem)
+	CBUFFER(ParticleSystemCB, CBSLOT_PARTICLESYSTEM)
 	{
 		Vector4 color;
+
 		UINT elementCount;
 		float delta;
 	};

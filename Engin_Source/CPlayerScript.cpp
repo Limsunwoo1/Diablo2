@@ -115,7 +115,7 @@ void PlayerScript::Update()
 		}
 	}*/
 
-	if (Input::GetInstance()->GetKeyPress(eKeyCode::A))
+	/*if (Input::GetInstance()->GetKeyPress(eKeyCode::A))
 	{
 		if (player->GetState() == Player::State::Idle
 			|| player->GetState() == Player::State::Move)
@@ -229,7 +229,7 @@ void PlayerScript::Update()
 
 	if (player->GetState() == Player::State::Idle
 		|| player->GetState() == Player::State::Move)
-		tr->SetPosition(pos);
+		tr->SetPosition(pos);*/
 }
 
 void PlayerScript::FixedUpdate()

@@ -5,6 +5,7 @@
 #include "CLight.h"
 #include "CpaintShader.h"
 #include "CTime.h"
+#include "CParticleShader.h"
 
 namespace Renderer
 {
@@ -32,8 +33,10 @@ namespace Renderer
 		shared_ptr<Mesh> pointMesh = make_shared<Mesh>();
 		ResourceManager::GetInstance()->Insert(L"PointMesh", pointMesh);
 		pointMesh->CreateVertexBuffer(&v, 1);
+
 		UINT pointIndex = 0;
 		pointMesh->CreateIndexBuffer(&pointIndex, 1);
+
 #pragma endregion
 #pragma region INDEX
 		std::vector<UINT> indexs;
@@ -459,10 +462,10 @@ namespace Renderer
 #pragma endregion
 #pragma region PAINT SHADER
 		// Paint Shader
-		std::shared_ptr<PaintShader> paintShader = std::make_shared<PaintShader>();
+		/*std::shared_ptr<PaintShader> paintShader = std::make_shared<PaintShader>();
 		paintShader->Create(L"PaintCS.hlsl", "main");
 
-		ResourceManager::GetInstance()->Insert<PaintShader>(L"PaintShader", paintShader);
+		ResourceManager::GetInstance()->Insert<PaintShader>(L"PaintShader", paintShader);*/
 #pragma endregion
 #pragma region PARTICLE SHADER
 		// Particle Shader
@@ -477,6 +480,12 @@ namespace Renderer
 		particleShader->SetToplogy(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"ParticleShader", particleShader);
+
+		// ParticleCS (ComputeSHader)
+		std::shared_ptr<ParticleShader> particleCS = std::make_shared<ParticleShader>();
+		particleCS->Create(L"ParticleCS.hlsl", "main");
+
+		ResourceManager::GetInstance()->Insert<ParticleShader>(L"ParticleCS", particleCS);
 #pragma endregion
 	}
 
@@ -496,7 +505,6 @@ namespace Renderer
 		uavTexture->Create(1024, 1024, DXGI_FORMAT_B8G8R8A8_UNORM, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS);
 		ResourceManager::GetInstance()->Insert<Texture2D>(L"PaintTexture", uavTexture);
 #pragma endregion
-
 		// CS 과제용 노이즈텍스쳐
 		ResourceManager::GetInstance()->Load<Texture2D>(L"Noise", L"noise.png");
 		std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"Noise");
@@ -516,18 +524,16 @@ namespace Renderer
 		ResourceManager::GetInstance()->Insert<Material>(L"RectMaterial", material);
 #pragma endregion
 #pragma region PAINT MATERIAL
-		// paint
-		{
+		/*{
 			std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"PaintTexture");
 			std::shared_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"RectShader");
 			std::shared_ptr<Material> material = std::make_shared<Material>();
 			material->SetShader(shader);
 			material->SetTexture(eTextureSlot::T0, texture);
 			ResourceManager::GetInstance()->Insert<Material>(L"noiseMaterial", material);
-		}
+		}*/
 #pragma endregion
 #pragma region SPTRITE MATERIAL
-		// Sprite
 		std::shared_ptr <Texture2D> spriteTexture = ResourceManager::GetInstance()->Find<Texture2D>(L"DefaultSprite");
 		std::shared_ptr<Shader> spriteShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
 		std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
@@ -536,15 +542,6 @@ namespace Renderer
 		spriteMaterial->SetTexture(eTextureSlot::T0, spriteTexture);
 		ResourceManager::GetInstance()->Insert<Material>(L"SpriteMaterial", spriteMaterial);
 #pragma endregion
-
-		// Diablo_Walk
-		std::shared_ptr <Texture2D> DiabloTexture = ResourceManager::GetInstance()->Find<Texture2D>(L"Diablo2_Town_Idle");
-		std::shared_ptr<Shader> DiabloShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
-		std::shared_ptr<Material> DiabloMaterial = std::make_shared<Material>();
-		DiabloMaterial->SetRenderingMode(eRenderingMode::Transparent);
-		DiabloMaterial->SetShader(DiabloShader);
-		DiabloMaterial->SetTexture(eTextureSlot::T0, DiabloTexture);
-		ResourceManager::GetInstance()->Insert<Material>(L"DiabloMaterial", DiabloMaterial);
 #pragma region UI MATERIAL
 		// UI
 		std::shared_ptr <Texture2D> uiTexture = ResourceManager::GetInstance()->Find<Texture2D>(L"HPBarTexture");
@@ -579,11 +576,13 @@ namespace Renderer
 #pragma endregion
 #pragma region PARTICLE MATERIAL
 		// Particle
-		std::shared_ptr<Shader> particleShader = ResourceManager::GetInstance()->Find<Shader>(L"ParticleShader");
-		std::shared_ptr<Material> particleMaterial = std::make_shared<Material>();
-		particleMaterial->SetRenderingMode(eRenderingMode::Transparent);
-		particleMaterial->SetShader(particleShader);
-		ResourceManager::GetInstance()->Insert<Material>(L"ParticleMaterial", particleMaterial);
+		{
+			std::shared_ptr<Shader> particleShader = ResourceManager::GetInstance()->Find<Shader>(L"ParticleShader");
+			std::shared_ptr<Material> particleMaterial = std::make_shared<Material>();
+			particleMaterial->SetRenderingMode(eRenderingMode::Transparent);
+			particleMaterial->SetShader(particleShader);
+			ResourceManager::GetInstance()->Insert<Material>(L"ParticleMaterial", particleMaterial);
+		}
 #pragma endregion
 	}
 

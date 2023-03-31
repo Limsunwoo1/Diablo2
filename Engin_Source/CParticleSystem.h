@@ -1,10 +1,12 @@
 #pragma once
 #include "CBaseRenderer.h"
+#include "CParticleShader.h"
 
 using namespace std;
 using namespace graphics;
 
-class ParticleShader;
+//class ParticleShader;
+
 class ParticleSystem : public BaseRenderer
 {
 public:

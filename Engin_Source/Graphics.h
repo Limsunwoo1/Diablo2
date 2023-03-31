@@ -18,7 +18,7 @@
 #define CBSLOT_ANIMATION		4
 #define CBSLOT_NUMBEROFLIGHT	5
 #define CBSLOT_TIME				6
-#define CBSLOT_ParticleSystem	7
+#define CBSLOT_PARTICLESYSTEM	7
 
 namespace graphics
 {
@@ -30,8 +30,8 @@ namespace graphics
 		Fade,
 		Animation,
 		Light,
-		ParticleSystem,
 		Time,
+		ParticleSystem,
 		End,
 	};
 

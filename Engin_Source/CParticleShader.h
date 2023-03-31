@@ -1,10 +1,10 @@
 #pragma once
 #include "CComputeShader.h"
 #include "CStructedBuffer.h"
+#include "CTexture2D.h"
 
 using namespace std;
 
-class Texture2D;
 
 namespace graphics
 {

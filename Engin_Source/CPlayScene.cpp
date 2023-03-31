@@ -18,6 +18,7 @@
 #include "CpaintShader.h"
 #include "CParticleSystem.h"
 
+using namespace graphics;
 
 PlayScene::PlayScene()
 	: Scene(eSceneType::Play)
@@ -33,11 +34,11 @@ void PlayScene::Initalize()
 {
 	// PaintShader
 	
-		shared_ptr<PaintShader> paintShader = ResourceManager::GetInstance()->Find<PaintShader>(L"PaintShader");
-		shared_ptr<Texture2D> paintTex = ResourceManager::GetInstance()->Find<Texture2D>(L"PaintTexture");
+		//shared_ptr<PaintShader> paintShader = ResourceManager::GetInstance()->Find<PaintShader>(L"PaintShader");
+		//shared_ptr<graphics::Texture2D> paintTex = ResourceManager::GetInstance()->Find<graphics::Texture2D>(L"PaintTexture");
 
-		paintShader->SetTarget(paintTex);
-		paintShader->OnExcute();
+		//paintShader->SetTarget(paintTex);
+		//paintShader->OnExcute();
 	
 
 	{
@@ -56,7 +57,7 @@ void PlayScene::Initalize()
 		//cameraComp->RegisterCameraInRenderer();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		cameraObj->AddComponent<CameraScript>();
-		cameraComp->SetProjectionType(Camera::eProjectionType::Prespective);
+		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
 		Renderer::mainCamera = cameraComp;
 		mMainCamera = cameraComp;
 	}
@@ -99,26 +100,26 @@ void PlayScene::Initalize()
 
 	//SMILE RECT
 	{
-		GameObject* obj = Object::Instantiate<GameObject>(eLayerType::BackGround, this);
-		obj->SetName(L"SMILE");
-		Transform* tr = obj->GetComponent<Transform>();
-		tr->SetPosition(Vector3(2.0f, 0.0f, 5.0f));
-		tr->SetScale(Vector3(4.0f, 4.0f, 2.0f));
+		//GameObject* obj = Object::Instantiate<GameObject>(eLayerType::BackGround, this);
+		//obj->SetName(L"SMILE");
+		//Transform* tr = obj->GetComponent<Transform>();
+		//tr->SetPosition(Vector3(2.0f, 0.0f, 5.0f));
+		//tr->SetScale(Vector3(4.0f, 4.0f, 2.0f));
 		//tr->SetScale(Vector3(2.0f, 1.0f, 1.0f));
 		//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2 / 2.0f));
 		//tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
-		Collider2D* collider = obj->AddComponent<Collider2D>();
-		collider->SetSize(Vector2(2.0f, 2.0f));
-		collider->SetType(eColliderType::Rect);
+		//Collider2D* collider = obj->AddComponent<Collider2D>();
+		//collider->SetSize(Vector2(2.0f, 2.0f));
+		//collider->SetType(eColliderType::Rect);
 		//collider->SetCenter(Vector2(0.2f, 0.2f));
 		//collider->SetSize(Vector2(1.5f, 1.5f));
 
-		SpriteRenderer* sr = obj->AddComponent<SpriteRenderer>();
+		/*SpriteRenderer* sr = obj->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> mateiral = ResourceManager::GetInstance()->Find<Material>(L"noiseMaterial");
 		mateiral->Clear();
 		sr->SetMaterial(mateiral);
 		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-		sr->SetMesh(mesh);
+		sr->SetMesh(mesh);*/
 	}
 
 	//Particle
@@ -143,9 +144,6 @@ void PlayScene::Update()
 
 void PlayScene::FixedUpdate()
 {
-	shared_ptr<PaintShader> paintShader = ResourceManager::GetInstance()->Find<PaintShader>(L"PaintShader");
-	paintShader->OnExcute();
-
 
 	Scene::FixedUpdate();
 }

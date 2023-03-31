@@ -9,3 +9,8 @@ struct Particle
 	float speed;
 	uint active;
 };
+
+struct ParticleShader
+{
+    uint gActiveCount;
+};

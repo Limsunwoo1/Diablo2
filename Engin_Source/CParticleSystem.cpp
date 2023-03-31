@@ -6,21 +6,22 @@
 #include "CTransform.h"
 #include "CGameObject.h"
 #include "CTexture2D.h"
+#include "CParticleShader.h"
 
 using namespace graphics;
 
 ParticleSystem::ParticleSystem()
 	: BaseRenderer(eComponentType::ParticleSystem)
 	, mBuffer(nullptr)
-	, mCount(0)
+	, mCount(100)
 	, mStartSize(Vector4::Zero)
 	, mEndSize(Vector4::Zero)
 	, mStartColor(Vector4::Zero)
 	, mEndColor(Vector4::Zero)
 	, mStartLifeTime(0.0f)
 {
-	
-} 
+
+}
 
 ParticleSystem::~ParticleSystem()
 {
@@ -30,6 +31,8 @@ ParticleSystem::~ParticleSystem()
 
 void ParticleSystem::Initalize()
 {
+	mCS = ResourceManager::GetInstance()->Find<ParticleShader>(L"ParticleCS");
+
 	shared_ptr<Mesh> pointrect = ResourceManager::GetInstance()->Find<Mesh>(L"PointMesh");
 	this->SetMesh(pointrect);
 
@@ -37,26 +40,25 @@ void ParticleSystem::Initalize()
 	shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"ParticleMaterial");
 	this->SetMaterial(material);
 
-	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"CartoonSmoke");
+	shared_ptr<graphics::Texture2D> tex = ResourceManager::GetInstance()->Find<graphics::Texture2D>(L"CartoonSmoke");
 	material->SetTexture(eTextureSlot::T0, tex);
 
 
-	Particle particles[1000] = {};
+	Particle particles[100] = {};
 	Vector4 startPos = Vector4(-800.f, -450.f, 0.0f, 0.0f);
-	for (size_t y = 0; y < 9; y++)
+	for (size_t i = 0; i < mCount; i++)
 	{
-		for (size_t x = 0; x < 16; x++)
-		{
-			particles[16 * y + x].position = startPos
-				+ Vector4(x * 100.0f, y * 100.0f, 0.0f, 0.0f);
+		particles[i].position = Vector4(0.0f, 0.0f, 20.f, 1.0f);
+		particles[i].active = 1;
+		particles[i].direction = Vector4(cosf((float)i * (XM_2PI / (float)mCount))
+			, sin((float)i * (XM_2PI / (float)mCount)), 0.0f, 1.0f);
 
-			particles[16 * y + x].active = 1;
-		}
+		particles[i].speed = 1.0f;
+
 	}
 
-	mCount = 144;
 	mBuffer = new StructedBuffer();
-	mBuffer->Create(sizeof(Particle), mCount, eSRVType::SRV, particles);
+	mBuffer->Create(sizeof(Particle), mCount, eSRVType::UAV, particles);
 }
 
 void ParticleSystem::Update()
@@ -65,6 +67,8 @@ void ParticleSystem::Update()
 
 void ParticleSystem::FixedUpdate()
 {
+	mCS->SetStructedBuffer(mBuffer);
+	mCS->OnExcute();
 }
 
 void ParticleSystem::Render()
@@ -77,4 +81,6 @@ void ParticleSystem::Render()
 
 	GetMaterial()->Bind();
 	GetMesh()->RenderInstanced(mCount);
+
+	mBuffer->Clear();
 }

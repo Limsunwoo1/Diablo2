@@ -15,9 +15,9 @@ namespace graphics
 		virtual void Binds() override;
 		virtual void Clear() override;
 
-		void SetTarget(shared_ptr<Texture2D> texture) { mTarget = texture; }
+		void SetTarget(Texture2D* texture) { mTarget = texture; }
 	private:
-		shared_ptr<Texture2D> mTarget;
+		Texture2D* mTarget;
 	};
 }
 
