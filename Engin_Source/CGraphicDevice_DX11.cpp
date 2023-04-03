@@ -307,7 +307,7 @@ namespace graphics
 	{
 		mContext->Dispatch(ThreadGroupCountX, ThreadGroupCountY, ThreadGroupCountZ);
 	}
-	void CGraphicDevice_DX11::BindBuffer(ID3D11Buffer* buffer, void* data, UINT size)
+	void CGraphicDevice_DX11::SetData(ID3D11Buffer* buffer, void* data, UINT size)
 	{
 		D3D11_MAPPED_SUBRESOURCE sub = {};
 		mContext->Map(buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &sub);
@@ -416,6 +416,10 @@ namespace graphics
 	void CGraphicDevice_DX11::BindBlendState(ID3D11BlendState* pBlendState)
 	{
 		mContext->OMSetBlendState(pBlendState, nullptr, 0xffffffff);
+	}
+	void CGraphicDevice_DX11::CopyResource(ID3D11Resource* pDstResource, ID3D11Resource* pSrcResource)
+	{
+		mContext->CopyResource(pDstResource, pSrcResource);
 	}
 	void CGraphicDevice_DX11::Clear()
 	{

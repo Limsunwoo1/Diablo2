@@ -7,6 +7,7 @@
 #include "CGameObject.h"
 #include "CTexture2D.h"
 #include "CParticleShader.h"
+#include "CTime.h"
 
 using namespace graphics;
 
@@ -19,6 +20,8 @@ ParticleSystem::ParticleSystem()
 	, mStartColor(Vector4::Zero)
 	, mEndColor(Vector4::Zero)
 	, mStartLifeTime(0.0f)
+	, mFrequency(1.0f)
+	, mTime(0.0f)
 {
 
 }
@@ -27,6 +30,9 @@ ParticleSystem::~ParticleSystem()
 {
 	delete mBuffer;
 	mBuffer = nullptr;
+
+	delete mShaderBuffer;
+	mShaderBuffer = nullptr;
 }
 
 void ParticleSystem::Initalize()
@@ -49,7 +55,7 @@ void ParticleSystem::Initalize()
 	for (size_t i = 0; i < mCount; i++)
 	{
 		particles[i].position = Vector4(0.0f, 0.0f, 20.f, 1.0f);
-		particles[i].active = 1;
+		particles[i].active = 0;
 		particles[i].direction = Vector4(cosf((float)i * (XM_2PI / (float)mCount))
 			, sin((float)i * (XM_2PI / (float)mCount)), 0.0f, 1.0f);
 
@@ -59,6 +65,9 @@ void ParticleSystem::Initalize()
 
 	mBuffer = new StructedBuffer();
 	mBuffer->Create(sizeof(Particle), mCount, eSRVType::UAV, particles);
+
+	mShaderBuffer = new StructedBuffer();
+	mShaderBuffer->Create(sizeof(ParticleShadered), 1, eSRVType::UAV, nullptr, true);
 }
 
 void ParticleSystem::Update()
@@ -67,6 +76,35 @@ void ParticleSystem::Update()
 
 void ParticleSystem::FixedUpdate()
 {
+	// 파티클 생성시간
+	float aliveTime = 1.0f / mFrequency;
+
+	// 누적시간
+	mTime += Time::GetInstance()->DeltaTime();
+	if (aliveTime < mTime)
+	{
+		float f = (mTime / aliveTime);
+		UINT iAliveCount = (UINT)f;
+		mTime = f - std::floor(f);
+
+		ParticleShadered shadered = { 5, };
+		mShaderBuffer->SetData(&shadered, 1);
+	}
+	else
+	{
+		ParticleShadered shader = {};
+		mShaderBuffer->SetData(&shader, 1);
+	}
+
+	Renderer::ParticleSystemCB info = {};
+	info.elementCount = mBuffer->GetStride();
+	info.delta = Time::GetInstance()->DeltaTime();
+
+	ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::ParticleSystem];
+	cb->SetData(&info);
+	cb->Bind(eShaderStage::CS);
+
+	mCS->SetShaderStructedBuffer(mShaderBuffer);
 	mCS->SetStructedBuffer(mBuffer);
 	mCS->OnExcute();
 }

@@ -20,6 +20,8 @@ public:
 
 private:
 	class StructedBuffer* mBuffer;
+	class StructedBuffer* mShaderBuffer;
+
 	shared_ptr<ParticleShader> mCS;
 
 	UINT mCount;
@@ -28,5 +30,7 @@ private:
 	Vector4 mStartColor;
 	Vector4 mEndColor;
 	float mStartLifeTime;
+	float mFrequency;
+	float mTime;
 };
 

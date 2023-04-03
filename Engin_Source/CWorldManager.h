@@ -6,11 +6,10 @@ class WorldManager
 {
 	SINGLE(WorldManager);
 public:
-
 	void Initialize();
 	HRESULT Load(const std::wstring& path);
 	
-	UINT TileNum(const UINT& x, const UINT& y);
+	UINT GetTileNum(const UINT& x, const UINT& y);
 	UINT GetScale() { return worldScale; }
 
 private:

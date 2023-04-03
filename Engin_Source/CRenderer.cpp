@@ -394,7 +394,7 @@ namespace Renderer
 #pragma region STRUCTED BUFER
 		// Structed buffer
 		LightBuffer = new StructedBuffer();
-		LightBuffer->Create(sizeof(LightAttribute), 128, eSRVType::SRV, nullptr);
+		LightBuffer->Create(sizeof(LightAttribute), 128, eSRVType::SRV, nullptr, true);
 #pragma endregion
 	}
 

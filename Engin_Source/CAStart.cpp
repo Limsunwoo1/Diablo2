@@ -30,10 +30,9 @@ void AStar::FixedUpdate()
 	if (!mbRun)
 		return;
 
-
 	while (1)
 	{
-		if (WorldManager::GetInstance()->TileNum(mCurNode.Pos.x, mCurNode.Pos.y) == 2)
+		if (WorldManager::GetInstance()->GetTileNum(mCurNode.Pos.x, mCurNode.Pos.y) == 2)
 		{
 			Result();
 			return;
@@ -127,17 +126,17 @@ void AStar::AddOpenList(int x, int y, bool diagonal)
 		return;
 
 	// 해당타일이 장애물이 아닌지 확인
-	if (WorldManager::GetInstance()->TileNum(node.Pos.x, node.Pos.y) == 3)
+	if (WorldManager::GetInstance()->GetTileNum(node.Pos.x, node.Pos.y) == 3)
 		return;
 
 	// 대각 선이동의 경우 해당타일의
 	// 직각이 되는 타일이 장애물이면 리턴
 	if (diagonal)
 	{
-		if (WorldManager::GetInstance()->TileNum(mCurNode.Pos.x, node.Pos.y) == 3)
+		if (WorldManager::GetInstance()->GetTileNum(mCurNode.Pos.x, node.Pos.y) == 3)
 			return;
 
-		if (WorldManager::GetInstance()->TileNum(node.Pos.x, mCurNode.Pos.y) == 3)
+		if (WorldManager::GetInstance()->GetTileNum(node.Pos.x, mCurNode.Pos.y) == 3)
 			return;
 	}
 

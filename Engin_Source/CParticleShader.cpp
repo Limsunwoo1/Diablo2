@@ -7,6 +7,7 @@
 graphics::ParticleShader::ParticleShader()
 	: ComputeShader(128, 1, 1)
 	, mBuffer(nullptr)
+	, mShaderBuffer(nullptr)
 {
 }
 
@@ -17,6 +18,7 @@ graphics::ParticleShader::~ParticleShader()
 void graphics::ParticleShader::Binds()
 {
 	mBuffer->BindUAV(eShaderStage::CS, 0);
+	mShaderBuffer->BindUAV(eShaderStage::CS, 1);
 
 	mGroupX = mBuffer->GetStride() / mThreadGropCountX + 1;
 	mGroupY = 1;
@@ -26,18 +28,5 @@ void graphics::ParticleShader::Binds()
 void graphics::ParticleShader::Clear()
 {
 	mBuffer->Clear();
-}
-
-void graphics::ParticleShader::SetStructedBuffer(StructedBuffer* buffer)
-{
-	mBuffer = buffer;
-
-	Renderer::ParticleSystemCB info = {};
-	info.elementCount = mBuffer->GetStride();
-	info.delta = Time::GetInstance()->DeltaTime();
-
-	ConstantBuffer* ct = Renderer::constantBuffers[(UINT)eCBType::ParticleSystem];
-
-	ct->SetData(&info);
-	ct->Bind(eShaderStage::CS);
+	mShaderBuffer->Clear();
 }

@@ -185,4 +185,9 @@ namespace graphics
 		float speed;
 		UINT active;
 	};
+
+	struct ParticleShadered
+	{
+		UINT activeCount;
+	};
 }

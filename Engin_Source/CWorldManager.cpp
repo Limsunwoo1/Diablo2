@@ -34,7 +34,7 @@ HRESULT WorldManager::Load(const std::wstring& path)
 	return E_NOTIMPL;
 }
 
-UINT WorldManager::TileNum(const UINT& x, const UINT& y)
+UINT WorldManager::GetTileNum(const UINT& x, const UINT& y)
 {
 	return  world[y][x];
 }

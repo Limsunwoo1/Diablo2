@@ -11,6 +11,8 @@ namespace graphics
 		, mStride(0)
 		, mSRVSlot(0)
 		, mUAVSlot(0)
+		, mWriteBuffer(nullptr)
+		, mReadBuffer(nullptr)
 	{
 
 	}
@@ -20,56 +22,18 @@ namespace graphics
 
 	}
 
-	bool StructedBuffer::Create(UINT size, UINT stride, eSRVType type, void* data)
+	bool StructedBuffer::Create(UINT size, UINT stride, eSRVType type, void* data, bool cpuAccess)
 	{
 		mType = type;
 		mSize = size;
 		mStride = stride;
 
-		desc.ByteWidth = mSize * mStride;
-		desc.StructureByteStride = mSize;
-		desc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
-		desc.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_WRITE;
-		desc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE;
-		desc.MiscFlags = D3D11_RESOURCE_MISC_FLAG::D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;
-
-		if (type == eSRVType::UAV)
-		{
-			desc.Usage = D3D11_USAGE::D3D11_USAGE_DEFAULT;
-			desc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_FLAG::D3D11_BIND_UNORDERED_ACCESS;
-			desc.CPUAccessFlags = 0;
-		}
-
-		if (data)
-		{
-			D3D11_SUBRESOURCE_DATA tSub = {};
-			tSub.pSysMem = data;
-
-			if (!(GetDevice()->CreateBuffer(&desc, &tSub, buffer.GetAddressOf())))
-				return false;
-		}
-		else
-		{
-			if (!(GetDevice()->CreateBuffer(&desc, nullptr, buffer.GetAddressOf())))
-				return false;
-		}
-
-		D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
-		srvDesc.BufferEx.NumElements = mStride;
-		srvDesc.ViewDimension = D3D_SRV_DIMENSION::D3D_SRV_DIMENSION_BUFFEREX;
-
-		if (!(GetDevice()->CreateShaderResourceView(buffer.Get(), &srvDesc, mSRV.GetAddressOf())))
-			return false;
-
-		if (type == eSRVType::UAV)
-		{
-			D3D11_UNORDERED_ACCESS_VIEW_DESC uavDesc = {};
-			uavDesc.Buffer.NumElements = mStride;
-			uavDesc.ViewDimension = D3D11_UAV_DIMENSION_BUFFER;
-
-			if (!GetDevice()->CreateUnorderedAccessView(buffer.Get(), &uavDesc, mUAV.GetAddressOf()))
-				return false;
-		}
+		SetDiscription();
+		CreateBuffer(data);
+		CreateView();
+		
+		if (cpuAccess)
+			CreateRWBuffer();
 
 		return true;
 	}
@@ -82,8 +46,20 @@ namespace graphics
 		}
 		else
 		{
-			GetDevice()->BindBuffer(buffer.Get(), data, mSize * bufferCount);
+			GetDevice()->SetData(mWriteBuffer.Get(), data, mSize * mStride);
 		}
+		GetDevice()->CopyResource(buffer.Get(), mWriteBuffer.Get());
+	}
+
+	void StructedBuffer::GetData(void* data, UINT size)
+	{
+		GetDevice()->CopyResource(mReadBuffer.Get(), buffer.Get());
+
+		// read buffer -> systemMemory
+		if (size == 0)
+			GetDevice()->SetData(mReadBuffer.Get(), data, mSize * mStride);
+		else
+			GetDevice()->SetData(mReadBuffer.Get(), data, mSize);
 	}
 
 	void StructedBuffer::BindSRV(eShaderStage stage, UINT slot)
@@ -117,5 +93,82 @@ namespace graphics
 
 		UINT i = -1;
 		GetDevice()->BindUnorderdAccessView(mUAVSlot, 1, &uav, &i);
+	}
+	void StructedBuffer::SetDiscription()
+	{
+		desc.ByteWidth = mSize * mStride;
+		desc.StructureByteStride = mSize;
+		desc.Usage = D3D11_USAGE::D3D11_USAGE_DEFAULT;
+		desc.CPUAccessFlags = 0;
+		desc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE;
+		desc.MiscFlags = D3D11_RESOURCE_MISC_FLAG::D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;
+
+		if (mType == eSRVType::UAV)
+			desc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_FLAG::D3D11_BIND_UNORDERED_ACCESS;
+		else if (mType == eSRVType::SRV)
+			desc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE;
+	}
+
+	bool StructedBuffer::CreateBuffer(void* data)
+	{
+
+		if (data)
+		{
+			D3D11_SUBRESOURCE_DATA tSub = {};
+			tSub.pSysMem = data;
+
+			if (!(GetDevice()->CreateBuffer(&desc, &tSub, buffer.GetAddressOf())))
+				return false;
+		}
+		else
+		{
+			if (!(GetDevice()->CreateBuffer(&desc, nullptr, buffer.GetAddressOf())))
+				return false;
+		}
+
+		return true;
+	}
+	bool StructedBuffer::CreateView()
+	{
+		D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
+		srvDesc.BufferEx.NumElements = mStride;
+		srvDesc.ViewDimension = D3D_SRV_DIMENSION::D3D_SRV_DIMENSION_BUFFEREX;
+
+		if (!(GetDevice()->CreateShaderResourceView(buffer.Get(), &srvDesc, mSRV.GetAddressOf())))
+			return false;
+
+		if (mType == eSRVType::UAV)
+		{
+			D3D11_UNORDERED_ACCESS_VIEW_DESC uavDesc = {};
+			uavDesc.Buffer.NumElements = mStride;
+			uavDesc.ViewDimension = D3D11_UAV_DIMENSION_BUFFER;
+
+			if (!GetDevice()->CreateUnorderedAccessView(buffer.Get(), &uavDesc, mUAV.GetAddressOf()))
+				return false;
+		}
+
+		return true;
+	}
+	bool StructedBuffer::CreateRWBuffer()
+	{
+		D3D11_BUFFER_DESC wDesc = { desc };
+		wDesc.MiscFlags = D3D11_RESOURCE_MISC_FLAG::D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;
+		wDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+		wDesc.Usage = D3D11_USAGE_DYNAMIC;
+		wDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+
+		if (!GetDevice()->CreateBuffer(&wDesc, nullptr, mWriteBuffer.GetAddressOf()))
+			return false;
+
+		D3D11_BUFFER_DESC rDesc = { desc };
+		rDesc.MiscFlags = D3D11_RESOURCE_MISC_FLAG::D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;
+		rDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+		rDesc.Usage = D3D11_USAGE_DEFAULT;
+		rDesc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+
+		if (!GetDevice()->CreateBuffer(&rDesc, nullptr, mReadBuffer.GetAddressOf()))
+			return false;
+
+		return true;
 	}
 }
