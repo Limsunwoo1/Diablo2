@@ -5,6 +5,7 @@
 #include "CSceneManager.h"
 #include "CResourceManager.h"
 #include "CCollisionManager.h"
+#include "CWorldManager.h"
 
 using namespace graphics;
 
@@ -27,6 +28,7 @@ void CApplication::Initalize()
 	Input::GetInstance()->Initialize();
 	CollisionManager::GetInstance()->Initalize();
 	Renderer::Initialize();
+	WorldManager::GetInstance()->Initialize();
 	SceneManager::GetInstance()->Initalize();
 }
 

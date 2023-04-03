@@ -156,6 +156,7 @@
     <ClInclude Include="CAnimation.h" />
     <ClInclude Include="CAnimator.h" />
     <ClInclude Include="CApplication.h" />
+    <ClInclude Include="CAStart.h" />
     <ClInclude Include="CBackGround.h" />
     <ClInclude Include="CBaseRenderer.h" />
     <ClInclude Include="CCamera.h" />
@@ -202,6 +203,7 @@
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CTitleScene.h" />
     <ClInclude Include="CTransform.h" />
+    <ClInclude Include="CWorldManager.h" />
     <ClInclude Include="def.h" />
     <ClInclude Include="CFadeRenderer.h" />
     <ClInclude Include="Graphics.h" />
@@ -216,6 +218,7 @@
     <ClCompile Include="CAnimation.cpp" />
     <ClCompile Include="CAnimator.cpp" />
     <ClCompile Include="CApplication.cpp" />
+    <ClCompile Include="CAStart.cpp" />
     <ClCompile Include="CBackGround.cpp" />
     <ClCompile Include="CBaseRenderer.cpp" />
     <ClCompile Include="CCamera.cpp" />
@@ -259,6 +262,7 @@
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTitleScene.cpp" />
     <ClCompile Include="CTransform.cpp" />
+    <ClCompile Include="CWorldManager.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="CResource.cpp" />
     <ClCompile Include="CResourceManager.cpp" />

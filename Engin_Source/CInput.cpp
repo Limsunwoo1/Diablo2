@@ -176,11 +176,8 @@ Math::Vector2 Input::GetMouseWorldPos()
 	Math::Matrix view = Renderer::mainCamera->GetViewMatrix();
 	Vector3 result = mathViewport.Unproject(Vector3(mouse.x, mouse.y, 1.0f), projection, view, Math::Matrix::Identity);
 
-
 	/*Math::Vector3::Transform(nearPoint, projection, result);
 	Math::Vector3::Transform(result, view, result);*/
-
-
 
 	/*Math::Matrix projection1 = Renderer::mainCamera->GetProjectionMatrix();
 	Math::Matrix view2 = Renderer::mainCamera->GetViewMatrix();*/
@@ -188,9 +185,6 @@ Math::Vector2 Input::GetMouseWorldPos()
 	/*Math::Matrix mat;
 	mat = projection;
 	mat *= view;*/
-
-
-	int a = 0;
 
 	return Math::Vector2(result.x, result.y + 0.7f);
 }

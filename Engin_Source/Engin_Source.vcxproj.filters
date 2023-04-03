@@ -163,6 +163,12 @@
     <Filter Include="ResourceManager\Resource\ComputeShader\Particle">
       <UniqueIdentifier>{38e30a1f-f609-426b-818c-881bb94de46a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\A%2a">
+      <UniqueIdentifier>{85aca550-5af0-417f-b26a-76dcaca90e67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WorldManager">
+      <UniqueIdentifier>{da15a4ba-ecee-434b-9cbf-2b7318a10c1d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -320,6 +326,12 @@
     </ClCompile>
     <ClCompile Include="CParticleShader.cpp">
       <Filter>ResourceManager\Resource\ComputeShader\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="CAStart.cpp">
+      <Filter>Component\A%2a</Filter>
+    </ClCompile>
+    <ClCompile Include="CWorldManager.cpp">
+      <Filter>WorldManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -496,6 +508,12 @@
     </ClInclude>
     <ClInclude Include="CParticleShader.h">
       <Filter>ResourceManager\Resource\ComputeShader\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="CAStart.h">
+      <Filter>Component\A%2a</Filter>
+    </ClInclude>
+    <ClInclude Include="CWorldManager.h">
+      <Filter>WorldManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

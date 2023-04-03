@@ -7,6 +7,7 @@
 #include "CSkilFireBall.h"
 #include "CObject.h"
 #include "CSceneManager.h"
+#include "CAStart.h"
 
 using namespace graphics;
 
@@ -29,6 +30,25 @@ void Player::Initalize()
 {
 	mDirection.reset();
 	mDirection[2] = 1;
+
+	AStar* astart = this->AddComponent<AStar>();
+	AStar::Node node = {};
+	AStar::Vec end = {};
+
+	node.V.X = 0;
+	node.V.Y = 0;
+
+	node.GValue = 0;
+	node.HValue = astart->H(node.V.X, node.V.Y);
+	node.FValue = node.F();
+
+	node.Id = (node.V.Y * 5000) + (node.V.X % 5000);
+	node.PartenNode = nullptr;
+
+	end.X = 4999;
+	end.Y = 4999;
+
+	astart->OnA_Star(node, node.V, end);
 
 	GameObject::Initalize();
 }
