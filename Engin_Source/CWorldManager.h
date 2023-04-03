@@ -10,7 +10,7 @@ public:
 	void Initialize();
 	HRESULT Load(const std::wstring& path);
 	
-	UINT TileNum(UINT x, UINT y);
+	UINT TileNum(const UINT& x, const UINT& y);
 	UINT GetScale() { return worldScale; }
 
 private:

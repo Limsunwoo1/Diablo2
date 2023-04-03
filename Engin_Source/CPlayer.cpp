@@ -35,20 +35,19 @@ void Player::Initalize()
 	AStar::Node node = {};
 	AStar::Vec end = {};
 
-	node.V.X = 0;
-	node.V.Y = 0;
+	node.Pos.x = 0;
+	node.Pos.y = 0;
 
-	node.GValue = 0;
-	node.HValue = astart->H(node.V.X, node.V.Y);
-	node.FValue = node.F();
+	node.Cost = 0;
+	node.Heuritick = astart->GetHeuritick(node.Pos.x, node.Pos.y);
+	node.Distance = node.GetDistance();
 
-	node.Id = (node.V.Y * 5000) + (node.V.X % 5000);
-	node.PartenNode = nullptr;
+	node.Id = (node.Pos.y * 100) + (node.Pos.x % 100);
 
-	end.X = 4999;
-	end.Y = 4999;
+	end.x = 99;
+	end.y = 99;
 
-	astart->OnA_Star(node, node.V, end);
+	astart->OnA_Star(node, node.Pos, end);
 
 	GameObject::Initalize();
 }

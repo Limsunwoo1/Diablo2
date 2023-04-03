@@ -3,6 +3,7 @@
 
 using namespace Math;
 using namespace std;
+class GameObject;
 class Camera : public Component
 {
 public:
@@ -38,6 +39,9 @@ public:
 	Matrix& GetViewMatrix() { return mView; }
 	Matrix& GetProjectionMatrix() { return mProjection; }
 
+	void SetTrace(GameObject* obj) { mTrace = obj; }
+	GameObject* GetTrace() { return mTrace; }
+
 private:
 	void SortGameObjects();
 	void RenderOpaqu();
@@ -63,5 +67,7 @@ private:
 	vector<GameObject*> mOpaquGameObjects;
 	vector<GameObject*> mCutOutGameObjects;
 	vector<GameObject*> mTransparentGameObjects;
+
+	GameObject* mTrace;
 };
 

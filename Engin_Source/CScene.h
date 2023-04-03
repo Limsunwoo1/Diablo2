@@ -2,6 +2,7 @@
 #include "CEntity.h"
 #include "CLayer.h"
 
+class Camera;
 class Scene : public Entity
 {
 public:
@@ -22,6 +23,8 @@ public:
 	std::vector<GameObject*> GetDontDestroyObjects();
 	const std::vector<GameObject*>& GetGameObject(const eLayerType type);
 	eSceneType GetScenType() { return mType; }
+
+	Camera* GetMainCam() { return mMainCamera; }
 private:
 	std::vector<Layer> mLayers;
 	eSceneType mType;

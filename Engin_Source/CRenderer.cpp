@@ -652,8 +652,6 @@ namespace Renderer
 		if (Time >= 1.0f)
 			Time -= 1.0f;
 
-		std::cout << Time << std::endl;
-
 		TimeCB tCb = {};
 		tCb.deltatime = Time::GetInstance()->DeltaTime();
 		tCb.time = Time;

@@ -83,6 +83,7 @@ void CApplication::Release()
 
 	Time::GetInstance()->DestroyInstance();
 	Input::GetInstance()->DestroyInstance();
+	WorldManager::GetInstance()->DestroyInstance();
 	SceneManager::GetInstance()->DestroyInstance();
 	CollisionManager::GetInstance()->DestroyInstance();
 	ResourceManager::GetInstance()->DestroyInstance();

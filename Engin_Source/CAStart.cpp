@@ -8,12 +8,13 @@ AStar::AStar()
 	, mStart(-1, -1)
 	, mEnd(-1, -1)
 	, mbRun(false)
-	, mCurNode(nullptr)
+	, mCurNode{}
 {
 }
 
 AStar::~AStar()
 {
+	ClearNode();
 }
 
 void AStar::Initalize()
@@ -32,7 +33,7 @@ void AStar::FixedUpdate()
 
 	while (1)
 	{
-		if (WorldManager::GetInstance()->TileNum(mCurNode->V.X, mCurNode->V.Y) == 2)
+		if (WorldManager::GetInstance()->TileNum(mCurNode.Pos.x, mCurNode.Pos.y) == 2)
 		{
 			Result();
 			return;
@@ -42,16 +43,15 @@ void AStar::FixedUpdate()
 		int arr1X[4] = { 1, 1, -1, -1 };
 		int arr1Y[4] = { -1, 1, 1, -1 };
 
-		for (int i = 0; i < 4; ++i) { PushOpenList(mCurNode->V.X + arr1X[i], mCurNode->V.Y + arr1Y[i]); }
+		for (int i = 0; i < 4; ++i) { AddOpenList(mCurNode.Pos.x + arr1X[i], mCurNode.Pos.y + arr1Y[i]); }
 
 		// → ↓ ← ↑
 		int arr2X[4] = { 1, 0, -1, 0 };
 		int arr2Y[4] = { 0, 1, 0, -1 };
 
-		for (int i = 0; i < 4; ++i) { PushOpenList(mCurNode->V.X + arr2X[i], mCurNode->V.Y + arr2Y[i], false); }
+		for (int i = 0; i < 4; ++i) { AddOpenList(mCurNode.Pos.x + arr2X[i], mCurNode.Pos.y + arr2Y[i], false); }
 
-		Node* node = PushCloseList();
-		DeleteOpenList(node);
+		AddCloseList();
 	}
 }
 
@@ -59,7 +59,7 @@ void AStar::Render()
 {
 }
 
-UINT AStar::H(int x, int y)
+UINT AStar::GetHeuritick(int x, int y)
 {
 	//int ix = abs(x - mEnd.X);
 	//int iy = abs(y - mEnd.Y);
@@ -76,10 +76,8 @@ UINT AStar::H(int x, int y)
 
 	//return (int)(weight * (std::sqrt(std::pow(x - mEnd.X, 2) + std::pow(y - mEnd.Y, 2))));
 
-
-
-	int ix = abs(x - mEnd.X);
-	int iy = abs(y - mEnd.Y);
+	int ix = abs(x - mEnd.x);
+	int iy = abs(y - mEnd.y);
 
 	int tem = abs(ix - iy);
 	int weight = 1;
@@ -90,13 +88,12 @@ UINT AStar::H(int x, int y)
 
 	UINT H = (ix + iy) * 10;
 	return H + weight;
-
 }
 
-UINT AStar::G(int x, int y, int InG)
+UINT AStar::GetCost(int x, int y, int InG)
 {
-	int ix = abs(x - mEnd.X);
-	int iy = abs(y - mEnd.Y);
+	int ix = abs(x - mEnd.x);
+	int iy = abs(y - mEnd.y);
 
 	int tem = abs(ix + iy);
 
@@ -109,49 +106,43 @@ UINT AStar::G(int x, int y, int InG)
 	return outG;
 }
 
-//long long int AStart::F(int g, int h)
-//{
-//    return g + h;
-//}
-
-UINT AStar::ID(int x, int y)
+UINT AStar::GetID(int x, int y)
 {
 	UINT id = (y * mMaxY) + (x % mMaxX);
 	return id;
 }
 
-void AStar::PushOpenList(int x, int y, bool diagonal)
+void AStar::AddOpenList(int x, int y, bool diagonal)
 {
 	Node node = {};
 
-	node.V.X = x;
-	node.V.Y = y;
+	node.Pos.x = x;
+	node.Pos.y = y;
 
 	// 맵 범위 밖 타일인지확인
-	if (node.V.X  < 0 || node.V.X  > mMaxX - 1)
+	if (node.Pos.x  < 0 || node.Pos.x  > mMaxX - 1)
 		return;
 
-	if (node.V.Y < 0 || node.V.Y > mMaxY - 1)
+	if (node.Pos.y < 0 || node.Pos.y > mMaxY - 1)
 		return;
 
 	// 해당타일이 장애물이 아닌지 확인
-	if (WorldManager::GetInstance()->TileNum(node.V.X, node.V.Y) == 3)
+	if (WorldManager::GetInstance()->TileNum(node.Pos.x, node.Pos.y) == 3)
 		return;
 
 	// 대각 선이동의 경우 해당타일의
 	// 직각이 되는 타일이 장애물이면 리턴
 	if (diagonal)
 	{
-		if (WorldManager::GetInstance()->TileNum(mCurNode->V.X, node.V.Y) == 3)
+		if (WorldManager::GetInstance()->TileNum(mCurNode.Pos.x, node.Pos.y) == 3)
 			return;
 
-		if (WorldManager::GetInstance()->TileNum(node.V.X, mCurNode->V.Y) == 3)
+		if (WorldManager::GetInstance()->TileNum(node.Pos.x, mCurNode.Pos.y) == 3)
 			return;
 	}
 
-
 	// 닫힌 목록에 있는 노드인지 탐색
-	unordered_map<UINT, Node*>::iterator iter;
+	unordered_map<UINT, Node>::iterator iter;
 	iter = mCloseList.find(node.Id);
 
 	if (iter != mCloseList.end())
@@ -161,53 +152,49 @@ void AStar::PushOpenList(int x, int y, bool diagonal)
 	iter = mOpenList.find(node.Id);
 	if (iter != mOpenList.end())
 	{
+		if (diagonal)
+			return;
+
 		// G 값 비교후 들어있는 
-		// 타일 데이터 수정 G, H
-		Test(iter->second);
+		// 타일 데이터 수정 G, F
+		Compare(iter->second);
 		return;
 	}
 
-	int count = abs(mCurNode->V.X - node.V.X) + abs(mCurNode->V.Y - node.V.Y);
+	int count = abs(mCurNode.Pos.x - node.Pos.x) + abs(mCurNode.Pos.y - node.Pos.y);
 	if (count > 1)
-		node.GValue = 14 + mCurNode->GValue;
+		node.Cost = 14 + mCurNode.Cost;
 	else
-		node.GValue = 10 + mCurNode->GValue;
+		node.Cost = 10 + mCurNode.Cost;
 
-	node.HValue = H(node.V.X, node.V.Y);
-	node.FValue = node.F();
+	node.Heuritick = GetHeuritick(node.Pos.x, node.Pos.y);
+	node.Distance = node.GetDistance();
 
-	node.Id = ID(node.V.X, node.V.Y);
+	node.Id = GetID(node.Pos.x, node.Pos.y);
+	node.ParentIndex = mCurNode.Pos;
 
-	node.PartenNode = mCurNode;
+	Node pushNode = Node{node.Pos.x, node.Pos.y, node.Cost, node.Heuritick, node.Distance, node.ParentIndex };
+	pushNode.Id = node.Id;
 
-	Node* pushNode = new Node(node);
-
-	mOpenList.insert(make_pair(pushNode->Id, pushNode));
-	mOpenlistF.push( pushNode);
-
-
+	mOpenList.insert(make_pair(pushNode.Id, pushNode));
+	mDistanceList.emplace(pushNode);
 }
 
-AStar::Node* AStar::PushCloseList()
+void AStar::AddCloseList()
 {
-	Node* node = LowFValue();
-	if (node == nullptr)
-		cout << " 길찾기 실패" << endl;
-
-	mCurNode = node;
-	mCloseList.insert(make_pair(mCurNode->Id, mCurNode));
-	return node;
+	mCurNode = DistanceList();
+	mCloseList.emplace(std::make_pair(mCurNode.Id, mCurNode));
 }
 
-void AStar::DeleteOpenList(Node* node)
+void AStar::RemoveOpenList(Node node)
 {
-	unordered_map<UINT, Node*>::iterator iter;
-	iter = mOpenList.find(node->Id);
+	unordered_map<UINT, Node>::iterator iter;
+	iter = mOpenList.find(node.Id);
 	if (iter != mOpenList.end())
 		mOpenList.erase(iter);
 }
 
-void AStar::OnA_Star(Node& node, Vec start, Vec end, bool run)
+void AStar::OnA_Star(Node& node, Vec& start, Vec& end, bool run)
 {
 	if (mbRun)
 		return;
@@ -217,38 +204,62 @@ void AStar::OnA_Star(Node& node, Vec start, Vec end, bool run)
 	mMaxX = WorldManager::GetInstance()->GetScale();
 	mMaxY = WorldManager::GetInstance()->GetScale();
 
-	mCurNode = new Node(node);
+	mCurNode = Node{ node.Pos.x, node.Pos.y, node.Cost, node.Heuritick, node.Distance, node.ParentIndex };
 
 	mStart = start;
 	mEnd = end;
 
 	mbRun = run;
 
-	mCloseList.insert(make_pair(mCurNode->Id, mCurNode));
+	mCloseList.emplace(make_pair(mCurNode.Id, mCurNode));
 }
 
-void AStar::Test(Node* duplication)
+void AStar::Compare(Node duplication)
 {
-	UINT g = mCurNode->GValue;
+	UINT g = mCurNode.Cost;
 
-	int x = abs(mCurNode->V.X - duplication->V.X);
-	int y = abs(mCurNode->V.Y - duplication->V.Y);
+	int x = abs(mCurNode.Pos.x - duplication.Pos.x);
+	int y = abs(mCurNode.Pos.y - duplication.Pos.y);
 
 	if (x + y > 1)
-		g = mCurNode->GValue += 14;
+		g = mCurNode.Cost += 14;
 	else
-		g = mCurNode->GValue += 10;
+		g = mCurNode.Cost += 10;
 
-	if (duplication->GValue > g)
+	if (duplication.Cost > g)
 	{
-		duplication->PartenNode = mCurNode;
+		duplication.ParentIndex = mCurNode.Pos;
 
-		duplication->GValue = g;
-		duplication->FValue = duplication->GValue + duplication->HValue;
+		duplication.Cost = g;
+		duplication.Distance = duplication.Cost + duplication.Heuritick;
+	}
+
+	unordered_map<UINT, Node>::iterator iter;
+	vector<Node> Nodetemp;
+	iter = mOpenList.find(duplication.Id);
+
+	Node node = iter->second;
+	mOpenList.erase(iter);
+
+	while (!mDistanceList.empty())
+	{
+		Node temp = mDistanceList.top();
+		mDistanceList.pop();
+
+		if (node.Id == temp.Id)
+			break;
+
+		Nodetemp.emplace_back(temp);
+	}
+
+	mDistanceList.emplace(node);
+	for (int i = 0; i < Nodetemp.size(); ++i)
+	{
+		mDistanceList.emplace(Nodetemp[i]);
 	}
 }
 
-AStar::Node* AStar::LowFValue()
+AStar::Node AStar::DistanceList()
 {
 	/*std::sort(open.begin(), open.end());
 
@@ -326,72 +337,70 @@ AStar::Node* AStar::LowFValue()
 
 	return outNode;*/
 
-
-	Node* node = mOpenlistF.top();
-	mOpenlistF.pop();
+	Node node = mDistanceList.top();
+	mDistanceList.pop();
+	RemoveOpenList(node);
 
 	return node;
-
 }
 
-stack<AStar::Node*>& AStar::Result()
+const stack<AStar::Node>& AStar::Result()
 {
 	while (!mResult.empty())
 	{
-		Node* node = mResult.top();
+		Node node = mResult.top();
 		mResult.pop();
 	}
 
+	unordered_map<UINT, Node>::iterator iter;
+	UINT count = 0;
 	while (1)
 	{
-		if ((mCurNode->V.X == mStart.X &&
-			mCurNode->V.Y == mStart.Y) ||
-			mCurNode->PartenNode == nullptr)
+		if ((mCurNode.Pos.x == mStart.x && mCurNode.Pos.y == mStart.y))
 		{
 			mbRun = false;
+			ClearNode();
+
 			return mResult;
 		}
 
+		if (count == 100000)
+			return mResult;
+
 		mResult.push(mCurNode);
-		mCurNode = mCurNode->PartenNode;
+
+		int id = (mCurNode.ParentIndex.y * mMaxY) + (mCurNode.ParentIndex.x % mMaxX);
+		iter = mCloseList.find(id);
+		mCurNode = iter->second;
+		count++;
 	}
-}
 
-void AStar::Clear()
-{
-	mMaxX = WorldManager::GetInstance()->GetScale();
-	mMaxY = WorldManager::GetInstance()->GetScale();
-
-	mStart = Vec{ -1, -1 };
-	mEnd = Vec{ -1, -1 };
-
-	ClearNode();
+	return mResult;
 }
 
 void AStar::ClearNode()
 {
-	unordered_map<UINT, Node*>::iterator iter;
+	/*unordered_map<UINT, Node>::iterator iter;
 	for (iter = mOpenList.begin();
 		iter != mOpenList.end();
 		iter++)
 	{
-		delete iter->second;
-		iter->second = nullptr;
+		delete iter.second;
+		iter.second = nullptr;
 	}
 
 	for (iter = mCloseList.begin();
 		iter != mCloseList.end();
 		iter++)
 	{
-		delete iter->second;
-		iter->second = nullptr;
-	}
+		delete iter.second;
+		iter.second = nullptr;
+	}*/
 
 	mOpenList.clear();
 	mCloseList.clear();
+
+	while (!mResult.empty()) { mResult.pop(); }
+	while (!mDistanceList.empty()) { mDistanceList.pop(); }
 }
 
-bool AStar::FSort(std::pair<UINT, Node*>& a, std::pair<UINT, Node*>& b)
-{
-	return a.second->F() < b.second->F();
-}

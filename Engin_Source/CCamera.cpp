@@ -20,6 +20,7 @@ Camera::Camera()
 	, mNear(1.0f)
 	, mFar(1000.0f)
 	, mScale(1.0f)
+	, mTrace(nullptr)
 {
 	EnableLayerMasks();
 }
@@ -43,6 +44,12 @@ void Camera::FixedUpdate()
 	CreateProjectionMatrix();
 
 	RegisterCameraInRenderer();
+
+	if (!mTrace)
+		return;
+
+	Transform* tr = mTrace->GetComponent<Transform>();
+	GetOwner()->GetComponent<Transform>()->SetPosition(tr->GetPosition());
 }
 
 void Camera::Render()

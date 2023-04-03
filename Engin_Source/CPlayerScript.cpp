@@ -58,7 +58,7 @@ void PlayerScript::Update()
 	Vector3 pos = tr->GetPosition();
 
 	float speed = 3.f;
-	/*if (player->GetState() != Player::State::Attack
+	if (player->GetState() != Player::State::Attack
 		&& player->GetState() != Player::State::Skil)
 	{
 		if (Input::GetInstance()->GetKeyPress(eKeyCode::UP))
@@ -113,9 +113,9 @@ void PlayerScript::Update()
 			if (Input::GetInstance()->GetKeyUp(eKeyCode::LEFT))
 				player->SetState(Player::State::Idle);
 		}
-	}*/
+	}
 
-	/*if (Input::GetInstance()->GetKeyPress(eKeyCode::A))
+	if (Input::GetInstance()->GetKeyPress(eKeyCode::A))
 	{
 		if (player->GetState() == Player::State::Idle
 			|| player->GetState() == Player::State::Move)
@@ -229,7 +229,7 @@ void PlayerScript::Update()
 
 	if (player->GetState() == Player::State::Idle
 		|| player->GetState() == Player::State::Move)
-		tr->SetPosition(pos);*/
+		tr->SetPosition(pos);
 }
 
 void PlayerScript::FixedUpdate()

@@ -8,36 +8,37 @@ class AStar : public Component
 public:
 	struct Vec
 	{
-		int X;
-		int Y;
+		int x;
+		int y;
 
-		Vec(int x, int y) : X(x), Y(y) {};
-		Vec(Vec& pos) : X(pos.X), Y(pos.Y) {};
+		Vec(int x, int y) : x(x), y(y) {};
+		Vec(const Vec& pos) : x(pos.x), y(pos.y) {};
 		Vec() {};
 	};
 	struct Node
 	{
-		Vec V;
+		Vec Pos;
 		
 		UINT Id;
 
-		int GValue;
-		int HValue;
-		long long int FValue;
+		int Cost;
+		int Heuritick;
+		long long int Distance;
 
-		Node* PartenNode;
+		Vec ParentIndex;
 
-		Node(Vec pos, int g, int h, long long int f, Node* parent)
-			: V(pos), Id(0), GValue(g), HValue(h), FValue(f), PartenNode(parent) {};
+		Node(const Vec& pos, int g, int h, long long int f, Vec parent)
+			: Pos(pos), Id(0), Cost(g), Heuritick(h), Distance(f), ParentIndex(parent) {};
 
-		Node(int x, int y, int g, int h, long long int f, Node* parent)
-			: V(x,y), Id(0), GValue(g), HValue(h), FValue(f), PartenNode(parent) {};
+		Node(int& x, int& y, int& g, int& h, long long int& f, Vec parent)
+			: Pos(x,y), Id(0), Cost(g), Heuritick(h), Distance(f), ParentIndex(parent) {};
 
-		Node(Node& node) 
-			: V(node.V), Id(node.Id), GValue(node.GValue), HValue(node.HValue), FValue(node.FValue), PartenNode(node.PartenNode) {};
+		Node(const Node& node) 
+			: Pos(node.Pos.x, node.Pos.y), Id(node.Id), Cost(node.Cost), Heuritick(node.Heuritick), Distance(node.Distance), ParentIndex(node.ParentIndex) {};
+
 		Node(){};
 
-		void operator=(Node& node)
+		/*void operator=(const Node& node)
 		{
 			this->V = node.V;
 			this->GValue = node.GValue;
@@ -45,22 +46,22 @@ public:
 			this->FValue = node.FValue;
 
 			this->PartenNode = node.PartenNode;
-		}
+		}*/
 		bool operator<(const Node& other) const 
 		{   // 우선순위 큐에서 사용될 연산자
-			return FValue> other.FValue;
+			return Distance > other.Distance;
 		}
 
-		long long int F() { return GValue + HValue; }
+		long long int GetDistance() { return Cost + Heuritick; }
 	};
 	struct cmp
 	{
-		bool operator()(Node* a,  Node* b)
+		bool operator()(Node& a,  Node& b)
 		{
-			if (a->F() == b->F())
-				return a->HValue > b->HValue;
+			if (a.GetDistance() == b.GetDistance())
+				return a.Heuritick > b.Heuritick;
 
-			return a->F() > b->F();
+			return a.GetDistance() > b.GetDistance();
 		}
 	};
 public:
@@ -72,21 +73,20 @@ public:
 	virtual void FixedUpdate() override;
 	virtual void Render() override;
 
-	UINT H(int x, int y);
-	UINT G(int x, int y, int InG);
-	//long long int F(int g, int H);
-	UINT ID(int x, int y);
+	UINT GetHeuritick(int x, int y);
+	UINT GetCost(int x, int y, int InG);
+	UINT GetID(int x, int y);
 
-	void PushOpenList(int x, int y, bool diagonal = true);
-	Node* PushCloseList();
+	void AddOpenList(int x, int y, bool diagonal = true);
+	void AddCloseList();
 
-	void DeleteOpenList(Node* node);
+	void RemoveOpenList(Node node);
 
-	void OnA_Star(Node& node, Vec start, Vec end, bool run = true);
-	void Test(Node* duplication);
-	Node* LowFValue();
+	void OnA_Star(Node& node, Vec& start, Vec& end, bool run = true);
+	void Compare(Node overlap);
+	Node DistanceList();
 
-	stack<Node*>& Result();
+	const stack<Node>& Result();
 
 	UINT GetMaxX() { return mMaxX; }
 	UINT GetMaxY() { return mMaxY; }
@@ -95,13 +95,8 @@ public:
 	Vec& GetEnd() { return mEnd; }
 
 	bool IsRunning() { return mbRun; }
-
 	void StopRun() { mbRun = false; }
-
-	void Clear();
 	void ClearNode();
-
-	bool FSort(std::pair<UINT, Node*>& a, std::pair<UINT, Node*>& b);
 
 private:
 	UINT mMaxX;
@@ -110,15 +105,13 @@ private:
 	Vec mStart;
 	Vec mEnd;
 	
-	unordered_map<UINT, Node*> mOpenList;
-	unordered_map<UINT, Node*> mCloseList;
-	vector<Node*> open;
+	unordered_map<UINT, Node> mOpenList;
+	unordered_map<UINT, Node> mCloseList;
 
-	priority_queue< Node*, vector< Node*>, cmp> mOpenlistF;
+	priority_queue< Node, vector< Node>, cmp> mDistanceList;
+	stack<Node> mResult;
 
-	stack<Node*> mResult;
-
-	Node* mCurNode;
+	Node mCurNode;
 
 	bool mbRun;
 };
