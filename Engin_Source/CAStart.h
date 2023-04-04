@@ -13,7 +13,7 @@ public:
 
 		Vec(int x, int y) : x(x), y(y) {};
 		Vec(const Vec& pos) : x(pos.x), y(pos.y) {};
-		Vec() {};
+		Vec() : x(0), y(0) {};
 	};
 	struct Node
 	{
@@ -22,21 +22,28 @@ public:
 		UINT Id;
 
 		int Cost;
-		int Heuritick;
+		int Heuristick;
 		long long int Distance;
 
 		Vec ParentIndex;
 
 		Node(const Vec& pos, int g, int h, long long int f, Vec parent)
-			: Pos(pos), Id(0), Cost(g), Heuritick(h), Distance(f), ParentIndex(parent) {};
+			: Pos(pos), Id(0), Cost(g), Heuristick(h), Distance(f), ParentIndex(parent) {};
+
+		Node(const Vec& pos, int g, int h, long long int f)
+			: Pos(pos), Id(0), Cost(g), Heuristick(h), Distance(f), ParentIndex(Vec{}) {};
 
 		Node(int& x, int& y, int& g, int& h, long long int& f, Vec parent)
-			: Pos(x,y), Id(0), Cost(g), Heuritick(h), Distance(f), ParentIndex(parent) {};
+			: Pos(x,y), Id(0), Cost(g), Heuristick(h), Distance(f), ParentIndex(parent) {};
+
+		Node(int& x, int& y, int& g, int& h, long long int& f)
+			: Pos(x, y), Id(0), Cost(g), Heuristick(h), Distance(f), ParentIndex(Vec{}) {};
 
 		Node(const Node& node) 
-			: Pos(node.Pos.x, node.Pos.y), Id(node.Id), Cost(node.Cost), Heuritick(node.Heuritick), Distance(node.Distance), ParentIndex(node.ParentIndex) {};
+			: Pos(node.Pos.x, node.Pos.y), Id(node.Id), Cost(node.Cost), Heuristick(node.Heuristick), Distance(node.Distance), ParentIndex(node.ParentIndex) {};
 
-		Node(){};
+		Node() 
+			: Pos(0, 0), Id(0), Cost(0), Heuristick(0), Distance(0), ParentIndex(Vec{}) {};
 
 		/*void operator=(const Node& node)
 		{
@@ -52,14 +59,14 @@ public:
 			return Distance > other.Distance;
 		}
 
-		long long int GetDistance() { return Cost + Heuritick; }
+		long long int GetDistance() { return Cost + Heuristick; }
 	};
 	struct cmp
 	{
 		bool operator()(Node& a,  Node& b)
 		{
 			if (a.GetDistance() == b.GetDistance())
-				return a.Heuritick > b.Heuritick;
+				return a.Heuristick > b.Heuristick;
 
 			return a.GetDistance() > b.GetDistance();
 		}
@@ -73,7 +80,7 @@ public:
 	virtual void FixedUpdate() override;
 	virtual void Render() override;
 
-	UINT GetHeuritick(int x, int y);
+	UINT GetHeuristick(int x, int y);
 	UINT GetCost(int x, int y, int InG);
 	UINT GetID(int x, int y);
 

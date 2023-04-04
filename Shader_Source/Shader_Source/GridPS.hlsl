@@ -30,14 +30,14 @@ float4 main(VSOut In) : SV_TARGET
     const int XLine = (worldX + 1) % width;
     const int YLine = (worldY + 1) % height;
     
-    if (worldX % 64 == 32 && worldY % 64 == 32)
-        return float4(1.0f, 0.0f, 0.0f, 1.0f);
+    if (worldX % 64 == 32 || worldY % 64 == 32)
+        return float4(1.0f, 1.0f, 1.0f, 1.0f);
     
-    if (abs(XLine) <= thickness)
-        return Out;
+    //if (abs(XLine) <= thickness)
+    //    return Out;
     
-    if (abs(YLine) <= thickness)
-        return Out;
+    //if (abs(YLine) <= thickness)
+    //    return Out;
     
     discard;
     return float4(1.0f, 0.0f, 1.0f, 1.0f);

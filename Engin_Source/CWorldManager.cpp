@@ -26,7 +26,8 @@ void WorldManager::Initialize()
 		world[i].resize(WORLD_SCALE);
 	}
 
-	world[99][99] = 2;
+	world[0][0] == 1;
+	//world[99][99] = 2;
 }
 
 HRESULT WorldManager::Load(const std::wstring& path)
@@ -37,4 +38,56 @@ HRESULT WorldManager::Load(const std::wstring& path)
 UINT WorldManager::GetTileNum(const UINT& x, const UINT& y)
 {
 	return  world[y][x];
+}
+
+bool WorldManager::CheckPlayerIndex(const int& x, const int& y)
+{
+	if (x > worldScale -1 || y > worldScale -1)
+		return false;
+
+	if (x <  0 || y < 0)
+		return false;
+
+	if (world[y][x] == 3)
+		return false;
+
+	return true;
+}
+
+bool WorldManager::CheckEndIndex(const int& x, const int& y)
+{
+	if (x > worldScale -1 || y > worldScale -1)
+		return false;
+
+	if (x < 0 || y < 0)
+		return false;
+
+	if (world[y][x] == 3)
+		return false;
+
+	return true;
+}
+
+bool WorldManager::SetPath(const int& startX, const int& startY, const int& endX, const int& endY)
+{
+	Math::Vector2 playerTemp = PlayerIndex;
+	Math::Vector2 endTemp = EndIndex;
+
+	if (!CheckPlayerIndex(startX, startY) || !CheckEndIndex(endX, endY))
+	{
+		return false;
+	}
+
+	world[PlayerIndex.y][PlayerIndex.x] = 0;
+	world[EndIndex.y][EndIndex.x] = 0;
+
+	world[startY][startX] = 1;
+	PlayerIndex.x = startX;
+	PlayerIndex.y = startY;
+
+	world[endY][endX] = 2;
+	EndIndex.x = endX;
+	EndIndex.y = endY;
+
+	return true;
 }

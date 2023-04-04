@@ -58,7 +58,7 @@ void AStar::Render()
 {
 }
 
-UINT AStar::GetHeuritick(int x, int y)
+UINT AStar::GetHeuristick(int x, int y)
 {
 	//int ix = abs(x - mEnd.X);
 	//int iy = abs(y - mEnd.Y);
@@ -118,6 +118,8 @@ void AStar::AddOpenList(int x, int y, bool diagonal)
 	node.Pos.x = x;
 	node.Pos.y = y;
 
+	node.Id = GetID(node.Pos.x, node.Pos.y);
+
 	// 맵 범위 밖 타일인지확인
 	if (node.Pos.x  < 0 || node.Pos.x  > mMaxX - 1)
 		return;
@@ -166,13 +168,12 @@ void AStar::AddOpenList(int x, int y, bool diagonal)
 	else
 		node.Cost = 10 + mCurNode.Cost;
 
-	node.Heuritick = GetHeuritick(node.Pos.x, node.Pos.y);
+	node.Heuristick = GetHeuristick(node.Pos.x, node.Pos.y);
 	node.Distance = node.GetDistance();
 
-	node.Id = GetID(node.Pos.x, node.Pos.y);
 	node.ParentIndex = mCurNode.Pos;
 
-	Node pushNode = Node{node.Pos.x, node.Pos.y, node.Cost, node.Heuritick, node.Distance, node.ParentIndex };
+	Node pushNode = Node{node.Pos.x, node.Pos.y, node.Cost, node.Heuristick, node.Distance, node.ParentIndex };
 	pushNode.Id = node.Id;
 
 	mOpenList.insert(make_pair(pushNode.Id, pushNode));
@@ -202,13 +203,20 @@ void AStar::OnA_Star(Node& node, Vec& start, Vec& end, bool run)
 
 	mMaxX = WorldManager::GetInstance()->GetScale();
 	mMaxY = WorldManager::GetInstance()->GetScale();
-
-	mCurNode = Node{ node.Pos.x, node.Pos.y, node.Cost, node.Heuritick, node.Distance, node.ParentIndex };
-
+	
+	//SetIndex
 	mStart = start;
 	mEnd = end;
-
 	mbRun = run;
+
+	// SetNode
+	mCurNode = Node{ node.Pos.x, node.Pos.y, node.Cost, node.Heuristick, node.Distance, node.ParentIndex };
+
+	mCurNode.Id = (mCurNode.Pos.y * mMaxY) + (mCurNode.Pos.x % mMaxX);
+	mCurNode.Cost = 0;
+	mCurNode.Heuristick = GetHeuristick(node.Pos.x, node.Pos.y);
+	mCurNode.Distance = mCurNode.GetDistance();
+
 
 	mCloseList.emplace(make_pair(mCurNode.Id, mCurNode));
 }
@@ -230,7 +238,7 @@ void AStar::Compare(Node duplication)
 		duplication.ParentIndex = mCurNode.Pos;
 
 		duplication.Cost = g;
-		duplication.Distance = duplication.Cost + duplication.Heuritick;
+		duplication.Distance = duplication.Cost + duplication.Heuristick;
 	}
 
 	unordered_map<UINT, Node>::iterator iter;
@@ -353,13 +361,30 @@ const stack<AStar::Node>& AStar::Result()
 
 	unordered_map<UINT, Node>::iterator iter;
 	UINT count = 0;
+
+
 	while (1)
 	{
 		if ((mCurNode.Pos.x == mStart.x && mCurNode.Pos.y == mStart.y))
+			/*&& (mCurNode.ParentIndex.x < 0 || mCurNode.ParentIndex.y < 0)*/
 		{
 			mbRun = false;
-			ClearNode();
 
+			Node node = {};
+			// 예제 코드
+			while (!mResult.empty())
+			{
+				node = mResult.top();
+				cout << "X 좌표 " << node.Pos.x;
+				cout << "  Y 좌표 " << node.Pos.y << endl;
+				mResult.pop();
+			}
+			cout << "길찾기 종료 " << endl;
+
+			WorldManager::GetInstance()->SetEndIndex(node.Pos.x, node.Pos.y);
+			WorldManager::GetInstance()->SetPlayerIndex(node.Pos.x, node.Pos.y);
+
+			ClearNode();
 			return mResult;
 		}
 
@@ -370,6 +395,9 @@ const stack<AStar::Node>& AStar::Result()
 
 		int id = (mCurNode.ParentIndex.y * mMaxY) + (mCurNode.ParentIndex.x % mMaxX);
 		iter = mCloseList.find(id);
+		if (iter == mCloseList.end())
+			continue;
+
 		mCurNode = iter->second;
 		count++;
 	}

@@ -188,3 +188,18 @@ Math::Vector2 Input::GetMouseWorldPos()
 
 	return Math::Vector2(result.x, result.y + 0.7f);
 }
+
+Math::Vector2 Input::GetMouseScreenIndex()
+{
+	Vector2 mouse = GetMousePos();
+
+	int x = mouse.x / 64;
+	int y = mouse.y / 64;
+
+	x -= 12;
+	y -= 7;
+	//12 7
+	// Áß¾Ó ÇÃ·¹ÀÌ¾î ÀÎµ¦½º
+
+	return Math::Vector2(x, y);
+}

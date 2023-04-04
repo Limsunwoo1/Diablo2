@@ -57,6 +57,7 @@ public:
 	Math::Vector2 GetMousePos() { return mMousePos; }
 	Math::Vector2 GetMousePos(HWND hWnd);
 	Math::Vector2 GetMouseWorldPos();
+	Math::Vector2 GetMouseScreenIndex();
 
 	__forceinline bool GetKeyPress(eKeyCode key)
 	{

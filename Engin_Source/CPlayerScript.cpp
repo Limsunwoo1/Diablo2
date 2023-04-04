@@ -6,6 +6,8 @@
 #include "CAnimator.h"
 #include "CPlayer.h"
 #include "CGraphicDevice_DX11.h"
+#include "CAStart.h"
+#include "CWorldManager.h"
 
 PlayerScript::PlayerScript()
 	: Script()
@@ -30,25 +32,7 @@ void PlayerScript::Initalize()
 
 void PlayerScript::Update()
 {
-	/*Transform* transform = GetOwner()->GetComponent<Transform>();
-	Vector3 pos = transform->GetPosition();
-	Vector3 Rotation = transform->GetRotation();
-	std::cout << pos.x << " : X ????" << pos.y << " : Y ????" << std::endl;
-	if (Input::GetInstance()->GetKeyDown(eKeyCode::RBTN))
-	{
-		Vector2 mousePos = Input::GetInstance()->GetMousePos();
-		mArrivePos = Vector3(mousePos.x, mousePos.y, 1.0f);
-		mbRun = true;
-	}
-	if (!mbRun)
-		return;
-	Vector3 vec = mArrivePos - pos;
-	vec.z = 0.0f;
-	if (vec.x <= 1.0f && vec.y <= 1.0f)
-		mbRun = false;
-	vec.Normalize();
-	pos += vec * Time::GetInstance()->DeltaTime();
-	transform->SetPosition(pos);*/
+	
 	Player* player = dynamic_cast<Player*>(GetOwner());
 
 	if (player == nullptr)
@@ -58,7 +42,7 @@ void PlayerScript::Update()
 	Vector3 pos = tr->GetPosition();
 
 	float speed = 3.f;
-	if (player->GetState() != Player::State::Attack
+	/*if (player->GetState() != Player::State::Attack
 		&& player->GetState() != Player::State::Skil)
 	{
 		if (Input::GetInstance()->GetKeyPress(eKeyCode::UP))
@@ -92,7 +76,8 @@ void PlayerScript::Update()
 				player->SetState(Player::State::Move);
 				pos += speed * -tr->Right() * Time::GetInstance()->DeltaTime();
 			}
-		}
+		}*/
+
 		if (player->GetDirection() == 1)
 		{
 			if (Input::GetInstance()->GetKeyUp(eKeyCode::UP))
@@ -113,7 +98,7 @@ void PlayerScript::Update()
 			if (Input::GetInstance()->GetKeyUp(eKeyCode::LEFT))
 				player->SetState(Player::State::Idle);
 		}
-	}
+	
 
 	if (Input::GetInstance()->GetKeyPress(eKeyCode::A))
 	{
@@ -129,8 +114,38 @@ void PlayerScript::Update()
 	}
 
 
-	if (Input::GetInstance()->GetKeyPress(eKeyCode::RBTN))
+	if (Input::GetInstance()->GetKeyDown(eKeyCode::RBTN))
 	{
+		//a*
+		Vector2 index = Input::GetInstance()->GetMouseScreenIndex();
+
+		Vector2 Wpos = WorldManager::GetInstance()->GetPlayerIndex();
+		Vector2 Wend = WorldManager::GetInstance()->GetEndIndex();
+
+		cout << "P 포즈" << Wpos.x << "  " << Wpos.y << endl;
+		cout << "E 포즈" << Wend.x << "  " << Wend.y << endl;
+		
+		AStar* astart = GetOwner()->GetComponent<AStar>();
+		AStar::Node node = {};
+		AStar::Vec end = {};
+
+		Vector2 playerIndex = WorldManager::GetInstance()->GetPlayerIndex();
+		node.Pos.x = (UINT)playerIndex.x;
+		node.Pos.y = (UINT)playerIndex.y;
+
+		end.x = (UINT)(playerIndex.x + index.x);
+		end.y = (UINT)(playerIndex.y + index.y);
+
+		UINT max = WorldManager::GetInstance()->GetScale();
+		node.Id = (node.Pos.y * max) + (node.Pos.x % max);
+
+		//end.x = (UINT)(playerIndex.x + index.x);
+		//end.y = (UINT)(playerIndex.y + index.y);
+
+		if (WorldManager::GetInstance()->SetPath(node.Pos.x, node.Pos.y, end.x, end.y))
+			astart->OnA_Star(node, node.Pos, end);
+
+		///////////////////////////////////////////////////////////////////////////////////
 		Vector2 mouse = Input::GetInstance()->GetMouseWorldPos();
 		mPickPoint = mouse;
 		float angle = PickAngle(mPickPoint);

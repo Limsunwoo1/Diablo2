@@ -8,6 +8,7 @@
 #include "CObject.h"
 #include "CSceneManager.h"
 #include "CAStart.h"
+#include "CWorldManager.h"
 
 using namespace graphics;
 
@@ -32,22 +33,24 @@ void Player::Initalize()
 	mDirection[2] = 1;
 
 	AStar* astart = this->AddComponent<AStar>();
-	AStar::Node node = {};
+	/*AStar::Node node = {};
 	AStar::Vec end = {};
 
 	node.Pos.x = 0;
 	node.Pos.y = 0;
 
 	node.Cost = 0;
-	node.Heuritick = astart->GetHeuritick(node.Pos.x, node.Pos.y);
+	node.Heuristick = astart->GetHeuristick(node.Pos.x, node.Pos.y);
 	node.Distance = node.GetDistance();
 
-	node.Id = (node.Pos.y * 100) + (node.Pos.x % 100);
+	UINT max = WorldManager::GetInstance()->GetScale();
+	node.Id = (node.Pos.y * max) + (node.Pos.x % max);
 
 	end.x = 99;
 	end.y = 99;
 
-	astart->OnA_Star(node, node.Pos, end);
+	if (WorldManager::GetInstance()->SetPath(node.Pos.x, node.Pos.y, end.x, end.y))
+		astart->OnA_Star(node, node.Pos, end);*/
 
 	GameObject::Initalize();
 }
@@ -262,7 +265,6 @@ void Player::Move()
 		return;
 
 	animator->Play(playName);
-	cout << " ÀÎµ¦½º  " << index << endl;
 
 	/*if (mDirection[0] == true && name != L"WalkUp")
 		animator->Play(L"WalkUp");
