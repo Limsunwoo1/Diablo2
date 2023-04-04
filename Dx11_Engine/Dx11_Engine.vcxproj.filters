@@ -85,5 +85,11 @@
     <None Include="..\0.cur">
       <Filter>리소스 파일</Filter>
     </None>
+    <None Include="..\cursor1.cur">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="Dx11_Engine\0.cur">
+      <Filter>리소스 파일</Filter>
+    </None>
   </ItemGroup>
 </Project>
