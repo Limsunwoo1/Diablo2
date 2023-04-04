@@ -154,6 +154,7 @@
     <ResourceCompile Include="Dx11_Engine.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="C:\Users\tjsdn\OneDrive\바탕 화면\2.png" />
     <Image Include="Dx11_Engine.ico" />
     <Image Include="small.ico" />
   </ItemGroup>
@@ -161,6 +162,11 @@
     <ProjectReference Include="..\Engin_Source\Engin_Source.vcxproj">
       <Project>{c1832d75-3cc0-4fcf-b191-d86756c3ead8}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\tjsdn\OneDrive\바탕 화면\0.cur" />
+    <None Include="cursor1.cur" />
+    <None Include="POINTER.cur" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

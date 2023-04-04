@@ -124,6 +124,9 @@ void PlayerScript::Update()
 
 		if (fabs(vec.x) < 0.005f && fabs(vec.y) < 0.005f)
 		{
+			Vector2 pos = WorldManager::GetInstance()->GetPlayerIndex();
+			WorldManager::GetInstance()->SetZero(pos.x, pos.y);
+
 			mPickPoint = Vector2::Zero;
 
 			player->SetState(Player::State::Idle);
@@ -132,6 +135,7 @@ void PlayerScript::Update()
 
 		vec.Normalize();
 
+		// SetPlayerIndex
 		{
 			float angle = GetAngle(mPickPoint);
 
@@ -207,7 +211,6 @@ void PlayerScript::Update()
 			}
 			player->SetState(Player::State::Move);
 		}
-
 
 		pos += vec * Time::GetInstance()->DeltaTime() * speed;
 

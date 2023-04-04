@@ -5,6 +5,7 @@
 #include "Dx11_Engine.h"
 #include "Engin_Source//CApplication.h"
 #include "CEditor.h"
+#include <Resource.h>
 
 #ifdef _DEBUG
 #pragma comment(lib, "..\\x64\\Debug\\Lib\\Engin_Source.lib")
@@ -145,8 +146,8 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.cbClsExtra     = 0;
     wcex.cbWndExtra     = 0;
     wcex.hInstance      = hInstance;
-    wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_DX11ENGINE));
-    wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
+    wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDC_MYICON));
+    wcex.hCursor        = LoadCursor(hInstance, MAKEINTRESOURCE(IDC_MY_CURSOR1));
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
     wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_DX11ENGINE);
     wcex.lpszClassName  = szWindowClass;
