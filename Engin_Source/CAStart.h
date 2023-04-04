@@ -89,11 +89,11 @@ public:
 
 	void RemoveOpenList(Node node);
 
-	void OnA_Star(Node& node, Vec& start, Vec& end, bool run = true);
+	bool OnA_Star(Node& node, Vec& start, Vec& end, bool run = true);
 	void Compare(Node overlap);
 	Node DistanceList();
 
-	const stack<Node>& Result();
+	void Result();
 
 	UINT GetMaxX() { return mMaxX; }
 	UINT GetMaxY() { return mMaxY; }
@@ -104,6 +104,8 @@ public:
 	bool IsRunning() { return mbRun; }
 	void StopRun() { mbRun = false; }
 	void ClearNode();
+
+	Node* GetNextNode();
 
 private:
 	UINT mMaxX;

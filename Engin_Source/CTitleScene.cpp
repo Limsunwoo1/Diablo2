@@ -80,15 +80,15 @@ void TitleScene::Initalize()
 		BackGround* ground = Object::Instantiate<BackGround>(eLayerType::BackGround);
 		ground->SetName(L"BackGround2");
 
-		ground->FindTextuer2D(L"TitleTexture2", L"UI\\Title_02.png");
 		Transform* tr = ground->GetComponent<Transform>();
-
 		tr->SetScale(Vector3(width / 100.f, height / 100.f, 0.0f));
+
 
 		MeshRenderer* mr = ground->AddComponent<MeshRenderer>();
 
 		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"FadeMesh");
 		std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		material->SetTexture(eTextureSlot::T0 ,ground->FindTextuer2D(L"TitleTexture2", L"UI\\Title_02.png"));
 		mr->SetMesh(mesh);
 		mr->SetMaterial(material);
 

@@ -1,5 +1,6 @@
 #pragma once
 #include "CScript.h"
+#include "CAStart.h"
 
 using namespace Math;
 class PlayerScript : public Script
@@ -20,11 +21,13 @@ public:
 	void Idle();
 	void Move();
 
-	float PickAngle(Vector2 point);
+	float GetAngle(Vector2 point);
 	
 private:
 	Vector3 mArrivePos;
 	Vector2 mPickPoint;
 	bool mbRun;
+
+	AStar::Node* mNode;
 };
 

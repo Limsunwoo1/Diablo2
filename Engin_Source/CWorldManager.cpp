@@ -1,5 +1,5 @@
 #include "CWorldManager.h"
-#define WORLD_SCALE 100
+#define WORLD_SCALE 1000
 
 WorldManager::WorldManager()
 	: worldScale(WORLD_SCALE)
@@ -26,7 +26,10 @@ void WorldManager::Initialize()
 		world[i].resize(WORLD_SCALE);
 	}
 
-	world[0][0] == 1;
+	world[10][10] = 1;
+
+	PlayerIndex.x = 10;
+	PlayerIndex.y = 10;
 	//world[99][99] = 2;
 }
 

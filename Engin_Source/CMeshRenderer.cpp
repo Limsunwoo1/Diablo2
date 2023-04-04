@@ -24,6 +24,7 @@ void MeshRenderer::Update()
 
 void MeshRenderer::FixedUpdate()
 {
+
 }
 
 void MeshRenderer::Render()

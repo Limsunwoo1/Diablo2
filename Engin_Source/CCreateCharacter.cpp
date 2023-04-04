@@ -40,7 +40,6 @@ void CreateCharactorScene::Initalize()
 		BackGround* ground = Object::Instantiate<BackGround>(eLayerType::BackGround, this);
 		ground->SetName(L"BackGround5");
 
-		ground->FindTextuer2D(L"TitleTexture5", L"UI\\charactercreationsCreate.png");
 		Transform* tr = ground->GetComponent<Transform>();
 		tr->SetScale(Vector3(8.0f, 6.0f, 0.0f));
 
@@ -48,6 +47,7 @@ void CreateCharactorScene::Initalize()
 
 		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"FadeMesh");
 		std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		material->SetTexture(eTextureSlot::T0, ground->FindTextuer2D(L"TitleTexture5", L"UI\\charactercreationsCreate.png"));
 		mr->SetMesh(mesh);
 		mr->SetMaterial(material);
 

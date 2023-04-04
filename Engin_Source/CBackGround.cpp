@@ -30,15 +30,15 @@ void BackGround::FixedUpdate()
 {
 	//MeshRenderer* mr = GetComponent<MeshRenderer>();
 	//mr->GetMaterial()->SetTexture(mTextuer2D);
+	MeshRenderer* mr = GetComponent<MeshRenderer>();
+	mr->GetMaterial()->SetTexture(eTextureSlot::T0, mTextuer2D);
+	mr->GetMaterial()->SetRenderingMode(mbMode);
+
 	GameObject::FixedUpdate();
 }
 
 void BackGround::Render()
 {
-	MeshRenderer* mr = GetComponent<MeshRenderer>();
-	mr->GetMaterial()->SetTexture(eTextureSlot::T0, mTextuer2D);
-	mr->GetMaterial()->SetRenderingMode(mbMode);
-
 	GameObject::Render();
 }
 

@@ -169,6 +169,9 @@
     <Filter Include="WorldManager">
       <UniqueIdentifier>{da15a4ba-ecee-434b-9cbf-2b7318a10c1d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Tile">
+      <UniqueIdentifier>{1a52d973-8179-4643-9cfe-2bf40c3a6835}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -332,6 +335,9 @@
     </ClCompile>
     <ClCompile Include="CWorldManager.cpp">
       <Filter>WorldManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CTileObject.cpp">
+      <Filter>GameObject\Tile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -514,6 +520,9 @@
     </ClInclude>
     <ClInclude Include="CWorldManager.h">
       <Filter>WorldManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CTileObject.h">
+      <Filter>GameObject\Tile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

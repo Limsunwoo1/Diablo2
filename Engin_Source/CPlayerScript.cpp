@@ -8,12 +8,15 @@
 #include "CGraphicDevice_DX11.h"
 #include "CAStart.h"
 #include "CWorldManager.h"
+#include "CRenderer.h"
+#include "CCamera.h"
 
 PlayerScript::PlayerScript()
 	: Script()
 	, mArrivePos(Vector3::Zero)
 	, mbRun(false)
 	, mPickPoint(Vector2::Zero)
+	, mNode(nullptr)
 {
 }
 
@@ -32,7 +35,7 @@ void PlayerScript::Initalize()
 
 void PlayerScript::Update()
 {
-	
+
 	Player* player = dynamic_cast<Player*>(GetOwner());
 
 	if (player == nullptr)
@@ -41,64 +44,9 @@ void PlayerScript::Update()
 	Transform* tr = player->GetComponent<Transform>();
 	Vector3 pos = tr->GetPosition();
 
-	float speed = 3.f;
-	/*if (player->GetState() != Player::State::Attack
-		&& player->GetState() != Player::State::Skil)
-	{
-		if (Input::GetInstance()->GetKeyPress(eKeyCode::UP))
-		{
-			if (player->PlayerDirection(1))
-			{
-				player->SetState(Player::State::Move);
-				pos += speed * tr->Up() * Time::GetInstance()->DeltaTime();
-			}
-		}
-		else if (Input::GetInstance()->GetKeyPress(eKeyCode::DOWN))
-		{
-			if (player->PlayerDirection(3))
-			{
-				player->SetState(Player::State::Move);
-				pos += speed * -tr->Up() * Time::GetInstance()->DeltaTime();
-			}
-		}
-		if (Input::GetInstance()->GetKeyPress(eKeyCode::RIGHT))
-		{
-			if (player->PlayerDirection(2))
-			{
-				player->SetState(Player::State::Move);
-				pos += speed * tr->Right() * Time::GetInstance()->DeltaTime();
-			}
-		}
-		else if (Input::GetInstance()->GetKeyPress(eKeyCode::LEFT))
-		{
-			if (player->PlayerDirection(4))
-			{
-				player->SetState(Player::State::Move);
-				pos += speed * -tr->Right() * Time::GetInstance()->DeltaTime();
-			}
-		}*/
+	cout << "X    " << pos.x << "    Y    " << pos.y << endl;
 
-		if (player->GetDirection() == 1)
-		{
-			if (Input::GetInstance()->GetKeyUp(eKeyCode::UP))
-				player->SetState(Player::State::Idle);
-		}
-		else if (player->GetDirection() == 2)
-		{
-			if (Input::GetInstance()->GetKeyUp(eKeyCode::RIGHT))
-				player->SetState(Player::State::Idle);
-		}
-		else if (player->GetDirection() == 3)
-		{
-			if (Input::GetInstance()->GetKeyUp(eKeyCode::DOWN))
-				player->SetState(Player::State::Idle);
-		}
-		else if (player->GetDirection() == 4)
-		{
-			if (Input::GetInstance()->GetKeyUp(eKeyCode::LEFT))
-				player->SetState(Player::State::Idle);
-		}
-	
+	float speed = 2.f;
 
 	if (Input::GetInstance()->GetKeyPress(eKeyCode::A))
 	{
@@ -114,132 +62,156 @@ void PlayerScript::Update()
 	}
 
 
-	if (Input::GetInstance()->GetKeyDown(eKeyCode::RBTN))
+	if (Input::GetInstance()->GetKeyUp(eKeyCode::RBTN))
 	{
 		//a*
-		Vector2 index = Input::GetInstance()->GetMouseScreenIndex();
-
-		Vector2 Wpos = WorldManager::GetInstance()->GetPlayerIndex();
-		Vector2 Wend = WorldManager::GetInstance()->GetEndIndex();
-
-		cout << "P 포즈" << Wpos.x << "  " << Wpos.y << endl;
-		cout << "E 포즈" << Wend.x << "  " << Wend.y << endl;
-		
-		AStar* astart = GetOwner()->GetComponent<AStar>();
+		AStar* astar = GetOwner()->GetComponent<AStar>();
 		AStar::Node node = {};
 		AStar::Vec end = {};
 
-		Vector2 playerIndex = WorldManager::GetInstance()->GetPlayerIndex();
-		node.Pos.x = (UINT)playerIndex.x;
-		node.Pos.y = (UINT)playerIndex.y;
-
-		end.x = (UINT)(playerIndex.x + index.x);
-		end.y = (UINT)(playerIndex.y + index.y);
-
-		UINT max = WorldManager::GetInstance()->GetScale();
-		node.Id = (node.Pos.y * max) + (node.Pos.x % max);
-
-		//end.x = (UINT)(playerIndex.x + index.x);
-		//end.y = (UINT)(playerIndex.y + index.y);
-
-		if (WorldManager::GetInstance()->SetPath(node.Pos.x, node.Pos.y, end.x, end.y))
-			astart->OnA_Star(node, node.Pos, end);
-
-		///////////////////////////////////////////////////////////////////////////////////
-		Vector2 mouse = Input::GetInstance()->GetMouseWorldPos();
-		mPickPoint = mouse;
-		float angle = PickAngle(mPickPoint);
-
-		Vector2 vec = mPickPoint - Vector2(pos.x, pos.y);
-
-		if (vec.x <= 0.0f)
+		if (!astar->IsRunning())
 		{
-			if (angle >= 0.0f && angle < 22.5f)
+			Vector2 index = Input::GetInstance()->GetMouseWorldPos();
+
+			Vector2 Wpos = WorldManager::GetInstance()->GetPlayerIndex();
+			Vector2 Wend = WorldManager::GetInstance()->GetEndIndex();
+
+			Vector2 playerIndex = WorldManager::GetInstance()->GetPlayerIndex();
+			node.Pos.x = (UINT)playerIndex.x;
+			node.Pos.y = (UINT)playerIndex.y;
+
+			end.x = index.x;
+			end.y = index.y;
+
+			UINT max = WorldManager::GetInstance()->GetScale();
+			node.Id = (node.Pos.y * max) + (node.Pos.x % max);
+
+			if (WorldManager::GetInstance()->SetPath(node.Pos.x, node.Pos.y, end.x, end.y))
 			{
-				player->PlayerDirection(0);
+				if (astar->OnA_Star(node, node.Pos, end))
+					mPickPoint = Vector2::Zero;
 			}
-			else if (angle >= 22.5f && angle < 50.f)
+
+			///////////////////////////////////////////////////////////////////////////////////
+		}
+	}
+
+
+	if (Input::GetInstance()->GetKeyDown(eKeyCode::RBTN))
+	{
+		//mPickPoint = Input::GetInstance()->GetMouseWorldPos();
+
+	}
+	if (mNode == nullptr && mPickPoint == Vector2::Zero)
+	{
+		AStar* astar = GetOwner()->GetComponent<AStar>();
+		mNode = astar->GetNextNode();
+		if (mNode != nullptr)
+		{
+			// lefttop 좌표를 32를 더해 타일 중앙에 좌표를 설정
+			mPickPoint = Vector2((mNode->Pos.x), (mNode->Pos.y));
+			if (WorldManager::GetInstance()->GetEndIndex() == mPickPoint)
 			{
-				player->PlayerDirection(1);
-			}
-			else if (angle >= 50.f && angle < 75.5f)
-			{
-				player->PlayerDirection(2);
-			}
-			else if (angle >= 75.5f && angle < 90.f)
-			{
-				player->PlayerDirection(3);
-			}
-			else if (angle >= 90.f && angle < 115.f)
-			{
-				player->PlayerDirection(4);
-			}
-			else if (angle >= 115.f && angle < 140.f)
-			{
-				player->PlayerDirection(5);
-			}
-			else if (angle >= 140.f && angle < 165.5f)
-			{
-				player->PlayerDirection(6);
-			}
-			else
-			{
-				player->PlayerDirection(7);
+				WorldManager::GetInstance()->SetPlayerIndex(mNode->Pos.x, mNode->Pos.y);
 			}
 		}
-		else
-		{
-			if (angle >= 0.0f && angle < 22.5f)
-			{
-				player->PlayerDirection(8);
-			}
-			else if (angle >= 22.5f && angle < 50.f)
-			{
-				player->PlayerDirection(9);
-			}
-			else if (angle >= 50.f && angle < 75.5f)
-			{
-				player->PlayerDirection(10);
-			}
-			else if (angle >= 75.5f && angle < 90.f)
-			{
-				player->PlayerDirection(11);
-			}
-			else if (angle >= 90.f && angle < 115.f)
-			{
-				player->PlayerDirection(12);
-			}
-			else if (angle >= 115.f && angle < 140.f)
-			{
-				player->PlayerDirection(13);
-			}
-			else if (angle >= 140.f && angle < 165.5f)
-			{
-				player->PlayerDirection(14);
-			}
-			else
-			{
-				player->PlayerDirection(15);
-			}
-		}
-
-
-		player->SetState(Player::State::Move);
 	}
 
 	if (mPickPoint != Vector2::Zero)
 	{
+
 		Vector3 vec = mPickPoint - pos;
 
 		if (fabs(vec.x) < 0.05f && fabs(vec.y) < 0.05f)
 		{
 			mPickPoint = Vector2::Zero;
+
 			player->SetState(Player::State::Idle);
 			return;
 		}
 
 		vec.Normalize();
+
+		{
+			float angle = GetAngle(mPickPoint);
+
+			if (vec.x <= 0.0f)
+			{
+				if (angle >= 0.0f && angle < 22.5f)
+				{
+					player->PlayerDirection(0);
+				}
+				else if (angle >= 22.5f && angle < 50.f)
+				{
+					player->PlayerDirection(1);
+				}
+				else if (angle >= 50.f && angle < 75.5f)
+				{
+					player->PlayerDirection(2);
+				}
+				else if (angle >= 75.5f && angle < 90.f)
+				{
+					player->PlayerDirection(3);
+				}
+				else if (angle >= 90.f && angle < 115.f)
+				{
+					player->PlayerDirection(4);
+				}
+				else if (angle >= 115.f && angle < 140.f)
+				{
+					player->PlayerDirection(5);
+				}
+				else if (angle >= 140.f && angle < 165.5f)
+				{
+					player->PlayerDirection(6);
+				}
+				else
+				{
+					player->PlayerDirection(7);
+				}
+			}
+			else
+			{
+				if (angle >= 0.0f && angle < 22.5f)
+				{
+					player->PlayerDirection(8);
+				}
+				else if (angle >= 22.5f && angle < 50.f)
+				{
+					player->PlayerDirection(9);
+				}
+				else if (angle >= 50.f && angle < 75.5f)
+				{
+					player->PlayerDirection(10);
+				}
+				else if (angle >= 75.5f && angle < 90.f)
+				{
+					player->PlayerDirection(11);
+				}
+				else if (angle >= 90.f && angle < 115.f)
+				{
+					player->PlayerDirection(12);
+				}
+				else if (angle >= 115.f && angle < 140.f)
+				{
+					player->PlayerDirection(13);
+				}
+				else if (angle >= 140.f && angle < 165.5f)
+				{
+					player->PlayerDirection(14);
+				}
+				else
+				{
+					player->PlayerDirection(15);
+				}
+			}
+			player->SetState(Player::State::Move);
+		}
+
+
 		pos += vec * Time::GetInstance()->DeltaTime() * speed;
+
+		mNode = nullptr;
 	}
 
 	if (player->GetState() == Player::State::Idle
@@ -277,7 +249,7 @@ void PlayerScript::Move()
 
 }
 
-float PlayerScript::PickAngle(Vector2 point)
+float PlayerScript::GetAngle(Vector2 point)
 {
 	Transform* tr = GetOwner()->GetComponent<Transform>();
 

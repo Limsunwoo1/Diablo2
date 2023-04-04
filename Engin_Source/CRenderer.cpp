@@ -462,10 +462,10 @@ namespace Renderer
 #pragma endregion
 #pragma region PAINT SHADER
 		// Paint Shader
-		/*std::shared_ptr<PaintShader> paintShader = std::make_shared<PaintShader>();
+		std::shared_ptr<PaintShader> paintShader = std::make_shared<PaintShader>();
 		paintShader->Create(L"PaintCS.hlsl", "main");
 
-		ResourceManager::GetInstance()->Insert<PaintShader>(L"PaintShader", paintShader);*/
+		ResourceManager::GetInstance()->Insert<PaintShader>(L"PaintShader", paintShader);
 #pragma endregion
 #pragma region PARTICLE SHADER
 		// Particle Shader
@@ -495,6 +495,7 @@ namespace Renderer
 		ResourceManager::GetInstance()->Load<Texture2D>(L"SmileTexture", L"Smile.png");
 		ResourceManager::GetInstance()->Load<Texture2D>(L"DefaultSprite", L"Light.png");
 		ResourceManager::GetInstance()->Load<Texture2D>(L"HPBarTexture", L"HPBar.png");
+		ResourceManager::GetInstance()->Load<Texture2D>(L"ShopIdle", L"ShopIdle.png");
 
 		//ResourceManager::GetInstance()->Load<Texture2D>(L"Diablo2_Town_Idle", L"diablo2_Town_Idle.png");
 		ResourceManager::GetInstance()->Load<Texture2D>(L"CartoonSmoke", L"particle\\CartoonSmoke.png");
@@ -524,14 +525,14 @@ namespace Renderer
 		ResourceManager::GetInstance()->Insert<Material>(L"RectMaterial", material);
 #pragma endregion
 #pragma region PAINT MATERIAL
-		/*{
+		{
 			std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"PaintTexture");
-			std::shared_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"RectShader");
+			std::shared_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"PaintShader");
 			std::shared_ptr<Material> material = std::make_shared<Material>();
 			material->SetShader(shader);
 			material->SetTexture(eTextureSlot::T0, texture);
 			ResourceManager::GetInstance()->Insert<Material>(L"noiseMaterial", material);
-		}*/
+		}
 #pragma endregion
 #pragma region SPTRITE MATERIAL
 		std::shared_ptr <Texture2D> spriteTexture = ResourceManager::GetInstance()->Find<Texture2D>(L"DefaultSprite");

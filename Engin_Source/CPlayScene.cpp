@@ -17,6 +17,8 @@
 #include "CLight.h"
 #include "CpaintShader.h"
 #include "CParticleSystem.h"
+#include "CTileObject.h"
+#include "CWorldManager.h"
 
 using namespace graphics;
 
@@ -54,6 +56,7 @@ void PlayScene::Initalize()
 	{
 		GameObject* cameraObj = Object::Instantiate<GameObject>(eLayerType::Camera, this);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
+		//cameraObj->GetComponent<Transform>()->SetPosition(Vector3(1.5f, 1.5f, 1.0f));
 		//cameraComp->RegisterCameraInRenderer();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		cameraObj->AddComponent<CameraScript>();
@@ -82,7 +85,7 @@ void PlayScene::Initalize()
 		collider->SetType(eColliderType::Rect);
 
 		Transform* tr = player->GetComponent<Transform>();
-		tr->SetPosition(Vector3::Zero);
+		tr->SetPosition(Vector3(10.0f, 10.0f, 1.0f));
 		tr->SetScale(Vector3(2.0f, 2.0f, 1.0f));
 
 		SpriteRenderer* spr = player->AddComponent<SpriteRenderer>();
@@ -100,39 +103,306 @@ void PlayScene::Initalize()
 		//60 75.875f
 	}
 
-	//SMILE RECT
+	// tile
 	{
-		//GameObject* obj = Object::Instantiate<GameObject>(eLayerType::BackGround, this);
-		//obj->SetName(L"SMILE");
-		//Transform* tr = obj->GetComponent<Transform>();
-		//tr->SetPosition(Vector3(2.0f, 0.0f, 5.0f));
-		//tr->SetScale(Vector3(4.0f, 4.0f, 2.0f));
-		//tr->SetScale(Vector3(2.0f, 1.0f, 1.0f));
-		//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2 / 2.0f));
-		//tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
-		//Collider2D* collider = obj->AddComponent<Collider2D>();
-		//collider->SetSize(Vector2(2.0f, 2.0f));
-		//collider->SetType(eColliderType::Rect);
-		//collider->SetCenter(Vector2(0.2f, 0.2f));
-		//collider->SetSize(Vector2(1.5f, 1.5f));
+		TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
 
-		/*SpriteRenderer* sr = obj->AddComponent<SpriteRenderer>();
-		std::shared_ptr<Material> mateiral = ResourceManager::GetInstance()->Find<Material>(L"noiseMaterial");
-		mateiral->Clear();
-		sr->SetMaterial(mateiral);
+		Collider2D* collider = tile->AddComponent<Collider2D>();
+		collider->SetSize(Vector2(0.5f, 0.5f));
+		collider->SetType(eColliderType::Rect);
+
+		Transform* tr = tile->GetComponent<Transform>();
+		tr->SetPosition(Vector3(11.0f, 11.0f, 1.0f));
+		tr->SetRotation(Vector3(0.f, 0.f, -45.f));
+
+		MeshRenderer* mr = tile->AddComponent<MeshRenderer>();
 		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-		sr->SetMesh(mesh);*/
+		std::shared_ptr<Material> mater= ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		std::shared_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
+
+		mater->SetTexture(eTextureSlot::T0, tex);
+
+		mr->SetMesh(mesh);
+		mr->SetMaterial(mater);
+
+		WorldManager::GetInstance()->Setobstacle(tr->GetPosition().x, tr->GetPosition().y);
 	}
 
+	{
+		TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
+
+		Collider2D* collider = tile->AddComponent<Collider2D>();
+		collider->SetSize(Vector2(0.5f, 0.5f));
+		collider->SetType(eColliderType::Rect);
+
+		Transform* tr = tile->GetComponent<Transform>();
+		tr->SetPosition(Vector3(12.0f, 11.0f, 1.0f));
+		tr->SetRotation(Vector3(0.f, 0.f, -45.f));
+
+		MeshRenderer* mr = tile->AddComponent<MeshRenderer>();
+		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		std::shared_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
+
+		mater->SetTexture(eTextureSlot::T0, tex);
+
+		mr->SetMesh(mesh);
+		mr->SetMaterial(mater);
+
+		WorldManager::GetInstance()->Setobstacle(tr->GetPosition().x, tr->GetPosition().y);
+	}
+
+	{
+		TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
+
+		Collider2D* collider = tile->AddComponent<Collider2D>();
+		collider->SetSize(Vector2(0.5f, 0.5f));
+		collider->SetType(eColliderType::Rect);
+
+		Transform* tr = tile->GetComponent<Transform>();
+		tr->SetPosition(Vector3(13.0f, 11.0f, 1.0f));
+		tr->SetRotation(Vector3(0.f, 0.f, -45.f));
+
+		MeshRenderer* mr = tile->AddComponent<MeshRenderer>();
+		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		std::shared_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
+
+		mater->SetTexture(eTextureSlot::T0, tex);
+
+		mr->SetMesh(mesh);
+		mr->SetMaterial(mater);
+
+		WorldManager::GetInstance()->Setobstacle(tr->GetPosition().x, tr->GetPosition().y);
+	}
+
+	{
+		TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
+
+		Collider2D* collider = tile->AddComponent<Collider2D>();
+		collider->SetSize(Vector2(0.5f, 0.5f));
+		collider->SetType(eColliderType::Rect);
+
+		Transform* tr = tile->GetComponent<Transform>();
+		tr->SetPosition(Vector3(14.0f, 11.0f, 1.0f));
+		tr->SetRotation(Vector3(0.f, 0.f, -45.f));
+
+		MeshRenderer* mr = tile->AddComponent<MeshRenderer>();
+		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		std::shared_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
+
+		mater->SetTexture(eTextureSlot::T0, tex);
+
+		mr->SetMesh(mesh);
+		mr->SetMaterial(mater);
+
+		WorldManager::GetInstance()->Setobstacle(tr->GetPosition().x, tr->GetPosition().y);
+	}
+
+	{
+		TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
+
+		Collider2D* collider = tile->AddComponent<Collider2D>();
+		collider->SetSize(Vector2(0.5f, 0.5f));
+		collider->SetType(eColliderType::Rect);
+
+		Transform* tr = tile->GetComponent<Transform>();
+		tr->SetPosition(Vector3(15.0f, 11.0f, 1.0f));
+		tr->SetRotation(Vector3(0.f, 0.f, -45.f));
+
+		MeshRenderer* mr = tile->AddComponent<MeshRenderer>();
+		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		std::shared_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
+
+		mater->SetTexture(eTextureSlot::T0, tex);
+
+		mr->SetMesh(mesh);
+		mr->SetMaterial(mater);
+
+		WorldManager::GetInstance()->Setobstacle(tr->GetPosition().x, tr->GetPosition().y);
+	}
+
+	{
+		TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
+
+		Collider2D* collider = tile->AddComponent<Collider2D>();
+		collider->SetSize(Vector2(0.5f, 0.5f));
+		collider->SetType(eColliderType::Rect);
+
+		Transform* tr = tile->GetComponent<Transform>();
+		tr->SetPosition(Vector3(16.0f, 11.0f, 1.0f));
+		tr->SetRotation(Vector3(0.f, 0.f, -45.f));
+
+		MeshRenderer* mr = tile->AddComponent<MeshRenderer>();
+		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		std::shared_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
+
+		mater->SetTexture(eTextureSlot::T0, tex);
+
+		mr->SetMesh(mesh);
+		mr->SetMaterial(mater);
+
+		WorldManager::GetInstance()->Setobstacle(tr->GetPosition().x, tr->GetPosition().y);
+	}
+
+	{
+		TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
+
+		Collider2D* collider = tile->AddComponent<Collider2D>();
+		collider->SetSize(Vector2(0.5f, 0.5f));
+		collider->SetType(eColliderType::Rect);
+
+		Transform* tr = tile->GetComponent<Transform>();
+		tr->SetPosition(Vector3(16.0f, 10.0f, 1.0f));
+		tr->SetRotation(Vector3(0.f, 0.f, -45.f));
+
+		MeshRenderer* mr = tile->AddComponent<MeshRenderer>();
+		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		std::shared_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
+
+		mater->SetTexture(eTextureSlot::T0, tex);
+
+		mr->SetMesh(mesh);
+		mr->SetMaterial(mater);
+
+		WorldManager::GetInstance()->Setobstacle(tr->GetPosition().x, tr->GetPosition().y);
+	}
+
+	{
+		TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
+
+		Collider2D* collider = tile->AddComponent<Collider2D>();
+		collider->SetSize(Vector2(0.5f, 0.5f));
+		collider->SetType(eColliderType::Rect);
+
+		Transform* tr = tile->GetComponent<Transform>();
+		tr->SetPosition(Vector3(16.0f, 9.0f, 1.0f));
+		tr->SetRotation(Vector3(0.f, 0.f, -45.f));
+
+		MeshRenderer* mr = tile->AddComponent<MeshRenderer>();
+		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		std::shared_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
+
+		mater->SetTexture(eTextureSlot::T0, tex);
+
+		mr->SetMesh(mesh);
+		mr->SetMaterial(mater);
+
+		WorldManager::GetInstance()->Setobstacle(tr->GetPosition().x, tr->GetPosition().y);
+	}
+
+	{
+		TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
+
+		Collider2D* collider = tile->AddComponent<Collider2D>();
+		collider->SetSize(Vector2(0.5f, 0.5f));
+		collider->SetType(eColliderType::Rect);
+
+		Transform* tr = tile->GetComponent<Transform>();
+		tr->SetPosition(Vector3(16.0f, 8.0f, 1.0f));
+		tr->SetRotation(Vector3(0.f, 0.f, -45.f));
+
+		MeshRenderer* mr = tile->AddComponent<MeshRenderer>();
+		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		std::shared_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
+
+		mater->SetTexture(eTextureSlot::T0, tex);
+
+		mr->SetMesh(mesh);
+		mr->SetMaterial(mater);
+
+		WorldManager::GetInstance()->Setobstacle(tr->GetPosition().x, tr->GetPosition().y);
+	}
+
+	{
+		TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
+
+		Collider2D* collider = tile->AddComponent<Collider2D>();
+		collider->SetSize(Vector2(0.5f, 0.5f));
+		collider->SetType(eColliderType::Rect);
+
+		Transform* tr = tile->GetComponent<Transform>();
+		tr->SetPosition(Vector3(16.0f, 7.0f, 1.0f));
+		tr->SetRotation(Vector3(0.f, 0.f, -45.f));
+
+		MeshRenderer* mr = tile->AddComponent<MeshRenderer>();
+		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		std::shared_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
+
+		mater->SetTexture(eTextureSlot::T0, tex);
+
+		mr->SetMesh(mesh);
+		mr->SetMaterial(mater);
+
+		WorldManager::GetInstance()->Setobstacle(tr->GetPosition().x, tr->GetPosition().y);
+	}
+
+	{
+		TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
+
+		Collider2D* collider = tile->AddComponent<Collider2D>();
+		collider->SetSize(Vector2(0.5f, 0.5f));
+		collider->SetType(eColliderType::Rect);
+
+		Transform* tr = tile->GetComponent<Transform>();
+		tr->SetPosition(Vector3(16.0f, 6.0f, 1.0f));
+		tr->SetRotation(Vector3(0.f, 0.f, -45.f));
+
+		MeshRenderer* mr = tile->AddComponent<MeshRenderer>();
+		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		std::shared_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
+
+		mater->SetTexture(eTextureSlot::T0, tex);
+
+		mr->SetMesh(mesh);
+		mr->SetMaterial(mater);
+
+		WorldManager::GetInstance()->Setobstacle(tr->GetPosition().x, tr->GetPosition().y);
+	}
+
+	for (int i = 1; i < 6; ++i)
+	{
+		{
+			TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
+
+			Collider2D* collider = tile->AddComponent<Collider2D>();
+			collider->SetSize(Vector2(0.5f, 0.5f));
+			collider->SetType(eColliderType::Rect);
+
+			Transform* tr = tile->GetComponent<Transform>();
+			tr->SetPosition(Vector3(16.0f + i, 6.0f, 1.0f));
+			tr->SetRotation(Vector3(0.f, 0.f, -45.f));
+
+			MeshRenderer* mr = tile->AddComponent<MeshRenderer>();
+			std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+			std::shared_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
+
+			mater->SetTexture(eTextureSlot::T0, tex);
+
+			mr->SetMesh(mesh);
+			mr->SetMaterial(mater);
+
+			WorldManager::GetInstance()->Setobstacle(tr->GetPosition().x, tr->GetPosition().y);
+		}
+	}
 	//Particle
 	{
-		GameObject* obj = Object::Instantiate<GameObject>(eLayerType::Particle, this);
+		/*GameObject* obj = Object::Instantiate<GameObject>(eLayerType::Particle, this);
 		obj->SetName(L"Particle");
 
 		Transform* tr = obj->GetComponent<Transform>();
 		tr->SetPosition(Vector3(0.0f, 0.0f, 100.0f));
 
-		obj->AddComponent<ParticleSystem>();
+		obj->AddComponent<ParticleSystem>();*/
 	}
 
 	Scene::Initalize();

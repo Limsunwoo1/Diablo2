@@ -34,6 +34,7 @@ void AStar::FixedUpdate()
 	{
 		if (WorldManager::GetInstance()->GetTileNum(mCurNode.Pos.x, mCurNode.Pos.y) == 2)
 		{
+			
 			Result();
 			return;
 		}
@@ -194,10 +195,10 @@ void AStar::RemoveOpenList(Node node)
 		mOpenList.erase(iter);
 }
 
-void AStar::OnA_Star(Node& node, Vec& start, Vec& end, bool run)
+bool AStar::OnA_Star(Node& node, Vec& start, Vec& end, bool run)
 {
 	if (mbRun)
-		return;
+		return false;
 
 	ClearNode();
 
@@ -207,7 +208,7 @@ void AStar::OnA_Star(Node& node, Vec& start, Vec& end, bool run)
 	//SetIndex
 	mStart = start;
 	mEnd = end;
-	mbRun = run;
+	mbRun = true;
 
 	// SetNode
 	mCurNode = Node{ node.Pos.x, node.Pos.y, node.Cost, node.Heuristick, node.Distance, node.ParentIndex };
@@ -217,8 +218,8 @@ void AStar::OnA_Star(Node& node, Vec& start, Vec& end, bool run)
 	mCurNode.Heuristick = GetHeuristick(node.Pos.x, node.Pos.y);
 	mCurNode.Distance = mCurNode.GetDistance();
 
-
 	mCloseList.emplace(make_pair(mCurNode.Id, mCurNode));
+	return true;
 }
 
 void AStar::Compare(Node duplication)
@@ -351,7 +352,7 @@ AStar::Node AStar::DistanceList()
 	return node;
 }
 
-const stack<AStar::Node>& AStar::Result()
+void AStar::Result()
 {
 	while (!mResult.empty())
 	{
@@ -362,34 +363,19 @@ const stack<AStar::Node>& AStar::Result()
 	unordered_map<UINT, Node>::iterator iter;
 	UINT count = 0;
 
-
+	Node node = mCurNode;
 	while (1)
 	{
 		if ((mCurNode.Pos.x == mStart.x && mCurNode.Pos.y == mStart.y))
-			/*&& (mCurNode.ParentIndex.x < 0 || mCurNode.ParentIndex.y < 0)*/
 		{
-			mbRun = false;
-
-			Node node = {};
-			// 예제 코드
-			while (!mResult.empty())
-			{
-				node = mResult.top();
-				cout << "X 좌표 " << node.Pos.x;
-				cout << "  Y 좌표 " << node.Pos.y << endl;
-				mResult.pop();
-			}
-			cout << "길찾기 종료 " << endl;
-
 			WorldManager::GetInstance()->SetEndIndex(node.Pos.x, node.Pos.y);
-			WorldManager::GetInstance()->SetPlayerIndex(node.Pos.x, node.Pos.y);
 
-			ClearNode();
-			return mResult;
+			mbRun = false;
+			return;
 		}
 
 		if (count == 100000)
-			return mResult;
+			return;
 
 		mResult.push(mCurNode);
 
@@ -401,8 +387,6 @@ const stack<AStar::Node>& AStar::Result()
 		mCurNode = iter->second;
 		count++;
 	}
-
-	return mResult;
 }
 
 void AStar::ClearNode()
@@ -429,5 +413,21 @@ void AStar::ClearNode()
 
 	while (!mResult.empty()) { mResult.pop(); }
 	while (!mDistanceList.empty()) { mDistanceList.pop(); }
+}
+
+AStar::Node* AStar::GetNextNode()
+{
+	if (mResult.empty())
+	{
+		return nullptr;
+	}
+	else
+	{
+		Node* node = &(mResult.top());
+		mResult.pop();
+
+		return node;
+	}
+	return nullptr;
 }
 

@@ -201,6 +201,7 @@
     <ClInclude Include="CStructedBuffer.h" />
     <ClInclude Include="CTexture2D.h" />
     <ClInclude Include="CTile.h" />
+    <ClInclude Include="CTileObject.h" />
     <ClInclude Include="CTitleScene.h" />
     <ClInclude Include="CTransform.h" />
     <ClInclude Include="CWorldManager.h" />
@@ -260,6 +261,7 @@
     <ClCompile Include="CStructedBuffer.cpp" />
     <ClCompile Include="CTexture2D.cpp" />
     <ClCompile Include="CTile.cpp" />
+    <ClCompile Include="CTileObject.cpp" />
     <ClCompile Include="CTitleScene.cpp" />
     <ClCompile Include="CTransform.cpp" />
     <ClCompile Include="CWorldManager.cpp" />

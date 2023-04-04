@@ -15,6 +15,7 @@ enum class eLayerType
 	None = 0,
 	Camera,
 	BackGround,
+	Tile,
 	Grid,
 	Monster,
 	Player,

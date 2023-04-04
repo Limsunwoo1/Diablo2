@@ -19,6 +19,9 @@ public:
 
 	void SetPlayerIndex(const int& x, const int& y) { PlayerIndex = Math::Vector2(x, y); world[y][x] = 1; }
 	void SetEndIndex(const int& x, const int& y) { EndIndex = Math::Vector2(x, y); world[y][x] = 2; }
+	void SetZero(const int& x, const int& y) { world[y][x] = 0; }
+	void Setobstacle(const int& x, const int& y) { world[y][x] = 3; }
+
 	bool SetPath(const int& startX, const int& startY, const int& endX, const int& endY);
 
 	Math::Vector2 GetPlayerIndex() { return PlayerIndex; }
