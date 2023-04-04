@@ -122,7 +122,7 @@ void PlayerScript::Update()
 
 		Vector3 vec = mPickPoint - pos;
 
-		if (fabs(vec.x) < 0.05f && fabs(vec.y) < 0.05f)
+		if (fabs(vec.x) < 0.005f && fabs(vec.y) < 0.005f)
 		{
 			mPickPoint = Vector2::Zero;
 
