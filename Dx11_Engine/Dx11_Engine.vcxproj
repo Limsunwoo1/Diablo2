@@ -164,6 +164,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\0.cur" />
     <None Include="C:\Users\tjsdn\OneDrive\바탕 화면\0.cur" />
     <None Include="cursor1.cur" />
     <None Include="POINTER.cur" />

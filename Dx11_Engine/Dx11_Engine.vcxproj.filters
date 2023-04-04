@@ -82,5 +82,8 @@
     <None Include="cursor1.cur">
       <Filter>리소스 파일</Filter>
     </None>
+    <None Include="..\0.cur">
+      <Filter>리소스 파일</Filter>
+    </None>
   </ItemGroup>
 </Project>
