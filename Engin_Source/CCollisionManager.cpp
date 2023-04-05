@@ -188,25 +188,22 @@ bool CollisionManager::Rect_VS_Rect(Collider2D* left, Collider2D* right)
 	Matrix leftMatrix = leftTransform->GetWorldMatrix();
 	Matrix rightMatrix = rightTransform->GetWorldMatrix();
 
+	Matrix filnalleft = Matrix::CreateScale(leftTransform->GetScale());
+	filnalleft *= leftMatrix;
+
+	Matrix filnalright = Matrix::CreateScale(rightTransform->GetScale());
+	filnalright *= rightMatrix;
 	// 분리축 벡터 4 개 구하기
 	Vector3 Axis[4] = {};
-	Axis[0] = Vector3::Transform(arrLocalPos[1], leftMatrix);
-	Axis[1] = Vector3::Transform(arrLocalPos[3], leftMatrix);
-	Axis[2] = Vector3::Transform(arrLocalPos[1], rightMatrix);
-	Axis[3] = Vector3::Transform(arrLocalPos[3], rightMatrix);
+	Axis[0] = Vector3::Transform(arrLocalPos[1], filnalleft);
+	Axis[1] = Vector3::Transform(arrLocalPos[3], filnalleft);
+	Axis[2] = Vector3::Transform(arrLocalPos[1], filnalright);
+	Axis[3] = Vector3::Transform(arrLocalPos[3], filnalright);
 
-	Axis[0] -= Vector3::Transform(arrLocalPos[0], leftMatrix);
-	Axis[1] -= Vector3::Transform(arrLocalPos[0], leftMatrix);
-	Axis[2] -= Vector3::Transform(arrLocalPos[0], rightMatrix);
-	Axis[3] -= Vector3::Transform(arrLocalPos[0], rightMatrix);
-
-	Vector3 leftScale = Vector3(left->GetSize().x, left->GetSize().y, 1.0f);
-	Axis[0] = Axis[0] * leftScale;
-	Axis[1] = Axis[1] * leftScale;
-
-	Vector3 rightScale = Vector3(right->GetSize().x, right->GetSize().y, 1.0f);
-	Axis[2] = Axis[2] * rightScale;
-	Axis[3] = Axis[3] * rightScale;
+	Axis[0] -= Vector3::Transform(arrLocalPos[0], filnalleft);
+	Axis[1] -= Vector3::Transform(arrLocalPos[0], filnalleft);
+	Axis[2] -= Vector3::Transform(arrLocalPos[0], filnalright);
+	Axis[3] -= Vector3::Transform(arrLocalPos[0], filnalright);
 
 	for (int i = 0; i < 4; ++i)
 	{
