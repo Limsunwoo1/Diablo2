@@ -81,6 +81,7 @@ public:
 	virtual void Render() override;
 
 	UINT GetHeuristick(int x, int y);
+	UINT GetHeuristick2(int x, int y);
 	UINT GetCost(int x, int y, int InG);
 	UINT GetID(int x, int y);
 

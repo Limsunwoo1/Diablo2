@@ -61,21 +61,6 @@ void AStar::Render()
 
 UINT AStar::GetHeuristick(int x, int y)
 {
-	//int ix = abs(x - mEnd.X);
-	//int iy = abs(y - mEnd.Y);
-
-	//int tem = abs(ix - iy);
-	//int weight = 1;
-
-	//// 상황에 따른 가중치 알고리즘 추가하면
-	//// 조금 더 정교한 탐색이 가능해진다
-	///*if (tem == 0)
-	//    weight = 14;
-	//else
-	//    weight = 10;*/
-
-	//return (int)(weight * (std::sqrt(std::pow(x - mEnd.X, 2) + std::pow(y - mEnd.Y, 2))));
-
 	int ix = abs(x - mEnd.x);
 	int iy = abs(y - mEnd.y);
 
@@ -88,6 +73,25 @@ UINT AStar::GetHeuristick(int x, int y)
 
 	UINT H = (ix + iy) * 10;
 	return H + weight;
+}
+
+UINT AStar::GetHeuristick2(int x, int y)
+{
+	int ix = abs(x - mEnd.x);
+	int iy = abs(y - mEnd.y);
+
+	int tem = abs(ix + iy);
+	int weight = 1;
+
+	// 상황에 따른 가중치 알고리즘 추가하면
+	// 조금 더 정교한 탐색이 가능해진다
+	/*if (tem == 0)
+	    weight = 14;
+	else
+	    weight = 10;*/
+
+	return (int)(tem * (std::sqrt(std::pow(x - mEnd.x, 2) + std::pow(y - mEnd.y, 2))));
+	return 0;
 }
 
 UINT AStar::GetCost(int x, int y, int InG)
@@ -154,12 +158,12 @@ void AStar::AddOpenList(int x, int y, bool diagonal)
 	iter = mOpenList.find(node.Id);
 	if (iter != mOpenList.end())
 	{
-		if (diagonal)
-			return;
+		/*if (diagonal)
+			return;*/
 
 		// G 값 비교후 들어있는 
 		// 타일 데이터 수정 G, F
-		Compare(iter->second);
+		//Compare(iter->second);
 		return;
 	}
 
@@ -169,7 +173,7 @@ void AStar::AddOpenList(int x, int y, bool diagonal)
 	else
 		node.Cost = 10 + mCurNode.Cost;
 
-	node.Heuristick = GetHeuristick(node.Pos.x, node.Pos.y);
+	node.Heuristick = GetHeuristick2(node.Pos.x, node.Pos.y);
 	node.Distance = node.GetDistance();
 
 	node.ParentIndex = mCurNode.Pos;
@@ -215,7 +219,7 @@ bool AStar::OnA_Star(Node& node, Vec& start, Vec& end, bool run)
 
 	mCurNode.Id = (mCurNode.Pos.y * mMaxY) + (mCurNode.Pos.x % mMaxX);
 	mCurNode.Cost = 0;
-	mCurNode.Heuristick = GetHeuristick(node.Pos.x, node.Pos.y);
+	mCurNode.Heuristick = GetHeuristick2(node.Pos.x, node.Pos.y);
 	mCurNode.Distance = mCurNode.GetDistance();
 
 	mCloseList.emplace(make_pair(mCurNode.Id, mCurNode));
