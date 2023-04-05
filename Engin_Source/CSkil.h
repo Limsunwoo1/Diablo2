@@ -2,11 +2,11 @@
 #include "CGameObject.h"
 #include "Cplayer.h"
 
-class SkilFire : public GameObject
+class Skil : public GameObject
 {
 public:
-	SkilFire(Player* owner);
-	virtual ~SkilFire();
+	Skil(Player* owner);
+	virtual ~Skil();
 
 	virtual void Initalize() override;
 	virtual void Update() override;

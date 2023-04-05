@@ -87,3 +87,10 @@ enum class eLightType
 	Spot,
 	End,
 };
+
+//enum class eObjectReturnType
+//{
+//	Skil,
+//	Effect,
+//	End,
+//};

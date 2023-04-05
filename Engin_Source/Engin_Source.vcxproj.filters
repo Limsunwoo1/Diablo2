@@ -321,7 +321,7 @@
     <ClCompile Include="CComputeShader.cpp">
       <Filter>Manager\ResourceManager\Resource\ComputeShader</Filter>
     </ClCompile>
-    <ClCompile Include="CSkilFire.cpp">
+    <ClCompile Include="CSkil.cpp">
       <Filter>GameObject\PlayerSkilFire</Filter>
     </ClCompile>
     <ClCompile Include="CSkilFireBall.cpp">
@@ -509,7 +509,7 @@
     <ClInclude Include="CComputeShader.h">
       <Filter>Manager\ResourceManager\Resource\ComputeShader</Filter>
     </ClInclude>
-    <ClInclude Include="CSkilFire.h">
+    <ClInclude Include="CSkil.h">
       <Filter>GameObject\PlayerSkilFire</Filter>
     </ClInclude>
     <ClInclude Include="CSkilFireBall.h">

@@ -1,33 +1,33 @@
-#include "CSkilFire.h"
+#include "CSkil.h"
 #include "Cplayer.h"
 
-SkilFire::SkilFire(Player* player)
+Skil::Skil(Player* player)
 	: GameObject()
 	, mOwner(player)
 {
 	
 }
 
-SkilFire::~SkilFire()
+Skil::~Skil()
 {
 }
 
-void SkilFire::Initalize()
+void Skil::Initalize()
 {
 	GameObject::Initalize();
 }
 
-void SkilFire::Update()
+void Skil::Update()
 {
 	GameObject::Update();
 }
 
-void SkilFire::FixedUpdate()
+void Skil::FixedUpdate()
 {
 	GameObject::FixedUpdate();
 }
 
-void SkilFire::Render()
+void Skil::Render()
 {
 	GameObject::Render();
 }

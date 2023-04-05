@@ -1,7 +1,7 @@
 #pragma once
 #include "CEngine.h"
 #include "CGameObject.h"
-#include "CSkilFire.h"
+#include "CSkil.h"
 
 
 using namespace std;
@@ -15,21 +15,20 @@ public:
 	void FixedUpdate();
 	void Initialize();
 
-	template <typename T>
 	void AddSKilObject(GameObject* obj)
 	{
-		SkilFire* skil = dynamic_cast<T*>(obj);
+		Skil* skil = dynamic_cast<Skil*>(obj);
 		if (!skil)
 			return;
 
 		skil->Death();
 		SkilContainer.push(skil);
 	}
-	SkilFire* GetSkilObj(Player* owner);
+	Skil* GetSkilObj(Player* owner);
 
 
 
 private:
-	queue<SkilFire*> SkilContainer;
+	queue<Skil*> SkilContainer;
 };
 

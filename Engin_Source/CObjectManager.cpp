@@ -22,14 +22,13 @@ void ObjectManager::Initialize()
 {
 }
 
-SkilFire* ObjectManager::GetSkilObj(Player* owner)
+Skil* ObjectManager::GetSkilObj(Player* owner)
 {
-
-	SkilFire* out = nullptr;
+	Skil* out = nullptr;
 
 	if (SkilContainer.empty())
 	{
-		out = new SkilFire(owner);
+		out = new Skil(owner);
 	}
 	else
 	{

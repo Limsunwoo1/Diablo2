@@ -196,7 +196,7 @@
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CScript.h" />
     <ClInclude Include="CShader.h" />
-    <ClInclude Include="CSkilFire.h" />
+    <ClInclude Include="CSkil.h" />
     <ClInclude Include="CSkilFireBall.h" />
     <ClInclude Include="CSpriteRenderer.h" />
     <ClInclude Include="CStructedBuffer.h" />
@@ -257,7 +257,7 @@
     <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CScript.cpp" />
     <ClCompile Include="CShader.cpp" />
-    <ClCompile Include="CSkilFire.cpp" />
+    <ClCompile Include="CSkil.cpp" />
     <ClCompile Include="CSkilFireBall.cpp" />
     <ClCompile Include="CSpriteRenderer.cpp" />
     <ClCompile Include="CStructedBuffer.cpp" />

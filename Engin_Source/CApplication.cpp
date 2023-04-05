@@ -72,7 +72,7 @@ void CApplication::Run()
 
 void CApplication::Destroy()
 {
-
+	SceneManager::GetInstance()->Destroy();
 }
 
 void CApplication::Release()

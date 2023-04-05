@@ -9,6 +9,7 @@
 #include "CSceneManager.h"
 #include "CAStart.h"
 #include "CWorldManager.h"
+#include "CObjectManager.h"
 
 using namespace graphics;
 
@@ -33,24 +34,6 @@ void Player::Initalize()
 	mDirection[2] = 1;
 
 	AStar* astart = this->AddComponent<AStar>();
-	/*AStar::Node node = {};
-	AStar::Vec end = {};
-
-	node.Pos.x = 0;
-	node.Pos.y = 0;
-
-	node.Cost = 0;
-	node.Heuristick = astart->GetHeuristick(node.Pos.x, node.Pos.y);
-	node.Distance = node.GetDistance();
-
-	UINT max = WorldManager::GetInstance()->GetScale();
-	node.Id = (node.Pos.y * max) + (node.Pos.x % max);
-
-	end.x = 99;
-	end.y = 99;
-
-	if (WorldManager::GetInstance()->SetPath(node.Pos.x, node.Pos.y, end.x, end.y))
-		astart->OnA_Star(node, node.Pos, end);*/
 
 	GameObject::Initalize();
 }
@@ -311,7 +294,7 @@ void Player::SKil()
 	if (name.find(L"Skil") == wstring::npos)
 	{
 		animator->Play(playName, false);
-		//ActiveSkilFireBall();
+		ActiveSkilFireBall();
 	}
 	else
 	{

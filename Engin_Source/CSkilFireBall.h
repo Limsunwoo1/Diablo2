@@ -1,14 +1,14 @@
 #pragma once
-#include "CSkilFire.h"
+#include "CSkil.h"
 
-class SkilFireBall : public SkilFire
+class SkilFireBall : public Skil
 {
 public:
 	SkilFireBall(Player* player);
 	virtual ~SkilFireBall();
 
 	virtual void Initalize() override;
-	virtual void Update() override;
+	virtual void Update() override; 
 	virtual void FixedUpdate() override;
 	virtual void Render() override;
 

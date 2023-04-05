@@ -7,7 +7,7 @@
 #include "CResourceManager.h"
 
 SkilFireBall::SkilFireBall(Player* player)
-	: SkilFire(player)
+	: Skil(player)
 {
 }
 
@@ -17,7 +17,7 @@ SkilFireBall::~SkilFireBall()
 
 void SkilFireBall::Initalize()
 {
-	SkilFire::Initalize();
+	Skil::Initalize();
 
 	AddComponent<Animator>();
 
@@ -35,17 +35,17 @@ void SkilFireBall::Initalize()
 
 void SkilFireBall::Update()
 {
-	SkilFire::Update();
+	Skil::Update();
 }
 
 void SkilFireBall::FixedUpdate()
 {
-	SkilFire::FixedUpdate();
+	Skil::FixedUpdate();
 }
 
 void SkilFireBall::Render()
 {
-	SkilFire::Render();
+	Skil::Render();
 }
 
 void SkilFireBall::InitAnimation()
