@@ -66,7 +66,6 @@ void SkilFireBall::InitAnimation()
 			name += std::to_wstring(i);
 
 			animator->Create(name, texture, Vector2(0.0f, y * i), Vector2(x, y), Vector2(0.0f, 0.0f), 14, 0.05f);
-
 		}
 
 		// 96.92857142  96.9375

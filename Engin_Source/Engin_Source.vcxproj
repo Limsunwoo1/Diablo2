@@ -181,6 +181,7 @@
     <ClInclude Include="CMonster.h" />
     <ClInclude Include="CObject.h" />
     <ClInclude Include="CCollider3D.h" />
+    <ClInclude Include="CObjectManager.h" />
     <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="CEntity.h" />
     <ClInclude Include="CInput.h" />
@@ -244,6 +245,7 @@
     <ClCompile Include="CMaterial.cpp" />
     <ClCompile Include="CCollider3D.cpp" />
     <ClCompile Include="CMonster.cpp" />
+    <ClCompile Include="CObjectManager.cpp" />
     <ClCompile Include="CPaintShader.cpp" />
     <ClCompile Include="CParticleShader.cpp" />
     <ClCompile Include="CParticleSystem.cpp" />

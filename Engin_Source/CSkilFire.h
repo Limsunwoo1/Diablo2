@@ -15,6 +15,8 @@ public:
 
 	virtual void InitAnimation() override {};
 
+	void SetOwner(Player* owner) { mOwner = owner; }
+
 protected:
 	Player* mOwner;
 };

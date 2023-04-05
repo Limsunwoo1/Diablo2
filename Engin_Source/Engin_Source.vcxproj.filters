@@ -13,41 +13,14 @@
     <Filter Include="Common\Math">
       <UniqueIdentifier>{2c83968e-f279-4424-a14c-1a5e56c952df}</UniqueIdentifier>
     </Filter>
-    <Filter Include="InputManager">
-      <UniqueIdentifier>{1f73ebd6-b5bf-4d51-81b2-4714174abd9e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ResourceManager">
-      <UniqueIdentifier>{c687de6f-5b36-4dfe-9d1f-f934a6c893a5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="TimeManager">
-      <UniqueIdentifier>{fd7b8394-55b4-44e6-964b-335042addaf2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Common\Entity">
       <UniqueIdentifier>{15958a95-deb4-4e85-a3c0-997c8be343ce}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameObject">
       <UniqueIdentifier>{b0526ed5-2817-468d-a35a-8706bd77ff3f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene">
-      <UniqueIdentifier>{9b415108-fa02-4361-9301-5cf85fb7dbff}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component">
       <UniqueIdentifier>{d6937e8f-cb2b-4e70-94a2-660859f59bf5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ResourceManager\Resource">
-      <UniqueIdentifier>{3d57ee96-6f61-4891-84fb-c563d25f6f7b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ResourceManager\Resource\Shader">
-      <UniqueIdentifier>{472b8aa6-6da7-47ac-b77d-22a58daccb99}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ResourceManager\Resource\Mesh">
-      <UniqueIdentifier>{4f1efaeb-0477-4a3b-88f9-1a725254d25b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ResourceManager\Resource\Meterial">
-      <UniqueIdentifier>{9cdfe2a0-0a9b-450d-afa2-6f4e5495df3e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ResourceManager\Resource\Texture">
-      <UniqueIdentifier>{de4c0102-5e56-4aca-957d-c46e90ef5277}</UniqueIdentifier>
     </Filter>
     <Filter Include="Component\Script">
       <UniqueIdentifier>{bf617062-368d-4742-b921-4c59f48de5a9}</UniqueIdentifier>
@@ -76,21 +49,6 @@
     <Filter Include="Graphics\CBuffer">
       <UniqueIdentifier>{b69d5e04-7372-47c3-a2ae-58a692eb07ea}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\Base">
-      <UniqueIdentifier>{b12b62a6-dbbe-41f6-a8ae-24a4a95b97da}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene\Layer">
-      <UniqueIdentifier>{b63ae51f-fb45-4a49-8756-41c3c22cd853}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene\Title">
-      <UniqueIdentifier>{344a85bb-7333-46f6-9e1d-186609917923}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene\Play">
-      <UniqueIdentifier>{6a8a25de-d181-4797-ae9f-ff66e636b58d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ResourceManager\Resource\Prefab">
-      <UniqueIdentifier>{d364c1a3-a1fe-4928-b9f4-ae1993f211c8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component\Collider">
       <UniqueIdentifier>{172f6c62-e552-46b1-9ddb-d9eb0fb679fb}</UniqueIdentifier>
     </Filter>
@@ -99,15 +57,6 @@
     </Filter>
     <Filter Include="Component\Collider\3D">
       <UniqueIdentifier>{b3f2d8f1-a525-440e-9ded-943f81f910d4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Collider\CollisionManager">
-      <UniqueIdentifier>{f6372125-3003-48f1-95cc-3bb3fdcdc101}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene\Endding">
-      <UniqueIdentifier>{4f8f4121-2f61-4db4-b9b2-bc0ad185ea68}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene\CharacterSlelect">
-      <UniqueIdentifier>{d730a097-d129-4736-ae9f-87feb7136708}</UniqueIdentifier>
     </Filter>
     <Filter Include="Component\Animator">
       <UniqueIdentifier>{1ef1ac80-798a-4d7a-82b8-a07db9857490}</UniqueIdentifier>
@@ -133,9 +82,6 @@
     <Filter Include="GameObject\BackGround">
       <UniqueIdentifier>{38e1adc6-06cd-4cbb-860f-2386a877d6d4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\CreateCharacter">
-      <UniqueIdentifier>{44e86d1d-20de-4eb5-8fa1-b721b4686de0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObject\Player">
       <UniqueIdentifier>{429f8f77-7d5d-42db-b49d-b665d6264d96}</UniqueIdentifier>
     </Filter>
@@ -144,9 +90,6 @@
     </Filter>
     <Filter Include="Component\Light">
       <UniqueIdentifier>{2107e2f8-1c12-459a-8741-320521680000}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ResourceManager\Resource\ComputeShader">
-      <UniqueIdentifier>{25cdd07c-4497-4856-8858-8c41b115b045}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameObject\PlayerSkilFire">
       <UniqueIdentifier>{2e7fc52e-f93b-409b-8beb-824380e9f982}</UniqueIdentifier>
@@ -157,20 +100,83 @@
     <Filter Include="Component\Renderer\ParticleSystem">
       <UniqueIdentifier>{22b8c067-b63b-4d4f-89b1-8e953c016594}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ResourceManager\Resource\ComputeShader\Paint">
-      <UniqueIdentifier>{f3f0bf7f-af3c-46a1-bb39-e19189da7a1a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ResourceManager\Resource\ComputeShader\Particle">
-      <UniqueIdentifier>{38e30a1f-f609-426b-818c-881bb94de46a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component\A%2a">
       <UniqueIdentifier>{85aca550-5af0-417f-b26a-76dcaca90e67}</UniqueIdentifier>
     </Filter>
-    <Filter Include="WorldManager">
-      <UniqueIdentifier>{da15a4ba-ecee-434b-9cbf-2b7318a10c1d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObject\Tile">
       <UniqueIdentifier>{1a52d973-8179-4643-9cfe-2bf40c3a6835}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{40391d02-25e2-4938-b92f-5fb9fa132784}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\ResourceManager">
+      <UniqueIdentifier>{c687de6f-5b36-4dfe-9d1f-f934a6c893a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\ResourceManager\Resource">
+      <UniqueIdentifier>{3d57ee96-6f61-4891-84fb-c563d25f6f7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\ResourceManager\Resource\Shader">
+      <UniqueIdentifier>{472b8aa6-6da7-47ac-b77d-22a58daccb99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\ResourceManager\Resource\Mesh">
+      <UniqueIdentifier>{4f1efaeb-0477-4a3b-88f9-1a725254d25b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\ResourceManager\Resource\Meterial">
+      <UniqueIdentifier>{9cdfe2a0-0a9b-450d-afa2-6f4e5495df3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\ResourceManager\Resource\Texture">
+      <UniqueIdentifier>{de4c0102-5e56-4aca-957d-c46e90ef5277}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\ResourceManager\Resource\Prefab">
+      <UniqueIdentifier>{d364c1a3-a1fe-4928-b9f4-ae1993f211c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\ResourceManager\Resource\ComputeShader">
+      <UniqueIdentifier>{25cdd07c-4497-4856-8858-8c41b115b045}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\ResourceManager\Resource\ComputeShader\Paint">
+      <UniqueIdentifier>{f3f0bf7f-af3c-46a1-bb39-e19189da7a1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\ResourceManager\Resource\ComputeShader\Particle">
+      <UniqueIdentifier>{38e30a1f-f609-426b-818c-881bb94de46a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\InputManager">
+      <UniqueIdentifier>{1f73ebd6-b5bf-4d51-81b2-4714174abd9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\TimeManager">
+      <UniqueIdentifier>{fd7b8394-55b4-44e6-964b-335042addaf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\WorldManager">
+      <UniqueIdentifier>{da15a4ba-ecee-434b-9cbf-2b7318a10c1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\CollisionManager">
+      <UniqueIdentifier>{f6372125-3003-48f1-95cc-3bb3fdcdc101}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Scene">
+      <UniqueIdentifier>{9b415108-fa02-4361-9301-5cf85fb7dbff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Scene\Base">
+      <UniqueIdentifier>{b12b62a6-dbbe-41f6-a8ae-24a4a95b97da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Scene\Layer">
+      <UniqueIdentifier>{b63ae51f-fb45-4a49-8756-41c3c22cd853}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Scene\Title">
+      <UniqueIdentifier>{344a85bb-7333-46f6-9e1d-186609917923}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Scene\Play">
+      <UniqueIdentifier>{6a8a25de-d181-4797-ae9f-ff66e636b58d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Scene\Endding">
+      <UniqueIdentifier>{4f8f4121-2f61-4db4-b9b2-bc0ad185ea68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Scene\CharacterSlelect">
+      <UniqueIdentifier>{d730a097-d129-4736-ae9f-87feb7136708}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Scene\CreateCharacter">
+      <UniqueIdentifier>{44e86d1d-20de-4eb5-8fa1-b721b4686de0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\ObjectManager">
+      <UniqueIdentifier>{3610afd1-2895-46f1-b3df-4cd3a9db3811}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -184,16 +190,16 @@
       <Filter>Common\Math</Filter>
     </ClCompile>
     <ClCompile Include="CInput.cpp">
-      <Filter>InputManager</Filter>
+      <Filter>Manager\InputManager</Filter>
     </ClCompile>
     <ClCompile Include="CResourceManager.cpp">
-      <Filter>ResourceManager</Filter>
+      <Filter>Manager\ResourceManager</Filter>
     </ClCompile>
     <ClCompile Include="CEntity.cpp">
       <Filter>Common\Entity</Filter>
     </ClCompile>
     <ClCompile Include="CTime.cpp">
-      <Filter>TimeManager</Filter>
+      <Filter>Manager\TimeManager</Filter>
     </ClCompile>
     <ClCompile Include="CRenderer.cpp">
       <Filter>Graphics\CRenderer</Filter>
@@ -202,25 +208,25 @@
       <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="CSceneManager.cpp">
-      <Filter>Scene</Filter>
+      <Filter>Manager\Scene</Filter>
     </ClCompile>
     <ClCompile Include="CComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
     <ClCompile Include="CMesh.cpp">
-      <Filter>ResourceManager\Resource\Mesh</Filter>
+      <Filter>Manager\ResourceManager\Resource\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="CShader.cpp">
-      <Filter>ResourceManager\Resource\Shader</Filter>
+      <Filter>Manager\ResourceManager\Resource\Shader</Filter>
     </ClCompile>
     <ClCompile Include="CResource.cpp">
-      <Filter>ResourceManager\Resource</Filter>
+      <Filter>Manager\ResourceManager\Resource</Filter>
     </ClCompile>
     <ClCompile Include="CMaterial.cpp">
-      <Filter>ResourceManager\Resource\Meterial</Filter>
+      <Filter>Manager\ResourceManager\Resource\Meterial</Filter>
     </ClCompile>
     <ClCompile Include="CTexture2D.cpp">
-      <Filter>ResourceManager\Resource\Texture</Filter>
+      <Filter>Manager\ResourceManager\Resource\Texture</Filter>
     </ClCompile>
     <ClCompile Include="CScript.cpp">
       <Filter>Component\Script</Filter>
@@ -247,22 +253,22 @@
       <Filter>Component\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="CScene.cpp">
-      <Filter>Scene\Base</Filter>
+      <Filter>Manager\Scene\Base</Filter>
     </ClCompile>
     <ClCompile Include="CLayer.cpp">
-      <Filter>Scene\Layer</Filter>
+      <Filter>Manager\Scene\Layer</Filter>
     </ClCompile>
     <ClCompile Include="CPlayScene.cpp">
-      <Filter>Scene\Play</Filter>
+      <Filter>Manager\Scene\Play</Filter>
     </ClCompile>
     <ClCompile Include="CTitleScene.cpp">
-      <Filter>Scene\Title</Filter>
+      <Filter>Manager\Scene\Title</Filter>
     </ClCompile>
     <ClCompile Include="CPrefab.cpp">
-      <Filter>ResourceManager\Resource\Prefab</Filter>
+      <Filter>Manager\ResourceManager\Resource\Prefab</Filter>
     </ClCompile>
     <ClCompile Include="CCollisionManager.cpp">
-      <Filter>Component\Collider\CollisionManager</Filter>
+      <Filter>Manager\CollisionManager</Filter>
     </ClCompile>
     <ClCompile Include="CCollider3D.cpp">
       <Filter>Component\Collider\3D</Filter>
@@ -271,7 +277,7 @@
       <Filter>Component\Collider\2D</Filter>
     </ClCompile>
     <ClCompile Include="CEnddingScene.cpp">
-      <Filter>Scene\Endding</Filter>
+      <Filter>Manager\Scene\Endding</Filter>
     </ClCompile>
     <ClCompile Include="CMonster.cpp">
       <Filter>Component\Script\Contents\Monster</Filter>
@@ -280,7 +286,7 @@
       <Filter>Component\Script\Contents\Tile</Filter>
     </ClCompile>
     <ClCompile Include="CCharacterSelect.cpp">
-      <Filter>Scene\CharacterSlelect</Filter>
+      <Filter>Manager\Scene\CharacterSlelect</Filter>
     </ClCompile>
     <ClCompile Include="CAnimator.cpp">
       <Filter>Component\Animator</Filter>
@@ -301,7 +307,7 @@
       <Filter>Component\Script\Contents\GridScript</Filter>
     </ClCompile>
     <ClCompile Include="CCreateCharacter.cpp">
-      <Filter>Scene\CreateCharacter</Filter>
+      <Filter>Manager\Scene\CreateCharacter</Filter>
     </ClCompile>
     <ClCompile Include="CPlayer.cpp">
       <Filter>GameObject\Player</Filter>
@@ -313,7 +319,7 @@
       <Filter>Component\Light</Filter>
     </ClCompile>
     <ClCompile Include="CComputeShader.cpp">
-      <Filter>ResourceManager\Resource\ComputeShader</Filter>
+      <Filter>Manager\ResourceManager\Resource\ComputeShader</Filter>
     </ClCompile>
     <ClCompile Include="CSkilFire.cpp">
       <Filter>GameObject\PlayerSkilFire</Filter>
@@ -325,19 +331,22 @@
       <Filter>Component\Renderer\ParticleSystem</Filter>
     </ClCompile>
     <ClCompile Include="CPaintShader.cpp">
-      <Filter>ResourceManager\Resource\ComputeShader\Paint</Filter>
+      <Filter>Manager\ResourceManager\Resource\ComputeShader\Paint</Filter>
     </ClCompile>
     <ClCompile Include="CParticleShader.cpp">
-      <Filter>ResourceManager\Resource\ComputeShader\Particle</Filter>
+      <Filter>Manager\ResourceManager\Resource\ComputeShader\Particle</Filter>
     </ClCompile>
     <ClCompile Include="CAStart.cpp">
       <Filter>Component\A%2a</Filter>
     </ClCompile>
     <ClCompile Include="CWorldManager.cpp">
-      <Filter>WorldManager</Filter>
+      <Filter>Manager\WorldManager</Filter>
     </ClCompile>
     <ClCompile Include="CTileObject.cpp">
       <Filter>GameObject\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjectManager.cpp">
+      <Filter>Manager\ObjectManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -354,16 +363,16 @@
       <Filter>Common\Math</Filter>
     </ClInclude>
     <ClInclude Include="CInput.h">
-      <Filter>InputManager</Filter>
+      <Filter>Manager\InputManager</Filter>
     </ClInclude>
     <ClInclude Include="CResourceManager.h">
-      <Filter>ResourceManager</Filter>
+      <Filter>Manager\ResourceManager</Filter>
     </ClInclude>
     <ClInclude Include="CEntity.h">
       <Filter>Common\Entity</Filter>
     </ClInclude>
     <ClInclude Include="CTime.h">
-      <Filter>TimeManager</Filter>
+      <Filter>Manager\TimeManager</Filter>
     </ClInclude>
     <ClInclude Include="def.h">
       <Filter>Common</Filter>
@@ -384,25 +393,25 @@
       <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="CSceneManager.h">
-      <Filter>Scene</Filter>
+      <Filter>Manager\Scene</Filter>
     </ClInclude>
     <ClInclude Include="CComponent.h">
       <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="CMesh.h">
-      <Filter>ResourceManager\Resource\Mesh</Filter>
+      <Filter>Manager\ResourceManager\Resource\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="CShader.h">
-      <Filter>ResourceManager\Resource\Shader</Filter>
+      <Filter>Manager\ResourceManager\Resource\Shader</Filter>
     </ClInclude>
     <ClInclude Include="CResource.h">
-      <Filter>ResourceManager\Resource</Filter>
+      <Filter>Manager\ResourceManager\Resource</Filter>
     </ClInclude>
     <ClInclude Include="CMaterial.h">
-      <Filter>ResourceManager\Resource\Meterial</Filter>
+      <Filter>Manager\ResourceManager\Resource\Meterial</Filter>
     </ClInclude>
     <ClInclude Include="CTexture2D.h">
-      <Filter>ResourceManager\Resource\Texture</Filter>
+      <Filter>Manager\ResourceManager\Resource\Texture</Filter>
     </ClInclude>
     <ClInclude Include="CScript.h">
       <Filter>Component\Script</Filter>
@@ -432,31 +441,31 @@
       <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="CScene.h">
-      <Filter>Scene\Base</Filter>
+      <Filter>Manager\Scene\Base</Filter>
     </ClInclude>
     <ClInclude Include="CLayer.h">
-      <Filter>Scene\Layer</Filter>
+      <Filter>Manager\Scene\Layer</Filter>
     </ClInclude>
     <ClInclude Include="CPlayScene.h">
-      <Filter>Scene\Play</Filter>
+      <Filter>Manager\Scene\Play</Filter>
     </ClInclude>
     <ClInclude Include="CTitleScene.h">
-      <Filter>Scene\Title</Filter>
+      <Filter>Manager\Scene\Title</Filter>
     </ClInclude>
     <ClInclude Include="CPrefab.h">
-      <Filter>ResourceManager\Resource\Prefab</Filter>
+      <Filter>Manager\ResourceManager\Resource\Prefab</Filter>
     </ClInclude>
     <ClInclude Include="CCollider3D.h">
       <Filter>Component\Collider\3D</Filter>
     </ClInclude>
     <ClInclude Include="CCollisionManager.h">
-      <Filter>Component\Collider\CollisionManager</Filter>
+      <Filter>Manager\CollisionManager</Filter>
     </ClInclude>
     <ClInclude Include="CCollider2D.h">
       <Filter>Component\Collider\2D</Filter>
     </ClInclude>
     <ClInclude Include="CEnddingScene.h">
-      <Filter>Scene\Endding</Filter>
+      <Filter>Manager\Scene\Endding</Filter>
     </ClInclude>
     <ClInclude Include="CMonster.h">
       <Filter>Component\Script\Contents\Monster</Filter>
@@ -465,7 +474,7 @@
       <Filter>Component\Script\Contents\Tile</Filter>
     </ClInclude>
     <ClInclude Include="CCharacterSelect.h">
-      <Filter>Scene\CharacterSlelect</Filter>
+      <Filter>Manager\Scene\CharacterSlelect</Filter>
     </ClInclude>
     <ClInclude Include="CAnimator.h">
       <Filter>Component\Animator</Filter>
@@ -486,7 +495,7 @@
       <Filter>Component\Script\Contents\GridScript</Filter>
     </ClInclude>
     <ClInclude Include="CCreateCharacter.h">
-      <Filter>Scene\CreateCharacter</Filter>
+      <Filter>Manager\Scene\CreateCharacter</Filter>
     </ClInclude>
     <ClInclude Include="CPlayer.h">
       <Filter>GameObject\Player</Filter>
@@ -498,7 +507,7 @@
       <Filter>Component\Light</Filter>
     </ClInclude>
     <ClInclude Include="CComputeShader.h">
-      <Filter>ResourceManager\Resource\ComputeShader</Filter>
+      <Filter>Manager\ResourceManager\Resource\ComputeShader</Filter>
     </ClInclude>
     <ClInclude Include="CSkilFire.h">
       <Filter>GameObject\PlayerSkilFire</Filter>
@@ -510,19 +519,22 @@
       <Filter>Component\Renderer\ParticleSystem</Filter>
     </ClInclude>
     <ClInclude Include="CpaintShader.h">
-      <Filter>ResourceManager\Resource\ComputeShader\Paint</Filter>
+      <Filter>Manager\ResourceManager\Resource\ComputeShader\Paint</Filter>
     </ClInclude>
     <ClInclude Include="CParticleShader.h">
-      <Filter>ResourceManager\Resource\ComputeShader\Particle</Filter>
+      <Filter>Manager\ResourceManager\Resource\ComputeShader\Particle</Filter>
     </ClInclude>
     <ClInclude Include="CAStart.h">
       <Filter>Component\A%2a</Filter>
     </ClInclude>
     <ClInclude Include="CWorldManager.h">
-      <Filter>WorldManager</Filter>
+      <Filter>Manager\WorldManager</Filter>
     </ClInclude>
     <ClInclude Include="CTileObject.h">
       <Filter>GameObject\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjectManager.h">
+      <Filter>Manager\ObjectManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
