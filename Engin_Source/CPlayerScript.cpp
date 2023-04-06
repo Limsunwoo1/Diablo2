@@ -1,5 +1,4 @@
 #include "CPlayerScript.h"
-#include "CTransform.h"
 #include "CGameObject.h"
 #include "CInput.h"
 #include "CTime.h"
@@ -10,6 +9,9 @@
 #include "CWorldManager.h"
 #include "CRenderer.h"
 #include "CCamera.h"
+#include "CPing.h"
+#include "CObject.h"
+#include "CSceneManager.h"
 
 PlayerScript::PlayerScript()
 	: Script()
@@ -92,6 +94,18 @@ void PlayerScript::Update()
 					mPickPoint = Vector2::Zero;
 			}
 
+			Scene* scene = SceneManager::GetInstance()->GetActiveScene();
+			if (scene)
+			{
+				Ping* ping = new Ping();
+				Object::Instantiate<Ping>(eLayerType::Effect, scene);
+
+				Transform* tr = ping->GetComponent<Transform>();
+				Vector3 posVec = Vector3(index.x, index.y, 1.0f);
+				tr->SetPosition(posVec);
+
+				ping->SetPos(index);
+			}
 			///////////////////////////////////////////////////////////////////////////////////
 		}
 	}

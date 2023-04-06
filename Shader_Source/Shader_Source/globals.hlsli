@@ -74,8 +74,8 @@ SamplerState anisotropicSampler : register(s2);
 
 // Defualt Texture
 Texture2D defaultTexture : register(t0);
+Texture2D effectTexture : register(t1);
 
-// Defualt Texture
 Texture2D noiseTexture : register(t2);
 
 // Atlas Texture

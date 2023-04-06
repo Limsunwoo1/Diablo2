@@ -23,6 +23,7 @@ enum class eLayerType
 	PlayerSKil,
 
 	Particle,
+	Effect,
 	Fade,
 	UI,
 	End = 16,

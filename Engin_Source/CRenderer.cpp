@@ -496,6 +496,7 @@ namespace Renderer
 		ResourceManager::GetInstance()->Load<Texture2D>(L"DefaultSprite", L"Light.png");
 		ResourceManager::GetInstance()->Load<Texture2D>(L"HPBarTexture", L"HPBar.png");
 		ResourceManager::GetInstance()->Load<Texture2D>(L"ShopIdle", L"ShopIdle.png");
+		ResourceManager::GetInstance()->Load<Texture2D>(L"Ping", L"ping.png");
 
 		//ResourceManager::GetInstance()->Load<Texture2D>(L"Diablo2_Town_Idle", L"diablo2_Town_Idle.png");
 		ResourceManager::GetInstance()->Load<Texture2D>(L"CartoonSmoke", L"particle\\CartoonSmoke.png");

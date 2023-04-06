@@ -188,6 +188,7 @@
     <ClInclude Include="CpaintShader.h" />
     <ClInclude Include="CParticleShader.h" />
     <ClInclude Include="CParticleSystem.h" />
+    <ClInclude Include="CPing.h" />
     <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CPlayerScript.h" />
     <ClInclude Include="CPlayScene.h" />
@@ -249,6 +250,7 @@
     <ClCompile Include="CPaintShader.cpp" />
     <ClCompile Include="CParticleShader.cpp" />
     <ClCompile Include="CParticleSystem.cpp" />
+    <ClCompile Include="CPing.cpp" />
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CPlayerScript.cpp" />
     <ClCompile Include="CPlayScene.cpp" />

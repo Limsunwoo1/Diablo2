@@ -348,6 +348,9 @@
     <ClCompile Include="CObjectManager.cpp">
       <Filter>Manager\ObjectManager</Filter>
     </ClCompile>
+    <ClCompile Include="CPing.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -535,6 +538,9 @@
     </ClInclude>
     <ClInclude Include="CObjectManager.h">
       <Filter>Manager\ObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CPing.h">
+      <Filter>GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

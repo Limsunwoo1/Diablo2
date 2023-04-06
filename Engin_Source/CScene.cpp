@@ -43,7 +43,7 @@ void Scene::Destroy()
 {
 	for (Layer& layer : mLayers)
 	{
-		layer.Destroy();
+		//layer.Destroy();
 	}
 }
 
