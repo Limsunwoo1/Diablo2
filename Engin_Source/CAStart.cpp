@@ -80,8 +80,7 @@ UINT AStar::GetHeuristick2(int x, int y)
 	int ix = abs(x - mEnd.x);
 	int iy = abs(y - mEnd.y);
 
-	int tem = abs(ix + iy);
-	int weight = 1;
+	int weight = mCloseList.size();
 
 	// 상황에 따른 가중치 알고리즘 추가하면
 	// 조금 더 정교한 탐색이 가능해진다
@@ -90,7 +89,7 @@ UINT AStar::GetHeuristick2(int x, int y)
 	else
 	    weight = 10;*/
 
-	return (int)(tem * (std::sqrt(std::pow(x - mEnd.x, 2) + std::pow(y - mEnd.y, 2))));
+	return (int)(weight * (std::sqrt(std::pow(x - mEnd.x, 2) + std::pow(y - mEnd.y, 2))));
 	return 0;
 }
 
