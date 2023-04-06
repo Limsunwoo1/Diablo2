@@ -125,7 +125,7 @@ void PlayScene::Initalize()
 		mr->SetMesh(mesh);
 		mr->SetMaterial(mater);
 
-		WorldManager::GetInstance()->Setobstacle(tr->GetPosition().x, tr->GetPosition().y);
+		WorldManager::GetInstance()->SetObstacle(tr->GetPosition().x, tr->GetPosition().y);
 	}
 
 	{
@@ -149,7 +149,7 @@ void PlayScene::Initalize()
 		mr->SetMesh(mesh);
 		mr->SetMaterial(mater);
 
-		WorldManager::GetInstance()->Setobstacle(tr->GetPosition().x, tr->GetPosition().y);
+		WorldManager::GetInstance()->SetObstacle(tr->GetPosition().x, tr->GetPosition().y);
 	}
 
 	{
@@ -173,7 +173,7 @@ void PlayScene::Initalize()
 		mr->SetMesh(mesh);
 		mr->SetMaterial(mater);
 
-		WorldManager::GetInstance()->Setobstacle(tr->GetPosition().x, tr->GetPosition().y);
+		WorldManager::GetInstance()->SetObstacle(tr->GetPosition().x, tr->GetPosition().y);
 	}
 
 	{
@@ -197,7 +197,7 @@ void PlayScene::Initalize()
 		mr->SetMesh(mesh);
 		mr->SetMaterial(mater);
 
-		WorldManager::GetInstance()->Setobstacle(tr->GetPosition().x, tr->GetPosition().y);
+		WorldManager::GetInstance()->SetObstacle(tr->GetPosition().x, tr->GetPosition().y);
 	}
 
 	{
@@ -221,7 +221,7 @@ void PlayScene::Initalize()
 		mr->SetMesh(mesh);
 		mr->SetMaterial(mater);
 
-		WorldManager::GetInstance()->Setobstacle(tr->GetPosition().x, tr->GetPosition().y);
+		WorldManager::GetInstance()->SetObstacle(tr->GetPosition().x, tr->GetPosition().y);
 	}
 
 	{
@@ -245,7 +245,7 @@ void PlayScene::Initalize()
 		mr->SetMesh(mesh);
 		mr->SetMaterial(mater);
 
-		WorldManager::GetInstance()->Setobstacle(tr->GetPosition().x, tr->GetPosition().y);
+		WorldManager::GetInstance()->SetObstacle(tr->GetPosition().x, tr->GetPosition().y);
 	}
 
 	{
@@ -269,7 +269,7 @@ void PlayScene::Initalize()
 		mr->SetMesh(mesh);
 		mr->SetMaterial(mater);
 
-		WorldManager::GetInstance()->Setobstacle(tr->GetPosition().x, tr->GetPosition().y);
+		WorldManager::GetInstance()->SetObstacle(tr->GetPosition().x, tr->GetPosition().y);
 	}
 
 	{
@@ -293,7 +293,7 @@ void PlayScene::Initalize()
 		mr->SetMesh(mesh);
 		mr->SetMaterial(mater);
 
-		WorldManager::GetInstance()->Setobstacle(tr->GetPosition().x, tr->GetPosition().y);
+		WorldManager::GetInstance()->SetObstacle(tr->GetPosition().x, tr->GetPosition().y);
 	}
 
 	{
@@ -317,7 +317,7 @@ void PlayScene::Initalize()
 		mr->SetMesh(mesh);
 		mr->SetMaterial(mater);
 
-		WorldManager::GetInstance()->Setobstacle(tr->GetPosition().x, tr->GetPosition().y);
+		WorldManager::GetInstance()->SetObstacle(tr->GetPosition().x, tr->GetPosition().y);
 	}
 
 	{
@@ -341,7 +341,7 @@ void PlayScene::Initalize()
 		mr->SetMesh(mesh);
 		mr->SetMaterial(mater);
 
-		WorldManager::GetInstance()->Setobstacle(tr->GetPosition().x, tr->GetPosition().y);
+		WorldManager::GetInstance()->SetObstacle(tr->GetPosition().x, tr->GetPosition().y);
 	}
 
 	{
@@ -365,7 +365,7 @@ void PlayScene::Initalize()
 		mr->SetMesh(mesh);
 		mr->SetMaterial(mater);
 
-		WorldManager::GetInstance()->Setobstacle(tr->GetPosition().x, tr->GetPosition().y);
+		WorldManager::GetInstance()->SetObstacle(tr->GetPosition().x, tr->GetPosition().y);
 	}
 
 	for (int i = 1; i < 6; ++i)
@@ -391,7 +391,7 @@ void PlayScene::Initalize()
 			mr->SetMesh(mesh);
 			mr->SetMaterial(mater);
 
-			WorldManager::GetInstance()->Setobstacle(tr->GetPosition().x, tr->GetPosition().y);
+			WorldManager::GetInstance()->SetObstacle(tr->GetPosition().x, tr->GetPosition().y);
 		}
 	}
 	//Particle

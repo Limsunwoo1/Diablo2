@@ -69,7 +69,7 @@ namespace graphics
 	{
 		GetDevice()->BindShaderResource(stage, slot, mSRV.GetAddressOf());
 	}
-	void Texture2D::BIndUnorderedAccessView(UINT startSlot)
+	void Texture2D::BindUnorderedAccessView(UINT startSlot)
 	{
 		UINT i = -1;
 		GetDevice()->BindUnorderdAccessView(startSlot, 1, mUAV.GetAddressOf(), &i);

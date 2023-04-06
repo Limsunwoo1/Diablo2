@@ -74,6 +74,6 @@ void Material::Clear()
 		if (mTexture[i] == nullptr)
 			continue;
 
-		mTexture[i]->Clear();
+		mTexture[i]->Clear(i);
 	}
 }

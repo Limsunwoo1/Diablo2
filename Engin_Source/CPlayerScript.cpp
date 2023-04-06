@@ -97,14 +97,13 @@ void PlayerScript::Update()
 			Scene* scene = SceneManager::GetInstance()->GetActiveScene();
 			if (scene)
 			{
-				Ping* ping = new Ping();
-				Object::Instantiate<Ping>(eLayerType::Effect, scene);
+				Ping* ping = Object::Instantiate<Ping>(eLayerType::Effect, scene);
 
 				Transform* tr = ping->GetComponent<Transform>();
 				Vector3 posVec = Vector3(index.x, index.y, 1.0f);
 				tr->SetPosition(posVec);
 
-				ping->SetPos(index);
+				//ping->SetPos(index);
 			}
 			///////////////////////////////////////////////////////////////////////////////////
 		}

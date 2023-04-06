@@ -55,13 +55,15 @@ void Ping::FixedUpdate()
 	size.z = 1.0f;
 
 	tr->SetScale(size);
+	Vector3 pos = tr->GetPosition();
+	cout << "X   " << pos.x << "    Y     " << pos.y << endl;
 	//tr->SetPosition(Vector3(mPos.x, mPos.y, 1.0f));
 
 	// TextureSet
 	MeshRenderer* sr = GetComponent<MeshRenderer>();
 	std::shared_ptr<Material> mater = sr->GetMaterial();
 	std::shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Ping");
-	mater->SetTexture(eTextureSlot::T0,tex);
+	mater->SetTexture(eTextureSlot::T0, tex);
 	
 
 	// Bind Time

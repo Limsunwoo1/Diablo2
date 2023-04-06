@@ -14,7 +14,7 @@ namespace graphics
 
 	void PaintShader::Binds()
 	{
-		mTarget->BIndUnorderedAccessView(0);
+		mTarget->BindUnorderedAccessView(0);
 
 		mGroupX = mTarget->GetWidth() / mThreadGropCountX + 1;
 		mGroupY = mTarget->GetHeight() / mThreadGropCountY + 1;

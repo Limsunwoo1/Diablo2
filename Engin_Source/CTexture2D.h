@@ -25,7 +25,7 @@ namespace graphics
 		void InitializeResource();
 
 		void BindShaderResource(eShaderStage stage, UINT slot);
-		void BIndUnorderedAccessView(UINT startSlot);
+		void BindUnorderedAccessView(UINT startSlot);
 		void ClearUnorderedAccessView(UINT startSlot);
 
 		bool Create(UINT width, UINT height, DXGI_FORMAT format, UINT bindFlag);

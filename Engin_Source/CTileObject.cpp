@@ -24,7 +24,7 @@ void TileObject::Update()
 void TileObject::FixedUpdate()
 {
 	MeshRenderer* mr = GetComponent<MeshRenderer>();
-	Material* mater = mr->GetMaterial().get();
+	std::shared_ptr<Material> mater = mr->GetMaterial();
 	mater->SetTexture(eTextureSlot::T0, ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdle"));
 
 	GameObject::FixedUpdate();
