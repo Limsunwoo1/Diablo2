@@ -8,7 +8,7 @@
 
 Ping::Ping()
 	: GameObject()
-	, mSize(1.0f)
+	, mSize(0.7f)
 	, mTime(0.0f)
 	, mPos(Vector2::Zero)
 {
@@ -21,9 +21,9 @@ Ping::~Ping()
 
 void Ping::Initalize()
 {
-	MeshRenderer* sr = AddComponent<MeshRenderer>();
+	SpriteRenderer* sr = AddComponent<SpriteRenderer>();
 	std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-	std::shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+	std::shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"PingMaterial");
 
 	sr->SetMesh(mesh);
 	sr->SetMaterial(mater);
@@ -37,17 +37,17 @@ void Ping::Update()
 
 void Ping::FixedUpdate()
 {
-	/*if (mTime >= 1.0f)
+	if (mTime >= 1.0f)
 	{
 		mTime = 0.0f;
 		Death();
 		return;
-	}*/
+	}
 
 	// Size
 	Transform* tr = GetComponent<Transform>();
 	Vector3 size = tr->GetScale();
-	float inSize = mSize;// *mTime;
+	float inSize = mSize * mTime;
 
 	size.x = inSize;
 	size.y = inSize;
@@ -55,24 +55,22 @@ void Ping::FixedUpdate()
 
 	tr->SetScale(size);
 	Vector3 pos = tr->GetPosition();
-	cout << "X   " << pos.x << "    Y     " << pos.y << endl;
-	//tr->SetPosition(Vector3(mPos.x, mPos.y, 1.0f));
 
 	// TextureSet
-	MeshRenderer* sr = GetComponent<MeshRenderer>();
+	SpriteRenderer* sr = GetComponent<SpriteRenderer>();
 	std::shared_ptr<Material> mater = sr->GetMaterial();
 	std::shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Ping");
 	mater->SetTexture(eTextureSlot::T0, tex);
 	
 
 	// Bind Time
-	/*ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::Time];
+	ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::Time];
 	Renderer::TimeCB info = {};
 	info.deltatime = Time::GetInstance()->DeltaTime();
 	info.time = mTime;
 
 	cb->SetData(&info);
-	cb->Bind(eShaderStage::PS);*/
+	cb->Bind(eShaderStage::PS);
 
 	GameObject::FixedUpdate();
 }

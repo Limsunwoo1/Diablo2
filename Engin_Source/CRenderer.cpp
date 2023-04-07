@@ -238,6 +238,12 @@ namespace Renderer
 			, particleShader->GetVSBlobBufferSize()
 			, particleShader->GetInputLayoutAddressOf());
 
+		std::shared_ptr<Shader> pingShader = ResourceManager::GetInstance()->Find<Shader>(L"PingShader");
+		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, pingShader->GetVSBlobBufferPointer()
+			, pingShader->GetVSBlobBufferSize()
+			, pingShader->GetInputLayoutAddressOf());
+
 #pragma endregion
 #pragma region Sampler State
 		// »ùÇÃ·¯Ãß°¡
@@ -490,6 +496,14 @@ namespace Renderer
 
 		ResourceManager::GetInstance()->Insert<ParticleShader>(L"ParticleCS", particleCS);
 #pragma endregion
+#pragma region PingShader
+		std::shared_ptr<Shader> pingshader = std::make_shared<Shader>();
+		pingshader->Create(eShaderStage::VS, L"VS.hlsl", "main");
+		pingshader->Create(eShaderStage::PS, L"PingPS.hlsl", "main");
+
+		ResourceManager::GetInstance()->Insert<Shader>(L"PingShader", pingshader);
+#pragma endregion
+
 	}
 
 	void LoadTexture()
@@ -590,6 +604,14 @@ namespace Renderer
 			ResourceManager::GetInstance()->Insert<Material>(L"ParticleMaterial", particleMaterial);
 		}
 #pragma endregion
+#pragma region PingMaterial
+		std::shared_ptr<Shader> pingShdaer = ResourceManager::GetInstance()->Find<Shader>(L"PingShader");
+		std::shared_ptr<Material> pingMaterial = std::make_shared<Material>();
+		pingMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		pingMaterial->SetShader(pingShdaer);
+		ResourceManager::GetInstance()->Insert<Material>(L"PingMaterial", pingMaterial);
+#pragma endregion
+
 	}
 
 	void Initialize()

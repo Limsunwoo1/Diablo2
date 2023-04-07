@@ -90,7 +90,6 @@ UINT AStar::GetHeuristick2(int x, int y)
 	    weight = 10;*/
 
 	return (int)(weight * (std::sqrt(std::pow(x - mEnd.x, 2) + std::pow(y - mEnd.y, 2))));
-	return 0;
 }
 
 UINT AStar::GetCost(int x, int y, int InG)
@@ -172,7 +171,7 @@ void AStar::AddOpenList(int x, int y, bool diagonal)
 	else
 		node.Cost = 10 + mCurNode.Cost;
 
-	node.Heuristick = GetHeuristick2(node.Pos.x, node.Pos.y);
+	node.Heuristick = GetHeuristick(node.Pos.x, node.Pos.y);
 	node.Distance = node.GetDistance();
 
 	node.ParentIndex = mCurNode.Pos;
@@ -218,7 +217,7 @@ bool AStar::OnA_Star(Node& node, Vec& start, Vec& end, bool run)
 
 	mCurNode.Id = (mCurNode.Pos.y * mMaxY) + (mCurNode.Pos.x % mMaxX);
 	mCurNode.Cost = 0;
-	mCurNode.Heuristick = GetHeuristick2(node.Pos.x, node.Pos.y);
+	mCurNode.Heuristick = GetHeuristick(node.Pos.x, node.Pos.y);
 	mCurNode.Distance = mCurNode.GetDistance();
 
 	mCloseList.emplace(make_pair(mCurNode.Id, mCurNode));

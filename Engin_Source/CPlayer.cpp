@@ -294,7 +294,7 @@ void Player::SKil()
 	if (name.find(L"Skil") == wstring::npos)
 	{
 		animator->Play(playName, false);
-		ActiveSkilFireBall();
+		//ActiveSkilFireBall();
 	}
 	else
 	{

@@ -400,7 +400,7 @@ void PlayScene::Initalize()
 		obj->SetName(L"Particle");
 
 		Transform* tr = obj->GetComponent<Transform>();
-		tr->SetPosition(Vector3(0.0f, 0.0f, 100.0f));
+		tr->SetPosition(Vector3(11.0f, 0.0f, 100.0f));
 
 		obj->AddComponent<ParticleSystem>();*/
 	}
