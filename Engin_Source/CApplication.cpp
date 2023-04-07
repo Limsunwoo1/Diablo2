@@ -42,6 +42,11 @@ void CApplication::Update()
 	SceneManager::GetInstance()->Update();
 }
 
+void CApplication::Instantiate()
+{
+	SceneManager::GetInstance()->Instantiate();
+}
+
 // GPU update
 void CApplication::FixedUpdate()
 {
@@ -68,6 +73,7 @@ void CApplication::Run()
 	Render();
 
 	Destroy();
+	Instantiate();
 }
 
 void CApplication::Destroy()

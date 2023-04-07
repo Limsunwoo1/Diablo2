@@ -291,18 +291,16 @@ void PlayerScript::FixedUpdate()
 			{
 				if (astar->OnA_Star(node, node.Pos, end))
 					mPickPoint = Vector2::Zero;
-			}
 
-			Scene* scene = SceneManager::GetInstance()->GetActiveScene();
-			if (scene)
-			{
-				Ping* ping = Object::Instantiate<Ping>(eLayerType::Effect, scene);
+				Scene* scene = SceneManager::GetInstance()->GetActiveScene();
+				if (scene)
+				{
+					Ping* ping = Object::Instantiate<Ping>(eLayerType::Effect, true);
 
-				Transform* tr = ping->GetComponent<Transform>();
-				Vector3 posVec = Vector3(index.x, index.y, 1.0f);
-				tr->SetPosition(posVec);
-
-				//ping->SetPos(index);
+					Transform* tr = ping->GetComponent<Transform>();
+					Vector3 posVec = Vector3(index.x, index.y, 1.0f);
+					tr->SetPosition(posVec);
+				}
 			}
 			///////////////////////////////////////////////////////////////////////////////////
 		}

@@ -89,6 +89,18 @@ namespace Object
 		return gameObject;
 	}
 
+	template <typename T>
+	static T* Instantiate(eLayerType type, bool nextPrame)
+	{
+		T* gameObject = new T();
+		SceneManager::GetInstance()->AddEvent(gameObject);
+
+		gameObject->GameObject::SetLayerType(type);
+		gameObject->Initalize();
+
+		return gameObject;
+	}
+
 	static void ObejctDestroy(GameObject* gameObject)
 	{
 		gameObject->Death();

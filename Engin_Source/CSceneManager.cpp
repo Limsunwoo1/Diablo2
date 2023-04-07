@@ -48,6 +48,19 @@ void SceneManager::Render()
 	mActiveScene->Render();
 }
 
+void SceneManager::Instantiate()
+{
+	while (!mInsertObject.empty())
+	{
+		GameObject* obj = mInsertObject.front();
+		Scene* scene = mActiveScene;
+		Layer& layer = scene->GetLayer(obj->GetLayerType());
+
+		layer.AddGameObject(obj);
+		mInsertObject.pop();
+	}
+}
+
 void SceneManager::Destroy()
 {
 	mActiveScene->Destroy();

@@ -12,10 +12,12 @@ public:
 	virtual void Initalize();
 	// CPU Update
 	virtual void Update();
+	virtual void Instantiate();
+	virtual void Destroy();
 	// GPU Update
 	virtual void FixedUpdate();
 	virtual void Render();
-	virtual void Destroy();
+
 	
 	// Running main engine loop
 	void Run();

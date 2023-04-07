@@ -61,7 +61,6 @@ void Ping::FixedUpdate()
 	std::shared_ptr<Material> mater = sr->GetMaterial();
 	std::shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Ping");
 	mater->SetTexture(eTextureSlot::T0, tex);
-	
 
 	// Bind Time
 	ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::Time];
