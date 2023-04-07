@@ -1,6 +1,5 @@
 #include "CCamera.h"
 #include "CGameObject.h"
-#include "CTransform.h"
 #include "CApplication.h"
 #include "CRenderer.h"
 #include "CSceneManager.h"

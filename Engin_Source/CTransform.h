@@ -1,7 +1,8 @@
-#pragma
+#pragma once
 #include "CComponent.h"
 
 using namespace Math;
+
 class Transform : public Component
 {
 public:
@@ -23,7 +24,7 @@ public:
 	Vector3 GetScale() { return mScale; }
 
 	void SetPosition(Vector3 position) { mPosition = position; }
-	void SetPosition(float x, float y, float z) { mPosition = Vector3(x,y,z); }
+	void SetPosition(float x, float y, float z) { mPosition = Vector3(x, y, z); }
 
 	void SetRotation(Vector3 degree) { mRotation = degree; }
 	void SetScale(Vector3 scale) { mScale = scale; }

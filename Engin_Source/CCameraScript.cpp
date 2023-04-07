@@ -1,5 +1,4 @@
 #include "CCameraScript.h"
-#include "CTransform.h"
 #include "CGameObject.h"
 #include "CInput.h"
 #include "CTime.h"

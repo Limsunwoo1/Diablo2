@@ -1,5 +1,4 @@
 #include "CPing.h"
-#include "CTransform.h"
 #include "CTime.h"
 #include "CRenderer.h"
 #include "CInput.h"

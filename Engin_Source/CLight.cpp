@@ -1,5 +1,4 @@
 #include "CLight.h"
-#include "CTransform.h"
 #include "CGameObject.h"
 #include "CRenderer.h"
 

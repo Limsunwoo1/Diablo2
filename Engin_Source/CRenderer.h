@@ -86,6 +86,12 @@ namespace Renderer
 
 		UINT elementCount;
 		float delta;
+		float elpsedTime;
+	};
+
+	CBUFFER(NoiseCB, CBSLOT_NOISE)
+	{
+		Vector4 noiseSize;
 	};
 
 	extern Vertex FadeInOut[4];
@@ -113,5 +119,6 @@ namespace Renderer
 	void PushLightAttribute(LightAttribute lightAttribute);
 	void BindLights();
 	void BindTime();
+	void BindNoiseTexture();
 }
 

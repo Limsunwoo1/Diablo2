@@ -234,9 +234,6 @@
     <ClCompile Include="CMeshRenderer.cpp">
       <Filter>Component\Renderer\MeshRenderer</Filter>
     </ClCompile>
-    <ClCompile Include="CTransform.cpp">
-      <Filter>Component\Transform</Filter>
-    </ClCompile>
     <ClCompile Include="CCamera.cpp">
       <Filter>Component\Camera</Filter>
     </ClCompile>
@@ -351,6 +348,9 @@
     <ClCompile Include="CPing.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="CTransform.cpp">
+      <Filter>Component\Transform</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -421,9 +421,6 @@
     </ClInclude>
     <ClInclude Include="CMeshRenderer.h">
       <Filter>Component\Renderer\MeshRenderer</Filter>
-    </ClInclude>
-    <ClInclude Include="CTransform.h">
-      <Filter>Component\Transform</Filter>
     </ClInclude>
     <ClInclude Include="CCamera.h">
       <Filter>Component\Camera</Filter>
@@ -541,6 +538,9 @@
     </ClInclude>
     <ClInclude Include="CPing.h">
       <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="CTransform.h">
+      <Filter>Component\Transform</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

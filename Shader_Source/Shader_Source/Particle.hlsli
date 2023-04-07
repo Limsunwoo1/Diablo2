@@ -1,4 +1,3 @@
-
 struct Particle
 {
 	float4 position;

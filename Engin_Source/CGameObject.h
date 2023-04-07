@@ -1,5 +1,6 @@
 #pragma once
 #include "CEntity.h"
+#include "CTransform.h"
 #include "CScript.h"
 
 class GameObject : public Entity

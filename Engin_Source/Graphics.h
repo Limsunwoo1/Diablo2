@@ -19,6 +19,7 @@
 #define CBSLOT_NUMBEROFLIGHT	5
 #define CBSLOT_TIME				6
 #define CBSLOT_PARTICLESYSTEM	7
+#define CBSLOT_NOISE			8
 
 namespace graphics
 {
@@ -32,6 +33,7 @@ namespace graphics
 		Light,
 		Time,
 		ParticleSystem,
+		Noise,
 		End,
 	};
 

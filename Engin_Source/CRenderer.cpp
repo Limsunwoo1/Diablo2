@@ -390,6 +390,9 @@ namespace Renderer
 
 		constantBuffers[(UINT)eCBType::ParticleSystem] = new ConstantBuffer(eCBType::ParticleSystem);
 		constantBuffers[(UINT)eCBType::ParticleSystem]->Create(sizeof(ParticleSystemCB));
+
+		constantBuffers[(UINT)eCBType::Noise] = new ConstantBuffer(eCBType::Noise);
+		constantBuffers[(UINT)eCBType::Noise]->Create(sizeof(NoiseCB));
 #pragma endregion
 #pragma region STRUCTED BUFER
 		// Structed buffer
@@ -497,7 +500,8 @@ namespace Renderer
 		ResourceManager::GetInstance()->Load<Texture2D>(L"HPBarTexture", L"HPBar.png");
 		ResourceManager::GetInstance()->Load<Texture2D>(L"ShopIdle", L"ShopIdle.png");
 		ResourceManager::GetInstance()->Load<Texture2D>(L"Ping", L"ping.png");
-
+		ResourceManager::GetInstance()->Load<Texture2D>(L"noise_01", L"noise//noise_01.png");
+		ResourceManager::GetInstance()->Load<Texture2D>(L"noise_02", L"noise//noise_02.png");
 		//ResourceManager::GetInstance()->Load<Texture2D>(L"Diablo2_Town_Idle", L"diablo2_Town_Idle.png");
 		ResourceManager::GetInstance()->Load<Texture2D>(L"CartoonSmoke", L"particle\\CartoonSmoke.png");
 #pragma endregion
@@ -600,6 +604,7 @@ namespace Renderer
 
 	void Render()
 	{
+		BindNoiseTexture();
 		BindLights();
 		BindTime();
 
@@ -661,6 +666,31 @@ namespace Renderer
 		ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::Time];
 		cb->SetData(&tCb);
 		cb->Bind(eShaderStage::VS);
+		cb->Bind(eShaderStage::GS);
+		cb->Bind(eShaderStage::PS);
+		cb->Bind(eShaderStage::CS);
+	}
+
+	void BindNoiseTexture()
+	{
+		std::shared_ptr<Texture2D> noise = ResourceManager::GetInstance()->Find<Texture2D>(L"noise_01");
+		noise->BindShaderResource(eShaderStage::VS, 16);
+		noise->BindShaderResource(eShaderStage::HS, 16);
+		noise->BindShaderResource(eShaderStage::DS, 16);
+		noise->BindShaderResource(eShaderStage::GS, 16);
+		noise->BindShaderResource(eShaderStage::PS, 16);
+		noise->BindShaderResource(eShaderStage::CS, 16);
+		noise->BindShaderResource(eShaderStage::VS, 16);
+
+		NoiseCB info = {};
+		info.noiseSize.x = noise->GetWidth();
+		info.noiseSize.y = noise->GetHeight();
+
+		ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::Noise];
+		cb->SetData(&info);
+		cb->Bind(eShaderStage::VS);
+		cb->Bind(eShaderStage::HS);
+		cb->Bind(eShaderStage::DS);
 		cb->Bind(eShaderStage::GS);
 		cb->Bind(eShaderStage::PS);
 		cb->Bind(eShaderStage::CS);

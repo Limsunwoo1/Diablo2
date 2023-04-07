@@ -23,6 +23,7 @@ private:
 	class StructedBuffer* mShaderBuffer;
 
 	shared_ptr<ParticleShader> mCS;
+	Renderer::ParticleSystemCB mCBData;
 
 	UINT mCount;
 	Vector4 mStartSize;

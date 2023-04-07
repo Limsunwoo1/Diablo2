@@ -3,7 +3,6 @@
 #include "CResourceManager.h"
 #include "CMaterial.h"
 #include "CStructedBuffer.h"
-#include "CTransform.h"
 #include "CGameObject.h"
 #include "CTexture2D.h"
 #include "CParticleShader.h"
@@ -22,6 +21,7 @@ ParticleSystem::ParticleSystem()
 	, mStartLifeTime(0.0f)
 	, mFrequency(1.0f)
 	, mTime(0.0f)
+	, mCBData{}
 {
 
 }
@@ -51,7 +51,6 @@ void ParticleSystem::Initalize()
 
 
 	Particle particles[100] = {};
-	Vector4 startPos = Vector4(-800.f, -450.f, 0.0f, 0.0f);
 	for (size_t i = 0; i < mCount; i++)
 	{
 		particles[i].position = Vector4(0.0f, 0.0f, 20.f, 1.0f);
@@ -96,12 +95,12 @@ void ParticleSystem::FixedUpdate()
 		mShaderBuffer->SetData(&shader, 1);
 	}
 
-	Renderer::ParticleSystemCB info = {};
-	info.elementCount = mBuffer->GetStride();
-	info.delta = Time::GetInstance()->DeltaTime();
+	mCBData.elementCount = mBuffer->GetStride();
+	mCBData.delta = Time::GetInstance()->DeltaTime();
+	mCBData.elpsedTime += Time::GetInstance()->DeltaTime();
 
 	ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::ParticleSystem];
-	cb->SetData(&info);
+	cb->SetData(&mCBData);
 	cb->Bind(eShaderStage::CS);
 
 	mCS->SetShaderStructedBuffer(mShaderBuffer);
@@ -113,9 +112,7 @@ void ParticleSystem::Render()
 {
 	GetOwner()->GetComponent<Transform>()->SetConstantBuffer();
 
-	mBuffer->BindSRV(eShaderStage::VS, 15);
 	mBuffer->BindSRV(eShaderStage::GS, 15);
-	mBuffer->BindSRV(eShaderStage::PS, 15);
 
 	GetMaterial()->Bind();
 	GetMesh()->RenderInstanced(mCount);

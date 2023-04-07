@@ -1,8 +1,6 @@
 #pragma once
 #include "CSceneManager.h"
-#include "CLayer.h"
 #include "CGameObject.h"
-#include "CTransform.h"
 
 
 namespace Object

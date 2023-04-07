@@ -1,5 +1,6 @@
 #include "globals.hlsli"
 
+StructuredBuffer<Particle> particleBuffer : register(t15);
 
 struct VSOut
 {

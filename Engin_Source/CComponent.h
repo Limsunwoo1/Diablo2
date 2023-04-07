@@ -1,5 +1,4 @@
 #pragma once
-#include "Math.h"
 #include "CEntity.h"
 
 class GameObject;
