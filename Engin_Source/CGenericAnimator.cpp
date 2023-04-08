@@ -93,15 +93,12 @@ void GenericAnimator::Initalize()
 void GenericAnimator::Update()
 {
 	Update(Time::GetInstance()->DeltaTime());
-	Component::Update();
 }
 
 void GenericAnimator::FixedUpdate()
 {
-	Component::FixedUpdate();
 }
 
 void GenericAnimator::Render()
 {
-	Component::Render();
 }

@@ -416,7 +416,6 @@ void PlayScene::Update()
 
 void PlayScene::FixedUpdate()
 {
-	cout << this->GetLayer(eLayerType::Effect).GetGameObjects().size() << endl;
 	Scene::FixedUpdate();
 }
 

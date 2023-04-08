@@ -21,6 +21,8 @@ void FrozenOrb::Initalize()
 {
 	for (int i = 0; i < 20; ++i)
 		mFrozenMisile.emplace_back(new FrozenMisile);
+	for (int i = 0; i < 20; ++i)
+		mFrozenMisile[i]->Initalize();
 
 	// ↗ ↙ ↘ ↖ → ←
 	mMisileDirection.push_back(Vector2(1.f, -1.f));
@@ -44,7 +46,7 @@ void FrozenOrb::Initalize()
 
 	// 트랜스폼
 	Transform* tr = GetComponent<Transform>();
-	tr->SetScale(Vector3(2.f, 2.f, 1.f));
+	tr->SetScale(Vector3(1.5f, 1.5f, 1.f));
 	
 	// 제네릭 애니메이터
 	AddComponent<GenericAnimator>();
@@ -96,7 +98,7 @@ void FrozenOrb::OnOrb()
 	param.AnimType = eAnimType::Linear;
 	param.StartValue = 0.0f;
 	param.EndValue = 100.0f;
-	param.DurationTime = 1.0f;
+	param.DurationTime = 3.f;
 
 
 	int iSlice = 20;
@@ -106,21 +108,19 @@ void FrozenOrb::OnOrb()
 	vector<Vector2> pushDriection;
 	for (int i = 0; i < iSlice; ++i)
 	{
-		Vector2 pos = Vector2
+		Vector2 rotation = Vector2
 		(
 			fRadius * cosf(fTheta * (float)i)
 			, fRadius * sinf(fTheta * (float)i)
 		);
-		pushDriection.push_back(pos);
+
+		// 회전
+		mFrozenMisile[i]->GetComponent<Transform>()->SetRotation(Vector3(rotation.x, rotation.y, 1.0f));
 	}
 
 	for (int i = 0; i < 20; ++i)
 	{
-		if (mFrozenMisile[i]->GetState() == eState::dead)
-			continue;
-
 		mFrozenMisile[i]->Active();
-		mFrozenMisile[i]->SetDirection(pushDriection[i]);
 
 		Vector3 pos = GetComponent<Transform>()->GetPosition();
 		Transform* tr = mFrozenMisile[i]->GetComponent<Transform>();

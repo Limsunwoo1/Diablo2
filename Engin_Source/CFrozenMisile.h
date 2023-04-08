@@ -20,15 +20,10 @@ public:
 	
 	void RunMisile();
 	const wstring& GetKeyName() { return mKeyName; }
-
-
-	void SetDirection(Vector2& direction) { mDirection = direction; }
 private:
 	FrozenOrb* mOrb;
 
-	Math::Vector2 mDirection;
 	bool mbMode;
-
 	wstring mKeyName;
 };
 

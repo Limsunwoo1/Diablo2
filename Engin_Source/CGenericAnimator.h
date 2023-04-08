@@ -54,10 +54,10 @@ public:
     bool IsRunning();
     void Stop(bool InCompleteEvent = false);
 
-    virtual void Initalize() = 0;
-    virtual void Update() = 0;
-    virtual void FixedUpdate() = 0;
-    virtual void Render() = 0;
+    virtual void Initalize() override;
+    virtual void Update() override;
+    virtual void FixedUpdate() override;
+    virtual void Render() override;
 };
 
 

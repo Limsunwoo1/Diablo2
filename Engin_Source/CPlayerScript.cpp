@@ -85,6 +85,8 @@ void PlayerScript::FixedUpdate()
 
 			Transform* tr = orb->GetComponent<Transform>();
 			tr->SetPosition(pos);
+
+			orb->OnOrb();
 		}
 	}
 
