@@ -31,8 +31,8 @@ void Ping::Initalize()
 
 void Ping::Update()
 {
-	GameObject::Update();
 	mTime += Time::GetInstance()->DeltaTime();
+	GameObject::Update();
 }
 
 void Ping::FixedUpdate()
@@ -47,7 +47,10 @@ void Ping::FixedUpdate()
 	// Size
 	Transform* tr = GetComponent<Transform>();
 	Vector3 size = tr->GetScale();
-	float inSize = mSize * mTime;
+	float inSize = mSize * (mTime * 3.f);
+
+	if (inSize > 0.7f)
+		inSize = 0.7f;
 
 	size.x = inSize;
 	size.y = inSize;
@@ -66,7 +69,7 @@ void Ping::FixedUpdate()
 	ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::Time];
 	Renderer::TimeCB info = {};
 	info.deltatime = Time::GetInstance()->DeltaTime();
-	info.time = mTime;
+	info.time = mTime * 2.f;
 
 	cb->SetData(&info);
 	cb->Bind(eShaderStage::PS);

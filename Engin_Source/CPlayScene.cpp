@@ -44,7 +44,7 @@ void PlayScene::Initalize()
 	
 
 	{
-		GameObject* directionalLight = Object::Instantiate<GameObject>(eLayerType::Player, this);
+		GameObject* directionalLight = Object::Instantiate<GameObject>(eLayerType::None, this);
 		Transform* tr = directionalLight->GetComponent<Transform>();
 		tr->SetPosition(Vector3(0.0f, 0.0f, -100.f));
 		Light* lightcomp = directionalLight->AddComponent<Light>();
@@ -56,7 +56,7 @@ void PlayScene::Initalize()
 	{
 		GameObject* cameraObj = Object::Instantiate<GameObject>(eLayerType::Camera, this);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
-		//cameraObj->GetComponent<Transform>()->SetPosition(Vector3(1.5f, 1.5f, 1.0f));
+		cameraObj->GetComponent<Transform>()->SetPosition(Vector3(10.0f, 10.f, 1.0f));
 		//cameraComp->RegisterCameraInRenderer();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		cameraObj->AddComponent<CameraScript>();
@@ -98,7 +98,7 @@ void PlayScene::Initalize()
 		player->InitAnimation();
 		player->PlayAnimation(L"Walk0");
 
-		Renderer::mainCamera->SetTrace(player);
+		//Renderer::mainCamera->SetTrace(player);
 
 		//60 75.875f
 	}
@@ -416,7 +416,7 @@ void PlayScene::Update()
 
 void PlayScene::FixedUpdate()
 {
-
+	cout << this->GetLayer(eLayerType::Effect).GetGameObjects().size() << endl;
 	Scene::FixedUpdate();
 }
 

@@ -628,7 +628,7 @@ namespace Renderer
 	{
 		BindNoiseTexture();
 		BindLights();
-		BindTime();
+		//BindTime();
 
 		eSceneType type = SceneManager::GetInstance()->GetActiveScene()->GetScenType();
 		for (Camera* cam : Cameras[(UINT)type])

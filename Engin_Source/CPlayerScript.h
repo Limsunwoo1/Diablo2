@@ -26,8 +26,10 @@ public:
 private:
 	Vector3 mArrivePos;
 	Vector2 mPickPoint;
-	bool mbRun;
+	Vector2 mEndPos;
 
 	AStar::Node* mNode;
+	bool mbInput;
+	float mInputDelay;
 };
 

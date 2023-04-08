@@ -84,19 +84,13 @@ void Layer::Destroy()
 			iter = mGameObjects.erase(iter);
 		else
 			++iter;
-		
-		// 삭제할 오브젝트들을 실제 메모리 할당 해제
-		for (GameObject* gameObj : deleteObjects)
-		{
-			if (gameObj->GetLayerType() == eLayerType::PlayerSKil)
-			{
-				ObjectManager::GetInstance()->AddSKilObject(gameObj);
-				continue;
-			}
+	}
 
-			delete gameObj;
-			gameObj = nullptr;
-		}
+	// 삭제할 오브젝트들을 실제 메모리 할당 해제
+	for (GameObject* gameObj : deleteObjects)
+	{
+		delete gameObj;
+		gameObj = nullptr;
 	}
 }
 

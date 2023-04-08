@@ -16,9 +16,10 @@
 PlayerScript::PlayerScript()
 	: Script()
 	, mArrivePos(Vector3::Zero)
-	, mbRun(false)
+	, mbInput(false)
 	, mPickPoint(Vector2::Zero)
 	, mNode(nullptr)
+	, mInputDelay(0.0f)
 {
 }
 
@@ -37,202 +38,18 @@ void PlayerScript::Initalize()
 
 void PlayerScript::Update()
 {
+	if (mInputDelay >= 0.1f)
+	{
+		mInputDelay -= 0.1f;
+		mbInput = false;
+		return;
+	}
 
-	//Player* player = dynamic_cast<Player*>(GetOwner());
-
-	//if (player == nullptr)
-	//	return;
-
-	//Transform* tr = player->GetComponent<Transform>();
-	//Vector3 pos = tr->GetPosition();
-
-	//cout << "X    " << pos.x << "    Y    " << pos.y << endl;
-
-	//float speed = 2.f;
-
-	//if (Input::GetInstance()->GetKeyPress(eKeyCode::A))
-	//{
-	//	if (player->GetState() == Player::State::Idle
-	//		|| player->GetState() == Player::State::Move)
-	//		player->SetState(Player::State::Attack);
-	//}
-	//else if (Input::GetInstance()->GetKeyPress(eKeyCode::S))
-	//{
-	//	if (player->GetState() == Player::State::Idle
-	//		|| player->GetState() == Player::State::Move)
-	//		player->SetState(Player::State::Skil);
-	//}
-
-
-	//if (Input::GetInstance()->GetKeyUp(eKeyCode::RBTN))
-	//{
-	//	//a*
-	//	AStar* astar = GetOwner()->GetComponent<AStar>();
-	//	AStar::Node node = {};
-	//	AStar::Vec end = {};
-
-	//	if (!astar->IsRunning())
-	//	{
-	//		Vector2 index = Input::GetInstance()->GetMouseWorldPos();
-
-	//		Vector2 Wpos = WorldManager::GetInstance()->GetPlayerIndex();
-	//		Vector2 Wend = WorldManager::GetInstance()->GetEndIndex();
-
-	//		Vector2 playerIndex = WorldManager::GetInstance()->GetPlayerIndex();
-	//		node.Pos.x = (UINT)playerIndex.x;
-	//		node.Pos.y = (UINT)playerIndex.y;
-
-	//		end.x = index.x;
-	//		end.y = index.y;
-
-	//		UINT max = WorldManager::GetInstance()->GetScale();
-	//		node.Id = (node.Pos.y * max) + (node.Pos.x % max);
-
-	//		if (WorldManager::GetInstance()->SetPath(node.Pos.x, node.Pos.y, end.x, end.y))
-	//		{
-	//			if (astar->OnA_Star(node, node.Pos, end))
-	//				mPickPoint = Vector2::Zero;
-	//		}
-
-	//		Scene* scene = SceneManager::GetInstance()->GetActiveScene();
-	//		if (scene)
-	//		{
-	//			Ping* ping = Object::Instantiate<Ping>(eLayerType::Effect, scene);
-
-	//			Transform* tr = ping->GetComponent<Transform>();
-	//			Vector3 posVec = Vector3(index.x, index.y, 1.0f);
-	//			tr->SetPosition(posVec);
-
-	//			//ping->SetPos(index);
-	//		}
-	//		///////////////////////////////////////////////////////////////////////////////////
-	//	}
-	//}
-
-
-	//if (Input::GetInstance()->GetKeyDown(eKeyCode::RBTN))
-	//{
-	//	//mPickPoint = Input::GetInstance()->GetMouseWorldPos();
-
-	//}
-	//if (mNode == nullptr && mPickPoint == Vector2::Zero)
-	//{
-	//	AStar* astar = GetOwner()->GetComponent<AStar>();
-	//	mNode = astar->GetNextNode();
-	//	if (mNode != nullptr)
-	//	{
-	//		// lefttop 좌표를 32를 더해 타일 중앙에 좌표를 설정
-	//		mPickPoint = Vector2((mNode->Pos.x), (mNode->Pos.y));
-	//		if (WorldManager::GetInstance()->GetEndIndex() == mPickPoint)
-	//		{
-	//			WorldManager::GetInstance()->SetPlayerIndex(mNode->Pos.x, mNode->Pos.y);
-	//		}
-	//	}
-	//}
-
-	//if (mPickPoint != Vector2::Zero)
-	//{
-
-	//	Vector3 vec = mPickPoint - pos;
-
-	//	if (fabs(vec.x) < 0.005f && fabs(vec.y) < 0.005f)
-	//	{
-	//		Vector2 pos = WorldManager::GetInstance()->GetPlayerIndex();
-	//		WorldManager::GetInstance()->SetZero(pos.x, pos.y);
-
-	//		mPickPoint = Vector2::Zero;
-
-	//		player->SetState(Player::State::Idle);
-	//		return;
-	//	}
-
-	//	vec.Normalize();
-
-	//	// SetPlayerIndex
-	//	{
-	//		float angle = GetAngle(mPickPoint);
-
-	//		if (vec.x <= 0.0f)
-	//		{
-	//			if (angle >= 0.0f && angle < 22.5f)
-	//			{
-	//				player->PlayerDirection(0);
-	//			}
-	//			else if (angle >= 22.5f && angle < 50.f)
-	//			{
-	//				player->PlayerDirection(1);
-	//			}
-	//			else if (angle >= 50.f && angle < 75.5f)
-	//			{
-	//				player->PlayerDirection(2);
-	//			}
-	//			else if (angle >= 75.5f && angle < 90.f)
-	//			{
-	//				player->PlayerDirection(3);
-	//			}
-	//			else if (angle >= 90.f && angle < 115.f)
-	//			{
-	//				player->PlayerDirection(4);
-	//			}
-	//			else if (angle >= 115.f && angle < 140.f)
-	//			{
-	//				player->PlayerDirection(5);
-	//			}
-	//			else if (angle >= 140.f && angle < 165.5f)
-	//			{
-	//				player->PlayerDirection(6);
-	//			}
-	//			else
-	//			{
-	//				player->PlayerDirection(7);
-	//			}
-	//		}
-	//		else
-	//		{
-	//			if (angle >= 0.0f && angle < 22.5f)
-	//			{
-	//				player->PlayerDirection(8);
-	//			}
-	//			else if (angle >= 22.5f && angle < 50.f)
-	//			{
-	//				player->PlayerDirection(9);
-	//			}
-	//			else if (angle >= 50.f && angle < 75.5f)
-	//			{
-	//				player->PlayerDirection(10);
-	//			}
-	//			else if (angle >= 75.5f && angle < 90.f)
-	//			{
-	//				player->PlayerDirection(11);
-	//			}
-	//			else if (angle >= 90.f && angle < 115.f)
-	//			{
-	//				player->PlayerDirection(12);
-	//			}
-	//			else if (angle >= 115.f && angle < 140.f)
-	//			{
-	//				player->PlayerDirection(13);
-	//			}
-	//			else if (angle >= 140.f && angle < 165.5f)
-	//			{
-	//				player->PlayerDirection(14);
-	//			}
-	//			else
-	//			{
-	//				player->PlayerDirection(15);
-	//			}
-	//		}
-	//		player->SetState(Player::State::Move);
-	//	}
-
-	//	pos += vec * Time::GetInstance()->DeltaTime() * speed;
-
-	//	mNode = nullptr;
-	//}
-
-	//if (player->GetState() == Player::State::Idle
-	//	|| player->GetState() == Player::State::Move)
-	//	tr->SetPosition(pos);
+	if (mbInput)
+	{
+		mInputDelay += Time::GetInstance()->DeltaTime();
+	}
+	
 }
 
 void PlayerScript::FixedUpdate()
@@ -244,8 +61,6 @@ void PlayerScript::FixedUpdate()
 
 	Transform* tr = player->GetComponent<Transform>();
 	Vector3 pos = tr->GetPosition();
-
-	cout << "X    " << pos.x << "    Y    " << pos.y << endl;
 
 	float speed = 2.f;
 
@@ -263,16 +78,20 @@ void PlayerScript::FixedUpdate()
 	}
 
 
-	if (Input::GetInstance()->GetKeyUp(eKeyCode::RBTN))
+	if (Input::GetInstance()->GetKeyDown(eKeyCode::RBTN))
 	{
 		//a*
 		AStar* astar = GetOwner()->GetComponent<AStar>();
 		AStar::Node node = {};
 		AStar::Vec end = {};
 
-		if (!astar->IsRunning())
+		if (!mbInput)
 		{
 			Vector2 index = Input::GetInstance()->GetMouseWorldPos();
+
+			// 플레이어 발끝에 위치하기위해
+			// 약간의 y 값을 증가시킴
+			//index.y += 0.7f;
 
 			Vector2 Wpos = WorldManager::GetInstance()->GetPlayerIndex();
 			Vector2 Wend = WorldManager::GetInstance()->GetEndIndex();
@@ -290,22 +109,34 @@ void PlayerScript::FixedUpdate()
 			if (WorldManager::GetInstance()->SetPath(node.Pos.x, node.Pos.y, end.x, end.y))
 			{
 				if (astar->OnA_Star(node, node.Pos, end))
+				{
+					Vector2 pos = WorldManager::GetInstance()->GetPlayerIndex();
+					WorldManager::GetInstance()->SetObstacle(pos.x, pos.y);
+
+					Vector3 trPos = GetOwner()->GetComponent<Transform>()->GetPosition();
+
+					WorldManager::GetInstance()->SetPlayerIndex(trPos.x, trPos.y);
+
 					mPickPoint = Vector2::Zero;
+					mEndPos = index;
+				}
 
 				Scene* scene = SceneManager::GetInstance()->GetActiveScene();
-				if (scene)
+				if (scene != nullptr)
 				{
 					Ping* ping = Object::Instantiate<Ping>(eLayerType::Effect, true);
 
 					Transform* tr = ping->GetComponent<Transform>();
+
 					Vector3 posVec = Vector3(index.x, index.y, 1.0f);
 					tr->SetPosition(posVec);
+
+					mbInput = true;
 				}
 			}
 			///////////////////////////////////////////////////////////////////////////////////
 		}
 	}
-
 
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::RBTN))
 	{
@@ -318,7 +149,6 @@ void PlayerScript::FixedUpdate()
 		mNode = astar->GetNextNode();
 		if (mNode != nullptr)
 		{
-			// lefttop 좌표를 32를 더해 타일 중앙에 좌표를 설정
 			mPickPoint = Vector2((mNode->Pos.x), (mNode->Pos.y));
 			if (WorldManager::GetInstance()->GetEndIndex() == mPickPoint)
 			{
@@ -329,6 +159,8 @@ void PlayerScript::FixedUpdate()
 
 	if (mPickPoint != Vector2::Zero)
 	{
+		if ( abs(mPickPoint.x - mEndPos.x) == 0 && abs(mPickPoint.y == mEndPos.y) == 0 )
+			mPickPoint = mEndPos;
 
 		Vector3 vec = mPickPoint - pos;
 
@@ -338,6 +170,7 @@ void PlayerScript::FixedUpdate()
 			WorldManager::GetInstance()->SetZero(pos.x, pos.y);
 
 			mPickPoint = Vector2::Zero;
+			mEndPos = Vector2(-1.f, -1.f);
 
 			player->SetState(Player::State::Idle);
 			return;

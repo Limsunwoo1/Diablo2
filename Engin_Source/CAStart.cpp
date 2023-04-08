@@ -72,7 +72,7 @@ UINT AStar::GetHeuristick(int x, int y)
 		weight = 10;
 
 	UINT H = (ix + iy) * 10;
-	return H + weight;
+	return H;
 }
 
 UINT AStar::GetHeuristick2(int x, int y)
@@ -202,11 +202,14 @@ bool AStar::OnA_Star(Node& node, Vec& start, Vec& end, bool run)
 	if (mbRun)
 		return false;
 
+	if (end.x == node.Pos.x && end.y == node.Pos.y)
+		return false;
+
 	ClearNode();
 
 	mMaxX = WorldManager::GetInstance()->GetScale();
 	mMaxY = WorldManager::GetInstance()->GetScale();
-	
+
 	//SetIndex
 	mStart = start;
 	mEnd = end;

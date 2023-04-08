@@ -135,7 +135,7 @@ Math::Vector2 Input::GetMousePos(HWND hWnd)
 
 Math::Vector2 Input::GetMouseWorldPos()
 {
-	Vector2 mouse = GetMousePos();
+	Vector2 mouse = GetMousePos(Application.GetHwnd());
 	Math::Viewport mathViewport;
 
 	// viewport 크기
@@ -168,6 +168,7 @@ Math::Vector2 Input::GetMouseWorldPos()
 
 	// NDC 좌표를 월드 좌표로 변환
 	Math::Vector3 nearPoint(ndcX, ndcY, 0.0f);
+	//Vector3 result;
 
 	/*Math::Matrix projection = Renderer::mainCamera->GetProjectionMatrix().Invert();
 	Math::Matrix view = Renderer::mainCamera->GetViewMatrix().Invert();*/
@@ -186,7 +187,7 @@ Math::Vector2 Input::GetMouseWorldPos()
 	mat = projection;
 	mat *= view;*/
 
-	return Math::Vector2(result.x, result.y + 0.7f);
+	return Math::Vector2(result.x, result.y);
 }
 
 Math::Vector2 Input::GetMouseScreenIndex()
