@@ -98,7 +98,7 @@ void PlayScene::Initalize()
 		player->InitAnimation();
 		player->PlayAnimation(L"Walk0");
 
-		//Renderer::mainCamera->SetTrace(player);
+		Renderer::mainCamera->SetTrace(player);
 
 		//60 75.875f
 	}

@@ -12,6 +12,7 @@
 #include "CPing.h"
 #include "CObject.h"
 #include "CSceneManager.h"
+#include "CFrozenOrb.h"
 
 PlayerScript::PlayerScript()
 	: Script()
@@ -20,6 +21,7 @@ PlayerScript::PlayerScript()
 	, mPickPoint(Vector2::Zero)
 	, mNode(nullptr)
 	, mInputDelay(0.0f)
+	, mEndPos(Vector2(-1.f, -1.f))
 {
 }
 
@@ -74,7 +76,16 @@ void PlayerScript::FixedUpdate()
 	{
 		if (player->GetState() == Player::State::Idle
 			|| player->GetState() == Player::State::Move)
+		{
 			player->SetState(Player::State::Skil);
+
+			FrozenOrb* orb = Object::Instantiate<FrozenOrb>(eLayerType::PlayerSKil, true);
+			Vector2 direction = (Input::GetInstance()->GetMouseWorldPos() - pos);
+			orb->SetDirection(direction);
+
+			Transform* tr = orb->GetComponent<Transform>();
+			tr->SetPosition(pos);
+		}
 	}
 
 
@@ -154,23 +165,29 @@ void PlayerScript::FixedUpdate()
 			{
 				WorldManager::GetInstance()->SetPlayerIndex(mNode->Pos.x, mNode->Pos.y);
 			}
+
+			if (astar->GetNodeEmpyt())
+			{
+				WorldManager::GetInstance()->SetZero(mNode->Pos.x, mNode->Pos.y);
+
+				mPickPoint = mEndPos;
+				WorldManager::GetInstance()->SetPlayerIndex(mPickPoint.x, mPickPoint.y);
+
+				mEndPos = Vector2(-1.f, -1.f);
+			}
 		}
 	}
 
 	if (mPickPoint != Vector2::Zero)
 	{
-		if ( abs(mPickPoint.x - mEndPos.x) == 0 && abs(mPickPoint.y == mEndPos.y) == 0 )
-			mPickPoint = mEndPos;
-
 		Vector3 vec = mPickPoint - pos;
 
-		if (fabs(vec.x) < 0.005f && fabs(vec.y) < 0.005f)
+		if (fabs(vec.x) < 0.05f && fabs(vec.y) < 0.05f)
 		{
 			Vector2 pos = WorldManager::GetInstance()->GetPlayerIndex();
 			WorldManager::GetInstance()->SetZero(pos.x, pos.y);
 
 			mPickPoint = Vector2::Zero;
-			mEndPos = Vector2(-1.f, -1.f);
 
 			player->SetState(Player::State::Idle);
 			return;

@@ -91,12 +91,6 @@
     <Filter Include="Component\Light">
       <UniqueIdentifier>{2107e2f8-1c12-459a-8741-320521680000}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject\PlayerSkilFire">
-      <UniqueIdentifier>{2e7fc52e-f93b-409b-8beb-824380e9f982}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObject\PlayerSkilFire\FireBall">
-      <UniqueIdentifier>{dbe63faa-d2ae-442b-8d18-ee268c7b6821}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component\Renderer\ParticleSystem">
       <UniqueIdentifier>{22b8c067-b63b-4d4f-89b1-8e953c016594}</UniqueIdentifier>
     </Filter>
@@ -177,6 +171,18 @@
     </Filter>
     <Filter Include="Manager\ObjectManager">
       <UniqueIdentifier>{3610afd1-2895-46f1-b3df-4cd3a9db3811}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Ping">
+      <UniqueIdentifier>{1be6e337-482f-46f6-b207-08b76cde242c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\PlayerSkil">
+      <UniqueIdentifier>{2e7fc52e-f93b-409b-8beb-824380e9f982}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\PlayerSkil\FireBall">
+      <UniqueIdentifier>{dbe63faa-d2ae-442b-8d18-ee268c7b6821}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\PlayerSkil\IceSkil">
+      <UniqueIdentifier>{3c222749-46d3-4e74-90ea-3c4ebed0cb57}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -319,10 +325,10 @@
       <Filter>Manager\ResourceManager\Resource\ComputeShader</Filter>
     </ClCompile>
     <ClCompile Include="CSkil.cpp">
-      <Filter>GameObject\PlayerSkilFire</Filter>
+      <Filter>GameObject\PlayerSkil</Filter>
     </ClCompile>
     <ClCompile Include="CSkilFireBall.cpp">
-      <Filter>GameObject\PlayerSkilFire\FireBall</Filter>
+      <Filter>GameObject\PlayerSkil\FireBall</Filter>
     </ClCompile>
     <ClCompile Include="CParticleSystem.cpp">
       <Filter>Component\Renderer\ParticleSystem</Filter>
@@ -345,11 +351,17 @@
     <ClCompile Include="CObjectManager.cpp">
       <Filter>Manager\ObjectManager</Filter>
     </ClCompile>
-    <ClCompile Include="CPing.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="CTransform.cpp">
       <Filter>Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="CPing.cpp">
+      <Filter>GameObject\Ping</Filter>
+    </ClCompile>
+    <ClCompile Include="CFrozenOrb.cpp">
+      <Filter>GameObject\PlayerSkil\IceSkil</Filter>
+    </ClCompile>
+    <ClCompile Include="CFrozenMisile.cpp">
+      <Filter>GameObject\PlayerSkil\IceSkil</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -510,10 +522,10 @@
       <Filter>Manager\ResourceManager\Resource\ComputeShader</Filter>
     </ClInclude>
     <ClInclude Include="CSkil.h">
-      <Filter>GameObject\PlayerSkilFire</Filter>
+      <Filter>GameObject\PlayerSkil</Filter>
     </ClInclude>
     <ClInclude Include="CSkilFireBall.h">
-      <Filter>GameObject\PlayerSkilFire\FireBall</Filter>
+      <Filter>GameObject\PlayerSkil\FireBall</Filter>
     </ClInclude>
     <ClInclude Include="CParticleSystem.h">
       <Filter>Component\Renderer\ParticleSystem</Filter>
@@ -536,11 +548,17 @@
     <ClInclude Include="CObjectManager.h">
       <Filter>Manager\ObjectManager</Filter>
     </ClInclude>
-    <ClInclude Include="CPing.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="CTransform.h">
       <Filter>Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="CPing.h">
+      <Filter>GameObject\Ping</Filter>
+    </ClInclude>
+    <ClInclude Include="CFrozenMisile.h">
+      <Filter>GameObject\PlayerSkil\IceSkil</Filter>
+    </ClInclude>
+    <ClInclude Include="CFrozenOrb.h">
+      <Filter>GameObject\PlayerSkil\IceSkil</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

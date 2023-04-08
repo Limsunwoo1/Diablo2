@@ -8,6 +8,7 @@ AStar::AStar()
 	, mStart(-1, -1)
 	, mEnd(-1, -1)
 	, mbRun(false)
+	, mbNodeEmpty(true)
 	, mCurNode{}
 {
 }
@@ -374,6 +375,8 @@ void AStar::Result()
 		if ((mCurNode.Pos.x == mStart.x && mCurNode.Pos.y == mStart.y))
 		{
 			WorldManager::GetInstance()->SetEndIndex(node.Pos.x, node.Pos.y);
+			if(mResult.size() > 0)
+				mbNodeEmpty = false;
 
 			mbRun = false;
 			return;
@@ -424,12 +427,16 @@ AStar::Node* AStar::GetNextNode()
 {
 	if (mResult.empty())
 	{
+		mbNodeEmpty = true;
 		return nullptr;
 	}
 	else
 	{
 		Node* node = &(mResult.top());
 		mResult.pop();
+
+		if (mResult.empty())
+			mbNodeEmpty = true;
 
 		return node;
 	}

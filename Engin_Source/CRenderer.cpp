@@ -611,6 +611,14 @@ namespace Renderer
 		pingMaterial->SetShader(pingShdaer);
 		ResourceManager::GetInstance()->Insert<Material>(L"PingMaterial", pingMaterial);
 #pragma endregion
+#pragma region FrozenOrb
+		std::shared_ptr<Shader> frozenShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+		std::shared_ptr<Material> FrozenOrbMater = std::make_shared<Material>();
+		FrozenOrbMater->SetRenderingMode(eRenderingMode::Transparent);
+		FrozenOrbMater->SetShader(frozenShader);
+		ResourceManager::GetInstance()->Insert<Material>(L"FrozenOrbMaterial", FrozenOrbMater);
+#pragma endregion
+
 
 	}
 

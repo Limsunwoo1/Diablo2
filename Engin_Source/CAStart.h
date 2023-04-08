@@ -102,6 +102,8 @@ public:
 	Vec& GetStart() { return mStart; }
 	Vec& GetEnd() { return mEnd; }
 
+	bool GetNodeEmpyt() { return mbNodeEmpty; }
+
 	bool IsRunning() { return mbRun; }
 	void StopRun() { mbRun = false; }
 	void ClearNode();
@@ -124,5 +126,6 @@ private:
 	Node mCurNode;
 
 	bool mbRun;
+	bool mbNodeEmpty;
 };
 

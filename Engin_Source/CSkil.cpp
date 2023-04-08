@@ -1,6 +1,11 @@
 #include "CSkil.h"
 #include "Cplayer.h"
 
+Skil::Skil()
+	: GameObject()
+{
+}
+
 Skil::Skil(Player* player)
 	: GameObject()
 	, mOwner(player)

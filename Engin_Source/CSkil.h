@@ -5,6 +5,7 @@
 class Skil : public GameObject
 {
 public:
+	Skil();
 	Skil(Player* owner);
 	virtual ~Skil();
 
