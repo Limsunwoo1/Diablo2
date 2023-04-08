@@ -20,6 +20,10 @@ public:
 
 	void RunOrb();
 
+	void OnOrb();
+	void RunningOrb();
+	void OffOrb();
+
 	void SetDirection(Vector2& direction) { mDirection = direction; }
 private:
 	vector<FrozenMisile*> mFrozenMisile;

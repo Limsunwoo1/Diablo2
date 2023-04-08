@@ -2,6 +2,7 @@
 #include "CFrozenMisile.h"
 #include "CAnimator.h"
 #include "CSpriteRenderer.h"
+#include "CGenericAnimator.h"
 
 #include "CTime.h"
 #include "CResourceManager.h"
@@ -44,6 +45,9 @@ void FrozenOrb::Initalize()
 	// 트랜스폼
 	Transform* tr = GetComponent<Transform>();
 	tr->SetScale(Vector3(2.f, 2.f, 1.f));
+	
+	// 제네릭 애니메이터
+	AddComponent<GenericAnimator>();
 }
 
 void FrozenOrb::Update()
@@ -80,4 +84,19 @@ void FrozenOrb::RunOrb()
 	pos += Vector3(mDirection.x, mDirection.y, 0.0f) * Time::GetInstance()->DeltaTime() * 2.f;
 
 	tr->SetPosition(pos);
+}
+
+void FrozenOrb::OnOrb()
+{
+
+}
+
+void FrozenOrb::RunningOrb()
+{
+
+}
+
+void FrozenOrb::OffOrb()
+{
+
 }

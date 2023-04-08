@@ -40,6 +40,7 @@ enum class eComponentType
 	SpriteRenderer,
 	FadeRenderer,
 	Animator,
+	GenericAnimator,
 	AStart,
 	ParticleSystem,
 	Light,

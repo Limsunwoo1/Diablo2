@@ -211,6 +211,7 @@
     <ClInclude Include="CWorldManager.h" />
     <ClInclude Include="def.h" />
     <ClInclude Include="CFadeRenderer.h" />
+    <ClInclude Include="CGenericAnimator.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="CResource.h" />
@@ -273,6 +274,7 @@
     <ClCompile Include="CTitleScene.cpp" />
     <ClCompile Include="CTransform.cpp" />
     <ClCompile Include="CWorldManager.cpp" />
+    <ClCompile Include="CGenericAnimator.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="CResource.cpp" />
     <ClCompile Include="CResourceManager.cpp" />

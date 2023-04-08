@@ -184,6 +184,9 @@
     <Filter Include="GameObject\PlayerSkil\IceSkil">
       <UniqueIdentifier>{3c222749-46d3-4e74-90ea-3c4ebed0cb57}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\GensricAnimator">
+      <UniqueIdentifier>{8f8c3d94-2671-464c-a227-eaa4895c2c9e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -362,6 +365,9 @@
     </ClCompile>
     <ClCompile Include="CFrozenMisile.cpp">
       <Filter>GameObject\PlayerSkil\IceSkil</Filter>
+    </ClCompile>
+    <ClCompile Include="CGenericAnimator.cpp">
+      <Filter>Component\GensricAnimator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -559,6 +565,9 @@
     </ClInclude>
     <ClInclude Include="CFrozenOrb.h">
       <Filter>GameObject\PlayerSkil\IceSkil</Filter>
+    </ClInclude>
+    <ClInclude Include="CGenericAnimator.h">
+      <Filter>Component\GensricAnimator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
