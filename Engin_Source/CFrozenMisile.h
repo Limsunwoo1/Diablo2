@@ -17,6 +17,10 @@ public:
 	virtual void Render() override;
 
 	virtual void InitAnimation() override;
+	
+	void RunMisile();
+	const wstring& GetKeyName() { return mKeyName; }
+
 
 	void SetDirection(Vector2& direction) { mDirection = direction; }
 private:
@@ -24,5 +28,7 @@ private:
 
 	Math::Vector2 mDirection;
 	bool mbMode;
+
+	wstring mKeyName;
 };
 

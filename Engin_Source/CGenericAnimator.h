@@ -10,7 +10,7 @@ static   int HandleId = 0;
 typedef std::function<void(float)> FAnimEvent;
 
 // 애니메이션이 어떻게 변화하는지
-enum class EAnimType {
+enum class eAnimType {
     Linear,            // 일단 단순하게 선형보간 천천히 균일하게 증가
     Max,
 };
@@ -18,7 +18,7 @@ enum class EAnimType {
 typedef struct _AnimatorParam
 {
     int Handle;
-    EAnimType AnimType;
+    eAnimType AnimType;
 
     float StartValue;
     float EndValue;
@@ -28,7 +28,7 @@ typedef struct _AnimatorParam
     FAnimEvent DurationFunc;
     FAnimEvent CompleteFunc;
 
-    _AnimatorParam() : Handle(InvalidHandleId), AnimType(EAnimType::Linear), StartValue(0.f), EndValue(1.f), DurationTime(1.f), DurationFunc(nullptr), CompleteFunc(nullptr) {}
+    _AnimatorParam() : Handle(InvalidHandleId), AnimType(eAnimType::Linear), StartValue(0.f), EndValue(1.f), DurationTime(1.f), DurationFunc(nullptr), CompleteFunc(nullptr) {}
 
 }AnimatorParam;
 

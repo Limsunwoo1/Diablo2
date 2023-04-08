@@ -21,7 +21,7 @@ GenericAnimator::~GenericAnimator()
 bool GenericAnimator::Start(const AnimatorParam& InParam)
 {
 	// 애니메이션타입이 아직 구현안된거면 중지
-	if (InParam.AnimType == EAnimType::Max)
+	if (InParam.AnimType == eAnimType::Max)
 	{
 		return false;
 	}
@@ -52,7 +52,7 @@ void GenericAnimator::Update(float InDeltaTime)
 		return;
 	}
 
-	if (Param.AnimType == EAnimType::Linear)
+	if (Param.AnimType == eAnimType::Linear)
 	{
 		CurValue = ((StartValue * (EndTime - AccTime)) + (EndValue * AccTime)) / EndTime;
 	}

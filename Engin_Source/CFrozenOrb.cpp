@@ -19,8 +19,8 @@ FrozenOrb::~FrozenOrb()
 
 void FrozenOrb::Initalize()
 {
-	/*for (int i = 0; i < 50; ++i)
-		mFrozenMisile.emplace_back(new FrozenMisile);*/
+	for (int i = 0; i < 20; ++i)
+		mFrozenMisile.emplace_back(new FrozenMisile);
 
 	// ¢Ö ¢× ¢Ù ¢Ø ¡æ ¡ç
 	mMisileDirection.push_back(Vector2(1.f, -1.f));
@@ -88,11 +88,68 @@ void FrozenOrb::RunOrb()
 
 void FrozenOrb::OnOrb()
 {
+	GenericAnimator* animator = GetComponent<GenericAnimator>();
+	if (animator->IsRunning())
+		animator->Stop();
 
+	AnimatorParam param;
+	param.AnimType = eAnimType::Linear;
+	param.StartValue = 0.0f;
+	param.EndValue = 100.0f;
+	param.DurationTime = 1.0f;
+
+
+	int iSlice = 20;
+	float fRadius = 0.3f;
+	float fTheta = XM_2PI / (float)iSlice;
+
+	vector<Vector2> pushDriection;
+	for (int i = 0; i < iSlice; ++i)
+	{
+		Vector2 pos = Vector2
+		(
+			fRadius * cosf(fTheta * (float)i)
+			, fRadius * sinf(fTheta * (float)i)
+		);
+		pushDriection.push_back(pos);
+	}
+
+	for (int i = 0; i < 20; ++i)
+	{
+		if (mFrozenMisile[i]->GetState() == eState::dead)
+			continue;
+
+		mFrozenMisile[i]->Active();
+		mFrozenMisile[i]->SetDirection(pushDriection[i]);
+
+		Vector3 pos = GetComponent<Transform>()->GetPosition();
+		Transform* tr = mFrozenMisile[i]->GetComponent<Transform>();
+		tr->SetPosition(pos);
+	}
+
+	param.DurationFunc = [this](float InCurValue)
+	{
+		for (int i = 0; i < mFrozenMisile.size(); ++i)
+		{
+			if(mFrozenMisile[i]->GetState() == eState::active)
+				mFrozenMisile[i]->FixedUpdate();
+		}
+	};
+
+	param.CompleteFunc = [this](float InCurValue)
+	{
+		RunningOrb();
+	};
+
+	animator->Start(param);
 }
 
 void FrozenOrb::RunningOrb()
 {
+	GenericAnimator* animator = GetComponent<GenericAnimator>();
+	if (animator->IsRunning())
+		animator->Stop();
+
 
 }
 
