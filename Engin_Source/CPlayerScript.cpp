@@ -73,6 +73,8 @@ void PlayerScript::FixedUpdate()
 			|| player->GetState() == Player::State::Move)
 		{
 			player->SetState(Player::State::Attack);
+
+			ResetAStar();
 			return;
 		}
 	}
@@ -92,6 +94,7 @@ void PlayerScript::FixedUpdate()
 
 			orb->OnOrb();
 
+			ResetAStar();
 			return;
 		}
 	}
@@ -125,11 +128,7 @@ void PlayerScript::FixedUpdate()
 			pos = Vector3(EndPos.x, EndPos.y, pos.z);
 			teleport->SetMovePos(pos);
 
-			AStar* astar = GetOwner()->GetComponent<AStar>();
-			astar->ClearNode();
-			mPickPoint = Vector2::Zero;
-			mNode = nullptr;
-
+			ResetAStar();
 			return;
 		}
 	}
@@ -326,24 +325,18 @@ void PlayerScript::FixedUpdate()
 	if (player->GetState() == Player::State::Idle
 		|| player->GetState() == Player::State::Move)
 		tr->SetPosition(pos);
-
-	if (Input::GetInstance()->GetKeyPress(eKeyCode::R))
-	{
-		Vector3 rotation = tr->GetRotation();
-		rotation.z += 0.5f;
-
-		tr->SetRotation(rotation);
-	}
-
-	if (Input::GetInstance()->GetKeyPress(eKeyCode::G))
-	{
-		pos += tr->Right() * Time::GetInstance()->DeltaTime() * 2.0f;
-		tr->SetPosition(pos);
-	}
 }
 
 void PlayerScript::Render()
 {
+}
+
+void PlayerScript::ResetAStar()
+{
+	AStar* astar = GetOwner()->GetComponent<AStar>();
+	astar->ClearNode();
+	mPickPoint = Vector2::Zero;
+	mNode = nullptr;
 }
 
 void PlayerScript::Start()

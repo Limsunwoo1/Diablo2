@@ -14,6 +14,8 @@ public:
 	virtual void FixedUpdate() override;
 	virtual void Render() override;
 
+	void ResetAStar();
+
 	void Start();
 	void Action();
 	void End();

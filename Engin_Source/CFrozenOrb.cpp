@@ -180,14 +180,9 @@ void FrozenOrb::OnOrb()
 	vector<Vector2> pushDriection;
 	for (int i = 0; i < iSlice; ++i)
 	{
-		/*Vector2 rotation = Vector2
-		(
-			fRadius * cosf(fTheta * (float)i)
-			, fRadius * sinf(fTheta * (float)i)
-		);*/
-
 		// 회전
 		mFrozenMisile[i]->GetComponent<Transform>()->SetRotation(Vector3(0.0f, 0.0f, iSlice * (float)i));
+		mFrozenMisile[i]->SetMode(eMisileMode::Rotation);
 	}
 
 	float startLine = 0.1f;
@@ -289,6 +284,8 @@ void FrozenOrb::OffOrb()
 
 		// 회전
 		mFrozenMisile[i]->GetComponent<Transform>()->SetRotation(Vector3(0.0f, 0.0f, iSlice * (float)i));
+		mFrozenMisile[i]->SetTime(0.0f);
+		mFrozenMisile[i]->SetMode(eMisileMode::ReversRotation);
 	}
 
 	Animator* ani = GetComponent<Animator>();

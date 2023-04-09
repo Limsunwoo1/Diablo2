@@ -8,6 +8,8 @@
 FrozenMisile::FrozenMisile()
 	: Skil()
 	, mKeyName(L"FrozenMisile_")
+	, mTime(0.0f)
+	, mbMode(eMisileMode::Straight)
 {
 }
 
@@ -39,6 +41,8 @@ void FrozenMisile::Initalize()
 
 void FrozenMisile::Update()
 {
+	mTime += Time::GetInstance()->DeltaTime();
+
 	Skil::Update();
 }
 
@@ -80,7 +84,36 @@ void FrozenMisile::RunMisile()
 {
 	Transform* tr = GetComponent<Transform>();
 	Vector3 pos = tr->GetPosition();
+	Vector3 rotation = tr->GetRotation();
 
+	switch (mbMode)
+	{
+	case eMisileMode::Straight:
+	{
+
+	}
+		break;
+	case eMisileMode::Rotation:
+	{
+		if (mTime >= 1.0f)
+			mbMode = eMisileMode::Straight;
+
+		rotation.z += Time::GetInstance()->DeltaTime() * 60.0f;
+	}
+		break;
+	case eMisileMode::ReversRotation:
+	{
+		if (mTime >= 1.0f)
+			mbMode = eMisileMode::Straight;
+
+		rotation.z -= Time::GetInstance()->DeltaTime() * 60.0f;
+	}
+		break;
+	default:
+		break;
+	}
+	
 	pos += tr->Right() * Time::GetInstance()->DeltaTime() * 3.5f;
 	tr->SetPosition(pos);
+	tr->SetRotation(rotation);
 }

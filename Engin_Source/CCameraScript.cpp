@@ -22,7 +22,7 @@ void CameraScript::Update()
 
 	Vector3 pos = tr->GetPosition();
 
-	if (Input::GetInstance()->GetkeyState(eKeyCode::D) == eKeyState::PRESSED)
+	/*if (Input::GetInstance()->GetkeyState(eKeyCode::D) == eKeyState::PRESSED)
 	{
 		pos += 100.f * tr->Right() * Time::GetInstance()->DeltaTime();
 	}
@@ -47,7 +47,7 @@ void CameraScript::Update()
 		pos += 100.f * -tr->Up() * Time::GetInstance()->DeltaTime();
 	}
 
-	tr->SetPosition(pos);
+	tr->SetPosition(pos);*/
 }
 
 void CameraScript::FixedUpdate()

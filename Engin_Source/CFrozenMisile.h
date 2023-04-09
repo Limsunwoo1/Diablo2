@@ -4,6 +4,13 @@
 using namespace Math;
 using namespace std;
 
+enum class eMisileMode
+{
+	Straight,
+	Rotation,
+	ReversRotation,
+};
+
 class FrozenOrb;
 class FrozenMisile : public Skil
 {
@@ -20,10 +27,13 @@ public:
 	
 	void RunMisile();
 	const wstring& GetKeyName() { return mKeyName; }
+	void SetMode(eMisileMode mode) { mbMode = mode; }
+	void SetTime(float time) { mTime = time; }
 private:
 	FrozenOrb* mOrb;
-
-	bool mbMode;
 	wstring mKeyName;
+
+	eMisileMode mbMode;
+	float mTime;
 };
 
