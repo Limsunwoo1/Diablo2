@@ -396,13 +396,13 @@ void PlayScene::Initalize()
 	}
 	//Particle
 	{
-		/*GameObject* obj = Object::Instantiate<GameObject>(eLayerType::Particle, this);
+		GameObject* obj = Object::Instantiate<GameObject>(eLayerType::Particle, this);
 		obj->SetName(L"Particle");
 
 		Transform* tr = obj->GetComponent<Transform>();
 		tr->SetPosition(Vector3(11.0f, 0.0f, 100.0f));
 
-		obj->AddComponent<ParticleSystem>();*/
+		obj->AddComponent<ParticleSystem>();
 	}
 
 	Scene::Initalize();

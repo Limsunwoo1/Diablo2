@@ -10,11 +10,31 @@
 FrozenOrb::FrozenOrb()
 	: Skil()
 	, mFrozenMisile{}
+	, mSpeakerIndex(0)
+	, mRunningTime(0.0f)
+	, mbOff(false)
 {
 }
 
 FrozenOrb::~FrozenOrb()
 {
+	for (FrozenMisile* obj : mFrozenMisile)
+	{
+		if (obj == nullptr)
+			continue;
+
+		delete obj;
+		obj = nullptr;
+	}
+
+	for (FrozenMisile* obj : mSpeakerMisile)
+	{
+		if (obj == nullptr)
+			continue;
+
+		delete obj;
+		obj = nullptr;
+	}
 }
 
 void FrozenOrb::Initalize()
@@ -24,13 +44,10 @@ void FrozenOrb::Initalize()
 	for (int i = 0; i < 20; ++i)
 		mFrozenMisile[i]->Initalize();
 
-	// ↗ ↙ ↘ ↖ → ←
-	mMisileDirection.push_back(Vector2(1.f, -1.f));
-	mMisileDirection.push_back(Vector2(-1.f, 1.f));
-	mMisileDirection.push_back(Vector2(1.f, 1.f));
-	mMisileDirection.push_back(Vector2(-1.f, -1.f));
-	mMisileDirection.push_back(Vector2(1.f, 0.f));
-	mMisileDirection.push_back(Vector2(-1.f, 0.f));
+	for (int i = 0; i < 20; ++i)
+		mSpeakerMisile.emplace_back(new FrozenMisile);
+	for (int i = 0; i < 20; ++i)
+		mSpeakerMisile[i]->Initalize();
 
 	InitAnimation();
 
@@ -44,6 +61,9 @@ void FrozenOrb::Initalize()
 	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"FrozenOrb");
 	material->SetTexture(eTextureSlot::T0,tex);
 
+	tex = ResourceManager::GetInstance()->Find<Texture2D>(L"FrozenOrbEnd");
+	material->SetTexture(eTextureSlot::T2, tex);
+
 	// 트랜스폼
 	Transform* tr = GetComponent<Transform>();
 	tr->SetScale(Vector3(1.5f, 1.5f, 1.f));
@@ -55,16 +75,67 @@ void FrozenOrb::Initalize()
 void FrozenOrb::Update()
 {
 	Skil::Update();
+
+	for (FrozenMisile* obj : mFrozenMisile)
+	{
+		if (obj->GetState() != eState::active)
+			continue;
+
+		obj->Update();
+	}
+
+
+	for (FrozenMisile* obj : mSpeakerMisile)
+	{
+		if (obj->GetState() != eState::active)
+			continue;
+
+		obj->Update();
+	}
 }
 
 void FrozenOrb::FixedUpdate()
 {
-	RunOrb();
+	if(!mbOff)
+		RunOrb();
+
 	Skil::FixedUpdate();
+
+	for (FrozenMisile* obj : mFrozenMisile)
+	{
+		if (obj->GetState() != eState::active)
+			continue;
+
+		obj->FixedUpdate();
+	}
+
+	for (FrozenMisile* obj : mSpeakerMisile)
+	{
+		if (obj->GetState() != eState::active)
+			continue;
+
+		obj->FixedUpdate();
+	}
 }
 
 void FrozenOrb::Render()
 {
+	for (FrozenMisile* obj : mFrozenMisile)
+	{
+		if (obj->GetState() != eState::active)
+			continue;
+
+		obj->Render();
+	}
+
+	for (FrozenMisile* obj : mSpeakerMisile)
+	{
+		if (obj->GetState() != eState::active)
+			continue;
+
+		obj->Render();
+	}
+
 	Skil::Render();
 }
 
@@ -72,8 +143,10 @@ void FrozenOrb::InitAnimation()
 {
 	Animator* animator = AddComponent<Animator>();
 	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"FrozenOrb", L"Frozen//FrozenOrb.png");
+	shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Load<Texture2D>(L"FrozenOrbEnd", L"Frozen//FrozenOrbEnd.png");
 
 	animator->Create(L"FrozenOrb", tex, Vector2(0.0f, 0.0f), Vector2(100.f, 100.f), Vector2(0.0f, 0.0f), 16, 0.1f);
+	animator->Create(L"FrozenOrbEnd", texture, Vector2(0.0f, 0.0f), Vector2(100.f, 100.f), Vector2(0.0f, 0.0f), 18, 0.1f);
 	animator->Play(L"FrozenOrb");
 }
 
@@ -83,7 +156,7 @@ void FrozenOrb::RunOrb()
 	Vector3 pos = tr->GetPosition();
 
 	mDirection.Normalize();
-	pos += Vector3(mDirection.x, mDirection.y, 0.0f) * Time::GetInstance()->DeltaTime() * 2.f;
+	pos += Vector3(mDirection.x, mDirection.y, 0.0f) * Time::GetInstance()->DeltaTime() * 1.0f;
 
 	tr->SetPosition(pos);
 }
@@ -97,48 +170,72 @@ void FrozenOrb::OnOrb()
 	AnimatorParam param;
 	param.AnimType = eAnimType::Linear;
 	param.StartValue = 0.0f;
-	param.EndValue = 100.0f;
+	param.EndValue = 1.0f;
 	param.DurationTime = 3.f;
 
 
 	int iSlice = 20;
-	float fRadius = 0.3f;
-	float fTheta = XM_2PI / (float)iSlice;
+	float fTheta = 360.f / (float)iSlice;
 
 	vector<Vector2> pushDriection;
 	for (int i = 0; i < iSlice; ++i)
 	{
-		Vector2 rotation = Vector2
+		/*Vector2 rotation = Vector2
 		(
 			fRadius * cosf(fTheta * (float)i)
 			, fRadius * sinf(fTheta * (float)i)
-		);
+		);*/
 
 		// 회전
-		mFrozenMisile[i]->GetComponent<Transform>()->SetRotation(Vector3(rotation.x, rotation.y, 1.0f));
+		mFrozenMisile[i]->GetComponent<Transform>()->SetRotation(Vector3(0.0f, 0.0f, iSlice * (float)i));
 	}
 
-	for (int i = 0; i < 20; ++i)
-	{
-		mFrozenMisile[i]->Active();
+	float startLine = 0.1f;
+	float endLine = 0.9f;
 
-		Vector3 pos = GetComponent<Transform>()->GetPosition();
-		Transform* tr = mFrozenMisile[i]->GetComponent<Transform>();
-		tr->SetPosition(pos);
-	}
-
-	param.DurationFunc = [this](float InCurValue)
+	param.DurationFunc = [this, startLine, endLine](float InCurValue)
 	{
-		for (int i = 0; i < mFrozenMisile.size(); ++i)
+		if (InCurValue >= startLine)
 		{
-			if(mFrozenMisile[i]->GetState() == eState::active)
-				mFrozenMisile[i]->FixedUpdate();
+			for (int i = 0; i < 20; ++i)
+			{
+				if (mFrozenMisile[i]->GetState() == eState::active)
+					continue;
+
+				mFrozenMisile[i]->Active();
+
+				Vector3 pos = GetComponent<Transform>()->GetPosition();
+				Transform* tr = mFrozenMisile[i]->GetComponent<Transform>();
+				tr->SetPosition(pos);
+			}
+		}
+		
+		if(InCurValue >= startLine + 0.1f && InCurValue  <= endLine)
+		{
+			RunningOrb();
+		}
+
+		if (InCurValue >= endLine)
+		{
+			for (int i = 0; i < 20; ++i)
+			{
+				mFrozenMisile[i]->Death();
+			}
 		}
 	};
 
 	param.CompleteFunc = [this](float InCurValue)
 	{
-		RunningOrb();
+		for (int i = 0; i < 20; ++i)
+		{
+			mFrozenMisile[i]->Active();
+
+			Vector3 pos = GetComponent<Transform>()->GetPosition();
+			Transform* tr = mFrozenMisile[i]->GetComponent<Transform>();
+			tr->SetPosition(pos);
+		}
+
+		OffOrb();
 	};
 
 	animator->Start(param);
@@ -146,14 +243,86 @@ void FrozenOrb::OnOrb()
 
 void FrozenOrb::RunningOrb()
 {
-	GenericAnimator* animator = GetComponent<GenericAnimator>();
-	if (animator->IsRunning())
-		animator->Stop();
+	mRunningTime += Time::GetInstance()->DeltaTime();
+	if (mRunningTime >= 0.1f)
+	{
+		mRunningTime -= 0.1f;
+
+		mSpeakerMisile[mSpeakerIndex]->Active();
+
+		float fTheta = 360.f / 8.f;
+		Vector3 pos = GetComponent<Transform>()->GetPosition();
+		Transform* tr = mSpeakerMisile[mSpeakerIndex]->GetComponent<Transform>();
+		tr->SetPosition(pos);
+		tr->SetRotation(Vector3(0.0f, 0.0f, mSpeakerIndex * fTheta));
 
 
+		if(mSpeakerIndex < mSpeakerMisile.size() - 1)
+			mSpeakerIndex++;
+	}
 }
 
 void FrozenOrb::OffOrb()
 {
+	GenericAnimator* animator = GetComponent<GenericAnimator>();
+	if (animator->IsRunning())
+		animator->Stop();
 
+	AnimatorParam param;
+	param.AnimType = eAnimType::Linear;
+	param.StartValue = 0.0f;
+	param.EndValue = 1.0f;
+	param.DurationTime = 5.0f;
+
+
+	int iSlice = 20;
+	float fTheta = 360.f / (float)iSlice;
+
+	vector<Vector2> pushDriection;
+	for (int i = 0; i < iSlice; ++i)
+	{
+		/*Vector2 rotation = Vector2
+		(
+			fRadius * cosf(fTheta * (float)i)
+			, fRadius * sinf(fTheta * (float)i)
+		);*/
+
+		// 회전
+		mFrozenMisile[i]->GetComponent<Transform>()->SetRotation(Vector3(0.0f, 0.0f, iSlice * (float)i));
+	}
+
+	Animator* ani = GetComponent<Animator>();
+	ani->Play(L"FrozenOrbEnd", false);
+
+	mbOff = true;
+
+	Transform* tr = GetComponent<Transform>();
+	Vector3 size = tr->GetScale();
+	tr->SetScale(Vector3(size.x * 2, size.y * 2, size.z));
+
+	float startLine = 0.05f;
+	param.DurationFunc = [this, startLine](float InCurValue)
+	{
+		if (InCurValue * 5.0f >= startLine)
+		{
+			for (int i = 0; i < 20; ++i)
+			{
+				if (mFrozenMisile[i]->GetState() == eState::active)
+					continue;
+
+				mFrozenMisile[i]->Active();
+
+				Vector3 pos = GetComponent<Transform>()->GetPosition();
+				Transform* tr = mFrozenMisile[i]->GetComponent<Transform>();
+				tr->SetPosition(pos);
+			}
+		}
+	};
+
+	param.CompleteFunc = [this](float InCurValue)
+	{
+		Death();
+	};
+
+	animator->Start(param);
 }

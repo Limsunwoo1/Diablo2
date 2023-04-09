@@ -53,6 +53,7 @@ namespace graphics
 		PS,
 		CS,
 		Count,
+		ALL,
 	};
 
 	enum class eSamplerType

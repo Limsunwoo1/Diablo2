@@ -17,5 +17,7 @@ float4 main(GSOutput In) : SV_TARGET
     
     outColor = defaultTexture.Sample(anisortopicSampler, In.UV);
     
+    outColor *= startColor;
+    
     return outColor;
 }

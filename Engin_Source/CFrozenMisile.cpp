@@ -29,6 +29,12 @@ void FrozenMisile::Initalize()
 
 	sr->SetMesh(mesh);
 	sr->SetMaterial(material);
+
+	// ªÁ¿Ã¡Ó
+	Transform* tr = GetComponent<Transform>();
+	tr->SetScale(Vector3(2.0f, 2.0f, 1.0f));
+
+	Death();
 }
 
 void FrozenMisile::Update()
@@ -67,7 +73,7 @@ void FrozenMisile::InitAnimation()
 
 		animator->Create(str, tex, Vector2(0.0f, 0.0f), Vector2(100.f, 100.f), Vector2(0.0f, 0.0f), 6, 0.1f);
 	}
-	animator->Play(L"FrozenMisile_00");
+	animator->Play(L"FrozenMisile_12");
 }
 
 void FrozenMisile::RunMisile()
@@ -75,8 +81,6 @@ void FrozenMisile::RunMisile()
 	Transform* tr = GetComponent<Transform>();
 	Vector3 pos = tr->GetPosition();
 
-	pos += Vector3(1.0f, 0.0f, 0.0f) * Time::GetInstance()->DeltaTime() * 2.f;
-
-	cout << pos.x << "         " << pos.y << endl;
+	pos += tr->Right() * Time::GetInstance()->DeltaTime() * 3.5f;
 	tr->SetPosition(pos);
 }

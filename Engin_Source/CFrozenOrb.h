@@ -27,7 +27,11 @@ public:
 	void SetDirection(Vector2& direction) { mDirection = direction; }
 private:
 	vector<FrozenMisile*> mFrozenMisile;
+	vector<FrozenMisile*> mSpeakerMisile;
 	Vector2 mDirection;
-	vector<Vector2> mMisileDirection;
+
+	float mRunningTime;
+	int mSpeakerIndex;
+	bool mbOff;
 };
 

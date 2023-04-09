@@ -56,11 +56,19 @@ cbuffer Time : register(b6)
 
 cbuffer ParticleSystem : register(b7)
 {
-    float4 particleColor;
+    float4 worldPosition;
+    float4 startColor;
+    float4 startSize;
     
-    uint elementCount;
+    uint maxParticles;
+    uint simulationSpace;
+    float radius;
+    float startSpeed;
+    
+    float startLifeTime;
     float delta;
     float elapsedTime; // 누적시간
+    int padding_4;
 }
 
 //cbuffer Noise : register(b6)

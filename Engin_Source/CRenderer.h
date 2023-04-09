@@ -82,11 +82,19 @@ namespace Renderer
 
 	CBUFFER(ParticleSystemCB, CBSLOT_PARTICLESYSTEM)
 	{
-		Vector4 color;
+		Vector4 worldPosition;
+		Vector4 startColor;
+		Vector4 startSize;
 
-		UINT elementCount;
-		float delta;
-		float elpsedTime;
+		UINT maxParticles;
+		UINT simulationSpace;
+		float radius;
+		float startSpeed;
+
+		float startLifeTime;
+		float deltaTime;
+		float elapsedTime; // 누적시간
+		int padding;
 	};
 
 	CBUFFER(NoiseCB, CBSLOT_NOISE)

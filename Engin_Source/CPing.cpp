@@ -39,7 +39,6 @@ void Ping::FixedUpdate()
 {
 	if (mTime >= 1.0f)
 	{
-		mTime = 0.0f;
 		Death();
 		return;
 	}

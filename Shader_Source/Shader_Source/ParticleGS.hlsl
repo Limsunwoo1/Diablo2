@@ -12,6 +12,7 @@ struct GSOutput
 {
 	float4 Pos : SV_POSITION;
     float2 UV : TEXCOORD;
+    uint iInstance : SV_InstanceID;
 };
 
 [maxvertexcount(6)]
@@ -25,14 +26,23 @@ void main(point VSOut input[1], inout TriangleStream< GSOutput > output )
     // 로컬좌표에 파티클 포지션을 더한다
     //float3 vWorldPos = mul(float4(input[0].Pos.xyz + particleBuffer[input[0].iInstance].position.xyz, 1.0f), world);
     float3 vWorldPos = input[0].Pos.xyz + particleBuffer[input[0].iInstance].position.xyz;
-    float4 vViewPos = mul(float4(vWorldPos, 1.0f), view);
+    
+    if ( simulationSpace == 0 )
+    {
+        vWorldPos += world._41_42_43;
+
+    }
+    
+    float3 vViewPos = mul(float4(vWorldPos, 1.0f), view).xyz;
+    
+    float3 vScale = startSize.xyz;
     
     float3 NewPos[4] =
     {
-        vViewPos.xyz + float3(-0.5f, 0.5f, 0.0f)/* * float3(50.f, 50.0f, 1.0f)*/,
-        vViewPos.xyz + float3(0.5f, 0.5f, 0.0f)/* * float3(50.f, 50.0f, 1.0f)*/,
-        vViewPos.xyz + float3(0.5f, -0.5f, 0.0f) /** float3(50.f, 50.0f, 1.0f)*/,
-        vViewPos.xyz + float3(-0.5f, -0.5f, 0.0f)/* * float3(50.f, 50.0f, 1.0f)*/
+        vViewPos.xyz + float3(-0.5f, 0.5f, 0.0f) * vScale,
+        vViewPos.xyz + float3(0.5f, 0.5f, 0.0f)  * vScale,
+        vViewPos.xyz + float3(0.5f, -0.5f, 0.0f) * vScale,
+        vViewPos.xyz + float3(-0.5f, -0.5f, 0.0f)* vScale
     };
     
     for (int i = 0; i < 4; ++i)
@@ -45,6 +55,11 @@ void main(point VSOut input[1], inout TriangleStream< GSOutput > output )
     Out[1].UV = float2(1.0f, 0.0f);
     Out[2].UV = float2(1.0f, 1.0f);
     Out[3].UV = float2(0.0f, 1.0f);
+    
+    Out[0].UV = input[0].iInstance;
+    Out[1].UV = input[0].iInstance;
+    Out[2].UV = input[0].iInstance;
+    Out[3].UV = input[0].iInstance;
     
     // 0 -- 1
     // | \  |
