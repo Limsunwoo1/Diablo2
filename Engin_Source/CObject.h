@@ -90,7 +90,7 @@ namespace Object
 	}
 
 	template <typename T>
-	static T* Instantiate(eLayerType type, bool nextPrame)
+	static T* Instantiate(eLayerType type, bool nextPram)
 	{
 		T* gameObject = new T();
 		SceneManager::GetInstance()->AddEvent(gameObject);

@@ -5,6 +5,7 @@
 #include "CSpriteRenderer.h"
 #include "CResourceManager.h"
 #include "CMeshRenderer.h"
+#include "CObject.h"
 
 Ping::Ping()
 	: GameObject()
@@ -12,7 +13,6 @@ Ping::Ping()
 	, mTime(0.0f)
 	, mPos(Vector2::Zero)
 {
-	Initalize();
 }
 
 Ping::~Ping()
@@ -37,9 +37,9 @@ void Ping::Update()
 
 void Ping::FixedUpdate()
 {
-	if (mTime >= 1.0f)
+	if (mTime >= 0.5f)
 	{
-		Death();
+		Object::ObejctDestroy(this);
 		return;
 	}
 
