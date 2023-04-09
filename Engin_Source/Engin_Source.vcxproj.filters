@@ -187,6 +187,12 @@
     <Filter Include="Component\GensricAnimator">
       <UniqueIdentifier>{8f8c3d94-2671-464c-a227-eaa4895c2c9e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\PlayerSkil\LightSkil">
+      <UniqueIdentifier>{cc24bc93-8e5b-4a50-9c16-31aad00cea6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\PlayerSkil\LightSkil\TelePort">
+      <UniqueIdentifier>{735e22ba-1745-4913-bd0e-608d347e554d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -368,6 +374,9 @@
     </ClCompile>
     <ClCompile Include="CGenericAnimator.cpp">
       <Filter>Component\GensricAnimator</Filter>
+    </ClCompile>
+    <ClCompile Include="CTelePort.cpp">
+      <Filter>GameObject\PlayerSkil\LightSkil\TelePort</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -568,6 +577,9 @@
     </ClInclude>
     <ClInclude Include="CGenericAnimator.h">
       <Filter>Component\GensricAnimator</Filter>
+    </ClInclude>
+    <ClInclude Include="CTelePort.h">
+      <Filter>GameObject\PlayerSkil\LightSkil\TelePort</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

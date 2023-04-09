@@ -13,6 +13,7 @@
 #include "CObject.h"
 #include "CSceneManager.h"
 #include "CFrozenOrb.h"
+#include "CTelePort.h"
 
 PlayerScript::PlayerScript()
 	: Script()
@@ -66,13 +67,16 @@ void PlayerScript::FixedUpdate()
 
 	float speed = 2.f;
 
-	if (Input::GetInstance()->GetKeyPress(eKeyCode::A))
+	if (Input::GetInstance()->GetKeyDown(eKeyCode::A))
 	{
 		if (player->GetState() == Player::State::Idle
 			|| player->GetState() == Player::State::Move)
+		{
 			player->SetState(Player::State::Attack);
+			return;
+		}
 	}
-	else if (Input::GetInstance()->GetKeyPress(eKeyCode::S))
+	else if (Input::GetInstance()->GetKeyDown(eKeyCode::S))
 	{
 		if (player->GetState() == Player::State::Idle
 			|| player->GetState() == Player::State::Move)
@@ -87,6 +91,46 @@ void PlayerScript::FixedUpdate()
 			tr->SetPosition(pos);
 
 			orb->OnOrb();
+
+			return;
+		}
+	}
+	else if (Input::GetInstance()->GetKeyDown(eKeyCode::D))
+	{
+		if (player->GetState() == Player::State::Idle
+			|| player->GetState() == Player::State::Move)
+		{
+			player->SetState(Player::State::Skil);
+
+			Vector2 direction = (Input::GetInstance()->GetMouseWorldPos() - pos);
+			direction.Normalize();
+			Vector2 EndPos = direction * 2;
+
+			EndPos.x += pos.x;
+			EndPos.y += pos.y;
+
+			TelePort* teleport = Object::Instantiate<TelePort>(eLayerType::PlayerSKil, true);
+
+			Player* player = dynamic_cast<Player*>(GetOwner());
+			if (player)
+				teleport->SetOwner(player);
+
+			if (WorldManager::GetInstance()->GetTileNum(EndPos.x, EndPos.y) == 3)
+			{
+				return;
+			}
+
+			Vector2 playerIndex = WorldManager::GetInstance()->GetPlayerIndex();
+
+			pos = Vector3(EndPos.x, EndPos.y, pos.z);
+			teleport->SetMovePos(pos);
+
+			AStar* astar = GetOwner()->GetComponent<AStar>();
+			astar->ClearNode();
+			mPickPoint = Vector2::Zero;
+			mNode = nullptr;
+
+			return;
 		}
 	}
 

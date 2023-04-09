@@ -619,11 +619,18 @@ namespace Renderer
 		ResourceManager::GetInstance()->Insert<Material>(L"FrozenOrbMaterial", FrozenOrbMater);
 #pragma endregion
 #pragma region FrozenMisile
-			std::shared_ptr<Shader> frozenMisileShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+		std::shared_ptr<Shader> frozenMisileShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
 		std::shared_ptr<Material> FrozenMisile = std::make_shared<Material>();
 		FrozenMisile->SetRenderingMode(eRenderingMode::Transparent);
 		FrozenMisile->SetShader(frozenMisileShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"FrozenMisileMaterial", FrozenMisile);
+#pragma endregion
+#pragma region TelePortMaterail
+		std::shared_ptr<Shader> TeleParteShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+		std::shared_ptr<Material> TelePort = std::make_shared<Material>();
+		TelePort->SetRenderingMode(eRenderingMode::Transparent);
+		TelePort->SetShader(TeleParteShader);
+		ResourceManager::GetInstance()->Insert<Material>(L"TelePortMaterial", TelePort);
 #pragma endregion
 
 	}

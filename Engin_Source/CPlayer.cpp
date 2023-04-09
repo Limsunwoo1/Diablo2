@@ -285,6 +285,9 @@ void Player::Attack()
 
 void Player::SKil()
 {
+	Transform* tr = GetComponent<Transform>();
+	cout << "X  " << tr->GetPosition().x << "   Y   " << tr->GetPosition().y << endl;
+
 	Animator* animator = GetComponent<Animator>();
 	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
 

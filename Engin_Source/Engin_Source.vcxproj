@@ -203,6 +203,7 @@
     <ClInclude Include="CSkilFireBall.h" />
     <ClInclude Include="CSpriteRenderer.h" />
     <ClInclude Include="CStructedBuffer.h" />
+    <ClInclude Include="CTelePort.h" />
     <ClInclude Include="CTexture2D.h" />
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CTileObject.h" />
@@ -268,6 +269,7 @@
     <ClCompile Include="CSkilFireBall.cpp" />
     <ClCompile Include="CSpriteRenderer.cpp" />
     <ClCompile Include="CStructedBuffer.cpp" />
+    <ClCompile Include="CTelePort.cpp" />
     <ClCompile Include="CTexture2D.cpp" />
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTileObject.cpp" />

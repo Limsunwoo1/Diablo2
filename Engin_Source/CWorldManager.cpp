@@ -1,6 +1,8 @@
 #include "CWorldManager.h"
 #define WORLD_SCALE 1000
 
+// 1 플레이어, 2 도작치, 3 장애물, 0 이동가능
+
 WorldManager::WorldManager()
 	: worldScale(WORLD_SCALE)
 	, world{}
