@@ -22,7 +22,7 @@ GridScript::~GridScript()
 void GridScript::Initalize()
 {
 	eSceneType type = SceneManager::GetInstance()->GetActiveScene()->GetScenType();
-	mCamera = Renderer::Cameras[(UINT)type][0];
+	mCamera = Renderer::mainCamera;
 }
 
 void GridScript::Update()

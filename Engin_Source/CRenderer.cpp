@@ -516,6 +516,7 @@ namespace Renderer
 		ResourceManager::GetInstance()->Load<Texture2D>(L"Ping", L"ping.png");
 		ResourceManager::GetInstance()->Load<Texture2D>(L"noise_01", L"noise//noise_01.png");
 		ResourceManager::GetInstance()->Load<Texture2D>(L"noise_02", L"noise//noise_02.png");
+		ResourceManager::GetInstance()->Load<Texture2D>(L"Green", L"Green.png");
 		//ResourceManager::GetInstance()->Load<Texture2D>(L"Diablo2_Town_Idle", L"diablo2_Town_Idle.png");
 		ResourceManager::GetInstance()->Load<Texture2D>(L"CartoonSmoke", L"particle\\CartoonSmoke.png");
 #pragma endregion
@@ -631,6 +632,15 @@ namespace Renderer
 		TelePort->SetRenderingMode(eRenderingMode::Transparent);
 		TelePort->SetShader(TeleParteShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"TelePortMaterial", TelePort);
+#pragma endregion
+#pragma region AStarRenderMaterial
+		std::shared_ptr<Shader> AstarShader = ResourceManager::GetInstance()->Find<Shader>(L"RectShader");
+		std::shared_ptr<Texture2D> green = ResourceManager::GetInstance()->Find<Texture2D>(L"Green");
+		std::shared_ptr<Material> AstarMater = std::make_shared<Material>();
+		AstarMater->SetRenderingMode(eRenderingMode::Transparent);
+		AstarMater->SetShader(AstarShader);
+		AstarMater->SetTexture(eTextureSlot::T0 ,green);
+		ResourceManager::GetInstance()->Insert<Material>(L"AstarMaterial", AstarMater);
 #pragma endregion
 
 	}

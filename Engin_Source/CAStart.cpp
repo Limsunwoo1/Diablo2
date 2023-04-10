@@ -1,5 +1,8 @@
 #include "CAStart.h"
 #include "CWorldManager.h"
+#include "CTransform.h"
+#include "CGameObject.h"
+#include "CPlayerScript.h"
 
 AStar::AStar()
 	: Component(eComponentType::AStart)
@@ -24,6 +27,7 @@ void AStar::Initalize()
 
 void AStar::Update()
 {
+
 }
 
 void AStar::FixedUpdate()
@@ -58,6 +62,7 @@ void AStar::FixedUpdate()
 
 void AStar::Render()
 {
+
 }
 
 UINT AStar::GetHeuristick(int x, int y)
@@ -82,7 +87,6 @@ UINT AStar::GetHeuristick2(int x, int y)
 	int iy = abs(y - mEnd.y);
 
 	int weight = mCloseList.size();
-
 	// 상황에 따른 가중치 알고리즘 추가하면
 	// 조금 더 정교한 탐색이 가능해진다
 	/*if (tem == 0)
@@ -90,7 +94,7 @@ UINT AStar::GetHeuristick2(int x, int y)
 	else
 	    weight = 10;*/
 
-	return (int)(weight * (std::sqrt(std::pow(x - mEnd.x, 2) + std::pow(y - mEnd.y, 2))));
+	return (int)(1 * (std::sqrt(std::pow(x - mEnd.x, 2) + std::pow(y - mEnd.y, 2))));
 }
 
 UINT AStar::GetCost(int x, int y, int InG)
@@ -157,12 +161,12 @@ void AStar::AddOpenList(int x, int y, bool diagonal)
 	iter = mOpenList.find(node.Id);
 	if (iter != mOpenList.end())
 	{
-		/*if (diagonal)
-			return;*/
+		if (diagonal)
+			return;
 
 		// G 값 비교후 들어있는 
 		// 타일 데이터 수정 G, F
-		//Compare(iter->second);
+		Compare(iter->second);
 		return;
 	}
 
@@ -249,13 +253,10 @@ void AStar::Compare(Node duplication)
 	}
 
 	unordered_map<UINT, Node>::iterator iter;
-	vector<Node> Nodetemp;
 	iter = mOpenList.find(duplication.Id);
+	iter->second = duplication;
 
-	Node node = iter->second;
-	mOpenList.erase(iter);
-
-	while (!mDistanceList.empty())
+	/*while (!mDistanceList.empty())
 	{
 		Node temp = mDistanceList.top();
 		mDistanceList.pop();
@@ -270,87 +271,11 @@ void AStar::Compare(Node duplication)
 	for (int i = 0; i < Nodetemp.size(); ++i)
 	{
 		mDistanceList.emplace(Nodetemp[i]);
-	}
+	}*/
 }
 
 AStar::Node AStar::DistanceList()
 {
-	/*std::sort(open.begin(), open.end());
-
-	vector<Node*>::iterator iter;
-	iter = open.begin();
-
-	Node* node = *(iter);
-
-	for (int i = 0; i < open.size(); ++i)
-	{
-		if (node->FValue > open[i]->FValue)
-			break;
-
-		if (node->F() == open[i]->F())
-		{
-			if (node->HValue < open[i]->HValue)
-				continue;
-		}
-
-		node = open[i];
-	}
-
-	for (vector<Node*>::iterator iter = open.begin(); iter != open.end(); iter++)
-	{
-		if (*iter == node)
-		{
-			open.erase(iter);
-			break;
-		}
-	}
-
-	return node;*/
-
-	/*unordered_map<UINT, Node*>::iterator iter;
-	long long int min = 999999999999999999;
-	int index = -1;
-	Node* outNode = nullptr;
-
-	iter = mOpenList.begin();
-
-	for (; iter != mOpenList.end(); )
-	{
-
-		if ((iter->second->FValue <= min))
-		{
-
-			if (iter->second->FValue == min)
-			{
-				unordered_map<UINT, Node*>::iterator miniter;
-				miniter = mOpenList.find(index);
-				if (miniter == mOpenList.end())
-					continue;
-
-				if (miniter->second->HValue > iter->second->HValue)
-				{
-					min = iter->second->FValue;
-					index = iter->first;
-
-					outNode = iter->second;
-					iter++;
-					continue;
-				}
-			}
-
-			min = iter->second->FValue;
-			index = iter->first;
-
-			outNode = iter->second;
-		}
-		iter++;
-	}
-
-	if (!outNode)
-		int a = 0;
-
-	return outNode;*/
-
 	Node node = mDistanceList.top();
 	mDistanceList.pop();
 	RemoveOpenList(node);
@@ -379,6 +304,9 @@ void AStar::Result()
 				mbNodeEmpty = false;
 
 			mbRun = false;
+
+			PlayerScript* script = GetOwner()->GetScript<PlayerScript>();
+			script->AddRenderAStar();
 			return;
 		}
 
@@ -399,23 +327,6 @@ void AStar::Result()
 
 void AStar::ClearNode()
 {
-	/*unordered_map<UINT, Node>::iterator iter;
-	for (iter = mOpenList.begin();
-		iter != mOpenList.end();
-		iter++)
-	{
-		delete iter.second;
-		iter.second = nullptr;
-	}
-
-	for (iter = mCloseList.begin();
-		iter != mCloseList.end();
-		iter++)
-	{
-		delete iter.second;
-		iter.second = nullptr;
-	}*/
-
 	mOpenList.clear();
 	mCloseList.clear();
 

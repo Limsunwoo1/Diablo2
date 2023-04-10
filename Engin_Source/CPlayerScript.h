@@ -23,6 +23,9 @@ public:
 	void Idle();
 	void Move();
 
+	void AddRenderAStar();
+	void ClearAstar();
+
 	float GetAngle(Vector2 point);
 	
 private:
@@ -31,7 +34,10 @@ private:
 	Vector2 mEndPos;
 
 	AStar::Node* mNode;
+	vector<GameObject*> mRenderObj;
+
 	bool mbInput;
 	float mInputDelay;
+
 };
 

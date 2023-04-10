@@ -103,6 +103,7 @@ public:
 	Vec& GetEnd() { return mEnd; }
 
 	bool GetNodeEmpyt() { return mbNodeEmpty; }
+	stack<Node> GetNodes() { return mResult; }
 
 	bool IsRunning() { return mbRun; }
 	void StopRun() { mbRun = false; }

@@ -14,6 +14,9 @@
 #include "CSceneManager.h"
 #include "CFrozenOrb.h"
 #include "CTelePort.h"
+#include "CSpriteRenderer.h"
+#include "CResourceManager.h"
+
 
 PlayerScript::PlayerScript()
 	: Script()
@@ -28,6 +31,7 @@ PlayerScript::PlayerScript()
 
 PlayerScript::~PlayerScript()
 {
+	ClearAstar();
 }
 
 void PlayerScript::Initalize()
@@ -41,6 +45,14 @@ void PlayerScript::Initalize()
 
 void PlayerScript::Update()
 {
+	for (GameObject* obj : mRenderObj)
+	{
+		if (obj == nullptr)
+			continue;
+
+		obj->Update();
+	}
+
 	if (mInputDelay >= 0.1f)
 	{
 		mInputDelay -= 0.1f;
@@ -57,6 +69,14 @@ void PlayerScript::Update()
 
 void PlayerScript::FixedUpdate()
 {
+	for (GameObject* obj : mRenderObj)
+	{
+		if (obj == nullptr)
+			continue;
+
+		obj->FixedUpdate();
+	}
+
 	Player* player = dynamic_cast<Player*>(GetOwner());
 
 	if (player == nullptr)
@@ -65,7 +85,7 @@ void PlayerScript::FixedUpdate()
 	Transform* tr = player->GetComponent<Transform>();
 	Vector3 pos = tr->GetPosition();
 
-	float speed = 2.f;
+	float speed = 3.f;
 
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::A))
 	{
@@ -152,9 +172,10 @@ void PlayerScript::FixedUpdate()
 			Vector2 Wpos = WorldManager::GetInstance()->GetPlayerIndex();
 			Vector2 Wend = WorldManager::GetInstance()->GetEndIndex();
 
-			Vector2 playerIndex = WorldManager::GetInstance()->GetPlayerIndex();
-			node.Pos.x = (UINT)playerIndex.x;
-			node.Pos.y = (UINT)playerIndex.y;
+			Transform* tr = GetOwner()->GetComponent<Transform>();
+			Vector3 PlayerPos = tr->GetPosition();
+			node.Pos.x = (UINT)PlayerPos.x;
+			node.Pos.y = (UINT)PlayerPos.y;
 
 			end.x = index.x;
 			end.y = index.y;
@@ -194,11 +215,6 @@ void PlayerScript::FixedUpdate()
 		}
 	}
 
-	if (Input::GetInstance()->GetKeyDown(eKeyCode::RBTN))
-	{
-		//mPickPoint = Input::GetInstance()->GetMouseWorldPos();
-
-	}
 	if (mNode == nullptr && mPickPoint == Vector2::Zero)
 	{
 		AStar* astar = GetOwner()->GetComponent<AStar>();
@@ -233,6 +249,7 @@ void PlayerScript::FixedUpdate()
 			WorldManager::GetInstance()->SetZero(pos.x, pos.y);
 
 			mPickPoint = Vector2::Zero;
+			mNode = nullptr;
 
 			player->SetState(Player::State::Idle);
 			return;
@@ -329,6 +346,13 @@ void PlayerScript::FixedUpdate()
 
 void PlayerScript::Render()
 {
+	for (GameObject* obj : mRenderObj)
+	{
+		if (obj == nullptr)
+			continue;
+
+		obj->Render();
+	}
 }
 
 void PlayerScript::ResetAStar()
@@ -359,6 +383,44 @@ void PlayerScript::Idle()
 void PlayerScript::Move()
 {
 
+}
+
+void PlayerScript::AddRenderAStar()
+{
+	ClearAstar();
+
+	AStar* astar = GetOwner()->GetComponent< AStar>();
+	stack<AStar::Node> ObjectStack = astar->GetNodes();
+	while (!ObjectStack.empty())
+	{
+		AStar::Node node = ObjectStack.top();
+		ObjectStack.pop();
+
+		GameObject* obj = new GameObject();
+		mRenderObj.push_back(obj);
+
+		Transform* tr = obj->GetComponent<Transform>();
+		tr->SetPosition(Vector3(node.Pos.x, node.Pos.y, 1.0f));
+
+		SpriteRenderer* sr = obj->AddComponent<SpriteRenderer>();
+		shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"AstarMaterial");
+		sr->SetMesh(mesh);
+		sr->SetMaterial(mater);
+	}
+}
+
+void PlayerScript::ClearAstar()
+{
+	for (GameObject* obj : mRenderObj)
+	{
+		if (obj == nullptr)
+			continue;
+
+		delete obj;
+		obj = nullptr;
+	}
+	mRenderObj.clear();
 }
 
 float PlayerScript::GetAngle(Vector2 point)

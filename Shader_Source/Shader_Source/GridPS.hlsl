@@ -25,16 +25,10 @@ float4 main(VSOut In) : SV_TARGET
     uint worldY = (int) In.WorldPos.y;
     
     // ¼± µÎ²²
-    const float thickness = 0.0f;
+    const float thickness = 1.0f;
     
-    //const int XLine = (worldX + 1) % width;
-    //const int YLine = (worldY + 1) % height;
-    
-    const int XLine = worldX % width;
-    const int YLine = worldY % height;
-    
-    //if (worldX % 64 == 32 || worldY % 64 == 32)
-    //    return float4(1.0f, 1.0f, 1.0f, 1.0f);
+    const int XLine = (worldX + 1) % width;
+    const int YLine = (worldY + 1) % height;
     
     //if (abs(XLine) == thickness)
     //    return Out;

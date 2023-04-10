@@ -78,7 +78,7 @@ void PlayScene::Initalize()
 	// Player
 	{
 		Player* player = Object::Instantiate<Player>(eLayerType::Player, this);
-		player->AddComponent<PlayerScript>();
+		PlayerScript* sc = player->AddComponent<PlayerScript>();
 
 		Collider2D* collider = player->AddComponent<Collider2D>();
 		collider->SetSize(Vector2(0.5f, 0.5f));

@@ -33,7 +33,7 @@ void Player::Initalize()
 	mDirection.reset();
 	mDirection[2] = 1;
 
-	AStar* astart = this->AddComponent<AStar>();
+	AStar* astart = AddComponent<AStar>();
 
 	GameObject::Initalize();
 }
