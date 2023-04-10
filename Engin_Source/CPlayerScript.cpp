@@ -107,13 +107,14 @@ void PlayerScript::FixedUpdate()
 			player->SetState(Player::State::Skil);
 
 			FrozenOrb* orb = Object::Instantiate<FrozenOrb>(eLayerType::PlayerSKil, true);
+			Player* player = dynamic_cast<Player*>(GetOwner());
+			orb->SetOwner(player);
+
 			Vector2 direction = (Input::GetInstance()->GetMouseWorldPos() - pos);
 			orb->SetDirection(direction);
 
 			Transform* tr = orb->GetComponent<Transform>();
 			tr->SetPosition(pos);
-
-			orb->OnOrb();
 
 			ResetAStar();
 			return;

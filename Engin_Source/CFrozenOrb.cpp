@@ -13,6 +13,7 @@ FrozenOrb::FrozenOrb()
 	, mSpeakerIndex(0)
 	, mRunningTime(0.0f)
 	, mbOff(false)
+	, mbOnOrb(false)
 {
 }
 
@@ -70,10 +71,29 @@ void FrozenOrb::Initalize()
 	
 	// 제네릭 애니메이터
 	AddComponent<GenericAnimator>();
+
+	//
+	//this->Paused();
 }
 
 void FrozenOrb::Update()
 {
+	if (mOwner)
+	{
+		Animator* animator = mOwner->GetComponent<Animator>();
+
+		if (animator->GetPlayAnimation()->IsComplete())
+		{
+			//this->Active();
+
+			OnOrb();
+			mOwner = nullptr;
+			mbOnOrb = true;
+
+			return;
+		}
+	}
+
 	Skil::Update();
 
 	for (FrozenMisile* obj : mFrozenMisile)
@@ -96,7 +116,7 @@ void FrozenOrb::Update()
 
 void FrozenOrb::FixedUpdate()
 {
-	if(!mbOff)
+	if(!mbOff && mbOnOrb)
 		RunOrb();
 
 	Skil::FixedUpdate();

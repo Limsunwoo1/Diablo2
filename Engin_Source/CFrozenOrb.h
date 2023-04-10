@@ -32,6 +32,7 @@ private:
 
 	float mRunningTime;
 	int mSpeakerIndex;
+	bool mbOnOrb;
 	bool mbOff;
 };
 
