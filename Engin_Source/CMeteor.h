@@ -28,7 +28,7 @@ public:
 	void SetSpeed();
 
 	void OnMeteor();
-	void OffMetor();
+	void OffMeteor();
 private:
 	FireTargetPin* mTargetPin;
 	std::vector<Flames*> mFlames;

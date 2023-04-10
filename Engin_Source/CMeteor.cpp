@@ -47,7 +47,7 @@ void Meteor::Initalize()
 
 	// 사이즈
 	Transform* tr = GetComponent<Transform>();
-	tr->SetScale(Vector3(2.0f, 2.0f, 1.0f));
+	tr->SetScale(Vector3(6.0f, 2.0f, 1.0f));
 
 	// 제네릭 애니메이터
 	AddComponent<GenericAnimator>();
@@ -61,6 +61,9 @@ void Meteor::Initalize()
 	shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"MeteorMaterial");
 	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Meteor");
 	material->SetTexture(eTextureSlot::T0,tex);
+	tex = ResourceManager::GetInstance()->Find<Texture2D>(L"MeteorEnd");
+	material->SetTexture(eTextureSlot::T2, tex);
+
 	sr->SetMesh(mesh);
 	sr->SetMaterial(material);
 }
@@ -115,6 +118,8 @@ void Meteor::FixedUpdate()
 
 void Meteor::Render()
 {
+	GameObject::Render();
+
 	if (mTargetPin)
 		mTargetPin->Render();
 
@@ -125,8 +130,6 @@ void Meteor::Render()
 
 		flames->Render();
 	}
-
-	GameObject::Render();
 }
 
 void Meteor::InitAnimation()
@@ -134,11 +137,13 @@ void Meteor::InitAnimation()
 	Animator* animator = AddComponent<Animator>();
 
 	shared_ptr<Texture2D> tex = 
-		ResourceManager::GetInstance()->Load<Texture2D>(L"Meteor", L"Meteor//MeteorSprite.png");
+		ResourceManager::GetInstance()->Load<Texture2D>(L"Meteor", L"Meteor//MeteorDrop.png");
 
-
-	animator->Create(L"Meteor", tex, Vector2::Zero, Vector2(100, 100.f), Vector2::Zero, 45, 0.05f);
+	animator->Create(L"Meteor", tex, Vector2::Zero, Vector2(100, 100.f), Vector2::Zero, 9, 0.1f);
 	animator->Play(L"Meteor");
+
+	tex = ResourceManager::GetInstance()->Load<Texture2D>(L"MeteorEnd", L"Meteor//MeteorEnd.png");
+	animator->Create(L"MeteorEnd", tex, Vector2::Zero, Vector2(100, 100.f), Vector2::Zero, 29, 0.05f);
 }
 
 
@@ -164,6 +169,9 @@ void Meteor::OnMeteor()
 
 	Transform* pinTr = mTargetPin->GetComponent<Transform>();
 	pinTr->SetPosition(mPinPos);
+	mTargetPin->Active();
+
+	float runLine = 0.5f;
 
 	AnimatorParam param;
 	param.AnimType = eAnimType::Linear;
@@ -171,51 +179,55 @@ void Meteor::OnMeteor()
 	param.EndValue = 1.0f;
 	param.DurationTime = 2.0f;
 
-	param.DurationFunc = [this, genericAnimator](float InCurValue)
+	param.DurationFunc = [this, genericAnimator, runLine](float InCurValue)
 	{
 		Vector3 Vec;
 		Transform* mTr = GetComponent<Transform>();
 		Vector3 Pos = mTr->GetPosition();
 
 		Vec = mPinPos - Pos;
-		if (fabs(Vec.y) < 0.05f)
+		if (fabs(Vec.y) < 0.005f && fabs(Vec.x) < 0.005f)
 		{
-			Animator* animator = GetComponent<Animator>();
-			//animator->Play(L"EndMeteor", false);
-
 			genericAnimator->Stop(true);
 			return;
 		}
 
-		Vec.Normalize();
-		Pos += Vec * Time::GetInstance()->DeltaTime() * mSpeed * 1.5f;
-		mTr->SetPosition(Pos);
+		if (runLine < InCurValue)
+		{
+			Vec.Normalize();
+			Pos += Vec * Time::GetInstance()->DeltaTime() * mSpeed * 3.0f;
+			mTr->SetPosition(Pos);
+		}
 	};
 
 	param.CompleteFunc = [this](float InCurValue)
 	{
 		mTargetPin->Paused();
-		OffMetor();
+		OffMeteor();
 		// 애니메이션 교체
 	};
 
 	genericAnimator->Start(param);
 }
 
-void Meteor::OffMetor()
+void Meteor::OffMeteor()
 {
 	GenericAnimator* genericAnimator = GetComponent<GenericAnimator>();
 
 	if (genericAnimator->IsRunning())
 		genericAnimator->Stop();
 
+	Animator* animator = GetComponent<Animator>();
+	animator->Play(L"MeteorEnd", false);
+
 	// 메테오 충돌위치 불길생성
 	Transform* tr = mFlames[0]->GetComponent<Transform>();
 	tr->SetPosition(mPinPos);
 	mFlames[0]->Active();
 
-	float arrX[8] = { -1.f, 1.f, 0.f, 0.f, 1.f, -1.f, -1.f, 1.f};
-	float arrY[8] = { 0.f, 0.f, 1.f, -1.f, 1.f, 1.f, -1.f, -1.f};
+	float radius = 0.5f;
+	float arrX[8] = { -radius, radius, 0.f, 0.f, radius, -radius, -radius, radius };
+	float arrY[8] = { 0.f, 0.f, radius, -radius, radius, radius, -radius, -radius };
 	for (int i = 0; i < mFlames.size(); ++i)
 	{
 		mFlames[i]->Active();
@@ -236,15 +248,23 @@ void Meteor::OffMetor()
 
 	param.DurationFunc = [this](float InCurValue)
 	{
-		// 렌더링 정지
 		Animator* animator = GetComponent<Animator>();
 		if (animator->GetPlayAnimation()->IsComplete())
 		{
 			SpriteRenderer* sr = GetComponent<SpriteRenderer>();
-			sr->GetMaterial()->Clear();
+			sr->SetRenderStop();
+		}
 
-			Animator* animator = GetComponent<Animator>();
-			animator->Clear();
+		for (Flames* flame : mFlames)
+		{
+			if (flame == nullptr)
+				continue;
+
+			Animator* flameAnimator = flame->GetComponent<Animator>();
+			if (flameAnimator->GetPlayAnimation()->IsComplete())
+			{
+				flame->GetComponent<SpriteRenderer>()->SetRenderStop();
+			}
 		}
 	};
 

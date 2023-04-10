@@ -28,6 +28,9 @@ void MeshRenderer::FixedUpdate()
 
 void MeshRenderer::Render()
 {
+	if (GetRenderStop())
+		return;
+
 	if (GetOwner()->GetState() != GameObject::active)
 		return;
 

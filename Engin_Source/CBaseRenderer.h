@@ -20,8 +20,11 @@ public:
 	shared_ptr<Mesh> GetMesh() { return mMesh; }
 	shared_ptr<Material> GetMaterial() { return mMaterial; }
 
+	void SetRenderStop(bool stop = true) { mRenderStop = stop; }
+	bool GetRenderStop() { return mRenderStop; }
 private:
 	shared_ptr<Mesh> mMesh;
 	shared_ptr<Material> mMaterial;
+	bool mRenderStop;
 };
 

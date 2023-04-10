@@ -167,22 +167,21 @@ void PlayerScript::FixedUpdate()
 			Player* player = dynamic_cast<Player*>(GetOwner());
 			meteor->SetOwner(player);
 
-			Vector3 meteorPos = tr->GetPosition();
-			meteorPos.y += 5.f;
-			MeteorTr->SetPosition(meteorPos);
 
 			Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos();
 			Vector3 pinPos = Vector3(mousePos.x, mousePos.y, 1.0f);
 			meteor->SetPinPos(pinPos);
 
+			Vector3 meteorPos = tr->GetPosition();
+			meteorPos.y += 5.f;
+			MeteorTr->SetPosition(Vector3(mousePos.x, meteorPos.y, 1.0f));
 
 			ResetAStar();
 			return;
 		}
 	}
 
-
-	if (Input::GetInstance()->GetKeyDown(eKeyCode::RBTN))
+	if (Input::GetInstance()->GetKeyPress(eKeyCode::RBTN))
 	{
 		Player* player = dynamic_cast<Player*>(GetOwner());
 		if (player->GetState() != Player::State::Idle &&

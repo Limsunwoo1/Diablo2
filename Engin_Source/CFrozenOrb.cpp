@@ -1,5 +1,5 @@
 #include "CFrozenOrb.h"
-#include "CFrozenMisile.h"
+#include "CFrozenMissile.h"
 #include "CAnimator.h"
 #include "CSpriteRenderer.h"
 #include "CGenericAnimator.h"
@@ -9,7 +9,7 @@
 
 FrozenOrb::FrozenOrb()
 	: Skil()
-	, mFrozenMisile{}
+	, mFrozenMissile{}
 	, mSpeakerIndex(0)
 	, mRunningTime(0.0f)
 	, mbOff(false)
@@ -19,7 +19,7 @@ FrozenOrb::FrozenOrb()
 
 FrozenOrb::~FrozenOrb()
 {
-	for (FrozenMisile* obj : mFrozenMisile)
+	for (FrozenMissile* obj : mFrozenMissile)
 	{
 		if (obj == nullptr)
 			continue;
@@ -28,7 +28,7 @@ FrozenOrb::~FrozenOrb()
 		obj = nullptr;
 	}
 
-	for (FrozenMisile* obj : mSpeakerMisile)
+	for (FrozenMissile* obj : mSpeakerMissile)
 	{
 		if (obj == nullptr)
 			continue;
@@ -41,14 +41,14 @@ FrozenOrb::~FrozenOrb()
 void FrozenOrb::Initalize()
 {
 	for (int i = 0; i < 20; ++i)
-		mFrozenMisile.emplace_back(new FrozenMisile);
+		mFrozenMissile.emplace_back(new FrozenMissile);
 	for (int i = 0; i < 20; ++i)
-		mFrozenMisile[i]->Initalize();
+		mFrozenMissile[i]->Initalize();
 
 	for (int i = 0; i < 20; ++i)
-		mSpeakerMisile.emplace_back(new FrozenMisile);
+		mSpeakerMissile.emplace_back(new FrozenMissile);
 	for (int i = 0; i < 20; ++i)
-		mSpeakerMisile[i]->Initalize();
+		mSpeakerMissile[i]->Initalize();
 
 	InitAnimation();
 
@@ -96,7 +96,7 @@ void FrozenOrb::Update()
 
 	Skil::Update();
 
-	for (FrozenMisile* obj : mFrozenMisile)
+	for (FrozenMissile* obj : mFrozenMissile)
 	{
 		if (obj->GetState() != eState::active)
 			continue;
@@ -105,7 +105,7 @@ void FrozenOrb::Update()
 	}
 
 
-	for (FrozenMisile* obj : mSpeakerMisile)
+	for (FrozenMissile* obj : mSpeakerMissile)
 	{
 		if (obj->GetState() != eState::active)
 			continue;
@@ -121,7 +121,7 @@ void FrozenOrb::FixedUpdate()
 
 	Skil::FixedUpdate();
 
-	for (FrozenMisile* obj : mFrozenMisile)
+	for (FrozenMissile* obj : mFrozenMissile)
 	{
 		if (obj->GetState() != eState::active)
 			continue;
@@ -129,7 +129,7 @@ void FrozenOrb::FixedUpdate()
 		obj->FixedUpdate();
 	}
 
-	for (FrozenMisile* obj : mSpeakerMisile)
+	for (FrozenMissile* obj : mSpeakerMissile)
 	{
 		if (obj->GetState() != eState::active)
 			continue;
@@ -140,7 +140,7 @@ void FrozenOrb::FixedUpdate()
 
 void FrozenOrb::Render()
 {
-	for (FrozenMisile* obj : mFrozenMisile)
+	for (FrozenMissile* obj : mFrozenMissile)
 	{
 		if (obj->GetState() != eState::active)
 			continue;
@@ -148,7 +148,7 @@ void FrozenOrb::Render()
 		obj->Render();
 	}
 
-	for (FrozenMisile* obj : mSpeakerMisile)
+	for (FrozenMissile* obj : mSpeakerMissile)
 	{
 		if (obj->GetState() != eState::active)
 			continue;
@@ -162,7 +162,7 @@ void FrozenOrb::Render()
 void FrozenOrb::InitAnimation()
 {
 	Animator* animator = AddComponent<Animator>();
-	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"FrozenOrb", L"Frozen//FrozenOrb.png");
+	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"FrozenOrb", L"Frozen//FrozenOrb2.png");
 	shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Load<Texture2D>(L"FrozenOrbEnd", L"Frozen//FrozenOrbEnd.png");
 
 	animator->Create(L"FrozenOrb", tex, Vector2(0.0f, 0.0f), Vector2(100.f, 100.f), Vector2(0.0f, 0.0f), 16, 0.1f);
@@ -201,8 +201,8 @@ void FrozenOrb::OnOrb()
 	for (int i = 0; i < iSlice; ++i)
 	{
 		// 회전
-		mFrozenMisile[i]->GetComponent<Transform>()->SetRotation(Vector3(0.0f, 0.0f, iSlice * (float)i));
-		mFrozenMisile[i]->SetMode(eMisileMode::Rotation);
+		mFrozenMissile[i]->GetComponent<Transform>()->SetRotation(Vector3(0.0f, 0.0f, iSlice * (float)i));
+		mFrozenMissile[i]->SetMode(eMisileMode::Rotation);
 	}
 
 	float startLine = 0.1f;
@@ -214,13 +214,13 @@ void FrozenOrb::OnOrb()
 		{
 			for (int i = 0; i < 20; ++i)
 			{
-				if (mFrozenMisile[i]->GetState() == eState::active)
+				if (mFrozenMissile[i]->GetState() == eState::active)
 					continue;
 
-				mFrozenMisile[i]->Active();
+				mFrozenMissile[i]->Active();
 
 				Vector3 pos = GetComponent<Transform>()->GetPosition();
-				Transform* tr = mFrozenMisile[i]->GetComponent<Transform>();
+				Transform* tr = mFrozenMissile[i]->GetComponent<Transform>();
 				tr->SetPosition(pos);
 			}
 		}
@@ -234,7 +234,7 @@ void FrozenOrb::OnOrb()
 		{
 			for (int i = 0; i < 20; ++i)
 			{
-				mFrozenMisile[i]->Death();
+				mFrozenMissile[i]->Death();
 			}
 		}
 	};
@@ -243,10 +243,10 @@ void FrozenOrb::OnOrb()
 	{
 		for (int i = 0; i < 20; ++i)
 		{
-			mFrozenMisile[i]->Active();
+			mFrozenMissile[i]->Active();
 
 			Vector3 pos = GetComponent<Transform>()->GetPosition();
-			Transform* tr = mFrozenMisile[i]->GetComponent<Transform>();
+			Transform* tr = mFrozenMissile[i]->GetComponent<Transform>();
 			tr->SetPosition(pos);
 		}
 
@@ -263,16 +263,16 @@ void FrozenOrb::RunningOrb()
 	{
 		mRunningTime -= 0.1f;
 
-		mSpeakerMisile[mSpeakerIndex]->Active();
+		mSpeakerMissile[mSpeakerIndex]->Active();
 
 		float fTheta = 360.f / 8.f;
 		Vector3 pos = GetComponent<Transform>()->GetPosition();
-		Transform* tr = mSpeakerMisile[mSpeakerIndex]->GetComponent<Transform>();
+		Transform* tr = mSpeakerMissile[mSpeakerIndex]->GetComponent<Transform>();
 		tr->SetPosition(pos);
 		tr->SetRotation(Vector3(0.0f, 0.0f, mSpeakerIndex * fTheta));
 
 
-		if(mSpeakerIndex < mSpeakerMisile.size() - 1)
+		if(mSpeakerIndex < mSpeakerMissile.size() - 1)
 			mSpeakerIndex++;
 	}
 }
@@ -303,9 +303,9 @@ void FrozenOrb::OffOrb()
 		);*/
 
 		// 회전
-		mFrozenMisile[i]->GetComponent<Transform>()->SetRotation(Vector3(0.0f, 0.0f, iSlice * (float)i));
-		mFrozenMisile[i]->SetTime(0.0f);
-		mFrozenMisile[i]->SetMode(eMisileMode::ReversRotation);
+		mFrozenMissile[i]->GetComponent<Transform>()->SetRotation(Vector3(0.0f, 0.0f, iSlice * (float)i));
+		mFrozenMissile[i]->SetTime(0.0f);
+		mFrozenMissile[i]->SetMode(eMisileMode::ReversRotation);
 	}
 
 	Animator* ani = GetComponent<Animator>();
@@ -324,13 +324,13 @@ void FrozenOrb::OffOrb()
 		{
 			for (int i = 0; i < 20; ++i)
 			{
-				if (mFrozenMisile[i]->GetState() == eState::active)
+				if (mFrozenMissile[i]->GetState() == eState::active)
 					continue;
 
-				mFrozenMisile[i]->Active();
+				mFrozenMissile[i]->Active();
 
 				Vector3 pos = GetComponent<Transform>()->GetPosition();
-				Transform* tr = mFrozenMisile[i]->GetComponent<Transform>();
+				Transform* tr = mFrozenMissile[i]->GetComponent<Transform>();
 				tr->SetPosition(pos);
 			}
 		}

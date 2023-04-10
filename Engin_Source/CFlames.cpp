@@ -28,6 +28,8 @@ void Flames::Initalize()
 	shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"FlameMaterial");
 	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Flame");
 	material->SetTexture(eTextureSlot::T0, tex);
+	tex = ResourceManager::GetInstance()->Load<Texture2D>(L"FlameBoom", L"Meteor//MeteorBoom.png");
+	material->SetTexture(eTextureSlot::T2, tex);
 	
 	sr->SetMesh(mesh);
 	sr->SetMaterial(material);
@@ -57,5 +59,9 @@ void Flames::InitAnimation()
 
 	Animator* animator = AddComponent<Animator>();
 	animator->Create(L"Flame", tex, Vector2::Zero, Vector2(100.f, 100.f), Vector2::Zero, 32, 0.05f);
-	animator->Play(L"Flame");
+
+	tex = ResourceManager::GetInstance()->Load<Texture2D>(L"FlameBoom", L"Meteor//MeteorBoom.png");
+	animator->Create(L"FlameBoom", tex, Vector2::Zero, Vector2(100.f, 100.f), Vector2::Zero, 19, 0.1f);
+
+	animator->Play(L"FlameBoom", false);
 }

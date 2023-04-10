@@ -4,7 +4,7 @@
 using namespace Math;
 using namespace std;
 
-class FrozenMisile;
+class FrozenMissile;
 class FrozenOrb : public Skil
 {
 public:
@@ -26,8 +26,8 @@ public:
 
 	void SetDirection(Vector2& direction) { mDirection = direction; }
 private:
-	vector<FrozenMisile*> mFrozenMisile;
-	vector<FrozenMisile*> mSpeakerMisile;
+	vector<FrozenMissile*> mFrozenMissile;
+	vector<FrozenMissile*> mSpeakerMissile;
 	Vector2 mDirection;
 
 	float mRunningTime;

@@ -172,7 +172,7 @@
     <ClInclude Include="CEngine.h" />
     <ClInclude Include="CEnums.h" />
     <ClInclude Include="CFlames.h" />
-    <ClInclude Include="CFrozenMisile.h" />
+    <ClInclude Include="CFrozenMissile.h" />
     <ClInclude Include="CFrozenOrb.h" />
     <ClInclude Include="CGameObject.h" />
     <ClInclude Include="CGraphicDevice_DX11.h" />
@@ -242,7 +242,7 @@
     <ClCompile Include="CEnddingScene.cpp" />
     <ClCompile Include="CFadeRenderer.cpp" />
     <ClCompile Include="CFlames.cpp" />
-    <ClCompile Include="CFrozenMisile.cpp" />
+    <ClCompile Include="CFrozenMissile.cpp" />
     <ClCompile Include="CFrozenOrb.cpp" />
     <ClCompile Include="CGameObject.cpp" />
     <ClCompile Include="CGraphicDevice_DX11.cpp" />

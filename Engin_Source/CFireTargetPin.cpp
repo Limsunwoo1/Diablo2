@@ -5,6 +5,7 @@
 #include "CMaterial.h"
 #include "CMesh.h"
 #include "CResourceManager.h"
+#include "CGenericAnimator.h"
 
 FireTargetPin::FireTargetPin(Player* player)
 	: Skil(player)
@@ -22,16 +23,21 @@ FireTargetPin::~FireTargetPin()
 
 void FireTargetPin::Initalize()
 {
-	AddComponent<Animator>();
+	// Size
+	Transform* tr = GetComponent<Transform>();
+	tr->SetScale(Vector3(3.0f, 2.0f, 1.0f));
 
-	// collider
-	Collider2D* col = AddComponent<Collider2D>();
-	col->SetType(eColliderType::Rect);
+	// 애니메이터
+	InitAnimation();
+
+	// 제네릭 애니메이터
+	AddComponent<GenericAnimator>();
 
 	// renderer
 	SpriteRenderer* sr = AddComponent<SpriteRenderer>();
 	std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-	std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"SpriteMaterial");
+	std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"FirePinMaterial");
+	std::shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"FirePin");
 	sr->SetMesh(mesh);
 	sr->SetMaterial(material);
 }
@@ -53,25 +59,9 @@ void FireTargetPin::Render()
 
 void FireTargetPin::InitAnimation()
 {
-	Animator* animator = GetComponent<Animator>();
+	std::shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"FirePin", L"Meteor//MeteorPin.png");
+	Animator* animator = AddComponent<Animator>();
 
-	{
-		std::shared_ptr<Texture2D> texture = std::make_shared<Texture2D>();
-		texture->Load(L"FireBall.png");
-		ResourceManager::GetInstance()->Insert(L"FireBall", texture);
-
-		float x = 96.92857142f;
-		float y = 96.9375f;
-
-		for (int i = 0; i < 16; ++i)
-		{
-			wstring name = L"FireBall";
-			name += std::to_wstring(i);
-
-			animator->Create(name, texture, Vector2(0.0f, y * i), Vector2(x, y), Vector2(0.0f, 0.0f), 14, 0.05f);
-		}
-
-		// 96.92857142  96.9375
-	}
-
+	animator->Create(L"FirePin", tex, Vector2::Zero, Vector2(100.f, 100.f), Vector2::Zero, 17, 0.02f);
+	animator->Play(L"FirePin");
 }

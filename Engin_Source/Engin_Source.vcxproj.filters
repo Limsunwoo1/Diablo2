@@ -369,7 +369,7 @@
     <ClCompile Include="CFrozenOrb.cpp">
       <Filter>GameObject\PlayerSkil\IceSkil</Filter>
     </ClCompile>
-    <ClCompile Include="CFrozenMisile.cpp">
+    <ClCompile Include="CFrozenMissile.cpp">
       <Filter>GameObject\PlayerSkil\IceSkil</Filter>
     </ClCompile>
     <ClCompile Include="CGenericAnimator.cpp">
@@ -575,7 +575,7 @@
     <ClInclude Include="CPing.h">
       <Filter>GameObject\Ping</Filter>
     </ClInclude>
-    <ClInclude Include="CFrozenMisile.h">
+    <ClInclude Include="CFrozenMissile.h">
       <Filter>GameObject\PlayerSkil\IceSkil</Filter>
     </ClInclude>
     <ClInclude Include="CFrozenOrb.h">

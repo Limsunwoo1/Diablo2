@@ -12,11 +12,11 @@ enum class eMisileMode
 };
 
 class FrozenOrb;
-class FrozenMisile : public Skil
+class FrozenMissile : public Skil
 {
 public:
-	FrozenMisile();
-	virtual ~FrozenMisile();
+	FrozenMissile();
+	virtual ~FrozenMissile();
 
 	virtual void Initalize() override;
 	virtual void Update() override;

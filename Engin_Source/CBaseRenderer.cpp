@@ -2,6 +2,7 @@
 
 BaseRenderer::BaseRenderer(eComponentType type)
 	: Component(type)
+	, mRenderStop(false)
 {
 }
 

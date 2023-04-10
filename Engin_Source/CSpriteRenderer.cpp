@@ -28,6 +28,12 @@ void SpriteRenderer::FixedUpdate()
 
 void SpriteRenderer::Render()
 {
+	if (GetRenderStop())
+		return;
+
+	if (GetOwner()->GetState() != GameObject::active)
+		return;
+
 	GetOwner()->GetComponent<Transform>()->SetConstantBuffer();
 
 	GetMesh()->BindBuffer();

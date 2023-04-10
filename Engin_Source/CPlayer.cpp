@@ -133,7 +133,7 @@ void Player::InitAnimation()
 			wstring name = L"Skil";
 			name += std::to_wstring(i);
 
-			animator->Create(name, texture, Vector2(0.0f, y * i), Vector2(x, y), Vector2(0.0f, 0.0f), 14, 0.06f);
+			animator->Create(name, texture, Vector2(0.0f, y * i), Vector2(x, y), Vector2(0.0f, 0.0f), 14, 0.03f);
 
 		}
 
@@ -276,7 +276,6 @@ void Player::Attack()
 void Player::SKil()
 {
 	Transform* tr = GetComponent<Transform>();
-	cout << "X  " << tr->GetPosition().x << "   Y   " << tr->GetPosition().y << endl;
 
 	Animator* animator = GetComponent<Animator>();
 	std::wstring& name = animator->GetPlayAnimation()->AnimationName();

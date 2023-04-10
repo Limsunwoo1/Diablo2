@@ -23,7 +23,7 @@ void TelePort::Initalize()
 
 	// renderer
 	SpriteRenderer* sr = AddComponent<SpriteRenderer>();
-	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"TelePort", L"Light//telePort.png");
+	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"TelePort", L"Light//telePort2.png");
 	shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
 	shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"TelePortMaterial");
 	material->SetTexture(eTextureSlot::T0, tex);

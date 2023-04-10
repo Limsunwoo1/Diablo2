@@ -656,7 +656,13 @@ namespace Renderer
 		flameMaterial ->SetShader(flameShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"FlameMaterial", flameMaterial);
 #pragma endregion
-
+#pragma region FirePinMaterial
+		std::shared_ptr<Shader> PinShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+		std::shared_ptr<Material> firtPinMaterial = std::make_shared<Material>();
+		firtPinMaterial ->SetRenderingMode(eRenderingMode::Transparent);
+		firtPinMaterial ->SetShader(PinShader);
+		ResourceManager::GetInstance()->Insert<Material>(L"FirePinMaterial", firtPinMaterial);
+#pragma endregion
 	}
 
 	void Initialize()

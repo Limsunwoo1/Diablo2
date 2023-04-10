@@ -1,11 +1,11 @@
-#include "CFrozenMisile.h"
+#include "CFrozenMissile.h"
 #include "CTime.h"
 #include "CAnimator.h"
 #include "CSpriteRenderer.h"
 
 #include "CResourceManager.h"
 
-FrozenMisile::FrozenMisile()
+FrozenMissile::FrozenMissile()
 	: Skil()
 	, mKeyName(L"FrozenMisile_")
 	, mTime(0.0f)
@@ -13,11 +13,11 @@ FrozenMisile::FrozenMisile()
 {
 }
 
-FrozenMisile::~FrozenMisile()
+FrozenMissile::~FrozenMissile()
 {
 }
 
-void FrozenMisile::Initalize()
+void FrozenMissile::Initalize()
 {
 	InitAnimation();
 
@@ -39,25 +39,25 @@ void FrozenMisile::Initalize()
 	Death();
 }
 
-void FrozenMisile::Update()
+void FrozenMissile::Update()
 {
 	mTime += Time::GetInstance()->DeltaTime();
 
 	Skil::Update();
 }
 
-void FrozenMisile::FixedUpdate()
+void FrozenMissile::FixedUpdate()
 {
 	RunMisile();
 	Skil::FixedUpdate();
 }
 
-void FrozenMisile::Render()
+void FrozenMissile::Render()
 {
 	Skil::Render();
 }
 
-void FrozenMisile::InitAnimation()
+void FrozenMissile::InitAnimation()
 {
 	Animator* animator = AddComponent<Animator>();
 
@@ -80,7 +80,7 @@ void FrozenMisile::InitAnimation()
 	animator->Play(L"FrozenMisile_12");
 }
 
-void FrozenMisile::RunMisile()
+void FrozenMissile::RunMisile()
 {
 	Transform* tr = GetComponent<Transform>();
 	Vector3 pos = tr->GetPosition();
