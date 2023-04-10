@@ -161,8 +161,8 @@ void AStar::AddOpenList(int x, int y, bool diagonal)
 	iter = mOpenList.find(node.Id);
 	if (iter != mOpenList.end())
 	{
-		if (diagonal)
-			return;
+		/*if (diagonal)
+			return;*/
 
 		// G 값 비교후 들어있는 
 		// 타일 데이터 수정 G, F
@@ -240,9 +240,9 @@ void AStar::Compare(Node duplication)
 	int y = abs(mCurNode.Pos.y - duplication.Pos.y);
 
 	if (x + y > 1)
-		g = mCurNode.Cost += 14;
+		g += 14;
 	else
-		g = mCurNode.Cost += 10;
+		g += 10;
 
 	if (duplication.Cost > g)
 	{
@@ -256,22 +256,25 @@ void AStar::Compare(Node duplication)
 	iter = mOpenList.find(duplication.Id);
 	iter->second = duplication;
 
-	/*while (!mDistanceList.empty())
+	vector<Node> NodeTemp;
+	while (!mDistanceList.empty())
 	{
 		Node temp = mDistanceList.top();
 		mDistanceList.pop();
 
-		if (node.Id == temp.Id)
+		if (duplication.Id == temp.Id)
 			break;
 
-		Nodetemp.emplace_back(temp);
+		NodeTemp.emplace_back(temp);
 	}
 
-	mDistanceList.emplace(node);
-	for (int i = 0; i < Nodetemp.size(); ++i)
+	mDistanceList.emplace(duplication);
+	for (int i = 0; i < NodeTemp.size(); ++i)
 	{
-		mDistanceList.emplace(Nodetemp[i]);
-	}*/
+		mDistanceList.emplace(NodeTemp[i]);
+	}
+
+	NodeTemp.clear();
 }
 
 AStar::Node AStar::DistanceList()
