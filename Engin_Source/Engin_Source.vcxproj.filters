@@ -178,9 +178,6 @@
     <Filter Include="GameObject\PlayerSkil">
       <UniqueIdentifier>{2e7fc52e-f93b-409b-8beb-824380e9f982}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject\PlayerSkil\FireBall">
-      <UniqueIdentifier>{dbe63faa-d2ae-442b-8d18-ee268c7b6821}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObject\PlayerSkil\IceSkil">
       <UniqueIdentifier>{3c222749-46d3-4e74-90ea-3c4ebed0cb57}</UniqueIdentifier>
     </Filter>
@@ -192,6 +189,9 @@
     </Filter>
     <Filter Include="GameObject\PlayerSkil\LightSkil\TelePort">
       <UniqueIdentifier>{735e22ba-1745-4913-bd0e-608d347e554d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\PlayerSkil\FireSkil">
+      <UniqueIdentifier>{dbe63faa-d2ae-442b-8d18-ee268c7b6821}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -336,8 +336,8 @@
     <ClCompile Include="CSkil.cpp">
       <Filter>GameObject\PlayerSkil</Filter>
     </ClCompile>
-    <ClCompile Include="CSkilFireBall.cpp">
-      <Filter>GameObject\PlayerSkil\FireBall</Filter>
+    <ClCompile Include="CFireTargetPin.cpp">
+      <Filter>GameObject\PlayerSkil\FireSkil</Filter>
     </ClCompile>
     <ClCompile Include="CParticleSystem.cpp">
       <Filter>Component\Renderer\ParticleSystem</Filter>
@@ -377,6 +377,12 @@
     </ClCompile>
     <ClCompile Include="CTelePort.cpp">
       <Filter>GameObject\PlayerSkil\LightSkil\TelePort</Filter>
+    </ClCompile>
+    <ClCompile Include="CMeteor.cpp">
+      <Filter>GameObject\PlayerSkil\FireSkil</Filter>
+    </ClCompile>
+    <ClCompile Include="CFlames.cpp">
+      <Filter>GameObject\PlayerSkil\FireSkil</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -539,8 +545,8 @@
     <ClInclude Include="CSkil.h">
       <Filter>GameObject\PlayerSkil</Filter>
     </ClInclude>
-    <ClInclude Include="CSkilFireBall.h">
-      <Filter>GameObject\PlayerSkil\FireBall</Filter>
+    <ClInclude Include="CFireTargetPin.h">
+      <Filter>GameObject\PlayerSkil\FireSkil</Filter>
     </ClInclude>
     <ClInclude Include="CParticleSystem.h">
       <Filter>Component\Renderer\ParticleSystem</Filter>
@@ -580,6 +586,12 @@
     </ClInclude>
     <ClInclude Include="CTelePort.h">
       <Filter>GameObject\PlayerSkil\LightSkil\TelePort</Filter>
+    </ClInclude>
+    <ClInclude Include="CMeteor.h">
+      <Filter>GameObject\PlayerSkil\FireSkil</Filter>
+    </ClInclude>
+    <ClInclude Include="CFlames.h">
+      <Filter>GameObject\PlayerSkil\FireSkil</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

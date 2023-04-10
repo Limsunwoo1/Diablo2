@@ -1,4 +1,4 @@
-#include "CSkilFireBall.h"
+#include "CFireTargetPin.h"
 #include "CAnimator.h"
 #include "CCollider2D.h"
 #include "CSpriteRenderer.h"
@@ -6,16 +6,16 @@
 #include "CMesh.h"
 #include "CResourceManager.h"
 
-SkilFireBall::SkilFireBall(Player* player)
+FireTargetPin::FireTargetPin(Player* player)
 	: Skil(player)
 {
 }
 
-SkilFireBall::~SkilFireBall()
+FireTargetPin::~FireTargetPin()
 {
 }
 
-void SkilFireBall::Initalize()
+void FireTargetPin::Initalize()
 {
 	Skil::Initalize();
 
@@ -33,22 +33,22 @@ void SkilFireBall::Initalize()
 	sr->SetMaterial(material);
 }
 
-void SkilFireBall::Update()
+void FireTargetPin::Update()
 {
 	Skil::Update();
 }
 
-void SkilFireBall::FixedUpdate()
+void FireTargetPin::FixedUpdate()
 {
 	Skil::FixedUpdate();
 }
 
-void SkilFireBall::Render()
+void FireTargetPin::Render()
 {
 	Skil::Render();
 }
 
-void SkilFireBall::InitAnimation()
+void FireTargetPin::InitAnimation()
 {
 	Animator* animator = GetComponent<Animator>();
 

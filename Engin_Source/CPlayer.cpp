@@ -4,7 +4,6 @@
 #include "CMaterial.h"
 #include "CTexture2D.h"
 #include "CAnimator.h"
-#include "CSkilFireBall.h"
 #include "CObject.h"
 #include "CSceneManager.h"
 #include "CAStart.h"
@@ -174,19 +173,10 @@ UINT Player::GetDirection()
 
 void Player::ActiveSkilFireBall()
 {
-	SkilFireBall* skil = new SkilFireBall(this);
-	Object::Instantiate<SkilFireBall>(eLayerType::PlayerSKil, skil);
+	
 
-	Animator* animator = skil->GetComponent<Animator>();
 
-	wstring skliName = L"FireBall";
-	skliName += std::to_wstring(mIndex);
-
-	animator->Play(skliName, false);
-
-	Transform* tr = skil->GetComponent<Transform>();
-	Transform* mTr = GetComponent<Transform>();
-	tr->SetPosition(mTr->GetPosition());
+ 
 }
 
 void Player::SetState(State state)

@@ -171,6 +171,7 @@
     <ClInclude Include="CEnddingScene.h" />
     <ClInclude Include="CEngine.h" />
     <ClInclude Include="CEnums.h" />
+    <ClInclude Include="CFlames.h" />
     <ClInclude Include="CFrozenMisile.h" />
     <ClInclude Include="CFrozenOrb.h" />
     <ClInclude Include="CGameObject.h" />
@@ -180,6 +181,7 @@
     <ClInclude Include="CLight.h" />
     <ClInclude Include="CMesh.h" />
     <ClInclude Include="CMaterial.h" />
+    <ClInclude Include="CMeteor.h" />
     <ClInclude Include="CMonster.h" />
     <ClInclude Include="CObject.h" />
     <ClInclude Include="CCollider3D.h" />
@@ -200,7 +202,7 @@
     <ClInclude Include="CScript.h" />
     <ClInclude Include="CShader.h" />
     <ClInclude Include="CSkil.h" />
-    <ClInclude Include="CSkilFireBall.h" />
+    <ClInclude Include="CFireTargetPin.h" />
     <ClInclude Include="CSpriteRenderer.h" />
     <ClInclude Include="CStructedBuffer.h" />
     <ClInclude Include="CTelePort.h" />
@@ -239,6 +241,7 @@
     <ClCompile Include="CCreateCharacter.cpp" />
     <ClCompile Include="CEnddingScene.cpp" />
     <ClCompile Include="CFadeRenderer.cpp" />
+    <ClCompile Include="CFlames.cpp" />
     <ClCompile Include="CFrozenMisile.cpp" />
     <ClCompile Include="CFrozenOrb.cpp" />
     <ClCompile Include="CGameObject.cpp" />
@@ -251,6 +254,7 @@
     <ClCompile Include="CMesh.cpp" />
     <ClCompile Include="CMaterial.cpp" />
     <ClCompile Include="CCollider3D.cpp" />
+    <ClCompile Include="CMeteor.cpp" />
     <ClCompile Include="CMonster.cpp" />
     <ClCompile Include="CObjectManager.cpp" />
     <ClCompile Include="CPaintShader.cpp" />
@@ -266,7 +270,7 @@
     <ClCompile Include="CScript.cpp" />
     <ClCompile Include="CShader.cpp" />
     <ClCompile Include="CSkil.cpp" />
-    <ClCompile Include="CSkilFireBall.cpp" />
+    <ClCompile Include="CFireTargetPin.cpp" />
     <ClCompile Include="CSpriteRenderer.cpp" />
     <ClCompile Include="CStructedBuffer.cpp" />
     <ClCompile Include="CTelePort.cpp" />
