@@ -57,7 +57,7 @@ void TelePort::FixedUpdate()
 				WorldManager::GetInstance()->SetPlayerIndex(mMovePos.x, mMovePos.y);
 			}
 
-			Object::ObejctDestroy(this);
+			Object::ObjectDestroy(this);
 		}
 	}
 

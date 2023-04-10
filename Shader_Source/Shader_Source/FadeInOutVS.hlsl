@@ -1,3 +1,4 @@
+#include "globals.hlsli"
 
 struct VSIn
 {
@@ -15,9 +16,19 @@ struct VSOut
 
 VSOut main(VSIn _In)
 {
+    //VSOut Out = (VSOut) 0.f;
+    //Out.Pos = _In.Pos;
+    //Out.Color = _In.Color;
+    
     VSOut Out = (VSOut) 0.f;
-    Out.Pos = _In.Pos;
+    
+    float4 worldPosition = mul(_In.Pos, world);
+    float4 viewPosition = mul(worldPosition, view);
+    float4 ProjPosition = mul(viewPosition, projection);
+    
+    Out.Pos = ProjPosition;
     Out.Color = _In.Color;
+    Out.UV = _In.UV;
     
     return Out;
 }

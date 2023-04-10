@@ -101,7 +101,7 @@ namespace Object
 		return gameObject;
 	}
 
-	static void ObejctDestroy(GameObject* gameObject)
+	static void ObjectDestroy(GameObject* gameObject)
 	{
 		gameObject->Death();
 	}

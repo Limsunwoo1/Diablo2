@@ -39,7 +39,7 @@ void Ping::FixedUpdate()
 {
 	if (mTime >= 0.5f)
 	{
-		Object::ObejctDestroy(this);
+		Object::ObjectDestroy(this);
 		return;
 	}
 

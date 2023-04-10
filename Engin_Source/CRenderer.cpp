@@ -634,7 +634,7 @@ namespace Renderer
 		ResourceManager::GetInstance()->Insert<Material>(L"TelePortMaterial", TelePort);
 #pragma endregion
 #pragma region AStarRenderMaterial
-		std::shared_ptr<Shader> AstarShader = ResourceManager::GetInstance()->Find<Shader>(L"RectShader");
+		std::shared_ptr<Shader> AstarShader = ResourceManager::GetInstance()->Find<Shader>(L"FadeShader");
 		std::shared_ptr<Texture2D> green = ResourceManager::GetInstance()->Find<Texture2D>(L"Green");
 		std::shared_ptr<Material> AstarMater = std::make_shared<Material>();
 		AstarMater->SetRenderingMode(eRenderingMode::Transparent);

@@ -4,6 +4,7 @@
 #include "CAnimator.h"
 #include "CFireTargetPin.h"
 #include "CFlames.h"
+#include "CObject.h"
 
 #include "CTime.h"
 #include "CResourceManager.h"
@@ -68,6 +69,16 @@ void Meteor::Update()
 {
 	if (!mbRun)
 	{
+		if (mOwner)
+		{
+			Animator* animator = mOwner->GetComponent<Animator>();
+
+			if (!animator->GetPlayAnimation()->IsComplete())
+			{
+				return;
+			}
+		}
+
 		OnMeteor();
 		mbRun = true;
 	}
@@ -177,7 +188,7 @@ void Meteor::OnMeteor()
 		}
 
 		Vec.Normalize();
-		Pos += Vec * Time::GetInstance()->DeltaTime() * mSpeed * 3.0f;
+		Pos += Vec * Time::GetInstance()->DeltaTime() * mSpeed * 1.5f;
 		mTr->SetPosition(Pos);
 	};
 
@@ -193,6 +204,11 @@ void Meteor::OnMeteor()
 
 void Meteor::OffMetor()
 {
+	GenericAnimator* genericAnimator = GetComponent<GenericAnimator>();
+
+	if (genericAnimator->IsRunning())
+		genericAnimator->Stop();
+
 	// 메테오 충돌위치 불길생성
 	Transform* tr = mFlames[0]->GetComponent<Transform>();
 	tr->SetPosition(mPinPos);
@@ -212,8 +228,6 @@ void Meteor::OffMetor()
 		tr->SetPosition(pos);
 	}
 
-	GenericAnimator* genericAnimator = GetComponent<GenericAnimator>();
-
 	AnimatorParam param;
 	param.AnimType = eAnimType::Linear;
 	param.StartValue = 0.0f;
@@ -228,7 +242,9 @@ void Meteor::OffMetor()
 		{
 			SpriteRenderer* sr = GetComponent<SpriteRenderer>();
 			sr->GetMaterial()->Clear();
-			this->Paused();
+
+			Animator* animator = GetComponent<Animator>();
+			animator->Clear();
 		}
 	};
 
@@ -239,7 +255,7 @@ void Meteor::OffMetor()
 			flame->Death();
 		}
 
-		this->Death();
+		Object::ObjectDestroy(this);
 	};
 
 	genericAnimator->Start(param);

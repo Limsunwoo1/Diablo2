@@ -158,8 +158,13 @@ void PlayerScript::FixedUpdate()
 		if (player->GetState() == Player::State::Idle
 			|| player->GetState() == Player::State::Move)
 		{
+			player->SetState(Player::State::Skil);
+
 			Meteor* meteor = Object::Instantiate<Meteor>(eLayerType::PlayerSKil, true);
 			Transform* MeteorTr = meteor->GetComponent<Transform>();
+
+			Player* player = dynamic_cast<Player*>(GetOwner());
+			meteor->SetOwner(player);
 
 			Vector3 meteorPos = tr->GetPosition();
 			meteorPos.y += 5.f;
@@ -178,6 +183,10 @@ void PlayerScript::FixedUpdate()
 
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::RBTN))
 	{
+		Player* player = dynamic_cast<Player*>(GetOwner());
+		if (player->GetState() != Player::State::Idle &&
+			player->GetState() != Player::State::Move)
+			return;
 		//a*
 		AStar* astar = GetOwner()->GetComponent<AStar>();
 		AStar::Node node = {};
