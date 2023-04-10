@@ -642,6 +642,20 @@ namespace Renderer
 		AstarMater->SetTexture(eTextureSlot::T0 ,green);
 		ResourceManager::GetInstance()->Insert<Material>(L"AstarMaterial", AstarMater);
 #pragma endregion
+#pragma region MeteorMaterial
+		std::shared_ptr<Shader> MeteorShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+		std::shared_ptr<Material> MeteorMaterial = std::make_shared<Material>();
+		MeteorMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		MeteorMaterial->SetShader(MeteorShader);
+		ResourceManager::GetInstance()->Insert<Material>(L"MeteorMaterial", MeteorMaterial);
+#pragma endregion
+#pragma region FalmeMaterial
+		std::shared_ptr<Shader> flameShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+		std::shared_ptr<Material> flameMaterial = std::make_shared<Material>();
+		flameMaterial ->SetRenderingMode(eRenderingMode::Transparent);
+		flameMaterial ->SetShader(flameShader);
+		ResourceManager::GetInstance()->Insert<Material>(L"FlameMaterial", flameMaterial);
+#pragma endregion
 
 	}
 

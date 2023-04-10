@@ -5,6 +5,7 @@ class FireTargetPin : public Skil
 {
 public:
 	FireTargetPin(Player* player);
+	FireTargetPin();
 	virtual ~FireTargetPin();
 
 	virtual void Initalize() override;

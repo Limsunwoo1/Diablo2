@@ -11,14 +11,17 @@ FireTargetPin::FireTargetPin(Player* player)
 {
 }
 
+FireTargetPin::FireTargetPin()
+	: Skil()
+{
+}
+
 FireTargetPin::~FireTargetPin()
 {
 }
 
 void FireTargetPin::Initalize()
 {
-	Skil::Initalize();
-
 	AddComponent<Animator>();
 
 	// collider

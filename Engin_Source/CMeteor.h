@@ -2,6 +2,10 @@
 #include "CSkil.h"
 #include "CGenericAnimator.h"
 
+using namespace Math;
+using namespace std;
+
+
 class Flames;
 class FireTargetPin;
 class Meteor : public Skil
@@ -17,8 +21,20 @@ public:
 
 	virtual void InitAnimation() override;
 
+	void RunMeteor();
+
+	void SetPinPos(Math::Vector3& pos);// { mPinPos = pos; }
+	void SetPinPos(float& x, float& y, float& z); //{ mPinPos = Vector3(x,y,z); }
+	void SetSpeed();
+
+	void OnMeteor();
+	void OffMetor();
 private:
 	FireTargetPin* mTargetPin;
-	std::vector<Flames> mFlames;
+	std::vector<Flames*> mFlames;
+
+	Math::Vector3 mPinPos;
+	float mSpeed;
+	bool mbRun;
 };
 

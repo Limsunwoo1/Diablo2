@@ -1,22 +1,27 @@
 #include "CPlayerScript.h"
+// Object
 #include "CGameObject.h"
-#include "CInput.h"
-#include "CTime.h"
-#include "CAnimator.h"
 #include "CPlayer.h"
-#include "CGraphicDevice_DX11.h"
-#include "CAStart.h"
-#include "CWorldManager.h"
-#include "CRenderer.h"
-#include "CCamera.h"
 #include "CPing.h"
 #include "CObject.h"
-#include "CSceneManager.h"
 #include "CFrozenOrb.h"
 #include "CTelePort.h"
-#include "CSpriteRenderer.h"
-#include "CResourceManager.h"
+#include "CMeteor.h"
 
+// Component
+#include "CSpriteRenderer.h"
+#include "CAnimator.h"
+#include "CGraphicDevice_DX11.h"
+#include "CAStart.h"
+#include "CRenderer.h"
+#include "CCamera.h"
+
+// Manager
+#include "CInput.h"
+#include "CTime.h"
+#include "CWorldManager.h"
+#include "CSceneManager.h"
+#include "CResourceManager.h"
 
 PlayerScript::PlayerScript()
 	: Script()
@@ -37,10 +42,6 @@ PlayerScript::~PlayerScript()
 void PlayerScript::Initalize()
 {
 	Animator* animator = GetOwner()->GetComponent<Animator>();
-	//animator->GetStartEvent(L"Idle") = bind(&PlayerScript::Start, this);
-	//animator->GetCompleteEvent(L"Idle") = bind(&PlayerScript::Start, this);
-	//animator->GetEndEvent(L"Idle") = bind(&PlayerScript::Start, this);
-	//animator->GetEvent(L"Idle", 2) = bind(&PlayerScript::Start, this);
 }
 
 void PlayerScript::Update()
@@ -147,6 +148,27 @@ void PlayerScript::FixedUpdate()
 
 			pos = Vector3(EndPos.x, EndPos.y, pos.z);
 			teleport->SetMovePos(pos);
+
+			ResetAStar();
+			return;
+		}
+	}
+	else if (Input::GetInstance()->GetKeyDown(eKeyCode::F))
+	{
+		if (player->GetState() == Player::State::Idle
+			|| player->GetState() == Player::State::Move)
+		{
+			Meteor* meteor = Object::Instantiate<Meteor>(eLayerType::PlayerSKil, true);
+			Transform* MeteorTr = meteor->GetComponent<Transform>();
+
+			Vector3 meteorPos = tr->GetPosition();
+			meteorPos.y += 5.f;
+			MeteorTr->SetPosition(meteorPos);
+
+			Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos();
+			Vector3 pinPos = Vector3(mousePos.x, mousePos.y, 1.0f);
+			meteor->SetPinPos(pinPos);
+
 
 			ResetAStar();
 			return;
