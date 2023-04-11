@@ -167,6 +167,7 @@ void Meteor::OnMeteor()
 	if (genericAnimator->IsRunning())
 		genericAnimator->Stop();
 
+	// 핀오브젝트 활성화
 	Transform* pinTr = mTargetPin->GetComponent<Transform>();
 	pinTr->SetPosition(mPinPos);
 	mTargetPin->Active();
@@ -186,12 +187,13 @@ void Meteor::OnMeteor()
 		Vector3 Pos = mTr->GetPosition();
 
 		Vec = mPinPos - Pos;
-		if (fabs(Vec.y) < 0.005f /*&& fabs(Vec.x) < 0.005f*/)
+		if (fabs(Vec.y) < 0.05f /*&& fabs(Vec.x) < 0.005f*/)
 		{
 			genericAnimator->Stop(true);
 			return;
 		}
 
+		// 일정시간후 메테오 낙하
 		if (runLine < InCurValue)
 		{
 			Vec.Normalize();
@@ -231,6 +233,7 @@ void Meteor::OffMeteor()
 
 	float fTheta = XM_PIDIV2 / (float)5.f;
 
+	// 랜덤한 위치에 불길 생성
 	for (int i = 0; i < mFlames.size(); ++i)
 	{
 		mFlames[i]->Active();
@@ -251,6 +254,7 @@ void Meteor::OffMeteor()
 
 	param.DurationFunc = [this](float InCurValue)
 	{
+		// 메테오오브젝트 애니메이션 끝나면 렌더 스탑
 		Animator* animator = GetComponent<Animator>();
 		if (animator->GetPlayAnimation()->IsComplete())
 		{
@@ -258,6 +262,7 @@ void Meteor::OffMeteor()
 			sr->SetRenderStop();
 		}
 
+		// 폭발 렌더후 불길 애니메이션 렌더
 		for (Flames* flame : mFlames)
 		{
 			if (flame == nullptr)

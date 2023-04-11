@@ -59,6 +59,8 @@ void FrozenOrb::Initalize()
 	sr->SetMesh(mesh);
 	sr->SetMaterial(material);
 
+	sr->SetRenderStop();
+
 	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"FrozenOrb");
 	material->SetTexture(eTextureSlot::T0,tex);
 
@@ -90,6 +92,8 @@ void FrozenOrb::Update()
 			mOwner = nullptr;
 			mbOnOrb = true;
 
+			SpriteRenderer* sr = GetComponent<SpriteRenderer>();
+			sr->SetRenderStop(false);
 			return;
 		}
 	}

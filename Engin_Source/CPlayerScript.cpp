@@ -114,6 +114,8 @@ void PlayerScript::FixedUpdate()
 			orb->SetDirection(direction);
 
 			Transform* tr = orb->GetComponent<Transform>();
+			pos.x += 0.5f;
+			pos.y += 0.5f;
 			tr->SetPosition(pos);
 
 			ResetAStar();

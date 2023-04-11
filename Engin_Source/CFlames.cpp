@@ -20,7 +20,7 @@ void Flames::Initalize()
 
 	// 사이즈
 	Transform* tr = GetComponent<Transform>();
-	tr->SetScale(Vector3(4.0f, 2.0f, 1.0f));
+	tr->SetScale(Vector3(4.0f, 3.0f, 1.0f));
 	tr->SetRotation(Vector3(0.f, 0.f, 0.f));
 
 	// 렌더러
