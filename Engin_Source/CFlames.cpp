@@ -20,11 +20,12 @@ void Flames::Initalize()
 
 	// 사이즈
 	Transform* tr = GetComponent<Transform>();
-	tr->SetScale(Vector3(2.0f, 2.0f, 1.0f));
+	tr->SetScale(Vector3(4.0f, 2.0f, 1.0f));
+	tr->SetRotation(Vector3(0.f, 0.f, 0.f));
 
 	// 렌더러
 	SpriteRenderer* sr = AddComponent<SpriteRenderer>();
-	shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+	shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"HalfAlphaMesh");
 	shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"FlameMaterial");
 	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Flame");
 	material->SetTexture(eTextureSlot::T0, tex);
@@ -55,10 +56,10 @@ void Flames::Render()
 void Flames::InitAnimation()
 {
 	shared_ptr<Texture2D> tex =
-		ResourceManager::GetInstance()->Load<Texture2D>(L"Flame", L"Meteor//FlameSprite.png");
+		ResourceManager::GetInstance()->Load<Texture2D>(L"Flame", L"Meteor//FlamesSprite2.png");
 
 	Animator* animator = AddComponent<Animator>();
-	animator->Create(L"Flame", tex, Vector2::Zero, Vector2(100.f, 100.f), Vector2::Zero, 32, 0.05f);
+	animator->Create(L"Flame", tex, Vector2::Zero, Vector2(100.f, 100.f), Vector2::Zero, 20, 0.1f);
 
 	tex = ResourceManager::GetInstance()->Load<Texture2D>(L"FlameBoom", L"Meteor//MeteorBoom.png");
 	animator->Create(L"FlameBoom", tex, Vector2::Zero, Vector2(100.f, 100.f), Vector2::Zero, 19, 0.1f);

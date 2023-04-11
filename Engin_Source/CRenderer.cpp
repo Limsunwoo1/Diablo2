@@ -11,6 +11,7 @@ namespace Renderer
 {
 	Vertex vertexes[4] = {};
 	Vertex FadeInOut[4] = {};
+	Vertex HalfAlpha[4] = {};
 	ConstantBuffer* constantBuffers[(UINT)eCBType::End] = {};
 	ComPtr<ID3D11SamplerState> samplerStates[(UINT)eSamplerType::End] = {};
 	ComPtr<ID3D11RasterizerState> RasterizeState[(UINT)eRasterizeType::End] = {};
@@ -73,6 +74,31 @@ namespace Renderer
 		mesh->CreateVertexBuffer(vertexes, 4);
 		mesh->CreateIndexBuffer(indexs.data(), (UINT)indexs.size());
 #pragma endregion
+#pragma region Half Alpha Mesh
+		//RECT
+		HalfAlpha[0].pos = Vector4(-0.5f, 0.5f, 0.0f, 1.0f);
+		HalfAlpha[0].color = Vector4(0.f, 1.f, 0.f, 0.7f);
+		HalfAlpha[0].uv = Vector2(0.f, 0.f);
+
+		HalfAlpha[1].pos = Vector4(0.5f, 0.5f, 0.0f, 1.0f);
+		HalfAlpha[1].color = Vector4(1.f, 1.f, 1.f, 0.7f);
+		HalfAlpha[1].uv = Vector2(1.f, 0.f);
+
+		HalfAlpha[2].pos = Vector4(0.5f, -0.5f, 0.0f, 1.0f);
+		HalfAlpha[2].color = Vector4(1.f, 0.f, 0.f, 0.7f);
+		HalfAlpha[2].uv = Vector2(1.f, 1.f);
+
+		HalfAlpha[3].pos = Vector4(-0.5f, -0.5f, 0.0f, 1.0f);
+		HalfAlpha[3].color = Vector4(0.f, 0.f, 1.f, 0.7f);
+		HalfAlpha[3].uv = Vector2(0.f, 1.f);
+
+		// Create Mesh
+		std::shared_ptr<Mesh>halfmesh = std::make_shared<Mesh>();
+		ResourceManager::GetInstance()->Insert<Mesh>(L"HalfAlphaMesh", halfmesh);
+		halfmesh->CreateVertexBuffer(HalfAlpha, 4);
+		halfmesh->CreateIndexBuffer(indexs.data(), (UINT)indexs.size());
+#pragma endregion
+
 #pragma region FADE MESH
 		// Fade
 		FadeInOut[0].pos = Vector4(-1.0f, 1.0f, 0.0f, 1.0f);
@@ -423,6 +449,8 @@ namespace Renderer
 		spriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 		spriteShader->SetRasterize(eRasterizeType::SolidNone);
+		//spriteShader->SetDepthStencil(eDepthStencilType::NoWrite);
+		spriteShader->SetBlend(eBlendType::AlphaBlend);
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"SpriteShader", spriteShader);
 #pragma endregion

@@ -42,6 +42,7 @@ float4 main(VSOut In) : SV_Target
         CalculateLight(_lightColor, In.WorldPos.xyz, i);
     }
     color *= _lightColor.diffuse;
+    color.w *= In.Color.w;
     
     return color;
 }

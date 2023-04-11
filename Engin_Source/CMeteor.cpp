@@ -37,7 +37,7 @@ void Meteor::Initalize()
 	mTargetPin = new FireTargetPin();
 	mTargetPin->Initalize();
 
-	for (int i = 0; i < 8; ++i)
+	for (int i = 0; i < 10; ++i)
 	{
 		Flames* flames = new Flames();
 		flames->Initalize();
@@ -186,7 +186,7 @@ void Meteor::OnMeteor()
 		Vector3 Pos = mTr->GetPosition();
 
 		Vec = mPinPos - Pos;
-		if (fabs(Vec.y) < 0.005f && fabs(Vec.x) < 0.005f)
+		if (fabs(Vec.y) < 0.005f /*&& fabs(Vec.x) < 0.005f*/)
 		{
 			genericAnimator->Stop(true);
 			return;
@@ -226,16 +226,19 @@ void Meteor::OffMeteor()
 	mFlames[0]->Active();
 
 	float radius = 0.5f;
-	float arrX[8] = { -radius, radius, 0.f, 0.f, radius, -radius, -radius, radius };
-	float arrY[8] = { 0.f, 0.f, radius, -radius, radius, radius, -radius, -radius };
+	float arrX[9] = {0.f, -radius, radius, 0.f, 0.f, radius, -radius, -radius, radius};
+	float arrY[9] = {0.f, 0.f, 0.f, radius, -radius, radius, radius, -radius, -radius};
+
+	float fTheta = XM_PIDIV2 / (float)5.f;
+
 	for (int i = 0; i < mFlames.size(); ++i)
 	{
 		mFlames[i]->Active();
 
 		Transform* tr = mFlames[i]->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
-		pos.x = mPinPos.x + arrX[i];
-		pos.y = mPinPos.y + arrY[i];
+		pos.x = mPinPos.x + (cosf(fTheta * (float)i * mFlames[i]->GetID()) * radius + arrX[i]);
+		pos.y = mPinPos.y + (sinf(fTheta * (float)i * mFlames[i]->GetID()) * radius + arrY[i]);
 
 		tr->SetPosition(pos);
 	}
@@ -244,7 +247,7 @@ void Meteor::OffMeteor()
 	param.AnimType = eAnimType::Linear;
 	param.StartValue = 0.0f;
 	param.EndValue = 1.0f;
-	param.DurationTime = 2.0f;
+	param.DurationTime = 10.0f;
 
 	param.DurationFunc = [this](float InCurValue)
 	{
@@ -263,7 +266,8 @@ void Meteor::OffMeteor()
 			Animator* flameAnimator = flame->GetComponent<Animator>();
 			if (flameAnimator->GetPlayAnimation()->IsComplete())
 			{
-				flame->GetComponent<SpriteRenderer>()->SetRenderStop();
+				flameAnimator->Play(L"Flame");
+				//flame->GetComponent<SpriteRenderer>()->SetRenderStop();
 			}
 		}
 	};

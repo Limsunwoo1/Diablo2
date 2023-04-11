@@ -104,6 +104,7 @@ namespace Renderer
 
 	extern Vertex FadeInOut[4];
 	extern Vertex vertexes[4];
+	extern Vertex HalfAlpha[4];
 	extern ConstantBuffer* constantBuffers[];
 	extern ComPtr<ID3D11SamplerState> samplerStates[];
 	extern ComPtr<ID3D11RasterizerState> RasterizeState[];

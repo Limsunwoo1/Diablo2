@@ -17,10 +17,10 @@ enum class eLayerType
 	BackGround,
 	Tile,
 	Grid,
-	Monster,
-	Player,
 	MonsterSkil,
 	PlayerSKil,
+	Monster,
+	Player,
 
 	Particle,
 	Effect,
