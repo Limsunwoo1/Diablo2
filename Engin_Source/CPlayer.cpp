@@ -15,7 +15,9 @@ using namespace graphics;
 Player::Player()
 	: GameObject()
 	, mHP(10)
+	, mMaxHP(50)
 	, mMP(10)
+	, mMaxMP(50)
 	, mDamege(5)
 	, mIndex(0)
 	, mbRunMode(false)
@@ -52,12 +54,14 @@ void Player::FixedUpdate()
 {
 	Renderer::PlayerDataCB info = {};
 	info.RunGauge = mRunTime / mMaxRunTime;
-	//info.hpGauge = ;
-	//info.hpGauge = ;
+	info.hpGauge = mHP / mMaxHP;
+	info.mpGauge = mMP / mMaxMP;
 	//info.hpGauge = ;
 
 	ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::PlayerData];
+	cb->SetData(&info);
 
+	cb->Bind(eShaderStage::ALL);
 
 	GameObject::FixedUpdate();
 }

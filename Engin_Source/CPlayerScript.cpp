@@ -65,7 +65,6 @@ void PlayerScript::Update()
 	{
 		mInputDelay += Time::GetInstance()->DeltaTime();
 	}
-
 }
 
 void PlayerScript::FixedUpdate()
@@ -316,6 +315,37 @@ void PlayerScript::FixedUpdate()
 	if (player->GetState() == Player::PlayerState::Idle
 		|| player->GetState() == Player::PlayerState::Move)
 	{
+		if (player->GetRunMode() == true)
+		{
+			Vector3 curPos = GetOwner()->GetComponent<Transform>()->GetPosition();
+			if (pos == curPos)
+				return;
+
+			float runTime = player->GetRunTime();
+			runTime -= Time::GetInstance()->DeltaTime();
+
+			if (runTime < 0.0f)
+			{
+				player->ChangeRunMode();
+				runTime = 0.0f;
+			}
+
+			player->SetRunTime(runTime);
+
+			cout << runTime << endl;
+		}
+		else
+		{
+			float runTime = player->GetRunTime();
+			runTime += Time::GetInstance()->DeltaTime() * 2;
+
+			if (runTime > player->GetMaxRunTime())
+				runTime = player->GetMaxRunTime();
+
+			player->SetRunTime(runTime);
+
+			cout << runTime << endl;
+		}
 		tr->SetPosition(pos);
 	}
 }

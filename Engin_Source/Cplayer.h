@@ -44,6 +44,7 @@ public:
 	void SetRunSpeed(bool mode);
 	UINT GetRunSpeed() { return mRunSpeed; };
 
+	const float GetMaxRunTime() { return mMaxRunTime; }
 	void ActiveSkilFireBall();
 
 private:
@@ -54,16 +55,20 @@ private:
 	void SKil();
 	void Hit();
 private:
-	UINT mHP;
-	UINT mMP;
+	float mMaxHP;
+	float mHP;
 
-	UINT mDamege;
+	float mMaxMP;
+	float mMP;
+
+	float mDamege;
 
 	// 0 (6시 방향) 4(9시 방향) 8(12시방향) 12(3시 방향) 
 	std::bitset<16> mDirection;
 	UINT mIndex;
 	PlayerState mState;
 	bool mbRunMode;
+
 	float mRunTime;
 	float mMaxRunTime;
 

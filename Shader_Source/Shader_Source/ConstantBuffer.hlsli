@@ -77,6 +77,11 @@ cbuffer PlayerData : register(b8)
     float mpGauge;
     float RunGauge;
     float expGauge;
+    
+    bool uvHP;
+    bool uvMP;
+    bool uvRun;
+    bool uvExp;
 }
 
 //cbuffer Noise : register(b6)
