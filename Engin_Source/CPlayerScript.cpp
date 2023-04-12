@@ -110,13 +110,16 @@ void PlayerScript::FixedUpdate()
 			Player* player = dynamic_cast<Player*>(GetOwner());
 			orb->SetOwner(player);
 
+			Vector3 OwnerPos = GetOwner()->GetComponent<Transform>()->GetPosition();
+
 			Vector2 direction = (Input::GetInstance()->GetMouseWorldPos() - pos);
 			orb->SetDirection(direction);
 
 			Transform* tr = orb->GetComponent<Transform>();
-			pos.x += 0.5f;
-			pos.y += 0.5f;
-			tr->SetPosition(pos);
+			direction.Normalize();
+			Vector3 SpawnPos = Vector3(direction.x, direction.y, 1.0f) * 1.f;
+			OwnerPos += SpawnPos;
+			tr->SetPosition(OwnerPos);
 
 			ResetAStar();
 			return;
@@ -136,7 +139,7 @@ void PlayerScript::FixedUpdate()
 			EndPos.x += pos.x;
 			EndPos.y += pos.y;
 
-			TelePort* teleport = Object::Instantiate<TelePort>(eLayerType::PlayerSKil, true);
+			TelePort* teleport = Object::Instantiate<TelePort>(eLayerType::Effect, true);
 
 			Player* player = dynamic_cast<Player*>(GetOwner());
 			if (player)

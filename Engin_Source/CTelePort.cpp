@@ -47,7 +47,7 @@ void TelePort::FixedUpdate()
 		Transform* mTr = GetComponent<Transform>();
 		mTr->SetPosition(OwnerPos);
 
-		Animator* animator = GetComponent<Animator>();
+		Animator* animator = mOwner->GetComponent<Animator>();
 		if (animator->GetPlayAnimation()->IsComplete())
 		{
 			if (mMovePos.x >= 0 && mMovePos.y >= 0)
@@ -56,10 +56,11 @@ void TelePort::FixedUpdate()
 				WorldManager::GetInstance()->SetZero(OwnerPos.x, OwnerPos.y);
 				WorldManager::GetInstance()->SetPlayerIndex(mMovePos.x, mMovePos.y);
 			}
-
-			Object::ObjectDestroy(this);
 		}
 	}
+	Animator* animator = GetComponent<Animator>();
+	if (animator->GetPlayAnimation()->IsComplete())
+		Object::ObjectDestroy(this);
 
 	Skil::FixedUpdate();
 }
@@ -74,6 +75,6 @@ void TelePort::InitAnimation()
 	Animator* animator = AddComponent<Animator>();
 	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"TelePort");
 
-	animator->Create(L"TelePort", tex, Vector2(0.0f, 0.0f), Vector2(136.f, 154.f), Vector2::Zero, 18, 0.05f);
+	animator->Create(L"TelePort", tex, Vector2(0.0f, 0.0f), Vector2(136.f, 154.f), Vector2::Zero, 18, 0.03f);
 	animator->Play(L"TelePort", false);
 }
