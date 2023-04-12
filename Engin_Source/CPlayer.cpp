@@ -18,6 +18,11 @@ Player::Player()
 	, mMP(10)
 	, mDamege(5)
 	, mIndex(0)
+	, mbRunMode(false)
+	, mMaxRunTime(10.f)
+	, mRunTime(10.f)
+	, mRunSpeed(2)
+	, mState(State::Idle)
 {
 
 }
@@ -171,12 +176,24 @@ UINT Player::GetDirection()
 	return mIndex;
 }
 
+void Player::ChangeRunMode()
+{
+	bool mode = mbRunMode == true ? false : true;
+	mbRunMode = mode;
+
+	SetRunSpeed(mbRunMode);
+}
+
+void Player::SetRunSpeed(bool mode)
+{
+	// °È±â 2, ¶Ù±â 4
+
+	UINT speed = mode == true ? 4 : 2 ;
+	mRunSpeed = speed;
+}
+
 void Player::ActiveSkilFireBall()
 {
-	
-
-
- 
 }
 
 void Player::SetState(State state)
@@ -231,13 +248,26 @@ void Player::Move()
 	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
 	UINT index = GetDirection();
 
-	wstring playName = L"Walk";
-	playName += std::to_wstring(index);
+	if (mbRunMode == false)
+	{
+		wstring playName = L"Walk";
+		playName += std::to_wstring(index);
 
-	if (playName == name)
-		return;
+		if (playName == name)
+			return;
 
-	animator->Play(playName);
+		animator->Play(playName);
+	}
+	else if (mbRunMode == true)
+	{
+		wstring playName = L"Walk";
+		playName += std::to_wstring(index);
+
+		if (playName == name)
+			return;
+
+		animator->Play(playName);
+	}
 
 	/*if (mDirection[0] == true && name != L"WalkUp")
 		animator->Play(L"WalkUp");

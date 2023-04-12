@@ -192,6 +192,11 @@ void PlayerScript::FixedUpdate()
 		}
 	}
 
+	if (Input::GetInstance()->GetKeyDown(eKeyCode::R))
+	{
+		player->ChangeRunMode();
+	}
+
 	if (Input::GetInstance()->GetKeyPress(eKeyCode::RBTN))
 	{
 		Player* player = dynamic_cast<Player*>(GetOwner());
@@ -303,14 +308,16 @@ void PlayerScript::FixedUpdate()
 		vec.Normalize();
 		player->SetState(Player::State::Move);
 
-		pos += vec * Time::GetInstance()->DeltaTime() * speed;
+		pos += vec * Time::GetInstance()->DeltaTime() * player->GetRunSpeed();
 
 		mNode = nullptr;
 	}
 
 	if (player->GetState() == Player::State::Idle
 		|| player->GetState() == Player::State::Move)
+	{
 		tr->SetPosition(pos);
+	}
 }
 
 void PlayerScript::Render()

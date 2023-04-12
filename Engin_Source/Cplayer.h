@@ -33,6 +33,17 @@ public:
 	bool PlayerDirection(int index);
 	UINT GetDirection();
 
+	void SetRunMode(bool mode) { mbRunMode = mode; }
+	bool GetRunMode() { return mbRunMode; }
+
+	void ChangeRunMode();
+
+	void SetRunTime(float time) { mRunTime = time; }
+	float GetRunTime() { return mRunTime; }
+
+	void SetRunSpeed(bool mode);
+	UINT GetRunSpeed() { return mRunSpeed; };
+
 	void ActiveSkilFireBall();
 
 private:
@@ -52,5 +63,11 @@ private:
 	std::bitset<16> mDirection;
 	UINT mIndex;
 	State mState;
+	bool mbRunMode;
+	float mRunTime;
+	float mMaxRunTime;
+
+	// °È±â 2, ¶Ù±â 4
+	UINT mRunSpeed;
 };
 
