@@ -90,10 +90,10 @@ void PlayerScript::FixedUpdate()
 
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::A))
 	{
-		if (player->GetState() == Player::State::Idle
-			|| player->GetState() == Player::State::Move)
+		if (player->GetState() == Player::PlayerState::Idle
+			|| player->GetState() == Player::PlayerState::Move)
 		{
-			player->SetState(Player::State::Attack);
+			player->SetState(Player::PlayerState::Attack);
 
 			SetPlayerDirection();
 			ResetAStar();
@@ -102,10 +102,10 @@ void PlayerScript::FixedUpdate()
 	}
 	else if (Input::GetInstance()->GetKeyDown(eKeyCode::S))
 	{
-		if (player->GetState() == Player::State::Idle
-			|| player->GetState() == Player::State::Move)
+		if (player->GetState() == Player::PlayerState::Idle
+			|| player->GetState() == Player::PlayerState::Move)
 		{
-			player->SetState(Player::State::Skil);
+			player->SetState(Player::PlayerState::Skil);
 
 			FrozenOrb* orb = Object::Instantiate<FrozenOrb>(eLayerType::PlayerSKil, true);
 			Player* player = dynamic_cast<Player*>(GetOwner());
@@ -129,10 +129,10 @@ void PlayerScript::FixedUpdate()
 	}
 	else if (Input::GetInstance()->GetKeyDown(eKeyCode::D))
 	{
-		if (player->GetState() == Player::State::Idle
-			|| player->GetState() == Player::State::Move)
+		if (player->GetState() == Player::PlayerState::Idle
+			|| player->GetState() == Player::PlayerState::Move)
 		{
-			player->SetState(Player::State::Skil);
+			player->SetState(Player::PlayerState::Skil);
 
 			Vector2 direction = (Input::GetInstance()->GetMouseWorldPos() - pos);
 			direction.Normalize();
@@ -164,10 +164,10 @@ void PlayerScript::FixedUpdate()
 	}
 	else if (Input::GetInstance()->GetKeyDown(eKeyCode::F))
 	{
-		if (player->GetState() == Player::State::Idle
-			|| player->GetState() == Player::State::Move)
+		if (player->GetState() == Player::PlayerState::Idle
+			|| player->GetState() == Player::PlayerState::Move)
 		{
-			player->SetState(Player::State::Skil);
+			player->SetState(Player::PlayerState::Skil);
 
 			Meteor* meteor = Object::Instantiate<Meteor>(eLayerType::PlayerSKil, true);
 			Transform* MeteorTr = meteor->GetComponent<Transform>();
@@ -200,8 +200,8 @@ void PlayerScript::FixedUpdate()
 	if (Input::GetInstance()->GetKeyPress(eKeyCode::RBTN))
 	{
 		Player* player = dynamic_cast<Player*>(GetOwner());
-		if (player->GetState() != Player::State::Idle &&
-			player->GetState() != Player::State::Move)
+		if (player->GetState() != Player::PlayerState::Idle &&
+			player->GetState() != Player::PlayerState::Move)
 			return;
 		//a*
 		AStar* astar = GetOwner()->GetComponent<AStar>();
@@ -298,7 +298,7 @@ void PlayerScript::FixedUpdate()
 			mPickPoint = Vector2::Zero;
 			mNode = nullptr;
 
-			player->SetState(Player::State::Idle);
+			player->SetState(Player::PlayerState::Idle);
 			return;
 		}
 
@@ -306,15 +306,15 @@ void PlayerScript::FixedUpdate()
 		SetPlayerDirection(driection);
 
 		vec.Normalize();
-		player->SetState(Player::State::Move);
+		player->SetState(Player::PlayerState::Move);
 
 		pos += vec * Time::GetInstance()->DeltaTime() * player->GetRunSpeed();
 
 		mNode = nullptr;
 	}
 
-	if (player->GetState() == Player::State::Idle
-		|| player->GetState() == Player::State::Move)
+	if (player->GetState() == Player::PlayerState::Idle
+		|| player->GetState() == Player::PlayerState::Move)
 	{
 		tr->SetPosition(pos);
 	}

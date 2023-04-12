@@ -5,7 +5,7 @@
 class Player : public GameObject
 {
 public:
-	enum class State
+	enum class PlayerState
 	{
 		Idle,
 		Move,
@@ -27,8 +27,8 @@ public:
 	virtual void InitAnimation() override;
 	void PlayAnimation(const std::wstring& name);
 
-	State GetState() { return mState; }
-	void SetState(State state);
+	PlayerState GetState() { return mState; }
+	void SetState(PlayerState state);
 
 	bool PlayerDirection(int index);
 	UINT GetDirection();
@@ -62,7 +62,7 @@ private:
 	// 0 (6시 방향) 4(9시 방향) 8(12시방향) 12(3시 방향) 
 	std::bitset<16> mDirection;
 	UINT mIndex;
-	State mState;
+	PlayerState mState;
 	bool mbRunMode;
 	float mRunTime;
 	float mMaxRunTime;

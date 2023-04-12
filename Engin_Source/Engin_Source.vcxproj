@@ -168,6 +168,7 @@
     <ClInclude Include="CComputeShader.h" />
     <ClInclude Include="CConstantBuffer.h" />
     <ClInclude Include="CCreateCharacter.h" />
+    <ClInclude Include="CDiabloMonster.h" />
     <ClInclude Include="CEnddingScene.h" />
     <ClInclude Include="CEngine.h" />
     <ClInclude Include="CEnums.h" />
@@ -182,7 +183,9 @@
     <ClInclude Include="CMesh.h" />
     <ClInclude Include="CMaterial.h" />
     <ClInclude Include="CMeteor.h" />
+    <ClInclude Include="CMinosTauros.h" />
     <ClInclude Include="CMonster.h" />
+    <ClInclude Include="CMonsterScript.h" />
     <ClInclude Include="CObject.h" />
     <ClInclude Include="CCollider3D.h" />
     <ClInclude Include="CObjectManager.h" />
@@ -239,6 +242,7 @@
     <ClCompile Include="CComputeShader.cpp" />
     <ClCompile Include="CConstantBuffer.cpp" />
     <ClCompile Include="CCreateCharacter.cpp" />
+    <ClCompile Include="CDiabloMonster.cpp" />
     <ClCompile Include="CEnddingScene.cpp" />
     <ClCompile Include="CFadeRenderer.cpp" />
     <ClCompile Include="CFlames.cpp" />
@@ -255,7 +259,9 @@
     <ClCompile Include="CMaterial.cpp" />
     <ClCompile Include="CCollider3D.cpp" />
     <ClCompile Include="CMeteor.cpp" />
+    <ClCompile Include="CMinosTauros.cpp" />
     <ClCompile Include="CMonster.cpp" />
+    <ClCompile Include="CMonsterScript.cpp" />
     <ClCompile Include="CObjectManager.cpp" />
     <ClCompile Include="CPaintShader.cpp" />
     <ClCompile Include="CParticleShader.cpp" />

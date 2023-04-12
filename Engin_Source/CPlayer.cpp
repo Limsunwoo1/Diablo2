@@ -22,7 +22,7 @@ Player::Player()
 	, mMaxRunTime(10.f)
 	, mRunTime(10.f)
 	, mRunSpeed(2)
-	, mState(State::Idle)
+	, mState(PlayerState::Idle)
 {
 
 }
@@ -196,7 +196,7 @@ void Player::ActiveSkilFireBall()
 {
 }
 
-void Player::SetState(State state)
+void Player::SetState(PlayerState state)
 {
 	if (state == mState)
 		return;
@@ -208,19 +208,19 @@ void Player::Run()
 {
 	switch (mState)
 	{
-	case Player::State::Idle:
+	case Player::PlayerState::Idle:
 		Idle();
 		break;
-	case Player::State::Move:
+	case Player::PlayerState::Move:
 		Move();
 		break;
-	case Player::State::Attack:
+	case Player::PlayerState::Attack:
 		Attack();
 		break;
-	case Player::State::Skil:
+	case Player::PlayerState::Skil:
 		SKil();
 		break;
-	case Player::State::Hit:
+	case Player::PlayerState::Hit:
 		Hit();
 		break;
 	default:
@@ -298,7 +298,7 @@ void Player::Attack()
 	{
 		if (animator->GetPlayAnimation()->IsComplete())
 		{
-			mState = State::Idle;
+			mState = PlayerState::Idle;
 		}
 	}
 }
@@ -322,7 +322,7 @@ void Player::SKil()
 	{
 		if (animator->GetPlayAnimation()->IsComplete())
 		{
-			mState = State::Idle;
+			mState = PlayerState::Idle;
 		}
 	}
 }

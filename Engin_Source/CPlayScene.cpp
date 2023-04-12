@@ -72,7 +72,6 @@ void PlayScene::Initalize()
 		uiCameraComp->TurnLayerMask(eLayerType::UI, true);
 
 		uiCameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
-		Renderer::Cameras->push_back(uiCameraComp);
 	}
 
 	// Player
@@ -101,6 +100,22 @@ void PlayScene::Initalize()
 		Renderer::mainCamera->SetTrace(player);
 
 		//60 75.875f
+	}
+
+	// test
+	{
+		GameObject* ui = Object::Instantiate<GameObject>(eLayerType::UI, this);
+		Transform* uiTr = ui->GetComponent<Transform>();
+		uiTr->SetPosition(Vector3(1.f, -1.f, 1.0f));
+
+		MeshRenderer* mr = ui->AddComponent<MeshRenderer>();
+		shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"UIMaterial");
+		shared_ptr<Texture2D> tex= ResourceManager::GetInstance()->Find<Texture2D>(L"HPBarTexture");
+		material->SetTexture(eTextureSlot::T0 ,tex);
+
+		mr->SetMesh(mesh);
+		mr->SetMaterial(material);
 	}
 
 	// tile

@@ -64,9 +64,6 @@
     <Filter Include="Component\Animator\Animation">
       <UniqueIdentifier>{240483f3-f7a5-471a-ba70-b078c5675750}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Script\Contents\Monster">
-      <UniqueIdentifier>{fa13cf5a-ca24-47f2-810d-4d48d89c3fb0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component\Script\Contents\Tile">
       <UniqueIdentifier>{88de094b-8ce4-4d6b-b79f-c99c7cf4aca6}</UniqueIdentifier>
     </Filter>
@@ -193,6 +190,18 @@
     <Filter Include="GameObject\PlayerSkil\FireSkil">
       <UniqueIdentifier>{dbe63faa-d2ae-442b-8d18-ee268c7b6821}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Monster">
+      <UniqueIdentifier>{c471433e-e1b8-4a9f-9e7c-9acf92da3d02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Contents\MonsterScript">
+      <UniqueIdentifier>{fa13cf5a-ca24-47f2-810d-4d48d89c3fb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Monster\MinoTauros">
+      <UniqueIdentifier>{1a0ca3a7-1e9d-4af6-82b1-3ad493a038f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Monster\DiabloMonster">
+      <UniqueIdentifier>{7265d946-dd3d-4194-acfc-987bd908871b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -291,8 +300,8 @@
     <ClCompile Include="CEnddingScene.cpp">
       <Filter>Manager\Scene\Endding</Filter>
     </ClCompile>
-    <ClCompile Include="CMonster.cpp">
-      <Filter>Component\Script\Contents\Monster</Filter>
+    <ClCompile Include="CMonsterScript.cpp">
+      <Filter>Component\Script\Contents\MonsterScript</Filter>
     </ClCompile>
     <ClCompile Include="CTile.cpp">
       <Filter>Component\Script\Contents\Tile</Filter>
@@ -383,6 +392,15 @@
     </ClCompile>
     <ClCompile Include="CFlames.cpp">
       <Filter>GameObject\PlayerSkil\FireSkil</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonster.cpp">
+      <Filter>GameObject\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CMinosTauros.cpp">
+      <Filter>GameObject\Monster\MinoTauros</Filter>
+    </ClCompile>
+    <ClCompile Include="CDiabloMonster.cpp">
+      <Filter>GameObject\Monster\DiabloMonster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -500,8 +518,8 @@
     <ClInclude Include="CEnddingScene.h">
       <Filter>Manager\Scene\Endding</Filter>
     </ClInclude>
-    <ClInclude Include="CMonster.h">
-      <Filter>Component\Script\Contents\Monster</Filter>
+    <ClInclude Include="CMonsterScript.h">
+      <Filter>Component\Script\Contents\MonsterScript</Filter>
     </ClInclude>
     <ClInclude Include="CTile.h">
       <Filter>Component\Script\Contents\Tile</Filter>
@@ -592,6 +610,15 @@
     </ClInclude>
     <ClInclude Include="CFlames.h">
       <Filter>GameObject\PlayerSkil\FireSkil</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonster.h">
+      <Filter>GameObject\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CMinosTauros.h">
+      <Filter>GameObject\Monster\MinoTauros</Filter>
+    </ClInclude>
+    <ClInclude Include="CDiabloMonster.h">
+      <Filter>GameObject\Monster\DiabloMonster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
