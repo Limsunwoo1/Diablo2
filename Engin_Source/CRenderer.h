@@ -102,6 +102,14 @@ namespace Renderer
 		Vector4 noiseSize;
 	};
 
+	CBUFFER(PlayerDataCB, CBSLOT_PLAYERDATA)
+	{
+		float hpGauge;
+		float mpGauge;
+		float RunGauge;
+		float expGauge;
+	};
+
 	extern Vertex FadeInOut[4];
 	extern Vertex vertexes[4];
 	extern Vertex HalfAlpha[4];

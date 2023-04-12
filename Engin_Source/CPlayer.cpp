@@ -50,6 +50,15 @@ void Player::Update()
 
 void Player::FixedUpdate()
 {
+	Renderer::PlayerDataCB info = {};
+	info.RunGauge = mRunTime / mMaxRunTime;
+	//info.hpGauge = ;
+	//info.hpGauge = ;
+	//info.hpGauge = ;
+
+	ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::PlayerData];
+
+
 	GameObject::FixedUpdate();
 }
 

@@ -425,6 +425,9 @@ namespace Renderer
 
 		constantBuffers[(UINT)eCBType::Noise] = new ConstantBuffer(eCBType::Noise);
 		constantBuffers[(UINT)eCBType::Noise]->Create(sizeof(NoiseCB));
+
+		constantBuffers[(UINT)eCBType::PlayerData] = new ConstantBuffer(eCBType::PlayerData);
+		constantBuffers[(UINT)eCBType::PlayerData]->Create(sizeof(PlayerDataCB));
 #pragma endregion
 #pragma region STRUCTED BUFER
 		// Structed buffer

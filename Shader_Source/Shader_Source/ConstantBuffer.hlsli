@@ -71,6 +71,14 @@ cbuffer ParticleSystem : register(b7)
     int padding_4;
 }
 
+cbuffer PlayerData : register(b8)
+{
+    float hpGauge;
+    float mpGauge;
+    float RunGauge;
+    float expGauge;
+}
+
 //cbuffer Noise : register(b6)
 //{
 //    float4 NoiseSize;

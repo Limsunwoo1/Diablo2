@@ -42,7 +42,6 @@ public:
 
 	inline void SetUiInstance(eUIType type, UiBase* ui) { mUIs.insert(make_pair(type, ui)); }
 	inline void DeleteUi(eUIType type);
-	inline void DeleteMonsterHp(UINT key);
 private:
 	std::unordered_map<eUIType, UiBase*> mUIs;
 	std::queue<eUIType> mRequestUIQueue;
