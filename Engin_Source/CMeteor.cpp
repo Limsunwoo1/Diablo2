@@ -172,13 +172,13 @@ void Meteor::OnMeteor()
 	pinTr->SetPosition(mPinPos);
 	mTargetPin->Active();
 
-	float runLine = 0.5f;
+	float runLine = 0.2f;
 
 	AnimatorParam param;
 	param.AnimType = eAnimType::Linear;
 	param.StartValue = 0.0f;
 	param.EndValue = 1.0f;
-	param.DurationTime = 2.0f;
+	param.DurationTime = 4.0f;
 
 	param.DurationFunc = [this, genericAnimator, runLine](float InCurValue)
 	{

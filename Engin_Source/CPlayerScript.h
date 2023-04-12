@@ -22,6 +22,8 @@ public:
 
 	void Idle();
 	void Move();
+	void SetPlayerDirection();
+	void SetPlayerDirection(Vector3& Direction);
 
 	void AddRenderAStar();
 	void ClearAstar();

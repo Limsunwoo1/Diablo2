@@ -65,7 +65,7 @@ void PlayerScript::Update()
 	{
 		mInputDelay += Time::GetInstance()->DeltaTime();
 	}
-	
+
 }
 
 void PlayerScript::FixedUpdate()
@@ -95,6 +95,7 @@ void PlayerScript::FixedUpdate()
 		{
 			player->SetState(Player::State::Attack);
 
+			SetPlayerDirection();
 			ResetAStar();
 			return;
 		}
@@ -121,6 +122,7 @@ void PlayerScript::FixedUpdate()
 			OwnerPos += SpawnPos;
 			tr->SetPosition(OwnerPos);
 
+			SetPlayerDirection();
 			ResetAStar();
 			return;
 		}
@@ -155,6 +157,7 @@ void PlayerScript::FixedUpdate()
 			pos = Vector3(EndPos.x, EndPos.y, pos.z);
 			teleport->SetMovePos(pos);
 
+			SetPlayerDirection();
 			ResetAStar();
 			return;
 		}
@@ -183,6 +186,7 @@ void PlayerScript::FixedUpdate()
 
 			MeteorTr->SetPosition(Vector3(mousePos.x, meteorPos.y, 1.0f));
 
+			SetPlayerDirection();
 			ResetAStar();
 			return;
 		}
@@ -293,84 +297,11 @@ void PlayerScript::FixedUpdate()
 			return;
 		}
 
+		Vector3 driection = Vector3(mPickPoint.x, mPickPoint.y, 1.0f);
+		SetPlayerDirection(driection);
+
 		vec.Normalize();
-
-		// SetPlayerIndex
-		{
-			float angle = GetAngle(mPickPoint);
-
-			if (vec.x <= 0.0f)
-			{
-				if (angle >= 0.0f && angle < 22.5f)
-				{
-					player->PlayerDirection(0);
-				}
-				else if (angle >= 22.5f && angle < 50.f)
-				{
-					player->PlayerDirection(1);
-				}
-				else if (angle >= 50.f && angle < 75.5f)
-				{
-					player->PlayerDirection(2);
-				}
-				else if (angle >= 75.5f && angle < 90.f)
-				{
-					player->PlayerDirection(3);
-				}
-				else if (angle >= 90.f && angle < 115.f)
-				{
-					player->PlayerDirection(4);
-				}
-				else if (angle >= 115.f && angle < 140.f)
-				{
-					player->PlayerDirection(5);
-				}
-				else if (angle >= 140.f && angle < 165.5f)
-				{
-					player->PlayerDirection(6);
-				}
-				else
-				{
-					player->PlayerDirection(7);
-				}
-			}
-			else
-			{
-				if (angle >= 0.0f && angle < 22.5f)
-				{
-					player->PlayerDirection(8);
-				}
-				else if (angle >= 22.5f && angle < 50.f)
-				{
-					player->PlayerDirection(9);
-				}
-				else if (angle >= 50.f && angle < 75.5f)
-				{
-					player->PlayerDirection(10);
-				}
-				else if (angle >= 75.5f && angle < 90.f)
-				{
-					player->PlayerDirection(11);
-				}
-				else if (angle >= 90.f && angle < 115.f)
-				{
-					player->PlayerDirection(12);
-				}
-				else if (angle >= 115.f && angle < 140.f)
-				{
-					player->PlayerDirection(13);
-				}
-				else if (angle >= 140.f && angle < 165.5f)
-				{
-					player->PlayerDirection(14);
-				}
-				else
-				{
-					player->PlayerDirection(15);
-				}
-			}
-			player->SetState(Player::State::Move);
-		}
+		player->SetState(Player::State::Move);
 
 		pos += vec * Time::GetInstance()->DeltaTime() * speed;
 
@@ -421,6 +352,177 @@ void PlayerScript::Idle()
 void PlayerScript::Move()
 {
 
+}
+
+void PlayerScript::SetPlayerDirection()
+{
+	Player* player = dynamic_cast<Player*>(GetOwner());
+	Vector3 pos = player->GetComponent<Transform>()->GetPosition();
+	Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos();
+
+	Vector3 vec = mousePos - pos;
+
+	vec.Normalize();
+
+	// SetPlayerIndex
+
+	float angle = GetAngle(mousePos);
+
+	if (vec.x <= 0.0f)
+	{
+		if (angle >= 0.0f && angle < 22.5f)
+		{
+			player->PlayerDirection(0);
+		}
+		else if (angle >= 22.5f && angle < 50.f)
+		{
+			player->PlayerDirection(1);
+		}
+		else if (angle >= 50.f && angle < 75.5f)
+		{
+			player->PlayerDirection(2);
+		}
+		else if (angle >= 75.5f && angle < 90.f)
+		{
+			player->PlayerDirection(3);
+		}
+		else if (angle >= 90.f && angle < 115.f)
+		{
+			player->PlayerDirection(4);
+		}
+		else if (angle >= 115.f && angle < 140.f)
+		{
+			player->PlayerDirection(5);
+		}
+		else if (angle >= 140.f && angle < 165.5f)
+		{
+			player->PlayerDirection(6);
+		}
+		else
+		{
+			player->PlayerDirection(7);
+		}
+	}
+	else
+	{
+		if (angle >= 0.0f && angle < 22.5f)
+		{
+			player->PlayerDirection(8);
+		}
+		else if (angle >= 22.5f && angle < 50.f)
+		{
+			player->PlayerDirection(9);
+		}
+		else if (angle >= 50.f && angle < 75.5f)
+		{
+			player->PlayerDirection(10);
+		}
+		else if (angle >= 75.5f && angle < 90.f)
+		{
+			player->PlayerDirection(11);
+		}
+		else if (angle >= 90.f && angle < 115.f)
+		{
+			player->PlayerDirection(12);
+		}
+		else if (angle >= 115.f && angle < 140.f)
+		{
+			player->PlayerDirection(13);
+		}
+		else if (angle >= 140.f && angle < 165.5f)
+		{
+			player->PlayerDirection(14);
+		}
+		else
+		{
+			player->PlayerDirection(15);
+		}
+	}
+}
+
+void PlayerScript::SetPlayerDirection(Vector3& Direction)
+{
+	Player* player = dynamic_cast<Player*>(GetOwner());
+	Vector3 pos = player->GetComponent<Transform>()->GetPosition();
+
+	Vector3 vec = Direction - pos;
+
+	vec.Normalize();
+
+	// SetPlayerIndex
+
+	float angle = GetAngle(Vector2(Direction.x, Direction.y));
+
+	if (vec.x <= 0.0f)
+	{
+		if (angle >= 0.0f && angle < 22.5f)
+		{
+			player->PlayerDirection(0);
+		}
+		else if (angle >= 22.5f && angle < 50.f)
+		{
+			player->PlayerDirection(1);
+		}
+		else if (angle >= 50.f && angle < 75.5f)
+		{
+			player->PlayerDirection(2);
+		}
+		else if (angle >= 75.5f && angle < 90.f)
+		{
+			player->PlayerDirection(3);
+		}
+		else if (angle >= 90.f && angle < 115.f)
+		{
+			player->PlayerDirection(4);
+		}
+		else if (angle >= 115.f && angle < 140.f)
+		{
+			player->PlayerDirection(5);
+		}
+		else if (angle >= 140.f && angle < 165.5f)
+		{
+			player->PlayerDirection(6);
+		}
+		else
+		{
+			player->PlayerDirection(7);
+		}
+	}
+	else
+	{
+		if (angle >= 0.0f && angle < 22.5f)
+		{
+			player->PlayerDirection(8);
+		}
+		else if (angle >= 22.5f && angle < 50.f)
+		{
+			player->PlayerDirection(9);
+		}
+		else if (angle >= 50.f && angle < 75.5f)
+		{
+			player->PlayerDirection(10);
+		}
+		else if (angle >= 75.5f && angle < 90.f)
+		{
+			player->PlayerDirection(11);
+		}
+		else if (angle >= 90.f && angle < 115.f)
+		{
+			player->PlayerDirection(12);
+		}
+		else if (angle >= 115.f && angle < 140.f)
+		{
+			player->PlayerDirection(13);
+		}
+		else if (angle >= 140.f && angle < 165.5f)
+		{
+			player->PlayerDirection(14);
+		}
+		else
+		{
+			player->PlayerDirection(15);
+		}
+	}
 }
 
 void PlayerScript::AddRenderAStar()
