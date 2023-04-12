@@ -44,7 +44,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <EnableUnitySupport>true</EnableUnitySupport>
+    <EnableUnitySupport>false</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -52,7 +52,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <EnableUnitySupport>false</EnableUnitySupport>
+    <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CButton.h" />
     <ClInclude Include="CAnimation.h" />
     <ClInclude Include="CAnimator.h" />
     <ClInclude Include="CApplication.h" />
@@ -219,14 +220,19 @@
     <ClInclude Include="CFadeRenderer.h" />
     <ClInclude Include="CGenericAnimator.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="CHUD.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="CResource.h" />
     <ClInclude Include="CResourceManager.h" />
     <ClInclude Include="CTime.h" />
     <ClInclude Include="CMeshRenderer.h" />
     <ClInclude Include="CSceneManager.h" />
+    <ClInclude Include="CPanel.h" />
+    <ClInclude Include="CUiBase.h" />
+    <ClInclude Include="CUIManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CButton.cpp" />
     <ClCompile Include="CAnimation.cpp" />
     <ClCompile Include="CAnimator.cpp" />
     <ClCompile Include="CApplication.cpp" />
@@ -287,12 +293,16 @@
     <ClCompile Include="CTransform.cpp" />
     <ClCompile Include="CWorldManager.cpp" />
     <ClCompile Include="CGenericAnimator.cpp" />
+    <ClCompile Include="CHUD.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="CResource.cpp" />
     <ClCompile Include="CResourceManager.cpp" />
     <ClCompile Include="CTime.cpp" />
     <ClCompile Include="CMeshRenderer.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
+    <ClCompile Include="CPanel.cpp" />
+    <ClCompile Include="CUiBase.cpp" />
+    <ClCompile Include="CUIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math.inl" />

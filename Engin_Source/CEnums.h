@@ -90,6 +90,14 @@ enum class eLightType
 	End,
 };
 
+enum class eUIType
+{
+	Button,
+	HUD,
+	Panel,
+	End
+};
+
 //enum class eObjectReturnType
 //{
 //	Skil,

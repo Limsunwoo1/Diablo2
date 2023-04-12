@@ -202,6 +202,21 @@
     <Filter Include="GameObject\Monster\DiabloMonster">
       <UniqueIdentifier>{7265d946-dd3d-4194-acfc-987bd908871b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\UiManager">
+      <UniqueIdentifier>{8bd02679-5598-42bc-a18c-5a4732984a54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI">
+      <UniqueIdentifier>{c68c445e-749e-492a-8fdf-7cf6a69324ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\Button">
+      <UniqueIdentifier>{fca94b5b-970b-4bc3-b456-7eb76c084de6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\HUD">
+      <UniqueIdentifier>{4a6bcac3-d8eb-4263-845d-5485a94d9a13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\Panel">
+      <UniqueIdentifier>{52ec18ee-20eb-4090-bac8-d8a72dee9c6c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -401,6 +416,21 @@
     </ClCompile>
     <ClCompile Include="CDiabloMonster.cpp">
       <Filter>GameObject\Monster\DiabloMonster</Filter>
+    </ClCompile>
+    <ClCompile Include="CUIManager.cpp">
+      <Filter>Manager\UiManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CUiBase.cpp">
+      <Filter>GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CPanel.cpp">
+      <Filter>GameObject\UI\Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="CHUD.cpp">
+      <Filter>GameObject\UI\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="CButton.cpp">
+      <Filter>GameObject\UI\Button</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -619,6 +649,21 @@
     </ClInclude>
     <ClInclude Include="CDiabloMonster.h">
       <Filter>GameObject\Monster\DiabloMonster</Filter>
+    </ClInclude>
+    <ClInclude Include="CUIManager.h">
+      <Filter>Manager\UiManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CUiBase.h">
+      <Filter>GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CPanel.h">
+      <Filter>GameObject\UI\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="CHUD.h">
+      <Filter>GameObject\UI\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="CButton.h">
+      <Filter>GameObject\UI\Button</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

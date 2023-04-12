@@ -10,6 +10,7 @@ FrozenMissile::FrozenMissile()
 	, mKeyName(L"FrozenMisile_")
 	, mTime(0.0f)
 	, mbMode(eMisileMode::Straight)
+	, mOrb(nullptr)
 {
 }
 
