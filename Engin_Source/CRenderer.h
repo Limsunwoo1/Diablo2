@@ -108,12 +108,6 @@ namespace Renderer
 		float mpGauge;
 		float RunGauge;
 		float expGauge;
-
-		// true = U, false = V
-		bool uvHP;
-		bool uvMP;
-		bool uvRun;
-		bool uvExp;
 	};
 
 	extern Vertex FadeInOut[4];

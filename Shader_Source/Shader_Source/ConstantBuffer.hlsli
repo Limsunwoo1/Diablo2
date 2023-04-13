@@ -31,11 +31,6 @@ cbuffer FadeData : register(b3)
     float padding3;
 }
 
-cbuffer NumberOfLight : register(b5)
-{
-    uint numberOfLight;
-}
-
 cbuffer Animation : register(b4)
 {
     float2 leftTop;
@@ -45,6 +40,12 @@ cbuffer Animation : register(b4)
     
     uint animationType;
 }
+    
+cbuffer NumberOfLight : register(b5)
+{
+    uint numberOfLight;
+}
+
 
 cbuffer Time : register(b6)
 {
@@ -71,20 +72,15 @@ cbuffer ParticleSystem : register(b7)
     int padding_4;
 }
 
-cbuffer PlayerData : register(b8)
+//cbuffer Noise : register(b8)
+//{
+//    float4 NoiseSize;
+//}
+
+cbuffer PlayerData : register(b9)
 {
     float hpGauge;
     float mpGauge;
     float RunGauge;
     float expGauge;
-    
-    bool uvHP;
-    bool uvMP;
-    bool uvRun;
-    bool uvExp;
 }
-
-//cbuffer Noise : register(b6)
-//{
-//    float4 NoiseSize;
-//}

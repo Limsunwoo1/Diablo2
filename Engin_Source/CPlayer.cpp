@@ -52,6 +52,8 @@ void Player::Update()
 
 void Player::FixedUpdate()
 {
+	GameObject::FixedUpdate();
+
 	Renderer::PlayerDataCB info = {};
 	info.RunGauge = mRunTime / mMaxRunTime;
 	info.hpGauge = mHP / mMaxHP;
@@ -62,8 +64,6 @@ void Player::FixedUpdate()
 	cb->SetData(&info);
 
 	cb->Bind(eShaderStage::ALL);
-
-	GameObject::FixedUpdate();
 }
 
 void Player::Render()

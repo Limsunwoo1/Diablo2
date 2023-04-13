@@ -270,6 +270,12 @@ namespace Renderer
 			, pingShader->GetVSBlobBufferSize()
 			, pingShader->GetInputLayoutAddressOf());
 
+		std::shared_ptr<Shader> RungaugeShader = ResourceManager::GetInstance()->Find<Shader>(L"RunGaugeShader");
+		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, RungaugeShader->GetVSBlobBufferPointer()
+			, RungaugeShader->GetVSBlobBufferSize()
+			, RungaugeShader->GetInputLayoutAddressOf());
+
 #pragma endregion
 #pragma region Sampler State
 		// »ùÇÃ·¯Ãß°¡
@@ -465,6 +471,14 @@ namespace Renderer
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"UIShader", uiShader);
 #pragma endregion
+#pragma region RunGauge SHADER
+		// UI
+		std::shared_ptr<Shader> RunGaugeShader = std::make_shared<Shader>();
+		RunGaugeShader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
+		RunGaugeShader->Create(eShaderStage::PS, L"RunGaugePS.hlsl", "main");
+
+		ResourceManager::GetInstance()->Insert<Shader>(L"RunGaugeShader", RunGaugeShader);
+#pragma endregion
 #pragma region GRID SHADER
 		// Grid
 		std::shared_ptr<Shader> gridShader = std::make_shared<Shader>();
@@ -654,7 +668,7 @@ namespace Renderer
 #pragma endregion
 #pragma region RunGauge MATERIAL
 		// UI
-		std::shared_ptr<Shader> RungaugeShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+		std::shared_ptr<Shader> RungaugeShader = ResourceManager::GetInstance()->Find<Shader>(L"RunGaugeShader");
 		std::shared_ptr<Material> RunGaugeMaterial = std::make_shared<Material>();
 		RunGaugeMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		RunGaugeMaterial->SetShader(RungaugeShader);
