@@ -37,6 +37,11 @@ void Ping::Update()
 
 void Ping::FixedUpdate()
 {
+	GameObject::FixedUpdate();
+}
+
+void Ping::Render()
+{
 	if (mTime >= 0.5f)
 	{
 		Object::ObjectDestroy(this);
@@ -73,11 +78,6 @@ void Ping::FixedUpdate()
 	cb->SetData(&info);
 	cb->Bind(eShaderStage::PS);
 
-	GameObject::FixedUpdate();
-}
-
-void Ping::Render()
-{
 	GameObject::Render();
 }
 

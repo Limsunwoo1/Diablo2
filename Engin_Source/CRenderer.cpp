@@ -193,7 +193,7 @@ namespace Renderer
 	void SetUpState()
 	{
 #pragma region InputLayout
-		// Input Layout ( 정점 구조 정보)
+		// Input Layout ( 정점 구조 정보 )
 		// (위치값, 칼라) 정보로 2개 생성
 		D3D11_INPUT_ELEMENT_DESC arrLayoutDesc[3] = {}; // 구조체 항상 { } 초기화
 
