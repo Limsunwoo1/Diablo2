@@ -24,7 +24,8 @@ class UIManager
 
 public:
 	void Initialize();
-	void Tick();
+	void Update();
+	void FixedUpdate() {};
 	void Render(HDC hdc);
 	void OnComplete(UiBase* addUI);
 	void OnFail();

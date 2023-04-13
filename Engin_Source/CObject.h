@@ -40,6 +40,18 @@ namespace Object
 	}
 
 	template <typename T>
+	static T* Instantiate(eLayerType type, eSceneType scenetype, GameObject* obj)
+	{
+		Scene* scene = SceneManager::GetInstance()->GetScene(scenetype);
+		Layer& layer = scene->GetLayer(type);
+		layer.AddGameObject(obj);
+		obj->Initalize();
+		obj->SetLayerType(type);
+
+		return dynamic_cast<T*>(obj);
+	}
+
+	template <typename T>
 	static T* Instantiate(eLayerType type, Transform* parent)
 	{
 		T* gameObject = new T();

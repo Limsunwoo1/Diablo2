@@ -24,16 +24,16 @@ void HUD::OnInActive()
 {
 }
 
-void HUD::OnTick()
+void HUD::OnUpdate()
 {
-	for (int i = 0; i < mChilds.size(); ++i)
-	{
-		if (mChilds[i].second == nullptr)
-			continue;
+	//for (int i = 0; i < mChilds.size(); ++i)
+	//{
+	//	if (mChilds[i] == nullptr)
+	//		continue;
 
-		UiBase* ui = mChilds[i].second;
-		ui->SetPos(GetPos() + mChilds[i].first);
-	}
+	//	UiBase* ui = mChilds[i];
+	//	//ui->SetPos(GetPos() + mChilds[i].first);
+	//}
 }
 
 void HUD::OnRender(HDC hdc)
@@ -45,5 +45,29 @@ void HUD::OnRender(HDC hdc)
 }
 
 void HUD::OnClear()
+{
+}
+
+void HUD::Initalize()
+{
+}
+
+void HUD::Update()
+{
+}
+
+void HUD::FixedUpdate()
+{
+}
+
+void HUD::Render()
+{
+}
+
+void HUD::InitAnimation()
+{
+}
+
+void HUD::InitRenderer(const wstring& materialName, const wstring& textureName, const std::wstring& textruepath)
 {
 }

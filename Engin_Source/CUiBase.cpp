@@ -14,10 +14,17 @@ UiBase::UiBase(eUIType type)
 
 UiBase::~UiBase()
 {
+	for (UiBase* child : mChilds)
+	{
+		if (child == nullptr)
+			continue;
 
+		delete child;
+		child = nullptr;
+	}
 }
 
-void UiBase::Initialize()
+void UiBase::Initalize()
 {
 	OnInit();
 }
@@ -34,12 +41,76 @@ void UiBase::InActive()
 	OnInActive();
 }
 
-void UiBase::Tick()
+void UiBase::Update()
 {
 	if (mbEnable == false)
 		return;
 
-	OnTick();
+	GameObject::Update();
+
+	if (mParent != nullptr)
+	{
+		/*Transform* paretTr = mParent->GetComponent<Transform>();
+		Transform* mTr = GetComponent<Transform>();
+
+		Vector3 scale = paretTr->GetScale() * mTr->GetScale();
+		Vector3 rotation = paretTr->GetRotation() * mTr->GetRotation();
+		Vector3 pos = paretTr->GetPosition() + mTr->GetPosition();
+
+		mTr->SetScale(scale);
+		mTr->SetRotation(rotation);
+		mTr->SetPosition(pos);*/
+	}
+
+	for (UiBase* child : mChilds)
+	{
+		if (child == nullptr)
+			continue;
+
+		child->Update();
+	}
+}
+
+void UiBase::FixedUpdate()
+{
+	GameObject::FixedUpdate();
+
+	if (mParent)
+	{
+		Transform* parentTr = mParent->GetComponent<Transform>();
+		Matrix& mat = parentTr->GetWorldMatrix();
+
+		Transform* mTr = GetComponent<Transform>();
+		Matrix& mWorld = mTr->GetWorldMatrix();
+
+		Vector3 pos = Vector3(mat._41 + mWorld._41, mat._42 + mWorld._42, mat._43 + mWorld._43);
+		mWorld._41 = pos.x;
+		mWorld._42 = pos.y;
+		mWorld._43 = pos.z;
+
+		mTr->SetWorldMatrix(mWorld);
+	}
+
+	for (UiBase* child : mChilds)
+	{
+		if (child == nullptr)
+			continue;
+
+		child->FixedUpdate();
+	}
+}
+
+void UiBase::Render()
+{
+	GameObject::Render();
+
+	for (UiBase* child : mChilds)
+	{
+		if (child == nullptr)
+			continue;
+
+		child->Render();
+	}
 }
 
 void UiBase::Render(HDC hdc)
@@ -55,21 +126,26 @@ void UiBase::UIClear()
 	OnClear();
 }
 
-void UiBase::ImageLoad(const std::wstring& key, const std::wstring& path)
+std::shared_ptr<Texture2D> UiBase::ImageLoad(const std::wstring& key, const std::wstring& path)
 {
 	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(key, path);
 
-	SetSize(Vector2(tex.get()->GetWidth(), tex.get()->GetHeight()));
+	return tex;
 }
 
-void UiBase::SetChild(Vector2 vector, UiBase* child)
+void UiBase::SetChild(UiBase* child)
 {
 	child->SetParent(this);
-	mChilds.push_back(make_pair(vector, child));
+
+	Transform* mtr = GetComponent<Transform>();
+	//Transform* childetr = child->GetComponent<Transform>();
+	//childetr->SetParent(mtr);
+
+	mChilds.push_back(child);
 }
 void UiBase::DeleteChild(UiBase* child)
 {
-	std::vector<pair<Vector2, UiBase*>>::iterator iter;
+	/*std::vector<pair<Vector2, UiBase*>>::iterator iter;
 	iter = mChilds.begin();
 	for (; iter != mChilds.end(); ++iter)
 	{
@@ -78,5 +154,5 @@ void UiBase::DeleteChild(UiBase* child)
 			mChilds.erase(iter);
 			return;
 		}
-	}
+	}*/
 }

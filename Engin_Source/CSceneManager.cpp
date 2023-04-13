@@ -92,3 +92,9 @@ void SceneManager::LoadScene(eSceneType type)
 
 	mActiveScene->OnEnter();
 }
+
+Scene* SceneManager::GetScene(eSceneType type)
+{
+	Scene* scene = mScenes[(UINT)type];
+	return scene;
+}

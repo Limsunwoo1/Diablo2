@@ -19,6 +19,7 @@
 #include "CParticleSystem.h"
 #include "CTileObject.h"
 #include "CWorldManager.h"
+#include "CHUD.h"
 
 using namespace graphics;
 
@@ -102,20 +103,21 @@ void PlayScene::Initalize()
 		//60 75.875f
 	}
 
-	// test
+	// test ui
 	{
-		GameObject* ui = Object::Instantiate<GameObject>(eLayerType::UI, this);
+		/*GameObject* ui = Object::Instantiate<GameObject>(eLayerType::UI, this);
 		Transform* uiTr = ui->GetComponent<Transform>();
-		uiTr->SetPosition(Vector3(1.f, -1.f, 1.0f));
+		uiTr->SetPosition(Vector3(3.f, -2.f, 1.0f));
 
 		MeshRenderer* mr = ui->AddComponent<MeshRenderer>();
 		shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
 		shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"UIMaterial");
-		shared_ptr<Texture2D> tex= ResourceManager::GetInstance()->Find<Texture2D>(L"HPBarTexture");
+
+		shared_ptr<Texture2D> tex= ResourceManager::GetInstance()->Load<Texture2D>(L"HP", L"UI//life.png");
 		material->SetTexture(eTextureSlot::T0 ,tex);
 
 		mr->SetMesh(mesh);
-		mr->SetMaterial(material);
+		mr->SetMaterial(material);*/
 	}
 
 	// tile

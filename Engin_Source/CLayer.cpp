@@ -13,6 +13,9 @@ Layer::~Layer()
 	{
 		if (obj == nullptr)
 			continue;
+		if (obj->GetLayerType() == eLayerType::UI)
+			continue;
+
 		delete obj;
 		obj = nullptr;
 	}
@@ -71,6 +74,9 @@ void Layer::Destroy()
 	{
 		if (gameObj->GetState() == GameObject::dead)
 		{
+			if (gameObj->GetLayerType() == eLayerType::UI)
+				continue;
+
 			deleteObjects.insert(gameObj);
 		}
 	}

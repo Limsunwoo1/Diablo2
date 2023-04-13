@@ -3,8 +3,10 @@
 #include "CButton.h"
 #include "CHUD.h"
 #include "CGameObject.h"
+#include "CObject.h"
 
 UIManager::UIManager()
+	: mCurrentData(nullptr)
 {
 
 }
@@ -26,52 +28,124 @@ void UIManager::Initialize()
 {
 	// 여기에서 ui 메모리에 할당하면 된다.
 
+	//mainPanelMaterial
+
+	{
+		Panel* mainPanelui = new Panel(eUIType::Panel);
+		Object::Instantiate<Panel>(eLayerType::UI, eSceneType::Play, mainPanelui);
+		mainPanelui->InitRenderer(L"mainPanelMaterial", L"mainPanel", L"UI//mainPanel.png");
+		mainPanelui->Active();
+		Transform* maintr = mainPanelui->GetComponent<Transform>();
+		maintr->SetPosition(Vector3(1.f, -3.f, 1.0f));
+		maintr->SetScale(Vector3(6.f, 1.f, 0.f));
+		Push(eUIType::Panel, mainPanelui);
+
+		Panel* hpui = new Panel(eUIType::Panel);
+		Object::Instantiate<Panel>(eLayerType::UI, eSceneType::Play, hpui);
+		hpui->InitRenderer(L"HpPanelMaterial", L"HPPanel", L"UI//ctrlpanellife.png");
+		hpui->Active();
+		Transform* hpuitr = hpui->GetComponent<Transform>();
+		hpuitr->SetPosition(Vector3(-4.f, 0.5f, 1.0f));
+		hpuitr->SetScale(Vector3(2.f, 2.f, 0.f));
+		Push(eUIType::Panel, hpui);
+
+		Panel* mpui = new Panel(eUIType::Panel);
+		Object::Instantiate<Panel>(eLayerType::UI, eSceneType::Play, mpui);
+		mpui->InitRenderer(L"MpPanelMaterial", L"MPPanel", L"UI//ctrlpanelmana.png");
+		mpui->Active();
+		Transform* mpuitr = mpui->GetComponent<Transform>();
+		mpuitr->SetPosition(Vector3(4.f, 0.5f, 1.0f));
+		mpuitr->SetScale(Vector3(2.f, 2.f, 0.f));
+		Push(eUIType::Panel, mpui);
+
+
+		// ui childs
+
+		Panel* hp = new Panel(eUIType::Panel);
+		hp->InitRenderer(L"HPMaterial", L"HP", L"UI//life.png");
+		hp->Active();
+
+		Transform* hptr = hp->GetComponent<Transform>();
+		hptr->SetPosition(Vector3(0.1f, 0.f, 0.f));
+		hptr->SetScale(Vector3(1.5f, 1.5f, 0.f));
+
+
+		Panel* mp = new Panel(eUIType::Panel);
+		mp->InitRenderer(L"MPMaterial", L"MP", L"UI//mana.png");
+		mp->Active();
+
+		Transform* mptr = mp->GetComponent<Transform>();
+		mptr->SetPosition(Vector3(-0.1f, 0.f, 0.f));
+		mptr->SetScale(Vector3(1.5f, 1.5f, 0.f));
+
+		// 부모자식 연결
+		mainPanelui->SetChild(hpui);
+		mainPanelui->SetChild(mpui);
+
+		hpui->SetChild(hp);
+		mpui->SetChild(mp);
+	}
+
+	/*{
+		UiBase* ui = new UiBase(eUIType::HUD);
+		Push(eUIType::HUD, ui);
+	}
+
+	{
+		UiBase* ui = new UiBase(eUIType::HUD);
+		Push(eUIType::HUD, ui);
+	}
+
+	{
+		UiBase* ui = new UiBase(eUIType::HUD);
+		Push(eUIType::HUD, ui);
+	}*/
 }
 
 void UIManager::OnLoad(eUIType type)
 {
-	std::unordered_map<eUIType, UiBase*>::iterator iter = mUIs.find(type);
+	/*std::unordered_map<eUIType, UiBase*>::iterator iter = mUIs.find(type);
 	if (iter == mUIs.end())
 	{
 		OnFail();
 		return;
 	}
 
-	OnComplete(iter->second);
+	OnComplete(iter->second);*/
 }
 
-void UIManager::Tick()
+void UIManager::Update()
 {
-	std::stack<UiBase*> uiBases = mUiBases;
+	//std::stack<UiBase*> uiBases = mUiBases;
 
-	while (!uiBases.empty())
-	{
-		UiBase* uiBase = uiBases.top();
-		if (uiBase != nullptr)
-		{
-			uiBase->Tick();
-		}
-		uiBases.pop();
-	}
+	//while (!uiBases.empty())
+	//{
+	//	UiBase* uiBase = uiBases.top();
+	//	if (uiBase != nullptr)
+	//	{
+	//		uiBase->Update();
+	//	}
+	//	uiBases.pop();
+	//}
 
-	std::map<UINT, pair<UiBase*, UiBase*>>::iterator iter;
-	if (iter->second.first && iter->second.second)
-	{
-		iter->second.first->Tick();
-		Vector2 pos = iter->second.first->GetPos();
-		Vector2 size = iter->second.first->GetSize();
+	//std::map<UINT, pair<UiBase*, UiBase*>>::iterator iter;
+	//if (iter->second.first && iter->second.second)
+	//{
+	//	iter->second.first->Update();
+	//	//Vector2 pos = iter->second.first->GetPos();
+	//	//Vector2 size = iter->second.first->GetSize();
 
-		iter->second.second->SetPos(Vector2(pos.x - (size.x * 0.5f), pos.y - (size.y * 0.5f)));
-		iter->second.second->Tick();
-	}
-	if (mRequestUIQueue.size() > 0)
-	{
-		//UI 로드 해줘
-		eUIType requestUI = mRequestUIQueue.front();
-		mRequestUIQueue.pop();
+	//	//iter->second.second->SetPos(Vector2(pos.x - (size.x * 0.5f), pos.y - (size.y * 0.5f)));
+	//	iter->second.second->Update();
+	//}
+	//if (mRequestUIQueue.size() > 0)
+	//{
+	//	//UI 로드 해줘
+	//	eUIType requestUI = mRequestUIQueue.front();
+	//	mRequestUIQueue.pop();
 
-		OnLoad(requestUI);
-	}
+	//	OnLoad(requestUI);
+	//}
 }
 
 
@@ -101,31 +175,31 @@ void UIManager::Render(HDC hdc)
 
 void UIManager::OnComplete(UiBase* addUI)
 {
-	if (addUI == nullptr)
-		return;
+	//if (addUI == nullptr)
+	//	return;
 
-	addUI->Initialize();
-	addUI->Active();
-	addUI->Tick();
+	//addUI->Initialize();
+	//addUI->Active();
+	//addUI->Update();
 
-	// addUI 가 전체화면 이면
-	// Stack 안에 최상위 전체화면 Ui 를 꺼준다
-	if (addUI->GetIsFullScreen())
-	{
-		std::stack<UiBase*>uiBases = mUiBases;
-		while (!uiBases.empty())
-		{
-			UiBase* uiBase = uiBases.top();
-			uiBases.pop();
+	//// addUI 가 전체화면 이면
+	//// Stack 안에 최상위 전체화면 Ui 를 꺼준다
+	//if (addUI->GetIsFullScreen())
+	//{
+	//	std::stack<UiBase*>uiBases = mUiBases;
+	//	while (!uiBases.empty())
+	//	{
+	//		UiBase* uiBase = uiBases.top();
+	//		uiBases.pop();
 
-			if (uiBase->GetIsFullScreen())
-			{
-				uiBase->InActive();
-			}
-		}
-	}
+	//		if (uiBase->GetIsFullScreen())
+	//		{
+	//			uiBase->InActive();
+	//		}
+	//	}
+	//}
 
-	mUiBases.push(addUI);
+	//mUiBases.push(addUI);
 }
 void UIManager::OnFail()
 {
@@ -199,4 +273,3 @@ inline void UIManager::DeleteUi(eUIType type)
 
 	mUIs.erase(iter);
 }
-

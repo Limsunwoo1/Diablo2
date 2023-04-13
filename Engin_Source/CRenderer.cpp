@@ -604,6 +604,46 @@ namespace Renderer
 		uiMaterial->SetTexture(eTextureSlot::T0, uiTexture);
 		ResourceManager::GetInstance()->Insert<Material>(L"UIMaterial", uiMaterial);
 #pragma endregion
+#pragma region HP MATERIAL
+		// UI
+		std::shared_ptr<Shader> HPShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+		std::shared_ptr<Material> HPMaterial = std::make_shared<Material>();
+		HPMaterial ->SetRenderingMode(eRenderingMode::Transparent);
+		HPMaterial ->SetShader(HPShader);
+		ResourceManager::GetInstance()->Insert<Material>(L"HPMaterial", HPMaterial);
+#pragma endregion
+#pragma region MP MATERIAL
+		// UI
+		std::shared_ptr<Shader> MPShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+		std::shared_ptr<Material> MPMaterial = std::make_shared<Material>();
+		MPMaterial ->SetRenderingMode(eRenderingMode::Transparent);
+		MPMaterial ->SetShader(MPShader);
+		ResourceManager::GetInstance()->Insert<Material>(L"MPMaterial", MPMaterial);
+#pragma endregion
+#pragma region HP Panel MATERIAL
+		// UI
+		std::shared_ptr<Shader> hpPanelShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+		std::shared_ptr<Material> hpPanelMaterial = std::make_shared<Material>();
+		hpPanelMaterial ->SetRenderingMode(eRenderingMode::Transparent);
+		hpPanelMaterial ->SetShader(hpPanelShader);
+		ResourceManager::GetInstance()->Insert<Material>(L"HpPanelMaterial", hpPanelMaterial);
+#pragma endregion
+#pragma region MP Panel MATERIAL
+		// UI
+		std::shared_ptr<Shader> mpShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+		std::shared_ptr<Material> mpMaterial = std::make_shared<Material>();
+		mpMaterial ->SetRenderingMode(eRenderingMode::Transparent);
+		mpMaterial ->SetShader(mpShader);
+		ResourceManager::GetInstance()->Insert<Material>(L"MpPanelMaterial", mpMaterial);
+#pragma endregion
+#pragma region Main MATERIAL
+		// UI
+		std::shared_ptr<Shader> mainShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+		std::shared_ptr<Material> mainuiMaterial = std::make_shared<Material>();
+		mainuiMaterial ->SetRenderingMode(eRenderingMode::Transparent);
+		mainuiMaterial ->SetShader(mainShader);
+		ResourceManager::GetInstance()->Insert<Material>(L"mainPanelMaterial", mainuiMaterial);
+#pragma endregion
 #pragma region GRID MATERIAL
 		// Grid
 		std::shared_ptr<Shader> GridShader = ResourceManager::GetInstance()->Find<Shader>(L"GridShader");

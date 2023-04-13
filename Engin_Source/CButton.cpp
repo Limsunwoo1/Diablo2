@@ -25,12 +25,11 @@ void Button::OnInActive()
 {
 }
 
-void Button::OnTick()
+void Button::OnUpdate()
 {
 	Vector2 mousePos = Input::GetInstance()->GetMousePos();
-	Vector2 size = GetSize();
 
-	if (mScreenPos.x <= mousePos.x && mousePos.x < mScreenPos.x + size.x
+	/*if (mScreenPos.x <= mousePos.x && mousePos.x < mScreenPos.x + size.x
 		&& mScreenPos.y <= mousePos.y && mousePos.y < mScreenPos.y + size.y)
 	{
 		mbMouseOn = true;
@@ -38,7 +37,7 @@ void Button::OnTick()
 	else
 	{
 		mbMouseOn = false;
-	}
+	}*/
 
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN) && mbMouseOn)
 	{
@@ -52,6 +51,30 @@ void Button::OnRender(HDC hdc)
 }
 
 void Button::OnClear()
+{
+}
+
+void Button::Initalize()
+{
+}
+
+void Button::Update()
+{
+}
+
+void Button::FixedUpdate()
+{
+}
+
+void Button::Render()
+{
+}
+
+void Button::InitAnimation()
+{
+}
+
+void Button::InitRenderer(const wstring& materialName, const wstring& textureName, const std::wstring& textruepath)
 {
 }
 

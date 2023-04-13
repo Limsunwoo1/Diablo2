@@ -34,6 +34,7 @@ public:
 	Vector3 Up() { return mUp; }
 
 	Matrix& GetWorldMatrix() { return mWorld; }
+	void SetWorldMatrix(Matrix& mat) { mWorld = mat; }
 private:
 	Transform* mParent;
 

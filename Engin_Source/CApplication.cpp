@@ -6,6 +6,7 @@
 #include "CResourceManager.h"
 #include "CCollisionManager.h"
 #include "CWorldManager.h"
+#include "CUIManager.h"
 
 using namespace graphics;
 
@@ -30,6 +31,7 @@ void CApplication::Initalize()
 	Renderer::Initialize();
 	WorldManager::GetInstance()->Initialize();
 	SceneManager::GetInstance()->Initalize();
+	UIManager::GetInstance()->Initialize();
 }
 
 // 게임 로직 캐릭터 이동 등등 
@@ -40,6 +42,7 @@ void CApplication::Update()
 	Input::GetInstance()->Update();
 	CollisionManager::GetInstance()->Update();
 	SceneManager::GetInstance()->Update();
+	UIManager::GetInstance()->Update();
 }
 
 void CApplication::Instantiate()
@@ -52,6 +55,7 @@ void CApplication::FixedUpdate()
 {
 	CollisionManager::GetInstance()->FixedUpdate();
 	SceneManager::GetInstance()->FixedUpdate();
+	UIManager::GetInstance()->FixedUpdate();
 }
 
 void CApplication::Render()
@@ -90,6 +94,7 @@ void CApplication::Release()
 	Time::GetInstance()->DestroyInstance();
 	Input::GetInstance()->DestroyInstance();
 	WorldManager::GetInstance()->DestroyInstance();
+	UIManager::GetInstance()->DestroyInstance();
 	SceneManager::GetInstance()->DestroyInstance();
 	CollisionManager::GetInstance()->DestroyInstance();
 	ResourceManager::GetInstance()->DestroyInstance();

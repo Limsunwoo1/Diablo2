@@ -18,6 +18,7 @@ public:
 
 	void LoadScene(eSceneType type);
 	Scene* GetActiveScene() { return mActiveScene; }
+	Scene* GetScene(eSceneType type);
 private:
 	std::vector<Scene*> mScenes;
 	Scene* mActiveScene;
