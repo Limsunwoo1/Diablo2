@@ -85,7 +85,7 @@ void UIManager::Initialize()
 		runIcon->Active();
 
 		Transform* runtr = runIcon->GetComponent<Transform>();
-		runtr->SetPosition(Vector3(0.0f, 0.0f, 0.f));
+		runtr->SetPosition(Vector3(-2.9f, -0.12f, 0.f));
 		runtr->SetScale(Vector3(0.3f, 0.3f, 0.f));
 
 		// WalkIcon
@@ -94,8 +94,17 @@ void UIManager::Initialize()
 		walkIcon ->Active();
 
 		Transform* walktr = walkIcon->GetComponent<Transform>();
-		walktr->SetPosition(Vector3(0.0f, 0.0f, 0.f));
+		walktr->SetPosition(Vector3(-2.9f, -0.12f, 0.f));
 		walktr->SetScale(Vector3(0.3f, 0.3f, 0.f));
+
+		// RunGauge
+		Panel* runGauge = new Panel(eUIType::Panel);
+		runGauge->InitRenderer(L"RunGaugeMaterial", L"RunGauge", L"UI//RunGauge.png");
+		runGauge->Active();
+
+		Transform* RunGaugetr = runGauge->GetComponent<Transform>();
+		RunGaugetr->SetPosition(Vector3(-1.59f, -0.12f, 0.f));
+		RunGaugetr->SetScale(Vector3(2.2f, 0.35f, 0.f));
 
 		
 		// 부모자식 연결
@@ -103,6 +112,7 @@ void UIManager::Initialize()
 		mainPanelui->SetChild(mpui);
 		mainPanelui->SetChild(runIcon);
 		mainPanelui->SetChild(walkIcon);
+		mainPanelui->SetChild(runGauge);
 
 		hpui->SetChild(hp);
 		mpui->SetChild(mp);

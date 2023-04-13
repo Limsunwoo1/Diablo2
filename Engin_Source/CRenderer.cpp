@@ -652,6 +652,14 @@ namespace Renderer
 		WalkIconMaterial->SetShader(WalkIconShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"WalkIconMaterial", WalkIconMaterial);
 #pragma endregion
+#pragma region RunGauge MATERIAL
+		// UI
+		std::shared_ptr<Shader> RungaugeShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+		std::shared_ptr<Material> RunGaugeMaterial = std::make_shared<Material>();
+		RunGaugeMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		RunGaugeMaterial->SetShader(RungaugeShader);
+		ResourceManager::GetInstance()->Insert<Material>(L"RunGaugeMaterial", RunGaugeMaterial);
+#pragma endregion
 #pragma region Main MATERIAL
 		// UI
 		std::shared_ptr<Shader> mainShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
