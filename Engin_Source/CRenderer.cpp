@@ -636,6 +636,22 @@ namespace Renderer
 		mpMaterial ->SetShader(mpShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"MpPanelMaterial", mpMaterial);
 #pragma endregion
+#pragma region RunIcon MATERIAL
+		// UI
+		std::shared_ptr<Shader> RunIconShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+		std::shared_ptr<Material> RunIconMaterial = std::make_shared<Material>();
+		RunIconMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		RunIconMaterial->SetShader(RunIconShader);
+		ResourceManager::GetInstance()->Insert<Material>(L"RunIconMaterial", RunIconMaterial);
+#pragma endregion
+#pragma region WalkIcon MATERIAL
+		// UI
+		std::shared_ptr<Shader> WalkIconShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+		std::shared_ptr<Material> WalkIconMaterial = std::make_shared<Material>();
+		WalkIconMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		WalkIconMaterial->SetShader(WalkIconShader);
+		ResourceManager::GetInstance()->Insert<Material>(L"WalkIconMaterial", WalkIconMaterial);
+#pragma endregion
 #pragma region Main MATERIAL
 		// UI
 		std::shared_ptr<Shader> mainShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");

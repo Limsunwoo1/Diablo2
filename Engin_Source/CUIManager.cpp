@@ -37,7 +37,7 @@ void UIManager::Initialize()
 		mainPanelui->Active();
 		Transform* maintr = mainPanelui->GetComponent<Transform>();
 		maintr->SetPosition(Vector3(1.f, -3.f, 1.0f));
-		maintr->SetScale(Vector3(6.f, 1.f, 0.f));
+		maintr->SetScale(Vector3(10.f, 1.f, 0.f));
 		Push(eUIType::Panel, mainPanelui);
 
 		Panel* hpui = new Panel(eUIType::Panel);
@@ -45,8 +45,8 @@ void UIManager::Initialize()
 		hpui->InitRenderer(L"HpPanelMaterial", L"HPPanel", L"UI//ctrlpanellife.png");
 		hpui->Active();
 		Transform* hpuitr = hpui->GetComponent<Transform>();
-		hpuitr->SetPosition(Vector3(-4.f, 0.5f, 1.0f));
-		hpuitr->SetScale(Vector3(2.f, 2.f, 0.f));
+		hpuitr->SetPosition(Vector3(-6.5f, 0.5f, 1.0f));
+		hpuitr->SetScale(Vector3(3.f, 3.f, 0.f));
 		Push(eUIType::Panel, hpui);
 
 		Panel* mpui = new Panel(eUIType::Panel);
@@ -54,20 +54,21 @@ void UIManager::Initialize()
 		mpui->InitRenderer(L"MpPanelMaterial", L"MPPanel", L"UI//ctrlpanelmana.png");
 		mpui->Active();
 		Transform* mpuitr = mpui->GetComponent<Transform>();
-		mpuitr->SetPosition(Vector3(4.f, 0.5f, 1.0f));
-		mpuitr->SetScale(Vector3(2.f, 2.f, 0.f));
+		mpuitr->SetPosition(Vector3(6.5f, 0.5f, 1.0f));
+		mpuitr->SetScale(Vector3(3.f, 3.f, 0.f));
 		Push(eUIType::Panel, mpui);
 
 
 		// ui childs
 
+		// HP MP
 		Panel* hp = new Panel(eUIType::Panel);
 		hp->InitRenderer(L"HPMaterial", L"HP", L"UI//life.png");
 		hp->Active();
 
 		Transform* hptr = hp->GetComponent<Transform>();
-		hptr->SetPosition(Vector3(0.1f, 0.f, 0.f));
-		hptr->SetScale(Vector3(1.5f, 1.5f, 0.f));
+		hptr->SetPosition(Vector3(0.2f, 0.15f, 0.f));
+		hptr->SetScale(Vector3(2.0f, 2.0f, 0.f));
 
 
 		Panel* mp = new Panel(eUIType::Panel);
@@ -75,12 +76,33 @@ void UIManager::Initialize()
 		mp->Active();
 
 		Transform* mptr = mp->GetComponent<Transform>();
-		mptr->SetPosition(Vector3(-0.1f, 0.f, 0.f));
-		mptr->SetScale(Vector3(1.5f, 1.5f, 0.f));
+		mptr->SetPosition(Vector3(-0.2f, 0.15f, 0.f));
+		mptr->SetScale(Vector3(2.0f, 2.0f, 0.f));
 
+		// RunIcon
+		Panel* runIcon = new Panel(eUIType::Panel);
+		runIcon->InitRenderer(L"RunIconMaterial", L"RunIcon", L"UI//RunIcon.png");
+		runIcon->Active();
+
+		Transform* runtr = runIcon->GetComponent<Transform>();
+		runtr->SetPosition(Vector3(0.0f, 0.0f, 0.f));
+		runtr->SetScale(Vector3(0.3f, 0.3f, 0.f));
+
+		// WalkIcon
+		Panel* walkIcon = new Panel(eUIType::Panel);
+		walkIcon ->InitRenderer(L"WalkIconMaterial", L"WalkIcon", L"UI//WalkIcon.png");
+		walkIcon ->Active();
+
+		Transform* walktr = walkIcon->GetComponent<Transform>();
+		walktr->SetPosition(Vector3(0.0f, 0.0f, 0.f));
+		walktr->SetScale(Vector3(0.3f, 0.3f, 0.f));
+
+		
 		// 부모자식 연결
 		mainPanelui->SetChild(hpui);
 		mainPanelui->SetChild(mpui);
+		mainPanelui->SetChild(runIcon);
+		mainPanelui->SetChild(walkIcon);
 
 		hpui->SetChild(hp);
 		mpui->SetChild(mp);
