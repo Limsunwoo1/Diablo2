@@ -86,7 +86,7 @@ void PlayScene::Initalize()
 
 		Transform* tr = player->GetComponent<Transform>();
 		tr->SetPosition(Vector3(10.0f, 10.0f, 1.0f));
-		tr->SetScale(Vector3(2.0f, 2.0f, 1.0f));
+		tr->SetScale(Vector3(3.0f, 3.0f, 1.0f));
 
 		SpriteRenderer* spr = player->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");

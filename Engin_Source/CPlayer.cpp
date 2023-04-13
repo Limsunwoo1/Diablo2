@@ -100,6 +100,28 @@ void Player::InitAnimation()
 		//60 75.875
 	}
 
+	// Run
+	{
+		std::shared_ptr<Texture2D> texture = std::make_shared<Texture2D>();
+		texture->Load(L"run.png");
+		ResourceManager::GetInstance()->Insert(L"PlayerRun", texture);
+
+		/*animator->Create(L"Walk0", texture, Vector2(0.0f, 0.0f), Vector2(60.f, 75.875f), Vector2(0.0f, 0.0f), 8, 0.1f);
+		animator->Create(L"WalkUp", texture, Vector2(0.0f, 75.875 * 8), Vector2(60.f, 75.875f), Vector2(0.0f, 0.0f), 8, 0.1f);*/
+
+		float x = 61.f;
+		float y = 75.625f;
+
+		for (int i = 0; i < mDirection.size(); ++i)
+		{
+			wstring name = L"Run";
+			name += std::to_wstring(i);
+
+			animator->Create(name, texture, Vector2(0.0f, y * i), Vector2(x, y), Vector2(0.0f, 0.0f), 8, 0.1f);
+		}
+		//61 75.625
+	}
+
 	{
 		std::shared_ptr<Texture2D> texture = std::make_shared<Texture2D>();
 		texture->Load(L"Diablo2_Idle.png");
@@ -273,7 +295,7 @@ void Player::Move()
 	}
 	else if (mbRunMode == true)
 	{
-		wstring playName = L"Walk";
+		wstring playName = L"Run";
 		playName += std::to_wstring(index);
 
 		if (playName == name)
