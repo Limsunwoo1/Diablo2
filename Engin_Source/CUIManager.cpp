@@ -69,6 +69,7 @@ void UIManager::Initialize()
 		Transform* hptr = hp->GetComponent<Transform>();
 		hptr->SetPosition(Vector3(0.2f, 0.15f, 0.f));
 		hptr->SetScale(Vector3(2.0f, 2.0f, 0.f));
+		hptr->SetRotation(Vector3(0.0f, 0.0f, 90.f));
 
 
 		Panel* mp = new Panel(eUIType::Panel);
@@ -78,6 +79,7 @@ void UIManager::Initialize()
 		Transform* mptr = mp->GetComponent<Transform>();
 		mptr->SetPosition(Vector3(-0.2f, 0.15f, 0.f));
 		mptr->SetScale(Vector3(2.0f, 2.0f, 0.f));
+		mptr->SetRotation(Vector3(0.0f, 0.0f, 90.f));
 
 		// RunIcon
 		Panel* runIcon = new Panel(eUIType::Panel);

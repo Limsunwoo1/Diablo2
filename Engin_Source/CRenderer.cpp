@@ -620,7 +620,7 @@ namespace Renderer
 #pragma endregion
 #pragma region HP MATERIAL
 		// UI
-		std::shared_ptr<Shader> HPShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+		std::shared_ptr<Shader> HPShader = ResourceManager::GetInstance()->Find<Shader>(L"RunGaugeShader");
 		std::shared_ptr<Material> HPMaterial = std::make_shared<Material>();
 		HPMaterial ->SetRenderingMode(eRenderingMode::Transparent);
 		HPMaterial ->SetShader(HPShader);
@@ -628,7 +628,7 @@ namespace Renderer
 #pragma endregion
 #pragma region MP MATERIAL
 		// UI
-		std::shared_ptr<Shader> MPShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+		std::shared_ptr<Shader> MPShader = ResourceManager::GetInstance()->Find<Shader>(L"RunGaugeShader");
 		std::shared_ptr<Material> MPMaterial = std::make_shared<Material>();
 		MPMaterial ->SetRenderingMode(eRenderingMode::Transparent);
 		MPMaterial ->SetShader(MPShader);
