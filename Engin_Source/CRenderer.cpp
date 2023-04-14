@@ -270,7 +270,7 @@ namespace Renderer
 			, pingShader->GetVSBlobBufferSize()
 			, pingShader->GetInputLayoutAddressOf());
 
-		std::shared_ptr<Shader> RungaugeShader = ResourceManager::GetInstance()->Find<Shader>(L"RunGaugeShader");
+		std::shared_ptr<Shader> RungaugeShader = ResourceManager::GetInstance()->Find<Shader>(L"GaugeShader");
 		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
 			, RungaugeShader->GetVSBlobBufferPointer()
 			, RungaugeShader->GetVSBlobBufferSize()
@@ -471,13 +471,13 @@ namespace Renderer
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"UIShader", uiShader);
 #pragma endregion
-#pragma region RunGauge SHADER
+#pragma region Gauge SHADER
 		// UI
 		std::shared_ptr<Shader> RunGaugeShader = std::make_shared<Shader>();
 		RunGaugeShader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
-		RunGaugeShader->Create(eShaderStage::PS, L"RunGaugePS.hlsl", "main");
+		RunGaugeShader->Create(eShaderStage::PS, L"GaugePS.hlsl", "main");
 
-		ResourceManager::GetInstance()->Insert<Shader>(L"RunGaugeShader", RunGaugeShader);
+		ResourceManager::GetInstance()->Insert<Shader>(L"GaugeShader", RunGaugeShader);
 #pragma endregion
 #pragma region GRID SHADER
 		// Grid
@@ -620,7 +620,7 @@ namespace Renderer
 #pragma endregion
 #pragma region HP MATERIAL
 		// UI
-		std::shared_ptr<Shader> HPShader = ResourceManager::GetInstance()->Find<Shader>(L"RunGaugeShader");
+		std::shared_ptr<Shader> HPShader = ResourceManager::GetInstance()->Find<Shader>(L"GaugeShader");
 		std::shared_ptr<Material> HPMaterial = std::make_shared<Material>();
 		HPMaterial ->SetRenderingMode(eRenderingMode::Transparent);
 		HPMaterial ->SetShader(HPShader);
@@ -628,11 +628,19 @@ namespace Renderer
 #pragma endregion
 #pragma region MP MATERIAL
 		// UI
-		std::shared_ptr<Shader> MPShader = ResourceManager::GetInstance()->Find<Shader>(L"RunGaugeShader");
+		std::shared_ptr<Shader> MPShader = ResourceManager::GetInstance()->Find<Shader>(L"GaugeShader");
 		std::shared_ptr<Material> MPMaterial = std::make_shared<Material>();
 		MPMaterial ->SetRenderingMode(eRenderingMode::Transparent);
 		MPMaterial ->SetShader(MPShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"MPMaterial", MPMaterial);
+#pragma endregion
+#pragma region RunGauge MATERIAL
+		// UI
+		std::shared_ptr<Shader> RungaugeShader = ResourceManager::GetInstance()->Find<Shader>(L"GaugeShader");
+		std::shared_ptr<Material> RunGaugeMaterial = std::make_shared<Material>();
+		RunGaugeMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		RunGaugeMaterial->SetShader(RungaugeShader);
+		ResourceManager::GetInstance()->Insert<Material>(L"RunGaugeMaterial", RunGaugeMaterial);
 #pragma endregion
 #pragma region HP Panel MATERIAL
 		// UI
@@ -665,14 +673,6 @@ namespace Renderer
 		WalkIconMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		WalkIconMaterial->SetShader(WalkIconShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"WalkIconMaterial", WalkIconMaterial);
-#pragma endregion
-#pragma region RunGauge MATERIAL
-		// UI
-		std::shared_ptr<Shader> RungaugeShader = ResourceManager::GetInstance()->Find<Shader>(L"RunGaugeShader");
-		std::shared_ptr<Material> RunGaugeMaterial = std::make_shared<Material>();
-		RunGaugeMaterial->SetRenderingMode(eRenderingMode::Transparent);
-		RunGaugeMaterial->SetShader(RungaugeShader);
-		ResourceManager::GetInstance()->Insert<Material>(L"RunGaugeMaterial", RunGaugeMaterial);
 #pragma endregion
 #pragma region Main MATERIAL
 		// UI
@@ -772,6 +772,14 @@ namespace Renderer
 		firtPinMaterial ->SetShader(PinShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"FirePinMaterial", firtPinMaterial);
 #pragma endregion
+#pragma region MinoTauros
+		std::shared_ptr<Shader> MinoShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+		std::shared_ptr<Material> MinoMaterial = std::make_shared<Material>();
+		MinoMaterial ->SetRenderingMode(eRenderingMode::Transparent);
+		MinoMaterial ->SetShader(MinoShader);
+		ResourceManager::GetInstance()->Insert<Material>(L"MinoMaterial", MinoMaterial);
+#pragma endregion
+
 	}
 
 	void Initialize()

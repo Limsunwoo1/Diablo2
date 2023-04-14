@@ -10,7 +10,11 @@ public:
 		Move,
 		Attack,
 		Hit,
-		Dead
+		Dead,
+		HitFire,
+		HitFrozen,
+		HitLight,
+		End,
 	};
 
 public:
@@ -26,7 +30,32 @@ public:
 
 	void SetMonsterState(MonsterState state) { mMonsterState = state; }
 	MonsterState GetMonsterState() { return mMonsterState; }
+
+	float GetMaxHp() { return mMaxHP; }
+	void SetMaxHp(float hp) { mMaxHP = hp; }
+
+	float GetHP() { return mHP; }
+	void SetHP(float hp) { mHP = hp; }
+
+	float GetCurDeltaTime() { return mDeltaTime; }
+	void SetCurDeltaTime(float delta) { mDeltaTime = delta; }
+
+	void Run();
+
+	virtual void Idle()			{};
+	virtual void Move()			{};
+	virtual void Attack()		{};
+	virtual void Hit()			{};
+	virtual void Dead()			{};
+	virtual void HitFire()		{};
+	virtual void HitFrozen()	{};
+	virtual void HitLight()		{};
 private:
 	MonsterState mMonsterState;
+
+	float mMaxHP;
+	float mHP;
+
+	float mDeltaTime;
 };
 

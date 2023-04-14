@@ -7,7 +7,7 @@ Animator::Animator()
 	, mActiveAnimation(nullptr)
 	, mbLoop(false)
 {
-	
+
 }
 
 Animator::~Animator()
@@ -42,15 +42,15 @@ void Animator::Update()
 		if (events)
 			events->mCompleteEvent();
 
-		if(mbLoop)
-		mActiveAnimation->Reset();
+		if (mbLoop)
+			mActiveAnimation->Reset();
 	}
 
 	UINT spriteIndex = mActiveAnimation->Update();
 
 	if ((spriteIndex != FAIL_EVENT) && events != nullptr)
 	{
-		if(events->mEvents[spriteIndex].mEvent)
+		if (events->mEvents[spriteIndex].mEvent)
 			events->mEvents[spriteIndex].mEvent();
 	}
 }
@@ -64,7 +64,6 @@ void Animator::Render()
 {
 
 }
-
 
 bool Animator::Create(const wstring& name, shared_ptr<Texture2D> atlas, Vector2 leftTop
 	, Vector2 size, Vector2 offset
@@ -136,7 +135,7 @@ void Animator::Play(const wstring& name, bool loop)
 {
 	Animation* preveAnimation = mActiveAnimation;
 	Events* events = nullptr;
-	if(preveAnimation)
+	if (preveAnimation)
 		events = FindEvents(preveAnimation->AnimationName());
 
 	if (events)

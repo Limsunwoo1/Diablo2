@@ -69,13 +69,7 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)PingPS.hlsl">
       <Filter>PS</Filter>
     </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)HPGaugePS.hlsl">
-      <Filter>PS</Filter>
-    </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)MPGaugePS.hlsl">
-      <Filter>PS</Filter>
-    </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)RunGaugePS.hlsl">
+    <FxCompile Include="$(MSBuildThisFileDirectory)GaugePS.hlsl">
       <Filter>PS</Filter>
     </FxCompile>
   </ItemGroup>

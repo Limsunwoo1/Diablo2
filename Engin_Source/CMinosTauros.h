@@ -14,7 +14,15 @@ public:
 
 	virtual void InitAnimation() override;
 
+	virtual void Idle() override;
+	virtual void Move() override;
+	virtual void Attack() override;
+	virtual void Hit() override;
+	virtual void Dead() override;
+	virtual void HitFire() override;
+	virtual void HitFrozen() override;
+	virtual void HitLight() override;
 private:
-
+	
 };
 

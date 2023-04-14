@@ -1,26 +1,33 @@
 #include "CPlayScene.h"
-#include "CRenderer.h"
-#include "CMeshRenderer.h"
-#include "CSpriteRenderer.h"
-#include "CResourceManager.h"
 #include "CTexture2D.h"
-#include "CPlayerScript.h"
-#include "CCameraScript.h"
-#include "CGridScript.h"
-#include "CObject.h"
-#include "CInput.h"
-#include "CCollider2D.h"
-#include "CCollisionManager.h"
-#include "CBackGround.h"
-#include "CAnimator.h"
-#include "CPlayer.h"
-#include "CLight.h"
 #include "CpaintShader.h"
-#include "CParticleSystem.h"
-#include "CTileObject.h"
-#include "CWorldManager.h"
-#include "CHUD.h"
 
+// Object
+#include "CTileObject.h"
+#include "CHUD.h"
+#include "CBackGround.h"
+#include "CPlayer.h"
+#include "CMinosTauros.h"
+
+// Static
+#include "CObject.h"
+#include "CRenderer.h"
+// Component
+#include "CMeshRenderer.h"
+#include "CAnimator.h"
+#include "CLight.h"
+#include "CSpriteRenderer.h"
+#include "CParticleSystem.h"
+#include "CCollider2D.h"
+#include "CGridScript.h"
+#include "CCameraScript.h"
+#include "CPlayerScript.h"
+
+// Manager
+#include "CResourceManager.h"
+#include "CInput.h"
+#include "CCollisionManager.h"
+#include "CWorldManager.h"
 using namespace graphics;
 
 PlayScene::PlayScene()
@@ -103,21 +110,11 @@ void PlayScene::Initalize()
 		//60 75.875f
 	}
 
-	// test ui
 	{
-		/*GameObject* ui = Object::Instantiate<GameObject>(eLayerType::UI, this);
-		Transform* uiTr = ui->GetComponent<Transform>();
-		uiTr->SetPosition(Vector3(3.f, -2.f, 1.0f));
-
-		MeshRenderer* mr = ui->AddComponent<MeshRenderer>();
-		shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-		shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"UIMaterial");
-
-		shared_ptr<Texture2D> tex= ResourceManager::GetInstance()->Load<Texture2D>(L"HP", L"UI//life.png");
-		material->SetTexture(eTextureSlot::T0 ,tex);
-
-		mr->SetMesh(mesh);
-		mr->SetMaterial(material);*/
+		MinosTauros* mino = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr = mino->GetComponent<Transform>();
+		minoTr->SetPosition(Vector3(10.f, 10.f, 1.0f));
+		minoTr->SetScale(Vector3(3.f, 3.f, 1.0f));
 	}
 
 	// tile

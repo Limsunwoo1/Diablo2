@@ -50,6 +50,13 @@ public:
 
 	bool IsComplete() { return mbComplete; }
 	wstring& AnimationName() { return mAnimationName; }
+
+	float GetTime() { return mTime; }
+	void SetTime(float time) { mTime = time; }
+	
+	void SetTimeControl(bool control) { mbTimeControl = control; }
+	bool GetTimeControl() { return mbTimeControl; }
+
 private:
 	Animator* mAnimator;
 	wstring mAnimationName;
@@ -58,4 +65,5 @@ private:
 	int mIndex;
 	float mTime;
 	bool mbComplete;
+	bool mbTimeControl;
 };

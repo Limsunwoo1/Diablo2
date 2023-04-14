@@ -64,4 +64,5 @@ private:
 	map<wstring, Events*> mEvents;
 	Animation* mActiveAnimation;
 	bool mbLoop;
+	bool mbTimeControl;
 };
