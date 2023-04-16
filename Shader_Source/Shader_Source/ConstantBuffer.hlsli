@@ -39,6 +39,7 @@ cbuffer Animation : register(b4)
     float2 atlasSize;
     
     uint animationType;
+    uint elementType;
 }
     
 cbuffer NumberOfLight : register(b5)
@@ -84,3 +85,4 @@ cbuffer PlayerData : register(b9)
     float RunGauge;
     float expGauge;
 }
+

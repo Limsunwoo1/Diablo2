@@ -57,6 +57,9 @@ public:
 	void SetTimeControl(bool control) { mbTimeControl = control; }
 	bool GetTimeControl() { return mbTimeControl; }
 
+	Animator* GetAnimator() { return mAnimator; }
+	void SetAnimator(Animator* animator) { mAnimator = animator; }
+
 private:
 	Animator* mAnimator;
 	wstring mAnimationName;

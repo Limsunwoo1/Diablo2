@@ -1,6 +1,7 @@
 #include "CAnimation.h"
 #include "CTime.h"
 #include "CRenderer.h"
+#include "CAnimator.h"
 
 
 Animation::Animation()
@@ -118,6 +119,7 @@ void Animation::BindShader()
 	info.offset = mSpriteSheet[mIndex].offset;
 	info.size = mSpriteSheet[mIndex].size;
 	info.atlasSize = mSpriteSheet[mIndex].atlasSize;
+	info.elementType = mAnimator->GetElementType();
 
 	CB->SetData(&info);
 	CB->Bind(eShaderStage::PS);

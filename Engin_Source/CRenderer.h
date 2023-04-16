@@ -64,6 +64,7 @@ namespace Renderer
 		Vector2 atlasSize;
 
 		UINT type;
+		UINT elementType;
 	};
 
 	// NumberOfLight

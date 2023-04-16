@@ -6,6 +6,7 @@ Animator::Animator()
 	, mEvents{}
 	, mActiveAnimation(nullptr)
 	, mbLoop(false)
+	, mElementType(0)
 {
 
 }
@@ -77,6 +78,7 @@ bool Animator::Create(const wstring& name, shared_ptr<Texture2D> atlas, Vector2 
 		return false;
 
 	animation = new Animation();
+	animation->SetAnimator(this);
 	animation->Create(name, atlas, leftTop, size, offset, spriteLength, duation);
 
 	mAnimations.insert(make_pair(name, animation));
@@ -98,6 +100,7 @@ bool Animator::Create(const wstring& name, shared_ptr<Texture2D> atlas, Vector2 
 		return false;
 
 	animation = new Animation();
+	animation->SetAnimator(this);
 	animation->Create(name, atlas, leftTop, size, offset, spriteLength, duation);
 
 	mAnimations.insert(make_pair(name, animation));

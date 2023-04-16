@@ -20,7 +20,7 @@ void MinosTauros::Initalize()
 	SetMaxHp(200.f);
 	SetHP(200.f);
 
-	SetMonsterState(MonsterState::HitFrozen);
+	//SetMonsterState(MonsterState::HitLight);
 
 	// Renderer
 	SpriteRenderer* sr = AddComponent<SpriteRenderer>();

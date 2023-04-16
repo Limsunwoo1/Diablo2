@@ -55,6 +55,9 @@ public:
 	void Binds();
 	void Clear();
 
+	UINT GetElementType() { return mElementType; }
+	void SetElementType(UINT type) { mElementType = type; }
+
 	function<void()>& GetStartEvent(const wstring& name);
 	function<void()>& GetCompleteEvent(const wstring& name);
 	function<void()>& GetEndEvent(const wstring& name);
@@ -65,4 +68,6 @@ private:
 	Animation* mActiveAnimation;
 	bool mbLoop;
 	bool mbTimeControl;
+
+	UINT mElementType;
 };

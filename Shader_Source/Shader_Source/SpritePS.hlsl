@@ -44,5 +44,19 @@ float4 main(VSOut In) : SV_Target
     color *= _lightColor.diffuse;
     color.w *= In.Color.w;
     
-    return color;
+    if (elementType == 5)
+    {
+        color.xyz *= float3(0.8f, 0.2f, 0.2f);
+
+    }
+    else if (elementType == 6)
+    {
+        color.xyz *= float3(0.2f, 0.2f, 0.8f);
+    }
+    else if (elementType == 7)
+    {
+        color.xyz *= float3(0.8f, 0.8f, 0.8f);
+    }
+    
+     return color;
 }

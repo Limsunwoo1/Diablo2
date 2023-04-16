@@ -33,8 +33,11 @@ void Monster::Update()
 			animation->SetTime(intime);
 		}
 	}
-
 	SetCurDeltaTime(time);
+
+	Animator* animator = GetComponent<Animator>();
+	animator->SetElementType((UINT)mMonsterState);
+
 	Run();
 	GameObject::Update();
 }
