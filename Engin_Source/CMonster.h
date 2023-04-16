@@ -28,6 +28,8 @@ public:
 
 	virtual void InitAnimation() override {};
 
+	void StatusEffect();
+
 	void SetMonsterState(MonsterState state) { mMonsterState = state; }
 	MonsterState GetMonsterState() { return mMonsterState; }
 
@@ -40,6 +42,12 @@ public:
 	float GetCurDeltaTime() { return mDeltaTime; }
 	void SetCurDeltaTime(float delta) { mDeltaTime = delta; }
 
+	bool MonsterDirection(int index);
+	UINT GetDirection();
+
+	UINT GetIndex() { return mIndex; }
+	void SetIndex(UINT index) { mIndex = index; }
+
 	void Run();
 
 	virtual void Idle()			{};
@@ -51,11 +59,14 @@ public:
 	virtual void HitFrozen()	{};
 	virtual void HitLight()		{};
 private:
+	UINT mIndex;
+	std::bitset<8> mDirection;
+
 	MonsterState mMonsterState;
 
 	float mMaxHP;
 	float mHP;
 
 	float mDeltaTime;
+	float mDotDamageCoolTime;
 };
-

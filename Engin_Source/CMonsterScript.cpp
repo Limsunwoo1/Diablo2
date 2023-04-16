@@ -1,26 +1,27 @@
 #include "CMonsterScript.h"
+#include "CTransform.h"
 
-MonsterScript::MonsterScript()
+MinoMonsterScript::MinoMonsterScript()
 	: Script()
 {
 }
 
-MonsterScript::~MonsterScript()
+MinoMonsterScript::~MinoMonsterScript()
 {
 }
 
-void MonsterScript::Initalize()
+void MinoMonsterScript::Initalize()
 {
 }
 
-void MonsterScript::Update()
+void MinoMonsterScript::Update()
 {
 }
 
-void MonsterScript::FixedUpdate()
+void MinoMonsterScript::FixedUpdate()
 {
 }
 
-void MonsterScript::Render()
+void MinoMonsterScript::Render()
 {
 }

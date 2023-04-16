@@ -1,11 +1,11 @@
 #pragma once
 #include "CScript.h"
 
-class MonsterScript : public Script
+class MinoMonsterScript : public Script
 {
 public:
-	MonsterScript();
-	virtual ~MonsterScript();
+	MinoMonsterScript();
+	virtual ~MinoMonsterScript();
 
 	virtual void Initalize();
 	virtual void Update();
