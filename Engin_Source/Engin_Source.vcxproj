@@ -157,7 +157,7 @@
     <ClInclude Include="CAnimation.h" />
     <ClInclude Include="CAnimator.h" />
     <ClInclude Include="CApplication.h" />
-    <ClInclude Include="CAStart.h" />
+    <ClInclude Include="CAStar.h" />
     <ClInclude Include="CBackGround.h" />
     <ClInclude Include="CBaseRenderer.h" />
     <ClInclude Include="CCamera.h" />
@@ -186,7 +186,7 @@
     <ClInclude Include="CMeteor.h" />
     <ClInclude Include="CMinosTauros.h" />
     <ClInclude Include="CMonster.h" />
-    <ClInclude Include="CMonsterScript.h" />
+    <ClInclude Include="CMinoMonsterScript.h" />
     <ClInclude Include="CObject.h" />
     <ClInclude Include="CCollider3D.h" />
     <ClInclude Include="CObjectManager.h" />
@@ -236,7 +236,7 @@
     <ClCompile Include="CAnimation.cpp" />
     <ClCompile Include="CAnimator.cpp" />
     <ClCompile Include="CApplication.cpp" />
-    <ClCompile Include="CAStart.cpp" />
+    <ClCompile Include="CAStar.cpp" />
     <ClCompile Include="CBackGround.cpp" />
     <ClCompile Include="CBaseRenderer.cpp" />
     <ClCompile Include="CCamera.cpp" />
@@ -267,7 +267,7 @@
     <ClCompile Include="CMeteor.cpp" />
     <ClCompile Include="CMinosTauros.cpp" />
     <ClCompile Include="CMonster.cpp" />
-    <ClCompile Include="CMonsterScript.cpp" />
+    <ClCompile Include="CMinoMonsterScript.cpp" />
     <ClCompile Include="CObjectManager.cpp" />
     <ClCompile Include="CPaintShader.cpp" />
     <ClCompile Include="CParticleShader.cpp" />

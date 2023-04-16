@@ -1,4 +1,4 @@
-#include "CAStart.h"
+#include "CAStar.h"
 #include "CWorldManager.h"
 #include "CTransform.h"
 #include "CGameObject.h"

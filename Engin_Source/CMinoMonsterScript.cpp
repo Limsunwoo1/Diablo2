@@ -1,4 +1,4 @@
-#include "CMonsterScript.h"
+#include "CMinoMonsterScript.h"
 #include "CTransform.h"
 
 MinoMonsterScript::MinoMonsterScript()
@@ -16,12 +16,15 @@ void MinoMonsterScript::Initalize()
 
 void MinoMonsterScript::Update()
 {
+	if()
 }
 
 void MinoMonsterScript::FixedUpdate()
 {
+
 }
 
 void MinoMonsterScript::Render()
 {
+
 }

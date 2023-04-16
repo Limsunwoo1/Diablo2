@@ -6,7 +6,7 @@
 #include "CAnimator.h"
 #include "CObject.h"
 #include "CSceneManager.h"
-#include "CAStart.h"
+#include "CAStar.h"
 #include "CWorldManager.h"
 #include "CObjectManager.h"
 

@@ -315,7 +315,7 @@
     <ClCompile Include="CEnddingScene.cpp">
       <Filter>Manager\Scene\Endding</Filter>
     </ClCompile>
-    <ClCompile Include="CMonsterScript.cpp">
+    <ClCompile Include="CMinoMonsterScript.cpp">
       <Filter>Component\Script\Contents\MonsterScript</Filter>
     </ClCompile>
     <ClCompile Include="CTile.cpp">
@@ -372,7 +372,7 @@
     <ClCompile Include="CParticleShader.cpp">
       <Filter>Manager\ResourceManager\Resource\ComputeShader\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="CAStart.cpp">
+    <ClCompile Include="CAStar.cpp">
       <Filter>Component\A%2a</Filter>
     </ClCompile>
     <ClCompile Include="CWorldManager.cpp">
@@ -548,7 +548,7 @@
     <ClInclude Include="CEnddingScene.h">
       <Filter>Manager\Scene\Endding</Filter>
     </ClInclude>
-    <ClInclude Include="CMonsterScript.h">
+    <ClInclude Include="CMinoMonsterScript.h">
       <Filter>Component\Script\Contents\MonsterScript</Filter>
     </ClInclude>
     <ClInclude Include="CTile.h">
@@ -605,7 +605,7 @@
     <ClInclude Include="CParticleShader.h">
       <Filter>Manager\ResourceManager\Resource\ComputeShader\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="CAStart.h">
+    <ClInclude Include="CAStar.h">
       <Filter>Component\A%2a</Filter>
     </ClInclude>
     <ClInclude Include="CWorldManager.h">

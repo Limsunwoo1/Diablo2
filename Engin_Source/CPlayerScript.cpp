@@ -12,7 +12,7 @@
 #include "CSpriteRenderer.h"
 #include "CAnimator.h"
 #include "CGraphicDevice_DX11.h"
-#include "CAStart.h"
+#include "CAStar.h"
 #include "CRenderer.h"
 #include "CCamera.h"
 

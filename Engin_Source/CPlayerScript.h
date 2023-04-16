@@ -1,6 +1,6 @@
 #pragma once
 #include "CScript.h"
-#include "CAStart.h"
+#include "CAStar.h"
 
 using namespace Math;
 class PlayerScript : public Script

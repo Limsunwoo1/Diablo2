@@ -48,21 +48,28 @@ public:
 	UINT GetIndex() { return mIndex; }
 	void SetIndex(UINT index) { mIndex = index; }
 
+	// 탐색범위 혹은 공격 받으면 위치를 추적할 플레이어를 
+	// 포인터로 갖고 있는다
+	GameObject* GetTarget() { return mTarget; }
+	void SetTarget(GameObject* player) { mTarget = player; }
+
 	void Run();
 
-	virtual void Idle()			{};
-	virtual void Move()			{};
-	virtual void Attack()		{};
-	virtual void Hit()			{};
-	virtual void Dead()			{};
-	virtual void HitFire()		{};
-	virtual void HitFrozen()	{};
-	virtual void HitLight()		{};
+protected:
+	virtual void idle()			{};
+	virtual void move()			{};
+	virtual void attack()		{};
+	virtual void hit()			{};
+	virtual void monsterDead()	{};
+	virtual void hitFire()		{};
+	virtual void hitFrozen()	{};
+	virtual void hitLight()		{};
 private:
-	UINT mIndex;
+	// 0(↑) 2(→) 4(↓) 6(←)
 	std::bitset<8> mDirection;
-
+	UINT mIndex;
 	MonsterState mMonsterState;
+	GameObject* mTarget;
 
 	float mMaxHP;
 	float mHP;

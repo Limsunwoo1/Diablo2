@@ -7,8 +7,9 @@ Monster::Monster()
 	, mMonsterState(MonsterState::Idle)
 	, mMaxHP(100.f)
 	, mHP(100.f)
-	, mIndex(0)
+	, mIndex(4)
 	, mDotDamageCoolTime(0.0f)
+	, mDeltaTime(0.0f)
 	, mDirection{}
 {
 	mDirection[mIndex] = 1;

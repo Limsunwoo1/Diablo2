@@ -2,6 +2,8 @@
 #include "CAnimator.h"
 #include "CSpriteRenderer.h"
 #include "CResourceManager.h"
+#include "CAStar.h"
+
 
 MinosTauros::MinosTauros()
 	: Monster()
@@ -20,7 +22,10 @@ void MinosTauros::Initalize()
 	SetMaxHp(200.f);
 	SetHP(200.f);
 
-	SetMonsterState(MonsterState::HitFrozen);
+	SetMonsterState(MonsterState::Idle);
+	
+	// Astar
+	AddComponent<AStar>();
 
 	// Renderer
 	SpriteRenderer* sr = AddComponent<SpriteRenderer>();
@@ -33,6 +38,11 @@ void MinosTauros::Initalize()
 
 void MinosTauros::Update()
 {
+	if (GetHP() < 0)
+	{
+		SetMonsterState(MonsterState::Dead);
+	}
+
 	Monster::Update();
 }
 
@@ -113,15 +123,15 @@ void MinosTauros::InitAnimation()
 		}
 	}
 
-	animator->Play(L"MinoDeath4");
+	animator->Play(L"MinoIdle4");
 }
 
-void MinosTauros::Idle()
+void MinosTauros::idle()
 {
 	Animator* animator = this->GetComponent<Animator>();
 	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
 
-	wstring playName = L"MinoIdel";
+	wstring playName = L"MinoIdle";
 	UINT index = GetDirection();
 	playName += std::to_wstring(index);
 
@@ -131,7 +141,7 @@ void MinosTauros::Idle()
 	animator->Play(playName);
 }
 
-void MinosTauros::Move()
+void MinosTauros::move()
 {
 	Animator* animator = GetComponent<Animator>();
 	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
@@ -147,7 +157,7 @@ void MinosTauros::Move()
 
 }
 
-void MinosTauros::Attack()
+void MinosTauros::attack()
 {
 	Animator* animator = GetComponent<Animator>();
 	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
@@ -170,11 +180,11 @@ void MinosTauros::Attack()
 	}
 }
 
-void MinosTauros::Hit()
+void MinosTauros::hit()
 {
 }
 
-void MinosTauros::Dead()
+void MinosTauros::monsterDead()
 {
 	Animator* animator = GetComponent<Animator>();
 	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
@@ -186,7 +196,7 @@ void MinosTauros::Dead()
 	if (name.find(L"MinoDeath") != wstring::npos &&
 		animator->GetPlayAnimation()->IsComplete())
 	{
-		Dead();
+		this->Death();
 	}
 
 	if (playName == name)
@@ -195,15 +205,15 @@ void MinosTauros::Dead()
 	animator->Play(playName, false);
 }
 
-void MinosTauros::HitFire()
+void MinosTauros::hitFire()
 {
 }
 
-void MinosTauros::HitFrozen()
+void MinosTauros::hitFrozen()
 {
 }
 
-void MinosTauros::HitLight()
+void MinosTauros::hitLight()
 {
 }
 
