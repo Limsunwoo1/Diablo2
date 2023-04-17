@@ -82,6 +82,7 @@ void PlayScene::Initalize()
 		uiCameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
 	}
 
+	GameObject* obj = nullptr;
 	// Player
 	{
 		Player* player = Object::Instantiate<Player>(eLayerType::Player, this);
@@ -106,6 +107,7 @@ void PlayScene::Initalize()
 		player->PlayAnimation(L"Walk0");
 
 		Renderer::mainCamera->SetTrace(player);
+		obj = player;
 
 		//60 75.875f
 	}
@@ -115,6 +117,7 @@ void PlayScene::Initalize()
 		Transform* minoTr = mino->GetComponent<Transform>();
 		minoTr->SetPosition(Vector3(10.f, 10.f, 1.0f));
 		minoTr->SetScale(Vector3(3.f, 3.f, 1.0f));
+		mino->SetTarget(obj);
 	}
 
 	// tile

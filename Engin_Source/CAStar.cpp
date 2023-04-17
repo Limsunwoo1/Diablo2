@@ -35,12 +35,21 @@ void AStar::FixedUpdate()
 	if (!mbRun)
 		return;
 
+	int count = 0;
 	while (1)
 	{
-		if (WorldManager::GetInstance()->GetTileNum(mCurNode.Pos.x, mCurNode.Pos.y) == 2)
+		count++;
+		if (mEnd.x == mCurNode.Pos.x && mEnd.y ==  mCurNode.Pos.y)
 		{
 			
 			Result();
+			return;
+		}
+
+		if (count > 1000)
+		{
+			ClearNode();
+			mbRun = false;
 			return;
 		}
 
@@ -232,6 +241,66 @@ bool AStar::OnA_Star(Node& node, Vec& start, Vec& end, bool run)
 	return true;
 }
 
+bool AStar::OnA_Star(Node& node, int x, int y, Vec& end, bool run)
+{
+	if (mbRun)
+		return false;
+
+	if (end.x == node.Pos.x && end.y == node.Pos.y)
+		return false;
+
+	ClearNode();
+
+	mMaxX = WorldManager::GetInstance()->GetScale();
+	mMaxY = WorldManager::GetInstance()->GetScale();
+
+	//SetIndex
+	mStart = Vec(x,y);
+	mEnd = end;
+	mbRun = true;
+
+	// SetNode
+	mCurNode = Node{ node.Pos.x, node.Pos.y, node.Cost, node.Heuristick, node.Distance, node.ParentIndex };
+
+	mCurNode.Id = (mCurNode.Pos.y * mMaxY) + (mCurNode.Pos.x % mMaxX);
+	mCurNode.Cost = 0;
+	mCurNode.Heuristick = GetHeuristick(node.Pos.x, node.Pos.y);
+	mCurNode.Distance = mCurNode.GetDistance();
+
+	mCloseList.emplace(make_pair(mCurNode.Id, mCurNode));
+	return true;
+}
+
+bool AStar::OnA_Star(Node& node, int x, int y, int endX, int endY, bool run)
+{
+	if (mbRun)
+		return false;
+
+	if (endX == node.Pos.x && endY == node.Pos.y)
+		return false;
+
+	ClearNode();
+
+	mMaxX = WorldManager::GetInstance()->GetScale();
+	mMaxY = WorldManager::GetInstance()->GetScale();
+
+	//SetIndex
+	mStart = Vec(x, y);
+	mEnd = Vec(endX, endY);
+	mbRun = true;
+
+	// SetNode
+	mCurNode = Node{ node.Pos.x, node.Pos.y, node.Cost, node.Heuristick, node.Distance, node.ParentIndex };
+
+	mCurNode.Id = (mCurNode.Pos.y * mMaxY) + (mCurNode.Pos.x % mMaxX);
+	mCurNode.Cost = 0;
+	mCurNode.Heuristick = GetHeuristick(node.Pos.x, node.Pos.y);
+	mCurNode.Distance = mCurNode.GetDistance();
+
+	mCloseList.emplace(make_pair(mCurNode.Id, mCurNode));
+	return true;
+}
+
 void AStar::Compare(Node duplication)
 {
 	UINT g = mCurNode.Cost;
@@ -309,7 +378,9 @@ void AStar::Result()
 			mbRun = false;
 
 			PlayerScript* script = GetOwner()->GetScript<PlayerScript>();
-			script->AddRenderAStar();
+			if(script)
+				script->AddRenderAStar();
+
 			return;
 		}
 

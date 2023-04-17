@@ -91,6 +91,8 @@ public:
 	void RemoveOpenList(Node node);
 
 	bool OnA_Star(Node& node, Vec& start, Vec& end, bool run = true);
+	bool OnA_Star(Node& node, int x, int y, Vec& end, bool run = true);
+	bool OnA_Star(Node& node, int x, int y,int endX, int endY, bool run = true);
 	void Compare(Node overlap);
 	Node DistanceList();
 

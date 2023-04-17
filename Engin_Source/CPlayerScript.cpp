@@ -317,6 +317,7 @@ void PlayerScript::FixedUpdate()
 	{
 		if (player->GetRunMode() == true)
 		{
+			// 이동시에만 게이지 소모
 			Vector3 curPos = GetOwner()->GetComponent<Transform>()->GetPosition();
 			if (pos == curPos)
 				return;
@@ -331,8 +332,6 @@ void PlayerScript::FixedUpdate()
 			}
 
 			player->SetRunTime(runTime);
-
-			cout << runTime << endl;
 		}
 		else
 		{
@@ -343,9 +342,8 @@ void PlayerScript::FixedUpdate()
 				runTime = player->GetMaxRunTime();
 
 			player->SetRunTime(runTime);
-
-			cout << runTime << endl;
 		}
+
 		tr->SetPosition(pos);
 	}
 }

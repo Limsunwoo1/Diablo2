@@ -1,5 +1,6 @@
 #pragma once
 #include "CGameObject.h"
+#include "CAStar.h"
 
 class Monster : public GameObject
 {
@@ -11,10 +12,15 @@ public:
 		Attack,
 		Hit,
 		Dead,
+		End,
+	};
+
+	enum class MonsterStatusEffect
+	{
+		None,
 		HitFire,
 		HitFrozen,
 		HitLight,
-		End,
 	};
 
 public:
@@ -32,6 +38,9 @@ public:
 
 	void SetMonsterState(MonsterState state) { mMonsterState = state; }
 	MonsterState GetMonsterState() { return mMonsterState; }
+
+	void SetMonsterStatusEffect(MonsterStatusEffect state) { mMonsterStatusEffect = state; }
+	MonsterStatusEffect GetMonsterStatusEffect() { return mMonsterStatusEffect; }
 
 	float GetMaxHp() { return mMaxHP; }
 	void SetMaxHp(float hp) { mMaxHP = hp; }
@@ -53,6 +62,9 @@ public:
 	GameObject* GetTarget() { return mTarget; }
 	void SetTarget(GameObject* player) { mTarget = player; }
 
+	Vector2 GetSpawnPos() { return mSpawnPos; }
+	void SetSpawnPos(Vector2& pos) { mSpawnPos = pos; }
+
 	void Run();
 
 protected:
@@ -65,10 +77,12 @@ protected:
 	virtual void hitFrozen()	{};
 	virtual void hitLight()		{};
 private:
+	Vector2 mSpawnPos;
 	// 0(ก่) 2(กๆ) 4(ก้) 6(ก็)
 	std::bitset<8> mDirection;
 	UINT mIndex;
 	MonsterState mMonsterState;
+	MonsterStatusEffect mMonsterStatusEffect;
 	GameObject* mTarget;
 
 	float mMaxHP;
@@ -76,4 +90,6 @@ private:
 
 	float mDeltaTime;
 	float mDotDamageCoolTime;
+
+	bool mReset;
 };

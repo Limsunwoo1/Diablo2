@@ -3,6 +3,8 @@
 #include "CSpriteRenderer.h"
 #include "CResourceManager.h"
 #include "CAStar.h"
+#include "CWorldManager.h"
+#include "CMinoMonsterScript.h"
 
 
 MinosTauros::MinosTauros()
@@ -22,10 +24,13 @@ void MinosTauros::Initalize()
 	SetMaxHp(200.f);
 	SetHP(200.f);
 
-	SetMonsterState(MonsterState::Idle);
+	SetMonsterStatusEffect(MonsterStatusEffect::HitFrozen);
 	
 	// Astar
 	AddComponent<AStar>();
+
+	// Script
+	AddComponent<MinoMonsterScript>();
 
 	// Renderer
 	SpriteRenderer* sr = AddComponent<SpriteRenderer>();
@@ -207,6 +212,7 @@ void MinosTauros::monsterDead()
 
 void MinosTauros::hitFire()
 {
+
 }
 
 void MinosTauros::hitFrozen()

@@ -1,5 +1,8 @@
 #pragma once
 #include "CScript.h"
+#include "CAStar.h"
+
+using namespace Math;
 
 class MinoMonsterScript : public Script
 {
@@ -12,8 +15,12 @@ public:
 	virtual void FixedUpdate();
 	virtual void Render();
 
-private:
+	float GetAngle(Vector2& direction);
 
-	
+private:
+	Vector2 mCurPos;
+	AStar::Node* mNode;
+
+	float mTime;
 };
 

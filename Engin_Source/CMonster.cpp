@@ -5,12 +5,15 @@
 Monster::Monster()
 	: GameObject()
 	, mMonsterState(MonsterState::Idle)
+	, mMonsterStatusEffect(MonsterStatusEffect::None)
 	, mMaxHP(100.f)
 	, mHP(100.f)
 	, mIndex(4)
 	, mDotDamageCoolTime(0.0f)
 	, mDeltaTime(0.0f)
+	, mReset(false)
 	, mDirection{}
+	, mSpawnPos(-1.f, -1.f)
 {
 	mDirection[mIndex] = 1;
 }
@@ -32,7 +35,10 @@ void Monster::Update()
 	// 몬스터의 현제 상태에 따라 렌더 되는 방식을 정해줄 enum 값
 	// 예) 얼음 상태이상일시 몬스터 푸른색으로 렌더
 	Animator* animator = GetComponent<Animator>();
-	animator->SetElementType((UINT)mMonsterState);
+	animator->SetElementType((UINT)mMonsterStatusEffect);
+
+	if(mTarget == nullptr)
+		mReset = true;
 
 	Run();
 	GameObject::Update();
@@ -51,7 +57,7 @@ void Monster::Render()
 void Monster::StatusEffect()
 {
 	float time = Time::GetInstance()->DeltaTime();
-	if (mMonsterState == MonsterState::HitFrozen)
+	if (mMonsterStatusEffect == MonsterStatusEffect::HitFrozen)
 	{
 		// 얼음 속성일때 모든 행동제약이 두배 느리게 이동
 		float intime = 0.0f;
@@ -62,9 +68,10 @@ void Monster::StatusEffect()
 			intime = animation->GetTime();
 			intime += time * 0.5f;
 			animation->SetTime(intime);
+			SetCurDeltaTime(time * 0.5f);
 		}
 	}
-	else if (mMonsterState == MonsterState::HitFire)
+	else if (mMonsterStatusEffect == MonsterStatusEffect::HitFire)
 	{
 		if (mDotDamageCoolTime >= 0.5f)
 		{
@@ -80,15 +87,20 @@ void Monster::Run()
 {
 	switch (mMonsterState)
 	{
-	case Monster::MonsterState::Idle:		Idle();			break;
-	case Monster::MonsterState::Move:		Move();			break;
-	case Monster::MonsterState::Attack:		Attack();		break;
-	case Monster::MonsterState::Hit:		Hit();			break;
-	case Monster::MonsterState::Dead:		Dead();			break;
-	case Monster::MonsterState::HitFire:	HitFire();		break;
-	case Monster::MonsterState::HitFrozen:	HitFrozen();	break;
-	case Monster::MonsterState::HitLight:	HitLight();		break;
+	case Monster::MonsterState::Idle:		idle();			break;
+	case Monster::MonsterState::Move:		move();			break;
+	case Monster::MonsterState::Attack:		attack();		break;
+	case Monster::MonsterState::Hit:		hit();			break;
+	case Monster::MonsterState::Dead:		monsterDead();	break;
 	default:												break;
+	}
+
+	switch (mMonsterStatusEffect)
+	{
+	case Monster::MonsterStatusEffect::HitFire:		hitFire();		break;
+	case Monster::MonsterStatusEffect::HitFrozen:	hitFrozen();	break;
+	case Monster::MonsterStatusEffect::HitLight:	hitLight();		break;
+	default:														break;
 	}
 }
 

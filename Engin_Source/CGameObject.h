@@ -57,6 +57,14 @@ public:
 				return comp;
 		}
 
+		/*for (auto s : mScripts)
+		{
+			comp = dynamic_cast<Script*>(s);
+
+			if (comp != nullptr)
+				return comp;
+		}*/
+
 		return nullptr;
 	}
 
