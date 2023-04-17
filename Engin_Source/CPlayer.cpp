@@ -53,7 +53,10 @@ void Player::Update()
 void Player::FixedUpdate()
 {
 	GameObject::FixedUpdate();
+}
 
+void Player::Render()
+{
 	Renderer::PlayerDataCB info = {};
 	info.RunGauge = mRunTime / mMaxRunTime;
 	info.hpGauge = mHP / mMaxHP;
@@ -64,10 +67,7 @@ void Player::FixedUpdate()
 	cb->SetData(&info);
 
 	cb->Bind(eShaderStage::ALL);
-}
 
-void Player::Render()
-{
 	SpriteRenderer* spr = GetComponent<SpriteRenderer>();
 	std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"test");
 	spr->GetMaterial()->SetTexture(eTextureSlot::T0 ,texture);

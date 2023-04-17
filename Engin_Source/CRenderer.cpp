@@ -682,6 +682,14 @@ namespace Renderer
 		mainuiMaterial ->SetShader(mainShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"mainPanelMaterial", mainuiMaterial);
 #pragma endregion
+#pragma region Main MATERIAL
+		// UI
+		std::shared_ptr<Shader> InventoryShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+		std::shared_ptr<Material> InventoryMaterial = std::make_shared<Material>();
+		InventoryMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		InventoryMaterial->SetShader(InventoryShader);
+		ResourceManager::GetInstance()->Insert<Material>(L"InventoryMaterial", InventoryMaterial);
+#pragma endregion
 #pragma region GRID MATERIAL
 		// Grid
 		std::shared_ptr<Shader> GridShader = ResourceManager::GetInstance()->Find<Shader>(L"GridShader");

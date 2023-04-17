@@ -58,6 +58,15 @@ void UIManager::Initialize()
 		mpuitr->SetScale(Vector3(3.f, 3.f, 0.f));
 		Push(eUIType::Panel, mpui);
 
+		Panel* Inventory = new Panel(eUIType::Panel);
+		Object::Instantiate<Panel>(eLayerType::UI, eSceneType::Play, Inventory);
+		Inventory->InitRenderer(L"InventoryMaterial", L"InventoryPanel", L"UI//invenpanel.png");
+		Inventory->Active();
+		Transform* InventoryTR = Inventory->GetComponent<Transform>();
+		InventoryTR->SetPosition(Vector3(6.0f, 2.0f, 1.0f));
+		InventoryTR->SetScale(Vector3(6.f, 7.f, 0.f));
+		Push(eUIType::Panel, Inventory);
+
 
 		// ui childs
 
@@ -120,6 +129,10 @@ void UIManager::Initialize()
 		mpui->SetChild(mp);
 	}
 
+	{
+		//Panel* Inventory = new Panel(eUIType::Panel);
+		//Inventory->InitRenderer(L"", L"", L"");
+	}
 	/*{
 		UiBase* ui = new UiBase(eUIType::HUD);
 		Push(eUIType::HUD, ui);
