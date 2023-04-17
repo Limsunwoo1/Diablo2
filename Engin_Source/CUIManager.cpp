@@ -4,6 +4,7 @@
 #include "CHUD.h"
 #include "CGameObject.h"
 #include "CObject.h"
+#include "CCollider2D.h"
 
 UIManager::UIManager()
 	: mCurrentData(nullptr)
@@ -40,6 +41,18 @@ void UIManager::Initialize()
 		maintr->SetScale(Vector3(10.f, 1.f, 0.f));
 		Push(eUIType::Panel, mainPanelui);
 
+		Panel* Inventory = new Panel(eUIType::Panel);
+		Object::Instantiate<Panel>(eLayerType::UI, eSceneType::Play, Inventory);
+		Inventory->InitRenderer(L"InventoryMaterial", L"InventoryPanel", L"UI//invenpanel.png");
+		Inventory->Active();
+		Transform* InventoryTR = Inventory->GetComponent<Transform>();
+		InventoryTR->SetPosition(Vector3(6.0f, 1.5f, 1.0f));
+		InventoryTR->SetScale(Vector3(6.f, 8.f, 0.f));
+
+		Collider2D* InventoryCollider = Inventory->AddComponent<Collider2D>();
+		InventoryCollider->SetType(eColliderType::Rect);
+		Push(eUIType::Panel, Inventory);
+
 		Panel* hpui = new Panel(eUIType::Panel);
 		Object::Instantiate<Panel>(eLayerType::UI, eSceneType::Play, hpui);
 		hpui->InitRenderer(L"HpPanelMaterial", L"HPPanel", L"UI//ctrlpanellife.png");
@@ -58,14 +71,6 @@ void UIManager::Initialize()
 		mpuitr->SetScale(Vector3(3.f, 3.f, 0.f));
 		Push(eUIType::Panel, mpui);
 
-		Panel* Inventory = new Panel(eUIType::Panel);
-		Object::Instantiate<Panel>(eLayerType::UI, eSceneType::Play, Inventory);
-		Inventory->InitRenderer(L"InventoryMaterial", L"InventoryPanel", L"UI//invenpanel.png");
-		Inventory->Active();
-		Transform* InventoryTR = Inventory->GetComponent<Transform>();
-		InventoryTR->SetPosition(Vector3(6.0f, 2.0f, 1.0f));
-		InventoryTR->SetScale(Vector3(6.f, 7.f, 0.f));
-		Push(eUIType::Panel, Inventory);
 
 
 		// ui childs
