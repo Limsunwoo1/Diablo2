@@ -18,8 +18,8 @@ void InventoryPanel::Initalize()
 	button->Initalize();
 
 	Transform* buttonTr = button->GetComponent<Transform>();
-	buttonTr->SetPosition(Vector3(9.f, -0.5f, 1.0f));
-	buttonTr->SetScale(Vector3(6.4f, 2.1f, 0.0f));
+	buttonTr->SetPosition(Vector3(6.05f, -0.2f, 1.0f));
+	buttonTr->SetScale(Vector3(5.4f, 2.1f, 0.0f));
 	button->OnActive();
 
 

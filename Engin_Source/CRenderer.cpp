@@ -510,7 +510,7 @@ namespace Renderer
 		DebugShader->Create(eShaderStage::PS, L"DebugPS.hlsl", "main");
 
 		DebugShader->SetRasterize(eRasterizeType::SolidNone);
-		DebugShader->SetDepthStencil(eDepthStencilType::NoWrite);
+		DebugShader->SetDepthStencil(eDepthStencilType::Less);
 		DebugShader->SetBlend(eBlendType::AlphaBlend);
 
 		DebugShader->SetToplogy(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
