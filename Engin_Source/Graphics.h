@@ -164,6 +164,8 @@ namespace graphics
 		float radius;
 		float duration;
 		float time;
+		UINT LayerType;
+		bool renderAble;
 	};
 
 	struct LightAttribute

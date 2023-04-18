@@ -39,8 +39,9 @@ void UIManager::Initialize()
 		Transform* maintr = mainPanelui->GetComponent<Transform>();
 		maintr->SetPosition(Vector3(1.f, -3.f, 1.0f));
 		maintr->SetScale(Vector3(10.f, 1.f, 0.f));
-		Push(eUIType::Panel, mainPanelui);
+		Push(L"mainPanel", mainPanelui);
 
+		///////////////////////////////////////////////////////////////////////////////
 		Panel* Inventory = new Panel(eUIType::Panel);
 		Object::Instantiate<Panel>(eLayerType::UI, eSceneType::Play, Inventory);
 		Inventory->InitRenderer(L"InventoryMaterial", L"InventoryPanel", L"UI//invenpanel.png");
@@ -51,8 +52,11 @@ void UIManager::Initialize()
 
 		Collider2D* InventoryCollider = Inventory->AddComponent<Collider2D>();
 		InventoryCollider->SetType(eColliderType::Rect);
-		Push(eUIType::Panel, Inventory);
+		InventoryCollider->SetOwner(Inventory);
+		InventoryCollider->Initalize();
+		Push(L"mainInventory", Inventory);
 
+		///////////////////////////////////////////////////////////////////////////////
 		Panel* hpui = new Panel(eUIType::Panel);
 		Object::Instantiate<Panel>(eLayerType::UI, eSceneType::Play, hpui);
 		hpui->InitRenderer(L"HpPanelMaterial", L"HPPanel", L"UI//ctrlpanellife.png");
@@ -60,8 +64,9 @@ void UIManager::Initialize()
 		Transform* hpuitr = hpui->GetComponent<Transform>();
 		hpuitr->SetPosition(Vector3(-6.5f, 0.5f, 1.0f));
 		hpuitr->SetScale(Vector3(3.f, 3.f, 0.f));
-		Push(eUIType::Panel, hpui);
+		//Push(L"hpUi", hpui);
 
+		///////////////////////////////////////////////////////////////////////////////
 		Panel* mpui = new Panel(eUIType::Panel);
 		Object::Instantiate<Panel>(eLayerType::UI, eSceneType::Play, mpui);
 		mpui->InitRenderer(L"MpPanelMaterial", L"MPPanel", L"UI//ctrlpanelmana.png");
@@ -69,7 +74,7 @@ void UIManager::Initialize()
 		Transform* mpuitr = mpui->GetComponent<Transform>();
 		mpuitr->SetPosition(Vector3(6.5f, 0.5f, 1.0f));
 		mpuitr->SetScale(Vector3(3.f, 3.f, 0.f));
-		Push(eUIType::Panel, mpui);
+		//Push(L"mpUi", mpui);
 
 
 
@@ -133,25 +138,6 @@ void UIManager::Initialize()
 		hpui->SetChild(hp);
 		mpui->SetChild(mp);
 	}
-
-	{
-		//Panel* Inventory = new Panel(eUIType::Panel);
-		//Inventory->InitRenderer(L"", L"", L"");
-	}
-	/*{
-		UiBase* ui = new UiBase(eUIType::HUD);
-		Push(eUIType::HUD, ui);
-	}
-
-	{
-		UiBase* ui = new UiBase(eUIType::HUD);
-		Push(eUIType::HUD, ui);
-	}
-
-	{
-		UiBase* ui = new UiBase(eUIType::HUD);
-		Push(eUIType::HUD, ui);
-	}*/
 }
 
 void UIManager::OnLoad(eUIType type)
@@ -257,9 +243,9 @@ void UIManager::OnFail()
 {
 	mCurrentData = nullptr;
 }
-void UIManager::Push(eUIType type, UiBase* ui)
+void UIManager::Push(const std::wstring& key, UiBase* ui)
 {
-	mUIs.insert(make_pair(type, ui));
+	mUIs.insert(make_pair(key, ui));
 }
 void UIManager::Push(eUIType type)
 {
@@ -316,9 +302,9 @@ void UIManager::Pop(eUIType type)
 		mUiBases.push(uiBase);
 	}
 }
-inline void UIManager::DeleteUi(eUIType type)
+inline void UIManager::DeleteUi(const std::wstring& type)
 {
-	std::unordered_map<eUIType, UiBase*>::iterator iter;
+	std::unordered_map<std::wstring, UiBase*>::iterator iter;
 	iter = mUIs.find(type);
 	if (iter == mUIs.end())
 		return;

@@ -256,3 +256,8 @@ bool CollisionManager::Circle_VS_Circle(Collider2D* left, Collider2D* right)
 	else
 		return false;
 }
+
+bool CollisionManager::ButtonCollistionCheck(const Vector2& mousePos, Collider2D* button)
+{
+	return false;
+}

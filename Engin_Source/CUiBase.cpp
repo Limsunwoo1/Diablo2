@@ -102,6 +102,14 @@ void UiBase::FixedUpdate()
 
 void UiBase::Render()
 {
+	/*if (Renderer::UiCamera != nullptr)
+	{
+		Matrix& view = Renderer::UiCamera->GetViewMatrix();
+		Matrix& projection = Renderer::UiCamera->GetProjectionMatrix();
+		Renderer::UiCamera->SetGpuViewMatrix(view);
+		Renderer::UiCamera->SetGpuProjectionMatrix(projection);
+	}*/
+
 	GameObject::Render();
 
 	for (UiBase* child : mChilds)

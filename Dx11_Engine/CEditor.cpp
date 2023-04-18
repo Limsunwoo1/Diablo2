@@ -142,6 +142,12 @@ void Editor::DebugRender(graphics::DebugMesh& mesh)
 	tr->FixedUpdate();
 
 	Camera* camera = Renderer::mainCamera;
+	if (mesh.LayerType == (UINT)eLayerType::UI)
+		camera = Renderer::UiCamera;
+
+	if (mesh.LayerType == (UINT)eLayerType::UI && !mesh.renderAble)
+		return;
+
 	GpuCameraMatrix(camera);
 
 	debugObj->Render();

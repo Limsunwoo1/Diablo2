@@ -15,6 +15,7 @@
 #include "CAStar.h"
 #include "CRenderer.h"
 #include "CCamera.h"
+#include "CPanel.h"
 
 // Manager
 #include "CInput.h"
@@ -22,6 +23,7 @@
 #include "CWorldManager.h"
 #include "CSceneManager.h"
 #include "CResourceManager.h"
+#include "CUIManager.h"
 
 PlayerScript::PlayerScript()
 	: Script()
@@ -86,6 +88,20 @@ void PlayerScript::FixedUpdate()
 	Vector3 pos = tr->GetPosition();
 
 	float speed = 3.f;
+	if (Input::GetInstance()->GetKeyDown(eKeyCode::I))
+	{
+		Panel* inventory = UIManager::GetInstance()->GetUiInstance<Panel>(L"mainInventory");
+		bool able = inventory->GetIsAble();
+
+		if (able)
+		{
+			inventory->InActive();
+		}
+		else
+		{
+			inventory->OnActive();
+		}
+	}
 
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::A))
 	{

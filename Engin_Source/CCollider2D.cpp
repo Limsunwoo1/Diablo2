@@ -3,6 +3,7 @@
 #include "CRenderer.h"
 #include "CScript.h"
 #include "CCamera.h"
+#include "CUiBase.h"
 
 UINT Collider2D::ColliderNumber = 0;
 
@@ -63,17 +64,34 @@ void Collider2D::FixedUpdate()
 	meshAttricbute.rotation = rotation;
 	meshAttricbute.scale = scale;
 	meshAttricbute.type = mType;
+	meshAttricbute.LayerType = (UINT)(GetOwner()->GetLayerType());
+
+	if (meshAttricbute.LayerType == (UINT)eLayerType::UI)
+	{
+		meshAttricbute.renderAble = dynamic_cast<UiBase*>(GetOwner())->GetIsAble();
+	}
+	else
+	{
+		if (GetOwner()->GetState() == GameObject::eState::active)
+			meshAttricbute.renderAble = true;
+		else
+			meshAttricbute.renderAble = false;
+	}
 
 	Renderer::debugMeshes.push_back(meshAttricbute);
 }
 
 void Collider2D::Render()
 {
-	//Matrix world = GetOwner()->GetComponent<Transform>()->GetWorldMatrix();
-	//Matrix view = Renderer::mainCamera->GetViewMatrix();
-	//Matrix projection = Renderer::mainCamera->GetProjectionMatrix();
+	if (GetOwner()->GetLayerType() == eLayerType::UI)
+	{
+		Matrix world = GetOwner()->GetComponent<Transform>()->GetWorldMatrix();
+		Matrix view = Renderer::UiCamera->GetViewMatrix();
+		Matrix projection = Renderer::UiCamera->GetProjectionMatrix();
 
-	//GetOwner()->GetComponent<Transform>()->SetConstantBuffer();
+		GetOwner()->GetComponent<Transform>()->SetConstantBuffer();
+		return;
+	}
 }
 
 void Collider2D::OnCollisionEnter(Collider2D* collider)

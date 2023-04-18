@@ -133,7 +133,7 @@ Math::Vector2 Input::GetMousePos(HWND hWnd)
 	return vMousePos;
 }
 
-Math::Vector2 Input::GetMouseWorldPos()
+Math::Vector2 Input::GetMouseWorldPos(bool camType)
 {
 	Vector2 mouse = GetMousePos(Application.GetHwnd());
 	Math::Viewport mathViewport;
@@ -172,10 +172,19 @@ Math::Vector2 Input::GetMouseWorldPos()
 
 	/*Math::Matrix projection = Renderer::mainCamera->GetProjectionMatrix().Invert();
 	Math::Matrix view = Renderer::mainCamera->GetViewMatrix().Invert();*/
-
-	Math::Matrix projection = Renderer::mainCamera->GetProjectionMatrix();
-	Math::Matrix view = Renderer::mainCamera->GetViewMatrix();
-	Vector3 result = mathViewport.Unproject(Vector3(mouse.x, mouse.y, 1.0f), projection, view, Math::Matrix::Identity);
+	Vector3 result = Vector3::Zero;
+	if (camType)
+	{
+		Math::Matrix projection = Renderer::mainCamera->GetProjectionMatrix();
+		Math::Matrix view = Renderer::mainCamera->GetViewMatrix();
+		result = mathViewport.Unproject(Vector3(mouse.x, mouse.y, 1.0f), projection, view, Math::Matrix::Identity);
+	}
+	else
+	{
+		Math::Matrix projection = Renderer::UiCamera->GetProjectionMatrix();
+		Math::Matrix view = Renderer::UiCamera->GetViewMatrix();
+		result = mathViewport.Unproject(Vector3(mouse.x, mouse.y, 1.0f), projection, view, Math::Matrix::Identity);
+	}
 
 	/*Math::Vector3::Transform(nearPoint, projection, result);
 	Math::Vector3::Transform(result, view, result);*/

@@ -6,6 +6,7 @@
 #include "CpaintShader.h"
 #include "CTime.h"
 #include "CParticleShader.h"
+#include "CCamera.h"
 
 namespace Renderer
 {
@@ -19,6 +20,7 @@ namespace Renderer
 	ComPtr<ID3D11BlendState> BlendState[(UINT)eBlendType::End] = {};
 
 	Camera* mainCamera = nullptr;
+	Camera* UiCamera = nullptr;
 	std::vector<Camera*> Cameras[(UINT)eSceneType::End];
 	std::vector<DebugMesh> debugMeshes;
 	std::vector<LightAttribute> lights;

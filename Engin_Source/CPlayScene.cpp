@@ -80,6 +80,7 @@ void PlayScene::Initalize()
 		uiCameraComp->TurnLayerMask(eLayerType::UI, true);
 
 		uiCameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
+		Renderer::UiCamera = uiCameraComp;
 	}
 
 	GameObject* obj = nullptr;
@@ -124,9 +125,9 @@ void PlayScene::Initalize()
 	{
 		TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
 
-		Collider2D* collider = tile->AddComponent<Collider2D>();
+		/*Collider2D* collider = tile->AddComponent<Collider2D>();
 		collider->SetSize(Vector2(0.5f, 0.5f));
-		collider->SetType(eColliderType::Rect);
+		collider->SetType(eColliderType::Rect);*/
 
 		Transform* tr = tile->GetComponent<Transform>();
 		tr->SetPosition(Vector3(11.0f, 11.0f, 1.0f));
@@ -148,9 +149,9 @@ void PlayScene::Initalize()
 	{
 		TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
 
-		Collider2D* collider = tile->AddComponent<Collider2D>();
+		/*Collider2D* collider = tile->AddComponent<Collider2D>();
 		collider->SetSize(Vector2(0.5f, 0.5f));
-		collider->SetType(eColliderType::Rect);
+		collider->SetType(eColliderType::Rect);*/
 
 		Transform* tr = tile->GetComponent<Transform>();
 		tr->SetPosition(Vector3(12.0f, 11.0f, 1.0f));
@@ -172,9 +173,9 @@ void PlayScene::Initalize()
 	{
 		TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
 
-		Collider2D* collider = tile->AddComponent<Collider2D>();
+		/*Collider2D* collider = tile->AddComponent<Collider2D>();
 		collider->SetSize(Vector2(0.5f, 0.5f));
-		collider->SetType(eColliderType::Rect);
+		collider->SetType(eColliderType::Rect);*/
 
 		Transform* tr = tile->GetComponent<Transform>();
 		tr->SetPosition(Vector3(13.0f, 11.0f, 1.0f));
@@ -196,9 +197,9 @@ void PlayScene::Initalize()
 	{
 		TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
 
-		Collider2D* collider = tile->AddComponent<Collider2D>();
+		/*Collider2D* collider = tile->AddComponent<Collider2D>();
 		collider->SetSize(Vector2(0.5f, 0.5f));
-		collider->SetType(eColliderType::Rect);
+		collider->SetType(eColliderType::Rect);*/
 
 		Transform* tr = tile->GetComponent<Transform>();
 		tr->SetPosition(Vector3(14.0f, 11.0f, 1.0f));
@@ -220,9 +221,9 @@ void PlayScene::Initalize()
 	{
 		TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
 
-		Collider2D* collider = tile->AddComponent<Collider2D>();
+		/*Collider2D* collider = tile->AddComponent<Collider2D>();
 		collider->SetSize(Vector2(0.5f, 0.5f));
-		collider->SetType(eColliderType::Rect);
+		collider->SetType(eColliderType::Rect);*/
 
 		Transform* tr = tile->GetComponent<Transform>();
 		tr->SetPosition(Vector3(15.0f, 11.0f, 1.0f));
@@ -244,9 +245,9 @@ void PlayScene::Initalize()
 	{
 		TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
 
-		Collider2D* collider = tile->AddComponent<Collider2D>();
+		/*Collider2D* collider = tile->AddComponent<Collider2D>();
 		collider->SetSize(Vector2(0.5f, 0.5f));
-		collider->SetType(eColliderType::Rect);
+		collider->SetType(eColliderType::Rect);*/
 
 		Transform* tr = tile->GetComponent<Transform>();
 		tr->SetPosition(Vector3(16.0f, 11.0f, 1.0f));
@@ -268,9 +269,9 @@ void PlayScene::Initalize()
 	{
 		TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
 
-		Collider2D* collider = tile->AddComponent<Collider2D>();
+		/*Collider2D* collider = tile->AddComponent<Collider2D>();
 		collider->SetSize(Vector2(0.5f, 0.5f));
-		collider->SetType(eColliderType::Rect);
+		collider->SetType(eColliderType::Rect);*/
 
 		Transform* tr = tile->GetComponent<Transform>();
 		tr->SetPosition(Vector3(16.0f, 10.0f, 1.0f));
@@ -292,9 +293,9 @@ void PlayScene::Initalize()
 	{
 		TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
 
-		Collider2D* collider = tile->AddComponent<Collider2D>();
+		/*Collider2D* collider = tile->AddComponent<Collider2D>();
 		collider->SetSize(Vector2(0.5f, 0.5f));
-		collider->SetType(eColliderType::Rect);
+		collider->SetType(eColliderType::Rect);*/
 
 		Transform* tr = tile->GetComponent<Transform>();
 		tr->SetPosition(Vector3(16.0f, 9.0f, 1.0f));
@@ -316,9 +317,9 @@ void PlayScene::Initalize()
 	{
 		TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
 
-		Collider2D* collider = tile->AddComponent<Collider2D>();
+		/*Collider2D* collider = tile->AddComponent<Collider2D>();
 		collider->SetSize(Vector2(0.5f, 0.5f));
-		collider->SetType(eColliderType::Rect);
+		collider->SetType(eColliderType::Rect);*/
 
 		Transform* tr = tile->GetComponent<Transform>();
 		tr->SetPosition(Vector3(16.0f, 8.0f, 1.0f));
@@ -340,9 +341,9 @@ void PlayScene::Initalize()
 	{
 		TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
 
-		Collider2D* collider = tile->AddComponent<Collider2D>();
+		/*Collider2D* collider = tile->AddComponent<Collider2D>();
 		collider->SetSize(Vector2(0.5f, 0.5f));
-		collider->SetType(eColliderType::Rect);
+		collider->SetType(eColliderType::Rect);*/
 
 		Transform* tr = tile->GetComponent<Transform>();
 		tr->SetPosition(Vector3(16.0f, 7.0f, 1.0f));
@@ -364,9 +365,9 @@ void PlayScene::Initalize()
 	{
 		TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
 
-		Collider2D* collider = tile->AddComponent<Collider2D>();
+		/*Collider2D* collider = tile->AddComponent<Collider2D>();
 		collider->SetSize(Vector2(0.5f, 0.5f));
-		collider->SetType(eColliderType::Rect);
+		collider->SetType(eColliderType::Rect);*/
 
 		Transform* tr = tile->GetComponent<Transform>();
 		tr->SetPosition(Vector3(16.0f, 6.0f, 1.0f));
@@ -390,9 +391,9 @@ void PlayScene::Initalize()
 		{
 			TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
 
-			Collider2D* collider = tile->AddComponent<Collider2D>();
+			/*Collider2D* collider = tile->AddComponent<Collider2D>();
 			collider->SetSize(Vector2(0.5f, 0.5f));
-			collider->SetType(eColliderType::Rect);
+			collider->SetType(eColliderType::Rect);*/
 
 			Transform* tr = tile->GetComponent<Transform>();
 			tr->SetPosition(Vector3(16.0f + i, 6.0f, 1.0f));

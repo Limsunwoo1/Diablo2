@@ -65,6 +65,8 @@ public:
 	void SetIsFullScreen(bool enable) { mbFullScreen = enable; }
 	void SetParent(UiBase* parent) { mParent = parent; }
 
+	bool GetIsAble() { return mbEnable; }
+
 protected:
 	UiBase* mParent;
 	Texture2D* mImage;

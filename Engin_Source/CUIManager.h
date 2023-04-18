@@ -31,20 +31,20 @@ public:
 	void OnFail();
 	void OnLoad(eUIType type);
 
-	void Push(eUIType type, UiBase* ui);
+	void Push(const std::wstring& key, UiBase* ui);
 	void Push(eUIType type);
 	void Pop(eUIType type);
 
 	template<typename T>
-	inline T* GetUiInstance(eUIType type)
+	inline T* GetUiInstance(const std::wstring& type)
 	{
 		return dynamic_cast<T*>(mUIs[type]);
 	}
 
-	inline void SetUiInstance(eUIType type, UiBase* ui) { mUIs.insert(make_pair(type, ui)); }
-	inline void DeleteUi(eUIType type);
+	inline void SetUiInstance(const std::wstring& key, UiBase* ui) { mUIs.insert(make_pair(key, ui)); }
+	inline void DeleteUi(const std::wstring& type);
 private:
-	std::unordered_map<eUIType, UiBase*> mUIs;
+	std::unordered_map<std::wstring, UiBase*> mUIs;
 	std::queue<eUIType> mRequestUIQueue;
 	std::stack<UiBase*> mUiBases;
 	UiBase* mCurrentData;

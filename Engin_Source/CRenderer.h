@@ -126,6 +126,7 @@ namespace Renderer
 	extern StructedBuffer* LightBuffer;
 
 	extern Camera* mainCamera;
+	extern Camera* UiCamera;
 
 	extern float Time;
 

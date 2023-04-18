@@ -9,7 +9,7 @@ Panel::Panel(eUIType type)
 }
 Panel::~Panel()
 {
-
+	int a = 0;
 }
 
 void Panel::OnInit()
@@ -63,6 +63,16 @@ void Panel::FixedUpdate()
 
 void Panel::Render()
 {
+	MeshRenderer* mr = GetComponent<MeshRenderer>();
+	if (mbEnable == false)
+	{
+		mr->SetRenderStop(true);
+	}
+	else
+	{
+		mr->SetRenderStop(false);
+	}
+
 	UiBase::Render();
 }
 

@@ -27,17 +27,9 @@ void Button::OnInActive()
 
 void Button::OnUpdate()
 {
-	Vector2 mousePos = Input::GetInstance()->GetMousePos();
+	Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos(false);
 
-	/*if (mScreenPos.x <= mousePos.x && mousePos.x < mScreenPos.x + size.x
-		&& mScreenPos.y <= mousePos.y && mousePos.y < mScreenPos.y + size.y)
-	{
-		mbMouseOn = true;
-	}
-	else
-	{
-		mbMouseOn = false;
-	}*/
+
 
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN) && mbMouseOn)
 	{
