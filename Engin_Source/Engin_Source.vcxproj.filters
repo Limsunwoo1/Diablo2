@@ -432,6 +432,9 @@
     <ClCompile Include="CButton.cpp">
       <Filter>GameObject\UI\Button</Filter>
     </ClCompile>
+    <ClCompile Include="CInventoryPanel.cpp">
+      <Filter>GameObject\UI\Panel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -664,6 +667,9 @@
     </ClInclude>
     <ClInclude Include="CButton.h">
       <Filter>GameObject\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="CInventoryPanel.h">
+      <Filter>GameObject\UI\Panel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

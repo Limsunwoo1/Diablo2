@@ -29,7 +29,7 @@ public:
 	bool Rect_VS_Rect(Collider2D* left, Collider2D* right);
 	bool Circle_VS_Circle(Collider2D* left, Collider2D* right);
 
-	bool ButtonCollistionCheck(const Vector2& mousePos, Collider2D* button);
+	bool ButtonCollisionCheck(const Vector2& mousePos, Collider2D* button);
 
 private:
 	bitset<(UINT)eLayerType::End> mLayerCollisionMatrix[(UINT)eLayerType::End];

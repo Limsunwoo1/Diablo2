@@ -179,6 +179,7 @@
     <ClInclude Include="CGameObject.h" />
     <ClInclude Include="CGraphicDevice_DX11.h" />
     <ClInclude Include="CGridScript.h" />
+    <ClInclude Include="CInventoryPanel.h" />
     <ClInclude Include="CLayer.h" />
     <ClInclude Include="CLight.h" />
     <ClInclude Include="CMesh.h" />
@@ -259,6 +260,7 @@
     <ClCompile Include="CEntity.cpp" />
     <ClCompile Include="CGridScript.cpp" />
     <ClCompile Include="CInput.cpp" />
+    <ClCompile Include="CInventoryPanel.cpp" />
     <ClCompile Include="CLayer.cpp" />
     <ClCompile Include="CLight.cpp" />
     <ClCompile Include="CMesh.cpp" />

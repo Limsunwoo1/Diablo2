@@ -24,6 +24,7 @@ public:
 	void SetTarget(GameObject* target) { mTarget = target; }
 
 	virtual void OnActive() override;
+	virtual void UnActive() override;
 protected:
 	virtual void OnInit() override;
 	virtual void OnInActive() override;

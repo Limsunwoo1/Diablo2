@@ -67,13 +67,14 @@ public:
 
 	bool GetIsAble() { return mbEnable; }
 
+	virtual void OnActive() {};
+	virtual void UnActive() {};
 protected:
 	UiBase* mParent;
 	Texture2D* mImage;
 
 protected:
 	virtual void OnInit() {};
-	virtual void OnActive() {};
 	virtual void OnInActive() {};
 	virtual void OnUpdate() {};
 	virtual void OnRender(HDC hdc) {};

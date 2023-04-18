@@ -1,5 +1,7 @@
 #include "CPanel.h"
 #include "CResourceManager.h"
+#include "CInput.h"
+#include "CTransform.h"
 
 
 Panel::Panel(eUIType type)
@@ -29,13 +31,25 @@ void Panel::OnActive()
 	}
 }
 
+void Panel::UnActive()
+{
+	mbEnable = false;
+
+	for (UiBase* child : mChilds)
+	{
+		if (child == nullptr)
+			continue;
+
+		child->UnActive();
+	}
+}
+
 void Panel::OnInActive()
 {
 }
 
 void Panel::OnUpdate()
 {
-	
 }
 
 void Panel::OnRender(HDC hdc)

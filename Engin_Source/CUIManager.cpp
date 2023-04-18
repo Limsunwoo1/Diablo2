@@ -5,6 +5,7 @@
 #include "CGameObject.h"
 #include "CObject.h"
 #include "CCollider2D.h"
+#include "CInventoryPanel.h"
 
 UIManager::UIManager()
 	: mCurrentData(nullptr)
@@ -42,8 +43,8 @@ void UIManager::Initialize()
 		Push(L"mainPanel", mainPanelui);
 
 		///////////////////////////////////////////////////////////////////////////////
-		Panel* Inventory = new Panel(eUIType::Panel);
-		Object::Instantiate<Panel>(eLayerType::UI, eSceneType::Play, Inventory);
+		InventoryPanel* Inventory = new InventoryPanel();
+		Object::Instantiate<InventoryPanel>(eLayerType::UI, eSceneType::Play, Inventory);
 		Inventory->InitRenderer(L"InventoryMaterial", L"InventoryPanel", L"UI//invenpanel.png");
 		Inventory->Active();
 		Transform* InventoryTR = Inventory->GetComponent<Transform>();
