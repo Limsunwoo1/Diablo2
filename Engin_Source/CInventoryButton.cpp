@@ -33,6 +33,11 @@ void InventoryButton::Initalize()
 		mPoketSlot[i].resize(10);
 	}
 
+	mPoketSlot[0][0] = 1;
+	mPoketSlot[0][1] = 1;
+
+	mPoketSlot[1][0] = 1;
+	mPoketSlot[1][1] = 1;
 	Button::Initalize();
 
 	// test
@@ -51,8 +56,8 @@ void InventoryButton::Update()
 	if (GetPointToRect() > 0 && Input::GetInstance()->GetMouseItemPick() == true)
 	{
 		ItemBase* item = Input::GetInstance()->GetPickItem();
-		if (item)
-			Input::GetInstance()->SetPickItem(nullptr);
+		//if (item)
+		//	Input::GetInstance()->SetPickItem(nullptr);
 
 		Transform* itemTr = item->GetComponent<Transform>();
 		Vector3 ItemPos = itemTr->GetPosition();
@@ -69,8 +74,8 @@ void InventoryButton::Update()
 			int a = 0;
 			Input::GetInstance()->SetPickItem(item);
 		}
-		if (ItemPos.y - (ItemScale.y * 0.5f) > InvenPos.y - (InvenScale.y * 0.5f)
-			|| ItemPos.y + (ItemScale.y * 0.5f) < InvenPos.y + (InvenScale.y * 0.5f))
+		if (ItemPos.y - (ItemScale.y * 0.5f) < InvenPos.y - (InvenScale.y * 0.5f)
+			|| ItemPos.y + (ItemScale.y * 0.5f) > InvenPos.y + (InvenScale.y * 0.5f))
 		{
 			// 충돌 X
 			int a = 0;
@@ -83,6 +88,7 @@ void InventoryButton::Update()
 		float indexXx = (InvenPos.x - (InvenPos.x * 0.5f));
 		float indexYx = (InvenPos.y + (InvenPos.y * 0.5f));
 
+		// Y 축 조건 수정 해야함
 		Vector2 idx{ fabs(indexX) - fabs(indexXx) , fabs(indexY) - fabs(indexYx) };
 		Vector3 IndexPos = (ItemPos - (ItemScale * 0.5f)) - (InvenPos - (InvenScale * 0.5f));
 
@@ -91,6 +97,7 @@ void InventoryButton::Update()
 
 		int slotX = item->GetItemSlotSize().x;
 		int slotY = item->GetItemSlotSize().y;
+
 		for (int i = 0; i < slotX; ++i)
 		{
 			for (int j = 0; j < slotY; ++j)
@@ -118,6 +125,9 @@ void InventoryButton::Update()
 		ItemPos.y = (InvenPos.y + (InvenPos.y * 0.5f)) - idxX * mYSize;
 
 		itemTr->SetPosition(ItemPos);
+
+		Input::GetInstance()->SetMouseItemPick(false);
+
 	}
 
 	for (GameObject* item : mPoketItem)
