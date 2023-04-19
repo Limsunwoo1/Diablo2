@@ -141,12 +141,18 @@ void Editor::DebugRender(graphics::DebugMesh& mesh)
 
 	tr->FixedUpdate();
 
+	// 오브젝트의 종류에 따라 해당 카메라 세팅
 	Camera* camera = Renderer::mainCamera;
 	if (mesh.LayerType == (UINT)eLayerType::UI)
 		camera = Renderer::UiCamera;
 
+	// ui 가 렌더되지않을때 충돌체도 그려지지 않는다
 	if (mesh.LayerType == (UINT)eLayerType::UI && !mesh.renderAble)
 		return;
+
+	// 마우스가 버튼위에 올라갔을때 색변화
+	int i = mesh.uiState;
+	renderer->GetMaterial()->SetData(eGpuParam::Int, &i);
 
 	GpuCameraMatrix(camera);
 

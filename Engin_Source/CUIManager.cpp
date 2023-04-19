@@ -51,10 +51,10 @@ void UIManager::Initialize()
 		InventoryTR->SetPosition(Vector3(6.0f, 1.5f, 1.0f));
 		InventoryTR->SetScale(Vector3(6.f, 8.f, 0.f));
 
-		Collider2D* InventoryCollider = Inventory->AddComponent<Collider2D>();
+		/*Collider2D* InventoryCollider = Inventory->AddComponent<Collider2D>();
 		InventoryCollider->SetType(eColliderType::Rect);
 		InventoryCollider->SetOwner(Inventory);
-		InventoryCollider->Initalize();
+		InventoryCollider->Initalize();*/
 		Push(L"mainInventory", Inventory);
 
 		///////////////////////////////////////////////////////////////////////////////

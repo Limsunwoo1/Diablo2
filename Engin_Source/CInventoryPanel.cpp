@@ -1,6 +1,6 @@
 #include "CInventoryPanel.h"
-#include "CButton.h"
 #include "CObject.h"
+#include "CEquipmentButton.h"
 
 InventoryPanel::InventoryPanel()
 	: Panel(eUIType::Panel)
@@ -13,17 +13,124 @@ InventoryPanel::~InventoryPanel()
 
 void InventoryPanel::Initalize()
 {
-	Button* button = new  Button(eUIType::Button);
-	button->SetLayerType(eLayerType::UI);
-	button->Initalize();
+	// Inventory
+	{
+		EquipmentButton* button = new EquipmentButton(eEquipmentType::Inventory);
+		button->SetLayerType(eLayerType::UI);
+		button->Initalize();
 
-	Transform* buttonTr = button->GetComponent<Transform>();
-	buttonTr->SetPosition(Vector3(6.05f, -0.2f, 1.0f));
-	buttonTr->SetScale(Vector3(5.4f, 2.1f, 0.0f));
-	button->OnActive();
+		Transform* buttonTr = button->GetComponent<Transform>();
+		buttonTr->SetPosition(Vector3(6.05f, -0.3f, 1.0f));
+		buttonTr->SetScale(Vector3(5.4f, 2.1f, 0.0f));
+		button->OnActive();
+
+		SetChild(button);
+	}
+
+	// Shoes Item
+	{
+		EquipmentButton* button = new EquipmentButton(eEquipmentType::Shoes);
+		button->SetLayerType(eLayerType::UI);
+		button->Initalize();
 
 
-	SetChild(button);
+		Transform* buttonTr = button->GetComponent<Transform>();
+		buttonTr->SetPosition(Vector3(8.2f, 1.7f, 1.0f));
+		buttonTr->SetScale(Vector3(1.f, 1.0f, 0.0f));
+		button->OnActive();
+
+		SetChild(button);
+	}
+
+	// Gloves Item
+	{
+		EquipmentButton* button = new EquipmentButton(eEquipmentType::Glove);
+		button->SetLayerType(eLayerType::UI);
+		button->Initalize();
+
+
+		Transform* buttonTr = button->GetComponent<Transform>();
+		buttonTr->SetPosition(Vector3(3.9f, 1.7f, 1.0f));
+		buttonTr->SetScale(Vector3(1.f, 1.0f, 0.0f));
+		button->OnActive();
+
+		SetChild(button);
+	}
+
+	// belt Item
+	{
+		EquipmentButton* button = new EquipmentButton(eEquipmentType::Belt);
+		button->SetLayerType(eLayerType::UI);
+		button->Initalize();
+
+
+		Transform* buttonTr = button->GetComponent<Transform>();
+		buttonTr->SetPosition(Vector3(6.05f, 2.0f, 1.0f));
+		buttonTr->SetScale(Vector3(1.f, 0.5f, 0.0f));
+		button->OnActive();
+
+		SetChild(button);
+	}
+
+	// weapon1 Item
+	{
+		EquipmentButton* button = new EquipmentButton(eEquipmentType::Wepon1);
+		button->SetLayerType(eLayerType::UI);
+		button->Initalize();
+
+
+		Transform* buttonTr = button->GetComponent<Transform>();
+		buttonTr->SetPosition(Vector3(3.9f, 3.6f, 1.0f));
+		buttonTr->SetScale(Vector3(1.f, 2.0f, 0.0f));
+		button->OnActive();
+
+		SetChild(button);
+	}
+
+	// weapon2 Item
+	{
+		EquipmentButton* button = new EquipmentButton(eEquipmentType::Wepon2);
+		button->SetLayerType(eLayerType::UI);
+		button->Initalize();
+
+
+		Transform* buttonTr = button->GetComponent<Transform>();
+		buttonTr->SetPosition(Vector3(8.2f, 3.6f, 1.0f));
+		buttonTr->SetScale(Vector3(1.f, 2.0f, 0.0f));
+		button->OnActive();
+
+		SetChild(button);
+	}
+
+	// Suit Item
+	{
+		EquipmentButton* button = new EquipmentButton(eEquipmentType::Suit);
+		button->SetLayerType(eLayerType::UI);
+		button->Initalize();
+
+
+		Transform* buttonTr = button->GetComponent<Transform>();
+		buttonTr->SetPosition(Vector3(6.05f, 3.3f, 1.0f));
+		buttonTr->SetScale(Vector3(1.f, 1.5f, 0.0f));
+		button->OnActive();
+
+		SetChild(button);
+	}
+
+	// Cap Item
+	{
+		EquipmentButton* button = new  EquipmentButton(eEquipmentType::Cap);
+		button->SetLayerType(eLayerType::UI);
+		button->Initalize();
+
+
+		Transform* buttonTr = button->GetComponent<Transform>();
+		buttonTr->SetPosition(Vector3(6.05f, 4.9f, 1.0f));
+		buttonTr->SetScale(Vector3(1.f, 1.0f, 0.0f));
+		button->OnActive();
+
+		SetChild(button);
+	}
 }
 
 void InventoryPanel::Update()

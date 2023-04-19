@@ -9,7 +9,7 @@ public:
 
 	virtual void OnInit() override;
 	virtual void OnActive() override;
-	virtual void OnInActive() override;
+	virtual void UnActive() override;
 	virtual void OnUpdate() override;
 	virtual void OnRender(HDC hdc) override;
 	virtual void OnClear() override;

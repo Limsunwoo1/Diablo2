@@ -173,6 +173,7 @@
     <ClInclude Include="CEnddingScene.h" />
     <ClInclude Include="CEngine.h" />
     <ClInclude Include="CEnums.h" />
+    <ClInclude Include="CEquipmentButton.h" />
     <ClInclude Include="CFlames.h" />
     <ClInclude Include="CFrozenMissile.h" />
     <ClInclude Include="CFrozenOrb.h" />
@@ -251,6 +252,7 @@
     <ClCompile Include="CCreateCharacter.cpp" />
     <ClCompile Include="CDiabloMonster.cpp" />
     <ClCompile Include="CEnddingScene.cpp" />
+    <ClCompile Include="CEquipmentButton.cpp" />
     <ClCompile Include="CFadeRenderer.cpp" />
     <ClCompile Include="CFlames.cpp" />
     <ClCompile Include="CFrozenMissile.cpp" />

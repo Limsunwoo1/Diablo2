@@ -68,7 +68,9 @@ void Collider2D::FixedUpdate()
 
 	if (meshAttricbute.LayerType == (UINT)eLayerType::UI)
 	{
-		meshAttricbute.renderAble = dynamic_cast<UiBase*>(GetOwner())->GetIsAble();
+		UiBase* ui = dynamic_cast<UiBase*>(GetOwner());
+		meshAttricbute.renderAble = ui->GetIsAble();
+		meshAttricbute.uiState = ui->GetPointToRect();
 	}
 	else
 	{

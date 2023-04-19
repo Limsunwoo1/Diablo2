@@ -166,6 +166,7 @@ namespace graphics
 		float time;
 		UINT LayerType;
 		bool renderAble;
+		int uiState; // 0 false  1 true
 	};
 
 	struct LightAttribute

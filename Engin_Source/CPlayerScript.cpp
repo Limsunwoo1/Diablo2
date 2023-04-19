@@ -95,7 +95,7 @@ void PlayerScript::FixedUpdate()
 
 		if (able)
 		{
-			inventory->InActive();
+			inventory->UnActive();
 		}
 		else
 		{

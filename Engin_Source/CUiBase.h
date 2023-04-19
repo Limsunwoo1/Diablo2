@@ -66,6 +66,8 @@ public:
 	void SetParent(UiBase* parent) { mParent = parent; }
 
 	bool GetIsAble() { return mbEnable; }
+	int GetPointToRect() {return mbPointToButton;}
+	void SetPointToRect(int collision) { mbPointToButton = collision; }
 
 	virtual void OnActive() {};
 	virtual void UnActive() {};
@@ -84,6 +86,7 @@ protected:
 	std::vector<UiBase*> mChilds;
 
 	eUIType mType;
+	int mbPointToButton;
 	bool mbFullScreen;
 	bool mbEnable;
 };

@@ -8,6 +8,7 @@ UiBase::UiBase(eUIType type)
 	: mType(type)
 	, mbFullScreen(false)
 	, mbEnable(false)
+	, mbPointToButton(0)  // 0 false  1 true
 {
 
 }

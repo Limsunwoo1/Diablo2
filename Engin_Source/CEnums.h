@@ -98,6 +98,18 @@ enum class eUIType
 	End
 };
 
+enum class eEquipmentType : short
+{
+	Shoes,
+	Glove,
+	Belt,
+	Wepon1,
+	Wepon2,
+	Suit,
+	Cap,
+	Inventory,
+};
+
 //enum class eObjectReturnType
 //{
 //	Skil,
