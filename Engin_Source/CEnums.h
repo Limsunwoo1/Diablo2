@@ -107,7 +107,7 @@ enum class eEquipmentType : short
 	Wepon2,
 	Suit,
 	Cap,
-	Inventory,
+	Potion,
 };
 
 //enum class eObjectReturnType

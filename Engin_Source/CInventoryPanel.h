@@ -13,7 +13,9 @@ public:
 	virtual void Render() override;
 
 	virtual void InitAnimation() override;
-private:
 
+	virtual void OnActive() override;
+	virtual void UnActive() override;
+private:
 };
 

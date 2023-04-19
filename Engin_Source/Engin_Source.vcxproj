@@ -180,7 +180,9 @@
     <ClInclude Include="CGameObject.h" />
     <ClInclude Include="CGraphicDevice_DX11.h" />
     <ClInclude Include="CGridScript.h" />
+    <ClInclude Include="CInventoryButton.h" />
     <ClInclude Include="CInventoryPanel.h" />
+    <ClInclude Include="CItemBase.h" />
     <ClInclude Include="CLayer.h" />
     <ClInclude Include="CLight.h" />
     <ClInclude Include="CMesh.h" />
@@ -189,6 +191,7 @@
     <ClInclude Include="CMinosTauros.h" />
     <ClInclude Include="CMonster.h" />
     <ClInclude Include="CMinoMonsterScript.h" />
+    <ClInclude Include="CMouseManager.h" />
     <ClInclude Include="CObject.h" />
     <ClInclude Include="CCollider3D.h" />
     <ClInclude Include="CObjectManager.h" />
@@ -207,6 +210,7 @@
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CScript.h" />
     <ClInclude Include="CShader.h" />
+    <ClInclude Include="CShoesItem.h" />
     <ClInclude Include="CSkil.h" />
     <ClInclude Include="CFireTargetPin.h" />
     <ClInclude Include="CSpriteRenderer.h" />
@@ -262,7 +266,9 @@
     <ClCompile Include="CEntity.cpp" />
     <ClCompile Include="CGridScript.cpp" />
     <ClCompile Include="CInput.cpp" />
+    <ClCompile Include="CInventoryButton.cpp" />
     <ClCompile Include="CInventoryPanel.cpp" />
+    <ClCompile Include="CItemBase.cpp" />
     <ClCompile Include="CLayer.cpp" />
     <ClCompile Include="CLight.cpp" />
     <ClCompile Include="CMesh.cpp" />
@@ -272,6 +278,7 @@
     <ClCompile Include="CMinosTauros.cpp" />
     <ClCompile Include="CMonster.cpp" />
     <ClCompile Include="CMinoMonsterScript.cpp" />
+    <ClCompile Include="CMouseManager.cpp" />
     <ClCompile Include="CObjectManager.cpp" />
     <ClCompile Include="CPaintShader.cpp" />
     <ClCompile Include="CParticleShader.cpp" />
@@ -285,6 +292,7 @@
     <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CScript.cpp" />
     <ClCompile Include="CShader.cpp" />
+    <ClCompile Include="CShoesItem.cpp" />
     <ClCompile Include="CSkil.cpp" />
     <ClCompile Include="CFireTargetPin.cpp" />
     <ClCompile Include="CSpriteRenderer.cpp" />

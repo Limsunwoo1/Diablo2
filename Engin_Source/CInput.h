@@ -73,9 +73,16 @@ public:
 	{
 		return mKeys[static_cast<UINT>(key)].state == eKeyState::UP;
 	}
+
+	bool GetMouseItemPick() { return mbMouseItemPick; }
+	void SetMouseItemPick(bool able) { mbMouseItemPick = able; }
+
+	class ItemBase* GetPickItem() { return mPickItem; }
+	void SetPickItem(ItemBase* item) { mPickItem = item; }
 private:
 	std::vector<Key> mKeys;
 	Math::Vector2 mMousePos;
+
+	ItemBase* mPickItem;
+	bool mbMouseItemPick;
 };
-
-

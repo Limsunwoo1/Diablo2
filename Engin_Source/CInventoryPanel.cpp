@@ -1,6 +1,8 @@
 #include "CInventoryPanel.h"
 #include "CObject.h"
 #include "CEquipmentButton.h"
+#include "CInventoryButton.h"
+#include "CItemBase.h"
 
 InventoryPanel::InventoryPanel()
 	: Panel(eUIType::Panel)
@@ -15,7 +17,7 @@ void InventoryPanel::Initalize()
 {
 	// Inventory
 	{
-		EquipmentButton* button = new EquipmentButton(eEquipmentType::Inventory);
+		InventoryButton* button = new InventoryButton();
 		button->SetLayerType(eLayerType::UI);
 		button->Initalize();
 
@@ -150,4 +152,30 @@ void InventoryPanel::Render()
 
 void InventoryPanel::InitAnimation()
 {
+}
+
+void InventoryPanel::OnActive()
+{
+	mbEnable = true;
+
+	for (UiBase* child : mChilds)
+	{
+		if (child == nullptr)
+			continue;
+
+		child->Active();
+	}
+}
+
+void InventoryPanel::UnActive()
+{
+	mbEnable = false;
+
+	for (UiBase* child : mChilds)
+	{
+		if (child == nullptr)
+			continue;
+
+		child->UnActive();
+	}
 }

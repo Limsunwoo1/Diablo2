@@ -50,23 +50,7 @@ void Button::UnActive()
 
 void Button::OnUpdate()
 {
-	Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos(false);
-
-	Transform* tr = GetComponent<Transform>();
-	Vector3 colPos = tr->GetPosition();
-	Vector3 colScale = tr->GetScale();
-
-	if (mousePos.x > colPos.x + (colScale.x * 0.5f) || mousePos.x < colPos.x - (colScale.x * 0.5f))
-		return;
-	if (mousePos.y < colPos.y + (colScale.x * 0.5f) || mousePos.y > colPos.y - (colScale.y * 0.5f))
-		return;
-
-	std::cout << " 충돌 " << std::endl;
-
-	if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN) && mbMouseOn)
-	{
-		mOnClick();
-	}
+	
 }
 
 void Button::OnRender(HDC hdc)
@@ -111,7 +95,6 @@ void Button::Update()
 
 	// 충돌 0
 	SetPointToRect(1);
-	std::cout << " 충돌 " << count++ << std::endl;
 }
 
 void Button::FixedUpdate()

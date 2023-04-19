@@ -147,7 +147,15 @@ namespace Renderer
 		std::shared_ptr<Mesh> DebugMesh = std::make_shared<Mesh>();
 		ResourceManager::GetInstance()->Insert<Mesh>(L"DebugRectMesh", DebugMesh);
 		DebugMesh->CreateVertexBuffer(vertexes, 4);
-		DebugMesh->CreateIndexBuffer(indexs.data(), indexs.size());
+
+		std::vector<int> debugIndex;
+		debugIndex.push_back(0);
+		debugIndex.push_back(1);
+		debugIndex.push_back(2);
+		debugIndex.push_back(3);
+		debugIndex.push_back(0);
+
+		DebugMesh->CreateIndexBuffer(debugIndex.data(), debugIndex.size());
 #pragma endregion
 #pragma region CIRCLE MESH
 		// Circle Mesh

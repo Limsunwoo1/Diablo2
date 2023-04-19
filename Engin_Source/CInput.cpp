@@ -57,6 +57,9 @@ void Input::Initialize()
 
 		mKeys.push_back(key);
 	}
+
+	mbMouseItemPick = false;
+	mPickItem = nullptr;
 }
 
 void Input::Update()

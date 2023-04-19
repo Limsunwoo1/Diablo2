@@ -217,6 +217,12 @@
     <Filter Include="GameObject\UI\Panel">
       <UniqueIdentifier>{52ec18ee-20eb-4090-bac8-d8a72dee9c6c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\CItem">
+      <UniqueIdentifier>{53b28014-b5c9-442a-9d29-deb66c0961af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\MouseManager">
+      <UniqueIdentifier>{9681dd52-d001-4e39-8983-9ab29dc148dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -437,6 +443,18 @@
     </ClCompile>
     <ClCompile Include="CEquipmentButton.cpp">
       <Filter>GameObject\UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="CItemBase.cpp">
+      <Filter>GameObject\CItem</Filter>
+    </ClCompile>
+    <ClCompile Include="CInventoryButton.cpp">
+      <Filter>GameObject\UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="CMouseManager.cpp">
+      <Filter>Manager\MouseManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CShoesItem.cpp">
+      <Filter>GameObject\CItem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -676,6 +694,18 @@
     </ClInclude>
     <ClInclude Include="CEquipmentButton.h">
       <Filter>GameObject\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="CItemBase.h">
+      <Filter>GameObject\CItem</Filter>
+    </ClInclude>
+    <ClInclude Include="CInventoryButton.h">
+      <Filter>GameObject\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="CMouseManager.h">
+      <Filter>Manager\MouseManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CShoesItem.h">
+      <Filter>GameObject\CItem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
