@@ -27,6 +27,9 @@ public:
 
 	const wstring& GetItemName() { return mItemName; }
 	void SetItemName(const wstring& name) { mItemName = name; }
+
+	bool GetStage() { return mbStage; }
+	void SetStage(bool stage) { mbStage = stage; }
 private:
 	UINT mXSize;
 	UINT mYSize;
