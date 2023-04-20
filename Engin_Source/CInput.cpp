@@ -1,6 +1,8 @@
 #include "CInput.h"
 #include "CApplication.h"
 #include "CRenderer.h"
+#include "CTransform.h"
+#include "CItemBase.h"
 
 extern CApplication Application;
 
@@ -104,9 +106,21 @@ void Input::Update()
 	/*HWND hwnd = Application::GetInstance().GetWindowData().hWnd;
 	ScreenToClient(hwnd, &mousePos);*/
 
-
 	mMousePos.x = (float)mousePos.x;
 	mMousePos.y = (float)mousePos.y;
+
+	if (mPickItem != nullptr)
+	{
+		Transform* itemTr = mPickItem->GetComponent<Transform>();
+		Vector3 pos = itemTr->GetPosition();
+
+		Vector2 mouse = GetMouseWorldPos(false);
+
+		pos.x = mouse.x;
+		pos.y = mouse.y;
+
+		itemTr->SetPosition(pos);
+	}
 }
 
 void Input::Render(HDC hdc)

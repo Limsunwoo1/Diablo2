@@ -16,6 +16,8 @@ public:
 
 	virtual void Click() override;
 
+	bool CheckPoekySlot(int& x, int& y);
+
 private:
 	vector<vector<int>> mPoketSlot;
 	vector<class ItemBase*> mPoketItem;

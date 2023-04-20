@@ -1,5 +1,6 @@
 #include "CItemBase.h"
 #include "CInput.h"
+#include "CCollider2D.h"
 
 ItemBase::ItemBase(eEquipmentType type)
 	: GameObject()
@@ -42,7 +43,8 @@ void ItemBase::Update()
 	}
 	else if (Input::GetInstance()->GetKeyUp(eKeyCode::LBTN))
 	{
-		mbPick = false;
+		if(!Input::GetInstance()->GetMouseItemPick())
+			mbPick = false;
 	}
 
 	Input::GetInstance()->SetMouseItemPick(mbPick);
