@@ -1,7 +1,7 @@
 #pragma once
-#include "CButton.h"
+#include "CInventoryButton.h"
 
-class EquipmentButton : public Button
+class EquipmentButton : public InventoryButton
 {
 public:
 	EquipmentButton(eEquipmentType type);

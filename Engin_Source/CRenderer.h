@@ -117,6 +117,7 @@ namespace Renderer
 
 		UINT stage;
 		UINT drop;
+		UINT dropSlot;
 		UINT pick;
 
 	};

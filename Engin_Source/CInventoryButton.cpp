@@ -1,6 +1,7 @@
 #include "CInventoryButton.h"
 #include "CShoesItem.h"
 #include "CInput.h"
+#include "CSpriteRenderer.h"
 
 #define XSIZE 0.54f
 #define YSIZE 0.525f
@@ -187,6 +188,50 @@ void InventoryButton::Render()
 
 void InventoryButton::Click()
 {
+}
+
+void InventoryButton::OnActive()
+{
+	mbEnable = true;
+
+	for (UiBase* child : mChilds)
+	{
+		if (child == nullptr)
+			continue;
+
+		child->OnActive();
+	}
+
+	for (ItemBase* item : mPoketItem)
+	{
+		if (item == nullptr)
+			continue;
+
+		SpriteRenderer* sr = item->GetComponent<SpriteRenderer>();
+		sr->SetRenderStop(false);
+	}
+}
+
+void InventoryButton::UnActive()
+{
+	mbEnable = false;
+
+	for (UiBase* child : mChilds)
+	{
+		if (child == nullptr)
+			continue;
+
+		child->UnActive();
+	}
+
+	for (ItemBase* item : mPoketItem)
+	{
+		if (item == nullptr)
+			continue;
+
+		SpriteRenderer* sr = item->GetComponent<SpriteRenderer>();
+		sr->SetRenderStop(true);
+	}
 }
 
 bool InventoryButton::CheckPoekySlot(int& x, int& y)

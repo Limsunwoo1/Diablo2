@@ -46,5 +46,6 @@ private:
 	eEquipmentType mType;
 	bool mbStage;  // 0 world  1 poket
 	bool mbPick;
+	bool mbDrop;
 };
 

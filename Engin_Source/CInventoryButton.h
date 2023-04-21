@@ -15,6 +15,8 @@ public:
 	virtual void Render() override;
 
 	virtual void Click() override;
+	virtual void OnActive() override;
+	virtual void UnActive() override;
 
 	bool CheckPoekySlot(int& x, int& y);
 	void DropItem(class ItemBase* item);
@@ -29,9 +31,10 @@ public:
 
 	Vector2 GetIndex() { return Vector2(mXIndex, mYIndex); }
 
-private:
+protected:
 	vector<vector<int>> mPoketSlot;
 	vector<ItemBase*> mPoketItem;
+private:
 
 	bool mbDrop;
 

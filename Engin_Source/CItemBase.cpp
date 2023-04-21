@@ -9,6 +9,7 @@ ItemBase::ItemBase(eEquipmentType type)
 	, mYSize(0)
 	, mbStage(false)
 	, mbPick(false)
+	, mbDrop(false)
 	, mMaterial(nullptr)
 {
 }
@@ -68,6 +69,7 @@ void ItemBase::Render()
 	info.pick = mbPick;
 	info.stage = mbStage;
 	info.drop = mInventory->GetDrop();
+	info.dropSlot = mbDrop;
 
 	Vector4 color = Vector4::One;
 	if (info.pick)
@@ -78,7 +80,7 @@ void ItemBase::Render()
 		{
 			color *= Vector4(0.2f, 0.2f, 1.0f, 1.0f);
 		}
-		else
+		else if(!info.drop || !info.dropSlot)
 		{
 			color *= Vector4(1.0f, 0.2f, 0.2f, 1.0f);
 		}
