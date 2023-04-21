@@ -111,6 +111,15 @@ namespace Renderer
 		float expGauge;
 	};
 
+	CBUFFER(ItemDataCB, CBSLOT_ITEMDATA)
+	{
+		Vector4 canversColor;
+
+		UINT stage;
+		UINT drop;
+		UINT pick;
+
+	};
 	extern Vertex FadeInOut[4];
 	extern Vertex vertexes[4];
 	extern Vertex HalfAlpha[4];

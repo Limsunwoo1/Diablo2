@@ -21,6 +21,7 @@
 #define CBSLOT_PARTICLESYSTEM	7
 #define CBSLOT_NOISE			8
 #define CBSLOT_PLAYERDATA		9
+#define CBSLOT_ITEMDATA			10
 
 namespace graphics
 {
@@ -36,6 +37,7 @@ namespace graphics
 		ParticleSystem,
 		Noise,
 		PlayerData,
+		ItemData,
 		End,
 	};
 

@@ -286,6 +286,12 @@ namespace Renderer
 			, RungaugeShader->GetVSBlobBufferSize()
 			, RungaugeShader->GetInputLayoutAddressOf());
 
+		std::shared_ptr<Shader> ItemShader = ResourceManager::GetInstance()->Find<Shader>(L"ItemShader");
+		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, ItemShader->GetVSBlobBufferPointer()
+			, ItemShader->GetVSBlobBufferSize()
+			, ItemShader->GetInputLayoutAddressOf());
+
 #pragma endregion
 #pragma region Sampler State
 		// »ùÇÃ·¯Ãß°¡
@@ -444,6 +450,9 @@ namespace Renderer
 
 		constantBuffers[(UINT)eCBType::PlayerData] = new ConstantBuffer(eCBType::PlayerData);
 		constantBuffers[(UINT)eCBType::PlayerData]->Create(sizeof(PlayerDataCB));
+
+		constantBuffers[(UINT)eCBType::ItemData] = new ConstantBuffer(eCBType::ItemData);
+		constantBuffers[(UINT)eCBType::ItemData]->Create(sizeof(ItemDataCB));
 #pragma endregion
 #pragma region STRUCTED BUFER
 		// Structed buffer
@@ -472,6 +481,17 @@ namespace Renderer
 		spriteShader->SetBlend(eBlendType::AlphaBlend);
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"SpriteShader", spriteShader);
+#pragma endregion
+#pragma region Item SHADER
+		// Item
+		std::shared_ptr<Shader> ItemShader = std::make_shared<Shader>();
+		ItemShader->Create(eShaderStage::VS, L"ItemVS.hlsl", "main");
+		ItemShader->Create(eShaderStage::PS, L"ItemPS.hlsl", "main");
+		ItemShader->SetRasterize(eRasterizeType::SolidNone);
+		//spriteShader->SetDepthStencil(eDepthStencilType::NoWrite);
+		ItemShader->SetBlend(eBlendType::AlphaBlend);
+
+		ResourceManager::GetInstance()->Insert<Shader>(L"ItemShader", ItemShader);
 #pragma endregion
 #pragma region UI SHADER
 		// UI

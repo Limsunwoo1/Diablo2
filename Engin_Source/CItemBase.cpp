@@ -35,21 +35,26 @@ void ItemBase::Update()
 	if (mousePos.y > colPos.y + (colScale.x * 0.5f) || mousePos.y < colPos.y - (colScale.y * 0.5f))
 		return;
 
-	if (Input::GetInstance()->GetKeyPress(eKeyCode::LBTN))
+	if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN))
 	{
-		mbPick = true;
+		if (Input::GetInstance()->GetPickItem() == nullptr)
+		{
+			mbPick = true;
+			Input::GetInstance()->SetPickItem(this);
 
-		Input::GetInstance()->SetPickItem(this);
-	}
-	else if (Input::GetInstance()->GetKeyUp(eKeyCode::LBTN))
-	{
-		if(!Input::GetInstance()->GetMouseItemPick())
+			mInventory->ClearPocketSlot(this);
+		}
+		else if(mInventory->GetDrop())
+		{
 			mbPick = false;
+			Input::GetInstance()->SetPickItem(nullptr);
+			mInventory->DropItem(this);
+		}
 	}
 
 	Input::GetInstance()->SetMouseItemPick(mbPick);
-
-	int a = 0;
+	if (mbPick)
+		cout << mInventory->GetIndex().x << endl;
 }
 
 void ItemBase::FixedUpdate()
@@ -59,6 +64,32 @@ void ItemBase::FixedUpdate()
 
 void ItemBase::Render()
 {
+	Renderer::ItemDataCB info = {};
+	info.pick = mbPick;
+	info.stage = mbStage;
+	info.drop = mInventory->GetDrop();
+
+	Vector4 color = Vector4::One;
+	if (info.pick)
+	{
+		color.w = 0.5f;
+
+		if (info.drop)
+		{
+			color *= Vector4(0.2f, 0.2f, 1.0f, 1.0f);
+		}
+		else
+		{
+			color *= Vector4(1.0f, 0.2f, 0.2f, 1.0f);
+		}
+	}
+
+	info.canversColor = color;
+
+	ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::ItemData];
+	cb->SetData(&info);
+	cb->Bind(eShaderStage::ALL);
+
 	GameObject::Render();
 }
 

@@ -17,12 +17,25 @@ public:
 	virtual void Click() override;
 
 	bool CheckPoekySlot(int& x, int& y);
+	void DropItem(class ItemBase* item);
+
+	void AddItem(ItemBase* item);
+	bool DeleteItem(ItemBase* item);
+
+	bool GetDrop() { return mbDrop; }
+	void SetDrop(bool drop) { mbDrop = drop; }
+
+	void ClearPocketSlot(ItemBase* item);
+
+	Vector2 GetIndex() { return Vector2(mXIndex, mYIndex); }
 
 private:
 	vector<vector<int>> mPoketSlot;
-	vector<class ItemBase*> mPoketItem;
+	vector<ItemBase*> mPoketItem;
 
-	float mXSize;
-	float mYSize;
+	bool mbDrop;
+
+	int mXIndex;
+	int mYIndex;
 };
 

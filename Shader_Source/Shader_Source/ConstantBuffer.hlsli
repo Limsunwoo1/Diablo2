@@ -86,3 +86,12 @@ cbuffer PlayerData : register(b9)
     float expGauge;
 }
 
+cbuffer ItemData : register(b10)
+{
+    float4 canversColor;
+    
+    uint stage;
+    uint drop;
+    uint pick;
+}
+

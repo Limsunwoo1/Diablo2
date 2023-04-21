@@ -1,6 +1,7 @@
 #pragma once
 #include "CGameObject.h"
 #include "CMaterial.h"
+#include "CInventoryButton.h"
 
 
 class ItemBase : public GameObject
@@ -30,12 +31,15 @@ public:
 
 	bool GetStage() { return mbStage; }
 	void SetStage(bool stage) { mbStage = stage; }
+
+	void SetInventory(InventoryButton* inven) {	mInventory = inven; }
+	InventoryButton* GetInventory() { return mInventory; }
 private:
 	UINT mXSize;
 	UINT mYSize;
 
 	Material* mMaterial;
-	class Button* inventory;
+	class InventoryButton* mInventory;
 
 	wstring mItemName;
 
