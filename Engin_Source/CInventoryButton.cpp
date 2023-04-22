@@ -50,6 +50,10 @@ void InventoryButton::Initalize()
 
 		AddItem(item);
 
+		int x = 0;
+		int y = 0;
+
+		item->SetIndex(x, y);
 		mPoketSlot[0][0] = 1;
 		mPoketSlot[0][1] = 1;
 
@@ -66,7 +70,9 @@ void InventoryButton::Initalize()
 		Transform* tr = item->GetComponent<Transform>();
 		tr->SetScale(Vector3(size.x * XSIZE, size.y * YSIZE, 1.0f));
 		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (XSIZE * 1), mPos.y + (mScale.y * 0.5f) - (YSIZE * 3), 1.0f));
-
+		int x = 0;
+		int y = 2;
+		item->SetIndex(x, y);
 		AddItem(item);
 
 		mPoketSlot[2][0] = 1;
@@ -93,8 +99,11 @@ void InventoryButton::Update()
 	{
 		ItemBase* item = Input::GetInstance()->GetPickItem();
 
+
 		if (item == nullptr)
 			return;
+
+		ItemPushTop(item);
 
 		Transform* itemTr = item->GetComponent<Transform>();
 		Vector3 itemPos = itemTr->GetPosition();
@@ -110,6 +119,10 @@ void InventoryButton::Update()
 			&& InvenPos.y + (InvenScale.y * 0.5f) >= itemPos.y - (itemScale.y * 0.5f))
 		{
 			SetPointToRect(1);
+		}
+		else
+		{
+
 		}
 
 		// 아이템 드랍 가능한지 여부
@@ -154,8 +167,9 @@ void InventoryButton::Update()
 			{
 				mXIndex = X;
 				mYIndex = Y;
-			}
 
+				item->SetIndex(mXIndex, mYIndex);
+			}
 		}
 	}
 }
@@ -275,6 +289,7 @@ void InventoryButton::DropItem(ItemBase* item)
 		int SlotX = (int)SlotNum.x;
 		int SlotY = (int)SlotNum.y;
 
+		vector<pair<int, int>> index;
 		for (int i = 0; i < SlotX; ++i)
 		{
 			for (int j = 0; j < SlotY; ++j)
@@ -285,8 +300,16 @@ void InventoryButton::DropItem(ItemBase* item)
 				if (mXIndex + i >= mPoketSlot[mYIndex + j].size())
 					continue;
 
-				mPoketSlot[mYIndex + j][mXIndex + i] = 1;
+				//mPoketSlot[mYIndex + j][mXIndex + i] = 1;
+				index.emplace_back(make_pair(i, j));
+			}
+		}
 
+		if (index.size() == SlotX + SlotY)
+		{
+			for (int i = 0; i < index.size(); ++i)
+			{
+				mPoketSlot[mYIndex + index[i].second][mXIndex + index[i].first] = 1;
 			}
 		}
 
@@ -338,6 +361,20 @@ bool InventoryButton::DeleteItem(ItemBase* item)
 	return false;
 }
 
+void InventoryButton::ItemPushTop(ItemBase* item)
+{
+	vector<ItemBase*>::iterator iter;
+	for (iter = mPoketItem.begin(); iter != mPoketItem.end(); ++iter)
+	{
+		if (*iter == item)
+		{
+			mPoketItem.erase(iter);
+			mPoketItem.emplace_back(item);
+			return;
+		}
+	}
+}
+
 void InventoryButton::ClearPocketSlot(ItemBase* item)
 {
 	// 인벤토리 밖 월드에 드랍할때 인벤토리
@@ -345,62 +382,62 @@ void InventoryButton::ClearPocketSlot(ItemBase* item)
 	/*if (!DeleteItem(item))
 		return;*/
 
-	Transform* itemTr = item->GetComponent<Transform>();
-	Vector3 itemPos = itemTr->GetPosition();
-	Vector3 itemScale = itemTr->GetScale();
+	//Transform* itemTr = item->GetComponent<Transform>();
+	//Vector3 itemPos = itemTr->GetPosition();
+	//Vector3 itemScale = itemTr->GetScale();
 
-	Transform* InvenTr = this->GetComponent<Transform>();
-	Vector3 InvenPos = InvenTr->GetPosition();
-	Vector3 InvenScale = InvenTr->GetScale();
+	//Transform* InvenTr = this->GetComponent<Transform>();
+	//Vector3 InvenPos = InvenTr->GetPosition();
+	//Vector3 InvenScale = InvenTr->GetScale();
 
+
+	//Vector2 SlotNum = item->GetItemSlotSize();
+	//int SlotX = (int)SlotNum.x;
+	//int SlotY = (int)SlotNum.y;
+
+	//float itemX = (itemPos.x - (itemScale.x * 0.5f));
+	//float itemY = itemPos.y + (itemScale.y * 0.5f);
+
+	//float InvenX = (InvenPos.x - (InvenScale.x * 0.5f));
+	//float InvenY = (InvenPos.y + (InvenScale.y * 0.5f));
+
+	//Vector2 idx{ itemX - InvenX , InvenY - itemY };
+
+	//// X 인덱스
+	//int X = idx.x / XSIZE;
+
+	//// Y 인덱스
+	//int Y = -1;
+	//if (itemY <= InvenY - (YSIZE * 0) && itemY > InvenY - (YSIZE * 1))
+	//{
+	//	Y = 0;
+	//}
+	//else if (itemY <= InvenY - (YSIZE * 1) && itemY > InvenY - (YSIZE * 2))
+	//{
+	//	Y = 1;
+	//}
+	//else if (itemY <= InvenY - (YSIZE * 2) && itemY > InvenY - (YSIZE * 3))
+	//{
+	//	Y = 2;
+	//}
+	//else
+	//{
+	//	Y = 3;
+	//}
 
 	Vector2 SlotNum = item->GetItemSlotSize();
 	int SlotX = (int)SlotNum.x;
 	int SlotY = (int)SlotNum.y;
 
-	float itemX = (itemPos.x - (itemScale.x * 0.5f));
-	float itemY = itemPos.y + (itemScale.y * 0.5f);
-
-	float InvenX = (InvenPos.x - (InvenScale.x * 0.5f));
-	float InvenY = (InvenPos.y + (InvenScale.y * 0.5f));
-
-	Vector2 idx{ itemX - InvenX , InvenY - itemY };
-
-	// X 인덱스
-	int X = idx.x / XSIZE;
-
-	// Y 인덱스
-	int Y = -1;
-	if (itemY <= InvenY - (YSIZE * 0) && itemY > InvenY - (YSIZE * 1))
-	{
-		Y = 0;
-	}
-	else if (itemY <= InvenY - (YSIZE * 1) && itemY > InvenY - (YSIZE * 2))
-	{
-		Y = 1;
-	}
-	else if (itemY <= InvenY - (YSIZE * 2) && itemY > InvenY - (YSIZE * 3))
-	{
-		Y = 2;
-	}
-	else
-	{
-		Y = 3;
-	}
+	Vector2 Index = item->GetIndex();
+	int indexX = Index.x;
+	int indexY = Index.y;
 
 	for (int i = 0; i < SlotY; ++i)
 	{
 		for (int j = 0; j < SlotX; ++j)
 		{
-			if (X + j >= mPoketSlot[Y + i].size())
-				return;
-
-			if (Y + i >= mPoketSlot.size())
-				return;
-
-
-			mPoketSlot[Y + i][X + j] = 0;
-
+			mPoketSlot[indexY + i][indexX + j] = 0;
 		}
 	}
 }

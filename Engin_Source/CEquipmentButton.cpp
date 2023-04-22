@@ -53,10 +53,10 @@ void EquipmentButton::Update()
 			
 			if (item->GetItemType() == mType)
 			{
-				item->GetInventory()->DeleteItem(item);
+				/*item->GetInventory()->DeleteItem(item);
 
 				SetDrop(true);
-				AddItem(item);
+				AddItem(item);*/
 			}
 			else
 			{

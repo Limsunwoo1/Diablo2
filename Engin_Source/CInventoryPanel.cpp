@@ -23,9 +23,9 @@ void InventoryPanel::Initalize()
 		Transform* buttonTr = button->GetComponent<Transform>();
 		buttonTr->SetPosition(Vector3(6.05f, -0.3f, 1.0f));
 		buttonTr->SetScale(Vector3(5.4f, 2.1f, 0.0f));
-		button->OnActive();
-
 		button->Initalize();
+
+		button->OnActive();
 		SetChild(button);
 	}
 

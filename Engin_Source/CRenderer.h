@@ -117,9 +117,8 @@ namespace Renderer
 
 		UINT stage;
 		UINT drop;
-		UINT dropSlot;
 		UINT pick;
-
+		UINT NoneCanvers;
 	};
 	extern Vertex FadeInOut[4];
 	extern Vertex vertexes[4];

@@ -93,5 +93,6 @@ cbuffer ItemData : register(b10)
     uint stage;
     uint drop;
     uint pick;
+    uint noneCanvers;
 }
 

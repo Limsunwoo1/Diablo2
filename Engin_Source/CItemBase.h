@@ -34,9 +34,15 @@ public:
 
 	void SetInventory(InventoryButton* inven) {	mInventory = inven; }
 	InventoryButton* GetInventory() { return mInventory; }
+
+	Vector2 GetIndex() { return Vector2((float)mXIndex, (float)mYIndex); }
+	void SetIndex(int& x, int& y) { mXIndex = x, mYIndex = y; }
 private:
 	UINT mXSize;
 	UINT mYSize;
+
+	UINT mXIndex;
+	UINT mYIndex;
 
 	Material* mMaterial;
 	class InventoryButton* mInventory;

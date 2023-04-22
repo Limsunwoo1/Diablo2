@@ -46,7 +46,7 @@ void UIManager::Initialize()
 		InventoryPanel* Inventory = new InventoryPanel();
 		Object::Instantiate<InventoryPanel>(eLayerType::UI, eSceneType::Play, Inventory);
 		Inventory->InitRenderer(L"InventoryMaterial", L"InventoryPanel", L"UI//invenpanel.png");
-		Inventory->Active();
+		Inventory->UnActive();
 		Transform* InventoryTR = Inventory->GetComponent<Transform>();
 		InventoryTR->SetPosition(Vector3(6.0f, 1.5f, 1.0f));
 		InventoryTR->SetScale(Vector3(6.f, 8.f, 0.f));
