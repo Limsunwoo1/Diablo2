@@ -72,8 +72,6 @@ void Button::Initalize()
 
 void Button::Update()
 {
-	static int count = 0;
-
 	Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos(false);
 
 	Transform* tr = GetComponent<Transform>();

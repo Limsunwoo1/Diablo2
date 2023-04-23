@@ -1,6 +1,8 @@
 #include "CEquipmentButton.h"
 #include "CItemBase.h"
 #include "CInput.h"
+#include "CSpriteRenderer.h"
+#include "CResourceManager.h"
 
 EquipmentButton::EquipmentButton(eEquipmentType type)
 	: InventoryButton()
@@ -15,6 +17,17 @@ EquipmentButton::~EquipmentButton()
 void EquipmentButton::Initalize()
 {
 	Button::Initalize();
+
+	SpriteRenderer* sr = this->AddComponent<SpriteRenderer>();
+	std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+	std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"ItemSlotMaterial");
+	std::shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->
+		Load<Texture2D>(L"ItemSlot", L"UI//Title_01.png");
+
+	material->SetTexture(eTextureSlot::T0, tex);
+
+	sr->SetMesh(mesh);
+	sr->SetMaterial(material);
 }
 
 void EquipmentButton::Update()
@@ -75,7 +88,7 @@ void EquipmentButton::FixedUpdate()
 		if (item == nullptr)
 			continue;
 
-		item->Render();
+		item->FixedUpdate();
 	}
 }
 
@@ -88,7 +101,7 @@ void EquipmentButton::Render()
 		if (item == nullptr)
 			continue;
 
-		item->Update();
+		item->Render();
 	}
 }
 

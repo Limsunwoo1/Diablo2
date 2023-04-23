@@ -292,6 +292,12 @@ namespace Renderer
 			, ItemShader->GetVSBlobBufferSize()
 			, ItemShader->GetInputLayoutAddressOf());
 
+		std::shared_ptr<Shader> ItemSlotShader = ResourceManager::GetInstance()->Find<Shader>(L"ItemSlotShader");
+		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, ItemSlotShader->GetVSBlobBufferPointer()
+			, ItemSlotShader->GetVSBlobBufferSize()
+			, ItemSlotShader->GetInputLayoutAddressOf());
+
 #pragma endregion
 #pragma region Sampler State
 		// »ùÇÃ·¯Ãß°¡
@@ -492,6 +498,17 @@ namespace Renderer
 		ItemShader->SetBlend(eBlendType::AlphaBlend);
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"ItemShader", ItemShader);
+#pragma endregion
+#pragma region ItemSlot SHADER
+		// Item
+		std::shared_ptr<Shader> ItemSlotShader = std::make_shared<Shader>();
+		ItemSlotShader->Create(eShaderStage::VS, L"ItemVS.hlsl", "main");
+		ItemSlotShader->Create(eShaderStage::PS, L"ItemSlotPS.hlsl", "main");
+		ItemSlotShader->SetRasterize(eRasterizeType::SolidNone);
+		//spriteShader->SetDepthStencil(eDepthStencilType::NoWrite);
+		ItemSlotShader->SetBlend(eBlendType::AlphaBlend);
+
+		ResourceManager::GetInstance()->Insert<Shader>(L"ItemSlotShader", ItemSlotShader);
 #pragma endregion
 #pragma region UI SHADER
 		// UI
@@ -816,6 +833,13 @@ namespace Renderer
 		MinoMaterial ->SetRenderingMode(eRenderingMode::Transparent);
 		MinoMaterial ->SetShader(MinoShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"MinoMaterial", MinoMaterial);
+#pragma endregion
+#pragma region ItemSlot
+		std::shared_ptr<Shader> ItemSlotShader = ResourceManager::GetInstance()->Find<Shader>(L"ItemSlotShader");
+		std::shared_ptr<Material> ItemSlotMaterial = std::make_shared<Material>();
+		ItemSlotMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		ItemSlotMaterial->SetShader(ItemSlotShader);
+		ResourceManager::GetInstance()->Insert<Material>(L"ItemSlotMaterial", ItemSlotMaterial);
 #pragma endregion
 
 	}

@@ -6,6 +6,7 @@
 #include "CObject.h"
 #include "CCollider2D.h"
 #include "CInventoryPanel.h"
+#include "CEquipmentButton.h"
 
 UIManager::UIManager()
 	: mCurrentData(nullptr)
@@ -30,6 +31,16 @@ void UIManager::Initialize()
 {
 	// 여기에서 ui 메모리에 할당하면 된다.
 
+	{
+		EquipmentButton* test = new EquipmentButton(eEquipmentType::Cap);
+		Object::Instantiate<Panel>(eLayerType::UI, eSceneType::Play, test);
+		test->Active();
+		Transform* tr = test->GetComponent<Transform>();
+		tr->SetPosition(Vector3(1.0f, 1.0f, 1.0f));
+		tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
+
+		Push(L"test", test);
+	}
 	//mainPanelMaterial
 
 	{

@@ -53,8 +53,6 @@ void ItemBase::Update()
 	}
 
 	Input::GetInstance()->SetMouseItemPick(mbPick);
-	if (mbPick)
-		cout << mInventory->GetIndex().x << endl;
 }
 
 void ItemBase::FixedUpdate()

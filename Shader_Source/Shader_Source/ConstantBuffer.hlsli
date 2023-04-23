@@ -10,7 +10,10 @@ cbuffer MaterialData : register(b1)
     int cbiData;
     float cbfData;
     float2 cbxy;
+    
     float3 cbxyz;
+    float bitepadding;
+    
     float4 cbxyzw;
     matrix cbmat;
 }

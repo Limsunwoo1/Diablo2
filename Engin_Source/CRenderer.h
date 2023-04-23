@@ -36,7 +36,10 @@ namespace Renderer
 		int iData;
 		float fData;
 		Vector2 xy;
+
 		Vector3 xyz;
+		float bitepadding;
+
 		Vector4 xyzw;
 		Matrix matrix;
 	};
