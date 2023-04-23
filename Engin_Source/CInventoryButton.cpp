@@ -59,6 +59,8 @@ void InventoryButton::Initalize()
 
 		mPoketSlot[1][0] = 1;
 		mPoketSlot[1][1] = 1;
+
+		item->SetOnInventory(true);
 	}
 
 	// test
@@ -80,6 +82,8 @@ void InventoryButton::Initalize()
 
 		mPoketSlot[3][0] = 1;
 		mPoketSlot[3][1] = 1;
+
+		item->SetOnInventory(true);
 	}
 }
 

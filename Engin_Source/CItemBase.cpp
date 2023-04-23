@@ -86,12 +86,8 @@ void ItemBase::Render()
 			color *= Vector4(1.0f, 0.2f, 0.2f, 0.5f);
 		}
 	}
-
 	info.canversColor = color;
-
-	color = Vector4(0.0f, 0.0f, 0.0, 0.5f);
-	if(!mbOnInvnetory)
-		info.canversColor = color;
+	info.OnInventory = mbOnInvnetory;
 
 	ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::ItemData];
 	cb->SetData(&info);

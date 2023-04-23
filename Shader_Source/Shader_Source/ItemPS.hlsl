@@ -36,8 +36,16 @@ float4 main(VSOut In) : SV_Target
         color = defaultTexture.Sample(pointSampler, In.UV);
     }
     
+    if (!onInventory)
+    {
+        if (color.w != 0.0f)
+            color.w = 0.5f;
+        
+        return color;
+    }
+    
     if (color.w == 0.0f)
-    {   
+    {
         if (pick)
         {
             color = canversColor;

@@ -121,7 +121,7 @@ namespace Renderer
 		UINT stage;
 		UINT drop;
 		UINT pick;
-		UINT NoneCanvers;
+		UINT OnInventory;
 	};
 	extern Vertex FadeInOut[4];
 	extern Vertex vertexes[4];
