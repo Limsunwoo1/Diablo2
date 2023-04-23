@@ -19,7 +19,9 @@ public:
 	virtual void UnActive() override;
 
 	bool CheckPoekySlot(int& x, int& y);
-	void DropItem(class ItemBase* item);
+
+	virtual void DropItem(class ItemBase* item);
+	virtual void ClearPocketSlot(ItemBase* item);
 
 	void AddItem(ItemBase* item);
 	bool DeleteItem(ItemBase* item);
@@ -29,7 +31,6 @@ public:
 
 	void ItemPushTop(ItemBase* item);
 
-	void ClearPocketSlot(ItemBase* item);
 
 	Vector2 GetIndex() { return Vector2(mXIndex, mYIndex); }
 

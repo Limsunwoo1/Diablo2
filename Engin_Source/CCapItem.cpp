@@ -1,23 +1,23 @@
-#include "CShoesItem.h"
+#include "CCapItem.h"
 #include "CSpriteRenderer.h"
 #include "CResourceManager.h"
 
-ShoesItem::ShoesItem(const wstring& name)
-	: ItemBase(eEquipmentType::Shoes)
+CapItem::CapItem(const wstring& name)
+	: ItemBase(eEquipmentType::Cap)
 {
 	SetItemName(name);
 }
 
-ShoesItem::~ShoesItem()
+CapItem::~CapItem()
 {
 }
 
-void ShoesItem::Initalize()
+void CapItem::Initalize()
 {
 	SpriteRenderer* sr = AddComponent<SpriteRenderer>();
 	shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
 	shared_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"ItemShader");
-	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"ShoesItem", L"Item//Shoes.png");
+	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"CapItem", L"Item//Cap.png");
 	std::shared_ptr<Material> material = std::make_shared<Material>();
 	material->SetShader(shader);
 	material->SetTexture(eTextureSlot::T0, tex);

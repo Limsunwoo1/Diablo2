@@ -1,23 +1,23 @@
-#include "CShoesItem.h"
+#include "CGloveItem.h"
 #include "CSpriteRenderer.h"
 #include "CResourceManager.h"
 
-ShoesItem::ShoesItem(const wstring& name)
-	: ItemBase(eEquipmentType::Shoes)
+GloveItem::GloveItem(const wstring& name)
+	: ItemBase(eEquipmentType::Glove)
 {
 	SetItemName(name);
 }
 
-ShoesItem::~ShoesItem()
+GloveItem::~GloveItem()
 {
 }
 
-void ShoesItem::Initalize()
+void GloveItem::Initalize()
 {
 	SpriteRenderer* sr = AddComponent<SpriteRenderer>();
 	shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
 	shared_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"ItemShader");
-	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"ShoesItem", L"Item//Shoes.png");
+	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"GloveItem", L"Item//Glove.png");
 	std::shared_ptr<Material> material = std::make_shared<Material>();
 	material->SetShader(shader);
 	material->SetTexture(eTextureSlot::T0, tex);

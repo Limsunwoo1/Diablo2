@@ -80,7 +80,7 @@ void InventoryPanel::Initalize()
 
 	// weapon1 Item
 	{
-		EquipmentButton* button = new EquipmentButton(eEquipmentType::Wepon1);
+		EquipmentButton* button = new EquipmentButton(eEquipmentType::Wepon);
 		button->SetLayerType(eLayerType::UI);
 		button->Initalize();
 
@@ -96,7 +96,7 @@ void InventoryPanel::Initalize()
 
 	// weapon2 Item
 	{
-		EquipmentButton* button = new EquipmentButton(eEquipmentType::Wepon2);
+		EquipmentButton* button = new EquipmentButton(eEquipmentType::Wepon);
 		button->SetLayerType(eLayerType::UI);
 		button->Initalize();
 

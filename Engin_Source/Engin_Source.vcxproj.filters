@@ -223,6 +223,24 @@
     <Filter Include="Manager\MouseManager">
       <UniqueIdentifier>{9681dd52-d001-4e39-8983-9ab29dc148dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\CItem\Glove">
+      <UniqueIdentifier>{2cc35e6b-f18b-4a72-94f0-889080471b54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\CItem\Shoes">
+      <UniqueIdentifier>{084da0da-5be4-4554-8fb3-cbfd77eabc1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\CItem\Suit">
+      <UniqueIdentifier>{7f4b372b-d6db-445a-9824-353996869567}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\CItem\Velt">
+      <UniqueIdentifier>{85491fcc-9f2c-4419-838e-400c701bfe74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\CItem\Cap">
+      <UniqueIdentifier>{8e8ab04d-2e17-4445-82cc-ffad125a38b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\CItem\Wepon">
+      <UniqueIdentifier>{3e60f851-430a-4774-83a5-9b2a6ab35aa0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -453,8 +471,23 @@
     <ClCompile Include="CMouseManager.cpp">
       <Filter>Manager\MouseManager</Filter>
     </ClCompile>
+    <ClCompile Include="CCapItem.cpp">
+      <Filter>GameObject\CItem\Cap</Filter>
+    </ClCompile>
+    <ClCompile Include="CGloveItem.cpp">
+      <Filter>GameObject\CItem\Glove</Filter>
+    </ClCompile>
     <ClCompile Include="CShoesItem.cpp">
-      <Filter>GameObject\CItem</Filter>
+      <Filter>GameObject\CItem\Shoes</Filter>
+    </ClCompile>
+    <ClCompile Include="CSuitItem.cpp">
+      <Filter>GameObject\CItem\Suit</Filter>
+    </ClCompile>
+    <ClCompile Include="CBVeltItem.cpp">
+      <Filter>GameObject\CItem\Velt</Filter>
+    </ClCompile>
+    <ClCompile Include="CWeponItem.cpp">
+      <Filter>GameObject\CItem\Wepon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -704,8 +737,23 @@
     <ClInclude Include="CMouseManager.h">
       <Filter>Manager\MouseManager</Filter>
     </ClInclude>
+    <ClInclude Include="CCapItem.h">
+      <Filter>GameObject\CItem\Cap</Filter>
+    </ClInclude>
+    <ClInclude Include="CGloveItem.h">
+      <Filter>GameObject\CItem\Glove</Filter>
+    </ClInclude>
     <ClInclude Include="CShoesItem.h">
-      <Filter>GameObject\CItem</Filter>
+      <Filter>GameObject\CItem\Shoes</Filter>
+    </ClInclude>
+    <ClInclude Include="CSuitItem.h">
+      <Filter>GameObject\CItem\Suit</Filter>
+    </ClInclude>
+    <ClInclude Include="CBeltItem.h">
+      <Filter>GameObject\CItem\Velt</Filter>
+    </ClInclude>
+    <ClInclude Include="CWeponItem.h">
+      <Filter>GameObject\CItem\Wepon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,12 @@
 #include "CInventoryButton.h"
-#include "CShoesItem.h"
 #include "CInput.h"
 #include "CSpriteRenderer.h"
+#include "CShoesItem.h"
+#include "CGloveItem.h"
+#include "CBeltItem.h"
+#include "CSuitItem.h"
+#include "CCapItem.h"
+#include "CWeponItem.h"
 
 #define XSIZE 0.54f
 #define YSIZE 0.525f
@@ -65,7 +70,7 @@ void InventoryButton::Initalize()
 
 	// test
 	{
-		ShoesItem* item = new ShoesItem(L"SmileTexture");
+		GloveItem* item = new GloveItem(L"SmileTexture");
 		item->Initalize();
 
 		Vector2 size = item->GetItemSlotSize();
@@ -85,20 +90,145 @@ void InventoryButton::Initalize()
 
 		item->SetOnInventory(true);
 	}
+
+	{
+		SuitItem* item = new SuitItem(L"SmileTexture");
+		item->Initalize();
+
+		Vector2 size = item->GetItemSlotSize();
+		Transform* tr = item->GetComponent<Transform>();
+		tr->SetScale(Vector3(size.x * XSIZE, size.y * YSIZE, 1.0f));
+
+		int x = 2;
+		int y = 0;
+		float xSize = x + (size.x * 0.5f);
+		float ySize = y + (size.y * 0.5f);
+		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (XSIZE * xSize)
+			, mPos.y + (mScale.y * 0.5f) - (YSIZE *  ySize)
+			, 1.0f));
+
+		item->SetIndex(x, y);
+		AddItem(item);
+
+		mPoketSlot[0][2] = 1;
+		mPoketSlot[1][2] = 1;
+		mPoketSlot[2][2] = 1;
+
+		mPoketSlot[0][3] = 1;
+		mPoketSlot[1][3] = 1;
+		mPoketSlot[2][3] = 1;
+
+		item->SetOnInventory(true);
+	}
+
+	{
+		BeltItem* item = new BeltItem(L"SmileTexture");
+		item->Initalize();
+
+		Vector2 size = item->GetItemSlotSize();
+		Transform* tr = item->GetComponent<Transform>();
+		tr->SetScale(Vector3(size.x * XSIZE, size.y * YSIZE, 1.0f));
+	
+		int x = 4;
+		int y = 0;
+		float xSize = x + (size.x * 0.5f);
+		float ySize = y + (size.y * 0.5f);
+		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (XSIZE * xSize)
+			, mPos.y + (mScale.y * 0.5f) - (YSIZE *  ySize)
+			, 1.0f));
+
+		item->SetIndex(x, y);
+		AddItem(item);
+
+		mPoketSlot[0][4] = 1;
+		mPoketSlot[0][5] = 1;
+
+		item->SetOnInventory(true);
+	}
+
+	{
+		CapItem* item = new CapItem(L"SmileTexture");
+		item->Initalize();
+
+		Vector2 size = item->GetItemSlotSize();
+		Transform* tr = item->GetComponent<Transform>();
+		tr->SetScale(Vector3(size.x * XSIZE, size.y * YSIZE, 1.0f));
+
+		int x = 4;
+		int y = 2;
+		float xSize = x + (size.x * 0.5f);
+		float ySize = y + (size.y * 0.5f);
+		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (XSIZE * xSize)
+			, mPos.y + (mScale.y * 0.5f) - (YSIZE * ySize)
+			, 1.0f));
+
+		item->SetIndex(x, y);
+		AddItem(item);
+
+		mPoketSlot[2][4] = 1;
+		mPoketSlot[2][5] = 1;
+
+		mPoketSlot[3][4] = 1;
+		mPoketSlot[3][5] = 1;
+
+		item->SetOnInventory(true);
+	}
+
+	{
+		WeponItem* item = new WeponItem(L"SmileTexture");
+		item->Initalize();
+
+		Vector2 size = item->GetItemSlotSize();
+		Transform* tr = item->GetComponent<Transform>();
+		tr->SetScale(Vector3(size.x * XSIZE, size.y * YSIZE, 1.0f));
+
+		int x = 6;
+		int y = 0;
+		float xSize = x + (size.x * 0.5f);
+		float ySize = y + (size.y * 0.5f);
+		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (XSIZE * xSize)
+			, mPos.y + (mScale.y * 0.5f) - (YSIZE * ySize)
+			, 1.0f));
+
+		item->SetIndex(x, y);
+		AddItem(item);
+
+		mPoketSlot[0][6] = 1;
+		mPoketSlot[1][6] = 1;
+		mPoketSlot[2][6] = 1;
+
+		item->SetOnInventory(true);
+	}
+
+	{
+		WeponItem* item = new WeponItem(L"SmileTexture");
+		item->Initalize();
+
+		Vector2 size = item->GetItemSlotSize();
+		Transform* tr = item->GetComponent<Transform>();
+		tr->SetScale(Vector3(size.x * XSIZE, size.y * YSIZE, 1.0f));
+
+		int x = 7;
+		int y = 0;
+		float xSize = x + (size.x * 0.5f);
+		float ySize = y + (size.y * 0.5f);
+		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (XSIZE * xSize)
+			, mPos.y + (mScale.y * 0.5f) - (YSIZE * ySize)
+			, 1.0f));
+
+		item->SetIndex(x, y);
+		AddItem(item);
+
+		mPoketSlot[0][7] = 1;
+		mPoketSlot[1][7] = 1;
+		mPoketSlot[2][7] = 1;
+
+		item->SetOnInventory(true);
+	}
 }
 
 void InventoryButton::Update()
 {
-	Button::Update();
-
-	for (GameObject* item : mPoketItem)
-	{
-		if (item == nullptr)
-			continue;
-
-		item->Update();
-	}
-
 	if (/*GetPointToRect() > 0 && */Input::GetInstance()->GetMouseItemPick() == true)
 	{
 		ItemBase* item = Input::GetInstance()->GetPickItem();
@@ -175,7 +305,18 @@ void InventoryButton::Update()
 
 				item->SetIndex(mXIndex, mYIndex);
 			}
+			item->SetDrop(mbDrop);
 		}
+	}
+
+	Button::Update();
+
+	for (GameObject* item : mPoketItem)
+	{
+		if (item == nullptr)
+			continue;
+
+		item->Update();
 	}
 }
 
@@ -295,22 +436,22 @@ void InventoryButton::DropItem(ItemBase* item)
 		int SlotY = (int)SlotNum.y;
 
 		vector<pair<int, int>> index;
-		for (int i = 0; i < SlotX; ++i)
+		for (int i = 0; i < SlotY; ++i)
 		{
-			for (int j = 0; j < SlotY; ++j)
+			for (int j = 0; j < SlotX; ++j)
 			{
-				if (mYIndex + j >= mPoketSlot.size())
+				if (mYIndex + i >= mPoketSlot.size())
 					continue;
 
-				if (mXIndex + i >= mPoketSlot[mYIndex + j].size())
+				if (mXIndex + j >= mPoketSlot[mYIndex + i].size())
 					continue;
 
 				//mPoketSlot[mYIndex + j][mXIndex + i] = 1;
-				index.emplace_back(make_pair(i, j));
+				index.emplace_back(make_pair(j, i));
 			}
 		}
 
-		if (index.size() == SlotX + SlotY)
+		if (index.size() == SlotX * SlotY)
 		{
 			for (int i = 0; i < index.size(); ++i)
 			{
@@ -319,6 +460,10 @@ void InventoryButton::DropItem(ItemBase* item)
 		}
 
 		SetDrop(false);
+		item->SetOnInventory(true);
+		item->SetPick(false);
+		item->SetDrop(false);
+		item->SetSlotInventory(nullptr);
 	}
 
 	Transform* ItemTr = item->GetComponent<Transform>();

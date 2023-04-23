@@ -14,10 +14,17 @@ public:
 
 	virtual void Click() override;
 
+	virtual void DropItem(class ItemBase* item) override;
+	virtual void ClearPocketSlot(ItemBase* item) override;
+
 	eEquipmentType GetEquipmentType() { return mType; }
 	void SetEquipmentType(eEquipmentType type) { mType = type; }
 
+	void SetItem(ItemBase* item) { mItem = item; }
+	ItemBase* GetItem() { return mItem; }
+
 private:
+	ItemBase* mItem;
 	eEquipmentType mType;
 	bool mbDrop;
 	bool mbOnRender;

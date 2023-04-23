@@ -32,11 +32,20 @@ public:
 	bool GetStage() { return mbStage; }
 	void SetStage(bool stage) { mbStage = stage; }
 
+	bool GetDrop() { return mbDrop; }
+	void SetDrop(bool drop) { mbDrop = drop; }
+
+	bool GetPick() { return mbPick; }
+	void SetPick(bool pick) { mbPick = pick; }
+
 	bool GetOnInventory() { return mbOnInvnetory; }
 	void SetOnInventory(bool inven) { mbOnInvnetory = inven; }
 
 	void SetInventory(InventoryButton* inven) {	mInventory = inven; }
 	InventoryButton* GetInventory() { return mInventory; }
+
+	void SetSlotInventory(InventoryButton* inven) { mSlotInventory = inven; }
+	InventoryButton* GetSlotInventory() { return mSlotInventory; }
 
 	Vector2 GetIndex() { return Vector2((float)mXIndex, (float)mYIndex); }
 	void SetIndex(int& x, int& y) { mXIndex = x, mYIndex = y; }
@@ -48,7 +57,8 @@ private:
 	UINT mYIndex;
 
 	Material* mMaterial;
-	class InventoryButton* mInventory;
+	InventoryButton* mInventory;
+	InventoryButton* mSlotInventory;
 
 	wstring mItemName;
 

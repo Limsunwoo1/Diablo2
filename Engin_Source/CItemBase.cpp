@@ -43,13 +43,20 @@ void ItemBase::Update()
 			mbPick = true;
 			Input::GetInstance()->SetPickItem(this);
 
-			mInventory->ClearPocketSlot(this);
+			if (mSlotInventory == nullptr)
+				mInventory->ClearPocketSlot(this);
+			else
+				mSlotInventory->ClearPocketSlot(this);
 		}
-		else if(mInventory->GetDrop())
+		else if(mbDrop)
 		{
 			mbPick = false;
 			Input::GetInstance()->SetPickItem(nullptr);
-			mInventory->DropItem(this);
+
+			if (mSlotInventory == nullptr)
+				mInventory->DropItem(this);
+			else
+				mSlotInventory->DropItem(this);
 		}
 	}
 
@@ -64,6 +71,7 @@ void ItemBase::FixedUpdate()
 void ItemBase::Render()
 {
 	Renderer::ItemDataCB info = {};
+	Renderer::ItemDataCB* clear = nullptr;
 	info.pick = mbPick;
 	info.stage = mbStage;
 	if (mInventory)

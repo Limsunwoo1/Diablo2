@@ -162,6 +162,7 @@
     <ClInclude Include="CBaseRenderer.h" />
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CCameraScript.h" />
+    <ClInclude Include="CCapItem.h" />
     <ClInclude Include="CCharacterSelect.h" />
     <ClInclude Include="CCollider2D.h" />
     <ClInclude Include="CCollisionManager.h" />
@@ -178,6 +179,7 @@
     <ClInclude Include="CFrozenMissile.h" />
     <ClInclude Include="CFrozenOrb.h" />
     <ClInclude Include="CGameObject.h" />
+    <ClInclude Include="CGloveItem.h" />
     <ClInclude Include="CGraphicDevice_DX11.h" />
     <ClInclude Include="CGridScript.h" />
     <ClInclude Include="CInventoryButton.h" />
@@ -215,12 +217,15 @@
     <ClInclude Include="CFireTargetPin.h" />
     <ClInclude Include="CSpriteRenderer.h" />
     <ClInclude Include="CStructedBuffer.h" />
+    <ClInclude Include="CSuitItem.h" />
     <ClInclude Include="CTelePort.h" />
     <ClInclude Include="CTexture2D.h" />
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CTileObject.h" />
     <ClInclude Include="CTitleScene.h" />
     <ClInclude Include="CTransform.h" />
+    <ClInclude Include="CBeltItem.h" />
+    <ClInclude Include="CWeponItem.h" />
     <ClInclude Include="CWorldManager.h" />
     <ClInclude Include="def.h" />
     <ClInclude Include="CFadeRenderer.h" />
@@ -247,6 +252,7 @@
     <ClCompile Include="CBaseRenderer.cpp" />
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CCameraScript.cpp" />
+    <ClCompile Include="CCapItem.cpp" />
     <ClCompile Include="CCharacterSelect.cpp" />
     <ClCompile Include="CCollider2D.cpp" />
     <ClCompile Include="CCollisionManager.cpp" />
@@ -262,6 +268,7 @@
     <ClCompile Include="CFrozenMissile.cpp" />
     <ClCompile Include="CFrozenOrb.cpp" />
     <ClCompile Include="CGameObject.cpp" />
+    <ClCompile Include="CGloveItem.cpp" />
     <ClCompile Include="CGraphicDevice_DX11.cpp" />
     <ClCompile Include="CEntity.cpp" />
     <ClCompile Include="CGridScript.cpp" />
@@ -297,12 +304,15 @@
     <ClCompile Include="CFireTargetPin.cpp" />
     <ClCompile Include="CSpriteRenderer.cpp" />
     <ClCompile Include="CStructedBuffer.cpp" />
+    <ClCompile Include="CSuitItem.cpp" />
     <ClCompile Include="CTelePort.cpp" />
     <ClCompile Include="CTexture2D.cpp" />
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTileObject.cpp" />
     <ClCompile Include="CTitleScene.cpp" />
     <ClCompile Include="CTransform.cpp" />
+    <ClCompile Include="CBVeltItem.cpp" />
+    <ClCompile Include="CWeponItem.cpp" />
     <ClCompile Include="CWorldManager.cpp" />
     <ClCompile Include="CGenericAnimator.cpp" />
     <ClCompile Include="CHUD.cpp" />

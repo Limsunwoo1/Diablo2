@@ -37,14 +37,6 @@ void EquipmentButton::Update()
 {
 	Button::Update();
 
-	for (GameObject* item : mPoketItem)
-	{
-		if (item == nullptr)
-			continue;
-
-		item->Update();
-	}
-
 	if (Input::GetInstance()->GetMouseItemPick())
 	{
 		ItemBase* item = Input::GetInstance()->GetPickItem();
@@ -66,66 +58,80 @@ void EquipmentButton::Update()
 			&& InvenPos.y + (InvenScale.y * 0.5f) >= itemPos.y)
 		{
 			SetPointToRect(1);
-			
+
 			mbOnRender = true;
 			if (item->GetItemType() == mType)
 			{
-				/*item->GetInventory()->DeleteItem(item);
-
-				SetDrop(true);
-				AddItem(item);*/
+				mItem = item;
 				mbDrop = true;
+				item->SetSlotInventory(this);
+				item->SetDrop(mbDrop);
 			}
 			else
 			{
+				mItem = nullptr;
 				mbDrop = false;
+				item->SetSlotInventory(nullptr);
+				item->SetDrop(mbDrop);
 			}
 		}
 		else
 		{
 			mbOnRender = false;
+
+			if (item == mItem && item->GetSlotInventory() == this)
+			{
+				mItem == nullptr;
+				item->SetSlotInventory(nullptr);
+				item->SetDrop(mbDrop);
+			}
 		}
+	}
+	else
+	{
+		mbOnRender = false;
 	}
 }
 
 void EquipmentButton::FixedUpdate()
 {
 	Button::FixedUpdate();
-
-	for (GameObject* item : mPoketItem)
-	{
-		if (item == nullptr)
-			continue;
-
-		item->FixedUpdate();
-	}
 }
 
 void EquipmentButton::Render()
 {
 	SpriteRenderer* sr = GetComponent<SpriteRenderer>();
 	Vector4 color = Vector4(1.0f, 0.0f, 0.0f, 0.3f);
-	if(mbDrop)
+	if (mbDrop)
 		color = Vector4(0.0f, 1.0f, 0.0f, 0.3f);
 	else
 		color = Vector4(1.0f, 0.0f, 0.0f, 0.3f);
 
-	if(!mbOnRender)
+	if (!mbOnRender)
 		color = Vector4(0.0f, 0.0f, 0.0f, 0.0f);
 
 	sr->GetMaterial()->SetData(eGpuParam::Vector4, &color);
 
 	Button::Render();
-
-	for (GameObject* item : mPoketItem)
-	{
-		if (item == nullptr)
-			continue;
-
-		item->Render();
-	}
 }
 
 void EquipmentButton::Click()
 {
+}
+
+void EquipmentButton::DropItem(ItemBase* item)
+{
+	Transform* tr = GetComponent<Transform>();
+	Vector3 pos = tr->GetPosition();
+
+	Transform* itemTr = item->GetComponent<Transform>();
+	itemTr->SetPosition(pos);
+
+	item->SetOnInventory(true);
+	item->SetPick(false);
+}
+
+void EquipmentButton::ClearPocketSlot(ItemBase* item)
+{
+	item->SetSlotInventory(nullptr);
 }
