@@ -281,9 +281,9 @@ void InventoryButton::Update()
 			&& InvenPos.y - (InvenScale.y * 0.5f) <= itemPos.y + (itemScale.y * 0.5f)
 			&& InvenPos.y + (InvenScale.y * 0.5f) >= itemPos.y + (itemScale.y * 0.5f))
 		{
-			float itemX = (itemPos.x - (itemScale.x * 0.5f));
-			float itemY = itemPos.y + (itemScale.y * 0.5f);
-
+			float itemX = (itemPos.x - (itemScale.x * 0.5f)) + XSIZE * 0.25f; // LeftTop에서 타일 한칸에 절반만큼
+			float itemY = (itemPos.y + (itemScale.y * 0.5f)) - YSIZE * 0.5f;  // 위치부터 인덱스를 체크 한다
+																			  // 편의성 상승 효과		
 			float InvenX = (InvenPos.x - (InvenScale.x * 0.5f));
 			float InvenY = (InvenPos.y + (InvenScale.y * 0.5f));
 
