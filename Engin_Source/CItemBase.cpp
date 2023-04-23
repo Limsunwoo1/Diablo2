@@ -9,6 +9,7 @@ ItemBase::ItemBase(eEquipmentType type)
 	, mYSize(0)
 	, mbStage(false)
 	, mbPick(false)
+	, mbOnInvnetory(false)
 	, mMaterial(nullptr)
 {
 }
@@ -65,7 +66,11 @@ void ItemBase::Render()
 	Renderer::ItemDataCB info = {};
 	info.pick = mbPick;
 	info.stage = mbStage;
-	info.drop = mInventory->GetDrop();
+	if (mInventory)
+		info.drop = mInventory->GetDrop();
+	else
+		info.drop = false;
+	
 
 	Vector4 color = Vector4::One;
 	if (info.pick)
@@ -83,6 +88,10 @@ void ItemBase::Render()
 	}
 
 	info.canversColor = color;
+
+	color = Vector4(0.0f, 0.0f, 0.0, 0.5f);
+	if(!mbOnInvnetory)
+		info.canversColor = color;
 
 	ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::ItemData];
 	cb->SetData(&info);

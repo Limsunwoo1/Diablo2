@@ -3,10 +3,13 @@
 #include "CInput.h"
 #include "CSpriteRenderer.h"
 #include "CResourceManager.h"
+#include "CShoesItem.h"
 
 EquipmentButton::EquipmentButton(eEquipmentType type)
 	: InventoryButton()
 	, mType(type)
+	, mbDrop(false)
+	, mbOnRender(false)
 {
 }
 
@@ -22,7 +25,7 @@ void EquipmentButton::Initalize()
 	std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
 	std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"ItemSlotMaterial");
 	std::shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->
-		Load<Texture2D>(L"ItemSlot", L"UI//Title_01.png");
+		Load<Texture2D>(L"ItemSlot", L"UI//NoneCanvers.png");
 
 	material->SetTexture(eTextureSlot::T0, tex);
 
@@ -57,24 +60,30 @@ void EquipmentButton::Update()
 		Vector3 InvenPos = InvenTr->GetPosition();
 		Vector3 InvenScale = InvenTr->GetScale();
 
-		if (InvenPos.x - (InvenScale.x * 0.5f) <= itemPos.x + (itemScale.x * 0.5f)
-			&& InvenPos.x + (InvenScale.x * 0.5f) >= itemPos.x - (itemScale.x * 0.5f)
-			&& InvenPos.y - (InvenScale.y * 0.5f) <= itemPos.y + (itemScale.y * 0.5f)
-			&& InvenPos.y + (InvenScale.y * 0.5f) >= itemPos.y - (itemScale.y * 0.5f))
+		if (InvenPos.x - (InvenScale.x * 0.5f) <= itemPos.x
+			&& InvenPos.x + (InvenScale.x * 0.5f) >= itemPos.x
+			&& InvenPos.y - (InvenScale.y * 0.5f) <= itemPos.y
+			&& InvenPos.y + (InvenScale.y * 0.5f) >= itemPos.y)
 		{
 			SetPointToRect(1);
 			
+			mbOnRender = true;
 			if (item->GetItemType() == mType)
 			{
 				/*item->GetInventory()->DeleteItem(item);
 
 				SetDrop(true);
 				AddItem(item);*/
+				mbDrop = true;
 			}
 			else
 			{
-				
+				mbDrop = false;
 			}
+		}
+		else
+		{
+			mbOnRender = false;
 		}
 	}
 }
@@ -94,6 +103,18 @@ void EquipmentButton::FixedUpdate()
 
 void EquipmentButton::Render()
 {
+	SpriteRenderer* sr = GetComponent<SpriteRenderer>();
+	Vector4 color = Vector4(1.0f, 0.0f, 0.0f, 0.3f);
+	if(mbDrop)
+		color = Vector4(0.0f, 1.0f, 0.0f, 0.3f);
+	else
+		color = Vector4(1.0f, 0.0f, 0.0f, 0.3f);
+
+	if(!mbOnRender)
+		color = Vector4(0.0f, 0.0f, 0.0f, 0.0f);
+
+	sr->GetMaterial()->SetData(eGpuParam::Vector4, &color);
+
 	Button::Render();
 
 	for (GameObject* item : mPoketItem)

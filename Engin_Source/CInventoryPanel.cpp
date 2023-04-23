@@ -27,6 +27,7 @@ void InventoryPanel::Initalize()
 
 		button->OnActive();
 		SetChild(button);
+		button->SetParent(nullptr);
 	}
 
 	// Shoes Item
@@ -37,11 +38,12 @@ void InventoryPanel::Initalize()
 
 
 		Transform* buttonTr = button->GetComponent<Transform>();
-		buttonTr->SetPosition(Vector3(8.2f, 1.7f, 1.0f));
+		buttonTr->SetPosition(Vector3(8.2f, 1.7f, 0.5f));
 		buttonTr->SetScale(Vector3(1.f, 1.0f, 0.0f));
 		button->OnActive();
 
 		SetChild(button);
+		button->SetParent(nullptr);
 	}
 
 	// Gloves Item
@@ -57,6 +59,7 @@ void InventoryPanel::Initalize()
 		button->OnActive();
 
 		SetChild(button);
+		button->SetParent(nullptr);
 	}
 
 	// belt Item
@@ -72,6 +75,7 @@ void InventoryPanel::Initalize()
 		button->OnActive();
 
 		SetChild(button);
+		button->SetParent(nullptr);
 	}
 
 	// weapon1 Item
@@ -87,6 +91,7 @@ void InventoryPanel::Initalize()
 		button->OnActive();
 
 		SetChild(button);
+		button->SetParent(nullptr);
 	}
 
 	// weapon2 Item
@@ -102,6 +107,7 @@ void InventoryPanel::Initalize()
 		button->OnActive();
 
 		SetChild(button);
+		button->SetParent(nullptr);
 	}
 
 	// Suit Item
@@ -117,6 +123,7 @@ void InventoryPanel::Initalize()
 		button->OnActive();
 
 		SetChild(button);
+		button->SetParent(nullptr);
 	}
 
 	// Cap Item
@@ -132,6 +139,7 @@ void InventoryPanel::Initalize()
 		button->OnActive();
 
 		SetChild(button);
+		button->SetParent(nullptr);
 	}
 }
 

@@ -19,4 +19,6 @@ public:
 
 private:
 	eEquipmentType mType;
+	bool mbDrop;
+	bool mbOnRender;
 };

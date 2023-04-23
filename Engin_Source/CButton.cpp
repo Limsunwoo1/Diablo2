@@ -102,7 +102,7 @@ void Button::FixedUpdate()
 
 void Button::Render()
 {
-	UiBase::Render();
+	GameObject::Render();
 }
 
 void Button::InitAnimation()

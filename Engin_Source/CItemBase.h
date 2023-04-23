@@ -32,6 +32,9 @@ public:
 	bool GetStage() { return mbStage; }
 	void SetStage(bool stage) { mbStage = stage; }
 
+	bool GetOnInventory() { return mbOnInvnetory; }
+	void SetOnInventory(bool inven) { mbOnInvnetory = inven; }
+
 	void SetInventory(InventoryButton* inven) {	mInventory = inven; }
 	InventoryButton* GetInventory() { return mInventory; }
 
@@ -53,5 +56,6 @@ private:
 	bool mbStage;  // 0 world  1 poket
 	bool mbPick;
 	bool mbDrop;
+	bool mbOnInvnetory;
 };
 

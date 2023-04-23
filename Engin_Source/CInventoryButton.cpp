@@ -119,10 +119,11 @@ void InventoryButton::Update()
 			&& InvenPos.y + (InvenScale.y * 0.5f) >= itemPos.y - (itemScale.y * 0.5f))
 		{
 			SetPointToRect(1);
+			item->SetOnInventory(true);
 		}
 		else
 		{
-
+			item->SetOnInventory(false);
 		}
 
 		// 아이템 드랍 가능한지 여부

@@ -6,7 +6,6 @@
 #include "CObject.h"
 #include "CCollider2D.h"
 #include "CInventoryPanel.h"
-#include "CEquipmentButton.h"
 
 UIManager::UIManager()
 	: mCurrentData(nullptr)
@@ -30,17 +29,6 @@ UIManager::~UIManager()
 void UIManager::Initialize()
 {
 	// 여기에서 ui 메모리에 할당하면 된다.
-
-	{
-		EquipmentButton* test = new EquipmentButton(eEquipmentType::Cap);
-		Object::Instantiate<Panel>(eLayerType::UI, eSceneType::Play, test);
-		test->Active();
-		Transform* tr = test->GetComponent<Transform>();
-		tr->SetPosition(Vector3(1.0f, 1.0f, 1.0f));
-		tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
-
-		Push(L"test", test);
-	}
 	//mainPanelMaterial
 
 	{
@@ -201,26 +189,26 @@ void UIManager::Update()
 
 void UIManager::Render(HDC hdc)
 {
-	std::stack<UiBase*> uiBases = mUiBases;
-	std::stack<UiBase*> tempStack;
+	//std::stack<UiBase*> uiBases = mUiBases;
+	//std::stack<UiBase*> tempStack;
 
-	// 뒤집어서랜더링을 해준다.
-	while (!uiBases.empty())
-	{
-		UiBase* uiBase = uiBases.top();
-		tempStack.push(uiBase);
-		uiBases.pop();
-	}
+	//// 뒤집어서랜더링을 해준다.
+	//while (!uiBases.empty())
+	//{
+	//	UiBase* uiBase = uiBases.top();
+	//	tempStack.push(uiBase);
+	//	uiBases.pop();
+	//}
 
-	while (!tempStack.empty())
-	{
-		UiBase* uiBase = tempStack.top();
-		if (uiBase != nullptr)
-		{
-			uiBase->Render(hdc);
-		}
-		tempStack.pop();
-	}
+	//while (!tempStack.empty())
+	//{
+	//	UiBase* uiBase = tempStack.top();
+	//	if (uiBase != nullptr)
+	//	{
+	//		uiBase->Render(hdc);
+	//	}
+	//	tempStack.pop();
+	//}
 }
 
 void UIManager::OnComplete(UiBase* addUI)

@@ -505,7 +505,7 @@ namespace Renderer
 		ItemSlotShader->Create(eShaderStage::VS, L"ItemVS.hlsl", "main");
 		ItemSlotShader->Create(eShaderStage::PS, L"ItemSlotPS.hlsl", "main");
 		ItemSlotShader->SetRasterize(eRasterizeType::SolidNone);
-		//spriteShader->SetDepthStencil(eDepthStencilType::NoWrite);
+		//ItemSlotShader->SetDepthStencil(eDepthStencilType::NoWrite);
 		ItemSlotShader->SetBlend(eBlendType::AlphaBlend);
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"ItemSlotShader", ItemSlotShader);

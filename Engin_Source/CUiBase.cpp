@@ -95,7 +95,7 @@ void UiBase::Render()
 
 	for (UiBase* child : mChilds)
 	{
-		if (child == nullptr)
+ 		if (child == nullptr)
 			continue;
 
 		child->Render();
