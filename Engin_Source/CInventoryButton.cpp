@@ -43,6 +43,8 @@ void InventoryButton::Initalize()
 
 	Vector3 mPos = this->GetComponent<Transform>()->GetPosition();
 	Vector3 mScale = this->GetComponent<Transform>()->GetScale();
+
+	// 임의로 배열내부에 아이템을 채워준다
 	// test
 	{
 		ShoesItem* item = new ShoesItem(L"SmileTexture");
@@ -101,8 +103,18 @@ void InventoryButton::Initalize()
 
 		int x = 2;
 		int y = 0;
+
+		// 현재 인덱스부터 출력될 위치를 계산하는 식
+		// 오브젝트의 인덱스 + (오브젝트의 크기 / 2 )  Ex) x = 2 + (2 * 0.5f), y = 0 + (2 * 0.5f)
 		float xSize = x + (size.x * 0.5f);
 		float ySize = y + (size.y * 0.5f);
+
+		// 오브젝트 크기의 절반만큼 포지션을 위치해준다
+		// ---------
+		// |  ↓   |
+		// |→ 0   |
+		// |       |
+		// ---------
 		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (XSIZE * xSize)
 			, mPos.y + (mScale.y * 0.5f) - (YSIZE *  ySize)
 			, 1.0f));
@@ -229,13 +241,14 @@ void InventoryButton::Initalize()
 
 void InventoryButton::Update()
 {
-	if (/*GetPointToRect() > 0 && */Input::GetInstance()->GetMouseItemPick() == true)
+	if (Input::GetInstance()->GetMouseItemPick() == true)
 	{
 		ItemBase* item = Input::GetInstance()->GetPickItem();
 
-
 		if (item == nullptr)
 			return;
+
+		// 마우스로 집은 아이템이 있는경우 충돌 체크를 진행
 
 		ItemPushTop(item);
 
@@ -252,11 +265,13 @@ void InventoryButton::Update()
 			&& InvenPos.y - (InvenScale.y * 0.5f) <= itemPos.y + (itemScale.y * 0.5f)
 			&& InvenPos.y + (InvenScale.y * 0.5f) >= itemPos.y - (itemScale.y * 0.5f))
 		{
+			// 충돌 O
 			SetPointToRect(1);
 			item->SetOnInventory(true);
 		}
 		else
 		{
+			// 충돌 X
 			item->SetOnInventory(false);
 		}
 
@@ -296,6 +311,8 @@ void InventoryButton::Update()
 				Y = 3;
 			}
 
+			// 현재 인덱스로부터 아이템 크기만큼의 배열이 비어있는지 확인후
+			// 비어있지않다면 Drop = false
 			mbDrop = CheckPoekySlot(X, Y);
 
 			if (mbDrop)
@@ -435,16 +452,19 @@ void InventoryButton::DropItem(ItemBase* item)
 		int SlotX = (int)SlotNum.x;
 		int SlotY = (int)SlotNum.y;
 
+		// 순회 도중 인덱스초과 인경우 아이템을 푸쉬하지 않음
+		// 순회가 완전하게 이루어진경우 아이템을 푸쉬
+		// 그러해서 인덱스를 컨테이너에 담아둿다 마지막에 배열을 채워준다
 		vector<pair<int, int>> index;
 		for (int i = 0; i < SlotY; ++i)
 		{
 			for (int j = 0; j < SlotX; ++j)
 			{
 				if (mYIndex + i >= mPoketSlot.size())
-					continue;
+					return;
 
 				if (mXIndex + j >= mPoketSlot[mYIndex + i].size())
-					continue;
+					return;
 
 				//mPoketSlot[mYIndex + j][mXIndex + i] = 1;
 				index.emplace_back(make_pair(j, i));
@@ -459,10 +479,21 @@ void InventoryButton::DropItem(ItemBase* item)
 			}
 		}
 
+		// 초기화
 		SetDrop(false);
+
+		// 인벤토리 위 이므로 온전히 렌더
 		item->SetOnInventory(true);
+
+		// 픽을 내려둔 상태
 		item->SetPick(false);
+
+		// 이미 내려놓은 아이템은 드롭할수 있는
+		// 존건에서 제외
 		item->SetDrop(false);
+
+		// 인벤토리 내부에 아이템을 드롭했으므로
+		// 슬롯이 갖고있는 아이템포인터를 지워준다
 		item->SetSlotInventory(nullptr);
 	}
 
@@ -513,16 +544,18 @@ bool InventoryButton::DeleteItem(ItemBase* item)
 
 void InventoryButton::ItemPushTop(ItemBase* item)
 {
+	// 아이템을 집은경우 제일 위에 렌더되어서
+	// 이동중 다른 아이템보다 렌더 순위가 우선된다
 	vector<ItemBase*>::iterator iter;
 	for (iter = mPoketItem.begin(); iter != mPoketItem.end(); ++iter)
 	{
 		if (*iter == item)
 		{
 			mPoketItem.erase(iter);
-			mPoketItem.emplace_back(item);
-			return;
+			break;
 		}
 	}
+	mPoketItem.emplace_back(item);
 }
 
 void InventoryButton::ClearPocketSlot(ItemBase* item)
@@ -575,6 +608,8 @@ void InventoryButton::ClearPocketSlot(ItemBase* item)
 	//	Y = 3;
 	//}
 
+
+	// 아이템이 갖고 있는 인덱스부터 크기 까지 배열이 비워준다
 	Vector2 SlotNum = item->GetItemSlotSize();
 	int SlotX = (int)SlotNum.x;
 	int SlotY = (int)SlotNum.y;

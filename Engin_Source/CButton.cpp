@@ -83,7 +83,7 @@ void Button::Update()
 	Vector3 collpos = tr->GetPosition();
 	Vector3 colScale = tr->GetScale();
 
-	// 충돌 X
+	// 마우스가 버튼이랑 충돌 X
 	SetPointToRect(0);
 
 	if (mousePos.x > collpos.x + (colScale.x * 0.5f) || mousePos.x < collpos.x - (colScale.x * 0.5f))
@@ -91,7 +91,7 @@ void Button::Update()
 	if (mousePos.y > collpos.y + (colScale.y * 0.5f) || mousePos.y < collpos.y - (colScale.y * 0.5f))
 		return;
 
-	// 충돌 0
+	// 마우스가 버튼이랑 충돌 0
 	SetPointToRect(1);
 }
 

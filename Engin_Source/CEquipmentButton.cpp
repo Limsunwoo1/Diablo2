@@ -44,6 +44,7 @@ void EquipmentButton::Update()
 		if (item == nullptr)
 			return;
 
+		// 아이템을 집고 있는상태이면 충돌 체크를 한다
 		Transform* itemTr = item->GetComponent<Transform>();
 		Vector3 itemPos = itemTr->GetPosition();
 		Vector3 itemScale = itemTr->GetScale();
@@ -59,6 +60,8 @@ void EquipmentButton::Update()
 		{
 			SetPointToRect(1);
 
+			// 충돌 한경우 아이템 타입과 슬롯의 타입을 비교후
+			// 일치하는경우만 드롭이 가능
 			mbOnRender = true;
 			if (item->GetItemType() == mType)
 			{
@@ -79,6 +82,9 @@ void EquipmentButton::Update()
 		{
 			mbOnRender = false;
 
+			// 같은 타입의 슬롯들이 많을시 버그로 인하여
+			// 슬롯이 갖고 있는 아이템과 아이템이 갖고 있는 슬롯이
+			// 일치할때 초기화
 			if (item == mItem && item->GetSlotInventory() == this)
 			{
 				mItem == nullptr;
@@ -89,6 +95,7 @@ void EquipmentButton::Update()
 	}
 	else
 	{
+		// 아이템이 없으면 투명하게 렌더링
 		mbOnRender = false;
 	}
 }
@@ -102,12 +109,13 @@ void EquipmentButton::Render()
 {
 	SpriteRenderer* sr = GetComponent<SpriteRenderer>();
 	Vector4 color = Vector4(1.0f, 0.0f, 0.0f, 0.3f);
-	if (mbDrop)
+
+	if (mbDrop) // 드롭가능한경우 녹색렌더
 		color = Vector4(0.0f, 1.0f, 0.0f, 0.3f);
-	else
+	else		// 드롭불가능한경우 빨강렌더
 		color = Vector4(1.0f, 0.0f, 0.0f, 0.3f);
 
-	if (!mbOnRender)
+	if (!mbOnRender)// 렌더할 필요없을때 투명 렌더
 		color = Vector4(0.0f, 0.0f, 0.0f, 0.0f);
 
 	sr->GetMaterial()->SetData(eGpuParam::Vector4, &color);
@@ -121,6 +129,7 @@ void EquipmentButton::Click()
 
 void EquipmentButton::DropItem(ItemBase* item)
 {
+	// 아이템 위치를 슬롯중앙 포지션으로 변경
 	Transform* tr = GetComponent<Transform>();
 	Vector3 pos = tr->GetPosition();
 

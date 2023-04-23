@@ -241,6 +241,9 @@
     <Filter Include="GameObject\CItem\Wepon">
       <UniqueIdentifier>{3e60f851-430a-4774-83a5-9b2a6ab35aa0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\CItem\Potion">
+      <UniqueIdentifier>{27aea1dc-bfbb-40e3-b3ce-e6ec7f13ba87}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -488,6 +491,15 @@
     </ClCompile>
     <ClCompile Include="CWeponItem.cpp">
       <Filter>GameObject\CItem\Wepon</Filter>
+    </ClCompile>
+    <ClCompile Include="CHpPotionItem.cpp">
+      <Filter>GameObject\CItem\Potion</Filter>
+    </ClCompile>
+    <ClCompile Include="CMpPotionItem.cpp">
+      <Filter>GameObject\CItem\Potion</Filter>
+    </ClCompile>
+    <ClCompile Include="CPotionItem.cpp">
+      <Filter>GameObject\CItem\Potion</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -754,6 +766,15 @@
     </ClInclude>
     <ClInclude Include="CWeponItem.h">
       <Filter>GameObject\CItem\Wepon</Filter>
+    </ClInclude>
+    <ClInclude Include="CMpPotionItem.h">
+      <Filter>GameObject\CItem\Potion</Filter>
+    </ClInclude>
+    <ClInclude Include="CHpPotionItem.h">
+      <Filter>GameObject\CItem\Potion</Filter>
+    </ClInclude>
+    <ClInclude Include="CPotionItem.h">
+      <Filter>GameObject\CItem\Potion</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

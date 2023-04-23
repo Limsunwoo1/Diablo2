@@ -232,6 +232,7 @@
     <ClInclude Include="CGenericAnimator.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="CHUD.h" />
+    <ClInclude Include="CHpPotionItem.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="CResource.h" />
     <ClInclude Include="CResourceManager.h" />
@@ -241,6 +242,8 @@
     <ClInclude Include="CPanel.h" />
     <ClInclude Include="CUiBase.h" />
     <ClInclude Include="CUIManager.h" />
+    <ClInclude Include="CMpPotionItem.h" />
+    <ClInclude Include="CPotionItem.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CButton.cpp" />
@@ -316,6 +319,7 @@
     <ClCompile Include="CWorldManager.cpp" />
     <ClCompile Include="CGenericAnimator.cpp" />
     <ClCompile Include="CHUD.cpp" />
+    <ClCompile Include="CHpPotionItem.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="CResource.cpp" />
     <ClCompile Include="CResourceManager.cpp" />
@@ -325,6 +329,8 @@
     <ClCompile Include="CPanel.cpp" />
     <ClCompile Include="CUiBase.cpp" />
     <ClCompile Include="CUIManager.cpp" />
+    <ClCompile Include="CMpPotionItem.cpp" />
+    <ClCompile Include="CPotionItem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math.inl" />
