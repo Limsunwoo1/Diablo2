@@ -629,22 +629,6 @@ bool InventoryButton::DeleteItem(ItemBase* item)
 	return false;
 }
 
-void InventoryButton::ItemPushTop(ItemBase* item)
-{
-	// 아이템을 집은경우 제일 위에 렌더되어서
-	// 이동중 다른 아이템보다 렌더 순위가 우선된다
-	vector<ItemBase*>::iterator iter;
-	for (iter = mPoketItem.begin(); iter != mPoketItem.end(); ++iter)
-	{
-		if (*iter == item)
-		{
-			mPoketItem.erase(iter);
-			break;
-		}
-	}
-	mPoketItem.emplace_back(item);
-}
-
 void InventoryButton::ClearPocketSlot(ItemBase* item)
 {
 	// 인벤토리 밖 월드에 드랍할때 인벤토리

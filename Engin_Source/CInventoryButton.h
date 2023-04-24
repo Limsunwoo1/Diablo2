@@ -29,9 +29,6 @@ public:
 	bool GetDrop() { return mbDrop; }
 	void SetDrop(bool drop) { mbDrop = drop; }
 
-	void ItemPushTop(ItemBase* item);
-
-
 	Vector2 GetIndex() { return Vector2(mXIndex, mYIndex); }
 
 protected:
