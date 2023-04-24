@@ -139,11 +139,15 @@ void EquipmentButton::DropItem(ItemBase* item)
 	item->SetOnInventory(true);
 	item->SetPick(false);
 
+	// 슬롯에 드롭시 인벤토리포인터를 없애준다
 	InventoryButton* inven = item->GetInventory();
 	if (inven != nullptr)
 	{
 		inven->DeleteItem(item);
 	}
+
+	// 슬롯에 들어온아이템을 포인터로 갖고있는다
+	SetItem(item);
 }
 
 void EquipmentButton::ClearPocketSlot(ItemBase* item)

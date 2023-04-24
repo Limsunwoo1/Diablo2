@@ -1,5 +1,6 @@
 #include "CItemManager.h"
 #include "CWorldManager.h"
+#include "CInput.h"
 
 ItemManager::ItemManager()
 {
@@ -52,6 +53,10 @@ void ItemManager::Render()
 		item->Render();
 	}
 
+	ItemBase* PickItem = Input::GetInstance()->GetPickItem();
+	if (PickItem)
+		ItemPushTop(PickItem);
+
 	removeItem();
 	pushItem();
 }
@@ -87,7 +92,7 @@ void ItemManager::ItemPushTop(ItemBase* item)
 	// 아이템을 집은경우 제일 위에 렌더되어서
 	// 이동중 다른 아이템보다 렌더 순위가 우선된다
 	vector<ItemBase*>::iterator iter;
-	for (iter = mItemes.begin(); iter != mItemes.end(); ++iter)
+	for (iter = mItemes.end() - 1; iter != mItemes.begin(); --iter)
 	{
 		if (*iter == item)
 		{

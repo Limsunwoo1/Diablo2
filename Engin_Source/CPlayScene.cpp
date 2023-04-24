@@ -430,7 +430,6 @@ void PlayScene::Initalize()
 void PlayScene::Update()
 {
 	Scene::Update();
-
 }
 
 void PlayScene::FixedUpdate()

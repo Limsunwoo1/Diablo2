@@ -16,8 +16,8 @@ MainPanel::~MainPanel()
 
 void MainPanel::Update()
 {
-	Panel::Update();
 	UsePotion();
+	Panel::Update();
 }
 
 void MainPanel::FixedUpdate()
@@ -41,7 +41,7 @@ void MainPanel::InitPotionSlot()
 		this->SetChild(button);
 		button->SetParent(nullptr);
 
-		mPotionSlot.push_back(button);
+		mPotionSlot.emplace_back(button);
 	}
 
 	{
@@ -58,7 +58,7 @@ void MainPanel::InitPotionSlot()
 		this->SetChild(button);
 		button->SetParent(nullptr);
 
-		mPotionSlot.push_back(button);
+		mPotionSlot.emplace_back(button);
 	}
 
 	{
@@ -75,7 +75,7 @@ void MainPanel::InitPotionSlot()
 		this->SetChild(button);
 		button->SetParent(nullptr);
 
-		mPotionSlot.push_back(button);
+		mPotionSlot.emplace_back(button);
 	}
 
 	{
@@ -92,7 +92,7 @@ void MainPanel::InitPotionSlot()
 		this->SetChild(button);
 		button->SetParent(nullptr);
 
-		mPotionSlot.push_back(button);
+		mPotionSlot.emplace_back(button);
 	}
 }
 
@@ -101,6 +101,16 @@ void MainPanel::UsePotion()
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::N_1))
 	{
 		ItemBase* item = mPotionSlot[0]->GetItem();
+
+		// test
+		for (int i = 0; i < 4; ++i)
+		{
+			if (i == 0)
+				continue;
+
+			if (mPotionSlot[i]->GetItem() == item)
+				int a = 0;
+		}
 		if (item != nullptr)
 		{
 			PotionItem* potion = dynamic_cast<PotionItem*>(item);
@@ -115,6 +125,16 @@ void MainPanel::UsePotion()
 	else if (Input::GetInstance()->GetKeyDown(eKeyCode::N_2))
 	{
 		ItemBase* item = mPotionSlot[1]->GetItem();
+
+		// test
+		for (int i = 0; i < 4; ++i)
+		{
+			if (i == 1)
+				continue;
+
+			if (mPotionSlot[i]->GetItem() == item)
+				int a = 0;
+		}
 		if (item != nullptr)
 		{
 			PotionItem* potion = dynamic_cast<PotionItem*>(item);
@@ -129,6 +149,16 @@ void MainPanel::UsePotion()
 	else if (Input::GetInstance()->GetKeyDown(eKeyCode::N_3))
 	{
 		ItemBase* item = mPotionSlot[2]->GetItem();
+
+		// test
+		for (int i = 0; i < 4; ++i)
+		{
+			if (i == 2)
+				continue;
+
+			if (mPotionSlot[i]->GetItem() == item)
+				int a = 0;
+		}
 		if (item != nullptr)
 		{
 			PotionItem* potion = dynamic_cast<PotionItem*>(item);
@@ -143,6 +173,16 @@ void MainPanel::UsePotion()
 	else if (Input::GetInstance()->GetKeyDown(eKeyCode::N_4))
 	{
 		ItemBase* item = mPotionSlot[3]->GetItem();
+		// test
+		for (int i = 0; i < 4; ++i)
+		{
+			if (i == 3)
+				continue;
+
+			if (mPotionSlot[i]->GetItem() == item)
+				int a = 0;
+		}
+
 		if (item != nullptr)
 		{
 			PotionItem* potion = dynamic_cast<PotionItem*>(item);

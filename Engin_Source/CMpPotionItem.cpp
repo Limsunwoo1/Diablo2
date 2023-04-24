@@ -31,11 +31,11 @@ void MpPotionItem::UsePotion()
 	if (object)
 	{
 		// 오브젝트의 마나 회복
-		this->Death();
 
 		if (GetSlotInventory() != nullptr)
 		{
 	
 		}
 	}
+	this->Death();
 }

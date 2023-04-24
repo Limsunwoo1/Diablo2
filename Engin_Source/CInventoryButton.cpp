@@ -356,8 +356,6 @@ void InventoryButton::Update()
 
 		// 마우스로 집은 아이템이 있는경우 충돌 체크를 진행
 
-		ItemPushTop(item);
-
 		Transform* itemTr = item->GetComponent<Transform>();
 		Vector3 itemPos = itemTr->GetPosition();
 		Vector3 itemScale = itemTr->GetScale();
