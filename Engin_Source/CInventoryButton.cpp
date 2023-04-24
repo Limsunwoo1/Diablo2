@@ -8,9 +8,8 @@
 #include "CCapItem.h"
 #include "CWeponItem.h"
 #include "CItemManager.h"
-
-#define XSIZE 0.54f
-#define YSIZE 0.525f
+#include "CMpPotionItem.h"
+#include "CHpPotionItem.h"
 
 InventoryButton::InventoryButton()
 	: Button(eUIType::Button)
@@ -52,8 +51,8 @@ void InventoryButton::Initalize()
 
 		Vector2 size = item->GetItemSlotSize();
 		Transform* tr = item->GetComponent<Transform>();
-		tr->SetScale(Vector3(size.x * XSIZE, size.y * YSIZE, 1.0f));
-		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (XSIZE * 1), mPos.y + (mScale.y * 0.5f) - (YSIZE * 1), 1.0f));
+		tr->SetScale(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
+		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * 1), mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * 1), 1.0f));
 
 		AddItem(item);
 
@@ -78,8 +77,8 @@ void InventoryButton::Initalize()
 
 		Vector2 size = item->GetItemSlotSize();
 		Transform* tr = item->GetComponent<Transform>();
-		tr->SetScale(Vector3(size.x * XSIZE, size.y * YSIZE, 1.0f));
-		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (XSIZE * 1), mPos.y + (mScale.y * 0.5f) - (YSIZE * 3), 1.0f));
+		tr->SetScale(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
+		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * 1), mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * 3), 1.0f));
 		int x = 0;
 		int y = 2;
 		item->SetIndex(x, y);
@@ -101,7 +100,7 @@ void InventoryButton::Initalize()
 
 		Vector2 size = item->GetItemSlotSize();
 		Transform* tr = item->GetComponent<Transform>();
-		tr->SetScale(Vector3(size.x * XSIZE, size.y * YSIZE, 1.0f));
+		tr->SetScale(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
 
 		int x = 2;
 		int y = 0;
@@ -117,8 +116,8 @@ void InventoryButton::Initalize()
 		// |→ 0   |
 		// |       |
 		// ---------
-		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (XSIZE * xSize)
-			, mPos.y + (mScale.y * 0.5f) - (YSIZE *  ySize)
+		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
+			, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE *  ySize)
 			, 1.0f));
 
 		item->SetIndex(x, y);
@@ -142,21 +141,21 @@ void InventoryButton::Initalize()
 
 		Vector2 size = item->GetItemSlotSize();
 		Transform* tr = item->GetComponent<Transform>();
-		tr->SetScale(Vector3(size.x * XSIZE, size.y * YSIZE, 1.0f));
+		tr->SetScale(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
 	
-		int x = 4;
-		int y = 0;
+		int x = 2;
+		int y = 3;
 		float xSize = x + (size.x * 0.5f);
 		float ySize = y + (size.y * 0.5f);
-		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (XSIZE * xSize)
-			, mPos.y + (mScale.y * 0.5f) - (YSIZE *  ySize)
+		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
+			, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE *  ySize)
 			, 1.0f));
 
 		item->SetIndex(x, y);
 		AddItem(item);
 
-		mPoketSlot[0][4] = 1;
-		mPoketSlot[0][5] = 1;
+		mPoketSlot[3][2] = 1;
+		mPoketSlot[3][3] = 1;
 
 		item->SetOnInventory(true);
 		ItemManager::GetInstance()->AddItem(item);
@@ -168,14 +167,14 @@ void InventoryButton::Initalize()
 
 		Vector2 size = item->GetItemSlotSize();
 		Transform* tr = item->GetComponent<Transform>();
-		tr->SetScale(Vector3(size.x * XSIZE, size.y * YSIZE, 1.0f));
+		tr->SetScale(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
 
 		int x = 4;
 		int y = 2;
 		float xSize = x + (size.x * 0.5f);
 		float ySize = y + (size.y * 0.5f);
-		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (XSIZE * xSize)
-			, mPos.y + (mScale.y * 0.5f) - (YSIZE * ySize)
+		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
+			, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * ySize)
 			, 1.0f));
 
 		item->SetIndex(x, y);
@@ -197,14 +196,14 @@ void InventoryButton::Initalize()
 
 		Vector2 size = item->GetItemSlotSize();
 		Transform* tr = item->GetComponent<Transform>();
-		tr->SetScale(Vector3(size.x * XSIZE, size.y * YSIZE, 1.0f));
+		tr->SetScale(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
 
 		int x = 6;
 		int y = 0;
 		float xSize = x + (size.x * 0.5f);
 		float ySize = y + (size.y * 0.5f);
-		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (XSIZE * xSize)
-			, mPos.y + (mScale.y * 0.5f) - (YSIZE * ySize)
+		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
+			, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * ySize)
 			, 1.0f));
 
 		item->SetIndex(x, y);
@@ -224,14 +223,14 @@ void InventoryButton::Initalize()
 
 		Vector2 size = item->GetItemSlotSize();
 		Transform* tr = item->GetComponent<Transform>();
-		tr->SetScale(Vector3(size.x * XSIZE, size.y * YSIZE, 1.0f));
+		tr->SetScale(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
 
 		int x = 7;
 		int y = 0;
 		float xSize = x + (size.x * 0.5f);
 		float ySize = y + (size.y * 0.5f);
-		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (XSIZE * xSize)
-			, mPos.y + (mScale.y * 0.5f) - (YSIZE * ySize)
+		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
+			, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * ySize)
 			, 1.0f));
 
 		item->SetIndex(x, y);
@@ -240,6 +239,106 @@ void InventoryButton::Initalize()
 		mPoketSlot[0][7] = 1;
 		mPoketSlot[1][7] = 1;
 		mPoketSlot[2][7] = 1;
+
+		item->SetOnInventory(true);
+		ItemManager::GetInstance()->AddItem(item);
+	}
+
+	{
+		HpPotionItem* item = new HpPotionItem();
+		item->Initalize();
+
+		Vector2 size = item->GetItemSlotSize();
+		Transform* tr = item->GetComponent<Transform>();
+		tr->SetScale(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
+
+		int x = 4;
+		int y = 0;
+		float xSize = x + (size.x * 0.5f);
+		float ySize = y + (size.y * 0.5f);
+		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
+			, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * ySize)
+			, 1.0f));
+
+		item->SetIndex(x, y);
+		AddItem(item);
+
+		mPoketSlot[0][4] = 1;
+
+		item->SetOnInventory(true);
+		ItemManager::GetInstance()->AddItem(item);
+	}
+
+	{
+		HpPotionItem* item = new HpPotionItem();
+		item->Initalize();
+
+		Vector2 size = item->GetItemSlotSize();
+		Transform* tr = item->GetComponent<Transform>();
+		tr->SetScale(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
+
+		int x = 5;
+		int y = 0;
+		float xSize = x + (size.x * 0.5f);
+		float ySize = y + (size.y * 0.5f);
+		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
+			, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * ySize)
+			, 1.0f));
+
+		item->SetIndex(x, y);
+		AddItem(item);
+
+		mPoketSlot[0][5] = 1;
+
+		item->SetOnInventory(true);
+		ItemManager::GetInstance()->AddItem(item);
+	}
+
+	{
+		MpPotionItem* item = new MpPotionItem();
+		item->Initalize();
+
+		Vector2 size = item->GetItemSlotSize();
+		Transform* tr = item->GetComponent<Transform>();
+		tr->SetScale(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
+
+		int x = 4;
+		int y = 1;
+		float xSize = x + (size.x * 0.5f);
+		float ySize = y + (size.y * 0.5f);
+		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
+			, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * ySize)
+			, 1.0f));
+
+		item->SetIndex(x, y);
+		AddItem(item);
+
+		mPoketSlot[1][4] = 1;
+
+		item->SetOnInventory(true);
+		ItemManager::GetInstance()->AddItem(item);
+	}
+
+	{
+		MpPotionItem* item = new MpPotionItem();
+		item->Initalize();
+
+		Vector2 size = item->GetItemSlotSize();
+		Transform* tr = item->GetComponent<Transform>();
+		tr->SetScale(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
+
+		int x = 5;
+		int y = 1;
+		float xSize = x + (size.x * 0.5f);
+		float ySize = y + (size.y * 0.5f);
+		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
+			, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * ySize)
+			, 1.0f));
+
+		item->SetIndex(x, y);
+		AddItem(item);
+
+		mPoketSlot[1][5] = 1;
 
 		item->SetOnInventory(true);
 		ItemManager::GetInstance()->AddItem(item);
@@ -275,11 +374,13 @@ void InventoryButton::Update()
 			// 충돌 O
 			SetPointToRect(1);
 			item->SetOnInventory(true);
+			item->SetInventory(this);
 		}
 		else
 		{
 			// 충돌 X
 			item->SetOnInventory(false);
+			item->SetInventory(nullptr);
 		}
 
 		// 아이템 드랍 가능한지 여부
@@ -288,8 +389,8 @@ void InventoryButton::Update()
 			&& InvenPos.y - (InvenScale.y * 0.5f) <= itemPos.y + (itemScale.y * 0.5f)
 			&& InvenPos.y + (InvenScale.y * 0.5f) >= itemPos.y + (itemScale.y * 0.5f))
 		{
-			float itemX = (itemPos.x - (itemScale.x * 0.5f)) + XSIZE * 0.25f; // LeftTop에서 타일 한칸에 절반만큼
-			float itemY = (itemPos.y + (itemScale.y * 0.5f)) - YSIZE * 0.5f;  // 위치부터 인덱스를 체크 한다
+			float itemX = (itemPos.x - (itemScale.x * 0.5f)) + ITEM_X_SIZE * 0.25f; // LeftTop에서 타일 한칸에 절반만큼
+			float itemY = (itemPos.y + (itemScale.y * 0.5f)) - ITEM_Y_SIZE * 0.5f;  // 위치부터 인덱스를 체크 한다
 																			  // 편의성 상승 효과		
 			float InvenX = (InvenPos.x - (InvenScale.x * 0.5f));
 			float InvenY = (InvenPos.y + (InvenScale.y * 0.5f));
@@ -297,19 +398,19 @@ void InventoryButton::Update()
 			Vector2 idx{ itemX - InvenX , InvenY - itemY };
 
 			// X 인덱스
-			int X = idx.x / XSIZE;
+			int X = idx.x / ITEM_X_SIZE;
 
 			// Y 인덱스
 			int Y = -1;
-			if (itemY <= InvenY - (YSIZE * 0) && itemY > InvenY - (YSIZE * 1))
+			if (itemY <= InvenY - (ITEM_Y_SIZE * 0) && itemY > InvenY - (ITEM_Y_SIZE * 1))
 			{
 				Y = 0;
 			}
-			else if (itemY <= InvenY - (YSIZE * 1) && itemY > InvenY - (YSIZE * 2))
+			else if (itemY <= InvenY - (ITEM_Y_SIZE * 1) && itemY > InvenY - (ITEM_Y_SIZE * 2))
 			{
 				Y = 1;
 			}
-			else if (itemY <= InvenY - (YSIZE * 2) && itemY > InvenY - (YSIZE * 3))
+			else if (itemY <= InvenY - (ITEM_Y_SIZE * 2) && itemY > InvenY - (ITEM_Y_SIZE * 3))
 			{
 				Y = 2;
 			}
@@ -491,8 +592,8 @@ void InventoryButton::DropItem(ItemBase* item)
 	Vector3 InvenPos = InvenTr->GetPosition();
 	Vector3 InvenScale = InvenTr->GetScale();
 
-	ItemPos.x = (InvenPos.x - (InvenScale.x * 0.5f)) + (XSIZE * mXIndex) + (ItemScale.x * 0.5f);
-	ItemPos.y = (InvenPos.y + (InvenScale.y * 0.5f)) - (YSIZE * mYIndex) - (ItemScale.y * 0.5f);
+	ItemPos.x = (InvenPos.x - (InvenScale.x * 0.5f)) + (ITEM_X_SIZE * mXIndex) + (ItemScale.x * 0.5f);
+	ItemPos.y = (InvenPos.y + (InvenScale.y * 0.5f)) - (ITEM_Y_SIZE * mYIndex) - (ItemScale.y * 0.5f);
 
 	ItemTr->SetPosition(ItemPos);
 

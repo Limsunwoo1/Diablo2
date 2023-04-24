@@ -59,6 +59,9 @@ public:
 	// 나의 인벤토리 좌표
 	Vector2 GetIndex() { return Vector2((float)mXIndex, (float)mYIndex); }
 	void SetIndex(int& x, int& y) { mXIndex = x, mYIndex = y; }
+
+	void SetTargetObject(GameObject* obj) { mTargetObject = obj; }
+	GameObject* GetTargetObject() { return mTargetObject; }
 private:
 	UINT mXSize;
 	UINT mYSize;
@@ -77,5 +80,7 @@ private:
 	bool mbPick;
 	bool mbDrop;
 	bool mbOnInvnetory;
+
+	GameObject* mTargetObject;
 };
 

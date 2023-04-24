@@ -507,6 +507,9 @@
     <ClCompile Include="CItemManager.cpp">
       <Filter>Manager\ItemManager</Filter>
     </ClCompile>
+    <ClCompile Include="CMainPanel.cpp">
+      <Filter>GameObject\UI\Panel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -784,6 +787,9 @@
     </ClInclude>
     <ClInclude Include="CItemManager.h">
       <Filter>Manager\ItemManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CMainPanel.h">
+      <Filter>GameObject\UI\Panel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

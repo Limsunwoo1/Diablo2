@@ -12,6 +12,8 @@ public:
 	void FixedUpdate();
 	void Render();
 
+	void ItemPushTop(ItemBase* item);
+
 	void AddItem(ItemBase* item);
 	void DeleteItem(ItemBase* item);
 

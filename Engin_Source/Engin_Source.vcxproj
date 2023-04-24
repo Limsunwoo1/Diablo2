@@ -187,6 +187,7 @@
     <ClInclude Include="CItemBase.h" />
     <ClInclude Include="CLayer.h" />
     <ClInclude Include="CLight.h" />
+    <ClInclude Include="CMainPanel.h" />
     <ClInclude Include="CMesh.h" />
     <ClInclude Include="CMaterial.h" />
     <ClInclude Include="CMeteor.h" />
@@ -282,6 +283,7 @@
     <ClCompile Include="CItemBase.cpp" />
     <ClCompile Include="CLayer.cpp" />
     <ClCompile Include="CLight.cpp" />
+    <ClCompile Include="CMainPanel.cpp" />
     <ClCompile Include="CMesh.cpp" />
     <ClCompile Include="CMaterial.cpp" />
     <ClCompile Include="CCollider3D.cpp" />

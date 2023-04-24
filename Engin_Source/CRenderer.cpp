@@ -841,6 +841,20 @@ namespace Renderer
 		ItemSlotMaterial->SetShader(ItemSlotShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"ItemSlotMaterial", ItemSlotMaterial);
 #pragma endregion
+#pragma region HpPotion
+		std::shared_ptr<Shader> HpShader = ResourceManager::GetInstance()->Find<Shader>(L"ItemShader");
+		std::shared_ptr<Material> HpPotionMaterial = std::make_shared<Material>();
+		HpPotionMaterial ->SetRenderingMode(eRenderingMode::Transparent);
+		HpPotionMaterial ->SetShader(HpShader);
+		ResourceManager::GetInstance()->Insert<Material>(L"HPPotionMaterial", HpPotionMaterial);
+#pragma endregion
+#pragma region MpPotion
+		std::shared_ptr<Shader> MpShader = ResourceManager::GetInstance()->Find<Shader>(L"ItemShader");
+		std::shared_ptr<Material> MpPotionMaterial = std::make_shared<Material>();
+		MpPotionMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		MpPotionMaterial->SetShader(MpShader);
+		ResourceManager::GetInstance()->Insert<Material>(L"MPPotionMaterial", MpPotionMaterial);
+#pragma endregion
 
 	}
 

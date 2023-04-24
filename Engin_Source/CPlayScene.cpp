@@ -110,6 +110,7 @@ void PlayScene::Initalize()
 		Renderer::mainCamera->SetTrace(player);
 		obj = player;
 
+		WorldManager::GetInstance()->SetPlayer(player);
 		//60 75.875f
 	}
 

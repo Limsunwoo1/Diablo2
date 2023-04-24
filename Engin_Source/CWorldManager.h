@@ -26,13 +26,16 @@ public:
 
 	Math::Vector2 GetPlayerIndex() { return PlayerIndex; }
 	Math::Vector2 GetEndIndex() { return EndIndex; }
+
+	GameObject* GetPlayer() { return Player; }
+	void SetPlayer(GameObject* player) { Player = player; }
 private:
 	UINT worldScale;
 
 	Math::Vector2 PlayerIndex;
 	Math::Vector2 EndIndex;
-	
 
 	vector<vector<int>> world;
+	class GameObject* Player;
 };
 

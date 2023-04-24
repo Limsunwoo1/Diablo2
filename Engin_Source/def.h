@@ -26,3 +26,6 @@ private:									\
 #define NEW_SHARED(name) std::make_shared<name>();
 
 #define FAIL_EVENT -1
+
+#define ITEM_X_SIZE 0.54f
+#define ITEM_Y_SIZE 0.525f

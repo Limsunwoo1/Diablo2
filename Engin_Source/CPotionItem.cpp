@@ -2,9 +2,9 @@
 
 PotionItem::PotionItem()
 	: ItemBase(eEquipmentType::Potion)
-	, mTargetObject(nullptr)
 	, mFillGauge(0)
 {
+	SetItemSlotSize(Vector2(1.0f, 1.0f));
 }
 
 PotionItem::~PotionItem()

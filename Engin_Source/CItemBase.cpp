@@ -58,10 +58,12 @@ void ItemBase::Update()
 
 			// 장비칸위 인지 인벤토리인지 판별하여
 			// 알맞은 위치에 드롭해준다
-			if (mSlotInventory == nullptr)
+			if (mSlotInventory == nullptr && mInventory != nullptr)
 				mInventory->DropItem(this);
-			else
+			else if (mSlotInventory != nullptr)
 				mSlotInventory->DropItem(this);
+			else
+				int a = 0; // 월드에 드랍
 		}
 	}
 

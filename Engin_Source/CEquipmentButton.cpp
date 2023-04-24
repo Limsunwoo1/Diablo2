@@ -138,6 +138,12 @@ void EquipmentButton::DropItem(ItemBase* item)
 
 	item->SetOnInventory(true);
 	item->SetPick(false);
+
+	InventoryButton* inven = item->GetInventory();
+	if (inven != nullptr)
+	{
+		inven->DeleteItem(item);
+	}
 }
 
 void EquipmentButton::ClearPocketSlot(ItemBase* item)

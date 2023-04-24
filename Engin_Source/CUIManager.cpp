@@ -6,6 +6,8 @@
 #include "CObject.h"
 #include "CCollider2D.h"
 #include "CInventoryPanel.h"
+#include "CMainPanel.h"
+#include "CEquipmentButton.h"
 
 UIManager::UIManager()
 	: mCurrentData(nullptr)
@@ -32,7 +34,7 @@ void UIManager::Initialize()
 	//mainPanelMaterial
 
 	{
-		Panel* mainPanelui = new Panel(eUIType::Panel);
+		MainPanel* mainPanelui = new MainPanel();
 		Object::Instantiate<Panel>(eLayerType::UI, eSceneType::Play, mainPanelui);
 		mainPanelui->InitRenderer(L"mainPanelMaterial", L"mainPanel", L"UI//mainPanel.png");
 		mainPanelui->Active();
