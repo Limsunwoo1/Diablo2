@@ -233,6 +233,7 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="CHUD.h" />
     <ClInclude Include="CHpPotionItem.h" />
+    <ClInclude Include="CItemManager.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="CResource.h" />
     <ClInclude Include="CResourceManager.h" />
@@ -320,6 +321,7 @@
     <ClCompile Include="CGenericAnimator.cpp" />
     <ClCompile Include="CHUD.cpp" />
     <ClCompile Include="CHpPotionItem.cpp" />
+    <ClCompile Include="CItemManager.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="CResource.cpp" />
     <ClCompile Include="CResourceManager.cpp" />

@@ -7,6 +7,7 @@
 #include "CSuitItem.h"
 #include "CCapItem.h"
 #include "CWeponItem.h"
+#include "CItemManager.h"
 
 #define XSIZE 0.54f
 #define YSIZE 0.525f
@@ -16,7 +17,6 @@ InventoryButton::InventoryButton()
 	, mbDrop(false)
 {
 }
-
 
 InventoryButton::~InventoryButton()
 {
@@ -68,6 +68,7 @@ void InventoryButton::Initalize()
 		mPoketSlot[1][1] = 1;
 
 		item->SetOnInventory(true);
+		ItemManager::GetInstance()->AddItem(item);
 	}
 
 	// test
@@ -91,6 +92,7 @@ void InventoryButton::Initalize()
 		mPoketSlot[3][1] = 1;
 
 		item->SetOnInventory(true);
+		ItemManager::GetInstance()->AddItem(item);
 	}
 
 	{
@@ -131,6 +133,7 @@ void InventoryButton::Initalize()
 		mPoketSlot[2][3] = 1;
 
 		item->SetOnInventory(true);
+		ItemManager::GetInstance()->AddItem(item);
 	}
 
 	{
@@ -156,6 +159,7 @@ void InventoryButton::Initalize()
 		mPoketSlot[0][5] = 1;
 
 		item->SetOnInventory(true);
+		ItemManager::GetInstance()->AddItem(item);
 	}
 
 	{
@@ -184,6 +188,7 @@ void InventoryButton::Initalize()
 		mPoketSlot[3][5] = 1;
 
 		item->SetOnInventory(true);
+		ItemManager::GetInstance()->AddItem(item);
 	}
 
 	{
@@ -210,6 +215,7 @@ void InventoryButton::Initalize()
 		mPoketSlot[2][6] = 1;
 
 		item->SetOnInventory(true);
+		ItemManager::GetInstance()->AddItem(item);
 	}
 
 	{
@@ -236,6 +242,7 @@ void InventoryButton::Initalize()
 		mPoketSlot[2][7] = 1;
 
 		item->SetOnInventory(true);
+		ItemManager::GetInstance()->AddItem(item);
 	}
 }
 
@@ -327,40 +334,16 @@ void InventoryButton::Update()
 	}
 
 	Button::Update();
-
-	for (GameObject* item : mPoketItem)
-	{
-		if (item == nullptr)
-			continue;
-
-		item->Update();
-	}
 }
 
 void InventoryButton::FixedUpdate()
 {
 	Button::FixedUpdate();
-
-	for (GameObject* item : mPoketItem)
-	{
-		if (item == nullptr)
-			continue;
-
-		item->FixedUpdate();
-	}
 }
 
 void InventoryButton::Render()
 {
 	Button::Render();
-
-	for (GameObject* item : mPoketItem)
-	{
-		if (item == nullptr)
-			continue;
-
-		item->Render();
-	}
 }
 
 void InventoryButton::Click()
@@ -495,6 +478,9 @@ void InventoryButton::DropItem(ItemBase* item)
 		// 인벤토리 내부에 아이템을 드롭했으므로
 		// 슬롯이 갖고있는 아이템포인터를 지워준다
 		item->SetSlotInventory(nullptr);
+
+		// 아이템을 담는 컨테이너에 넣어준다
+		AddItem(item);
 	}
 
 	Transform* ItemTr = item->GetComponent<Transform>();

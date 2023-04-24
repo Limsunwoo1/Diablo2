@@ -7,6 +7,7 @@
 #include "CCollisionManager.h"
 #include "CWorldManager.h"
 #include "CUIManager.h"
+#include "CItemManager.h"
 
 using namespace graphics;
 
@@ -32,6 +33,7 @@ void CApplication::Initalize()
 	WorldManager::GetInstance()->Initialize();
 	SceneManager::GetInstance()->Initalize();
 	UIManager::GetInstance()->Initialize();
+	ItemManager::GetInstance()->Initalize();
 }
 
 // 게임 로직 캐릭터 이동 등등 
@@ -43,6 +45,7 @@ void CApplication::Update()
 	CollisionManager::GetInstance()->Update();
 	SceneManager::GetInstance()->Update();
 	UIManager::GetInstance()->Update();
+	ItemManager::GetInstance()->Update();
 }
 
 void CApplication::Instantiate()
@@ -56,6 +59,7 @@ void CApplication::FixedUpdate()
 	CollisionManager::GetInstance()->FixedUpdate();
 	SceneManager::GetInstance()->FixedUpdate();
 	UIManager::GetInstance()->FixedUpdate();
+	ItemManager::GetInstance()->FixedUpdate();
 }
 
 void CApplication::Render()
@@ -67,6 +71,7 @@ void CApplication::Render()
 
 	//SceneManager::GetInstance()->Render();
 	Renderer::Render();
+	ItemManager::GetInstance()->Render();
 }
 
 // Running main engine loop
@@ -96,6 +101,7 @@ void CApplication::Release()
 	WorldManager::GetInstance()->DestroyInstance();
 	UIManager::GetInstance()->DestroyInstance();
 	SceneManager::GetInstance()->DestroyInstance();
+	ItemManager::GetInstance()->DestroyInstance();
 	CollisionManager::GetInstance()->DestroyInstance();
 	ResourceManager::GetInstance()->DestroyInstance();
 }

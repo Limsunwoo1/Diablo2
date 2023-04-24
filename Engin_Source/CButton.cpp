@@ -72,6 +72,8 @@ void Button::Initalize()
 
 void Button::Update()
 {
+	GameObject::Update();
+
 	Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos(false);
 
 	Transform* tr = GetComponent<Transform>();
@@ -97,7 +99,7 @@ void Button::Update()
 
 void Button::FixedUpdate()
 {
-	UiBase::FixedUpdate();
+	GameObject::FixedUpdate();
 }
 
 void Button::Render()

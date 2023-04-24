@@ -244,6 +244,9 @@
     <Filter Include="GameObject\CItem\Potion">
       <UniqueIdentifier>{27aea1dc-bfbb-40e3-b3ce-e6ec7f13ba87}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\ItemManager">
+      <UniqueIdentifier>{c83a260a-04f0-4937-b88c-762b2b4118f1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -500,6 +503,9 @@
     </ClCompile>
     <ClCompile Include="CPotionItem.cpp">
       <Filter>GameObject\CItem\Potion</Filter>
+    </ClCompile>
+    <ClCompile Include="CItemManager.cpp">
+      <Filter>Manager\ItemManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -775,6 +781,9 @@
     </ClInclude>
     <ClInclude Include="CPotionItem.h">
       <Filter>GameObject\CItem\Potion</Filter>
+    </ClInclude>
+    <ClInclude Include="CItemManager.h">
+      <Filter>Manager\ItemManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
