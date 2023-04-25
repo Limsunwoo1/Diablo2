@@ -50,6 +50,7 @@ public:
 	Events* FindEvents(const wstring& name);
 
 	Animation* GetPlayAnimation() { return mActiveAnimation; }
+	void StopPlayAnimation() { mActiveAnimation = nullptr; }
 	void Play(const wstring& name, bool loop = true);
 
 	void Binds();

@@ -1,6 +1,7 @@
 #include "CHpPotionItem.h"
 #include "CResourceManager.h"
 #include "CSpriteRenderer.h"
+#include "CAnimator.h"
 
 HpPotionItem::HpPotionItem()
 	: PotionItem()
@@ -22,6 +23,12 @@ void HpPotionItem::Initalize()
 
 	sr->SetMesh(mesh);
 	sr->SetMaterial(material);
+
+	// DropAnimation ¡¶¿€
+	Animator* animator = AddComponent<Animator>();
+	//shared_ptr<Texture2D> hpDrop = 
+	//	ResourceManager::GetInstance()->Load<Texture2D>(L"HpPotionDrop", L"Item//HpPotion.png");
+	//animator->Create()
 }
 
 void HpPotionItem::UsePotion()

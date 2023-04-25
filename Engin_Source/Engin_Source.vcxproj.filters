@@ -247,6 +247,12 @@
     <Filter Include="Manager\ItemManager">
       <UniqueIdentifier>{c83a260a-04f0-4937-b88c-762b2b4118f1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\CItem\Potion\HP">
+      <UniqueIdentifier>{0cf77b74-c8e5-4ca6-8b13-498257c1aec0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\CItem\Potion\MP">
+      <UniqueIdentifier>{623225a2-c228-46ab-99dc-655aeec36072}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -495,12 +501,6 @@
     <ClCompile Include="CWeponItem.cpp">
       <Filter>GameObject\CItem\Wepon</Filter>
     </ClCompile>
-    <ClCompile Include="CHpPotionItem.cpp">
-      <Filter>GameObject\CItem\Potion</Filter>
-    </ClCompile>
-    <ClCompile Include="CMpPotionItem.cpp">
-      <Filter>GameObject\CItem\Potion</Filter>
-    </ClCompile>
     <ClCompile Include="CPotionItem.cpp">
       <Filter>GameObject\CItem\Potion</Filter>
     </ClCompile>
@@ -511,6 +511,12 @@
       <Filter>GameObject\UI\Panel</Filter>
     </ClCompile>
     <ClCompile Include="CPotionButton.cpp" />
+    <ClCompile Include="CHpPotionItem.cpp">
+      <Filter>GameObject\CItem\Potion\HP</Filter>
+    </ClCompile>
+    <ClCompile Include="CMpPotionItem.cpp">
+      <Filter>GameObject\CItem\Potion\MP</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -777,12 +783,6 @@
     <ClInclude Include="CWeponItem.h">
       <Filter>GameObject\CItem\Wepon</Filter>
     </ClInclude>
-    <ClInclude Include="CMpPotionItem.h">
-      <Filter>GameObject\CItem\Potion</Filter>
-    </ClInclude>
-    <ClInclude Include="CHpPotionItem.h">
-      <Filter>GameObject\CItem\Potion</Filter>
-    </ClInclude>
     <ClInclude Include="CPotionItem.h">
       <Filter>GameObject\CItem\Potion</Filter>
     </ClInclude>
@@ -793,6 +793,12 @@
       <Filter>GameObject\UI\Panel</Filter>
     </ClInclude>
     <ClInclude Include="CPotionButton.h" />
+    <ClInclude Include="CHpPotionItem.h">
+      <Filter>GameObject\CItem\Potion\HP</Filter>
+    </ClInclude>
+    <ClInclude Include="CMpPotionItem.h">
+      <Filter>GameObject\CItem\Potion\MP</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Math.inl">
