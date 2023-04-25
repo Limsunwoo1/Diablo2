@@ -55,7 +55,7 @@ void ItemBase::Update()
 			else
 				int a = 0;
 		}
-		// 마우스가 아이템을 집었다가 놓는 상태
+						// 마우스가 아이템을 집었다가 놓는 상태
 		else if(mbDrop) // 아이템을 놓을수 있는 상황인지 체크 슬롯이나 인벤토리에서
 						// 체크해준다
 		{
@@ -71,6 +71,12 @@ void ItemBase::Update()
 		}
 		else
 		{
+			if (Input::GetInstance()->GetPickItem() != this)
+				return;
+
+			if (this->GetInventory() || this->GetSlotInventory())
+				return;
+
 			UiBase* mainPanel = UIManager::GetInstance()->GetUiInstance<UiBase>(L"mainPanel");
 			UiBase* InventoryPanel = UIManager::GetInstance()->GetUiInstance<UiBase>(L"mainInventory");
 
@@ -86,12 +92,12 @@ void ItemBase::Update()
 			Vector3 ItemPos = ItemTr->GetPosition();
 			Vector3 ItemScale = ItemTr->GetScale();
 
-			if (mainPos.x - (mainScale.x * 0.5f) >= ItemPos.x && mainPos.x + (mainScale.x * 0.5f) <= ItemPos.x
+			if (mainPos.x - (mainScale.x * 0.5f) <= ItemPos.x && mainPos.x + (mainScale.x * 0.5f) >= ItemPos.x
 				&& mainPos.y - (mainScale.y * 0.5f) <= ItemPos.y && mainPos.y + (mainScale.y * 0.5f) >= ItemPos.y)
 				return;
 
-			if (InvenPos.x - (ItemScale.x * 0.5f) >= ItemPos.x && InvenPos.x + (ItemScale.x * 0.5f) <= ItemPos.x
-				&& InvenPos.y - (ItemScale.y * 0.5f) <= ItemPos.y && InvenPos.y + (ItemScale.y * 0.5f) >= ItemPos.y)
+			if (InvenPos.x - (InvenScale.x * 0.5f) <= ItemPos.x && InvenPos.x + (InvenScale.x * 0.5f) >= ItemPos.x
+				&& InvenPos.y - (InvenScale.y * 0.5f) <= ItemPos.y && InvenPos.y + (InvenScale.y * 0.5f) >= ItemPos.y)
 				return;
 
 			GameObject* player = WorldManager::GetInstance()->GetPlayer();

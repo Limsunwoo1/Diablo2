@@ -43,6 +43,7 @@ void InventoryButton::Initalize()
 	{
 		ShoesItem* item = new ShoesItem(L"SmileTexture");
 		item->Initalize();
+		item->SetInventory(this);
 
 		Vector2 size = item->GetItemSlotSize();
 		Transform* tr = item->GetComponent<Transform>();
@@ -69,6 +70,7 @@ void InventoryButton::Initalize()
 	{
 		GloveItem* item = new GloveItem(L"SmileTexture");
 		item->Initalize();
+		item->SetInventory(this);
 
 		Vector2 size = item->GetItemSlotSize();
 		Transform* tr = item->GetComponent<Transform>();
@@ -92,6 +94,7 @@ void InventoryButton::Initalize()
 	{
 		SuitItem* item = new SuitItem(L"SmileTexture");
 		item->Initalize();
+		item->SetInventory(this);
 
 		Vector2 size = item->GetItemSlotSize();
 		Transform* tr = item->GetComponent<Transform>();
@@ -133,6 +136,7 @@ void InventoryButton::Initalize()
 	{
 		BeltItem* item = new BeltItem(L"SmileTexture");
 		item->Initalize();
+		item->SetInventory(this);
 
 		Vector2 size = item->GetItemSlotSize();
 		Transform* tr = item->GetComponent<Transform>();
@@ -159,6 +163,7 @@ void InventoryButton::Initalize()
 	{
 		CapItem* item = new CapItem(L"SmileTexture");
 		item->Initalize();
+		item->SetInventory(this);
 
 		Vector2 size = item->GetItemSlotSize();
 		Transform* tr = item->GetComponent<Transform>();
@@ -188,6 +193,7 @@ void InventoryButton::Initalize()
 	{
 		WeponItem* item = new WeponItem(L"SmileTexture");
 		item->Initalize();
+		item->SetInventory(this);
 
 		Vector2 size = item->GetItemSlotSize();
 		Transform* tr = item->GetComponent<Transform>();
@@ -215,6 +221,7 @@ void InventoryButton::Initalize()
 	{
 		WeponItem* item = new WeponItem(L"SmileTexture");
 		item->Initalize();
+		item->SetInventory(this);
 
 		Vector2 size = item->GetItemSlotSize();
 		Transform* tr = item->GetComponent<Transform>();
@@ -242,6 +249,7 @@ void InventoryButton::Initalize()
 	{
 		HpPotionItem* item = new HpPotionItem();
 		item->Initalize();
+		item->SetInventory(this);
 
 		item->SetName(L"HpPotion1");
 
@@ -270,6 +278,7 @@ void InventoryButton::Initalize()
 		HpPotionItem* item = new HpPotionItem();
 		item->Initalize();
 		item->SetName(L"HpPotion2");
+		item->SetInventory(this);
 
 		Vector2 size = item->GetItemSlotSize();
 		Transform* tr = item->GetComponent<Transform>();
@@ -296,6 +305,7 @@ void InventoryButton::Initalize()
 		MpPotionItem* item = new MpPotionItem();
 		item->Initalize();
 		item->SetName(L"MpPotion1");
+		item->SetInventory(this);
 
 		Vector2 size = item->GetItemSlotSize();
 		Transform* tr = item->GetComponent<Transform>();
@@ -322,6 +332,7 @@ void InventoryButton::Initalize()
 		MpPotionItem* item = new MpPotionItem();
 		item->Initalize();
 		item->SetName(L"MpPotion2");
+		item->SetInventory(this);
 
 		Vector2 size = item->GetItemSlotSize();
 		Transform* tr = item->GetComponent<Transform>();
