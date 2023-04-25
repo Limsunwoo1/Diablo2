@@ -118,6 +118,7 @@ void MainPanel::UsePotion()
 			{
 				potion->UsePotion();
 				mPotionSlot[0]->SetItem(nullptr);
+				mPotionSlot[0]->SetUsed(false);
 			}
 		}
 	}
@@ -133,6 +134,7 @@ void MainPanel::UsePotion()
 			{
 				potion->UsePotion();
 				mPotionSlot[1]->SetItem(nullptr);
+				mPotionSlot[1]->SetUsed(false);
 			}
 		}
 	}
@@ -157,6 +159,7 @@ void MainPanel::UsePotion()
 			{
 				potion->UsePotion();
 				mPotionSlot[2]->SetItem(nullptr);
+				mPotionSlot[2]->SetUsed(false);
 			}
 		}
 	}
@@ -172,6 +175,7 @@ void MainPanel::UsePotion()
 			{
 				potion->UsePotion();
 				mPotionSlot[3]->SetItem(nullptr);
+				mPotionSlot[3]->SetUsed(false);
 			}
 		}
 	}
