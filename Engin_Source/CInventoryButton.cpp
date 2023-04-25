@@ -14,19 +14,14 @@
 InventoryButton::InventoryButton()
 	: Button(eUIType::Button)
 	, mbDrop(false)
+	, mXIndex(0)
+	, mYIndex(0)
 {
 }
 
 InventoryButton::~InventoryButton()
 {
-	for (GameObject* item : mPoketItem)
-	{
-		if (item == nullptr)
-			continue;
-
-		delete item;
-		item = nullptr;
-	}
+	
 }
 
 void InventoryButton::Initalize()
@@ -117,7 +112,7 @@ void InventoryButton::Initalize()
 		// |       |
 		// ---------
 		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
-			, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE *  ySize)
+			, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * ySize)
 			, 1.0f));
 
 		item->SetIndex(x, y);
@@ -142,13 +137,13 @@ void InventoryButton::Initalize()
 		Vector2 size = item->GetItemSlotSize();
 		Transform* tr = item->GetComponent<Transform>();
 		tr->SetScale(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
-	
+
 		int x = 2;
 		int y = 3;
 		float xSize = x + (size.x * 0.5f);
 		float ySize = y + (size.y * 0.5f);
 		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
-			, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE *  ySize)
+			, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * ySize)
 			, 1.0f));
 
 		item->SetIndex(x, y);
@@ -248,6 +243,8 @@ void InventoryButton::Initalize()
 		HpPotionItem* item = new HpPotionItem();
 		item->Initalize();
 
+		item->SetName(L"HpPotion1");
+
 		Vector2 size = item->GetItemSlotSize();
 		Transform* tr = item->GetComponent<Transform>();
 		tr->SetScale(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
@@ -272,6 +269,7 @@ void InventoryButton::Initalize()
 	{
 		HpPotionItem* item = new HpPotionItem();
 		item->Initalize();
+		item->SetName(L"HpPotion2");
 
 		Vector2 size = item->GetItemSlotSize();
 		Transform* tr = item->GetComponent<Transform>();
@@ -297,6 +295,7 @@ void InventoryButton::Initalize()
 	{
 		MpPotionItem* item = new MpPotionItem();
 		item->Initalize();
+		item->SetName(L"MpPotion1");
 
 		Vector2 size = item->GetItemSlotSize();
 		Transform* tr = item->GetComponent<Transform>();
@@ -322,6 +321,7 @@ void InventoryButton::Initalize()
 	{
 		MpPotionItem* item = new MpPotionItem();
 		item->Initalize();
+		item->SetName(L"MpPotion2");
 
 		Vector2 size = item->GetItemSlotSize();
 		Transform* tr = item->GetComponent<Transform>();
@@ -528,59 +528,58 @@ void InventoryButton::DropItem(ItemBase* item)
 	if (!mbDrop || mXIndex < 0 || mYIndex < 0)
 		return;
 
-	if (mbDrop)
+
+	Vector2 SlotNum = item->GetItemSlotSize();
+	int SlotX = (int)SlotNum.x;
+	int SlotY = (int)SlotNum.y;
+
+	// 순회 도중 인덱스초과 인경우 아이템을 푸쉬하지 않음
+	// 순회가 완전하게 이루어진경우 아이템을 푸쉬
+	// 그러해서 인덱스를 컨테이너에 담아둿다 마지막에 배열을 채워준다
+	vector<pair<int, int>> index;
+	for (int i = 0; i < SlotY; ++i)
 	{
-		Vector2 SlotNum = item->GetItemSlotSize();
-		int SlotX = (int)SlotNum.x;
-		int SlotY = (int)SlotNum.y;
-
-		// 순회 도중 인덱스초과 인경우 아이템을 푸쉬하지 않음
-		// 순회가 완전하게 이루어진경우 아이템을 푸쉬
-		// 그러해서 인덱스를 컨테이너에 담아둿다 마지막에 배열을 채워준다
-		vector<pair<int, int>> index;
-		for (int i = 0; i < SlotY; ++i)
+		for (int j = 0; j < SlotX; ++j)
 		{
-			for (int j = 0; j < SlotX; ++j)
-			{
-				if (mYIndex + i >= mPoketSlot.size())
-					return;
+			if (mYIndex + i >= mPoketSlot.size())
+				return;
 
-				if (mXIndex + j >= mPoketSlot[mYIndex + i].size())
-					return;
+			if (mXIndex + j >= mPoketSlot[mYIndex + i].size())
+				return;
 
-				//mPoketSlot[mYIndex + j][mXIndex + i] = 1;
-				index.emplace_back(make_pair(j, i));
-			}
+			//mPoketSlot[mYIndex + j][mXIndex + i] = 1;
+			index.emplace_back(make_pair(j, i));
 		}
-
-		if (index.size() == SlotX * SlotY)
-		{
-			for (int i = 0; i < index.size(); ++i)
-			{
-				mPoketSlot[mYIndex + index[i].second][mXIndex + index[i].first] = 1;
-			}
-		}
-
-		// 초기화
-		SetDrop(false);
-
-		// 인벤토리 위 이므로 온전히 렌더
-		item->SetOnInventory(true);
-
-		// 픽을 내려둔 상태
-		item->SetPick(false);
-
-		// 이미 내려놓은 아이템은 드롭할수 있는
-		// 존건에서 제외
-		item->SetDrop(false);
-
-		// 인벤토리 내부에 아이템을 드롭했으므로
-		// 슬롯이 갖고있는 아이템포인터를 지워준다
-		item->SetSlotInventory(nullptr);
-
-		// 아이템을 담는 컨테이너에 넣어준다
-		AddItem(item);
 	}
+
+	if (index.size() == SlotX * SlotY)
+	{
+		for (int i = 0; i < index.size(); ++i)
+		{
+			mPoketSlot[mYIndex + index[i].second][mXIndex + index[i].first] = 1;
+		}
+	}
+
+	// 초기화
+	SetDrop(false);
+
+	// 인벤토리 위 이므로 온전히 렌더
+	item->SetOnInventory(true);
+
+	// 픽을 내려둔 상태
+	item->SetPick(false);
+
+	// 이미 내려놓은 아이템은 드롭할수 있는
+	// 존건에서 제외
+	item->SetDrop(false);
+
+	// 인벤토리 내부에 아이템을 드롭했으므로
+	// 슬롯이 갖고있는 아이템포인터를 지워준다
+	item->SetSlotInventory(nullptr);
+
+	// 아이템을 담는 컨테이너에 넣어준다
+	AddItem(item);
+
 
 	Transform* ItemTr = item->GetComponent<Transform>();
 	Vector3 ItemPos = ItemTr->GetPosition();
@@ -631,8 +630,8 @@ void InventoryButton::ClearPocketSlot(ItemBase* item)
 {
 	// 인벤토리 밖 월드에 드랍할때 인벤토리
 	// 컨테이너에서 지워준다
-	/*if (!DeleteItem(item))
-		return;*/
+	//if (!DeleteItem(item))
+	//	return;
 
 	//Transform* itemTr = item->GetComponent<Transform>();
 	//Vector3 itemPos = itemTr->GetPosition();

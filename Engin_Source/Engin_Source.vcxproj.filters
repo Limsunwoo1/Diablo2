@@ -510,6 +510,7 @@
     <ClCompile Include="CMainPanel.cpp">
       <Filter>GameObject\UI\Panel</Filter>
     </ClCompile>
+    <ClCompile Include="CPotionButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -791,6 +792,7 @@
     <ClInclude Include="CMainPanel.h">
       <Filter>GameObject\UI\Panel</Filter>
     </ClInclude>
+    <ClInclude Include="CPotionButton.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math.inl">

@@ -33,6 +33,8 @@ void MainPanel::InitPotionSlot()
 		button->SetLayerType(eLayerType::UI);
 		button->OnActive();
 
+		button->SetName(L"PotionButton1");
+
 		Transform* tr = button->GetComponent<Transform>();
 		tr->SetScale(Vector3(ITEM_X_SIZE, ITEM_Y_SIZE, 1.0f));
 		tr->SetPosition(Vector3(1.83f, -3.0, 1.0f));
@@ -49,6 +51,8 @@ void MainPanel::InitPotionSlot()
 		button->Initalize();
 		button->SetLayerType(eLayerType::UI);
 		button->OnActive();
+
+		button->SetName(L"PotionButton2");
 
 		Transform* tr = button->GetComponent<Transform>();
 		tr->SetScale(Vector3(ITEM_X_SIZE, ITEM_Y_SIZE, 1.0f));
@@ -67,6 +71,8 @@ void MainPanel::InitPotionSlot()
 		button->SetLayerType(eLayerType::UI);
 		button->OnActive();
 
+		button->SetName(L"PotionButton3");
+
 		Transform* tr = button->GetComponent<Transform>();
 		tr->SetScale(Vector3(ITEM_X_SIZE, ITEM_Y_SIZE, 1.0f));
 		tr->SetPosition(Vector3(3.15f, -3.0, 1.0f));
@@ -83,6 +89,8 @@ void MainPanel::InitPotionSlot()
 		button->Initalize();
 		button->SetLayerType(eLayerType::UI);
 		button->OnActive();
+
+		button->SetName(L"PotionButton4");
 
 		Transform* tr = button->GetComponent<Transform>();
 		tr->SetScale(Vector3(ITEM_X_SIZE, ITEM_Y_SIZE, 1.0f));
@@ -102,15 +110,6 @@ void MainPanel::UsePotion()
 	{
 		ItemBase* item = mPotionSlot[0]->GetItem();
 
-		// test
-		for (int i = 0; i < 4; ++i)
-		{
-			if (i == 0)
-				continue;
-
-			if (mPotionSlot[i]->GetItem() == item)
-				int a = 0;
-		}
 		if (item != nullptr)
 		{
 			PotionItem* potion = dynamic_cast<PotionItem*>(item);
@@ -126,15 +125,6 @@ void MainPanel::UsePotion()
 	{
 		ItemBase* item = mPotionSlot[1]->GetItem();
 
-		// test
-		for (int i = 0; i < 4; ++i)
-		{
-			if (i == 1)
-				continue;
-
-			if (mPotionSlot[i]->GetItem() == item)
-				int a = 0;
-		}
 		if (item != nullptr)
 		{
 			PotionItem* potion = dynamic_cast<PotionItem*>(item);
@@ -173,15 +163,6 @@ void MainPanel::UsePotion()
 	else if (Input::GetInstance()->GetKeyDown(eKeyCode::N_4))
 	{
 		ItemBase* item = mPotionSlot[3]->GetItem();
-		// test
-		for (int i = 0; i < 4; ++i)
-		{
-			if (i == 3)
-				continue;
-
-			if (mPotionSlot[i]->GetItem() == item)
-				int a = 0;
-		}
 
 		if (item != nullptr)
 		{

@@ -23,9 +23,13 @@ public:
 	void SetItem(ItemBase* item) { mItem = item; }
 	ItemBase* GetItem() { return mItem; }
 
-private:
+	bool GetUsed() { return mbUsed; }
+	void SetUsed(bool use) { mbUsed = use; }
+
+protected:
 	ItemBase* mItem;
 	eEquipmentType mType;
 	bool mbDrop;
 	bool mbOnRender;
+	bool mbUsed;
 };

@@ -17,6 +17,8 @@ public:
 	void AddItem(ItemBase* item);
 	void DeleteItem(ItemBase* item);
 
+	void Rlease();
+
 private:
 	void pushItem();
 	void removeItem();

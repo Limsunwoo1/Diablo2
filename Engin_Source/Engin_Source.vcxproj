@@ -208,6 +208,7 @@
     <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CPlayerScript.h" />
     <ClInclude Include="CPlayScene.h" />
+    <ClInclude Include="CPotionButton.h" />
     <ClInclude Include="CPrefab.h" />
     <ClInclude Include="CRenderer.h" />
     <ClInclude Include="CScene.h" />
@@ -300,6 +301,7 @@
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CPlayerScript.cpp" />
     <ClCompile Include="CPlayScene.cpp" />
+    <ClCompile Include="CPotionButton.cpp" />
     <ClCompile Include="CPrefab.cpp" />
     <ClCompile Include="CRenderer.cpp" />
     <ClCompile Include="CScene.cpp" />

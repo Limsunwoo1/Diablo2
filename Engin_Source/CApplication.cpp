@@ -94,6 +94,7 @@ void CApplication::Release()
 {
 	//ResourceManager::GetInstance()->Release();
 	SceneManager::GetInstance()->Rlease();
+	ItemManager::GetInstance()->Rlease();
 
 
 	Time::GetInstance()->DestroyInstance();

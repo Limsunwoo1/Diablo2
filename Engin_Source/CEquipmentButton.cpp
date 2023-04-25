@@ -10,6 +10,7 @@ EquipmentButton::EquipmentButton(eEquipmentType type)
 	, mType(type)
 	, mbDrop(false)
 	, mbOnRender(false)
+	, mbUsed(false) // true = 장비슬롯에 아이템 장착중, false = 장비 슬롯에 장착 X
 {
 }
 
@@ -63,7 +64,7 @@ void EquipmentButton::Update()
 			// 충돌 한경우 아이템 타입과 슬롯의 타입을 비교후
 			// 일치하는경우만 드롭이 가능
 			mbOnRender = true;
-			if (item->GetItemType() == mType)
+			if (item->GetItemType() == mType && mbUsed == false)
 			{
 				mItem = item;
 				mbDrop = true;
@@ -72,10 +73,18 @@ void EquipmentButton::Update()
 			}
 			else
 			{
+				if (mbUsed)
+				{
+					mbDrop = false;
+					item->SetDrop(mbDrop);
+					return;
+				}
+
 				mItem = nullptr;
-				mbDrop = false;
-				item->SetSlotInventory(nullptr);
-				item->SetDrop(mbDrop);
+
+				if(item->GetSlotInventory() == this)
+					item->SetSlotInventory(nullptr);
+
 			}
 		}
 		else
@@ -87,9 +96,9 @@ void EquipmentButton::Update()
 			// 일치할때 초기화
 			if (item == mItem && item->GetSlotInventory() == this)
 			{
-				mItem == nullptr;
+				mItem = nullptr;
 				item->SetSlotInventory(nullptr);
-				item->SetDrop(mbDrop);
+				item->SetDrop(false);
 			}
 		}
 	}
@@ -148,9 +157,11 @@ void EquipmentButton::DropItem(ItemBase* item)
 
 	// 슬롯에 들어온아이템을 포인터로 갖고있는다
 	SetItem(item);
+	SetUsed(true);
 }
 
 void EquipmentButton::ClearPocketSlot(ItemBase* item)
 {
 	item->SetSlotInventory(nullptr);
+	SetUsed(false);
 }
