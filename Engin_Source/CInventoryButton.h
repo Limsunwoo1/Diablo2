@@ -25,6 +25,7 @@ public:
 
 	void AddItem(ItemBase* item);
 	bool DeleteItem(ItemBase* item);
+	void DeleteOnWolrdItem();
 
 	bool GetDrop() { return mbDrop; }
 	void SetDrop(bool drop) { mbDrop = drop; }

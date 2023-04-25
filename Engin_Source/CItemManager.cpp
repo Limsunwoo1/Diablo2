@@ -1,6 +1,8 @@
 #include "CItemManager.h"
 #include "CWorldManager.h"
 #include "CInput.h"
+#include "CRenderer.h"
+#include "CCamera.h"
 
 ItemManager::ItemManager()
 {
@@ -49,6 +51,22 @@ void ItemManager::Render()
 	{
 		if (item == nullptr)
 			continue;
+
+		bool stage = item->GetStage();
+		if (stage)
+		{
+			Matrix& view = Renderer::mainCamera->GetViewMatrix();
+			Matrix& proejction = Renderer::mainCamera->GetProjectionMatrix();
+			Renderer::mainCamera->SetGpuViewMatrix(view);
+			Renderer::mainCamera->SetGpuProjectionMatrix(proejction);
+		}
+		else
+		{
+			Matrix& view = Renderer::UiCamera->GetViewMatrix();
+			Matrix& proejction = Renderer::UiCamera->GetProjectionMatrix();
+			Renderer::UiCamera->SetGpuViewMatrix(view);
+			Renderer::UiCamera->SetGpuProjectionMatrix(proejction);
+		}
 
 		item->Render();
 	}

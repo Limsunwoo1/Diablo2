@@ -36,6 +36,11 @@ float4 main(VSOut In) : SV_Target
         color = defaultTexture.Sample(pointSampler, In.UV);
     }
     
+    if (stage)
+    {
+        return color;
+    }
+    
     if (!onInventory)
     {
         if (color.w != 0.0f)

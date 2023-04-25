@@ -347,6 +347,8 @@ void InventoryButton::Initalize()
 
 void InventoryButton::Update()
 {
+	DeleteOnWolrdItem();
+
 	if (Input::GetInstance()->GetMouseItemPick() == true)
 	{
 		ItemBase* item = Input::GetInstance()->GetPickItem();
@@ -624,6 +626,29 @@ bool InventoryButton::DeleteItem(ItemBase* item)
 	}
 
 	return false;
+}
+
+void InventoryButton::DeleteOnWolrdItem()
+{
+	queue<ItemBase*> deleteQueue;
+	for (ItemBase* item : mPoketItem)
+	{
+		if (item == nullptr)
+			continue;
+
+		if (item->GetStage())
+		{
+			deleteQueue.push(item);
+		}
+	}
+
+	while (!deleteQueue.empty())
+	{
+		ItemBase* item = deleteQueue.front();
+		deleteQueue.pop();
+
+		DeleteItem(item);
+	}
 }
 
 void InventoryButton::ClearPocketSlot(ItemBase* item)

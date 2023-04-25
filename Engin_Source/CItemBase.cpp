@@ -1,6 +1,8 @@
 #include "CItemBase.h"
 #include "CInput.h"
 #include "CCollider2D.h"
+#include "CUIManager.h"
+#include "CWorldManager.h"
 
 ItemBase::ItemBase(eEquipmentType type)
 	: GameObject()
@@ -36,7 +38,9 @@ void ItemBase::Update()
 
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN))
 	{
-		// 마우스가 아이템을 집지 않고 있는 상태
+		SetStage(false);
+
+		// 마우스가 다른 아이템을 집지 않고 있는 상태
 		if (Input::GetInstance()->GetPickItem() == nullptr)
 		{
 			mbPick = true;
@@ -44,10 +48,12 @@ void ItemBase::Update()
 
 			// 장비칸위 인지 인벤토리인지 판별하여
 			// 알맞은 위치에 드롭해준다
-			if (mSlotInventory == nullptr)
+			if (mSlotInventory == nullptr && mInventory != nullptr)
 				mInventory->ClearPocketSlot(this);
-			else
+			else if (mSlotInventory != nullptr)
 				mSlotInventory->ClearPocketSlot(this);
+			else
+				int a = 0;
 		}
 		// 마우스가 아이템을 집었다가 놓는 상태
 		else if(mbDrop) // 아이템을 놓을수 있는 상황인지 체크 슬롯이나 인벤토리에서
@@ -62,8 +68,54 @@ void ItemBase::Update()
 				mInventory->DropItem(this);
 			else if (mSlotInventory != nullptr)
 				mSlotInventory->DropItem(this);
-			else
-				int a = 0; // 월드에 드랍
+		}
+		else
+		{
+			UiBase* mainPanel = UIManager::GetInstance()->GetUiInstance<UiBase>(L"mainPanel");
+			UiBase* InventoryPanel = UIManager::GetInstance()->GetUiInstance<UiBase>(L"mainInventory");
+
+			Transform* mainTr = mainPanel->GetComponent<Transform>();
+			Vector3 mainPos = mainTr->GetPosition();
+			Vector3 mainScale = mainTr->GetScale();
+
+			Transform* InvenTr = InventoryPanel->GetComponent<Transform>();
+			Vector3 InvenPos = InvenTr->GetPosition();
+			Vector3 InvenScale = InvenTr->GetScale();
+
+			Transform* ItemTr = this->GetComponent<Transform>();
+			Vector3 ItemPos = ItemTr->GetPosition();
+			Vector3 ItemScale = ItemTr->GetScale();
+
+			if (mainPos.x - (mainScale.x * 0.5f) >= ItemPos.x && mainPos.x + (mainScale.x * 0.5f) <= ItemPos.x
+				&& mainPos.y - (mainScale.y * 0.5f) <= ItemPos.y && mainPos.y + (mainScale.y * 0.5f) >= ItemPos.y)
+				return;
+
+			if (InvenPos.x - (ItemScale.x * 0.5f) >= ItemPos.x && InvenPos.x + (ItemScale.x * 0.5f) <= ItemPos.x
+				&& InvenPos.y - (ItemScale.y * 0.5f) <= ItemPos.y && InvenPos.y + (ItemScale.y * 0.5f) >= ItemPos.y)
+				return;
+
+			GameObject* player = WorldManager::GetInstance()->GetPlayer();
+			if (!player)
+				return;
+
+			Transform* playerTr = player->GetComponent<Transform>();
+			Vector3 playerPos = playerTr->GetPosition();
+			
+			ItemPos = playerPos;
+			ItemTr->SetPosition(ItemPos);
+
+			mbPick = false;
+			Input::GetInstance()->SetPickItem(nullptr);
+
+			if(GetInventory())
+				GetInventory()->DeleteItem(this);
+			if(GetSlotInventory())
+				GetSlotInventory()->DeleteItem(this);
+
+			this->SetInventory(nullptr);
+			this->SetSlotInventory(nullptr);
+
+			SetStage(true);
 		}
 	}
 
