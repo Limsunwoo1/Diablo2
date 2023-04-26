@@ -3,16 +3,26 @@
 #include "CCollider2D.h"
 #include "CUIManager.h"
 #include "CWorldManager.h"
+#include "CAnimator.h"
+#include "CInventoryPanel.h"
+#include "CInventoryButton.h"
+#include "CItemManager.h"
 
 ItemBase::ItemBase(eEquipmentType type)
 	: GameObject()
 	, mType(type)
 	, mXSize(0)
 	, mYSize(0)
+	, mXIndex(0)
+	, mYIndex(0)
 	, mbStage(false)
 	, mbPick(false)
 	, mbOnInvnetory(false)
+	, mbDrop(false)
 	, mMaterial(nullptr)
+	, mInventory(nullptr)
+	, mSlotInventory(nullptr)
+	, mTargetObject(nullptr)
 {
 }
 
@@ -38,13 +48,23 @@ void ItemBase::Update()
 
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN))
 	{
-		SetStage(false);
-
 		// 마우스가 다른 아이템을 집지 않고 있는 상태
 		if (Input::GetInstance()->GetPickItem() == nullptr)
 		{
+			SetStage(false);
+
+			Transform* tr = this->GetComponent<Transform>();
+			tr->SetScale(this->GetInvenSacle());
+
 			mbPick = true;
 			Input::GetInstance()->SetPickItem(this);
+
+			Animator* animator = GetComponent<Animator>();
+
+			if (animator != nullptr)
+			{
+				animator->StopPlayAnimation();
+			}
 
 			// 장비칸위 인지 인벤토리인지 판별하여
 			// 알맞은 위치에 드롭해준다
@@ -55,19 +75,41 @@ void ItemBase::Update()
 			else
 				int a = 0;
 		}
-						// 마우스가 아이템을 집었다가 놓는 상태
-		else if(mbDrop) // 아이템을 놓을수 있는 상황인지 체크 슬롯이나 인벤토리에서
-						// 체크해준다
+		// 마우스가 아이템을 집었다가 놓는 상태 아이템을 놓을수 있는 상황인지 체크 슬롯이나 인벤토리에서 체크해준다
+		else if(mbDrop && Input::GetInstance()->GetPickItem() == this)
 		{
+			SetStage(false);
+
+			Transform* tr = this->GetComponent<Transform>();
+			tr->SetScale(this->GetInvenSacle());
+
 			mbPick = false;
 			Input::GetInstance()->SetPickItem(nullptr);
 
 			// 장비칸위 인지 인벤토리인지 판별하여
 			// 알맞은 위치에 드롭해준다
 			if (mSlotInventory == nullptr && mInventory != nullptr)
+			{
 				mInventory->DropItem(this);
+			}
 			else if (mSlotInventory != nullptr)
+			{
 				mSlotInventory->DropItem(this);
+			}
+			else
+			{
+				mbDrop = false;
+				mbPick = true;
+
+				Animator* animator = GetComponent<Animator>();
+
+				if (animator != nullptr)
+				{
+					animator->StopPlayAnimation();
+				}
+
+				Input::GetInstance()->SetPickItem(this);
+			}
 		}
 		else
 		{
@@ -92,13 +134,36 @@ void ItemBase::Update()
 			Vector3 ItemPos = ItemTr->GetPosition();
 			Vector3 ItemScale = ItemTr->GetScale();
 
+			mbPick = true;
 			if (mainPos.x - (mainScale.x * 0.5f) <= ItemPos.x && mainPos.x + (mainScale.x * 0.5f) >= ItemPos.x
 				&& mainPos.y - (mainScale.y * 0.5f) <= ItemPos.y && mainPos.y + (mainScale.y * 0.5f) >= ItemPos.y)
+			{
+				mbDrop = false;
+				Input::GetInstance()->SetPickItem(this);
+
+				Animator* animator = GetComponent<Animator>();
+
+				if (animator != nullptr)
+				{
+					animator->StopPlayAnimation();
+				}
 				return;
+			}
 
 			if (InvenPos.x - (InvenScale.x * 0.5f) <= ItemPos.x && InvenPos.x + (InvenScale.x * 0.5f) >= ItemPos.x
 				&& InvenPos.y - (InvenScale.y * 0.5f) <= ItemPos.y && InvenPos.y + (InvenScale.y * 0.5f) >= ItemPos.y)
+			{
+				mbDrop = false;
+				Input::GetInstance()->SetPickItem(this);
+
+				Animator* animator = GetComponent<Animator>();
+
+				if (animator != nullptr)
+				{
+					animator->StopPlayAnimation();
+				}
 				return;
+			}
 
 			GameObject* player = WorldManager::GetInstance()->GetPlayer();
 			if (!player)
@@ -109,6 +174,9 @@ void ItemBase::Update()
 			
 			ItemPos = playerPos;
 			ItemTr->SetPosition(ItemPos);
+
+			Vector3 scale = this->GetWorldSacle();
+			ItemTr->SetScale(scale);
 
 			mbPick = false;
 			Input::GetInstance()->SetPickItem(nullptr);
@@ -121,7 +189,37 @@ void ItemBase::Update()
 			this->SetInventory(nullptr);
 			this->SetSlotInventory(nullptr);
 
+			Animator* animator = GetComponent<Animator>();
+
+			if (animator != nullptr)
+			{
+				animator->Play(L"WorldDrop", false);
+			}
+
 			SetStage(true);
+		}
+	}
+
+	if (Input::GetInstance()->GetKeyDown(eKeyCode::RBTN)
+		&& mbStage
+		&& Input::GetInstance()->GetPickItem() == nullptr
+		&& ItemManager::GetInstance()->GetPickUpItem() == false)
+	{
+		InventoryPanel* invenPanel = UIManager::GetInstance()->GetUiInstance<InventoryPanel>(L"mainInventory");
+		InventoryButton* InvenArr = invenPanel->GetInventoryArr();
+
+		bool pickUp = InvenArr->PickUpItem(this);
+		if (pickUp)
+		{
+			this->SetInventory(InvenArr);
+			mbStage = false;
+
+			Transform* tr = this->GetComponent<Transform>();
+			tr->SetScale(this->GetInvenSacle());
+
+			this->GetComponent<Animator>()->StopPlayAnimation();
+
+			ItemManager::GetInstance()->SetPickUpItem(true);
 		}
 	}
 

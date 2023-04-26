@@ -21,6 +21,8 @@ void ItemManager::Initalize()
 
 void ItemManager::Update()
 {
+	mbPickUpItem = false;
+
 	GameObject* player = WorldManager::GetInstance()->GetPlayer();
 	for (ItemBase* item : mItemes)
 	{
@@ -45,8 +47,33 @@ void ItemManager::FixedUpdate()
 	}
 }
 
+void ItemManager::WorldRender()
+{
+	Matrix& view = Renderer::mainCamera->GetViewMatrix();
+	Matrix& proejction = Renderer::mainCamera->GetProjectionMatrix();
+	Renderer::mainCamera->SetGpuViewMatrix(view);
+	Renderer::mainCamera->SetGpuProjectionMatrix(proejction);
+
+	for (ItemBase* item : mItemes)
+	{
+		if (item == nullptr)
+			continue;
+
+		bool stage = item->GetStage();
+		if (!stage)
+			continue;
+
+		item->Render();
+	}
+}
+
 void ItemManager::Render()
 {
+	Matrix& view = Renderer::UiCamera->GetViewMatrix();
+	Matrix& proejction = Renderer::UiCamera->GetProjectionMatrix();
+	Renderer::UiCamera->SetGpuViewMatrix(view);
+	Renderer::UiCamera->SetGpuProjectionMatrix(proejction);
+
 	for (ItemBase* item : mItemes)
 	{
 		if (item == nullptr)
@@ -54,20 +81,8 @@ void ItemManager::Render()
 
 		bool stage = item->GetStage();
 		if (stage)
-		{
-			Matrix& view = Renderer::mainCamera->GetViewMatrix();
-			Matrix& proejction = Renderer::mainCamera->GetProjectionMatrix();
-			Renderer::mainCamera->SetGpuViewMatrix(view);
-			Renderer::mainCamera->SetGpuProjectionMatrix(proejction);
-		}
-		else
-		{
-			Matrix& view = Renderer::UiCamera->GetViewMatrix();
-			Matrix& proejction = Renderer::UiCamera->GetProjectionMatrix();
-			Renderer::UiCamera->SetGpuViewMatrix(view);
-			Renderer::UiCamera->SetGpuProjectionMatrix(proejction);
-		}
-
+			continue;
+		
 		item->Render();
 	}
 

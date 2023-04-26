@@ -19,6 +19,8 @@ public:
 	virtual void UnActive() override;
 
 	bool CheckPoekySlot(int& x, int& y);
+	bool CheckPoekySlot(ItemBase* item, int& x, int& y);
+	bool PickUpItem(ItemBase* item);
 
 	virtual void DropItem(class ItemBase* item);
 	virtual void ClearPocketSlot(ItemBase* item);

@@ -319,7 +319,7 @@
     <ClCompile Include="CTileObject.cpp" />
     <ClCompile Include="CTitleScene.cpp" />
     <ClCompile Include="CTransform.cpp" />
-    <ClCompile Include="CBVeltItem.cpp" />
+    <ClCompile Include="CBeltItem.cpp" />
     <ClCompile Include="CWeponItem.cpp" />
     <ClCompile Include="CWorldManager.cpp" />
     <ClCompile Include="CGenericAnimator.cpp" />

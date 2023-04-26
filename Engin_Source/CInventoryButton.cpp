@@ -533,7 +533,65 @@ bool InventoryButton::CheckPoekySlot(int& x, int& y)
 			}
 		}
 	}
+
+	item->SetIndex(x, y);
 	return true;
+}
+
+bool InventoryButton::CheckPoekySlot(ItemBase* item, int& x, int& y)
+{
+	if (item == nullptr)
+		return false;
+
+	Vector2 SlotNum = item->GetItemSlotSize();
+	int SlotX = (int)SlotNum.x;
+	int SlotY = (int)SlotNum.y;
+
+	for (int i = 0; i < SlotX; ++i)
+	{
+		for (int j = 0; j < SlotY; ++j)
+		{
+			if (y + j >= mPoketSlot.size())
+				return false;
+
+			if (x + i >= mPoketSlot[y + j].size())
+				return false;
+
+			if (mPoketSlot[y + j][x + i] == 1)
+			{
+				return false;
+			}
+		}
+	}
+
+	mXIndex = x;
+	mYIndex = y;
+	item->SetIndex(x, y);
+	return true;
+}
+
+bool InventoryButton::PickUpItem(ItemBase* item)
+{
+	Vector2 slot = item->GetItemSlotSize();
+	int slotX = slot.x;
+	int slotY = slot.y;
+
+	for (int i = 0; i < mPoketSlot.size(); ++i)
+	{
+		for (int j = 0; j < mPoketSlot[i].size(); ++j)
+		{
+			if (CheckPoekySlot(item, j, i))
+			{
+				mbDrop = true;
+				Transform* itemTr = item->GetComponent<Transform>();
+				itemTr->SetScale(item->GetInvenSacle());
+
+				DropItem(item);
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 void InventoryButton::DropItem(ItemBase* item)
@@ -583,7 +641,7 @@ void InventoryButton::DropItem(ItemBase* item)
 	item->SetPick(false);
 
 	// 이미 내려놓은 아이템은 드롭할수 있는
-	// 존건에서 제외
+	// 조건에서 제외
 	item->SetDrop(false);
 
 	// 인벤토리 내부에 아이템을 드롭했으므로
@@ -592,6 +650,19 @@ void InventoryButton::DropItem(ItemBase* item)
 
 	// 아이템을 담는 컨테이너에 넣어준다
 	AddItem(item);
+
+	SpriteRenderer* itemSr = item->GetComponent<SpriteRenderer>();
+	if (itemSr != nullptr)
+	{
+		if (mbEnable)
+		{
+			itemSr->SetRenderStop(false);
+		}
+		else
+		{
+			itemSr->SetRenderStop(true);
+		}
+	}
 
 
 	Transform* ItemTr = item->GetComponent<Transform>();

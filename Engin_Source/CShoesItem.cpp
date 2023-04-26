@@ -32,6 +32,16 @@ void ShoesItem::Initalize()
 	//shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(GetItemName());
 	//material->SetTexture(eTextureSlot::T0, tex);
 
+	{
+		Animator* animator = AddComponent<Animator>();
+		shared_ptr<Texture2D> tex =
+			ResourceManager::GetInstance()->Load<Texture2D>(L"ShoesDrop", L"Item//ShoesDrop.png");
+		animator->Create(L"WorldDrop", tex, Vector2::Zero, Vector2(28.f, 181.f), Vector2::Zero, 17, 0.05f);
+	}
+
 	SetItemSlotSize(Vector2(2.0f, 2.0f));
 	SetItemMater(material.get());
+
+	SetWorldScale(Vector3(4.0f, 4.0f, 0.0f));
+	SetInvenScale(Vector3(ITEM_X_SIZE * 2.0f, ITEM_Y_SIZE * 2.0f, 0.0f));
 }

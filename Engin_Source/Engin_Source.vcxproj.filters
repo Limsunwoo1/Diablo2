@@ -232,9 +232,6 @@
     <Filter Include="GameObject\CItem\Suit">
       <UniqueIdentifier>{7f4b372b-d6db-445a-9824-353996869567}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject\CItem\Velt">
-      <UniqueIdentifier>{85491fcc-9f2c-4419-838e-400c701bfe74}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObject\CItem\Cap">
       <UniqueIdentifier>{8e8ab04d-2e17-4445-82cc-ffad125a38b2}</UniqueIdentifier>
     </Filter>
@@ -252,6 +249,9 @@
     </Filter>
     <Filter Include="GameObject\CItem\Potion\MP">
       <UniqueIdentifier>{623225a2-c228-46ab-99dc-655aeec36072}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\CItem\Belt">
+      <UniqueIdentifier>{85491fcc-9f2c-4419-838e-400c701bfe74}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -495,8 +495,8 @@
     <ClCompile Include="CSuitItem.cpp">
       <Filter>GameObject\CItem\Suit</Filter>
     </ClCompile>
-    <ClCompile Include="CBVeltItem.cpp">
-      <Filter>GameObject\CItem\Velt</Filter>
+    <ClCompile Include="CBeltItem.cpp">
+      <Filter>GameObject\CItem\Belt</Filter>
     </ClCompile>
     <ClCompile Include="CWeponItem.cpp">
       <Filter>GameObject\CItem\Wepon</Filter>
@@ -778,7 +778,7 @@
       <Filter>GameObject\CItem\Suit</Filter>
     </ClInclude>
     <ClInclude Include="CBeltItem.h">
-      <Filter>GameObject\CItem\Velt</Filter>
+      <Filter>GameObject\CItem\Belt</Filter>
     </ClInclude>
     <ClInclude Include="CWeponItem.h">
       <Filter>GameObject\CItem\Wepon</Filter>

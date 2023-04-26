@@ -24,11 +24,12 @@ void HpPotionItem::Initalize()
 	sr->SetMesh(mesh);
 	sr->SetMaterial(material);
 
-	// DropAnimation ¡¶¿€
-	Animator* animator = AddComponent<Animator>();
-	//shared_ptr<Texture2D> hpDrop = 
-	//	ResourceManager::GetInstance()->Load<Texture2D>(L"HpPotionDrop", L"Item//HpPotion.png");
-	//animator->Create()
+	{
+		Animator* animator = AddComponent<Animator>();
+		shared_ptr<Texture2D> tex =
+			ResourceManager::GetInstance()->Load<Texture2D>(L"HpPotionDrop", L"Item//HpPotionDrop.png");
+		animator->Create(L"WorldDrop", tex, Vector2::Zero, Vector2(20.f, 159.f), Vector2::Zero, 17, 0.05f);
+	}
 }
 
 void HpPotionItem::UsePotion()

@@ -6,6 +6,7 @@
 #include "CMaterial.h"
 #include "CBaseRenderer.h"
 #include "CSceneManager.h"
+#include "CItemManager.h"
 
 extern CApplication Application;
 
@@ -53,6 +54,9 @@ void Camera::FixedUpdate()
 
 void Camera::Render()
 {
+	if (Renderer::UiCamera == this)
+		ItemManager::GetInstance()->WorldRender();
+
 	View = mView;
 	Projection = mProjection;
 

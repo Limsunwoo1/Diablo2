@@ -6,6 +6,7 @@
 
 InventoryPanel::InventoryPanel()
 	: Panel(eUIType::Panel)
+	, mInvenArr(nullptr)
 {
 }
 
@@ -28,6 +29,8 @@ void InventoryPanel::Initalize()
 		button->OnActive();
 		SetChild(button);
 		button->SetParent(nullptr);
+		
+		mInvenArr = button;
 	}
 
 	// Shoes Item

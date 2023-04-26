@@ -2,6 +2,7 @@
 #include "CGameObject.h"
 #include "CMaterial.h"
 #include "CInventoryButton.h"
+#include "CAnimator.h"
 
 
 class ItemBase : public GameObject
@@ -62,12 +63,22 @@ public:
 
 	void SetTargetObject(GameObject* obj) { mTargetObject = obj; }
 	GameObject* GetTargetObject() { return mTargetObject; }
+
+	Vector3& GetWorldSacle() { return mWorldSacle; }
+	void SetWorldScale(const Vector3& scale) { mWorldSacle = scale; }
+
+	Vector3& GetInvenSacle() { return mInvenScale; }
+	void SetInvenScale(const Vector3& scale) { mInvenScale = scale; }
+
 private:
 	UINT mXSize;
 	UINT mYSize;
 
 	UINT mXIndex;
 	UINT mYIndex;
+
+	Vector3 mWorldSacle;
+	Vector3 mInvenScale;
 
 	Material* mMaterial;
 	InventoryButton* mInventory;
