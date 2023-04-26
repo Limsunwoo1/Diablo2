@@ -221,6 +221,32 @@ void ItemBase::Update()
 
 			ItemManager::GetInstance()->SetPickUpItem(true);
 		}
+		else
+		{
+			Animator* animator = GetComponent<Animator>();
+
+			if (animator != nullptr)
+			{
+				animator->Play(L"WorldDrop", false);
+			}
+
+			GameObject* player = WorldManager::GetInstance()->GetPlayer();
+			if (!player)
+				return;
+
+			Transform* ItemTr = this->GetComponent<Transform>();
+			Vector3 ItemPos = ItemTr->GetPosition();
+			Vector3 ItemScale = ItemTr->GetScale();
+
+			Transform* playerTr = player->GetComponent<Transform>();
+			Vector3 playerPos = playerTr->GetPosition();
+
+			ItemPos = playerPos;
+			ItemTr->SetPosition(ItemPos);
+
+			Vector3 scale = this->GetWorldSacle();
+			ItemTr->SetScale(scale);
+		}
 	}
 
 	Input::GetInstance()->SetMouseItemPick(mbPick);
