@@ -83,6 +83,20 @@ void PlayScene::Initalize()
 		Renderer::UiCamera = uiCameraComp;
 	}
 
+	{
+		GameObject* fade = Object::Instantiate<GameObject>(eLayerType::BackGround, this);
+		SpriteRenderer* sr = fade->AddComponent<SpriteRenderer>();
+		shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"FadeMesh");
+		shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"AstarMaterial");
+
+		sr->SetMesh(mesh);
+		sr->SetMaterial(material);
+
+		Transform* tr = fade->GetComponent<Transform>();
+		tr->SetScale(Vector3(10.f, 10.f, 1.0f));
+		tr->SetPosition(Vector3(10.f, 10.f, 0.9f));
+	}
+
 	GameObject* obj = nullptr;
 	// Player
 	{
@@ -103,6 +117,11 @@ void PlayScene::Initalize()
 
 		spr->SetMesh(mesh);
 		spr->SetMaterial(material);
+
+		Light* lightcomp = player->AddComponent<Light>();
+		lightcomp->SetType(eLightType::Point);
+		lightcomp->SetRadius(2.0f);
+		lightcomp->SetDiffuse(Vector4(1.0f, 0.0f, 1.0f, 1.0f));
 
 		player->InitAnimation();
 		player->PlayAnimation(L"Walk0");

@@ -104,19 +104,19 @@ namespace Renderer
 #pragma region FADE MESH
 		// Fade
 		FadeInOut[0].pos = Vector4(-1.0f, 1.0f, 0.0f, 1.0f);
-		FadeInOut[0].color = Vector4(0.f, 0.f, 0.f, 0.f);
+		FadeInOut[0].color = Vector4(0.f, 0.f, 0.f, 1.0f);
 		FadeInOut[0].uv = Vector2(0.f, 0.f);
 
 		FadeInOut[1].pos = Vector4(1.0f, 1.0f, 0.0f, 1.0f);
-		FadeInOut[1].color = Vector4(0.f, 0.f, 0.f, 1.f);
+		FadeInOut[1].color = Vector4(0.f, 0.f, 0.f, 1.0f);
 		FadeInOut[1].uv = Vector2(1.f, 0.f);
 
 		FadeInOut[2].pos = Vector4(1.0f, -1.0f, 0.0f, 1.0f);
-		FadeInOut[2].color = Vector4(0.f, 0.f, 0.f, 1.f);
+		FadeInOut[2].color = Vector4(0.f, 0.f, 0.f, 1.0f);
 		FadeInOut[2].uv = Vector2(1.f, 1.f);
 
 		FadeInOut[3].pos = Vector4(-1.0f, -1.0f, 0.0f, 1.0f);
-		FadeInOut[3].color = Vector4(0.f, 0.f, 0.f, 1.f);
+		FadeInOut[3].color = Vector4(0.f, 0.f, 0.f, 1.0f);
 		FadeInOut[3].uv = Vector2(0.f, 1.f);
 
 
@@ -483,7 +483,7 @@ namespace Renderer
 		spriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 		spriteShader->SetRasterize(eRasterizeType::SolidNone);
-		//spriteShader->SetDepthStencil(eDepthStencilType::NoWrite);
+		spriteShader->SetDepthStencil(eDepthStencilType::Less);
 		spriteShader->SetBlend(eBlendType::AlphaBlend);
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"SpriteShader", spriteShader);
@@ -543,7 +543,7 @@ namespace Renderer
 		fadeShader->Create(eShaderStage::VS, L"FadeInOutVS.hlsl", "main");
 		fadeShader->Create(eShaderStage::PS, L"FadeInOutPS.hlsl", "main");
 		fadeShader->SetRasterize(eRasterizeType::SolidNone);
-		fadeShader->SetDepthStencil(eDepthStencilType::NoWrite);
+		fadeShader->SetDepthStencil(eDepthStencilType::Less);
 		fadeShader->SetBlend(eBlendType::AlphaBlend);
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"FadeShader", fadeShader);

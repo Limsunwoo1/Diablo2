@@ -594,7 +594,7 @@ void PlayerScript::AddRenderAStar()
 		tr->SetPosition(Vector3(node.Pos.x, node.Pos.y, 1.0f));
 
 		SpriteRenderer* sr = obj->AddComponent<SpriteRenderer>();
-		shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"FadeMesh");
 		shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"AstarMaterial");
 		sr->SetMesh(mesh);
 		sr->SetMaterial(mater);

@@ -69,7 +69,10 @@ void FrozenOrb::Initalize()
 
 	// 트랜스폼
 	Transform* tr = GetComponent<Transform>();
-	tr->SetScale(Vector3(1.5f, 1.5f, 1.f));
+	tr->SetScale(Vector3(1.5f, 1.5f, 0.8f));
+	
+	Vector3 Pos = tr->GetPosition();
+	tr->SetPosition(Vector3(Pos.x, Pos.y, 0.8f));
 	
 	// 제네릭 애니메이터
 	AddComponent<GenericAnimator>();
