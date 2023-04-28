@@ -36,6 +36,17 @@ float4 main(VSOut In) : SV_Target
         color = defaultTexture.Sample(pointSampler, In.UV);
     }
     
+    // noise, pater burn effect
+    // if(0.0f < NoiseTime)
+    //{
+       // color.z -= NodseTexture.Sample(pointSampler, In.UV).x * 0.25 *  (10.0f - NoiseTime);
+    //}
+    
+    if (color.a <= 0.0f)
+        discard;
+    
+    
+    
     LightColor _lightColor = (LightColor) 0.0f;
     for (int i = 0; i < numberOfLight; i++)
     {

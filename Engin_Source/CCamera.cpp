@@ -15,7 +15,7 @@ Matrix Camera::Projection = Matrix::Identity;
 
 Camera::Camera()
 	: Component(eComponentType::Camera)
-	, mType(eProjectionType::Prespective)
+	, mType(eProjectionType::Orthographic)
 	, mAspectRatio(1.0f)
 	, mNear(1.0f)
 	, mFar(1000.0f)
@@ -65,6 +65,7 @@ void Camera::Render()
 	RenderOpaqu();
 	RenderCutOut();
 	RenderTransparent();
+	RenderPostProcess();
 }
 
 void Camera::CreateViewMatrix()
@@ -120,6 +121,7 @@ void Camera::SortGameObjects()
 	mOpaquGameObjects.clear();
 	mCutOutGameObjects.clear();
 	mTransparentGameObjects.clear();
+	mPostProcessGameObjects.clear();
 
 	Scene* scene = SceneManager::GetInstance()->GetActiveScene();
 	for (size_t i = 0; i < (UINT)eLayerType::End; ++i)
@@ -172,6 +174,18 @@ void Camera::RenderTransparent()
 	}
 }
 
+void Camera::RenderPostProcess()
+{
+	for (GameObject* obj : mTransparentGameObjects)
+	{
+		if (obj == nullptr)
+			continue;
+
+		Renderer::CopyRenderTarget();
+		obj->Render();
+	}
+}
+
 void Camera::PushGameObjectToRenderingMode(GameObject* gameObject)
 {
 	BaseRenderer* renderer = gameObject->GetComponent<BaseRenderer>();
@@ -196,6 +210,9 @@ void Camera::PushGameObjectToRenderingMode(GameObject* gameObject)
 		break;
 	case graphics::eRenderingMode::Transparent:
 		mTransparentGameObjects.push_back(gameObject);
+		break;
+	case graphics::eRenderingMode::PostProcess:
+		mPostProcessGameObjects.push_back(gameObject);
 		break;
 	default:
 		break;

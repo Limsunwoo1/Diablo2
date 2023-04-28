@@ -68,13 +68,13 @@ namespace graphics
 			return;
 
 		mRenderTargetTexture = make_shared<Texture2D>();
-		ResourceManager::GetInstance()->Insert<Texture2D>(L"RenderTarget", mRenderTargetTexture);
 		ComPtr<ID3D11Texture2D> renderTarget;
 
 		// Get Render Target for SwapChain
 		hr = mSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)renderTarget.GetAddressOf());
 
 		mRenderTargetTexture->Create(renderTarget);
+		ResourceManager::GetInstance()->Insert<Texture2D>(L"RenderTarget", mRenderTargetTexture);
 
 
 

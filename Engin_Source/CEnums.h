@@ -25,6 +25,7 @@ enum class eLayerType
 	Particle,
 	Effect,
 	Fade,
+	PostProcess,
 	UI,
 	End = 16,
 };

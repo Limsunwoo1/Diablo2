@@ -99,6 +99,8 @@ namespace graphics
 		Opaque,			 // 불투명
 		CutOut,			 // 투명 + 불투명 물체
 		Transparent,	 // 투명
+		PostProcess,
+
 		End,
 	};
 

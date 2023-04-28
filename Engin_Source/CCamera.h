@@ -47,6 +47,7 @@ private:
 	void RenderOpaqu();
 	void RenderCutOut();
 	void RenderTransparent();
+	void RenderPostProcess();
 	void PushGameObjectToRenderingMode(GameObject* gameObject);
 
 private:
@@ -67,6 +68,7 @@ private:
 	vector<GameObject*> mOpaquGameObjects;
 	vector<GameObject*> mCutOutGameObjects;
 	vector<GameObject*> mTransparentGameObjects;
+	vector<GameObject*> mPostProcessGameObjects;
 
 	GameObject* mTrace;
 };

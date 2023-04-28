@@ -3,6 +3,7 @@ Texture2D NoiseTexture : register(t16);
 cbuffer Noise : register(b8)
 {
     float4 NoiseSize;
+    float NoiseTime;
 }
 
 static float GaussianFilter[5][5] =

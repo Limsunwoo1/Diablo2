@@ -15,3 +15,6 @@ Texture2D testTex : register(t2);
 
 // noise
 // Texture2D NoiseTexture : register(t16)
+
+// postProcess
+Texture2D postProcessTexture : register(t60);

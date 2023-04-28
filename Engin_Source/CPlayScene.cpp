@@ -238,6 +238,25 @@ void PlayScene::Initalize()
 		WorldManager::GetInstance()->SetObstacle(tr->GetPosition().x, tr->GetPosition().y);
 	}
 
+	// PostProcess
+	{
+		GameObject* obj = Object::Instantiate<GameObject>(eLayerType::PostProcess, this);
+		obj->SetName(L"PostProcess");
+		Transform* tr = obj->GetComponent<Transform>();
+		tr->SetPosition(Vector3(10.f, 10.f, 0.f));
+		tr->SetScale(Vector3(100.f, 100.f, 1.0f));
+
+		Collider2D* collider = obj->AddComponent<Collider2D>();
+		collider->SetType(eColliderType::Rect);
+
+		SpriteRenderer* sr = obj->AddComponent<SpriteRenderer>();
+
+		std::shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"PostProcessMaterial");
+		sr->SetMaterial(mater);
+		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		sr->SetMesh(mesh);
+	}
+
 	{
 		TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
 

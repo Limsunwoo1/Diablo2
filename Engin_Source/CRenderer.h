@@ -104,6 +104,7 @@ namespace Renderer
 	CBUFFER(NoiseCB, CBSLOT_NOISE)
 	{
 		Vector4 noiseSize;
+		float noiseTime;
 	};
 
 	CBUFFER(PlayerDataCB, CBSLOT_PLAYERDATA)
@@ -151,5 +152,6 @@ namespace Renderer
 	void BindLights();
 	void BindTime();
 	void BindNoiseTexture();
+	void CopyRenderTarget();
 }
 
