@@ -105,6 +105,7 @@ namespace Renderer
 	{
 		Vector4 noiseSize;
 		float noiseTime;
+		float noiseElapseTime;
 	};
 
 	CBUFFER(PlayerDataCB, CBSLOT_PLAYERDATA)

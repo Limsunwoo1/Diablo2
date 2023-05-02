@@ -26,7 +26,7 @@ namespace Renderer
 	std::vector<LightAttribute> lights;
 	StructedBuffer* LightBuffer;
 
-	std::shared_ptr<Texture2D> postProcessTexture = nullptr;
+	std::shared_ptr<Texture2D> PostProcessTexture = nullptr;
 
 	float Time = 0.0f;
 
@@ -305,6 +305,8 @@ namespace Renderer
 			, postProecssShader->GetVSBlobBufferPointer()
 			, postProecssShader->GetVSBlobBufferSize()
 			, postProecssShader->GetInputLayoutAddressOf());
+
+		postProecssShader->SetKey(L"PostProcessShader");
 
 #pragma endregion
 #pragma region Sampler State
@@ -607,6 +609,7 @@ namespace Renderer
 		std::shared_ptr<Shader> postProcessshader = std::make_shared<Shader>();
 		postProcessshader->Create(eShaderStage::VS, L"PostProcessVS.hlsl", "main");
 		postProcessshader->Create(eShaderStage::PS, L"PostProcessPS.hlsl", "main");
+		postProcessshader->SetDepthStencil(eDepthStencilType::NoWrite);
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"PostProcessShader", postProcessshader);
 #pragma endregion
@@ -640,10 +643,9 @@ namespace Renderer
 		texture->BindShaderResource(graphics::eShaderStage::CS, 2);
 		texture->BindShaderResource(graphics::eShaderStage::PS, 2);
 
-		// noise 
-		postProcessTexture = std::make_shared<Texture2D>();
-		postProcessTexture->Create(1600, 900, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE);
-		postProcessTexture->BindShaderResource(eShaderStage::PS, 60);
+		PostProcessTexture = std::make_shared<Texture2D>();
+		PostProcessTexture->Create(1600, 900, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE);
+		PostProcessTexture->BindShaderResource(eShaderStage::PS, 60);
 	}
 
 	void LoadMaterial()
@@ -879,7 +881,7 @@ namespace Renderer
 #pragma region PostProcess Material
 		std::shared_ptr<Shader> postProcessShader = ResourceManager::GetInstance()->Find<Shader>(L"PostProcessShader");
 		std::shared_ptr<Material> postProcessMaterial = std::make_shared<Material>();
-		postProcessMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		postProcessMaterial->SetRenderingMode(eRenderingMode::PostProcess);
 		postProcessMaterial->SetShader(postProcessShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"PostProcessMaterial", postProcessMaterial);
 #pragma endregion
@@ -965,9 +967,10 @@ namespace Renderer
 	}
 
 	float noiseTime = 10.0f;
+	float time = 0.0f;
 	void BindNoiseTexture()
 	{
-		std::shared_ptr<Texture2D> noise = ResourceManager::GetInstance()->Find<Texture2D>(L"noise_01");
+		std::shared_ptr<Texture2D> noise = ResourceManager::GetInstance()->Find<Texture2D>(L"noise_03");
 		noise->BindShaderResource(eShaderStage::VS, 16);
 		noise->BindShaderResource(eShaderStage::HS, 16);
 		noise->BindShaderResource(eShaderStage::DS, 16);
@@ -980,7 +983,9 @@ namespace Renderer
 		info.noiseSize.x = noise->GetWidth();
 		info.noiseSize.y = noise->GetHeight();
 		noiseTime -= Time::GetInstance()->DeltaTime();
+		time += Time::GetInstance()->DeltaTime();
 		info.noiseTime = noiseTime;
+		info.noiseElapseTime = time;
 
 		ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::Noise];
 		cb->SetData(&info);
@@ -1000,11 +1005,11 @@ namespace Renderer
 		ID3D11ShaderResourceView* srv = nullptr;
 		GetDevice()->BindShaderResource(eShaderStage::PS, 60, &srv);
 
-		ID3D11Texture2D* dest = postProcessTexture->GetTexture().Get();
+		ID3D11Texture2D* dest = PostProcessTexture->GetTexture().Get();
 		ID3D11Texture2D* source = renderTarget->GetTexture().Get();
 
 		GetDevice()->CopyResource(dest, source);
 
-		postProcessTexture->BindShaderResource(eShaderStage::PS, 60);
+		PostProcessTexture->BindShaderResource(eShaderStage::PS, 60);
 	}
 }

@@ -19,6 +19,8 @@ struct VSOut
 float4 main(VSOut _In) : SV_Target
 {
     float4 color = (float) 0.0f;
+    
+    return float4(0.0f, 0.0f, 0.0f, 0.0f);
     color = _In.Color;
     
     LightColor _lightColor = (LightColor) 0.0f;

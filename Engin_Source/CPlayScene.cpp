@@ -83,7 +83,7 @@ void PlayScene::Initalize()
 		Renderer::UiCamera = uiCameraComp;
 	}
 
-	{
+	/*{
 		GameObject* fade = Object::Instantiate<GameObject>(eLayerType::BackGround, this);
 		SpriteRenderer* sr = fade->AddComponent<SpriteRenderer>();
 		shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"FadeMesh");
@@ -95,13 +95,15 @@ void PlayScene::Initalize()
 		Transform* tr = fade->GetComponent<Transform>();
 		tr->SetScale(Vector3(10.f, 10.f, 1.0f));
 		tr->SetPosition(Vector3(10.f, 10.f, 0.9f));
-	}
+	}*/
 
 	GameObject* obj = nullptr;
 	// Player
 	{
 		Player* player = Object::Instantiate<Player>(eLayerType::Player, this);
-		PlayerScript* sc = player->AddComponent<PlayerScript>();
+		//PlayerScript* sc = player->AddComponent<PlayerScript>();
+
+		player->Paused();
 
 		Collider2D* collider = player->AddComponent<Collider2D>();
 		collider->SetSize(Vector2(0.5f, 0.5f));
@@ -123,8 +125,8 @@ void PlayScene::Initalize()
 		lightcomp->SetRadius(2.0f);
 		lightcomp->SetDiffuse(Vector4(1.0f, 0.0f, 1.0f, 1.0f));
 
-		player->InitAnimation();
-		player->PlayAnimation(L"Walk0");
+		//player->InitAnimation();
+		//player->PlayAnimation(L"Walk0");
 
 		Renderer::mainCamera->SetTrace(player);
 		obj = player;
@@ -139,6 +141,30 @@ void PlayScene::Initalize()
 		minoTr->SetPosition(Vector3(10.f, 10.f, 1.0f));
 		minoTr->SetScale(Vector3(3.f, 3.f, 1.0f));
 		mino->SetTarget(obj);
+	}
+
+	// PostProcess
+	{
+		Player* player = Object::Instantiate<Player>(eLayerType::Player, this);
+		PlayerScript* sc = player->AddComponent<PlayerScript>();
+
+		Collider2D* collider = player->AddComponent<Collider2D>();
+		collider->SetSize(Vector2(0.5f, 0.5f));
+		collider->SetType(eColliderType::Rect);
+
+		Transform* tr = player->GetComponent<Transform>();
+		tr->SetPosition(Vector3(10.0f, 10.0f, 1.0f));
+		tr->SetScale(Vector3(3.0f, 3.0f, 1.0f));
+
+		SpriteRenderer* spr = player->AddComponent<SpriteRenderer>();
+		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"PostProcessMaterial");
+
+		spr->SetMesh(mesh);
+		spr->SetMaterial(material);
+
+		player->InitAnimation();
+		player->PlayAnimation(L"Walk0");
 	}
 
 	// tile
@@ -236,25 +262,6 @@ void PlayScene::Initalize()
 		mr->SetMaterial(mater);
 
 		WorldManager::GetInstance()->SetObstacle(tr->GetPosition().x, tr->GetPosition().y);
-	}
-
-	// PostProcess
-	{
-		GameObject* obj = Object::Instantiate<GameObject>(eLayerType::PostProcess, this);
-		obj->SetName(L"PostProcess");
-		Transform* tr = obj->GetComponent<Transform>();
-		tr->SetPosition(Vector3(10.f, 10.f, 0.f));
-		tr->SetScale(Vector3(100.f, 100.f, 1.0f));
-
-		Collider2D* collider = obj->AddComponent<Collider2D>();
-		collider->SetType(eColliderType::Rect);
-
-		SpriteRenderer* sr = obj->AddComponent<SpriteRenderer>();
-
-		std::shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"PostProcessMaterial");
-		sr->SetMaterial(mater);
-		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-		sr->SetMesh(mesh);
 	}
 
 	{

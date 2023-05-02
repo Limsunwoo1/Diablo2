@@ -96,15 +96,14 @@ void CApplication::Release()
 	SceneManager::GetInstance()->Rlease();
 	ItemManager::GetInstance()->Rlease();
 
-
-	Time::GetInstance()->DestroyInstance();
-	Input::GetInstance()->DestroyInstance();
-	WorldManager::GetInstance()->DestroyInstance();
+	ItemManager::GetInstance()->DestroyInstance();
 	UIManager::GetInstance()->DestroyInstance();
 	SceneManager::GetInstance()->DestroyInstance();
-	ItemManager::GetInstance()->DestroyInstance();
+	WorldManager::GetInstance()->DestroyInstance();
+	Renderer::Release();
 	CollisionManager::GetInstance()->DestroyInstance();
-	ResourceManager::GetInstance()->DestroyInstance();
+	Input::GetInstance()->DestroyInstance();
+	Time::GetInstance()->DestroyInstance();
 }
 
 void CApplication::Present()

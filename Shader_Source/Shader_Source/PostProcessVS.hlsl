@@ -3,7 +3,7 @@
 
 struct VSIn
 {
-    float4 Pos : POSITIONT;
+    float4 Pos : POSITION;
     float2 UV : TEXCOORD;
 };
 
@@ -16,8 +16,6 @@ struct VSOut
 VSOut main(VSIn _in)
 {
     VSOut output = (VSOut) 0.0f;
-    
-    // output = mul(float4(_in.pos.xyz, 1.0f), world);
     
     float4 pos = mul(float4(_in.Pos), world);
     float4 viewPos = mul(float4(pos), view);

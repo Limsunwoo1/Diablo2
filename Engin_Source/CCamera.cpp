@@ -176,7 +176,7 @@ void Camera::RenderTransparent()
 
 void Camera::RenderPostProcess()
 {
-	for (GameObject* obj : mTransparentGameObjects)
+	for (GameObject* obj : mPostProcessGameObjects)
 	{
 		if (obj == nullptr)
 			continue;
