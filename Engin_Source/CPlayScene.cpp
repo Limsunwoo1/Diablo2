@@ -101,7 +101,7 @@ void PlayScene::Initalize()
 	// Player
 	{
 		Player* player = Object::Instantiate<Player>(eLayerType::Player, this);
-		//PlayerScript* sc = player->AddComponent<PlayerScript>();
+		PlayerScript* sc = player->AddComponent<PlayerScript>();
 
 		player->Paused();
 
@@ -125,8 +125,8 @@ void PlayScene::Initalize()
 		lightcomp->SetRadius(2.0f);
 		lightcomp->SetDiffuse(Vector4(1.0f, 0.0f, 1.0f, 1.0f));
 
-		//player->InitAnimation();
-		//player->PlayAnimation(L"Walk0");
+		player->InitAnimation();
+		player->PlayAnimation(L"Walk0");
 
 		Renderer::mainCamera->SetTrace(player);
 		obj = player;
@@ -145,7 +145,7 @@ void PlayScene::Initalize()
 
 	// PostProcess
 	{
-		Player* player = Object::Instantiate<Player>(eLayerType::Player, this);
+		/*Player* player = Object::Instantiate<Player>(eLayerType::Player, this);
 		PlayerScript* sc = player->AddComponent<PlayerScript>();
 
 		Collider2D* collider = player->AddComponent<Collider2D>();
@@ -154,7 +154,7 @@ void PlayScene::Initalize()
 
 		Transform* tr = player->GetComponent<Transform>();
 		tr->SetPosition(Vector3(10.0f, 10.0f, 1.0f));
-		tr->SetScale(Vector3(3.0f, 3.0f, 1.0f));
+		tr->SetScale(Vector3(30.0f, 30.0f, 1.0f));
 
 		SpriteRenderer* spr = player->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
@@ -164,7 +164,7 @@ void PlayScene::Initalize()
 		spr->SetMaterial(material);
 
 		player->InitAnimation();
-		player->PlayAnimation(L"Walk0");
+		player->PlayAnimation(L"Walk0");*/
 	}
 
 	// tile

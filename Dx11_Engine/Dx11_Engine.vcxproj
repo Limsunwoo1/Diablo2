@@ -134,20 +134,51 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CDebugObject.h" />
-    <ClInclude Include="CEditor.h" />
-    <ClInclude Include="CEditorObject.h" />
-    <ClInclude Include="CWidget.h" />
+    <ClInclude Include="GuiBaseEditor.h" />
+    <ClInclude Include="GuiComponent.h" />
+    <ClInclude Include="GuiDebugObject.h" />
+    <ClInclude Include="GuiEditor.h" />
+    <ClInclude Include="GuiEditorObject.h" />
+    <ClInclude Include="GuiGame.h" />
+    <ClInclude Include="GuiHierachy.h" />
+    <ClInclude Include="GuiInspector.h" />
+    <ClInclude Include="GuiMeshRenderer.h" />
+    <ClInclude Include="GuiProject.h" />
+    <ClInclude Include="GuiTransform.h" />
+    <ClInclude Include="GuiWidget.h" />
     <ClInclude Include="Dx11_Engine.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="imconfig.h" />
+    <ClInclude Include="imgui.h" />
+    <ClInclude Include="imgui_impl_dx11.h" />
+    <ClInclude Include="imgui_impl_win32.h" />
+    <ClInclude Include="imgui_internal.h" />
+    <ClInclude Include="imstb_rectpack.h" />
+    <ClInclude Include="imstb_textedit.h" />
+    <ClInclude Include="imstb_truetype.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CDebugObject.cpp" />
-    <ClCompile Include="CEditor.cpp" />
-    <ClCompile Include="CEditorObject.cpp" />
-    <ClCompile Include="CWidget.cpp" />
+    <ClCompile Include="GuiBaseEditor.cpp" />
+    <ClCompile Include="GuiComponent.cpp" />
+    <ClCompile Include="GuiDebugObject.cpp" />
+    <ClCompile Include="GuiEditor.cpp" />
+    <ClCompile Include="GuiEditorObject.cpp" />
+    <ClCompile Include="GuiGame.cpp" />
+    <ClCompile Include="GuiHierachy.cpp" />
+    <ClCompile Include="GuiInspector.cpp" />
+    <ClCompile Include="GuiMeshRenderer.cpp" />
+    <ClCompile Include="GuiProject.cpp" />
+    <ClCompile Include="GuiTransform.cpp" />
+    <ClCompile Include="GuiWidget.cpp" />
+    <ClCompile Include="imgui.cpp" />
+    <ClCompile Include="imgui_demo.cpp" />
+    <ClCompile Include="imgui_draw.cpp" />
+    <ClCompile Include="imgui_impl_dx11.cpp" />
+    <ClCompile Include="imgui_impl_win32.cpp" />
+    <ClCompile Include="imgui_tables.cpp" />
+    <ClCompile Include="imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>

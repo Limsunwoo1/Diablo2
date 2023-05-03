@@ -6,6 +6,7 @@ Component::Component(eComponentType type)
 {
 }
 
+
 Component::~Component()
 {
 }

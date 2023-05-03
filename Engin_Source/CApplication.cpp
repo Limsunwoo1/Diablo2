@@ -64,12 +64,12 @@ void CApplication::FixedUpdate()
 
 void CApplication::Render()
 {
-	Time::GetInstance()->Render(mHdc);
 
 	graphicDevice->Clear();			  // 화면지우기
 	graphicDevice->AdjustViewPorts(); // 뷰보트 크기
 
 	//SceneManager::GetInstance()->Render();
+	Time::GetInstance()->Render(mHdc);
 	Renderer::Render();
 	ItemManager::GetInstance()->Render();
 }

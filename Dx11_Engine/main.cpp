@@ -4,8 +4,9 @@
 #include "framework.h"
 #include "Dx11_Engine.h"
 #include "Engin_Source//CApplication.h"
-#include "CEditor.h"
+#include "GuiEditor.h"
 #include <Resource.h>
+
 
 #ifdef _DEBUG
 #pragma comment(lib, "..\\x64\\Debug\\Lib\\Engin_Source.lib")
@@ -28,7 +29,7 @@ WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
 
 CApplication Application;
-Editor _Editor;
+gui::Editor _Editor;
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
@@ -178,11 +179,12 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
       return FALSE;
    }
 
+   ShowWindow(hWnd, nCmdShow);
+   UpdateWindow(hWnd);
+
    Application.SetWindow(hWnd, 1600, 900);
    Application.Initalize();
    _Editor.Initalize();
-   ShowWindow(hWnd, nCmdShow);
-   UpdateWindow(hWnd);
 
    return TRUE;
 }
@@ -197,8 +199,12 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
 //
 //
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wPram, LPARAM lParam);
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+    if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
+        return true;
+
     switch (message)
     {
     case WM_COMMAND:
@@ -228,6 +234,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     case WM_DESTROY:
         PostQuitMessage(0);
+        break;
+        
+    case WM_DPICHANGED:
+        if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_DpiEnableScaleViewports)
+        {
+            // const int dpt = HIWORD(wParam);
+             //printf("WM_DPICHANGED to %d (%.0f%%)\n", dpi, (float)dpi / 96.0f * 100.0f);
+            const RECT* suggested_rect = (RECT*)lParam;
+            ::SetWindowPos(hWnd, nullptr, 
+                suggested_rect->left, suggested_rect->top, 
+                suggested_rect->right - suggested_rect->left, suggested_rect->bottom - suggested_rect->top,
+                SWP_NOZORDER | SWP_NOACTIVATE);
+        }
         break;
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);

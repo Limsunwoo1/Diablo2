@@ -1,13 +1,16 @@
-#include "CDebugObject.h"
+#include "GuiDebugObject.h"
 
-DebugObject::DebugObject()
-	: GameObject()
-{
-}
 
-DebugObject::~DebugObject()
-{
-}
+	DebugObject::DebugObject()
+		: GameObject()
+	{
+	}
+
+	DebugObject::~DebugObject()
+	{
+	}
+
+
 
 void DebugObject::FixedUpdate()
 {

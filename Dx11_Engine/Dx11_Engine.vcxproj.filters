@@ -8,17 +8,41 @@
     <Filter Include="main">
       <UniqueIdentifier>{42fb56c6-3519-4c6e-9e93-1c49076abe37}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CEditor">
+    <Filter Include="ImGui">
+      <UniqueIdentifier>{f35d0e64-57d2-47d4-9121-a2ebc07f75b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GuiEditor">
       <UniqueIdentifier>{5effa216-c21b-4eb9-b69a-895db86a7ea1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CEditor\DebugObject">
+    <Filter Include="GuiEditor\DebugObject">
       <UniqueIdentifier>{b3de12de-bdbc-43fb-863e-480e4dcadd1e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CEditor\EditorObject">
+    <Filter Include="GuiEditor\EditorObject">
       <UniqueIdentifier>{26bbe5f9-0655-4e0f-8109-cf7c9133fb31}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CEditor\Widget">
+    <Filter Include="GuiEditor\Widget">
       <UniqueIdentifier>{558ef21b-f6a1-481d-b663-8ec6fa2c7b72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GuiEditor\Inspector">
+      <UniqueIdentifier>{cb206c06-e9d8-44d5-94f6-762dc311b836}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GuiEditor\GuiComponent">
+      <UniqueIdentifier>{a1141927-7566-4f04-ad1c-e256d80bcdbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GuiEditor\GuiGame">
+      <UniqueIdentifier>{78e98645-f5c3-435d-b395-d96335affc61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GuiEditor\GuiHierachy">
+      <UniqueIdentifier>{843aaf53-1340-4105-a88b-3ff19812831b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GuiEditor\GuiProject">
+      <UniqueIdentifier>{2d5bfdb4-67a9-45e3-aaf1-f5bd1562bc23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GuiEditor\GuiComponent\MeshRenderer">
+      <UniqueIdentifier>{1fba5917-dc59-4746-811d-e5d45592ac74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GuiEditor\GuiComponent\Transform">
+      <UniqueIdentifier>{911cbf9e-e077-4780-9aa7-e4944ee0cae7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -26,17 +50,65 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Dx11_Engine.h" />
-    <ClInclude Include="CEditor.h">
-      <Filter>CEditor</Filter>
+    <ClInclude Include="GuiEditor.h">
+      <Filter>GuiEditor</Filter>
     </ClInclude>
-    <ClInclude Include="CDebugObject.h">
-      <Filter>CEditor\DebugObject</Filter>
+    <ClInclude Include="GuiDebugObject.h">
+      <Filter>GuiEditor\DebugObject</Filter>
     </ClInclude>
-    <ClInclude Include="CEditorObject.h">
-      <Filter>CEditor\EditorObject</Filter>
+    <ClInclude Include="GuiEditorObject.h">
+      <Filter>GuiEditor\EditorObject</Filter>
     </ClInclude>
-    <ClInclude Include="CWidget.h">
-      <Filter>CEditor\Widget</Filter>
+    <ClInclude Include="GuiWidget.h">
+      <Filter>GuiEditor\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiBaseEditor.h">
+      <Filter>GuiEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="imconfig.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_dx11.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_win32.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_internal.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_rectpack.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_textedit.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_truetype.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiInspector.h">
+      <Filter>GuiEditor\Inspector</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiGame.h">
+      <Filter>GuiEditor\GuiGame</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiHierachy.h">
+      <Filter>GuiEditor\GuiHierachy</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiProject.h">
+      <Filter>GuiEditor\GuiProject</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiComponent.h">
+      <Filter>GuiEditor\GuiComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiMeshRenderer.h">
+      <Filter>GuiEditor\GuiComponent\MeshRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiTransform.h">
+      <Filter>GuiEditor\GuiComponent\Transform</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -59,17 +131,62 @@
     <ClCompile Include="main.cpp">
       <Filter>main</Filter>
     </ClCompile>
-    <ClCompile Include="CEditor.cpp">
-      <Filter>CEditor</Filter>
+    <ClCompile Include="GuiEditor.cpp">
+      <Filter>GuiEditor</Filter>
     </ClCompile>
-    <ClCompile Include="CDebugObject.cpp">
-      <Filter>CEditor\DebugObject</Filter>
+    <ClCompile Include="GuiDebugObject.cpp">
+      <Filter>GuiEditor\DebugObject</Filter>
     </ClCompile>
-    <ClCompile Include="CEditorObject.cpp">
-      <Filter>CEditor\EditorObject</Filter>
+    <ClCompile Include="GuiEditorObject.cpp">
+      <Filter>GuiEditor\EditorObject</Filter>
     </ClCompile>
-    <ClCompile Include="CWidget.cpp">
-      <Filter>CEditor\Widget</Filter>
+    <ClCompile Include="GuiWidget.cpp">
+      <Filter>GuiEditor\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiBaseEditor.cpp">
+      <Filter>GuiEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_demo.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_draw.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_dx11.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_win32.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_tables.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_widgets.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiInspector.cpp">
+      <Filter>GuiEditor\Inspector</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiGame.cpp">
+      <Filter>GuiEditor\GuiGame</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiHierachy.cpp">
+      <Filter>GuiEditor\GuiHierachy</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiProject.cpp">
+      <Filter>GuiEditor\GuiProject</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiComponent.cpp">
+      <Filter>GuiEditor\GuiComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiMeshRenderer.cpp">
+      <Filter>GuiEditor\GuiComponent\MeshRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiTransform.cpp">
+      <Filter>GuiEditor\GuiComponent\Transform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

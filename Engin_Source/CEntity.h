@@ -2,7 +2,6 @@
 #include "CEngine.h"
 #include "Math.h"
 
-
 class Entity
 {
 public:
@@ -18,5 +17,24 @@ private:
 	std::wstring mName;
 	UINT32 mID;
 };
+
+namespace gui
+{
+	class Entity
+	{
+	public:
+		Entity();
+		virtual ~Entity();
+
+
+		void SetName(const std::string name) { mName = name; }
+		std::string GetName() { return mName; }
+		UINT32 GetID() { return mID; }
+
+	private:
+		std::string mName;
+		UINT32 mID;
+	};
+}
 
 

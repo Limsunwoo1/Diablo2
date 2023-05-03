@@ -2,8 +2,23 @@
 
 
 
+Entity::Entity()
+	: mName(L"")
+	, mID((UINT32)this)
+{
+
+}
+
+Entity::~Entity()
+{
+
+}
+
+
+namespace gui
+{
 	Entity::Entity()
-		: mName(L"")
+		: mName("")
 		, mID((UINT32)this)
 	{
 
@@ -13,3 +28,4 @@
 	{
 
 	}
+}
