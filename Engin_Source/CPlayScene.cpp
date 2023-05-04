@@ -103,8 +103,6 @@ void PlayScene::Initalize()
 		Player* player = Object::Instantiate<Player>(eLayerType::Player, this);
 		PlayerScript* sc = player->AddComponent<PlayerScript>();
 
-		player->Paused();
-
 		Collider2D* collider = player->AddComponent<Collider2D>();
 		collider->SetSize(Vector2(0.5f, 0.5f));
 		collider->SetType(eColliderType::Rect);
@@ -119,11 +117,6 @@ void PlayScene::Initalize()
 
 		spr->SetMesh(mesh);
 		spr->SetMaterial(material);
-
-		Light* lightcomp = player->AddComponent<Light>();
-		lightcomp->SetType(eLightType::Point);
-		lightcomp->SetRadius(2.0f);
-		lightcomp->SetDiffuse(Vector4(1.0f, 0.0f, 1.0f, 1.0f));
 
 		player->InitAnimation();
 		player->PlayAnimation(L"Walk0");

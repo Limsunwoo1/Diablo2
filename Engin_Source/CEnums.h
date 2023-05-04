@@ -3,6 +3,7 @@
 enum class eSceneType
 {
 	Title,
+	MainTitle,
 	Play,
 	Selecte,
 	Create,

@@ -50,7 +50,7 @@ void Time::Update()
 
 void Time::Render(HDC hdc)
 {
-	Math::Vector2 pos = Input::GetInstance()->GetMouseWorldPos(false);
+	Math::Vector2 pos = Input::GetInstance()->GetMouseWorldPos();
 	MouseX = pos.x;
 	MouseY = pos.y;
 	//wchar_t szFloat[50] = {};

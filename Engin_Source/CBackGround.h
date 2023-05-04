@@ -15,10 +15,10 @@ public:
 	virtual void FixedUpdate();
 	virtual void Render();
 
-	std::shared_ptr<Texture2D> FindTextuer2D(const std::wstring& name, const std::wstring& path);
 	void SetRenderMode(eRenderingMode type) { mbMode = type; }
+	void SetTexture(const std::weak_ptr<Texture2D> tex) { mTexture = tex; }
 
 private:
-	std::shared_ptr<class Texture2D> mTextuer2D;
+	std::weak_ptr<Texture2D> mTexture;
 	eRenderingMode mbMode;
 };

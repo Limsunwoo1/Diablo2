@@ -7,7 +7,6 @@ using namespace graphics;
 
 BackGround::BackGround()
 	: GameObject()
-	, mTextuer2D(nullptr)
 	, mbMode(eRenderingMode::Opaque)
 {
 }
@@ -30,28 +29,20 @@ void BackGround::FixedUpdate()
 {
 	//MeshRenderer* mr = GetComponent<MeshRenderer>();
 	//mr->GetMaterial()->SetTexture(mTextuer2D);
-	MeshRenderer* mr = GetComponent<MeshRenderer>();
-	mr->GetMaterial()->SetTexture(eTextureSlot::T0, mTextuer2D);
-	mr->GetMaterial()->SetRenderingMode(mbMode);
 
 	GameObject::FixedUpdate();
 }
 
 void BackGround::Render()
 {
-	GameObject::Render();
-}
+	MeshRenderer* mr = GetComponent<MeshRenderer>();
 
-std::shared_ptr<Texture2D> BackGround::FindTextuer2D(const std::wstring& name, const std::wstring& path)
-{
-	mTextuer2D = ResourceManager::GetInstance()->Find<Texture2D>(name);
-
-	if (mTextuer2D == nullptr)
+	if (mr)
 	{
-		mTextuer2D = std::make_shared<Texture2D>();
-		mTextuer2D->Load(path);
-		ResourceManager::GetInstance()->Insert<Texture2D>(name, mTextuer2D);
+		mr->GetMaterial()->SetRenderingMode(mbMode);
+		if(mTexture.lock() != nullptr)
+			mr->GetMaterial()->SetTexture(eTextureSlot::T0, mTexture.lock());
 	}
 
-	return mTextuer2D;
+	GameObject::Render();
 }

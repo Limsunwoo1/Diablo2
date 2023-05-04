@@ -659,6 +659,17 @@ namespace Renderer
 		material->SetTexture(eTextureSlot::T0, texture);
 		ResourceManager::GetInstance()->Insert<Material>(L"RectMaterial", material);
 #pragma endregion
+#pragma region DEFAULT2 MATERIAL
+		{
+			// Dafault
+			std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"SmileTexture");
+			std::shared_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"RectShader");
+			std::shared_ptr<Material> material = std::make_shared<Material>();
+			material->SetShader(shader);
+			material->SetTexture(eTextureSlot::T0, texture);
+			ResourceManager::GetInstance()->Insert<Material>(L"Rect2Material", material);
+		}
+#pragma endregion
 #pragma region PAINT MATERIAL
 		{
 			std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"PaintTexture");
@@ -752,7 +763,7 @@ namespace Renderer
 		mainuiMaterial ->SetShader(mainShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"mainPanelMaterial", mainuiMaterial);
 #pragma endregion
-#pragma region Main MATERIAL
+#pragma region Main INVENTORY MATERIAL
 		// UI
 		std::shared_ptr<Shader> InventoryShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
 		std::shared_ptr<Material> InventoryMaterial = std::make_shared<Material>();

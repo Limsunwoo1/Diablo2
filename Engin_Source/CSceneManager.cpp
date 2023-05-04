@@ -4,6 +4,7 @@
 #include "CCharacterSelect.h"
 #include "CCreateCharacter.h"
 #include "CEnddingScene.h"
+#include "CMainTitleScene.h"
 
 SceneManager::SceneManager()
 	: mActiveScene(nullptr)
@@ -20,6 +21,7 @@ void SceneManager::Initalize()
 	mScenes.resize((UINT)eSceneType::End);
 
 	mScenes[(UINT)eSceneType::Title] = new TitleScene();
+	mScenes[(UINT)eSceneType::MainTitle] = new MainTitleScene();
 	mScenes[(UINT)eSceneType::Play] = new PlayScene();
 	mScenes[(UINT)eSceneType::Selecte] = new CharacterSelectScene();
 	mScenes[(UINT)eSceneType::Create] = new CreateCharactorScene();

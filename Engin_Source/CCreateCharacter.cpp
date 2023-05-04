@@ -43,11 +43,13 @@ void CreateCharactorScene::Initalize()
 		Transform* tr = ground->GetComponent<Transform>();
 		tr->SetScale(Vector3(8.0f, 6.0f, 0.0f));
 
+		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"CreateBack", L"UI//charactercreationsCreate.png");
+		ground->SetTexture(tex);
+
 		MeshRenderer* mr = ground->AddComponent<MeshRenderer>();
 
 		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"FadeMesh");
 		std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
-		material->SetTexture(eTextureSlot::T0, ground->FindTextuer2D(L"TitleTexture5", L"UI\\charactercreationsCreate.png"));
 		mr->SetMesh(mesh);
 		mr->SetMaterial(material);
 

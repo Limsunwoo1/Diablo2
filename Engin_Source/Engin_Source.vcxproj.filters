@@ -142,30 +142,6 @@
     <Filter Include="Manager\CollisionManager">
       <UniqueIdentifier>{f6372125-3003-48f1-95cc-3bb3fdcdc101}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\Scene">
-      <UniqueIdentifier>{9b415108-fa02-4361-9301-5cf85fb7dbff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Manager\Scene\Base">
-      <UniqueIdentifier>{b12b62a6-dbbe-41f6-a8ae-24a4a95b97da}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Manager\Scene\Layer">
-      <UniqueIdentifier>{b63ae51f-fb45-4a49-8756-41c3c22cd853}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Manager\Scene\Title">
-      <UniqueIdentifier>{344a85bb-7333-46f6-9e1d-186609917923}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Manager\Scene\Play">
-      <UniqueIdentifier>{6a8a25de-d181-4797-ae9f-ff66e636b58d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Manager\Scene\Endding">
-      <UniqueIdentifier>{4f8f4121-2f61-4db4-b9b2-bc0ad185ea68}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Manager\Scene\CharacterSlelect">
-      <UniqueIdentifier>{d730a097-d129-4736-ae9f-87feb7136708}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Manager\Scene\CreateCharacter">
-      <UniqueIdentifier>{44e86d1d-20de-4eb5-8fa1-b721b4686de0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Manager\ObjectManager">
       <UniqueIdentifier>{3610afd1-2895-46f1-b3df-4cd3a9db3811}</UniqueIdentifier>
     </Filter>
@@ -253,6 +229,33 @@
     <Filter Include="GameObject\CItem\Belt">
       <UniqueIdentifier>{85491fcc-9f2c-4419-838e-400c701bfe74}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{9b415108-fa02-4361-9301-5cf85fb7dbff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Base">
+      <UniqueIdentifier>{b12b62a6-dbbe-41f6-a8ae-24a4a95b97da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Layer">
+      <UniqueIdentifier>{b63ae51f-fb45-4a49-8756-41c3c22cd853}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Title">
+      <UniqueIdentifier>{344a85bb-7333-46f6-9e1d-186609917923}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Play">
+      <UniqueIdentifier>{6a8a25de-d181-4797-ae9f-ff66e636b58d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Endding">
+      <UniqueIdentifier>{4f8f4121-2f61-4db4-b9b2-bc0ad185ea68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\CharacterSlelect">
+      <UniqueIdentifier>{d730a097-d129-4736-ae9f-87feb7136708}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\CreateCharacter">
+      <UniqueIdentifier>{44e86d1d-20de-4eb5-8fa1-b721b4686de0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\MainTitle">
+      <UniqueIdentifier>{a78de3b6-c580-4413-8dfb-272c0da66373}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -283,7 +286,7 @@
       <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="CSceneManager.cpp">
-      <Filter>Manager\Scene</Filter>
+      <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="CComponent.cpp">
       <Filter>Component</Filter>
@@ -325,16 +328,16 @@
       <Filter>Component\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="CScene.cpp">
-      <Filter>Manager\Scene\Base</Filter>
+      <Filter>Scene\Base</Filter>
     </ClCompile>
     <ClCompile Include="CLayer.cpp">
-      <Filter>Manager\Scene\Layer</Filter>
+      <Filter>Scene\Layer</Filter>
     </ClCompile>
     <ClCompile Include="CPlayScene.cpp">
-      <Filter>Manager\Scene\Play</Filter>
+      <Filter>Scene\Play</Filter>
     </ClCompile>
     <ClCompile Include="CTitleScene.cpp">
-      <Filter>Manager\Scene\Title</Filter>
+      <Filter>Scene\Title</Filter>
     </ClCompile>
     <ClCompile Include="CPrefab.cpp">
       <Filter>Manager\ResourceManager\Resource\Prefab</Filter>
@@ -349,7 +352,7 @@
       <Filter>Component\Collider\2D</Filter>
     </ClCompile>
     <ClCompile Include="CEnddingScene.cpp">
-      <Filter>Manager\Scene\Endding</Filter>
+      <Filter>Scene\Endding</Filter>
     </ClCompile>
     <ClCompile Include="CMinoMonsterScript.cpp">
       <Filter>Component\Script\Contents\MonsterScript</Filter>
@@ -358,7 +361,7 @@
       <Filter>Component\Script\Contents\Tile</Filter>
     </ClCompile>
     <ClCompile Include="CCharacterSelect.cpp">
-      <Filter>Manager\Scene\CharacterSlelect</Filter>
+      <Filter>Scene\CharacterSlelect</Filter>
     </ClCompile>
     <ClCompile Include="CAnimator.cpp">
       <Filter>Component\Animator</Filter>
@@ -379,7 +382,7 @@
       <Filter>Component\Script\Contents\GridScript</Filter>
     </ClCompile>
     <ClCompile Include="CCreateCharacter.cpp">
-      <Filter>Manager\Scene\CreateCharacter</Filter>
+      <Filter>Scene\CreateCharacter</Filter>
     </ClCompile>
     <ClCompile Include="CPlayer.cpp">
       <Filter>GameObject\Player</Filter>
@@ -517,6 +520,9 @@
     <ClCompile Include="CMpPotionItem.cpp">
       <Filter>GameObject\CItem\Potion\MP</Filter>
     </ClCompile>
+    <ClCompile Include="CMainTitleScene.cpp">
+      <Filter>Scene\MainTitle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -562,7 +568,7 @@
       <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="CSceneManager.h">
-      <Filter>Manager\Scene</Filter>
+      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="CComponent.h">
       <Filter>Component</Filter>
@@ -607,16 +613,16 @@
       <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="CScene.h">
-      <Filter>Manager\Scene\Base</Filter>
+      <Filter>Scene\Base</Filter>
     </ClInclude>
     <ClInclude Include="CLayer.h">
-      <Filter>Manager\Scene\Layer</Filter>
+      <Filter>Scene\Layer</Filter>
     </ClInclude>
     <ClInclude Include="CPlayScene.h">
-      <Filter>Manager\Scene\Play</Filter>
+      <Filter>Scene\Play</Filter>
     </ClInclude>
     <ClInclude Include="CTitleScene.h">
-      <Filter>Manager\Scene\Title</Filter>
+      <Filter>Scene\Title</Filter>
     </ClInclude>
     <ClInclude Include="CPrefab.h">
       <Filter>Manager\ResourceManager\Resource\Prefab</Filter>
@@ -631,7 +637,7 @@
       <Filter>Component\Collider\2D</Filter>
     </ClInclude>
     <ClInclude Include="CEnddingScene.h">
-      <Filter>Manager\Scene\Endding</Filter>
+      <Filter>Scene\Endding</Filter>
     </ClInclude>
     <ClInclude Include="CMinoMonsterScript.h">
       <Filter>Component\Script\Contents\MonsterScript</Filter>
@@ -640,7 +646,7 @@
       <Filter>Component\Script\Contents\Tile</Filter>
     </ClInclude>
     <ClInclude Include="CCharacterSelect.h">
-      <Filter>Manager\Scene\CharacterSlelect</Filter>
+      <Filter>Scene\CharacterSlelect</Filter>
     </ClInclude>
     <ClInclude Include="CAnimator.h">
       <Filter>Component\Animator</Filter>
@@ -661,7 +667,7 @@
       <Filter>Component\Script\Contents\GridScript</Filter>
     </ClInclude>
     <ClInclude Include="CCreateCharacter.h">
-      <Filter>Manager\Scene\CreateCharacter</Filter>
+      <Filter>Scene\CreateCharacter</Filter>
     </ClInclude>
     <ClInclude Include="CPlayer.h">
       <Filter>GameObject\Player</Filter>
@@ -798,6 +804,9 @@
     </ClInclude>
     <ClInclude Include="CMpPotionItem.h">
       <Filter>GameObject\CItem\Potion\MP</Filter>
+    </ClInclude>
+    <ClInclude Include="CMainTitleScene.h">
+      <Filter>Scene\MainTitle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
