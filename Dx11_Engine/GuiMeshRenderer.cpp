@@ -1,13 +1,14 @@
 #include "GuiMeshRenderer.h"
 #include "Engin_Source/CMeshRenderer.h"
+#include "Engin_Source/CSpriteRenderer.h"
 
 namespace gui
 {
 	guiMeshRenderer::guiMeshRenderer()
 		: gui::Component(eComponentType::MeshRenderer)
 	{
-		SetName("MeshRenderer");
-		SetSize(ImVec2(200.f, 120.f));
+		SetName("Renderer");
+		SetSize(ImVec2(200.f, 200.f));
 	}
 
 	guiMeshRenderer::~guiMeshRenderer()
@@ -22,9 +23,16 @@ namespace gui
 		if (GetTarget())
 		{
 			MeshRenderer* meshRenderer = GetTarget()->GetComponent<MeshRenderer>();
+			SpriteRenderer* spriteRenderer = GetTarget()->GetComponent<SpriteRenderer>();
 
-			mMaterial = meshRenderer->GetMaterial();
-			mMesh = meshRenderer->GetMesh();
+			BaseRenderer* renderer
+				= meshRenderer == nullptr ? dynamic_cast<BaseRenderer*>(spriteRenderer) : dynamic_cast<BaseRenderer*>(meshRenderer);
+
+			if (renderer == nullptr)
+				return;
+
+			mMaterial = renderer->GetMaterial();
+			mMesh = renderer->GetMesh();
 		}
 	}
 
@@ -32,8 +40,14 @@ namespace gui
 	{
 		gui::Component::Update();
 
-		std::string meshName = std::string(mMesh.lock()->GetName().begin(), mMesh.lock()->GetName().end());
-		std::string materialName = std::string(mMaterial.lock()->GetName().begin(), mMaterial.lock()->GetName().end());
+		// wstring Çü Name
+		std::wstring wMeshName = mMesh->GetName();
+		std::wstring wMaterialName = mMaterial->GetName();
+
+		std::string meshName 
+			= std::string(wMeshName.begin(), wMeshName.end());
+		std::string materialName 
+			= std::string(wMaterialName.begin(), wMaterialName.end());
 
 		ImGui::Text("Mesh"); ImGui::SameLine();
 		ImGui::InputText("##MeshName", (char*)meshName.data(), meshName.length(), ImGuiInputTextFlags_ReadOnly);

@@ -80,19 +80,6 @@ void TitleScene::Initalize()
 		mr->SetMaterial(backmaterial);
 	}
 	
-	{
-		GameObject* obj = Object::Instantiate<GameObject>(eLayerType::Monster);
-
-		Renderer::InspectorGameObject = obj;
-
-		MeshRenderer* meshRenderer = obj->AddComponent<MeshRenderer>();
-
-		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-		std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"Rect2Material");
-
-		meshRenderer->SetMesh(mesh);
-		meshRenderer->SetMaterial(material);
-	}
 	Scene::Initalize();
 }
 

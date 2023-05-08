@@ -22,11 +22,9 @@ namespace gui
 		mComponents[(UINT)eComponentType::Transform]->SetTarget(mTarget);
 		AddWidget(mComponents[(UINT)eComponentType::Transform]);
 
-		mComponents[(UINT)eComponentType::MeshRenderer] = new guiTransform();
+		mComponents[(UINT)eComponentType::MeshRenderer] = new guiMeshRenderer();
 		mComponents[(UINT)eComponentType::MeshRenderer]->SetTarget(mTarget);
 		AddWidget(mComponents[(UINT)eComponentType::MeshRenderer]);
-
-
 	}
 	Inspector::~Inspector()
 	{
