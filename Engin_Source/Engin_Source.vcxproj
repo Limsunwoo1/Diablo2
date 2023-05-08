@@ -269,6 +269,7 @@
     <ClCompile Include="CCreateCharacter.cpp" />
     <ClCompile Include="CDiabloMonster.cpp" />
     <ClCompile Include="CEnddingScene.cpp" />
+    <ClCompile Include="CEnums.cpp" />
     <ClCompile Include="CEquipmentButton.cpp" />
     <ClCompile Include="CFadeRenderer.cpp" />
     <ClCompile Include="CFlames.cpp" />

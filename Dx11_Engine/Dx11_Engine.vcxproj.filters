@@ -44,6 +44,9 @@
     <Filter Include="GuiEditor\GuiComponent\Transform">
       <UniqueIdentifier>{911cbf9e-e077-4780-9aa7-e4944ee0cae7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GuiEditor\Consol">
+      <UniqueIdentifier>{8cdf0d23-962d-4880-b5c6-4ed5f79b0396}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h" />
@@ -109,6 +112,12 @@
     </ClInclude>
     <ClInclude Include="GuiTransform.h">
       <Filter>GuiEditor\GuiComponent\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiConsol.h">
+      <Filter>GuiEditor\Consol</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiDockEditor.h">
+      <Filter>GuiEditor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -187,6 +196,12 @@
     </ClCompile>
     <ClCompile Include="GuiTransform.cpp">
       <Filter>GuiEditor\GuiComponent\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiConsol.cpp">
+      <Filter>GuiEditor\Consol</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiDockEditor.cpp">
+      <Filter>GuiEditor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

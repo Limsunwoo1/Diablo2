@@ -142,6 +142,8 @@ namespace Renderer
 	extern Camera* mainCamera;
 	extern Camera* UiCamera;
 
+	extern GameObject* InspectorGameObject;
+
 	extern float Time;
 
 	void Initialize();

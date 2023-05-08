@@ -1,32 +1,59 @@
 #include "GuiTransform.h"
-
+#include "Engin_Source/CTransform.h"
 
 namespace gui
 {
-	Transform::Transform()
+	guiTransform::guiTransform()
 		: Component(eComponentType::Transform)
 	{
-
+		SetName("Transform");
+		SetSize(ImVec2(200.0f, 120.0f));
 	}
 
-	Transform::~Transform()
+	guiTransform::~guiTransform()
 	{
 
 	}
 
-	void Transform::FixedUpdate()
+	void guiTransform::FixedUpdate()
 	{
+		Component::FixedUpdate();
+
+		Transform* tr = GetTarget()->GetComponent<Transform>();
+
+		mPosition = tr->GetPosition();
+		mRotation = tr->GetRotation();
+		mScale = tr->GetScale();
+
 
 	}
 
-	void Transform::Update()
+	void guiTransform::Update()
 	{
+		Component::Update();
 
+		ImGui::Text("Position"); ImGui::SameLine();
+		ImGui::InputFloat3("##Position", (float*)&mPosition);
+
+		ImGui::Text("Rotation"); ImGui::SameLine();
+		ImGui::InputFloat3("##Rotation", (float*)&mRotation);
+
+		ImGui::Text("Scale"); ImGui::SameLine();
+		ImGui::InputFloat3("##Scale", (float*)&mScale);
+
+		if (GetTarget())
+		{
+			Transform* tr = GetTarget()->GetComponent<Transform>();
+
+			tr->SetPosition(mPosition);
+			tr->SetRotation(mRotation);
+			tr->SetScale(mScale);
+		}
 	}
 
-	void Transform::LateUpdate()
+	void guiTransform::LateUpdate()
 	{
-
+		Component::LateUpdate();
 	}
 
 }

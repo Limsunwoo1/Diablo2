@@ -6,11 +6,11 @@
 
 namespace gui
 {
-	class MeshRenderer : public gui::Component
+	class guiMeshRenderer : public gui::Component
 	{
 	public:
-		MeshRenderer();
-		virtual ~MeshRenderer();
+		guiMeshRenderer();
+		virtual ~guiMeshRenderer();
 
 		virtual void FixedUpdate() override;
 		virtual void Update() override;

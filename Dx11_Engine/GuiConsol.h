@@ -3,11 +3,11 @@
 
 namespace gui
 {
-	class Hierarchy : public Widget
+	class Consol : public Widget
 	{
 	public:
-		Hierarchy();
-		virtual ~Hierarchy();
+		Consol();
+		virtual ~Consol();
 
 		virtual void FixedUpdate() override;
 		virtual void Update() override;

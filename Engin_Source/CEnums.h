@@ -117,3 +117,6 @@ enum class eEquipmentType : short
 //	Effect,
 //	End,
 //};
+
+extern const char* charComponentType[(int)eComponentType::End];
+extern const wchar_t* wcharComponentType[(int)eComponentType::End];

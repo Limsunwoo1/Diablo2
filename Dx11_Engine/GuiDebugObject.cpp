@@ -1,16 +1,14 @@
 #include "GuiDebugObject.h"
 
 
-	DebugObject::DebugObject()
-		: GameObject()
-	{
-	}
+DebugObject::DebugObject()
+	: GameObject()
+{
+}
 
-	DebugObject::~DebugObject()
-	{
-	}
-
-
+DebugObject::~DebugObject()
+{
+}
 
 void DebugObject::FixedUpdate()
 {

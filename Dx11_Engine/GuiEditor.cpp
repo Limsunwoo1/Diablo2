@@ -9,6 +9,13 @@
 
 #include "..//Engin_Source/CRenderer.h"
 
+#include "GuiInspector.h"
+#include "GuiHierachy.h"
+#include "GuiProject.h"
+#include "GuiDockEditor.h"
+#include "GuiConsol.h"
+#include "GuiGame.h"
+
 namespace gui
 {
 	Editor::Editor()
@@ -54,6 +61,25 @@ namespace gui
 		mEditorObjects.push_back(girdObject);
 
 		ImGui_Initalize();
+
+		mDockObject = new DockEditor();
+		// mWidgets.push_bakc(mDockEditor)
+		 
+		// Init Widget
+		Inspector* inspector = new Inspector();
+		mWidgets.emplace_back(inspector);
+
+		Game* game = new Game();
+		mWidgets.emplace_back(game);
+		
+		Hierarchy* hierachy = new Hierarchy();
+		mWidgets.emplace_back(hierachy);
+
+		Project* project = new Project();
+		mWidgets.emplace_back(project);
+
+		Consol* consol = new Consol();
+		mWidgets.emplace_back(consol);
 	}
 
 	void Editor::Run()
@@ -117,6 +143,12 @@ namespace gui
 
 			delete obj;
 			obj = nullptr;
+		}
+		
+		if (mDockObject)
+		{
+			delete mDockObject;
+			mDockObject = nullptr;
 		}
 
 		for (auto* obj : mEditorObjects)
@@ -246,6 +278,16 @@ namespace gui
 		if (show_demo_window)
 			ImGui::ShowDemoWindow(&show_demo_window);
 
+
+		mDockObject->Render();
+		for (Widget* widget : mWidgets)
+		{
+			widget->Render();
+		}
+
+#pragma region SamPle
+
+
 		//// 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
 		//{
 		//	static float f = 0.0f;
@@ -278,6 +320,7 @@ namespace gui
 		//		show_another_window = false;
 		//	ImGui::End();
 		//}
+#pragma endregion
 
 		// Rendering
 		ImGui::Render();

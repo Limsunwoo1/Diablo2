@@ -2,6 +2,7 @@
 #include "CGameObject.h"
 #include "CMesh.h"
 #include "CMaterial.h"
+#include "CAnimator.h"
 
 
 MeshRenderer::MeshRenderer()
@@ -39,8 +40,15 @@ void MeshRenderer::Render()
 	GetMesh()->BindBuffer();
 	GetMaterial()->Bind();
 
+	Animator* animator = GetOwner()->GetComponent<Animator>();
+
+	if (animator)
+		animator->Binds();
+
 	GetMesh()->Render();
-	
 	// 바인딩 되어있는 텍스처 클리어
 	GetMaterial()->Clear();
+
+	if (animator)
+		animator->Clear();
 }

@@ -18,3 +18,6 @@ Texture2D testTex : register(t2);
 
 // postProcess
 Texture2D postProcessTexture : register(t60);
+
+// GameTex
+Texture2D guiGameTexture : register(t61);

@@ -38,5 +38,7 @@ namespace gui
 		std::vector<Widget*> mWidgets;
 		std::vector<EditorObject*> mEditorObjects;
 		std::vector<DebugObject*> mDebugObjects;
+
+		class DockEditor* mDockObject;
 	};
 }

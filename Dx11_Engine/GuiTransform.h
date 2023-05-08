@@ -3,11 +3,11 @@
 
 namespace gui
 {
-	class Transform : public gui::Component
+	class guiTransform : public gui::Component
 	{
 	public:
-		Transform();
-		virtual ~Transform();
+		guiTransform();
+		virtual ~guiTransform();
 
 		virtual void FixedUpdate() override;
 		virtual void Update() override;
@@ -15,9 +15,9 @@ namespace gui
 
 
 	private:
-		Math::Vector3 Position;
-		Math::Vector3 Rotation;
-		Math::Vector3 Scale;
+		Math::Vector3 mPosition;
+		Math::Vector3 mRotation;
+		Math::Vector3 mScale;
 	};
 }
 

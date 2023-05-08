@@ -523,6 +523,9 @@
     <ClCompile Include="CMainTitleScene.cpp">
       <Filter>Scene\MainTitle</Filter>
     </ClCompile>
+    <ClCompile Include="CEnums.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">

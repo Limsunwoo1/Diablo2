@@ -136,7 +136,9 @@
   <ItemGroup>
     <ClInclude Include="GuiBaseEditor.h" />
     <ClInclude Include="GuiComponent.h" />
+    <ClInclude Include="GuiConsol.h" />
     <ClInclude Include="GuiDebugObject.h" />
+    <ClInclude Include="GuiDockEditor.h" />
     <ClInclude Include="GuiEditor.h" />
     <ClInclude Include="GuiEditorObject.h" />
     <ClInclude Include="GuiGame.h" />
@@ -162,7 +164,9 @@
   <ItemGroup>
     <ClCompile Include="GuiBaseEditor.cpp" />
     <ClCompile Include="GuiComponent.cpp" />
+    <ClCompile Include="GuiConsol.cpp" />
     <ClCompile Include="GuiDebugObject.cpp" />
+    <ClCompile Include="GuiDockEditor.cpp" />
     <ClCompile Include="GuiEditor.cpp" />
     <ClCompile Include="GuiEditorObject.cpp" />
     <ClCompile Include="GuiGame.cpp" />

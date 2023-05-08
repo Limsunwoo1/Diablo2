@@ -13,7 +13,7 @@ namespace gui
 	public:
 		enum class eState
 		{
-			Pused,
+			Paused,
 			Active,
 			Dead,
 		};
@@ -34,11 +34,18 @@ namespace gui
 
 		void SetParent(Widget* parent) { mParent = parent; }
 		Widget* GetParent() { return mParent; }
+
+		void SetSize(ImVec2 size) { mSize = size; }
+		ImVec2 GetSize() { return mSize; }
 		
+	protected:
+		ImGuiWindowFlags mWindow_flags;
+
 	private:
 		eState mState;
 		Widget* mParent;
 		std::vector<Widget*> mChilds;
+		ImVec2 mSize;
 	};
 }
 

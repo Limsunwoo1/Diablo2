@@ -27,6 +27,7 @@ namespace Renderer
 	StructedBuffer* LightBuffer;
 
 	std::shared_ptr<Texture2D> PostProcessTexture = nullptr;
+	GameObject* InspectorGameObject = nullptr;
 
 	float Time = 0.0f;
 

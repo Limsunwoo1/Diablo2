@@ -43,6 +43,7 @@ public:
 
 		resource->SetKey(key);
 		resource->SetPath(path);
+		resource->SetName(key);
 
 		mResources.insert(make_pair(key, dynamic_pointer_cast<Resource>(resource)));
 
@@ -52,6 +53,9 @@ public:
 	template <typename T>
 	void Insert(const wstring& key, shared_ptr<T>resource)
 	{
+		resource->SetName(key);
+		resource->SetKey(key);
+
 		if (key == L"")
 		{
 			MessageBox(nullptr, L"Image Load Failed", L"Input Key", MB_OK);

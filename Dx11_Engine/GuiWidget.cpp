@@ -5,9 +5,10 @@ namespace gui
 	Widget::Widget()
 		: mState(eState::Active)
 		, mParent(nullptr)
-		, mChilds()
+		, mChilds{}
+		, mWindow_flags(ImGuiWindowFlags_None)
 	{
-
+		SetName("Widget");
 	}
 
 	Widget::~Widget()
@@ -72,7 +73,8 @@ namespace gui
 		else
 		{
 			FixedUpdate();
-			ImGui::BeginChild(GetName().c_str());
+			// 사이즈를 추가해 줘야한다
+			ImGui::BeginChild(GetName().c_str(), mSize);
 			Update();
 
 			for (Widget* child : mChilds)

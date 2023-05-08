@@ -1,20 +1,25 @@
 #pragma once
 #include "GuiWidget.h"
 
+
 namespace gui
 {
-	class Hierarchy : public Widget
+	class DockEditor : public Widget
 	{
 	public:
-		Hierarchy();
-		virtual ~Hierarchy();
+		DockEditor();
+		virtual ~DockEditor();
 
 		virtual void FixedUpdate() override;
 		virtual void Update() override;
 		virtual void LateUpdate() override;
 
-	private:
 
+	private:
+		bool mbPadding;
+		bool mbFullScreen;
+
+		ImGuiDockNodeFlags mDockSpace_Flags;
 	};
 }
 

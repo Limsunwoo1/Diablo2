@@ -1,8 +1,8 @@
 #pragma once
 #include "CEngine.h"
+#include "CEntity.h"
 
-
-	class Resource
+	class Resource : public Entity
 	{
 	public:
 		Resource(eResourceType type);
@@ -19,6 +19,7 @@
 	private:
 		std::wstring mPath;
 		std::wstring mKey;
+
 		eResourceType mType;
 	};
 
