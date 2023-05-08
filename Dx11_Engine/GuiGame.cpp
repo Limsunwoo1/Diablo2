@@ -36,6 +36,11 @@ namespace gui
 		ImVec4 tintColor = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
 		ImVec2 scene_Size = ImVec2(io.DisplaySize.x, io.DisplaySize.y);
 
+		ImGui::Image((void*)gameTex->GetSRV().Get(),
+							panelSize,
+							ImVec2(0.0f, 0.0f), ImVec2(1.0f, 1.0f),
+							tintColor);
+
 	}
 	void Game::LateUpdate()
 	{

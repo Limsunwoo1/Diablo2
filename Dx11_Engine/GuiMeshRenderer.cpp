@@ -24,7 +24,7 @@ namespace gui
 			MeshRenderer* meshRenderer = GetTarget()->GetComponent<MeshRenderer>();
 
 			mMaterial = meshRenderer->GetMaterial();
-			mMesh= meshRenderer->GetMesh();
+			mMesh = meshRenderer->GetMesh();
 		}
 	}
 
