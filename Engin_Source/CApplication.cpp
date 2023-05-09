@@ -8,6 +8,7 @@
 #include "CWorldManager.h"
 #include "CUIManager.h"
 #include "CItemManager.h"
+#include "FileManager.h"
 
 using namespace graphics;
 
@@ -26,6 +27,8 @@ CApplication::~CApplication()
 
 void CApplication::Initalize()
 {
+	FileManager::GetInstance()->LoadData(L"Resource//Data//testCSV.csv");
+	FileManager::GetInstance()->ReadFold(L"Resource//Data");
 	Time::GetInstance()->Initialize();
 	Input::GetInstance()->Initialize();
 	CollisionManager::GetInstance()->Initalize();

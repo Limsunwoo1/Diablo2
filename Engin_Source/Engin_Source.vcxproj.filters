@@ -256,6 +256,9 @@
     <Filter Include="Scene\MainTitle">
       <UniqueIdentifier>{a78de3b6-c580-4413-8dfb-272c0da66373}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\FileManager">
+      <UniqueIdentifier>{0f9f559d-4141-480f-8555-6b61ae207c7f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -525,6 +528,9 @@
     </ClCompile>
     <ClCompile Include="CEnums.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="FileManager.cpp">
+      <Filter>Manager\FileManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -810,6 +816,9 @@
     </ClInclude>
     <ClInclude Include="CMainTitleScene.h">
       <Filter>Scene\MainTitle</Filter>
+    </ClInclude>
+    <ClInclude Include="FileManager.h">
+      <Filter>Manager\FileManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

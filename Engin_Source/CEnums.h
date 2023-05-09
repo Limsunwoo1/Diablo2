@@ -118,5 +118,12 @@ enum class eEquipmentType : short
 //	End,
 //};
 
+enum class eCharType
+{
+	Sorceress,
+	Druid,
+	End
+};
+
 extern const char* charComponentType[(int)eComponentType::End];
 extern const wchar_t* wcharComponentType[(int)eComponentType::End];
