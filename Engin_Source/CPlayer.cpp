@@ -25,6 +25,11 @@ Player::Player()
 	, mRunTime(10.f)
 	, mRunSpeed(2)
 	, mState(PlayerState::Idle)
+	, mCharType((UINT)eCharType::Sorceress)
+	, mExp(0.0f)
+	, mMaxExp(20.f)
+	, mLevel(1)
+	, mSaveName("sunwoo")
 {
 
 }

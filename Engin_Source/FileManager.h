@@ -11,15 +11,19 @@ class FileManager
 {
 	SINGLE(FileManager)
 public:
-	HRESULT LoadData(const std::wstring& path);
+	bool LoadData(const std::wstring& path);
 
-	HRESULT CreateSaveFile(const std::wstring& path);
-	HRESULT ReadSaveFile(const std::wstring& path);
-	HRESULT WriteSaveFile(const std::wstring& path);
+	bool CreateSaveFile(const std::wstring& path);
 
-	vector<string> ReadFold(const std::wstring& path);
+	bool ReadSaveFile(const std::wstring& path);
+	bool ReadSaveFile(eFileType type);
+
+	bool WriteSaveFile();
+
+	bool ReadFold(const std::wstring& path, eFileType type);
 
 private:
-	vector<string> mCharSaveData;
+	vector<wstring> mDataPath[(UINT)eFileType::End];
+	wstring mPlayerData;
 };
 

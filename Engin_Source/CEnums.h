@@ -125,5 +125,14 @@ enum class eCharType
 	End
 };
 
+enum class eFileType
+{
+	Char,
+	Tile,
+	Resource,
+	Prepeb,
+	End,
+};
+
 extern const char* charComponentType[(int)eComponentType::End];
 extern const wchar_t* wcharComponentType[(int)eComponentType::End];

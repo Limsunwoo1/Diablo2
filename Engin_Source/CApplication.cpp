@@ -22,13 +22,14 @@ CApplication::CApplication()
 
 CApplication::~CApplication()
 {
+
 }
 
 
 void CApplication::Initalize()
 {
 	FileManager::GetInstance()->LoadData(L"Resource//Data//testCSV.csv");
-	FileManager::GetInstance()->ReadFold(L"Resource//Data");
+	FileManager::GetInstance()->ReadFold(L"Resource//Data", eFileType::Char);
 	Time::GetInstance()->Initialize();
 	Input::GetInstance()->Initialize();
 	CollisionManager::GetInstance()->Initalize();
@@ -95,10 +96,16 @@ void CApplication::Destroy()
 
 void CApplication::Release()
 {
+	// 메모리해제전 세이브 파일 저장
+	FileManager::GetInstance()->WriteSaveFile();
+
+	// 동적 오브젝트 메모리 해제
 	//ResourceManager::GetInstance()->Release();
 	SceneManager::GetInstance()->Rlease();
 	ItemManager::GetInstance()->Rlease();
 
+	// 싱글톤 매니저 메모리 해제
+	FileManager::GetInstance()->DestroyInstance();
 	ItemManager::GetInstance()->DestroyInstance();
 	UIManager::GetInstance()->DestroyInstance();
 	SceneManager::GetInstance()->DestroyInstance();
