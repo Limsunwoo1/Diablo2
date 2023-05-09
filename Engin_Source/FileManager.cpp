@@ -72,27 +72,32 @@ bool FileManager::ReadSaveFile(const std::wstring& path)
 	return true;
 }
 
-bool FileManager::ReadSaveFile(eFileType type)
+bool FileManager::ReadSaveFiles(eFileType type)
 {
 	if (mDataPath[(UINT)type].empty())
 		return false;
 
 	for (wstring& str : mDataPath[(UINT)type])
 	{
-		ifstream iFile(L"..//" + str, ios::in);
+		ifstream iFile(str, ios::in);
 		string buf = "";
 
-		if (!iFile)
+	/*	if (!iFile)
 		{
 			cout << "파일이 없습니다" << endl;
 			DestroyWindow(Application.GetHwnd());
-		}
+		}*/
 
+		wstring temp = L"";
 		while (!iFile.eof())
 		{
 			getline(iFile, buf);
+			wstring data(buf.begin(), buf.end());
+			temp += data + L"\n";
 			cout << buf << endl;
 		}
+
+		mData[(UINT)type].push_back(temp);
 		iFile.close();
 	}
 
@@ -163,13 +168,8 @@ bool FileManager::ReadFold(const std::wstring& path, eFileType type)
 		mDataPath[(UINT)type].push_back(Path);
 	}
 
-	//for (const string& str : fileNames)
-	//{
-	//	wstring wstr(str.begin(), str.end());
-	//	wstring Path(path_to_read.filename().begin(), path_to_read.filename().end());
-	//	
-	//	ReadSaveFile(Path + wstr);
-	//}
+	if (ReadSaveFiles(type))
+		mDataPath->clear();
 
 	return true;
 }

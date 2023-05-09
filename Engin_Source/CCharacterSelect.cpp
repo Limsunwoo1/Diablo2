@@ -12,7 +12,7 @@
 #include "CCollider2D.h"
 #include "CCollisionManager.h"
 #include "CBackGround.h"
-#include "CPlayerSelectButton.h"
+#include "CSelectButtonSystem.h"
 
 CharacterSelectScene::CharacterSelectScene()
 	: Scene(eSceneType::Selecte)
@@ -70,12 +70,10 @@ void CharacterSelectScene::Initalize()
 	}
 
 	{
-		PlayerSelectButton* button = Object::Instantiate<PlayerSelectButton>(eLayerType::Player, this);
+		SelectButtonSystem* button = Object::Instantiate<SelectButtonSystem>(eLayerType::UI, this);
 		button->Active();
 		button->SetName(L"Button");
 	}
-
-	Scene::Initalize();
 }
 
 void CharacterSelectScene::Update()

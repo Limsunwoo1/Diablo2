@@ -28,8 +28,6 @@ CApplication::~CApplication()
 
 void CApplication::Initalize()
 {
-	FileManager::GetInstance()->LoadData(L"Resource//Data//testCSV.csv");
-	FileManager::GetInstance()->ReadFold(L"Resource//Data", eFileType::Char);
 	Time::GetInstance()->Initialize();
 	Input::GetInstance()->Initialize();
 	CollisionManager::GetInstance()->Initalize();
