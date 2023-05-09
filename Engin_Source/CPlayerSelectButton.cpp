@@ -6,10 +6,14 @@
 #include "CTransform.h"
 #include "CInput.h"
 #include "CCollider2D.h"
+#include "CSelectButtonSystem.h"
 
 
 PlayerSelectButton::PlayerSelectButton()
 	: Button(eUIType::Button)
+	, mSystem(nullptr)
+	, mChartType((UINT)eCharType::End)
+	, mButtonIndex(-1)
 {
 
 }
@@ -82,16 +86,24 @@ void PlayerSelectButton::Update()
 	if (!mCharterAnimation)
 		return;
 	
-	mCharterAnimation->Update();
+	if (mbPointToButton == 0 && mSystem->GetClickButton() != this)
+	{
+		BaseRenderer* ren = GetComponent<BaseRenderer>();
+		ren->SetRenderStop(true);
 
-	if (!mbPointToButton)
 		return;
+	}
+
+	BaseRenderer* ren = GetComponent<BaseRenderer>();
+	ren->SetRenderStop(false);
 
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN))
 	{
 		Click();
+		mSystem->SetClickButton(this);
 	}
 
+	mCharterAnimation->Update();
 }
 
 void PlayerSelectButton::FixedUpdate()

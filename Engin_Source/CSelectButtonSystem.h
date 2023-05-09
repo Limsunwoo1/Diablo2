@@ -15,9 +15,13 @@ public:
 	virtual void FixedUpdate() override;
 	virtual void Render() override;
 
+	void SetClickButton(class PlayerSelectButton* button) { mClickButton = button; }
+	PlayerSelectButton* GetClickButton() { return mClickButton; }
 
 private:
-	vector<class PlayerSelectButton*> mButton;
+	vector<PlayerSelectButton*> mButton;
+	PlayerSelectButton* mClickButton;
+
 	int mClickButtonIdx;
 };
 

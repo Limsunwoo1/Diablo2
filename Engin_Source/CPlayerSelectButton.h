@@ -22,10 +22,18 @@ public:
 	wstring& GetCharName() { return mPlayerName; }
 	void SetCharName(const wstring& name) { mPlayerName = name; }
 
+	void SetSystem(class SelectButtonSystem* system) { mSystem = system; }
+	SelectButtonSystem* GetSystem() { return mSystem; }
+
+	int GetButtonIndex() { return mButtonIndex; }
+	void SetButtonIndex(UINT index) { mButtonIndex = index; }
+
 private:
 	GameObject* mCharterAnimation;
+	SelectButtonSystem* mSystem;
 
 	UINT mChartType;
+	int mButtonIndex;
 	wstring mPlayerName;
 };
 

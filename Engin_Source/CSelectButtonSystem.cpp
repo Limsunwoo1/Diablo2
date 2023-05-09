@@ -10,6 +10,7 @@
 SelectButtonSystem::SelectButtonSystem()
 	: UiBase(eUIType::Panel)
 	, mClickButtonIdx(-1)
+	, mClickButton(nullptr)
 {
 }
 
@@ -66,6 +67,7 @@ void SelectButtonSystem::Initalize()
 			continue;
 
 		obj->Initalize();
+		obj->SetSystem(this);
 
 		Transform* tr = obj->GetComponent<Transform>();
 		tr->SetPosition(Vector3(-3.8, 4.2, 0.0f));
