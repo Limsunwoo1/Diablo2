@@ -59,9 +59,7 @@ void PlayerSelectButton::Initalize()
 
 	Animator* animator = mCharterAnimation->AddComponent<Animator>();
 	{
-		std::shared_ptr<Texture2D> texture = std::make_shared<Texture2D>();
-		texture->Load(L"Diablo2_Walk.png");
-		ResourceManager::GetInstance()->Insert(L"PlayerWalk", texture);
+		std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"PlayerWalk");
 
 		float x = 60.f;
 		float y = 75.875f;
@@ -77,6 +75,41 @@ void PlayerSelectButton::Initalize()
 		animator->Play(L"Walk0");
 	}
 
+	// Run
+	{
+		std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"PlayerRun");
+		/*animator->Create(L"Walk0", texture, Vector2(0.0f, 0.0f), Vector2(60.f, 75.875f), Vector2(0.0f, 0.0f), 8, 0.1f);
+		animator->Create(L"WalkUp", texture, Vector2(0.0f, 75.875 * 8), Vector2(60.f, 75.875f), Vector2(0.0f, 0.0f), 8, 0.1f);*/
+
+		float x = 61.f;
+		float y = 75.625f;
+
+		for (int i = 0; i < 16; ++i)
+		{
+			wstring name = L"Run";
+			name += std::to_wstring(i);
+
+			animator->Create(name, texture, Vector2(0.0f, y * i), Vector2(x, y), Vector2(0.0f, 0.0f), 8, 0.1f);
+		}
+		//61 75.625
+	}
+
+	{
+		std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"PlayerIdle");
+
+		float x = 66.f;
+		float y = 72.f;
+
+		for (int i = 0; i < 16; ++i)
+		{
+			wstring name = L"Idle";
+			name += std::to_wstring(i);
+
+			animator->Create(name, texture, Vector2(0.0f, y * i), Vector2(x, y), Vector2(0.0f, 0.0f), 8, 0.1f);
+		}
+
+		// 66  72
+	}
 }
 
 void PlayerSelectButton::Update()
@@ -91,13 +124,25 @@ void PlayerSelectButton::Update()
 		BaseRenderer* ren = GetComponent<BaseRenderer>();
 		ren->SetRenderStop(true);
 
+		
+		wstring& name = mCharterAnimation->GetComponent<Animator>()->GetPlayAnimation()->AnimationName();
+		if(name != L"Idle0")
+			mCharterAnimation->GetComponent<Animator>()->Play(L"Idle0", false);
+
 		return;
+	}
+
+	if (mbPointToButton > 0 && mSystem->GetClickButton() != this)
+	{
+		wstring& name = mCharterAnimation->GetComponent<Animator>()->GetPlayAnimation()->AnimationName();
+		if (name != L"Walk0")
+			mCharterAnimation->GetComponent<Animator>()->Play(L"Walk0");
 	}
 
 	BaseRenderer* ren = GetComponent<BaseRenderer>();
 	ren->SetRenderStop(false);
 
-	if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN))
+	if (mbPointToButton > 0 && Input::GetInstance()->GetKeyDown(eKeyCode::LBTN))
 	{
 		Click();
 		mSystem->SetClickButton(this);
@@ -124,4 +169,20 @@ void PlayerSelectButton::Render()
 		return;
 
 	mCharterAnimation->Render();
+}
+
+void PlayerSelectButton::Click()
+{
+	mCharterAnimation->GetComponent<Animator>()->Play(L"Run0");
+}
+
+void PlayerSelectButton::SetInfo(wstring& name, UINT type, UINT level, float hp, float mp, float exp, Vector3 pos)
+{
+	mInfo.CharterType = type;
+	mInfo.Level = level;
+	mInfo.Hp = hp;
+	mInfo.Mp = mp;
+	mInfo.Exp = exp;
+
+	mInfo.Name = name;
 }

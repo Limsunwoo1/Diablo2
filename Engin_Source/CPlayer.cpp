@@ -105,9 +105,7 @@ void Player::InitAnimation()
 
 	// Run
 	{
-		std::shared_ptr<Texture2D> texture = std::make_shared<Texture2D>();
-		texture->Load(L"run.png");
-		ResourceManager::GetInstance()->Insert(L"PlayerRun", texture);
+		std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"PlayerRun");
 
 		/*animator->Create(L"Walk0", texture, Vector2(0.0f, 0.0f), Vector2(60.f, 75.875f), Vector2(0.0f, 0.0f), 8, 0.1f);
 		animator->Create(L"WalkUp", texture, Vector2(0.0f, 75.875 * 8), Vector2(60.f, 75.875f), Vector2(0.0f, 0.0f), 8, 0.1f);*/
@@ -126,9 +124,7 @@ void Player::InitAnimation()
 	}
 
 	{
-		std::shared_ptr<Texture2D> texture = std::make_shared<Texture2D>();
-		texture->Load(L"Diablo2_Idle.png");
-		ResourceManager::GetInstance()->Insert(L"PlayerIdle", texture);
+		std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"PlayerIdle");
 
 		float x = 66.f;
 		float y = 72.f;

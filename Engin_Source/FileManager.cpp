@@ -47,6 +47,14 @@ bool FileManager::LoadData(const std::wstring& path)
 
 bool FileManager::CreateSaveFile(const std::wstring& path, const std::wstring& name, eCharType type)
 {
+	GameObject* player = WorldManager::GetInstance()->GetPlayer();
+	Transform* tr = nullptr;
+
+	if(player != nullptr)
+		tr = player->GetComponent<Transform>();
+
+	Vector3 position = tr->GetPosition();
+
 	ofstream fs(path + L"//" + name + L".csv", ios::app);
 
 	// 기본 세팅
@@ -56,6 +64,7 @@ bool FileManager::CreateSaveFile(const std::wstring& path, const std::wstring& n
 	fs << "Mp," + to_string(50) << endl;
 	fs << "Exp," + to_string(0) << endl;
 	fs << "Name," + string(name.begin(), name.end()) << endl;
+	fs << "Position," + std::to_string(position.x) + "," + std::to_string(position.y) + "," + std::to_string(position.z) << endl;
 
 	fs.close();
 	return S_OK;

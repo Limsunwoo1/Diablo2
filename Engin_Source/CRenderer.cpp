@@ -631,6 +631,10 @@ namespace Renderer
 		ResourceManager::GetInstance()->Load<Texture2D>(L"Green", L"Green.png");
 		//ResourceManager::GetInstance()->Load<Texture2D>(L"Diablo2_Town_Idle", L"diablo2_Town_Idle.png");
 		ResourceManager::GetInstance()->Load<Texture2D>(L"CartoonSmoke", L"particle\\CartoonSmoke.png");
+
+		ResourceManager::GetInstance()->Load<Texture2D>(L"PlayerWalk", L"Diablo2_Walk.png");
+		ResourceManager::GetInstance()->Load<Texture2D>(L"PlayerRun", L"run.png");
+		ResourceManager::GetInstance()->Load<Texture2D>(L"PlayerIdle", L"Diablo2_Idle.png");
 #pragma endregion
 #pragma region DYNAMIC
 		// Create

@@ -18,6 +18,8 @@ public:
 	void SetClickButton(class PlayerSelectButton* button) { mClickButton = button; }
 	PlayerSelectButton* GetClickButton() { return mClickButton; }
 
+	void DataEdit(string& str){};
+
 private:
 	vector<PlayerSelectButton*> mButton;
 	PlayerSelectButton* mClickButton;

@@ -1,6 +1,7 @@
-Type,0
-Level,1
-Hp,50
-Mp,50
-Exp,0
-Name,Sunwoo2
+Type,0,,
+Level,1,,
+Hp,50,,
+Mp,50,,
+Exp,0,,
+Name,Sunwoo2,,
+Position,1,1,1
