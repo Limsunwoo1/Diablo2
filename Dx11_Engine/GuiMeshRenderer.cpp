@@ -41,8 +41,8 @@ namespace gui
 		gui::Component::Update();
 
 		// wstring Çü Name
-		std::wstring wMeshName = mMesh->GetName();
-		std::wstring wMaterialName = mMaterial->GetName();
+		std::wstring wMeshName = mMesh.lock()->GetName();
+		std::wstring wMaterialName = mMaterial.lock()->GetName();
 
 		std::string meshName 
 			= std::string(wMeshName.begin(), wMeshName.end());

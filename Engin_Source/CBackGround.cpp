@@ -39,9 +39,9 @@ void BackGround::Render()
 
 	if (mr)
 	{
-		mr->GetMaterial()->SetRenderingMode(mbMode);
+		mr->GetMaterial().lock()->SetRenderingMode(mbMode);
 		if(mTexture.lock() != nullptr)
-			mr->GetMaterial()->SetTexture(eTextureSlot::T0, mTexture.lock());
+			mr->GetMaterial().lock()->SetTexture(eTextureSlot::T0, mTexture.lock());
 	}
 
 	GameObject::Render();

@@ -13,6 +13,7 @@ Shader::Shader()
 
 Shader::~Shader()
 {
+    int a = 0;
 }
 
 HRESULT Shader::Load(const std::wstring& path)

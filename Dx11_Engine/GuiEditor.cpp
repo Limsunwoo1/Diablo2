@@ -194,7 +194,7 @@ namespace gui
 
 		// 마우스가 버튼위에 올라갔을때 색변화
 		int i = mesh.uiState;
-		renderer->GetMaterial()->SetData(eGpuParam::Int, &i);
+		renderer->GetMaterial().lock()->SetData(eGpuParam::Int, &i);
 
 		GpuCameraMatrix(camera);
 

@@ -193,12 +193,12 @@ void Camera::PushGameObjectToRenderingMode(GameObject* gameObject)
 	if (renderer == nullptr)
 		return;
 
-	std::shared_ptr<Material> material = renderer->GetMaterial();
+	std::weak_ptr<Material> material = renderer->GetMaterial();
 
-	if (material == nullptr)
+	if (material.lock() == nullptr)
 		return;
 
-	eRenderingMode mode = material->GetRenderingMode();
+	eRenderingMode mode = material.lock()->GetRenderingMode();
 
 	switch (mode)
 	{

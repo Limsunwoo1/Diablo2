@@ -58,12 +58,12 @@ void FadeRenderer::Render()
 {
 	GetOwner()->GetComponent<Transform>()->SetConstantBuffer();
 
-	GetMaterial()->Bind();
-	GetMesh()->BindBuffer();
+	GetMaterial().lock()->Bind();
+	GetMesh().lock()->BindBuffer();
 
-	GetMesh()->Render();
+	GetMesh().lock()->Render();
 
-	GetMaterial()->Clear();
+	GetMaterial().lock()->Clear();
 }
 
 void FadeRenderer::BindConstantBuffer()

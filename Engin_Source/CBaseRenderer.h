@@ -15,16 +15,16 @@ public:
 	virtual void FixedUpdate() override;
 	virtual void Render() override;
 
-	void SetMesh(shared_ptr<Mesh> mesh) { mMesh = mesh; }
-	void SetMaterial(shared_ptr<Material> material) { mMaterial = material; }
-	shared_ptr<Mesh> GetMesh() { return mMesh; }
-	shared_ptr<Material> GetMaterial() { return mMaterial; }
+	void SetMesh(weak_ptr<Mesh> mesh) { mMesh = mesh; }
+	void SetMaterial(weak_ptr<Material> material) { mMaterial = material; }
+	weak_ptr<Mesh> GetMesh() { return mMesh; }
+	weak_ptr<Material> GetMaterial() { return mMaterial; }
 
 	void SetRenderStop(bool stop = true) { mRenderStop = stop; }
 	bool GetRenderStop() { return mRenderStop; }
 private:
-	shared_ptr<Mesh> mMesh;
-	shared_ptr<Material> mMaterial;
+	weak_ptr<Mesh> mMesh;
+	weak_ptr<Material> mMaterial;
 	bool mRenderStop;
 };
 

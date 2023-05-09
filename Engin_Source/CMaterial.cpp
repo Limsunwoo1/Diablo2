@@ -46,15 +46,15 @@ void Material::Bind()
 {
 	for (int i = 0; i < (UINT)eTextureSlot::End; ++i)
 	{
-		if (mTexture[i] == nullptr)
+		if (mTexture[i].lock() == nullptr)
 			continue;
 
-		mTexture[i]->BindShaderResource(eShaderStage::VS, i);
-		mTexture[i]->BindShaderResource(eShaderStage::HS, i);
-		mTexture[i]->BindShaderResource(eShaderStage::DS, i);
-		mTexture[i]->BindShaderResource(eShaderStage::GS, i);
-		mTexture[i]->BindShaderResource(eShaderStage::PS, i);
-		mTexture[i]->BindShaderResource(eShaderStage::CS, i);
+		mTexture[i].lock()->BindShaderResource(eShaderStage::VS, i);
+		mTexture[i].lock()->BindShaderResource(eShaderStage::HS, i);
+		mTexture[i].lock()->BindShaderResource(eShaderStage::DS, i);
+		mTexture[i].lock()->BindShaderResource(eShaderStage::GS, i);
+		mTexture[i].lock()->BindShaderResource(eShaderStage::PS, i);
+		mTexture[i].lock()->BindShaderResource(eShaderStage::CS, i);
 	}
 
 	ConstantBuffer* pCB = Renderer::constantBuffers[(UINT)eCBType::Material];
@@ -64,16 +64,16 @@ void Material::Bind()
 	pCB->Bind(eShaderStage::GS);
 	pCB->Bind(eShaderStage::PS);
 
-	mShader->Binds();
+	mShader.lock()->Binds();
 }
 
 void Material::Clear()
 {
 	for (int i = 0; i < (UINT)eTextureSlot::End; ++i)
 	{
-		if (mTexture[i] == nullptr)
+		if (mTexture[i].lock() == nullptr)
 			continue;
 
-		mTexture[i]->Clear(i);
+		mTexture[i].lock()->Clear(i);
 	}
 }

@@ -19,7 +19,7 @@ namespace gui
 	}
 	void Game::Update()
 	{
-		std::shared_ptr<graphics::Texture2D> renderTarget = ResourceManager::GetInstance()->Find<graphics::Texture2D>(L"RenderTarget");
+		std::weak_ptr<graphics::Texture2D> renderTarget = ResourceManager::GetInstance()->Find<graphics::Texture2D>(L"RenderTarget");
 
 		std::shared_ptr<graphics::Texture2D> gameTex = std::make_shared<graphics::Texture2D>();
 		gameTex->Create(1600, 900, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE);
@@ -27,7 +27,7 @@ namespace gui
 		// 61 번 쉐이더 리소스 뷰 null 초기화
 		ID3D11ShaderResourceView* gameSRV = nullptr;
 		graphics::GetDevice()->BindShaderResource(graphics::eShaderStage::PS, 61, &gameSRV);
-		graphics::GetDevice()->CopyResource(gameTex->GetTexture().Get(), renderTarget->GetTexture().Get());
+		graphics::GetDevice()->CopyResource(gameTex->GetTexture().Get(), renderTarget.lock()->GetTexture().Get());
 
 		gameTex->BindShaderResource(graphics::eShaderStage::PS, 61);
 

@@ -75,7 +75,7 @@ void Player::Render()
 
 	SpriteRenderer* spr = GetComponent<SpriteRenderer>();
 	std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"test");
-	spr->GetMaterial()->SetTexture(eTextureSlot::T0 ,texture);
+	spr->GetMaterial().lock()->SetTexture(eTextureSlot::T0 ,texture);
 
 
 	GameObject::Render();

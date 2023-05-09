@@ -125,8 +125,8 @@ void ParticleSystem::Render()
 
 	mBuffer->BindSRV(eShaderStage::GS, 15);
 
-	GetMaterial()->Bind();
-	GetMesh()->RenderInstanced(mMaxParticles);
+	GetMaterial().lock()->Bind();
+	GetMesh().lock()->RenderInstanced(mMaxParticles);
 
 	mBuffer->Clear();
 }

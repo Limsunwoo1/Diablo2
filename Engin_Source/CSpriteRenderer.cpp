@@ -36,15 +36,15 @@ void SpriteRenderer::Render()
 
 	GetOwner()->GetComponent<Transform>()->SetConstantBuffer();
 
-	GetMesh()->BindBuffer();
-	GetMaterial()->Bind();
+	GetMesh().lock()->BindBuffer();
+	GetMaterial().lock()->Bind();
 
 	Animator* animator = GetOwner()->GetComponent<Animator>();
 	if (animator != nullptr)
 		animator->Binds();
 
-	GetMesh()->Render();
-	GetMaterial()->Clear();
+	GetMesh().lock()->Render();
+	GetMaterial().lock()->Clear();
 
 	if (animator != nullptr)
 		animator->Clear();

@@ -17,8 +17,8 @@ namespace gui
 		virtual void LateUpdate() override;
 
 	private:
-		std::shared_ptr<Material> mMaterial;
-		std::shared_ptr<Mesh> mMesh;
+		std::weak_ptr<Material> mMaterial;
+		std::weak_ptr<Mesh> mMesh;
 	};
 }
 

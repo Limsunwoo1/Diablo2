@@ -114,6 +114,7 @@ void CApplication::Release()
 	CollisionManager::GetInstance()->DestroyInstance();
 	Input::GetInstance()->DestroyInstance();
 	Time::GetInstance()->DestroyInstance();
+	ResourceManager::GetInstance()->DestroyInstance();
 }
 
 void CApplication::Present()

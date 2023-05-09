@@ -37,17 +37,17 @@ void MeshRenderer::Render()
 
 	GetOwner()->GetComponent<Transform>()->SetConstantBuffer();
 
-	GetMesh()->BindBuffer();
-	GetMaterial()->Bind();
+	GetMesh().lock()->BindBuffer();
+	GetMaterial().lock()->Bind();
 
 	Animator* animator = GetOwner()->GetComponent<Animator>();
 
 	if (animator)
 		animator->Binds();
 
-	GetMesh()->Render();
+	GetMesh().lock()->Render();
 	// 바인딩 되어있는 텍스처 클리어
-	GetMaterial()->Clear();
+	GetMaterial().lock()->Clear();
 
 	if (animator)
 		animator->Clear();

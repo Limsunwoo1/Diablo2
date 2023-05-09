@@ -65,9 +65,9 @@ void Ping::Render()
 
 	// TextureSet
 	SpriteRenderer* sr = GetComponent<SpriteRenderer>();
-	std::shared_ptr<Material> mater = sr->GetMaterial();
-	std::shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Ping");
-	mater->SetTexture(eTextureSlot::T0, tex);
+	std::weak_ptr<Material> mater = sr->GetMaterial();
+	std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Ping");
+	mater.lock()->SetTexture(eTextureSlot::T0, tex);
 
 	// Bind Time
 	ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::Time];

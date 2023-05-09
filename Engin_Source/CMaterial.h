@@ -20,15 +20,15 @@ public:
 	void Clear();
 
 	void SetShader(std::shared_ptr<Shader> shader) { mShader = shader; }
-	std::shared_ptr<Shader> GetShader() { return mShader; }
-	void SetTexture(eTextureSlot slot, std::shared_ptr<Texture2D> texture) { mTexture[(UINT)slot] = texture; }
-	std::shared_ptr<Texture2D> GetTexture(eTextureSlot slot) { return mTexture[(UINT)slot]; }
+	std::weak_ptr<Shader> GetShader() { return mShader; }
+	void SetTexture(eTextureSlot slot, std::weak_ptr<Texture2D> texture) { mTexture[(UINT)slot] = texture; }
+	std::weak_ptr<Texture2D> GetTexture(eTextureSlot slot) { return mTexture[(UINT)slot]; }
 
 	eRenderingMode GetRenderingMode() { return mMode; }
 	void SetRenderingMode(eRenderingMode mode) { mMode = mode; }
 private:
-	std::shared_ptr<Shader> mShader;
-	std::shared_ptr<Texture2D> mTexture[(UINT)eTextureSlot::End];
+	std::weak_ptr<Shader> mShader;
+	std::weak_ptr<Texture2D> mTexture[(UINT)eTextureSlot::End];
 	MaterialCB mCB;
 	eRenderingMode mMode;
 };

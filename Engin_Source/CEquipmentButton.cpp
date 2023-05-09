@@ -127,7 +127,7 @@ void EquipmentButton::Render()
 	if (!mbOnRender)// 렌더할 필요없을때 투명 렌더
 		color = Vector4(0.0f, 0.0f, 0.0f, 0.0f);
 
-	sr->GetMaterial()->SetData(eGpuParam::Vector4, &color);
+	sr->GetMaterial().lock()->SetData(eGpuParam::Vector4, &color);
 
 	Button::Render();
 }
