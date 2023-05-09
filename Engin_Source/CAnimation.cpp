@@ -6,7 +6,6 @@
 
 Animation::Animation()
 	: mAnimator(nullptr)
-	, mAtlas(nullptr)
 	, mSpriteSheet{}
 	, mIndex(-1) // 0 번째가 인덱스인경우가있으므로 음수로 초기화
 	, mTime(0.0f)
@@ -60,15 +59,15 @@ void Animation::Render()
 
 }
 
-void Animation::Create(const wstring& name, shared_ptr<Texture2D> atlas
+void Animation::Create(const wstring& name, weak_ptr<Texture2D> atlas
 	, Vector2 leftTop, Vector2 size, Vector2 offset
 	, UINT spriteLenght, float duration)
 {
 	mAnimationName = name;
 
 	mAtlas = atlas;
-	float width = (float)atlas->GetWidth();
-	float height = (float)atlas->GetHeight();
+	float width = (float)atlas.lock()->GetWidth();
+	float height = (float)atlas.lock()->GetHeight();
 
 	for (UINT i = 0; i < spriteLenght; ++i)
 	{
@@ -85,13 +84,13 @@ void Animation::Create(const wstring& name, shared_ptr<Texture2D> atlas
 	}
 }
 
-void Animation::Create(const wstring& name, shared_ptr<Texture2D> atlas, Vector2 leftTop, float size, Vector2 offset, UINT spriteLenght, float duration)
+void Animation::Create(const wstring& name, weak_ptr<Texture2D> atlas, Vector2 leftTop, float size, Vector2 offset, UINT spriteLenght, float duration)
 {
 	mAnimationName = name;
 
 	mAtlas = atlas;
-	float width = (float)atlas->GetWidth();
-	float height = (float)atlas->GetHeight();
+	float width = (float)atlas.lock()->GetWidth();
+	float height = (float)atlas.lock()->GetHeight();
 
 	for (int i = 0; i < spriteLenght; ++i)
 	{
@@ -109,7 +108,7 @@ void Animation::Create(const wstring& name, shared_ptr<Texture2D> atlas, Vector2
 
 void Animation::BindShader()
 {
-	mAtlas->BindShaderResource(eShaderStage::PS, 12);
+	mAtlas.lock()->BindShaderResource(eShaderStage::PS, 12);
 
 	ConstantBuffer* CB = Renderer::constantBuffers[(UINT)eCBType::Animation];
 
@@ -134,7 +133,7 @@ void Animation::Reset()
 
 void Animation::Clear()
 {
-	mAtlas->Clear(12);
+	mAtlas.lock()->Clear(12);
 
 	ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::Animation];
 	Renderer::AnimationCB info = {};

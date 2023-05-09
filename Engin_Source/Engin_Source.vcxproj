@@ -208,6 +208,7 @@
     <ClInclude Include="CPing.h" />
     <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CPlayerScript.h" />
+    <ClInclude Include="CPlayerSelectButton.h" />
     <ClInclude Include="CPlayScene.h" />
     <ClInclude Include="CPotionButton.h" />
     <ClInclude Include="CPrefab.h" />
@@ -304,6 +305,7 @@
     <ClCompile Include="CPing.cpp" />
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CPlayerScript.cpp" />
+    <ClCompile Include="CPlayerSelectButton.cpp" />
     <ClCompile Include="CPlayScene.cpp" />
     <ClCompile Include="CPotionButton.cpp" />
     <ClCompile Include="CPrefab.cpp" />

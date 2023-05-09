@@ -532,6 +532,9 @@
     <ClCompile Include="FileManager.cpp">
       <Filter>Manager\FileManager</Filter>
     </ClCompile>
+    <ClCompile Include="CPlayerSelectButton.cpp">
+      <Filter>GameObject\UI\Button</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -819,6 +822,9 @@
     </ClInclude>
     <ClInclude Include="FileManager.h">
       <Filter>Manager\FileManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerSelectButton.h">
+      <Filter>GameObject\UI\Button</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

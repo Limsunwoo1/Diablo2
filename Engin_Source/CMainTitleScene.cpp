@@ -76,8 +76,8 @@ void MainTitleScene::Initalize()
 
 		SpriteRenderer* sr = logo->AddComponent<SpriteRenderer>();
 
-		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-		std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"SpriteMaterial");
+		std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"SpriteMaterial");
 		sr->SetMesh(mesh);
 		sr->SetMaterial(material);
 
@@ -85,6 +85,9 @@ void MainTitleScene::Initalize()
 		std::shared_ptr<Texture2D> tex = std::make_shared<Texture2D>();
 		tex->Load(L"UI\\Logo.png");
 
+		ResourceManager::GetInstance()->Insert<Texture2D>(L"LogoTex", tex);
+
+		material.lock()->SetTexture(eTextureSlot::T0, tex);
 		animator->Create(L"Logo", tex, Vector2(0.0f, 0.0f), 216.f, Vector2::Zero, 15, 0.1f);
 		animator->Play(L"Logo");
 	}

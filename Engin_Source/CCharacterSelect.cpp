@@ -12,6 +12,7 @@
 #include "CCollider2D.h"
 #include "CCollisionManager.h"
 #include "CBackGround.h"
+#include "CPlayerSelectButton.h"
 
 CharacterSelectScene::CharacterSelectScene()
 	: Scene(eSceneType::Selecte)
@@ -35,6 +36,18 @@ void CharacterSelectScene::Initalize()
 	cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
 	Renderer::mainCamera = cameraComp;
 
+	{ // UiCamera
+		GameObject* cameraObj = Object::Instantiate<GameObject>(eLayerType::Camera, this);
+		Camera* cameraComp = cameraObj->AddComponent<Camera>();
+		//cameraComp->RegisterCameraInRenderer();
+		cameraComp->EnableLayerMasks();
+		cameraComp->DisableLayerMasks();
+		cameraComp->TurnLayerMask(eLayerType::UI, true);
+		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
+
+		Renderer::UiCamera = cameraComp;
+	}
+
 	// BackGround2
 	{
 		BackGround* ground = Object::Instantiate<BackGround>(eLayerType::BackGround, this);
@@ -54,6 +67,12 @@ void CharacterSelectScene::Initalize()
 		mr->SetMaterial(material);
 
 		//ground->Paused();
+	}
+
+	{
+		PlayerSelectButton* button = Object::Instantiate<PlayerSelectButton>(eLayerType::Player, this);
+		button->Active();
+		button->SetName(L"Button");
 	}
 
 	Scene::Initalize();

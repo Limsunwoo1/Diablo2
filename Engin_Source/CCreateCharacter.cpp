@@ -35,6 +35,7 @@ void CreateCharactorScene::Initalize()
 	cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
 	Renderer::mainCamera = cameraComp;
 
+
 	// BackGround2
 	{
 		BackGround* ground = Object::Instantiate<BackGround>(eLayerType::BackGround, this);

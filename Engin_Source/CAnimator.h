@@ -39,10 +39,10 @@ public:
 	virtual void FixedUpdate() override;
 	virtual void Render() override;
 
-	bool Create(const wstring& name, shared_ptr<Texture2D> atlas, Vector2 leftTop
+	bool Create(const wstring& name, weak_ptr<Texture2D> atlas, Vector2 leftTop
 					, Vector2 size, Vector2 offset
 					, UINT spriteLength, float duation);
-	bool Create(const wstring& name, shared_ptr<Texture2D> atlas, Vector2 leftTop
+	bool Create(const wstring& name, weak_ptr<Texture2D> atlas, Vector2 leftTop
 		, float size, Vector2 offset
 		, UINT spriteLength, float duation);
 

@@ -36,11 +36,11 @@ public:
 	void FixedUpdate();
 	void Render();
 
-	void Create(const wstring& name, shared_ptr<Texture2D> atlas
+	void Create(const wstring& name, weak_ptr<Texture2D> atlas
 				, Vector2 leftTop, Vector2 size, Vector2 offset
 				, UINT spriteLenght, float duration);
 
-	void Create(const wstring& name, shared_ptr<Texture2D> atlas
+	void Create(const wstring& name, weak_ptr<Texture2D> atlas
 		, Vector2 leftTop,float size, Vector2 offset
 		, UINT spriteLenght, float duration);
 
@@ -63,7 +63,7 @@ public:
 private:
 	Animator* mAnimator;
 	wstring mAnimationName;
-	shared_ptr<Texture2D> mAtlas;
+	weak_ptr<Texture2D> mAtlas;
 	vector<Sprite> mSpriteSheet;
 	int mIndex;
 	float mTime;

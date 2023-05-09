@@ -66,11 +66,11 @@ void Animator::Render()
 
 }
 
-bool Animator::Create(const wstring& name, shared_ptr<Texture2D> atlas, Vector2 leftTop
+bool Animator::Create(const wstring& name, weak_ptr<Texture2D> atlas, Vector2 leftTop
 	, Vector2 size, Vector2 offset
 	, UINT spriteLength, float duation)
 {
-	if (atlas == nullptr)
+	if (atlas.lock() == nullptr)
 		return false;
 
 	Animation* animation = Animator::FindAnimation(name);
@@ -79,7 +79,7 @@ bool Animator::Create(const wstring& name, shared_ptr<Texture2D> atlas, Vector2 
 
 	animation = new Animation();
 	animation->SetAnimator(this);
-	animation->Create(name, atlas, leftTop, size, offset, spriteLength, duation);
+	animation->Create(name, atlas.lock(), leftTop, size, offset, spriteLength, duation);
 
 	mAnimations.insert(make_pair(name, animation));
 
@@ -90,9 +90,9 @@ bool Animator::Create(const wstring& name, shared_ptr<Texture2D> atlas, Vector2 
 	return true;
 }
 
-bool Animator::Create(const wstring& name, shared_ptr<Texture2D> atlas, Vector2 leftTop, float size, Vector2 offset, UINT spriteLength, float duation)
+bool Animator::Create(const wstring& name, weak_ptr<Texture2D> atlas, Vector2 leftTop, float size, Vector2 offset, UINT spriteLength, float duation)
 {
-	if (atlas == nullptr)
+	if (atlas.lock() == nullptr)
 		return false;
 
 	Animation* animation = Animator::FindAnimation(name);
@@ -101,7 +101,7 @@ bool Animator::Create(const wstring& name, shared_ptr<Texture2D> atlas, Vector2 
 
 	animation = new Animation();
 	animation->SetAnimator(this);
-	animation->Create(name, atlas, leftTop, size, offset, spriteLength, duation);
+	animation->Create(name, atlas.lock(), leftTop, size, offset, spriteLength, duation);
 
 	mAnimations.insert(make_pair(name, animation));
 

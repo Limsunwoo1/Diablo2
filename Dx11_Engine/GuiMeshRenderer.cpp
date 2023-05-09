@@ -60,6 +60,4 @@ namespace gui
 	{
 		gui::Component::LateUpdate();
 	}
-
-
 }

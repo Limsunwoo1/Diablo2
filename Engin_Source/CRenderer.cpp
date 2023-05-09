@@ -668,6 +668,7 @@ namespace Renderer
 			std::shared_ptr<Material> material = std::make_shared<Material>();
 			material->SetShader(shader);
 			material->SetTexture(eTextureSlot::T0, texture);
+			material->SetRenderingMode(eRenderingMode::Transparent);
 			ResourceManager::GetInstance()->Insert<Material>(L"Rect2Material", material);
 		}
 #pragma endregion
