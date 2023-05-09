@@ -82,10 +82,7 @@ void MainTitleScene::Initalize()
 		sr->SetMaterial(material);
 
 		Animator* animator = logo->AddComponent<Animator>();
-		std::shared_ptr<Texture2D> tex = std::make_shared<Texture2D>();
-		tex->Load(L"UI\\Logo.png");
-
-		ResourceManager::GetInstance()->Insert<Texture2D>(L"LogoTex", tex);
+		std::shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"LogoTex");
 
 		material.lock()->SetTexture(eTextureSlot::T0, tex);
 		animator->Create(L"Logo", tex, Vector2(0.0f, 0.0f), 216.f, Vector2::Zero, 15, 0.1f);

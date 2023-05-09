@@ -17,7 +17,7 @@ public:
 
 
 private:
-	vector<class CharacterSelectScene> mButton;
+	vector<class PlayerSelectButton*> mButton;
 	int mClickButtonIdx;
 };
 

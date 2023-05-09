@@ -18,6 +18,9 @@ namespace gui
 
 	void guiMeshRenderer::FixedUpdate()
 	{
+		if (GetTarget() == nullptr)
+			return;
+
 		gui::Component::FixedUpdate();
 
 		if (GetTarget())
@@ -38,6 +41,9 @@ namespace gui
 
 	void guiMeshRenderer::Update()
 	{
+		if (GetTarget() == nullptr)
+			return;
+
 		gui::Component::Update();
 
 		// wstring Çü Name
@@ -58,6 +64,9 @@ namespace gui
 
 	void guiMeshRenderer::LateUpdate()
 	{
+		if (GetTarget() == nullptr)
+			return;
+
 		gui::Component::LateUpdate();
 	}
 }

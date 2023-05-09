@@ -17,6 +17,9 @@ namespace gui
 
 	void guiTransform::FixedUpdate()
 	{
+		if (GetTarget() == nullptr)
+			return;
+
 		Component::FixedUpdate();
 
 		Transform* tr = GetTarget()->GetComponent<Transform>();
@@ -30,6 +33,9 @@ namespace gui
 
 	void guiTransform::Update()
 	{
+		if (GetTarget() == nullptr)
+			return;
+
 		Component::Update();
 
 		ImGui::Text("Position"); ImGui::SameLine();
@@ -53,6 +59,9 @@ namespace gui
 
 	void guiTransform::LateUpdate()
 	{
+		if (GetTarget() == nullptr)
+			return;
+
 		Component::LateUpdate();
 	}
 

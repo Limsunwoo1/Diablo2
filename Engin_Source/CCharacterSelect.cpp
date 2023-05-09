@@ -13,6 +13,8 @@
 #include "CCollisionManager.h"
 #include "CBackGround.h"
 #include "CSelectButtonSystem.h"
+#include "CLight.h"
+#include "CUIManager.h"
 
 CharacterSelectScene::CharacterSelectScene()
 	: Scene(eSceneType::Selecte)
@@ -27,6 +29,15 @@ CharacterSelectScene::~CharacterSelectScene()
 
 void CharacterSelectScene::Initalize()
 {
+	{
+		GameObject* directionalLight = Object::Instantiate<GameObject>(eLayerType::None, this);
+		Transform* tr = directionalLight->GetComponent<Transform>();
+		tr->SetPosition(Vector3(0.0f, 0.0f, -100.f));
+		Light* lightcomp = directionalLight->AddComponent<Light>();
+		lightcomp->SetType(eLightType::Directional);
+		lightcomp->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+	}
+
 	// Main Camera Game Object
 	GameObject* cameraObj = Object::Instantiate<GameObject>(eLayerType::Camera, this);
 	Camera* cameraComp = cameraObj->AddComponent<Camera>();
@@ -71,8 +82,11 @@ void CharacterSelectScene::Initalize()
 
 	{
 		SelectButtonSystem* button = Object::Instantiate<SelectButtonSystem>(eLayerType::UI, this);
+		button->SetLayerType(eLayerType::UI);
 		button->Active();
 		button->SetName(L"Button");
+
+		UIManager::GetInstance()->Push(L"SelectButtonSystem", button);
 	}
 }
 
@@ -80,7 +94,7 @@ void CharacterSelectScene::Update()
 {
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN))
 	{
-		SceneManager::GetInstance()->LoadScene(eSceneType::Create);
+		//SceneManager::GetInstance()->LoadScene(eSceneType::Create);
 	}
 
 	Scene::Update();

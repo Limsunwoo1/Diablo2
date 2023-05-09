@@ -100,7 +100,7 @@ void PlayScene::Initalize()
 	GameObject* obj = nullptr;
 	// Player
 	{
-		Player* player = Object::Instantiate<Player>(eLayerType::Player, this);
+		/*Player* player = Object::Instantiate<Player>(eLayerType::Player, this);
 		PlayerScript* sc = player->AddComponent<PlayerScript>();
 
 		Collider2D* collider = player->AddComponent<Collider2D>();
@@ -126,7 +126,7 @@ void PlayScene::Initalize()
 
 		Renderer::InspectorGameObject = player;
 
-		WorldManager::GetInstance()->SetPlayer(player);
+		WorldManager::GetInstance()->SetPlayer(player);*/
 		//60 75.875f
 	}
 

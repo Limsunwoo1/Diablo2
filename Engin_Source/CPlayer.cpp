@@ -85,9 +85,7 @@ void Player::InitAnimation()
 {
 	Animator* animator = this->AddComponent<Animator>();
 	{
-		std::shared_ptr<Texture2D> texture = std::make_shared<Texture2D>();
-		texture->Load(L"Diablo2_Walk.png");
-		ResourceManager::GetInstance()->Insert(L"PlayerWalk", texture);
+		std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"PlayerWalk");
 
 		/*animator->Create(L"Walk0", texture, Vector2(0.0f, 0.0f), Vector2(60.f, 75.875f), Vector2(0.0f, 0.0f), 8, 0.1f);
 		animator->Create(L"WalkUp", texture, Vector2(0.0f, 75.875 * 8), Vector2(60.f, 75.875f), Vector2(0.0f, 0.0f), 8, 0.1f);*/

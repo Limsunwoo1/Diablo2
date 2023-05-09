@@ -68,7 +68,31 @@ void Transform::FixedUpdate()
 	// 뷰행렬, 프로젝션 행렬(투영)
 
 	if (mParent)
-		mWorld *= mParent->mWorld;
+	{
+		mWorld._11 *= mParent->mWorld._11;
+		mWorld._22 *= mParent->mWorld._22;
+		mWorld._33 *= mParent->mWorld._33;
+
+		mWorld._41 += mParent->mWorld._41;
+		mWorld._42 += mParent->mWorld._42;
+		mWorld._43 += mParent->mWorld._43;
+
+		/*Matrix mat;
+		mat._11 = 4.0f; mat._12 = 0.0f; mat._13 = 0.0f; mat._14 = 0.0f;
+		mat._21 = 4.0f; mat._22 = 2.0f; mat._23 = 0.0f; mat._24 = 0.0f;
+		mat._31 = 0.0f; mat._32 = 0.0f; mat._33 = 0.0f; mat._34 = 0.0f;
+		mat._41 = 4.0f; mat._42 = 2.0f; mat._43 = 0.0f; mat._44 = 1.0f;
+		
+		Matrix mat1;
+		mat._11 = 1.5f; mat._12 = 0.0f; mat._13 = 0.0f; mat._14 = 0.0f;
+		mat._21 = 0.0f; mat._22 = 1.0f; mat._23 = 0.0f; mat._24 = 0.0f;
+		mat._31 = 0.0f; mat._32 = 0.0f; mat._33 = 0.0f; mat._34 = 0.0f;
+		mat._41 = 1.0f; mat._42 = 1.0f; mat._43 = 0.0f; mat._44 = 1.0f;
+
+		mat1 *= mat;
+
+		mWorld *= mParent->mWorld;*/
+	}
 }
 
 void Transform::Render()

@@ -79,6 +79,31 @@ void TitleScene::Initalize()
 		mr->SetMesh(mesh);
 		mr->SetMaterial(backmaterial);
 	}
+
+	// Logo
+	{
+		GameObject* logo = Object::Instantiate<GameObject>(eLayerType::Effect);
+		Transform* tr = logo->GetComponent<Transform>();
+		tr->SetScale(Vector3(10.0f, 24.0f, 1.0f));
+		tr->SetPosition(Vector3(1.0f, 4.5f, 0.0f));
+
+		SpriteRenderer* sr = logo->AddComponent<SpriteRenderer>();
+
+		std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"SpriteMaterial");
+		sr->SetMesh(mesh);
+		sr->SetMaterial(material);
+
+		Animator* animator = logo->AddComponent<Animator>();
+		std::shared_ptr<Texture2D> tex = std::make_shared<Texture2D>();
+		tex->Load(L"UI\\Logo.png");
+
+		ResourceManager::GetInstance()->Insert<Texture2D>(L"LogoTex", tex);
+
+		material.lock()->SetTexture(eTextureSlot::T0, tex);
+		animator->Create(L"Logo", tex, Vector2(0.0f, 0.0f), 216.f, Vector2::Zero, 15, 0.1f);
+		animator->Play(L"Logo");
+	}
 	
 	Scene::Initalize();
 }

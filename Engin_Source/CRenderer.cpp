@@ -898,6 +898,13 @@ namespace Renderer
 		postProcessMaterial->SetShader(postProcessShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"PostProcessMaterial", postProcessMaterial);
 #pragma endregion
+#pragma region ChaterSelect Material
+		std::shared_ptr<Shader> ChaterSelectShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+		std::shared_ptr<Material> ChaterSelectMaterial = std::make_shared<Material>();
+		ChaterSelectMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		ChaterSelectMaterial->SetShader(ChaterSelectShader);
+		ResourceManager::GetInstance()->Insert<Material>(L"ChaterSelectMaterial", ChaterSelectMaterial);
+#pragma endregion
 	}
 
 	void Initialize()

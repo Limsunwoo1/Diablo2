@@ -48,7 +48,7 @@ float4 main(VSOut In) : SV_Target
     
     
     LightColor _lightColor = (LightColor) 0.0f;
-    for (int i = 0; i < numberOfLight; i++)
+    for (uint i = 0; i < numberOfLight; i++)
     {
         CalculateLight(_lightColor, In.WorldPos.xyz, i);
     }
