@@ -13,7 +13,7 @@ class FileManager
 public:
 	bool LoadData(const std::wstring& path);
 
-	bool CreateSaveFile(const std::wstring& path);
+	bool CreateSaveFile(const std::wstring& path, const std::wstring& name, eCharType type);
 	bool ReadSaveFile(const std::wstring& path);
 	bool ReadSaveFiles(eFileType type);
 	bool WriteSaveFile();

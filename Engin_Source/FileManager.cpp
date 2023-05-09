@@ -45,8 +45,19 @@ bool FileManager::LoadData(const std::wstring& path)
 	return S_OK;
 }
 
-bool FileManager::CreateSaveFile(const std::wstring& path)
+bool FileManager::CreateSaveFile(const std::wstring& path, const std::wstring& name, eCharType type)
 {
+	ofstream fs(path + L"//" + name + L".csv", ios::app);
+
+	// 기본 세팅
+	fs << "Type," + to_string((UINT)type) << endl;
+	fs << "Level," + to_string(1) << endl;
+	fs << "Hp," + to_string(50) << endl;
+	fs << "Mp," + to_string(50) << endl;
+	fs << "Exp," + to_string(0) << endl;
+	fs << "Name," + string(name.begin(), name.end()) << endl;
+
+	fs.close();
 	return S_OK;
 }
 
@@ -65,7 +76,6 @@ bool FileManager::ReadSaveFile(const std::wstring& path)
 	while (!iFile.eof())
 	{
 		getline(iFile, buf);
-		cout << buf << endl;
 	}
 	iFile.close();
 
@@ -94,7 +104,6 @@ bool FileManager::ReadSaveFiles(eFileType type)
 			getline(iFile, buf);
 			wstring data(buf.begin(), buf.end());
 			temp += data + L"\n";
-			cout << buf << endl;
 		}
 
 		mData[(UINT)type].push_back(temp);
