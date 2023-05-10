@@ -5,7 +5,7 @@ class Button : public UiBase
 {
 public:
 	Button(eUIType type);
-	~Button();
+	virtual ~Button();
 
 	virtual void OnInit() override;
 	virtual void OnActive() override;
@@ -24,6 +24,8 @@ public:
 		, const wstring& textureName, const std::wstring& textruepath) override;
 
 	virtual void Click();
+	virtual void BindEvnet(std::function<void()> fun);
+	virtual void OnEvent();
 
 private:
 	Event mOnClick;

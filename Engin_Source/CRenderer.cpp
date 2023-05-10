@@ -909,6 +909,33 @@ namespace Renderer
 		ChaterSelectMaterial->SetShader(ChaterSelectShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"ChaterSelectMaterial", ChaterSelectMaterial);
 #pragma endregion
+#pragma region Button Material
+		{
+			std::shared_ptr<Shader> ButtonShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+			std::shared_ptr<Material> ButtonMaterial = std::make_shared<Material>();
+			ButtonMaterial->SetRenderingMode(eRenderingMode::Transparent);
+			ButtonMaterial->SetShader(ButtonShader);
+			ResourceManager::GetInstance()->Insert<Material>(L"Button1Material", ButtonMaterial);
+		}
+#pragma endregion
+#pragma region Button2 Material
+		{
+			std::shared_ptr<Shader> ButtonShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+			std::shared_ptr<Material> ButtonMaterial = std::make_shared<Material>();
+			ButtonMaterial->SetRenderingMode(eRenderingMode::Transparent);
+			ButtonMaterial->SetShader(ButtonShader);
+			ResourceManager::GetInstance()->Insert<Material>(L"Button2Material", ButtonMaterial);
+		}
+#pragma endregion
+#pragma region Button3 Material
+		{
+			std::shared_ptr<Shader> ButtonShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+			std::shared_ptr<Material> ButtonMaterial = std::make_shared<Material>();
+			ButtonMaterial->SetRenderingMode(eRenderingMode::Transparent);
+			ButtonMaterial->SetShader(ButtonShader);
+			ResourceManager::GetInstance()->Insert<Material>(L"Button3Material", ButtonMaterial);;
+		}
+#pragma endregion
 	}
 
 	void Initialize()

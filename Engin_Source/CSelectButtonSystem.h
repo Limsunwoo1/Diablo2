@@ -20,9 +20,21 @@ public:
 
 	void DataEdit(string& str){};
 
+	void CreateButton();
+	void RemoveButton();
+	void RetrunSceneButton();
+	void Select_Ok_Button();
+
+	void ButtonPositionInit();
+	void CreateSelectButton();
+
 private:
 	vector<PlayerSelectButton*> mButton;
 	PlayerSelectButton* mClickButton;
+
+	class SelectSystemButton* mCreateButton;
+	class SelectSystemButton* mReturnSceneButton;
+	class SelectSystemButton* mSelect_Ok_Button;
 
 	int mClickButtonIdx;
 };

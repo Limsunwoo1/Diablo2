@@ -486,6 +486,16 @@ void PlayScene::OnEnter()
 {
 	if (mMainCamera)
 		Renderer::mainCamera = mMainCamera;
+
+	GameObject* player = WorldManager::GetInstance()->GetPlayer();
+
+	if (player == nullptr)
+		return;
+
+	Renderer::mainCamera->SetTrace(player);
+	Renderer::InspectorGameObject = player;
+
+	this->GetLayer(eLayerType::Player).AddGameObject(player);
 }
 
 void PlayScene::OnExit()

@@ -262,6 +262,9 @@
     <Filter Include="GameObject\UI\SelectButtonSystem">
       <UniqueIdentifier>{21d76add-2f49-4a2a-9782-a934301f23cb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\UI\SelectButtonSystem\SelectSystemButton">
+      <UniqueIdentifier>{00de8513-b0b4-4f2d-9dea-9ef7d0db7a74}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -540,6 +543,9 @@
     </ClCompile>
     <ClCompile Include="CSelectButtonSystem.cpp">
       <Filter>GameObject\UI\SelectButtonSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="CSelectSystemButton.cpp">
+      <Filter>GameObject\UI\SelectButtonSystem\SelectSystemButton</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -834,6 +840,9 @@
     </ClInclude>
     <ClInclude Include="CSelectButtonSystem.h">
       <Filter>GameObject\UI\SelectButtonSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="CSelectSystemButton.h">
+      <Filter>GameObject\UI\SelectButtonSystem\SelectSystemButton</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

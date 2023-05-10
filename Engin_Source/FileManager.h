@@ -24,10 +24,13 @@ public:
 	UINT GetDataSize_Int(eFileType type) { return mData[(UINT)type].size(); }
 
 	void SetPlayerData(const wstring& data) { mPlayerData = data; }
+
+	wstring GetCreateData() {return mCreateBuffer; mCreateBuffer= L"";}
 private:
 	vector<wstring> mDataPath[(UINT)eFileType::End];
 	vector<wstring> mData[(UINT)eFileType::End];
 
 	wstring mPlayerData;
+	wstring mCreateBuffer;
 };
 

@@ -68,6 +68,9 @@ public:
 	const string& GetSavename() { return mSaveName; }
 	void SetSaveName(const string& name) { mSaveName = name; }
 
+	const UINT GetSavePathIndex() { return mSavePathIndex; }
+	void SetSavePathIndex(UINT index) { mSavePathIndex = index; }
+
 private:
 	void Run();
 	void Idle();
@@ -101,5 +104,6 @@ private:
 	UINT mRunSpeed;
 
 	string mSaveName;
+	UINT mSavePathIndex;
 };
 

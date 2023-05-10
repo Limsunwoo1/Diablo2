@@ -65,9 +65,6 @@ void Button::OnClear()
 void Button::Initalize()
 {
 	mOnClick = std::bind(&Button::Click, this);
-
-	Collider2D* col = this->AddComponent<Collider2D>();
-	col->SetType(eColliderType::Rect);
 }
 
 void Button::Update()
@@ -119,4 +116,14 @@ void Button::InitRenderer(const wstring& materialName, const wstring& textureNam
 void Button::Click()
 {
 	int a = 0;
+}
+
+void Button::BindEvnet(std::function<void()> fun)
+{
+	mOnClick = fun;
+}
+
+void Button::OnEvent()
+{
+	mOnClick();
 }

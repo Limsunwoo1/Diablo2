@@ -45,6 +45,8 @@ public:
 	int GetButtonIndex() { return mButtonIndex; }
 	void SetButtonIndex(UINT index) { mButtonIndex = index; }
 
+	int GetDataPathIndex() { return mDataPathIndex; }
+	void SetDataPathIndex(UINT index) { mDataPathIndex = index; }
 
 private:
 	GameObject* mCharterAnimation;
@@ -54,5 +56,7 @@ private:
 	int mButtonIndex;
 
 	PlayerInfo mInfo;
+
+	int mDataPathIndex;
 };
 

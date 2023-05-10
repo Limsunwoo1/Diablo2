@@ -9,6 +9,7 @@
 #include "CAStar.h"
 #include "CWorldManager.h"
 #include "CObjectManager.h"
+#include "CPlayerSelectButton.h"
 
 using namespace graphics;
 

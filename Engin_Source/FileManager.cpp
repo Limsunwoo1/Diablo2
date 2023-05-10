@@ -47,27 +47,38 @@ bool FileManager::LoadData(const std::wstring& path)
 
 bool FileManager::CreateSaveFile(const std::wstring& path, const std::wstring& name, eCharType type)
 {
-	GameObject* player = WorldManager::GetInstance()->GetPlayer();
-	Transform* tr = nullptr;
-
-	if(player != nullptr)
-		tr = player->GetComponent<Transform>();
-
-	Vector3 position = tr->GetPosition();
+	if (mData[(UINT)type].size() >= 6)
+		return false;
 
 	ofstream fs(path + L"//" + name + L".csv", ios::app);
 
 	// 기본 세팅
-	fs << "Type," + to_string((UINT)type) << endl;
-	fs << "Level," + to_string(1) << endl;
-	fs << "Hp," + to_string(50) << endl;
-	fs << "Mp," + to_string(50) << endl;
-	fs << "Exp," + to_string(0) << endl;
-	fs << "Name," + string(name.begin(), name.end()) << endl;
-	fs << "Position," + std::to_string(position.x) + "," + std::to_string(position.y) + "," + std::to_string(position.z) << endl;
+	fs << "Type," << to_string((UINT)type) << endl;
+	fs << "Level," << to_string(1) << endl;
+	fs << "Hp," << to_string(50) << endl;
+	fs << "Mp," << to_string(50) << endl;
+	fs << "Exp," << to_string(0) << endl;
+	fs << "Name," << string(name.begin(), name.end()) << endl;
+	fs << "X," << std::to_string(1) << endl;
+	fs << "Y," << std::to_string(1) << endl;
+	fs << "Z," << std::to_string(1) << endl;
 
 	fs.close();
-	return S_OK;
+
+	ifstream ifs(path + L"//" + name + L".csv", ios::in);
+	string tem = "";
+	while (!ifs.eof())
+	{
+		getline(ifs, tem);
+		wstring data(tem.begin(), tem.end());
+		mCreateBuffer += data + L"\n";
+	}
+
+	mData[(UINT)type].push_back(mCreateBuffer);
+	mDataPath[(UINT)type].push_back(mCreateBuffer);
+
+	ifs.close();
+	return true;
 }
 
 bool FileManager::ReadSaveFile(const std::wstring& path)
@@ -135,6 +146,8 @@ bool FileManager::WriteSaveFile()
 	float Mp = player->GetMP();
 	float Exp = player->GetExp();
 	string strName = "Name," + player->GetSavename();
+	Vector3 Pos = player->GetComponent<Transform>()->GetPosition();
+
 
 	vector<string> data = {};
 	{ // 쓰기 데이터 생성
@@ -149,10 +162,20 @@ bool FileManager::WriteSaveFile()
 		data.push_back(strHP);
 		data.push_back(strMP);
 		data.push_back(strExP);
+
 		data.push_back(strName);
+
+		string X = "X," + to_string(Pos.x);
+		string Y = "Y," + to_string(Pos.y);
+		string Z = "Z," + to_string(Pos.z);
+
+		data.push_back(X);
+		data.push_back(Y);
+		data.push_back(Z);
 	}
 
-	ofstream oFile(mPlayerData);
+	wstring str = mDataPath[(UINT)Type][player->GetSavePathIndex()];
+	ofstream oFile(mDataPath[(UINT)Type][player->GetSavePathIndex()]);
 
 	for (auto& str : data)
 	{
@@ -186,8 +209,7 @@ bool FileManager::ReadFold(const std::wstring& path, eFileType type)
 		mDataPath[(UINT)type].push_back(Path);
 	}
 
-	if (ReadSaveFiles(type))
-		mDataPath->clear();
+	ReadSaveFiles(type);
 
 	return true;
 }
