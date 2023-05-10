@@ -98,11 +98,11 @@ void Panel::InitAnimation()
 void Panel::InitRenderer(const wstring& materialName, const wstring& textureName, const std::wstring& texturepath)
 {
 	MeshRenderer* mr = AddComponent<MeshRenderer>();
-	shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-	shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(materialName);
-	shared_ptr<Texture2D> tex = ImageLoad(textureName, texturepath);
+	weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+	weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(materialName);
+	weak_ptr<Texture2D> tex = ImageLoad(textureName, texturepath);
 
-	material->SetTexture(eTextureSlot::T0, tex);
+	material.lock()->SetTexture(eTextureSlot::T0, tex);
 	mr->SetMesh(mesh);
 	mr->SetMaterial(material);
 }

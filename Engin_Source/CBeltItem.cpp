@@ -15,9 +15,9 @@ BeltItem::~BeltItem()
 void BeltItem::Initalize()
 {
 	SpriteRenderer* sr = AddComponent<SpriteRenderer>();
-	shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-	shared_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"ItemShader");
-	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"BeltItem", L"Item//Belt.png");
+	weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+	weak_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"ItemShader");
+	weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"BeltItem", L"Item//Belt.png");
 	std::shared_ptr<Material> material = std::make_shared<Material>();
 	material->SetShader(shader);
 	material->SetTexture(eTextureSlot::T0, tex);
@@ -34,7 +34,7 @@ void BeltItem::Initalize()
 
 	{
 		Animator* animator = AddComponent<Animator>();
-		shared_ptr<Texture2D> tex =
+		weak_ptr<Texture2D> tex =
 			ResourceManager::GetInstance()->Load<Texture2D>(L"BeltDrop", L"Item//BeltDrop.png");
 		animator->Create(L"WorldDrop", tex, Vector2::Zero, Vector2(15.f, 154.f), Vector2::Zero, 17, 0.05f);
 	}

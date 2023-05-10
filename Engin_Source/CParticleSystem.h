@@ -28,7 +28,7 @@ private:
 	class StructedBuffer* mBuffer;
 	class StructedBuffer* mShaderBuffer;
 
-	shared_ptr<ParticleShader> mCS;
+	weak_ptr<ParticleShader> mCS;
 	Renderer::ParticleSystemCB mCBData;
 
 	Vector4 mStartSize;

@@ -2,6 +2,7 @@
 #include "CRenderer.h"
 #include "CTransform.h"
 #include "CObjectManager.h"
+#include "CWorldManager.h"
 
 Layer::Layer()
 {
@@ -15,6 +16,11 @@ Layer::~Layer()
 			continue;
 		if (obj->GetLayerType() == eLayerType::UI)
 			continue;
+
+		if (obj->GetLayerType() == eLayerType::Player)
+		{
+			WorldManager::GetInstance()->SetPlayer(nullptr);
+		}
 
 		delete obj;
 		obj = nullptr;

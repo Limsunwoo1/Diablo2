@@ -35,9 +35,9 @@ void FireTargetPin::Initalize()
 
 	// renderer
 	SpriteRenderer* sr = AddComponent<SpriteRenderer>();
-	std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-	std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"FirePinMaterial");
-	std::shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"FirePin");
+	std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+	std::weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"FirePinMaterial");
+	std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"FirePin");
 	sr->SetMesh(mesh);
 	sr->SetMaterial(material);
 }
@@ -59,7 +59,7 @@ void FireTargetPin::Render()
 
 void FireTargetPin::InitAnimation()
 {
-	std::shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"FirePin", L"Meteor//MeteorPin.png");
+	std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"FirePin", L"Meteor//MeteorPin.png");
 	Animator* animator = AddComponent<Animator>();
 
 	animator->Create(L"FirePin", tex, Vector2::Zero, Vector2(100.f, 100.f), Vector2::Zero, 17, 0.02f);

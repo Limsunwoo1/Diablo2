@@ -26,7 +26,7 @@ SelectButtonSystem::SelectButtonSystem()
 
 SelectButtonSystem::~SelectButtonSystem()
 {
-	for (PlayerSelectButton* obj : mButton)
+	for (GameObject* obj : mButton)
 	{
 		if (obj == nullptr)
 			continue;
@@ -178,7 +178,7 @@ void SelectButtonSystem::Initalize()
 		pushButton->SetInfo(info);
 		pushButton->SetDataPathIndex(Index);
 
-		mButton.emplace_back(pushButton);
+		mButton.push_back(pushButton);
 		Index++;
 	}
 	ButtonPositionInit();
@@ -384,8 +384,8 @@ void SelectButtonSystem::Select_Ok_Button()
 	tr->SetScale(Vector3(3.0f, 3.0f, 1.0f));
 
 	SpriteRenderer* spr = player->AddComponent<SpriteRenderer>();
-	std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-	std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"SpriteMaterial");
+	std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+	std::weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"SpriteMaterial");
 
 	spr->SetMesh(mesh);
 	spr->SetMaterial(material);

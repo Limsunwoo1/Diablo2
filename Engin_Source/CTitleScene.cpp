@@ -73,8 +73,8 @@ void TitleScene::Initalize()
 
 		MeshRenderer* mr = ground->AddComponent<MeshRenderer>();
 
-		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"FadeMesh");
-		std::shared_ptr<Material> backmaterial = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"FadeMesh");
+		std::weak_ptr<Material> backmaterial = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
 
 		mr->SetMesh(mesh);
 		mr->SetMaterial(backmaterial);

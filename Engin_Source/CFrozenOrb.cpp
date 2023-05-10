@@ -54,18 +54,18 @@ void FrozenOrb::Initalize()
 
 	// ·»´õ·¯
 	SpriteRenderer* sr = AddComponent<SpriteRenderer>();
-	shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-	shared_ptr <Material> material = ResourceManager::GetInstance()->Find<Material>(L"FrozenOrbMaterial");
+	weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+	weak_ptr <Material> material = ResourceManager::GetInstance()->Find<Material>(L"FrozenOrbMaterial");
 	sr->SetMesh(mesh);
 	sr->SetMaterial(material);
 
 	sr->SetRenderStop();
 
-	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"FrozenOrb");
-	material->SetTexture(eTextureSlot::T0,tex);
+	weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"FrozenOrb");
+	material.lock()->SetTexture(eTextureSlot::T0, tex);
 
 	tex = ResourceManager::GetInstance()->Find<Texture2D>(L"FrozenOrbEnd");
-	material->SetTexture(eTextureSlot::T2, tex);
+	material.lock()->SetTexture(eTextureSlot::T2, tex);
 
 	// Æ®·£½ºÆû
 	Transform* tr = GetComponent<Transform>();
@@ -169,8 +169,8 @@ void FrozenOrb::Render()
 void FrozenOrb::InitAnimation()
 {
 	Animator* animator = AddComponent<Animator>();
-	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"FrozenOrb", L"Frozen//FrozenOrb2.png");
-	shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Load<Texture2D>(L"FrozenOrbEnd", L"Frozen//FrozenOrbEnd.png");
+	weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"FrozenOrb", L"Frozen//FrozenOrb2.png");
+	weak_ptr<Texture2D> texture = ResourceManager::GetInstance()->Load<Texture2D>(L"FrozenOrbEnd", L"Frozen//FrozenOrbEnd.png");
 
 	animator->Create(L"FrozenOrb", tex, Vector2(0.0f, 0.0f), Vector2(100.f, 100.f), Vector2(0.0f, 0.0f), 16, 0.1f);
 	animator->Create(L"FrozenOrbEnd", texture, Vector2(0.0f, 0.0f), Vector2(100.f, 100.f), Vector2(0.0f, 0.0f), 18, 0.1f);

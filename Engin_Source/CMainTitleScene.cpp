@@ -60,8 +60,8 @@ void MainTitleScene::Initalize()
 		ground->SetTexture(tex);
 
 		MeshRenderer* mr = ground->AddComponent<MeshRenderer>();
-		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"FadeMesh");
-		std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"FadeMesh");
+		std::weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
 
 		mr->SetMesh(mesh);
 		mr->SetMaterial(material);
@@ -82,7 +82,7 @@ void MainTitleScene::Initalize()
 		sr->SetMaterial(material);
 
 		Animator* animator = logo->AddComponent<Animator>();
-		std::shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"LogoTex");
+		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"LogoTex");
 
 		material.lock()->SetTexture(eTextureSlot::T0, tex);
 		animator->Create(L"Logo", tex, Vector2(0.0f, 0.0f), 216.f, Vector2::Zero, 15, 0.1f);

@@ -57,12 +57,12 @@ void Meteor::Initalize()
 
 	// ·»´õ·¯
 	SpriteRenderer* sr = AddComponent<SpriteRenderer>();
-	shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-	shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"MeteorMaterial");
-	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Meteor");
-	material->SetTexture(eTextureSlot::T0,tex);
+	weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+	weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"MeteorMaterial");
+	weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Meteor");
+	material.lock()->SetTexture(eTextureSlot::T0, tex);
 	tex = ResourceManager::GetInstance()->Find<Texture2D>(L"MeteorEnd");
-	material->SetTexture(eTextureSlot::T2, tex);
+	material.lock()->SetTexture(eTextureSlot::T2, tex);
 
 	sr->SetMesh(mesh);
 	sr->SetMaterial(material);
@@ -136,7 +136,7 @@ void Meteor::InitAnimation()
 {
 	Animator* animator = AddComponent<Animator>();
 
-	shared_ptr<Texture2D> tex = 
+	weak_ptr<Texture2D> tex =
 		ResourceManager::GetInstance()->Load<Texture2D>(L"Meteor", L"Meteor//MeteorDrop.png");
 
 	animator->Create(L"Meteor", tex, Vector2::Zero, Vector2(100, 100.f), Vector2::Zero, 9, 0.1f);

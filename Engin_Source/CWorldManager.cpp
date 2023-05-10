@@ -12,6 +12,7 @@ WorldManager::WorldManager()
 
 WorldManager::~WorldManager()
 {
+	Player = nullptr;
 	for (int i = 0; i < WORLD_SCALE; ++i)
 	{
 		world[i].clear();

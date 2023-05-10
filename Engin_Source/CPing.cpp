@@ -22,8 +22,8 @@ Ping::~Ping()
 void Ping::Initalize()
 {
 	SpriteRenderer* sr = AddComponent<SpriteRenderer>();
-	std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-	std::shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"PingMaterial");
+	std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+	std::weak_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"PingMaterial");
 
 	sr->SetMesh(mesh);
 	sr->SetMaterial(mater);

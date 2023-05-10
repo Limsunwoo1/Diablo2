@@ -23,12 +23,12 @@ void EquipmentButton::Initalize()
 	Button::Initalize();
 
 	SpriteRenderer* sr = this->AddComponent<SpriteRenderer>();
-	std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-	std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"ItemSlotMaterial");
-	std::shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->
+	std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+	std::weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"ItemSlotMaterial");
+	std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->
 		Load<Texture2D>(L"ItemSlot", L"UI//NoneCanvers.png");
 
-	material->SetTexture(eTextureSlot::T0, tex);
+	material.lock()->SetTexture(eTextureSlot::T0, tex);
 
 	sr->SetMesh(mesh);
 	sr->SetMaterial(material);

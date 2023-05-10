@@ -24,11 +24,11 @@ void FrozenMissile::Initalize()
 
 	// ·»´õ·¯
 	SpriteRenderer* sr = AddComponent<SpriteRenderer>();
-	shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-	shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"FrozenMisileMaterial");
+	weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+	weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"FrozenMisileMaterial");
 
-	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"FrozenMisile_00");
-	material->SetTexture(eTextureSlot::T0, tex);
+	weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"FrozenMisile_00");
+	material.lock()->SetTexture(eTextureSlot::T0, tex);
 
 	sr->SetMesh(mesh);
 	sr->SetMaterial(material);
@@ -74,7 +74,7 @@ void FrozenMissile::InitAnimation()
 		{
 			str += to_wstring(i);
 		}
-		shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(str, L"Frozen//" + str + L".png");
+		weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(str, L"Frozen//" + str + L".png");
 
 		animator->Create(str, tex, Vector2(0.0f, 0.0f), Vector2(100.f, 100.f), Vector2(0.0f, 0.0f), 6, 0.1f);
 	}

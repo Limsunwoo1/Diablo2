@@ -11,7 +11,7 @@ public:
 	typedef map<wstring, shared_ptr<Resource>>::iterator ResourceIter;
 
 	template <typename T>
-	shared_ptr<T> Find(const wstring& key)
+	weak_ptr<T> Find(const wstring& key)
 	{
 		ResourceIter iter = mResources.find(key);
 
@@ -21,13 +21,13 @@ public:
 			return dynamic_pointer_cast<T>(iter->second);
 		}
 
-		return nullptr;
+		return std::make_shared<T>();
 	}
 
 	template <typename T>
-	shared_ptr<T> Load(const wstring& key, const wstring& path)
+	weak_ptr<T> Load(const wstring& key, const wstring& path)
 	{
-		shared_ptr<T> resource = Find<T>(key);
+		shared_ptr<T> resource = Find<T>(key).lock();
 		// 해당 키로 이미 로딩된게 있으면 리소스를 반환
 		if (resource)
 			return resource;
@@ -38,7 +38,7 @@ public:
 		{
 			MessageBox(nullptr, L"image Load Failed!!", L"Error", MB_OK);
 			assert(false);
-			return nullptr;
+			return std::make_shared<T>();
 		}
 
 		resource->SetKey(key);
@@ -62,7 +62,7 @@ public:
 			return;
 		}
 
-		if(Find<T>(key) == nullptr)
+		if(Find<T>(key).lock() == nullptr)
 			mResources.insert(make_pair(key, dynamic_pointer_cast<Resource>(resource)));
 	}
 

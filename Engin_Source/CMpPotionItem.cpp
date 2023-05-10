@@ -18,10 +18,10 @@ void MpPotionItem::Initalize()
 {
 	{
 		SpriteRenderer* sr = AddComponent<SpriteRenderer>();
-		shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-		shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"MPPotionMaterial");
-		shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"MpPotion", L"Item//MpPotion.png");
-		material->SetTexture(eTextureSlot::T0, tex);
+		weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"MPPotionMaterial");
+		weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"MpPotion", L"Item//MpPotion.png");
+		material.lock()->SetTexture(eTextureSlot::T0, tex);
 
 		sr->SetMesh(mesh);
 		sr->SetMaterial(material);
@@ -29,7 +29,7 @@ void MpPotionItem::Initalize()
 
 	{	
 		Animator* animator = AddComponent<Animator>();
-		shared_ptr<Texture2D> tex = 
+		weak_ptr<Texture2D> tex =
 			ResourceManager::GetInstance()->Load<Texture2D>(L"MpPotionDrop", L"Item//MpPotionDrop.png");
 		animator->Create(L"WorldDrop", tex, Vector2(0.0f, 0.0f), Vector2(20.f, 159.f), Vector2(0.0f, 0.0f), 17, 0.05f);
 	}

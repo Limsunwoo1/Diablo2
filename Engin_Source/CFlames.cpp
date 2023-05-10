@@ -25,12 +25,12 @@ void Flames::Initalize()
 
 	// ·»´õ·¯
 	SpriteRenderer* sr = AddComponent<SpriteRenderer>();
-	shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"HalfAlphaMesh");
-	shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"FlameMaterial");
-	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Flame");
-	material->SetTexture(eTextureSlot::T0, tex);
+	weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"HalfAlphaMesh");
+	weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"FlameMaterial");
+	weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Flame");
+	material.lock()->SetTexture(eTextureSlot::T0, tex);
 	tex = ResourceManager::GetInstance()->Load<Texture2D>(L"FlameBoom", L"Meteor//MeteorBoom.png");
-	material->SetTexture(eTextureSlot::T2, tex);
+	material.lock()->SetTexture(eTextureSlot::T2, tex);
 	
 	sr->SetMesh(mesh);
 	sr->SetMaterial(material);
@@ -55,7 +55,7 @@ void Flames::Render()
 
 void Flames::InitAnimation()
 {
-	shared_ptr<Texture2D> tex =
+	weak_ptr<Texture2D> tex =
 		ResourceManager::GetInstance()->Load<Texture2D>(L"Flame", L"Meteor//FlamesSprite2.png");
 
 	Animator* animator = AddComponent<Animator>();

@@ -19,7 +19,7 @@ public:
 	void Bind();
 	void Clear();
 
-	void SetShader(std::shared_ptr<Shader> shader) { mShader = shader; }
+	void SetShader(std::weak_ptr<Shader> shader) { mShader = shader; }
 	std::weak_ptr<Shader> GetShader() { return mShader; }
 	void SetTexture(eTextureSlot slot, std::weak_ptr<Texture2D> texture) { mTexture[(UINT)slot] = texture; }
 	std::weak_ptr<Texture2D> GetTexture(eTextureSlot slot) { return mTexture[(UINT)slot]; }

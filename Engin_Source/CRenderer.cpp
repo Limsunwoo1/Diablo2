@@ -235,79 +235,79 @@ namespace Renderer
 		arrLayoutDesc[2].SemanticName = "TEXCOORD";
 		arrLayoutDesc[2].SemanticIndex = 0;
 
-		std::shared_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"RectShader");
+		std::weak_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"RectShader");
 		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
-			, shader->GetVSBlobBufferPointer()
-			, shader->GetVSBlobBufferSize()
-			, shader->GetInputLayoutAddressOf());
+			, shader.lock()->GetVSBlobBufferPointer()
+			, shader.lock()->GetVSBlobBufferSize()
+			, shader.lock()->GetInputLayoutAddressOf());
 
-		std::shared_ptr<Shader> spriteshader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+		std::weak_ptr<Shader> spriteshader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
 		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
-			, spriteshader->GetVSBlobBufferPointer()
-			, spriteshader->GetVSBlobBufferSize()
-			, spriteshader->GetInputLayoutAddressOf());
+			, spriteshader.lock()->GetVSBlobBufferPointer()
+			, spriteshader.lock()->GetVSBlobBufferSize()
+			, spriteshader.lock()->GetInputLayoutAddressOf());
 
-		std::shared_ptr<Shader> uishader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+		std::weak_ptr<Shader> uishader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
 		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
-			, uishader->GetVSBlobBufferPointer()
-			, uishader->GetVSBlobBufferSize()
-			, uishader->GetInputLayoutAddressOf());
+			, uishader.lock()->GetVSBlobBufferPointer()
+			, uishader.lock()->GetVSBlobBufferSize()
+			, uishader.lock()->GetInputLayoutAddressOf());
 
-		std::shared_ptr<Shader> gridshader = ResourceManager::GetInstance()->Find<Shader>(L"GridShader");
+		std::weak_ptr<Shader> gridshader = ResourceManager::GetInstance()->Find<Shader>(L"GridShader");
 		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
-			, gridshader->GetVSBlobBufferPointer()
-			, gridshader->GetVSBlobBufferSize()
-			, gridshader->GetInputLayoutAddressOf());
+			, gridshader.lock()->GetVSBlobBufferPointer()
+			, gridshader.lock()->GetVSBlobBufferSize()
+			, gridshader.lock()->GetInputLayoutAddressOf());
 
-		std::shared_ptr<Shader> fadeShader = ResourceManager::GetInstance()->Find<Shader>(L"FadeShader");
+		std::weak_ptr<Shader> fadeShader = ResourceManager::GetInstance()->Find<Shader>(L"FadeShader");
 		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
-			, fadeShader->GetVSBlobBufferPointer()
-			, fadeShader->GetVSBlobBufferSize()
-			, fadeShader->GetInputLayoutAddressOf());
+			, fadeShader.lock()->GetVSBlobBufferPointer()
+			, fadeShader.lock()->GetVSBlobBufferSize()
+			, fadeShader.lock()->GetInputLayoutAddressOf());
 
-		std::shared_ptr<Shader> debugShader = ResourceManager::GetInstance()->Find<Shader>(L"DebugShader");
+		std::weak_ptr<Shader> debugShader = ResourceManager::GetInstance()->Find<Shader>(L"DebugShader");
 		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
-			, debugShader->GetVSBlobBufferPointer()
-			, debugShader->GetVSBlobBufferSize()
-			, debugShader->GetInputLayoutAddressOf());
+			, debugShader.lock()->GetVSBlobBufferPointer()
+			, debugShader.lock()->GetVSBlobBufferSize()
+			, debugShader.lock()->GetInputLayoutAddressOf());
 
-		std::shared_ptr<Shader> particleShader = ResourceManager::GetInstance()->Find<Shader>(L"ParticleShader");
+		std::weak_ptr<Shader> particleShader = ResourceManager::GetInstance()->Find<Shader>(L"ParticleShader");
 		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
-			, particleShader->GetVSBlobBufferPointer()
-			, particleShader->GetVSBlobBufferSize()
-			, particleShader->GetInputLayoutAddressOf());
+			, particleShader.lock()->GetVSBlobBufferPointer()
+			, particleShader.lock()->GetVSBlobBufferSize()
+			, particleShader.lock()->GetInputLayoutAddressOf());
 
-		std::shared_ptr<Shader> pingShader = ResourceManager::GetInstance()->Find<Shader>(L"PingShader");
+		std::weak_ptr<Shader> pingShader = ResourceManager::GetInstance()->Find<Shader>(L"PingShader");
 		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
-			, pingShader->GetVSBlobBufferPointer()
-			, pingShader->GetVSBlobBufferSize()
-			, pingShader->GetInputLayoutAddressOf());
+			, pingShader.lock()->GetVSBlobBufferPointer()
+			, pingShader.lock()->GetVSBlobBufferSize()
+			, pingShader.lock()->GetInputLayoutAddressOf());
 
-		std::shared_ptr<Shader> RungaugeShader = ResourceManager::GetInstance()->Find<Shader>(L"GaugeShader");
+		std::weak_ptr<Shader> RungaugeShader = ResourceManager::GetInstance()->Find<Shader>(L"GaugeShader");
 		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
-			, RungaugeShader->GetVSBlobBufferPointer()
-			, RungaugeShader->GetVSBlobBufferSize()
-			, RungaugeShader->GetInputLayoutAddressOf());
+			, RungaugeShader.lock()->GetVSBlobBufferPointer()
+			, RungaugeShader.lock()->GetVSBlobBufferSize()
+			, RungaugeShader.lock()->GetInputLayoutAddressOf());
 
-		std::shared_ptr<Shader> ItemShader = ResourceManager::GetInstance()->Find<Shader>(L"ItemShader");
+		std::weak_ptr<Shader> ItemShader = ResourceManager::GetInstance()->Find<Shader>(L"ItemShader");
 		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
-			, ItemShader->GetVSBlobBufferPointer()
-			, ItemShader->GetVSBlobBufferSize()
-			, ItemShader->GetInputLayoutAddressOf());
+			, ItemShader.lock()->GetVSBlobBufferPointer()
+			, ItemShader.lock()->GetVSBlobBufferSize()
+			, ItemShader.lock()->GetInputLayoutAddressOf());
 
-		std::shared_ptr<Shader> ItemSlotShader = ResourceManager::GetInstance()->Find<Shader>(L"ItemSlotShader");
+		std::weak_ptr<Shader> ItemSlotShader = ResourceManager::GetInstance()->Find<Shader>(L"ItemSlotShader");
 		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
-			, ItemSlotShader->GetVSBlobBufferPointer()
-			, ItemSlotShader->GetVSBlobBufferSize()
-			, ItemSlotShader->GetInputLayoutAddressOf());
+			, ItemSlotShader.lock()->GetVSBlobBufferPointer()
+			, ItemSlotShader.lock()->GetVSBlobBufferSize()
+			, ItemSlotShader.lock()->GetInputLayoutAddressOf());
 
-		std::shared_ptr<Shader> postProecssShader = ResourceManager::GetInstance()->Find<Shader>(L"PostProcessShader");
+		std::weak_ptr<Shader> postProecssShader = ResourceManager::GetInstance()->Find<Shader>(L"PostProcessShader");
 		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
-			, postProecssShader->GetVSBlobBufferPointer()
-			, postProecssShader->GetVSBlobBufferSize()
-			, postProecssShader->GetInputLayoutAddressOf());
+			, postProecssShader.lock()->GetVSBlobBufferPointer()
+			, postProecssShader.lock()->GetVSBlobBufferSize()
+			, postProecssShader.lock()->GetInputLayoutAddressOf());
 
-		postProecssShader->SetKey(L"PostProcessShader");
+		postProecssShader.lock()->SetKey(L"PostProcessShader");
 
 #pragma endregion
 #pragma region Sampler State
@@ -644,9 +644,9 @@ namespace Renderer
 #pragma endregion
 		// CS 과제용 노이즈텍스쳐
 		ResourceManager::GetInstance()->Load<Texture2D>(L"Noise", L"noise.png");
-		std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"Noise");
-		texture->BindShaderResource(graphics::eShaderStage::CS, 2);
-		texture->BindShaderResource(graphics::eShaderStage::PS, 2);
+		std::weak_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"Noise");
+		texture.lock()->BindShaderResource(graphics::eShaderStage::CS, 2);
+		texture.lock()->BindShaderResource(graphics::eShaderStage::PS, 2);
 
 		PostProcessTexture = std::make_shared<Texture2D>();
 		PostProcessTexture->Create(1600, 900, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE);
@@ -657,8 +657,8 @@ namespace Renderer
 	{
 #pragma region DEFAULT MATERIAL
 		// Dafault
-		std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"SmileTexture");
-		std::shared_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"RectShader");
+		std::weak_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"SmileTexture");
+		std::weak_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"RectShader");
 		std::shared_ptr<Material> material = std::make_shared<Material>();
 		material->SetShader(shader);
 		material->SetTexture(eTextureSlot::T0, texture);
@@ -667,8 +667,8 @@ namespace Renderer
 #pragma region DEFAULT2 MATERIAL
 		{
 			// Dafault
-			std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"SmileTexture");
-			std::shared_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"RectShader");
+			std::weak_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"SmileTexture");
+			std::weak_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"RectShader");
 			std::shared_ptr<Material> material = std::make_shared<Material>();
 			material->SetShader(shader);
 			material->SetTexture(eTextureSlot::T0, texture);
@@ -678,8 +678,8 @@ namespace Renderer
 #pragma endregion
 #pragma region PAINT MATERIAL
 		{
-			std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"PaintTexture");
-			std::shared_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"PaintShader");
+			std::weak_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"PaintTexture");
+			std::weak_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"PaintShader");
 			std::shared_ptr<Material> material = std::make_shared<Material>();
 			material->SetShader(shader);
 			material->SetTexture(eTextureSlot::T0, texture);
@@ -687,8 +687,8 @@ namespace Renderer
 		}
 #pragma endregion
 #pragma region SPTRITE MATERIAL
-		std::shared_ptr <Texture2D> spriteTexture = ResourceManager::GetInstance()->Find<Texture2D>(L"DefaultSprite");
-		std::shared_ptr<Shader> spriteShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+		std::weak_ptr<Texture2D> spriteTexture = ResourceManager::GetInstance()->Find<Texture2D>(L"DefaultSprite");
+		std::weak_ptr<Shader> spriteShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
 		std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 		spriteMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		spriteMaterial->SetShader(spriteShader);
@@ -697,8 +697,8 @@ namespace Renderer
 #pragma endregion
 #pragma region UI MATERIAL
 		// UI
-		std::shared_ptr <Texture2D> uiTexture = ResourceManager::GetInstance()->Find<Texture2D>(L"HPBarTexture");
-		std::shared_ptr<Shader> uiShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+		std::weak_ptr<Texture2D> uiTexture = ResourceManager::GetInstance()->Find<Texture2D>(L"HPBarTexture");
+		std::weak_ptr<Shader> uiShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
 		std::shared_ptr<Material> uiMaterial = std::make_shared<Material>();
 		uiMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		uiMaterial->SetShader(uiShader);
@@ -707,23 +707,23 @@ namespace Renderer
 #pragma endregion
 #pragma region HP MATERIAL
 		// UI
-		std::shared_ptr<Shader> HPShader = ResourceManager::GetInstance()->Find<Shader>(L"GaugeShader");
+		std::weak_ptr<Shader> HPShader = ResourceManager::GetInstance()->Find<Shader>(L"GaugeShader");
 		std::shared_ptr<Material> HPMaterial = std::make_shared<Material>();
-		HPMaterial ->SetRenderingMode(eRenderingMode::Transparent);
-		HPMaterial ->SetShader(HPShader);
+		HPMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		HPMaterial->SetShader(HPShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"HPMaterial", HPMaterial);
 #pragma endregion
 #pragma region MP MATERIAL
 		// UI
-		std::shared_ptr<Shader> MPShader = ResourceManager::GetInstance()->Find<Shader>(L"GaugeShader");
+		std::weak_ptr<Shader> MPShader = ResourceManager::GetInstance()->Find<Shader>(L"GaugeShader");
 		std::shared_ptr<Material> MPMaterial = std::make_shared<Material>();
-		MPMaterial ->SetRenderingMode(eRenderingMode::Transparent);
-		MPMaterial ->SetShader(MPShader);
+		MPMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		MPMaterial->SetShader(MPShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"MPMaterial", MPMaterial);
 #pragma endregion
 #pragma region RunGauge MATERIAL
 		// UI
-		std::shared_ptr<Shader> RungaugeShader = ResourceManager::GetInstance()->Find<Shader>(L"GaugeShader");
+		std::weak_ptr<Shader> RungaugeShader = ResourceManager::GetInstance()->Find<Shader>(L"GaugeShader");
 		std::shared_ptr<Material> RunGaugeMaterial = std::make_shared<Material>();
 		RunGaugeMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		RunGaugeMaterial->SetShader(RungaugeShader);
@@ -731,15 +731,15 @@ namespace Renderer
 #pragma endregion
 #pragma region HP Panel MATERIAL
 		// UI
-		std::shared_ptr<Shader> hpPanelShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+		std::weak_ptr<Shader> hpPanelShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
 		std::shared_ptr<Material> hpPanelMaterial = std::make_shared<Material>();
-		hpPanelMaterial ->SetRenderingMode(eRenderingMode::Transparent);
-		hpPanelMaterial ->SetShader(hpPanelShader);
+		hpPanelMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		hpPanelMaterial->SetShader(hpPanelShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"HpPanelMaterial", hpPanelMaterial);
 #pragma endregion
 #pragma region MP Panel MATERIAL
 		// UI
-		std::shared_ptr<Shader> mpShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+		std::weak_ptr<Shader> mpShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
 		std::shared_ptr<Material> mpMaterial = std::make_shared<Material>();
 		mpMaterial ->SetRenderingMode(eRenderingMode::Transparent);
 		mpMaterial ->SetShader(mpShader);
@@ -747,7 +747,7 @@ namespace Renderer
 #pragma endregion
 #pragma region RunIcon MATERIAL
 		// UI
-		std::shared_ptr<Shader> RunIconShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+		std::weak_ptr<Shader> RunIconShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
 		std::shared_ptr<Material> RunIconMaterial = std::make_shared<Material>();
 		RunIconMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		RunIconMaterial->SetShader(RunIconShader);
@@ -755,7 +755,7 @@ namespace Renderer
 #pragma endregion
 #pragma region WalkIcon MATERIAL
 		// UI
-		std::shared_ptr<Shader> WalkIconShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+		std::weak_ptr<Shader> WalkIconShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
 		std::shared_ptr<Material> WalkIconMaterial = std::make_shared<Material>();
 		WalkIconMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		WalkIconMaterial->SetShader(WalkIconShader);
@@ -763,7 +763,7 @@ namespace Renderer
 #pragma endregion
 #pragma region Main MATERIAL
 		// UI
-		std::shared_ptr<Shader> mainShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+		std::weak_ptr<Shader> mainShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
 		std::shared_ptr<Material> mainuiMaterial = std::make_shared<Material>();
 		mainuiMaterial ->SetRenderingMode(eRenderingMode::Transparent);
 		mainuiMaterial ->SetShader(mainShader);
@@ -771,7 +771,7 @@ namespace Renderer
 #pragma endregion
 #pragma region Main INVENTORY MATERIAL
 		// UI
-		std::shared_ptr<Shader> InventoryShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+		std::weak_ptr<Shader> InventoryShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
 		std::shared_ptr<Material> InventoryMaterial = std::make_shared<Material>();
 		InventoryMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		InventoryMaterial->SetShader(InventoryShader);
@@ -779,21 +779,21 @@ namespace Renderer
 #pragma endregion
 #pragma region GRID MATERIAL
 		// Grid
-		std::shared_ptr<Shader> GridShader = ResourceManager::GetInstance()->Find<Shader>(L"GridShader");
+		std::weak_ptr<Shader> GridShader = ResourceManager::GetInstance()->Find<Shader>(L"GridShader");
 		std::shared_ptr<Material> gridMaterial = std::make_shared<Material>();
 		gridMaterial->SetShader(GridShader);
 		ResourceManager::GetInstance()->Insert(L"GridMaterial", gridMaterial);
 #pragma endregion
 #pragma region FADE MATERIAL
 		// FadeInOut
-		std::shared_ptr<Shader> FadeShader = ResourceManager::GetInstance()->Find<Shader>(L"FadeShader");
+		std::weak_ptr<Shader> FadeShader = ResourceManager::GetInstance()->Find<Shader>(L"FadeShader");
 		std::shared_ptr<Material> FadeMaterial = std::make_shared<Material>();
 		FadeMaterial->SetShader(FadeShader);
 		ResourceManager::GetInstance()->Insert(L"FadeMaterial", FadeMaterial);
 #pragma endregion
 #pragma region DEBUG MATERIAL
 		// Debug
-		std::shared_ptr<Shader> debugShader = ResourceManager::GetInstance()->Find<Shader>(L"DebugShader");
+		std::weak_ptr<Shader> debugShader = ResourceManager::GetInstance()->Find<Shader>(L"DebugShader");
 		std::shared_ptr<Material> debugMaterial = std::make_shared<Material>();
 		debugMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		debugMaterial->SetShader(debugShader);
@@ -802,7 +802,7 @@ namespace Renderer
 #pragma region PARTICLE MATERIAL
 		// Particle
 		{
-			std::shared_ptr<Shader> particleShader = ResourceManager::GetInstance()->Find<Shader>(L"ParticleShader");
+			std::weak_ptr<Shader> particleShader = ResourceManager::GetInstance()->Find<Shader>(L"ParticleShader");
 			std::shared_ptr<Material> particleMaterial = std::make_shared<Material>();
 			particleMaterial->SetRenderingMode(eRenderingMode::Transparent);
 			particleMaterial->SetShader(particleShader);
@@ -810,36 +810,36 @@ namespace Renderer
 		}
 #pragma endregion
 #pragma region PingMaterial
-		std::shared_ptr<Shader> pingShdaer = ResourceManager::GetInstance()->Find<Shader>(L"PingShader");
+		std::weak_ptr<Shader> pingShdaer = ResourceManager::GetInstance()->Find<Shader>(L"PingShader");
 		std::shared_ptr<Material> pingMaterial = std::make_shared<Material>();
 		pingMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		pingMaterial->SetShader(pingShdaer);
 		ResourceManager::GetInstance()->Insert<Material>(L"PingMaterial", pingMaterial);
 #pragma endregion
 #pragma region FrozenOrb
-		std::shared_ptr<Shader> frozenShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+		std::weak_ptr<Shader> frozenShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
 		std::shared_ptr<Material> FrozenOrbMater = std::make_shared<Material>();
 		FrozenOrbMater->SetRenderingMode(eRenderingMode::Transparent);
 		FrozenOrbMater->SetShader(frozenShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"FrozenOrbMaterial", FrozenOrbMater);
 #pragma endregion
 #pragma region FrozenMisile
-		std::shared_ptr<Shader> frozenMisileShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+		std::weak_ptr<Shader> frozenMisileShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
 		std::shared_ptr<Material> FrozenMisile = std::make_shared<Material>();
 		FrozenMisile->SetRenderingMode(eRenderingMode::Transparent);
 		FrozenMisile->SetShader(frozenMisileShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"FrozenMisileMaterial", FrozenMisile);
 #pragma endregion
 #pragma region TelePortMaterail
-		std::shared_ptr<Shader> TeleParteShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+		std::weak_ptr<Shader> TeleParteShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
 		std::shared_ptr<Material> TelePort = std::make_shared<Material>();
 		TelePort->SetRenderingMode(eRenderingMode::Transparent);
 		TelePort->SetShader(TeleParteShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"TelePortMaterial", TelePort);
 #pragma endregion
 #pragma region AStarRenderMaterial
-		std::shared_ptr<Shader> AstarShader = ResourceManager::GetInstance()->Find<Shader>(L"FadeShader");
-		std::shared_ptr<Texture2D> green = ResourceManager::GetInstance()->Find<Texture2D>(L"Green");
+		std::weak_ptr<Shader> AstarShader = ResourceManager::GetInstance()->Find<Shader>(L"FadeShader");
+		std::weak_ptr<Texture2D> green = ResourceManager::GetInstance()->Find<Texture2D>(L"Green");
 		std::shared_ptr<Material> AstarMater = std::make_shared<Material>();
 		AstarMater->SetRenderingMode(eRenderingMode::Transparent);
 		AstarMater->SetShader(AstarShader);
@@ -847,63 +847,63 @@ namespace Renderer
 		ResourceManager::GetInstance()->Insert<Material>(L"AstarMaterial", AstarMater);
 #pragma endregion
 #pragma region MeteorMaterial
-		std::shared_ptr<Shader> MeteorShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+		std::weak_ptr<Shader> MeteorShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
 		std::shared_ptr<Material> MeteorMaterial = std::make_shared<Material>();
 		MeteorMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		MeteorMaterial->SetShader(MeteorShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"MeteorMaterial", MeteorMaterial);
 #pragma endregion
 #pragma region FalmeMaterial
-		std::shared_ptr<Shader> flameShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+		std::weak_ptr<Shader> flameShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
 		std::shared_ptr<Material> flameMaterial = std::make_shared<Material>();
 		flameMaterial ->SetRenderingMode(eRenderingMode::Transparent);
 		flameMaterial ->SetShader(flameShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"FlameMaterial", flameMaterial);
 #pragma endregion
 #pragma region FirePinMaterial
-		std::shared_ptr<Shader> PinShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+		std::weak_ptr<Shader> PinShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
 		std::shared_ptr<Material> firtPinMaterial = std::make_shared<Material>();
 		firtPinMaterial ->SetRenderingMode(eRenderingMode::Transparent);
 		firtPinMaterial ->SetShader(PinShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"FirePinMaterial", firtPinMaterial);
 #pragma endregion
 #pragma region MinoTauros
-		std::shared_ptr<Shader> MinoShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+		std::weak_ptr<Shader> MinoShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
 		std::shared_ptr<Material> MinoMaterial = std::make_shared<Material>();
 		MinoMaterial ->SetRenderingMode(eRenderingMode::Transparent);
 		MinoMaterial ->SetShader(MinoShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"MinoMaterial", MinoMaterial);
 #pragma endregion
 #pragma region ItemSlot
-		std::shared_ptr<Shader> ItemSlotShader = ResourceManager::GetInstance()->Find<Shader>(L"ItemSlotShader");
+		std::weak_ptr<Shader> ItemSlotShader = ResourceManager::GetInstance()->Find<Shader>(L"ItemSlotShader");
 		std::shared_ptr<Material> ItemSlotMaterial = std::make_shared<Material>();
 		ItemSlotMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		ItemSlotMaterial->SetShader(ItemSlotShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"ItemSlotMaterial", ItemSlotMaterial);
 #pragma endregion
 #pragma region HpPotion
-		std::shared_ptr<Shader> HpShader = ResourceManager::GetInstance()->Find<Shader>(L"ItemShader");
+		std::weak_ptr<Shader> HpShader = ResourceManager::GetInstance()->Find<Shader>(L"ItemShader");
 		std::shared_ptr<Material> HpPotionMaterial = std::make_shared<Material>();
 		HpPotionMaterial ->SetRenderingMode(eRenderingMode::Transparent);
 		HpPotionMaterial ->SetShader(HpShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"HPPotionMaterial", HpPotionMaterial);
 #pragma endregion
 #pragma region MpPotion
-		std::shared_ptr<Shader> MpShader = ResourceManager::GetInstance()->Find<Shader>(L"ItemShader");
+		std::weak_ptr<Shader> MpShader = ResourceManager::GetInstance()->Find<Shader>(L"ItemShader");
 		std::shared_ptr<Material> MpPotionMaterial = std::make_shared<Material>();
 		MpPotionMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		MpPotionMaterial->SetShader(MpShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"MPPotionMaterial", MpPotionMaterial);
 #pragma endregion
 #pragma region PostProcess Material
-		std::shared_ptr<Shader> postProcessShader = ResourceManager::GetInstance()->Find<Shader>(L"PostProcessShader");
+		std::weak_ptr<Shader> postProcessShader = ResourceManager::GetInstance()->Find<Shader>(L"PostProcessShader");
 		std::shared_ptr<Material> postProcessMaterial = std::make_shared<Material>();
 		postProcessMaterial->SetRenderingMode(eRenderingMode::PostProcess);
 		postProcessMaterial->SetShader(postProcessShader);
 		ResourceManager::GetInstance()->Insert<Material>(L"PostProcessMaterial", postProcessMaterial);
 #pragma endregion
 #pragma region ChaterSelect Material
-		std::shared_ptr<Shader> ChaterSelectShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+		std::weak_ptr<Shader> ChaterSelectShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
 		std::shared_ptr<Material> ChaterSelectMaterial = std::make_shared<Material>();
 		ChaterSelectMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		ChaterSelectMaterial->SetShader(ChaterSelectShader);
@@ -911,7 +911,7 @@ namespace Renderer
 #pragma endregion
 #pragma region Button Material
 		{
-			std::shared_ptr<Shader> ButtonShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+			std::weak_ptr<Shader> ButtonShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
 			std::shared_ptr<Material> ButtonMaterial = std::make_shared<Material>();
 			ButtonMaterial->SetRenderingMode(eRenderingMode::Transparent);
 			ButtonMaterial->SetShader(ButtonShader);
@@ -920,7 +920,7 @@ namespace Renderer
 #pragma endregion
 #pragma region Button2 Material
 		{
-			std::shared_ptr<Shader> ButtonShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+			std::weak_ptr<Shader> ButtonShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
 			std::shared_ptr<Material> ButtonMaterial = std::make_shared<Material>();
 			ButtonMaterial->SetRenderingMode(eRenderingMode::Transparent);
 			ButtonMaterial->SetShader(ButtonShader);
@@ -929,7 +929,7 @@ namespace Renderer
 #pragma endregion
 #pragma region Button3 Material
 		{
-			std::shared_ptr<Shader> ButtonShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
+			std::weak_ptr<Shader> ButtonShader = ResourceManager::GetInstance()->Find<Shader>(L"UIShader");
 			std::shared_ptr<Material> ButtonMaterial = std::make_shared<Material>();
 			ButtonMaterial->SetRenderingMode(eRenderingMode::Transparent);
 			ButtonMaterial->SetShader(ButtonShader);
@@ -1021,18 +1021,18 @@ namespace Renderer
 	float time = 0.0f;
 	void BindNoiseTexture()
 	{
-		std::shared_ptr<Texture2D> noise = ResourceManager::GetInstance()->Find<Texture2D>(L"noise_03");
-		noise->BindShaderResource(eShaderStage::VS, 16);
-		noise->BindShaderResource(eShaderStage::HS, 16);
-		noise->BindShaderResource(eShaderStage::DS, 16);
-		noise->BindShaderResource(eShaderStage::GS, 16);
-		noise->BindShaderResource(eShaderStage::PS, 16);
-		noise->BindShaderResource(eShaderStage::CS, 16);
-		noise->BindShaderResource(eShaderStage::VS, 16);
+		std::weak_ptr<Texture2D> noise = ResourceManager::GetInstance()->Find<Texture2D>(L"noise_03");
+		noise.lock()->BindShaderResource(eShaderStage::VS, 16);
+		noise.lock()->BindShaderResource(eShaderStage::HS, 16);
+		noise.lock()->BindShaderResource(eShaderStage::DS, 16);
+		noise.lock()->BindShaderResource(eShaderStage::GS, 16);
+		noise.lock()->BindShaderResource(eShaderStage::PS, 16);
+		noise.lock()->BindShaderResource(eShaderStage::CS, 16);
+		noise.lock()->BindShaderResource(eShaderStage::VS, 16);
 
 		NoiseCB info = {};
-		info.noiseSize.x = noise->GetWidth();
-		info.noiseSize.y = noise->GetHeight();
+		info.noiseSize.x = noise.lock()->GetWidth();
+		info.noiseSize.y = noise.lock()->GetHeight();
 		noiseTime -= Time::GetInstance()->DeltaTime();
 		time += Time::GetInstance()->DeltaTime();
 		info.noiseTime = noiseTime;
@@ -1050,14 +1050,14 @@ namespace Renderer
 
 	void CopyRenderTarget()
 	{
-		std::shared_ptr<Texture2D> renderTarget = 
+		std::weak_ptr<Texture2D> renderTarget =
 			ResourceManager::GetInstance()->Find<Texture2D>(L"RenderTarget");
 
 		ID3D11ShaderResourceView* srv = nullptr;
 		GetDevice()->BindShaderResource(eShaderStage::PS, 60, &srv);
 
 		ID3D11Texture2D* dest = PostProcessTexture->GetTexture().Get();
-		ID3D11Texture2D* source = renderTarget->GetTexture().Get();
+		ID3D11Texture2D* source = renderTarget.lock()->GetTexture().Get();
 
 		GetDevice()->CopyResource(dest, source);
 

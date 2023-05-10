@@ -117,7 +117,7 @@ void UiBase::UIClear()
 
 std::shared_ptr<Texture2D> UiBase::ImageLoad(const std::wstring& key, const std::wstring& path)
 {
-	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(key, path);
+	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(key, path).lock();
 
 	return tex;
 }

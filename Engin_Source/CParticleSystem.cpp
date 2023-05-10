@@ -41,15 +41,15 @@ void ParticleSystem::Initalize()
 {
 	mCS = ResourceManager::GetInstance()->Find<ParticleShader>(L"ParticleCS");
 
-	shared_ptr<Mesh> pointrect = ResourceManager::GetInstance()->Find<Mesh>(L"PointMesh");
+	weak_ptr<Mesh> pointrect = ResourceManager::GetInstance()->Find<Mesh>(L"PointMesh");
 	this->SetMesh(pointrect);
 
 	// Material
-	shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"ParticleMaterial");
+	weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"ParticleMaterial");
 	this->SetMaterial(material);
 
-	shared_ptr<graphics::Texture2D> tex = ResourceManager::GetInstance()->Find<graphics::Texture2D>(L"CartoonSmoke");
-	material->SetTexture(eTextureSlot::T0, tex);
+	weak_ptr<graphics::Texture2D> tex = ResourceManager::GetInstance()->Find<graphics::Texture2D>(L"CartoonSmoke");
+	material.lock()->SetTexture(eTextureSlot::T0, tex);
 
 
 	Particle particles[100] = {};
@@ -114,9 +114,9 @@ void ParticleSystem::FixedUpdate()
 	cb->SetData(&mCBData);
 	cb->Bind(eShaderStage::ALL);
 
-	mCS->SetShaderStructedBuffer(mShaderBuffer);
-	mCS->SetStructedBuffer(mBuffer);
-	mCS->OnExcute();
+	mCS.lock()->SetShaderStructedBuffer(mShaderBuffer);
+	mCS.lock()->SetStructedBuffer(mBuffer);
+	mCS.lock()->OnExcute();
 }
 
 void ParticleSystem::Render()

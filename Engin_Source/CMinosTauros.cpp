@@ -34,8 +34,8 @@ void MinosTauros::Initalize()
 
 	// Renderer
 	SpriteRenderer* sr = AddComponent<SpriteRenderer>();
-	std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-	std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"MinoMaterial");
+	std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+	std::weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"MinoMaterial");
 
 	sr->SetMesh(mesh);
 	sr->SetMaterial(material);
@@ -65,7 +65,7 @@ void MinosTauros::InitAnimation()
 {
 	Animator* animator = AddComponent<Animator>();
 	{
-		std::shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->
+		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->
 			Load<Texture2D>(L"MinoIdel", L"Monster//MinoTauros//MinoIdle.png");
 		// 242 232.125
 		float x = 242.f;
@@ -81,7 +81,7 @@ void MinosTauros::InitAnimation()
 	}
 
 	{
-		std::shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->
+		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->
 			Load<Texture2D>(L"MinoRun", L"Monster//MinoTauros//MinoRun.png");
 		// 241.75 231.875
 		float x = 241.75f;
@@ -97,7 +97,7 @@ void MinosTauros::InitAnimation()
 	}
 
 	{
-		std::shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->
+		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->
 			Load<Texture2D>(L"MinoAttack", L"Monster//MinoTauros//MinoAttack2.png");
 		// 242.0625 232
 		float x = 242.0625f;
@@ -113,7 +113,7 @@ void MinosTauros::InitAnimation()
 	}
 
 	{
-		std::shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->
+		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->
 			Load<Texture2D>(L"MinoDeath", L"Monster//MinoTauros//MinoDeath.png");
 		// 241.3333 232.125
 		float x = 241.3333f;

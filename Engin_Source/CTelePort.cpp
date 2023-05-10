@@ -23,10 +23,10 @@ void TelePort::Initalize()
 
 	// renderer
 	SpriteRenderer* sr = AddComponent<SpriteRenderer>();
-	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"TelePort", L"Light//telePort2.png");
-	shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-	shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"TelePortMaterial");
-	material->SetTexture(eTextureSlot::T0, tex);
+	weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"TelePort", L"Light//telePort2.png");
+	weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+	weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"TelePortMaterial");
+	material.lock()->SetTexture(eTextureSlot::T0, tex);
 	sr->SetMesh(mesh);
 	sr->SetMaterial(material);
 	
@@ -73,7 +73,7 @@ void TelePort::Render()
 void TelePort::InitAnimation()
 {
 	Animator* animator = AddComponent<Animator>();
-	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"TelePort");
+	weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"TelePort");
 
 	animator->Create(L"TelePort", tex, Vector2(0.0f, 0.0f), Vector2(136.f, 154.f), Vector2::Zero, 18, 0.03f);
 	animator->Play(L"TelePort", false);

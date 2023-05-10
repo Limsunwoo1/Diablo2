@@ -15,9 +15,9 @@ GloveItem::~GloveItem()
 void GloveItem::Initalize()
 {
 	SpriteRenderer* sr = AddComponent<SpriteRenderer>();
-	shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-	shared_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"ItemShader");
-	shared_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"GloveItem", L"Item//Glove.png");
+	weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+	weak_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"ItemShader");
+	weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"GloveItem", L"Item//Glove.png");
 	std::shared_ptr<Material> material = std::make_shared<Material>();
 	material->SetShader(shader);
 	material->SetTexture(eTextureSlot::T0, tex);
@@ -34,7 +34,7 @@ void GloveItem::Initalize()
 
 	{
 		Animator* animator = AddComponent<Animator>();
-		shared_ptr<Texture2D> tex =
+		weak_ptr<Texture2D> tex =
 			ResourceManager::GetInstance()->Load<Texture2D>(L"GloveDrop", L"Item//GloveDrop.png");
 		animator->Create(L"WorldDrop", tex, Vector2::Zero, Vector2(23.f, 159.f), Vector2::Zero, 17, 0.05f);
 	}

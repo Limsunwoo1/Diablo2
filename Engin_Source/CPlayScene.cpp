@@ -175,11 +175,11 @@ void PlayScene::Initalize()
 		tr->SetRotation(Vector3(0.f, 0.f, -45.f));
 
 		MeshRenderer* mr = tile->AddComponent<MeshRenderer>();
-		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-		std::shared_ptr<Material> mater= ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
-		std::shared_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
+		std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::weak_ptr<Material> mater= ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		std::weak_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
 
-		mater->SetTexture(eTextureSlot::T0, tex);
+		mater.lock()->SetTexture(eTextureSlot::T0, tex);
 
 		mr->SetMesh(mesh);
 		mr->SetMaterial(mater);
@@ -199,11 +199,11 @@ void PlayScene::Initalize()
 		tr->SetRotation(Vector3(0.f, 0.f, -45.f));
 
 		MeshRenderer* mr = tile->AddComponent<MeshRenderer>();
-		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-		std::shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
-		std::shared_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
+		std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::weak_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		std::weak_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
 
-		mater->SetTexture(eTextureSlot::T0, tex);
+		mater.lock()->SetTexture(eTextureSlot::T0, tex);
 
 		mr->SetMesh(mesh);
 		mr->SetMaterial(mater);
@@ -223,11 +223,11 @@ void PlayScene::Initalize()
 		tr->SetRotation(Vector3(0.f, 0.f, -45.f));
 
 		MeshRenderer* mr = tile->AddComponent<MeshRenderer>();
-		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-		std::shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
-		std::shared_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
+		std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::weak_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		std::weak_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
 
-		mater->SetTexture(eTextureSlot::T0, tex);
+		mater.lock()->SetTexture(eTextureSlot::T0, tex);
 
 		mr->SetMesh(mesh);
 		mr->SetMaterial(mater);
@@ -247,11 +247,11 @@ void PlayScene::Initalize()
 		tr->SetRotation(Vector3(0.f, 0.f, -45.f));
 
 		MeshRenderer* mr = tile->AddComponent<MeshRenderer>();
-		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-		std::shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
-		std::shared_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
+		std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::weak_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		std::weak_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
 
-		mater->SetTexture(eTextureSlot::T0, tex);
+		mater.lock()->SetTexture(eTextureSlot::T0, tex);
 
 		mr->SetMesh(mesh);
 		mr->SetMaterial(mater);
@@ -271,11 +271,11 @@ void PlayScene::Initalize()
 		tr->SetRotation(Vector3(0.f, 0.f, -45.f));
 
 		MeshRenderer* mr = tile->AddComponent<MeshRenderer>();
-		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-		std::shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
-		std::shared_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
+		std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::weak_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		std::weak_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
 
-		mater->SetTexture(eTextureSlot::T0, tex);
+		mater.lock()->SetTexture(eTextureSlot::T0, tex);
 
 		mr->SetMesh(mesh);
 		mr->SetMaterial(mater);
@@ -295,11 +295,11 @@ void PlayScene::Initalize()
 		tr->SetRotation(Vector3(0.f, 0.f, -45.f));
 
 		MeshRenderer* mr = tile->AddComponent<MeshRenderer>();
-		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-		std::shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
-		std::shared_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
+		std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::weak_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		std::weak_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
 
-		mater->SetTexture(eTextureSlot::T0, tex);
+		mater.lock()->SetTexture(eTextureSlot::T0, tex);
 
 		mr->SetMesh(mesh);
 		mr->SetMaterial(mater);
@@ -319,11 +319,11 @@ void PlayScene::Initalize()
 		tr->SetRotation(Vector3(0.f, 0.f, -45.f));
 
 		MeshRenderer* mr = tile->AddComponent<MeshRenderer>();
-		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-		std::shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
-		std::shared_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
+		std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::weak_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		std::weak_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
 
-		mater->SetTexture(eTextureSlot::T0, tex);
+		mater.lock()->SetTexture(eTextureSlot::T0, tex);
 
 		mr->SetMesh(mesh);
 		mr->SetMaterial(mater);
@@ -343,11 +343,11 @@ void PlayScene::Initalize()
 		tr->SetRotation(Vector3(0.f, 0.f, -45.f));
 
 		MeshRenderer* mr = tile->AddComponent<MeshRenderer>();
-		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-		std::shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
-		std::shared_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
+		std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::weak_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		std::weak_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
 
-		mater->SetTexture(eTextureSlot::T0, tex);
+		mater.lock()->SetTexture(eTextureSlot::T0, tex);
 
 		mr->SetMesh(mesh);
 		mr->SetMaterial(mater);
@@ -367,11 +367,11 @@ void PlayScene::Initalize()
 		tr->SetRotation(Vector3(0.f, 0.f, -45.f));
 
 		MeshRenderer* mr = tile->AddComponent<MeshRenderer>();
-		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-		std::shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
-		std::shared_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
+		std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::weak_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		std::weak_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
 
-		mater->SetTexture(eTextureSlot::T0, tex);
+		mater.lock()->SetTexture(eTextureSlot::T0, tex);
 
 		mr->SetMesh(mesh);
 		mr->SetMaterial(mater);
@@ -391,11 +391,11 @@ void PlayScene::Initalize()
 		tr->SetRotation(Vector3(0.f, 0.f, -45.f));
 
 		MeshRenderer* mr = tile->AddComponent<MeshRenderer>();
-		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-		std::shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
-		std::shared_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
+		std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::weak_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		std::weak_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
 
-		mater->SetTexture(eTextureSlot::T0, tex);
+		mater.lock()->SetTexture(eTextureSlot::T0, tex);
 
 		mr->SetMesh(mesh);
 		mr->SetMaterial(mater);
@@ -415,11 +415,11 @@ void PlayScene::Initalize()
 		tr->SetRotation(Vector3(0.f, 0.f, -45.f));
 
 		MeshRenderer* mr = tile->AddComponent<MeshRenderer>();
-		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-		std::shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
-		std::shared_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
+		std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::weak_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+		std::weak_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
 
-		mater->SetTexture(eTextureSlot::T0, tex);
+		mater.lock()->SetTexture(eTextureSlot::T0, tex);
 
 		mr->SetMesh(mesh);
 		mr->SetMaterial(mater);
@@ -441,11 +441,11 @@ void PlayScene::Initalize()
 			tr->SetRotation(Vector3(0.f, 0.f, -45.f));
 
 			MeshRenderer* mr = tile->AddComponent<MeshRenderer>();
-			std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-			std::shared_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
-			std::shared_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
+			std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+			std::weak_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+			std::weak_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
 
-			mater->SetTexture(eTextureSlot::T0, tex);
+			mater.lock()->SetTexture(eTextureSlot::T0, tex);
 
 			mr->SetMesh(mesh);
 			mr->SetMaterial(mater);
@@ -500,5 +500,5 @@ void PlayScene::OnEnter()
 
 void PlayScene::OnExit()
 {
-
+	
 }

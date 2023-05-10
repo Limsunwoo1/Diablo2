@@ -59,7 +59,7 @@ void PlayerSelectButton::Initalize()
 
 	Animator* animator = mCharterAnimation->AddComponent<Animator>();
 	{
-		std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"PlayerWalk");
+		std::weak_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"PlayerWalk");
 
 		float x = 60.f;
 		float y = 75.875f;
@@ -77,7 +77,7 @@ void PlayerSelectButton::Initalize()
 
 	// Run
 	{
-		std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"PlayerRun");
+		std::weak_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"PlayerRun");
 		/*animator->Create(L"Walk0", texture, Vector2(0.0f, 0.0f), Vector2(60.f, 75.875f), Vector2(0.0f, 0.0f), 8, 0.1f);
 		animator->Create(L"WalkUp", texture, Vector2(0.0f, 75.875 * 8), Vector2(60.f, 75.875f), Vector2(0.0f, 0.0f), 8, 0.1f);*/
 
@@ -95,7 +95,7 @@ void PlayerSelectButton::Initalize()
 	}
 
 	{
-		std::shared_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"PlayerIdle");
+		std::weak_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"PlayerIdle");
 
 		float x = 66.f;
 		float y = 72.f;
