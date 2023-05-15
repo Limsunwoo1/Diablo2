@@ -14,6 +14,8 @@ public:
 
 	void InitPotionSlot();
 	void UsePotion();
+
+	vector<EquipmentButton*> GetPotionSlot() { return mPotionSlot; }
 private:
 	vector<EquipmentButton*> mPotionSlot;
 };

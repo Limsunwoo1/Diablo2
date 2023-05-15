@@ -172,6 +172,21 @@ void ItemManager::ItemPushTop(ItemBase* item)
 	}
 }
 
+vector<ItemBase*> ItemManager::GetSaveItemData()
+{
+	vector<ItemBase*> outVec = {};
+
+	for (ItemBase* item : mItemes)
+	{
+		if (item->GetStage())
+			continue;
+
+		outVec.emplace_back(item);
+	}
+
+	return outVec;
+}
+
 void ItemManager::pushItem()
 {
 	while (!mPushQueue.empty())

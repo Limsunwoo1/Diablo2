@@ -7,6 +7,7 @@ HpPotionItem::HpPotionItem()
 	: PotionItem()
 {
 	SetFill(20);
+	SetItemType(eEquipmentType::HpPotion);
 }
 
 HpPotionItem::~HpPotionItem()

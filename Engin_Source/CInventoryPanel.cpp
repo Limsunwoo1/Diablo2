@@ -46,6 +46,7 @@ void InventoryPanel::Initalize()
 		button->OnActive();
 
 		SetChild(button);
+		mSlotButton.emplace_back(button);
 		button->SetParent(nullptr);
 	}
 
@@ -62,6 +63,7 @@ void InventoryPanel::Initalize()
 		button->OnActive();
 
 		SetChild(button);
+		mSlotButton.emplace_back(button);
 		button->SetParent(nullptr);
 	}
 
@@ -78,6 +80,7 @@ void InventoryPanel::Initalize()
 		button->OnActive();
 
 		SetChild(button);
+		mSlotButton.emplace_back(button);
 		button->SetParent(nullptr);
 	}
 
@@ -94,6 +97,7 @@ void InventoryPanel::Initalize()
 		button->OnActive();
 
 		SetChild(button);
+		mSlotButton.emplace_back(button);
 		button->SetParent(nullptr);
 	}
 
@@ -110,6 +114,7 @@ void InventoryPanel::Initalize()
 		button->OnActive();
 
 		SetChild(button);
+		mSlotButton.emplace_back(button);
 		button->SetParent(nullptr);
 	}
 
@@ -126,6 +131,7 @@ void InventoryPanel::Initalize()
 		button->OnActive();
 
 		SetChild(button);
+		mSlotButton.emplace_back(button);
 		button->SetParent(nullptr);
 	}
 
@@ -142,6 +148,7 @@ void InventoryPanel::Initalize()
 		button->OnActive();
 
 		SetChild(button);
+		mSlotButton.emplace_back(button);
 		button->SetParent(nullptr);
 	}
 }

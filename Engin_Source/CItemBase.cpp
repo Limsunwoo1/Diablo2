@@ -246,6 +246,7 @@ void ItemBase::Update()
 
 			Vector3 scale = this->GetWorldSacle();
 			ItemTr->SetScale(scale);
+			mbStage = true;
 		}
 	}
 
@@ -278,7 +279,7 @@ void ItemBase::Render()
 	if (info.pick)
 	{
 		color.w = 0.5f;
-
+		
 		if (info.drop)
 		{
 			color *= Vector4(0.2f, 1.0f, 0.2f, 0.5f);

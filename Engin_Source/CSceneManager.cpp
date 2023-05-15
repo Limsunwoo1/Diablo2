@@ -35,6 +35,17 @@ void SceneManager::Initalize()
 	}
 }
 
+void SceneManager::LateInitalize()
+{
+	while (!mLateInitObject.empty())
+	{
+		GameObject* obj = mLateInitObject.front();
+		mLateInitObject.pop();
+
+		obj->Initalize();
+	}
+}
+
 void SceneManager::Update()
 {
 	mActiveScene->Update();

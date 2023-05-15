@@ -36,6 +36,8 @@ void CApplication::Initalize()
 	SceneManager::GetInstance()->Initalize();
 	UIManager::GetInstance()->Initialize();
 	ItemManager::GetInstance()->Initalize();
+
+	SceneManager::GetInstance()->LateInitalize();
 }
 
 // 게임 로직 캐릭터 이동 등등 

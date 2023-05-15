@@ -23,6 +23,8 @@ public:
 	void SetPickUpItem(bool pick) { mbPickUpItem = pick; }
 	bool GetPickUpItem() { return mbPickUpItem; }
 
+	vector<ItemBase*> GetSaveItemData();
+	void PushItem(ItemBase* item) { mItemes.emplace_back(item); }
 private:
 	void pushItem();
 	void removeItem();

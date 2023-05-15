@@ -2,6 +2,8 @@
 #include "CWorldManager.h"
 #include "CApplication.h"
 #include "Cplayer.h"
+#include "FileManager.h"
+#include "CItemManager.h"
 
 #include <iostream>
 
@@ -172,6 +174,24 @@ bool FileManager::WriteSaveFile()
 		data.push_back(X);
 		data.push_back(Y);
 		data.push_back(Z);
+
+		vector<ItemBase*> itemes = ItemManager::GetInstance()->GetSaveItemData();
+		for (ItemBase* item : itemes)
+		{
+			UINT itemType = (UINT)item->GetItemType();
+			UINT buttonStage = item->GetSlotInventory() == nullptr ? 0 : 1;
+			Vector2 Index = item->GetIndex();
+
+			string itemTypeStr = "ItemType," + to_string(itemType);
+			string itembuttonStageStr = "ItemStage," + to_string(buttonStage);
+			string ItemIndexX = "IndexX," + to_string(Index.x);
+			string ItemIndexY = "IndexY," + to_string(Index.y);
+
+			data.push_back(itemTypeStr);
+			data.push_back(itembuttonStageStr);
+			data.push_back(ItemIndexX);
+			data.push_back(ItemIndexY);
+		}
 	}
 
 	wstring str = mDataPath[(UINT)Type][player->GetSavePathIndex()];

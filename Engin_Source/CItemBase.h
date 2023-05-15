@@ -8,6 +8,15 @@
 class ItemBase : public GameObject
 {
 public:
+	struct ItemSaveData
+	{
+		UINT ItemType;
+		UINT ItemStage;
+		UINT ItemIndexX;
+		UINT ItemIndexY;
+	};
+
+public:
 	ItemBase(eEquipmentType type);
 	virtual ~ItemBase();
 
@@ -60,6 +69,7 @@ public:
 	// 나의 인벤토리 좌표
 	Vector2 GetIndex() { return Vector2((float)mXIndex, (float)mYIndex); }
 	void SetIndex(int& x, int& y) { mXIndex = x, mYIndex = y; }
+	void SetIndex(UINT x , UINT y) { mXIndex = x, mYIndex = y; }
 
 	void SetTargetObject(GameObject* obj) { mTargetObject = obj; }
 	GameObject* GetTargetObject() { return mTargetObject; }
@@ -87,7 +97,7 @@ private:
 	wstring mItemName;
 
 	eEquipmentType mType;
-	bool mbStage;  // 0 world  1 poket
+	bool mbStage;  // 0 poket  1 world
 	bool mbPick;
 	bool mbDrop;
 	bool mbOnInvnetory;

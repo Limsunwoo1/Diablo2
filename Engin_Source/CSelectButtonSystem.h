@@ -28,8 +28,12 @@ public:
 	void ButtonPositionInit();
 	void CreateSelectButton();
 
+	void InventorySetting(UINT index);
+	void Dynamic_ItemSetting(UINT type, UINT stage, UINT x, UINT y);
+	void SlotItemSetting(ItemBase* item);
 private:
 	vector<PlayerSelectButton*> mButton;
+	vector<wstring> mItemData;
 	PlayerSelectButton* mClickButton;
 
 	class SelectSystemButton* mCreateButton;

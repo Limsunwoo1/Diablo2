@@ -6,6 +6,7 @@ class SceneManager
 	SINGLE(SceneManager)
 public:
 	void Initalize();
+	void LateInitalize();
 	void Update();
 	void FixedUpdate();
 	void Render();
@@ -19,9 +20,12 @@ public:
 	void LoadScene(eSceneType type);
 	Scene* GetActiveScene() { return mActiveScene; }
 	Scene* GetScene(eSceneType type);
+
+	void AddLateInitObject(GameObject* obj) { mLateInitObject.push(obj); }
 private:
 	std::vector<Scene*> mScenes;
 	Scene* mActiveScene;
 	std::queue<GameObject*> mInsertObject;
+	std::queue<GameObject*> mLateInitObject;
 };
 

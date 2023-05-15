@@ -33,6 +33,7 @@ public:
 	void SetDrop(bool drop) { mbDrop = drop; }
 
 	Vector2 GetIndex() { return Vector2(mXIndex, mYIndex); }
+	void SetIndex(UINT x, UINT y) { mXIndex = x; mYIndex = y; }
 
 protected:
 	vector<vector<int>> mPoketSlot;

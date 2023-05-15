@@ -8,6 +8,7 @@ MpPotionItem::MpPotionItem()
 	: PotionItem()
 {
 	SetFill(20);
+	SetItemType(eEquipmentType::MpPotion);
 }
 
 MpPotionItem::~MpPotionItem()

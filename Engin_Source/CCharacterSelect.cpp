@@ -81,7 +81,7 @@ void CharacterSelectScene::Initalize()
 	}
 
 	{
-		SelectButtonSystem* button = Object::Instantiate<SelectButtonSystem>(eLayerType::UI, this);
+		SelectButtonSystem* button = Object::Instantiate<SelectButtonSystem>(eLayerType::UI, this, true);
 		button->SetLayerType(eLayerType::UI);
 		button->Active();
 		button->SetName(L"Button");

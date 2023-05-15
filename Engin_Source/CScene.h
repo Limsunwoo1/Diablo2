@@ -25,11 +25,13 @@ public:
 	eSceneType GetScenType() { return mType; }
 
 	Camera* GetMainCam() { return mMainCamera; }
+	Camera* GetUiCam() { return UiCamera; }
 private:
 	std::vector<Layer> mLayers;
 	eSceneType mType;
 
 protected:
 	class Camera* mMainCamera;
+	class Camera* mUiCamera;
 };
 

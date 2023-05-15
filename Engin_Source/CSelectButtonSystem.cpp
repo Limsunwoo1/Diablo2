@@ -8,10 +8,28 @@
 #include "CSelectSystemButton.h"
 #include "CSceneManager.h"
 #include "CWorldManager.h"
+#include "CItemManager.h"
 
+#include "CUIManager.h"
 #include "Cplayer.h"
 #include "CPlayerScript.h"
 #include "CCollider2D.h"
+
+#include "CItemBase.h"
+#include "CInventoryPanel.h"
+#include "CMainPanel.h"
+#include "CInventoryButton.h"
+#include "CEquipmentButton.h"
+#include "CPotionButton.h"
+
+#include "CShoesItem.h"
+#include "CBeltItem.h"
+#include "CCapItem.h"
+#include "CSuitItem.h"
+#include "CGloveItem.h"
+#include "CWeponItem.h"
+#include "CHpPotionItem.h"
+#include "CMpPotionItem.h"
 
 
 SelectButtonSystem::SelectButtonSystem()
@@ -163,6 +181,10 @@ void SelectButtonSystem::Initalize()
 				continue;
 
 			pos = Vector3(posData[0], posData[1], posData[2]);
+		}
+
+		{
+			mItemData.emplace_back(str);
 		}
 
 		info.CharterType = type;
@@ -395,6 +417,8 @@ void SelectButtonSystem::Select_Ok_Button()
 
 	WorldManager::GetInstance()->SetPlayer(player);
 	SceneManager::GetInstance()->LoadScene(eSceneType::Play);
+
+	InventorySetting(mClickButton->GetDataPathIndex());
 }
 
 void SelectButtonSystem::ButtonPositionInit()
@@ -577,4 +601,151 @@ void SelectButtonSystem::CreateSelectButton()
 	mButton.emplace_back(pushButton);
 
 	ButtonPositionInit();
+}
+
+void SelectButtonSystem::InventorySetting(UINT index)
+{
+	UINT CurPos = 0;
+	std::wstring data = L"";
+	while (!mItemData[index].empty())
+	{
+		// 타입추출
+		{
+			CurPos = mItemData[index].find_first_of(L",");
+			mItemData[index].erase(0, CurPos + 1);
+
+			CurPos = mItemData[index].find_first_of(L"\n");
+			data = mItemData[index].substr(0, CurPos);
+		}
+
+		if (data == L"")
+			return;
+
+		int type = stoi(data);
+		// \n 을 지우기위해 + 1
+		mItemData[index].erase(0, CurPos + 1);
+
+		// 버튼추출
+		{
+			CurPos = mItemData[index].find_first_of(L",");
+			mItemData[index].erase(0, CurPos + 1);
+
+			CurPos = mItemData[index].find_first_of(L"\n");
+			data = mItemData[index].substr(0, CurPos);
+		}
+		int stage = stoi(data);
+		// \n 을 지우기위해 + 1
+		mItemData[index].erase(0, CurPos + 1);
+
+		// 버튼추출
+		{
+			CurPos = mItemData[index].find_first_of(L",");
+			mItemData[index].erase(0, CurPos + 1);
+
+			CurPos = mItemData[index].find_first_of(L"\n");
+			data = mItemData[index].substr(0, CurPos);
+		}
+		int X = stoi(data);
+		// \n 을 지우기위해 + 1
+		mItemData[index].erase(0, CurPos + 1);
+
+		// 버튼추출
+		{
+			CurPos = mItemData[index].find_first_of(L",");
+			mItemData[index].erase(0, CurPos + 1);
+
+			CurPos = mItemData[index].find_first_of(L"\n");
+			data = mItemData[index].substr(0, CurPos);
+		}
+		int Y = stoi(data);
+		// \n 을 지우기위해 + 1
+		mItemData[index].erase(0, CurPos + 1);
+
+		Dynamic_ItemSetting(type, stage, X, Y);
+		CurPos = 0;
+	}
+}
+
+void SelectButtonSystem::Dynamic_ItemSetting(UINT type, UINT stage, UINT x, UINT y)
+{
+	ItemBase* item = nullptr;
+	switch ((eEquipmentType)type)
+	{
+	case eEquipmentType::Shoes: item = new ShoesItem(L"Shoes"); break;
+	case eEquipmentType::Glove: item = new GloveItem(L"Glove"); break;
+	case eEquipmentType::Belt:	item = new BeltItem(L"Belt");	break;
+	case eEquipmentType::Wepon: item = new WeponItem(L"Wepon");	break;
+	case eEquipmentType::Suit:	item = new SuitItem(L"Suit");	break;
+	case eEquipmentType::Cap:	item = new CapItem(L"Cap");		break;
+	case eEquipmentType::HpPotion:item = new HpPotionItem();	break;
+	case eEquipmentType::MpPotion:item = new MpPotionItem();	break;
+	default: break;
+	}
+
+	if (item == nullptr)
+		return;
+
+	ItemManager::GetInstance()->PushItem(item);
+
+	item->Initalize();
+	item->SetIndex(x, y);
+
+	if (stage == 0)
+	{
+		InventoryPanel* invenPanel = UIManager::GetInstance()->GetUiInstance<InventoryPanel>(L"mainInventory");
+		InventoryButton* invenButton = nullptr;
+
+		if (invenPanel != nullptr)
+		{
+			invenButton = invenPanel->GetInventoryArr();
+		}
+
+		if (invenButton != nullptr)
+		{
+			invenButton->SetDrop(true);
+
+			invenButton->SetIndex(x, y);
+			invenButton->DropItem(item);
+		}
+	}
+	else
+	{
+		SlotItemSetting(item);
+	}
+}
+
+void SelectButtonSystem::SlotItemSetting(ItemBase* item)
+{
+	InventoryPanel* invenPanel = UIManager::GetInstance()->GetUiInstance<InventoryPanel>(L"mainInventory");
+	MainPanel* mainPanel = UIManager::GetInstance()->GetUiInstance<MainPanel>(L"mainPanel");
+
+	if (!mainPanel) return;
+	if (!invenPanel) return;
+
+	vector<EquipmentButton*> InvenPanelSlot = invenPanel->GetSlotButton();
+	vector<EquipmentButton*> MainPanelSlot = mainPanel->GetPotionSlot();
+
+	eEquipmentType type = item->GetItemType();
+
+	if (type != eEquipmentType::HpPotion && type != eEquipmentType::MpPotion)
+	{
+		for (EquipmentButton* button : InvenPanelSlot)
+		{
+			if (type == button->GetEquipmentType() 
+				&& button->GetItem() == nullptr)
+			{
+				button->DropItem(item);
+			}
+		}
+	}
+	else
+	{
+		for (EquipmentButton* button : InvenPanelSlot)
+		{
+			if (button->GetItem() == nullptr)
+			{
+				button->DropItem(item);
+			}
+		}
+	}
 }

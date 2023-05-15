@@ -29,6 +29,21 @@ namespace Object
 	}
 
 	template <typename T>
+	static T* Instantiate(eLayerType type, Scene* scene, bool late)
+	{
+		T* gameObj = new T();
+		Layer& layer = scene->GetLayer(type);
+		layer.AddGameObject(gameObj);
+
+		if (!late)
+			gameObj->Initalize();
+		else
+			SceneManager::GetInstance()->AddLateInitObject(gameObj);
+
+		return gameObj;
+	}
+
+	template <typename T>
 	static T* Instantiate(eLayerType type, GameObject* obj)
 	{
 		Scene* scene = SceneManager::GetInstance()->GetActiveScene();

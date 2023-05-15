@@ -81,6 +81,7 @@ void PlayScene::Initalize()
 
 		uiCameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
 		Renderer::UiCamera = uiCameraComp;
+		mUiCamera = uiCameraComp;
 	}
 
 	/*{
@@ -486,6 +487,9 @@ void PlayScene::OnEnter()
 {
 	if (mMainCamera)
 		Renderer::mainCamera = mMainCamera;
+
+	if(mUiCamera)
+		Renderer::UiCamera = mUiCamera;
 
 	GameObject* player = WorldManager::GetInstance()->GetPlayer();
 

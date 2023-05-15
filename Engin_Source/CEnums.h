@@ -109,6 +109,8 @@ enum class eEquipmentType : short
 	Suit,
 	Cap,
 	Potion,
+	HpPotion,
+	MpPotion,
 };
 
 //enum class eObjectReturnType
