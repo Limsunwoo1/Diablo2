@@ -11,6 +11,7 @@ EquipmentButton::EquipmentButton(eEquipmentType type)
 	, mbDrop(false)
 	, mbOnRender(false)
 	, mbUsed(false) // true = 장비슬롯에 아이템 장착중, false = 장비 슬롯에 장착 X
+	, mItem(nullptr)
 {
 }
 

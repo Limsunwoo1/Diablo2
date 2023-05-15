@@ -38,8 +38,8 @@ void InventoryButton::Initalize()
 	Vector3 mPos = this->GetComponent<Transform>()->GetPosition();
 	Vector3 mScale = this->GetComponent<Transform>()->GetScale();
 
-	// 임의로 배열내부에 아이템을 채워준다
-	// test
+	//// 임의로 배열내부에 아이템을 채워준다
+	////test
 	//{
 	//	ShoesItem* item = new ShoesItem(L"SmileTexture");
 	//	item->Initalize();
@@ -670,7 +670,7 @@ void InventoryButton::DropItem(ItemBase* item)
 
 	Transform* ItemTr = item->GetComponent<Transform>();
 	Vector3 ItemPos = ItemTr->GetPosition();
-	Vector3 ItemScale = ItemTr->GetScale();
+	Vector3 ItemScale = Vector3(item->GetInvenSacle().x, item->GetInvenSacle().y, 0.0f);
 
 	Transform* InvenTr = this->GetComponent<Transform>();
 	Vector3 InvenPos = InvenTr->GetPosition();

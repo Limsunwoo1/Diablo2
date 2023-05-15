@@ -637,7 +637,7 @@ void SelectButtonSystem::InventorySetting(UINT index)
 		// \n 을 지우기위해 + 1
 		mItemData[index].erase(0, CurPos + 1);
 
-		// 버튼추출
+		// X인덱스추출
 		{
 			CurPos = mItemData[index].find_first_of(L",");
 			mItemData[index].erase(0, CurPos + 1);
@@ -649,7 +649,7 @@ void SelectButtonSystem::InventorySetting(UINT index)
 		// \n 을 지우기위해 + 1
 		mItemData[index].erase(0, CurPos + 1);
 
-		// 버튼추출
+		// Y인덱스추출
 		{
 			CurPos = mItemData[index].find_first_of(L",");
 			mItemData[index].erase(0, CurPos + 1);
@@ -742,9 +742,10 @@ void SelectButtonSystem::SlotItemSetting(ItemBase* item)
 	{
 		for (EquipmentButton* button : InvenPanelSlot)
 		{
-			if (button->GetItem() == nullptr)
+			if (!button->GetUsed())
 			{
 				button->DropItem(item);
+
 			}
 		}
 	}
