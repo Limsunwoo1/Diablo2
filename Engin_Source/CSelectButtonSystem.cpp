@@ -419,7 +419,6 @@ void SelectButtonSystem::ButtonPositionInit()
 		if (obj == nullptr)
 			continue;
 
-		obj->Initalize();
 		obj->SetSystem(this);
 
 		// 왼쪽라인 세이브 파일

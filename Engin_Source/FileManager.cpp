@@ -196,7 +196,7 @@ bool FileManager::ReadFold(const std::wstring& path, eFileType type)
 
 	vector<string> fileNames = {};
 
-	for (const auto& file : fs::directory_iterator(path_to_read))
+	for (const auto& file : fs::recursive_directory_iterator(path_to_read))
 	{
 		fileNames.push_back(file.path().filename().string());
 	}
