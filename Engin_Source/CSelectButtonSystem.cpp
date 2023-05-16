@@ -76,6 +76,8 @@ void SelectButtonSystem::Initalize()
 		temp.emplace_back(FileManager::GetInstance()->GetData(eFileType::Char, i));
 	}
 
+	mItemData.resize(temp.size());
+
 	UINT Index = 0;
 	UINT CurPos = 0;
 	PlayerSelectButton::PlayerInfo info;
@@ -184,7 +186,7 @@ void SelectButtonSystem::Initalize()
 		}
 
 		{
-			mItemData.emplace_back(str);
+			mItemData[Index] = (str);
 		}
 
 		info.CharterType = type;
@@ -417,6 +419,9 @@ void SelectButtonSystem::Select_Ok_Button()
 
 	WorldManager::GetInstance()->SetPlayer(player);
 	SceneManager::GetInstance()->LoadScene(eSceneType::Play);
+
+	if (mItemData[mClickButton->GetDataPathIndex()] == L"")
+		return;
 
 	InventorySetting(mClickButton->GetDataPathIndex());
 }
