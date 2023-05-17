@@ -26,6 +26,8 @@ namespace gui
 		virtual void Update();
 		virtual void LateUpdate();
 		virtual void Render();
+
+		virtual void Close() {};
 		
 		void AddWidget(Widget* widget);
 

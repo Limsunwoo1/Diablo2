@@ -24,6 +24,7 @@ namespace gui
 	{
 	public:
 		Entity();
+		Entity(const char* name);
 		virtual ~Entity();
 
 

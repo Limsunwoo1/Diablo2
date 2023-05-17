@@ -43,7 +43,7 @@ public:
 			: Pos(node.Pos.x, node.Pos.y), Id(node.Id), Cost(node.Cost), Heuristick(node.Heuristick), Distance(node.Distance), ParentIndex(node.ParentIndex) {};
 
 		Node() 
-			: Pos(0, 0), Id(0), Cost(0), Heuristick(0), Distance(0), ParentIndex(Vec{}) {};
+			: Pos(0, 0), Id(0), Cost(0), Heuristick(0), Distance(0), ParentIndex(Vec{}) {}
 
 		/*void operator=(const Node& node)
 		{

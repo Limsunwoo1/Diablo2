@@ -147,6 +147,7 @@
     <ClInclude Include="GuiMeshRenderer.h" />
     <ClInclude Include="GuiProject.h" />
     <ClInclude Include="GuiTransform.h" />
+    <ClInclude Include="GuiTreeWidget.h" />
     <ClInclude Include="GuiWidget.h" />
     <ClInclude Include="Dx11_Engine.h" />
     <ClInclude Include="framework.h" />
@@ -175,6 +176,7 @@
     <ClCompile Include="GuiMeshRenderer.cpp" />
     <ClCompile Include="GuiProject.cpp" />
     <ClCompile Include="GuiTransform.cpp" />
+    <ClCompile Include="GuiTreeWidget.cpp" />
     <ClCompile Include="GuiWidget.cpp" />
     <ClCompile Include="imgui.cpp" />
     <ClCompile Include="imgui_demo.cpp" />

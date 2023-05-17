@@ -21,10 +21,10 @@ namespace gui
 		if (mState != eState::Active)
 			return;
 
-		for (Widget* child : mChilds)
+		/*for (Widget* child : mChilds)
 		{
 			child->FixedUpdate();
-		}
+		}*/
 	}
 
 	void Widget::Update()
@@ -32,10 +32,10 @@ namespace gui
 		if (mState != eState::Active)
 			return;
 
-		for (Widget* child : mChilds)
+		/*for (Widget* child : mChilds)
 		{
 			child->Update();
-		}
+		}*/
 	}
 
 	void Widget::LateUpdate()
@@ -43,10 +43,10 @@ namespace gui
 		if (mState != eState::Active)
 			return;
 
-		for (Widget* child : mChilds)
+		/*for (Widget* child : mChilds)
 		{
 			child->LateUpdate();
-		}
+		}*/
 	}
 
 	void Widget::Render()

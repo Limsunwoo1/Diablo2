@@ -47,6 +47,9 @@
     <Filter Include="GuiEditor\Consol">
       <UniqueIdentifier>{8cdf0d23-962d-4880-b5c6-4ed5f79b0396}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GuiEditor\TreeWidget">
+      <UniqueIdentifier>{7c6a5949-a841-411d-a303-c92e9e07e991}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h" />
@@ -118,6 +121,9 @@
     </ClInclude>
     <ClInclude Include="GuiDockEditor.h">
       <Filter>GuiEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiTreeWidget.h">
+      <Filter>GuiEditor\TreeWidget</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -202,6 +208,9 @@
     </ClCompile>
     <ClCompile Include="GuiDockEditor.cpp">
       <Filter>GuiEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiTreeWidget.cpp">
+      <Filter>GuiEditor\TreeWidget</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

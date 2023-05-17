@@ -25,6 +25,21 @@ public:
 	}
 
 	template <typename T>
+	static std::vector<std::shared_ptr<T>> Finds()
+	{
+		std::vector<std::shared_ptr<T>> resorces = {};
+		for (auto iter : mResources)
+		{
+			std::shared_ptr<T> resource = std::dynamic_pointer_cast<T>(iter.second);
+
+			if (resource != nullptr)
+				resorces.emplace_back(resource);
+		}
+
+		return resorces;
+	}
+
+	template <typename T>
 	weak_ptr<T> Load(const wstring& key, const wstring& path)
 	{
 		shared_ptr<T> resource = Find<T>(key).lock();
