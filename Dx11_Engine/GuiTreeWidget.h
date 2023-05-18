@@ -3,10 +3,10 @@
 
 namespace gui
 {
-	class GuiTreeWidget : public Widget
+	class TreeWidget : public Widget
 	{
 	public:
-		struct Node : public Entity
+		struct Node : public guiEntity
 		{
 		public:
 			Node();
@@ -22,7 +22,7 @@ namespace gui
 
 
 		public:
-			GuiTreeWidget* mTreeWidget;
+			TreeWidget* mTreeWidget;
 			void* mData;
 
 			Node* mParent;
@@ -33,8 +33,8 @@ namespace gui
 		};
 
 	public:
-		GuiTreeWidget();
-		virtual ~GuiTreeWidget();
+		TreeWidget();
+		virtual ~TreeWidget();
 
 		virtual void FixedUpdate() override;
 		virtual void Update() override;
@@ -46,7 +46,7 @@ namespace gui
 		void SetDummyRoot(bool enable) { mbDummyRootUse = enable; }
 		void SetSelectNode(Node* node);
 
-		void AddDynamic_Selected(Widget* widget, std::function<void(std::string key)> func)
+		void SetEvent(Widget* widget, std::function<void(void* data)> func)
 		{
 			mEventWidget = widget;
 			mEvent = std::move(func);
@@ -59,7 +59,7 @@ namespace gui
 		Node* mSelectNode;
 
 		Widget* mEventWidget;
-		std::function<void(std::string& key)> mEvent;
+		std::function<void(void* data)> mEvent;
 	};
 }
 

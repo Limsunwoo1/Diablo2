@@ -32,7 +32,7 @@ Player::Player()
 	, mLevel(1)
 	, mSaveName("sunwoo")
 {
-
+	SetName(L"Player");
 }
 
 Player::~Player()

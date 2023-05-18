@@ -1,5 +1,8 @@
 #pragma once
 #include "GuiWidget.h"
+#include "GuiTreeWidget.h"
+
+#include "..//Engin_Source/CGameObject.h"
 
 namespace gui
 {
@@ -13,8 +16,12 @@ namespace gui
 		virtual void Update() override;
 		virtual void LateUpdate() override;
 
-	private:
+		void InitalizeInsepector(void* data);
+		void InitalizeScene();
+		void AddGameObject(TreeWidget::Node* parent, GameObject* gameObject);
 
+	private:
+		TreeWidget* mTreeWidget;
 	};
 }
 

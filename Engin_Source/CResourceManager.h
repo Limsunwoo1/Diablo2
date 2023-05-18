@@ -25,7 +25,7 @@ public:
 	}
 
 	template <typename T>
-	static std::vector<std::shared_ptr<T>> Finds()
+	std::vector<std::shared_ptr<T>> Finds()
 	{
 		std::vector<std::shared_ptr<T>> resorces = {};
 		for (auto iter : mResources)

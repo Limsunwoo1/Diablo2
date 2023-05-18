@@ -78,6 +78,7 @@ void MinosTauros::InitAnimation()
 			animator->Create(name, tex,
 				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 8, 0.1f);
 		}
+
 	}
 
 	{

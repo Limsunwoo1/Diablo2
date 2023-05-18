@@ -4,7 +4,7 @@
 namespace gui
 {
 	// Node
-	GuiTreeWidget::Node::Node()
+	TreeWidget::Node::Node()
 		: mTreeWidget(nullptr)
 		, mData(nullptr)
 		, mParent(nullptr)
@@ -14,7 +14,7 @@ namespace gui
 	{
 	}
 
-	GuiTreeWidget::Node::~Node()
+	TreeWidget::Node::~Node()
 	{
 		for (Node* child : mChilds)
 		{
@@ -26,7 +26,7 @@ namespace gui
 		}
 	}
 
-	void GuiTreeWidget::Node::Update()
+	void TreeWidget::Node::Update()
 	{
 		// ImGui TreeNodeFlags_::ImGuiTreeNodeFlafs_Framed;
 
@@ -56,14 +56,14 @@ namespace gui
 		}
 	}
 
-	void GuiTreeWidget::Node::AddNode(Node* node)
+	void TreeWidget::Node::AddNode(Node* node)
 	{
 		node->mParent = this;
 		mChilds.emplace_back(node);
 	}
 
 	// TreeWidget
-	GuiTreeWidget::GuiTreeWidget()
+	TreeWidget::TreeWidget()
 		: mRoot(nullptr)
 		, mbDummyRootUse(false)
 		, mSelectNode(nullptr)
@@ -72,15 +72,15 @@ namespace gui
 	{
 
 	}
-	GuiTreeWidget::~GuiTreeWidget()
+	TreeWidget::~TreeWidget()
 	{
 		delete mRoot;
 		mRoot = nullptr;
 	}
-	void GuiTreeWidget::FixedUpdate()
+	void TreeWidget::FixedUpdate()
 	{
 	}
-	void GuiTreeWidget::Update()
+	void TreeWidget::Update()
 	{
 		if (mRoot == nullptr)
 			return;
@@ -101,11 +101,11 @@ namespace gui
 			}
 		}
 	}
-	void GuiTreeWidget::LateUpdate()
+	void TreeWidget::LateUpdate()
 	{
 	}
 
-	GuiTreeWidget::Node* GuiTreeWidget::AddNode(GuiTreeWidget::Node* parent, const std::string& name, void* data, bool stem)
+	TreeWidget::Node* TreeWidget::AddNode(TreeWidget::Node* parent, const std::string& name, void* data, bool stem)
 	{
 		Node* node = new Node();
 		node->SetName(name);
@@ -120,11 +120,11 @@ namespace gui
 
 		return node;
 	}
-	void GuiTreeWidget::Close()
+	void TreeWidget::Close()
 	{
 	}
 
-	void GuiTreeWidget::Clear()
+	void TreeWidget::Clear()
 	{
 		if (mRoot != nullptr)
 		{
@@ -132,7 +132,7 @@ namespace gui
 			mRoot = nullptr;
 		}
 	}
-	void GuiTreeWidget::SetSelectNode(GuiTreeWidget::Node* node)
+	void TreeWidget::SetSelectNode(TreeWidget::Node* node)
 	{
 		if (nullptr != mSelectNode)
 			mSelectNode->mbSelected = false;
@@ -142,7 +142,7 @@ namespace gui
 
 		if (mSelectNode && mEvent)
 		{
-
+			mEvent(mSelectNode->mData);
 		}
 	}
 }

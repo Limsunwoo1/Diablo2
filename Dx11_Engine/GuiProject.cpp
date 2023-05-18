@@ -4,6 +4,13 @@
 #include "..//Engin_Source/CMaterial.h"
 #include "..//Engin_Source/CMesh.h"
 #include "..//Engin_Source/CShader.h"
+#include "..//Engin_Source/CResource.h"
+
+#include "GuiInspector.h"
+#include "GuiResource.h"
+#include "GuiEditor.h"
+
+extern gui::Editor _Editor;
 
 namespace gui
 {
@@ -19,9 +26,11 @@ namespace gui
 
         SetSize(ImVec2((float)size.x / 2 + size.x / 5, size.y / 4));
 
-        mTreeWidget = new GuiTreeWidget();
+        mTreeWidget = new TreeWidget();
         mTreeWidget->SetName("Resources");
         AddWidget(mTreeWidget);
+
+        mTreeWidget->SetEvent(this, std::bind(&Project::toInspector, this, std::placeholders::_1));
 
         mTreeWidget->SetDummyRoot(true);
         ResetContent();
@@ -48,14 +57,19 @@ namespace gui
     {
         mTreeWidget->Clear();
 
-        GuiTreeWidget::Node* pRootNode = mTreeWidget->AddNode(nullptr, "Resources", 0, true);
+        TreeWidget::Node* pRootNode = mTreeWidget->AddNode(nullptr, "Resources", 0, true);
 
         AddResources<Mesh>(pRootNode, "Mesh");
         AddResources<graphics::Texture2D>(pRootNode, "Texture");
         AddResources<Material>(pRootNode, "Material");
         AddResources<Shader>(pRootNode, "Shader");
     }
-    void Project::toInspector()
+    void Project::toInspector(void* data)
     {
+        Resource* resource = static_cast<Resource*>(data);
+
+        Inspector* inspector = _Editor.GetWidget<Inspector>("Inspector");
+        inspector->SetTargetResource(resource);
+        inspector->InitalizeTargetResource();
     }
 }

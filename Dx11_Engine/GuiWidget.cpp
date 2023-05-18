@@ -92,4 +92,11 @@ namespace gui
 		mChilds.push_back(widget);
 		widget->SetParent(this);
 	}
+	void Widget::WindowFocus(bool enable)
+	{
+		if (enable == true)
+			ImGui::SetWindowFocus(GetName().c_str());
+		else
+			ImGui::SetWindowFocus(nullptr);
+	}
 }

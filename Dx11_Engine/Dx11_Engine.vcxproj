@@ -144,8 +144,13 @@
     <ClInclude Include="GuiGame.h" />
     <ClInclude Include="GuiHierachy.h" />
     <ClInclude Include="GuiInspector.h" />
+    <ClInclude Include="GuiListWidget.h" />
+    <ClInclude Include="GuiMaterial.h" />
+    <ClInclude Include="GuiMesh.h" />
     <ClInclude Include="GuiMeshRenderer.h" />
     <ClInclude Include="GuiProject.h" />
+    <ClInclude Include="GuiResource.h" />
+    <ClInclude Include="GuiTexture2D.h" />
     <ClInclude Include="GuiTransform.h" />
     <ClInclude Include="GuiTreeWidget.h" />
     <ClInclude Include="GuiWidget.h" />
@@ -173,8 +178,13 @@
     <ClCompile Include="GuiGame.cpp" />
     <ClCompile Include="GuiHierachy.cpp" />
     <ClCompile Include="GuiInspector.cpp" />
+    <ClCompile Include="GuiListWidget.cpp" />
+    <ClCompile Include="GuiMaterial.cpp" />
+    <ClCompile Include="GuiMesh.cpp" />
     <ClCompile Include="GuiMeshRenderer.cpp" />
     <ClCompile Include="GuiProject.cpp" />
+    <ClCompile Include="GuiResource.cpp" />
+    <ClCompile Include="GuiTexture2D.cpp" />
     <ClCompile Include="GuiTransform.cpp" />
     <ClCompile Include="GuiTreeWidget.cpp" />
     <ClCompile Include="GuiWidget.cpp" />

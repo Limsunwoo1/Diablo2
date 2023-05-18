@@ -20,12 +20,12 @@ private:
 
 namespace gui
 {
-	class Entity
+	class guiEntity
 	{
 	public:
-		Entity();
-		Entity(const char* name);
-		virtual ~Entity();
+		guiEntity();
+		guiEntity(const char* name);
+		virtual ~guiEntity();
 
 
 		void SetName(const std::string name) { mName = name; }

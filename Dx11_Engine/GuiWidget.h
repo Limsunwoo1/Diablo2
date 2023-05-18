@@ -8,7 +8,7 @@
 
 namespace gui
 {
-	class Widget : public gui::Entity
+	class Widget : public gui::guiEntity
 	{
 	public:
 		enum class eState
@@ -30,6 +30,7 @@ namespace gui
 		virtual void Close() {};
 		
 		void AddWidget(Widget* widget);
+		void WindowFocus(bool enable);
 
 		void SetState(eState state) { mState = state; }
 		eState GetState() { return mState; }

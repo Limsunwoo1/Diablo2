@@ -15,6 +15,7 @@
 #include "GuiDockEditor.h"
 #include "GuiConsol.h"
 #include "GuiGame.h"
+#include "GuiListWidget.h"
 
 namespace gui
 {
@@ -67,19 +68,22 @@ namespace gui
 		 
 		// Init Widget
 		Inspector* inspector = new Inspector();
-		mWidgets.emplace_back(inspector);
+		mWidgets.insert(std::make_pair("Inspector", inspector));
 
 		Game* game = new Game();
-		mWidgets.emplace_back(game);
+		mWidgets.insert(std::make_pair("Game", game));
 		
 		Hierarchy* hierachy = new Hierarchy();
-		mWidgets.emplace_back(hierachy);
+		mWidgets.insert(std::make_pair("hierachy", hierachy));
 
 		Project* project = new Project();
-		mWidgets.emplace_back(project);
+		mWidgets.insert(std::make_pair("project", project));
 
 		Consol* consol = new Consol();
-		mWidgets.emplace_back(consol);
+		mWidgets.insert(std::make_pair("consol", consol));
+
+		ListWidget* listWidget = new ListWidget();
+		mWidgets.insert(std::make_pair("ListWidget", listWidget));
 	}
 
 	void Editor::Run()
@@ -136,13 +140,13 @@ namespace gui
 	{
 		ImGui_Release();
 
-		for (auto* obj : mWidgets)
+		for (auto iter : mWidgets)
 		{
-			if (!obj)
+			if (iter.second == nullptr)
 				continue;
 
-			delete obj;
-			obj = nullptr;
+			delete iter.second;
+			iter.second = nullptr;
 		}
 		
 		if (mDockObject)
@@ -280,9 +284,9 @@ namespace gui
 
 
 		mDockObject->Render();
-		for (Widget* widget : mWidgets)
+		for (auto widget : mWidgets)
 		{
-			widget->Render();
+			widget.second->Render();
 		}
 
 #pragma region SamPle

@@ -16,6 +16,7 @@
 		const void SetKey(const std::wstring key) { mKey = key; }
 		const void SetPath(const std::wstring path) { mPath = path; }
 
+		eResourceType GetType() { return mType; }
 	private:
 		std::wstring mPath;
 		std::wstring mKey;

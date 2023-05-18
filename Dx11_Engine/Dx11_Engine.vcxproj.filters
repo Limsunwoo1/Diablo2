@@ -50,6 +50,21 @@
     <Filter Include="GuiEditor\TreeWidget">
       <UniqueIdentifier>{7c6a5949-a841-411d-a303-c92e9e07e991}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GuiEditor\ListWidget">
+      <UniqueIdentifier>{cba2ff26-88c1-451b-b80f-16b2b60bf3e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GuiEditor\Mesh">
+      <UniqueIdentifier>{a8471a7e-5be5-4133-bfc5-381f0d075428}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GuiEditor\Material">
+      <UniqueIdentifier>{ed4710c1-6c6f-4314-b375-ffb7e50d8343}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GuiEditor\Texture">
+      <UniqueIdentifier>{b4dc7651-41cc-49fa-aa49-ec766774b435}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GuiEditor\Resource">
+      <UniqueIdentifier>{cf9ed427-2074-454a-afae-57ee3b376401}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h" />
@@ -124,6 +139,21 @@
     </ClInclude>
     <ClInclude Include="GuiTreeWidget.h">
       <Filter>GuiEditor\TreeWidget</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiListWidget.h">
+      <Filter>GuiEditor\ListWidget</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiResource.h">
+      <Filter>GuiEditor\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiTexture2D.h">
+      <Filter>GuiEditor\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiMesh.h">
+      <Filter>GuiEditor\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiMaterial.h">
+      <Filter>GuiEditor\Material</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +241,21 @@
     </ClCompile>
     <ClCompile Include="GuiTreeWidget.cpp">
       <Filter>GuiEditor\TreeWidget</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiListWidget.cpp">
+      <Filter>GuiEditor\ListWidget</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiResource.cpp">
+      <Filter>GuiEditor\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiTexture2D.cpp">
+      <Filter>GuiEditor\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiMesh.cpp">
+      <Filter>GuiEditor\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiMaterial.cpp">
+      <Filter>GuiEditor\Material</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

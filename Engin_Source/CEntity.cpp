@@ -6,7 +6,7 @@ Entity::Entity()
 	: mName(L"")
 	, mID((UINT32)this)
 {
-	SetName(std::to_wstring(mID));
+	SetName(std::to_wstring((UINT32)this));
 }
 
 Entity::~Entity()
@@ -17,21 +17,21 @@ Entity::~Entity()
 
 namespace gui
 {
-	Entity::Entity()
+	guiEntity::guiEntity()
 		: mName("")
 		, mID((UINT32)this)
 	{
 		SetName(std::to_string((UINT32)this));
 	}
 
-	Entity::Entity(const char* name)
+	guiEntity::guiEntity(const char* name)
 		: mName(name)
 		, mID((UINT32)this)
 	{
 
 	}
 
-	Entity::~Entity()
+	guiEntity::~guiEntity()
 	{
 
 	}
