@@ -5,6 +5,12 @@
 #include "CCreateCharacter.h"
 #include "CEnddingScene.h"
 #include "CMainTitleScene.h"
+#include "CToolScene.h"
+
+#include "..//Dx11_Engine/GuiEditor.h"
+#include "..//Dx11_Engine/GuiHierachy.h"
+
+extern gui::Editor _Editor;
 
 SceneManager::SceneManager()
 	: mActiveScene(nullptr)
@@ -21,6 +27,7 @@ void SceneManager::Initalize()
 	mScenes.resize((UINT)eSceneType::End);
 
 	mScenes[(UINT)eSceneType::Title] = new TitleScene();
+	mScenes[(UINT)eSceneType::Tool] = new ToolScene();
 	mScenes[(UINT)eSceneType::MainTitle] = new MainTitleScene();
 	mScenes[(UINT)eSceneType::Play] = new PlayScene();
 	mScenes[(UINT)eSceneType::Selecte] = new CharacterSelectScene();
@@ -104,6 +111,9 @@ void SceneManager::LoadScene(eSceneType type)
 	}
 
 	mActiveScene->OnEnter();
+
+	gui::Hierachy* hierarchy = _Editor.GetWidget<gui::Hierachy>("hierachy");
+	hierarchy->InitalizeScene();
 }
 
 Scene* SceneManager::GetScene(eSceneType type)

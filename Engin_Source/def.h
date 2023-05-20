@@ -36,3 +36,8 @@ private:									\
 #ifndef IMGUI_DEFINE_MATH_OPERATORS
 #define IMGUI_DEFINE_MATH_OPERATORS
 #endif
+
+
+
+#define TILE_X_SIZE 32
+#define TILE_Y_SIZE 16

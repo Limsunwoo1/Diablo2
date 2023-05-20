@@ -114,7 +114,7 @@ void TitleScene::Update()
 
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN))
 	{
-		SceneManager::GetInstance()->LoadScene(eSceneType::MainTitle);
+		SceneManager::GetInstance()->LoadScene(eSceneType::Tool);
 	}
 }
 

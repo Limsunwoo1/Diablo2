@@ -73,7 +73,7 @@ namespace gui
 		Game* game = new Game();
 		mWidgets.insert(std::make_pair("Game", game));
 		
-		Hierarchy* hierachy = new Hierarchy();
+		Hierachy* hierachy = new Hierachy();
 		mWidgets.insert(std::make_pair("hierachy", hierachy));
 
 		Project* project = new Project();
@@ -173,7 +173,7 @@ namespace gui
 		DebugObject* debugObj = mDebugObjects[(UINT)mesh.type];
 
 		Transform* tr = debugObj->GetComponent<Transform>();
-		tr->SetPosition(mesh.position);
+		tr->SetPosition(mesh.position); 
 		tr->SetRotation(Vector3(XM_2PI / 60.f, XM_2PI / 60.f, mesh.rotation.z));
 
 		// 레이어별 차이

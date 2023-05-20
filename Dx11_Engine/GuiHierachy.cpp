@@ -13,7 +13,7 @@ extern CApplication Application;
 
 namespace gui
 {
-    Hierarchy::Hierarchy()
+    Hierachy::Hierachy()
         : mTreeWidget(nullptr)
     {
         SetName("Hierarchy");
@@ -23,26 +23,26 @@ namespace gui
         mTreeWidget->SetName("Scenes");
         AddWidget(mTreeWidget);
 
-        mTreeWidget->SetEvent(this, std::bind(&Hierarchy::InitalizeInsepector, this, std::placeholders::_1));
+        mTreeWidget->SetEvent(this, std::bind(&Hierachy::InitalizeInsepector, this, std::placeholders::_1));
         mTreeWidget->SetDummyRoot(true);
 
         InitalizeScene();
     }
-    Hierarchy::~Hierarchy()
+    Hierachy::~Hierachy()
     {
         delete mTreeWidget;
         mTreeWidget = nullptr;
     }
-    void Hierarchy::FixedUpdate()
+    void Hierachy::FixedUpdate()
     {
     }
-    void Hierarchy::Update()
+    void Hierachy::Update()
     {
     }
-    void Hierarchy::LateUpdate()
+    void Hierachy::LateUpdate()
     {
     }
-    void Hierarchy::InitalizeInsepector(void* data)
+    void Hierachy::InitalizeInsepector(void* data)
     {
         Renderer::InspectorGameObject = static_cast<GameObject*>(data);
 
@@ -50,7 +50,7 @@ namespace gui
         inspector->SetTargetGameObject(Renderer::InspectorGameObject);
         inspector->InitalizeTargetGameObject();
     }
-    void Hierarchy::InitalizeScene()
+    void Hierachy::InitalizeScene()
     {
         mTreeWidget->Clear();
 
@@ -75,7 +75,7 @@ namespace gui
         }
 
     }
-    void Hierarchy::AddGameObject(TreeWidget::Node* parent, GameObject* gameObject)
+    void Hierachy::AddGameObject(TreeWidget::Node* parent, GameObject* gameObject)
     {
         std::wstring wName = gameObject->GetName();
         std::string Name(wName.begin(), wName.end());

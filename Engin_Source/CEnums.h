@@ -2,7 +2,9 @@
 
 enum class eSceneType
 {
+	
 	Title,
+	Tool,
 	MainTitle,
 	Play,
 	Selecte,
@@ -16,6 +18,7 @@ enum class eLayerType
 	None = 0,
 	Camera,
 	BackGround,
+	TilePllet,
 	Tile,
 	Grid,
 	MonsterSkil,

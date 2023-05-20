@@ -265,6 +265,9 @@
     <Filter Include="GameObject\UI\SelectButtonSystem\SelectSystemButton">
       <UniqueIdentifier>{00de8513-b0b4-4f2d-9dea-9ef7d0db7a74}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\ToolScene">
+      <UniqueIdentifier>{7f4ea757-d631-43a2-b7aa-7df2c2ac9743}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -546,6 +549,12 @@
     </ClCompile>
     <ClCompile Include="CSelectSystemButton.cpp">
       <Filter>GameObject\UI\SelectButtonSystem\SelectSystemButton</Filter>
+    </ClCompile>
+    <ClCompile Include="CToolScene.cpp">
+      <Filter>Scene\ToolScene</Filter>
+    </ClCompile>
+    <ClCompile Include="CTilePallet.cpp">
+      <Filter>GameObject\Tile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -843,6 +852,12 @@
     </ClInclude>
     <ClInclude Include="CSelectSystemButton.h">
       <Filter>GameObject\UI\SelectButtonSystem\SelectSystemButton</Filter>
+    </ClInclude>
+    <ClInclude Include="CToolScene.h">
+      <Filter>Scene\ToolScene</Filter>
+    </ClInclude>
+    <ClInclude Include="CTilePallet.h">
+      <Filter>GameObject\Tile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

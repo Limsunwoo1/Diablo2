@@ -228,7 +228,9 @@
     <ClInclude Include="CTexture2D.h" />
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CTileObject.h" />
+    <ClInclude Include="CTilePallet.h" />
     <ClInclude Include="CTitleScene.h" />
+    <ClInclude Include="CToolScene.h" />
     <ClInclude Include="CTransform.h" />
     <ClInclude Include="CBeltItem.h" />
     <ClInclude Include="CWeponItem.h" />
@@ -327,7 +329,9 @@
     <ClCompile Include="CTexture2D.cpp" />
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTileObject.cpp" />
+    <ClCompile Include="CTilePallet.cpp" />
     <ClCompile Include="CTitleScene.cpp" />
+    <ClCompile Include="CToolScene.cpp" />
     <ClCompile Include="CTransform.cpp" />
     <ClCompile Include="CBeltItem.cpp" />
     <ClCompile Include="CWeponItem.cpp" />

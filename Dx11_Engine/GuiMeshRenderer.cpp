@@ -53,6 +53,9 @@ namespace gui
 		if (GetTarget() == nullptr)
 			return;
 
+		if (mMesh.lock() == nullptr || mMaterial.lock() == nullptr)
+			return;
+
 		gui::Component::Update();
 
 		// wstring Çü Name

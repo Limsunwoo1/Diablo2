@@ -5,7 +5,14 @@
 
 TileObject::TileObject()
 	: GameObject()
+	, mSize(Vector2::Zero)
+	, mUV(Vector2::One)
+	, mPalletIndex(-1)
+	, mbPass(true)
+	, mArr{}
+	, mTexPath(L"")
 {
+
 }
 
 TileObject::~TileObject()

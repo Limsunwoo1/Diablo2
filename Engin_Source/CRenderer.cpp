@@ -79,6 +79,30 @@ namespace Renderer
 		mesh->CreateVertexBuffer(vertexes, 4);
 		mesh->CreateIndexBuffer(indexs.data(), (UINT)indexs.size());
 #pragma endregion
+#pragma region Isometric MESH
+		// Debug
+		vertexes[0].pos = Vector4(0.0f, -0.5f, 0.0f, 1.0f);
+		vertexes[0].color = Vector4(0.f, 1.f, 0.f, 1.f);
+		vertexes[0].uv = Vector2(0.f, 0.f);
+
+		vertexes[1].pos = Vector4(0.5f, 0.5f, 0.0f, 1.0f);
+		vertexes[1].color = Vector4(1.f, 1.f, 1.f, 1.f);
+		vertexes[1].uv = Vector2(1.f, 0.f);
+
+		vertexes[2].pos = Vector4(0.0f, 0.5f, 0.0f, 1.0f);
+		vertexes[2].color = Vector4(1.f, 0.f, 0.f, 1.f);
+		vertexes[2].uv = Vector2(1.f, 1.f);
+
+		vertexes[3].pos = Vector4(-0.5f, -0.5f, 0.0f, 1.0f);
+		vertexes[3].color = Vector4(0.f, 0.f, 1.f, 1.f);
+		vertexes[3].uv = Vector2(0.f, 1.f);
+
+		std::shared_ptr<Mesh>IsoMetricMesh = std::make_shared<Mesh>();
+		ResourceManager::GetInstance()->Insert<Mesh>(L"IsoMetricMesh", IsoMetricMesh);
+
+		IsoMetricMesh->CreateVertexBuffer(vertexes, 4);
+		IsoMetricMesh->CreateIndexBuffer(indexs.data(), (UINT)indexs.size());
+#pragma endregion
 #pragma region Half Alpha Mesh
 		//RECT
 		HalfAlpha[0].pos = Vector4(-0.5f, 0.5f, 0.0f, 1.0f);
@@ -160,6 +184,7 @@ namespace Renderer
 
 		DebugMesh->CreateIndexBuffer(debugIndex.data(), debugIndex.size());
 #pragma endregion
+
 #pragma region CIRCLE MESH
 		// Circle Mesh
 		std::vector<Vertex> circleVertex;
@@ -308,6 +333,14 @@ namespace Renderer
 			, postProecssShader.lock()->GetInputLayoutAddressOf());
 
 		postProecssShader.lock()->SetKey(L"PostProcessShader");
+
+		std::weak_ptr<Shader> grid2Shader = ResourceManager::GetInstance()->Find<Shader>(L"Grid2Shader");
+		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, grid2Shader.lock()->GetVSBlobBufferPointer()
+			, grid2Shader.lock()->GetVSBlobBufferSize()
+			, grid2Shader.lock()->GetInputLayoutAddressOf());
+
+		grid2Shader.lock()->SetKey(L"Grid2Shader");
 
 #pragma endregion
 #pragma region Sampler State
@@ -548,6 +581,19 @@ namespace Renderer
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"GridShader", gridShader);
 #pragma endregion
+#pragma region GRID2 SHADER
+		// Grid
+		{
+			std::shared_ptr<Shader> gridShader = std::make_shared<Shader>();
+			gridShader->Create(eShaderStage::VS, L"Grid2VS.hlsl", "main");
+			gridShader->Create(eShaderStage::PS, L"Grid2PS.hlsl", "main");
+			gridShader->SetRasterize(eRasterizeType::SolidNone);
+			gridShader->SetDepthStencil(eDepthStencilType::Less);
+			gridShader->SetBlend(eBlendType::AlphaBlend);
+
+			ResourceManager::GetInstance()->Insert<Shader>(L"Grid2Shader", gridShader);
+		}
+#pragma endregion
 #pragma region FADE SHADER
 		// FadeInOut
 		std::shared_ptr<Shader> fadeShader = std::make_shared<Shader>();
@@ -783,6 +829,15 @@ namespace Renderer
 		std::shared_ptr<Material> gridMaterial = std::make_shared<Material>();
 		gridMaterial->SetShader(GridShader);
 		ResourceManager::GetInstance()->Insert(L"GridMaterial", gridMaterial);
+#pragma endregion
+#pragma region GRID2 MATERIAL
+		// Grid
+		{
+			std::weak_ptr<Shader> GridShader = ResourceManager::GetInstance()->Find<Shader>(L"Grid2Shader");
+			std::shared_ptr<Material> gridMaterial = std::make_shared<Material>();
+			gridMaterial->SetShader(GridShader);
+			ResourceManager::GetInstance()->Insert(L"Grid2Material", gridMaterial);
+		}
 #pragma endregion
 #pragma region FADE MATERIAL
 		// FadeInOut

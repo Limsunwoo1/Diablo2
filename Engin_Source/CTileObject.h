@@ -12,6 +12,14 @@ public:
 	virtual void FixedUpdate();
 	virtual void Render();
 private:
+	Vector2 mSize;
+	Vector2 mUV;
 
+	int mPalletIndex;
+	bool mbPass;
+
+	int mArr[5][5];
+
+	std::wstring mTexPath;
 };
 

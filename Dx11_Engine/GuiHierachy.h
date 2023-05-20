@@ -6,11 +6,11 @@
 
 namespace gui
 {
-	class Hierarchy : public Widget
+	class Hierachy : public Widget
 	{
 	public:
-		Hierarchy();
-		virtual ~Hierarchy();
+		Hierachy();
+		virtual ~Hierachy();
 
 		virtual void FixedUpdate() override;
 		virtual void Update() override;
