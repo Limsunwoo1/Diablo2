@@ -79,8 +79,8 @@ void Button::Update()
 	y = tr->GetWorldMatrix()._42;
 	z = tr->GetWorldMatrix()._43;
 	Vector3 colPos{ x,y,z };
-	Vector3 collpos = tr->GetPosition();
-	Vector3 colScale = tr->GetScale();
+	Vector3 collpos = tr->GetPosition() * tr->GetSize();
+	Vector3 colScale = tr->GetScale() * tr->GetSize();
 
 	// 마우스가 버튼이랑 충돌 X
 	SetPointToRect(0);
