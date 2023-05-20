@@ -22,12 +22,14 @@ public:
 	Vector3 GetPosition() { return mPosition; }
 	Vector3 GetRotation() { return mRotation; }
 	Vector3 GetScale() { return mScale; }
+	Vector3 GetSize() { return mSize; }
 
 	void SetPosition(Vector3 position) { mPosition = position; }
 	void SetPosition(float x, float y, float z) { mPosition = Vector3(x, y, z); }
 
 	void SetRotation(Vector3 degree) { mRotation = degree; }
 	void SetScale(Vector3 scale) { mScale = scale; }
+	void SetSize(Vector3 size) { mSize = size; }
 
 	Vector3 Forward() { return mForward; }
 	Vector3 Right() { return mRight; }
@@ -45,6 +47,7 @@ private:
 	Vector3 mPosition;
 	Vector3 mRotation;
 	Vector3 mScale;
+	Vector3 mSize;
 
 	Matrix mWorld;
 };

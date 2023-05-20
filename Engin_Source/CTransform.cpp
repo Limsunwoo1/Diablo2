@@ -11,6 +11,7 @@ Transform::Transform()
 	, mScale(Vector3::One)
 	, mRotation(Vector3::Zero)
 	, mPosition(Vector3::One)
+	, mSize(Vector3(100.f, 100.f, 1.0f))
 	, mParent(nullptr)
 {
 
@@ -39,7 +40,7 @@ void Transform::FixedUpdate()
 	// 월드 행렬 생성
 
 	// 크기 변환 행렬
-	Matrix scale = Matrix::CreateScale(mScale);
+	Matrix scale = Matrix::CreateScale(mScale * mSize);
 
 	// 회전 변환 행렬
 	Matrix rotation;
@@ -56,7 +57,7 @@ void Transform::FixedUpdate()
 
 	// 이동 변환행렬
 	Matrix position;
-	position.Translation(mPosition);
+	position.Translation(mPosition * mSize);
 	
 	mWorld = scale * rotation * position;
 
@@ -69,9 +70,9 @@ void Transform::FixedUpdate()
 
 	if (mParent)
 	{
-		mWorld._11 *= mParent->mWorld._11;
-		mWorld._22 *= mParent->mWorld._22;
-		mWorld._33 *= mParent->mWorld._33;
+		mWorld._11 *= mParent->mWorld._11 / mParent->GetSize().x;
+		mWorld._22 *= mParent->mWorld._22 / mParent->GetSize().y;
+		mWorld._33 *= mParent->mWorld._33 / mParent->GetSize().z;
 
 		mWorld._41 += mParent->mWorld._41;
 		mWorld._42 += mParent->mWorld._42;

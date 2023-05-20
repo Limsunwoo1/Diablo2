@@ -102,7 +102,7 @@ void Camera::CreateProjectionMatrix()
 	if (mType == eProjectionType::Prespective)
 		mProjection = Matrix::CreatePerspectiveFieldOfViewLH(XM_2PI / 6.0f, mAspectRatio, mNear, mFar);
 	else
-		mProjection = Matrix::CreateOrthographicLH(width / 100.f , height / 100.f, mNear, mFar);
+		mProjection = Matrix::CreateOrthographicLH(width , height, mNear, mFar);
 }
 
 void Camera::RegisterCameraInRenderer()
