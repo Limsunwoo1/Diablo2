@@ -20,6 +20,7 @@ namespace gui
 		void InitalizeScene();
 		void AddGameObject(TreeWidget::Node* parent, GameObject* gameObject);
 
+		void UiChilds(GameObject* obj, TreeWidget::Node* root);
 	private:
 		TreeWidget* mTreeWidget;
 	};

@@ -71,6 +71,8 @@ public:
 
 	virtual void OnActive() {};
 	virtual void UnActive() {};
+
+	const std::vector<UiBase*>& GetChilds() { return mChilds; }
 protected:
 	UiBase* mParent;
 	Texture2D* mImage;

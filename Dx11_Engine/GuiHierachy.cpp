@@ -7,6 +7,7 @@
 #include "..//Engin_Source/CLayer.h"
 #include "..//Engin_Source/CSceneManager.h"
 #include "..//Engin_Source/CRenderer.h"
+#include "..//Engin_Source/CUiBase.h"
 
 extern gui::Editor _Editor;
 extern CApplication Application;
@@ -71,6 +72,11 @@ namespace gui
             for (GameObject* obj : gameObjects)
             {
                 AddGameObject(root, obj);
+
+                if (i == (UINT)eLayerType::UI)
+                {
+                    UiChilds(obj, root);
+                }
             }
         }
 
@@ -81,5 +87,19 @@ namespace gui
         std::string Name(wName.begin(), wName.end());
 
         TreeWidget::Node* node = mTreeWidget->AddNode(parent, Name, gameObject);
+    }
+    void Hierachy::UiChilds(GameObject* obj, TreeWidget::Node* root)
+    {
+        UiBase* ui = dynamic_cast<UiBase*>(obj);
+        if (ui == nullptr)
+            return;
+
+        const std::vector<UiBase*>& gameObjects = ui->GetChilds();
+
+        for (UiBase* uichild : gameObjects)
+        {
+            AddGameObject(root, uichild);
+            UiChilds(uichild, root);
+        }
     }
 }

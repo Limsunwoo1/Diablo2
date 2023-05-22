@@ -51,6 +51,9 @@ void TitleScene::Initalize()
 		cameraObj->AddComponent<CameraScript>();
 		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
 		Renderer::mainCamera = cameraComp;
+		mMainCamera = cameraComp;
+
+		cameraObj->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -100.f));
 	}
 
 	RECT winRect;
@@ -66,14 +69,17 @@ void TitleScene::Initalize()
 		ground->SetName(L"BackGround");
 		
 		Transform* tr = ground->GetComponent<Transform>();
-		tr->SetScale(Vector3(8.0f, 6.0f, 0.0f));
+		tr->SetSize(Vector3(1600.f, 900.f, 1.0f));
+
+		tr->SetPosition(mMainCamera->GetOwner()->GetComponent<Transform>()->GetPosition());
+		tr->SetPosition(Vector3(0.0f, 0.0f, 1.0f));
 
 		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"Title1", L"UI//Title_01.png");
 		ground->SetTexture(tex);
 
 		MeshRenderer* mr = ground->AddComponent<MeshRenderer>();
 
-		std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"FadeMesh");
+		std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
 		std::weak_ptr<Material> backmaterial = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
 
 		mr->SetMesh(mesh);
@@ -84,8 +90,9 @@ void TitleScene::Initalize()
 	{
 		GameObject* logo = Object::Instantiate<GameObject>(eLayerType::Effect);
 		Transform* tr = logo->GetComponent<Transform>();
-		tr->SetScale(Vector3(10.0f, 24.0f, 1.0f));
-		tr->SetPosition(Vector3(1.0f, 4.5f, 0.0f));
+		tr->SetSize(Vector3(1000.0f, 2400.0f, 1.0f));
+
+		tr->SetPosition(Vector3(0.0f, 350.f, 0.0f));
 
 		SpriteRenderer* sr = logo->AddComponent<SpriteRenderer>();
 

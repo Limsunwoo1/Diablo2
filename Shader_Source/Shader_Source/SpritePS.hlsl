@@ -21,17 +21,17 @@ float4 main(VSOut In) : SV_Target
     
     if (animationType == 1) // 2D
     {
-        float2 colrow = float2(3.0f, 3.0f);
-        In.UV.x = (In.UV.x / colrow.x) + (1.f / colrow.x);
-        In.UV.y = (In.UV.y / colrow.y) + (1.f / colrow.y);
+        //float2 colrow = float2(3.0f, 3.0f);
+        //In.UV.x = (In.UV.x / colrow.x) + (1.f / colrow.x);
+        //In.UV.y = (In.UV.y / colrow.y) + (1.f / colrow.y);
         
         float2 diff = (atlasSize - spriteSize) / 2.0f;
         float2 UV = (leftTop - diff - offset) + (atlasSize * In.UV);
 
-        //if (UV.x < leftTop.x || UV.y < leftTop.y
-        //    || UV.x > leftTop.x + spriteSize.x
-        //    || UV.y > leftTop.y + spriteSize.y)
-        //    discard;
+        if (UV.x < leftTop.x || UV.y < leftTop.y
+            || UV.x > leftTop.x + spriteSize.x
+            || UV.y > leftTop.y + spriteSize.y)
+            discard;
         
         color = atlasTexture.Sample(pointSampler, UV);
     }

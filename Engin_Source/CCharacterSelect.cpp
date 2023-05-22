@@ -65,14 +65,14 @@ void CharacterSelectScene::Initalize()
 		ground->SetName(L"BackGround4");
 
 		Transform* tr = ground->GetComponent<Transform>();
-		tr->SetScale(Vector3(8.0f, 6.0f, 0.0f));
+		tr->SetSize(Vector3(1600.f, 900.f, 0.0f));
 
 		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"SelcetBack", L"UI//characterselectscreenEXP.png");
 		ground->SetTexture(tex);
 
 		MeshRenderer* mr = ground->AddComponent<MeshRenderer>();
 
-		std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"FadeMesh");
+		std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
 		std::weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
 		mr->SetMesh(mesh);
 		mr->SetMaterial(material);

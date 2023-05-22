@@ -10,7 +10,7 @@ Transform::Transform()
 	, mUp(Vector3::Up)
 	, mScale(Vector3::One)
 	, mRotation(Vector3::Zero)
-	, mPosition(Vector3::One)
+	, mPosition(Vector3::Zero)
 	, mSize(Vector3(100.f, 100.f, 1.0f))
 	, mParent(nullptr)
 {
@@ -57,7 +57,7 @@ void Transform::FixedUpdate()
 
 	// 이동 변환행렬
 	Matrix position;
-	position.Translation(mPosition * mSize);
+	position.Translation(mPosition);
 	
 	mWorld = scale * rotation * position;
 

@@ -27,7 +27,7 @@ namespace gui
 		mPosition = tr->GetPosition();
 		mRotation = tr->GetRotation();
 		mScale = tr->GetScale();
-
+		mSize = tr->GetSize();
 
 	}
 
@@ -47,6 +47,9 @@ namespace gui
 		ImGui::Text("Scale"); ImGui::SameLine();
 		ImGui::InputFloat3("##Scale", (float*)&mScale);
 
+		ImGui::Text("Size"); ImGui::SameLine();
+		ImGui::InputFloat3("##Size", (float*)&mSize);
+
 		if (GetTarget())
 		{
 			Transform* tr = GetTarget()->GetComponent<Transform>();
@@ -54,6 +57,7 @@ namespace gui
 			tr->SetPosition(mPosition);
 			tr->SetRotation(mRotation);
 			tr->SetScale(mScale);
+			tr->SetSize(mSize);
 		}
 	}
 

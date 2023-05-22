@@ -217,7 +217,7 @@ void SelectButtonSystem::Initalize()
 
 		//Transform
 		Transform* tr = mCreateButton->GetComponent<Transform>();
-		tr->SetPosition(Vector3(-4.5f, -2.9f, 0.0f));
+		tr->SetPosition(Vector3(-4.5f * 100.f, -380.f, 0.0f));
 		tr->SetScale(Vector3(3.f, 1.f, 0.0f));
 
 		// Renderer
@@ -249,7 +249,7 @@ void SelectButtonSystem::Initalize()
 
 		//Transform
 		Transform* tr = mReturnSceneButton->GetComponent<Transform>();
-		tr->SetPosition(Vector3(3.5f, -2.9f, 0.0f));
+		tr->SetPosition(Vector3(3.5f * 100.f, -380.f, 0.0f));
 		tr->SetScale(Vector3(2.f, 1.f, 0.0f));
 
 		// Renderer
@@ -281,7 +281,7 @@ void SelectButtonSystem::Initalize()
 
 		//Transform
 		Transform* tr = mSelect_Ok_Button->GetComponent<Transform>();
-		tr->SetPosition(Vector3(6.5f, -2.9f, 0.0f));
+		tr->SetPosition(Vector3(6.5f * 100.f, -380.f, 0.0f));
 		tr->SetScale(Vector3(2.f, 1.f, 0.0f));
 
 		// Renderer
@@ -429,15 +429,15 @@ void SelectButtonSystem::Select_Ok_Button()
 void SelectButtonSystem::ButtonPositionInit()
 {
 	// 위치값 조정해서 자동으로위치 조정 해야함
-	float leftX = -3.8f;
-	float leftY = 4.2f;
+	float leftX = -530.f;
+	float leftY = 220.f;
 
-	float rightX = 1;
+	float rightX = 1 * 100;
 
-	float sizeX = 4.f;
-	float sizeY = 2.f;
+	float sizeX = 350.f;
+	float sizeY = 180.f;
 
-	float offset = 6.2f;
+	float offset = 6.2f * 100;
 
 	int cntX = 0;
 	int cntY = 0;
@@ -453,14 +453,14 @@ void SelectButtonSystem::ButtonPositionInit()
 		// 왼쪽라인 세이브 파일
 		Transform* tr = obj->GetComponent<Transform>();
 		tr->SetPosition(Vector3(leftX, leftY - (sizeY * cntX), 0.0f));
-		tr->SetScale(Vector3(sizeX, sizeY, 0.0f));
+		tr->SetSize(Vector3(sizeX, sizeY, 1.0f));
 
 
 		if (cntX >= 3)
 		{
 			// 오른쪽 라인 세이브 파일
 			tr->SetPosition(Vector3(leftX + offset, leftY - (sizeY * cntY), 0.0f));
-			tr->SetScale(Vector3(sizeX, sizeY, 0.0f));
+			tr->SetSize(Vector3(sizeX, sizeY, 1.0f));
 
 			cntY++;
 		}

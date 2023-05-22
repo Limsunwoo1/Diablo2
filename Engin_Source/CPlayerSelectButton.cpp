@@ -46,9 +46,10 @@ void PlayerSelectButton::Initalize()
 
 	Transform* tr = mCharterAnimation->GetComponent<Transform>();
 	tr->SetScale(Vector3(0.6f, 1.2f, 1.0f));
+	tr->SetSize(Vector3(250.f, 150.f, 1.0f));
 	//tr->SetRotation(Vector3(30.f, 0.f, 0.f));
 	tr->SetParent(ButtonTr);
-	tr->SetPosition(Vector3(-0.8f, -0.0f, 0.0f));
+	tr->SetPosition(Vector3(-0.8f * 100, -0.0f, 0.0f));
 
 	SpriteRenderer* sr = mCharterAnimation->AddComponent<SpriteRenderer>();
 	std::weak_ptr<Material> selectMaterial = ResourceManager::GetInstance()->Find<Material>(L"ChaterSelectMaterial");

@@ -29,7 +29,10 @@ void EquipmentButton::Initalize()
 	std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->
 		Load<Texture2D>(L"ItemSlot", L"UI//NoneCanvers.png");
 
-	material.lock()->SetTexture(eTextureSlot::T0, tex);
+	std::weak_ptr<Texture2D> tex1 = ResourceManager::GetInstance()->
+		Find<Texture2D>(L"SmileTexture");
+
+	material.lock()->SetTexture(eTextureSlot::T0, tex1);
 
 	sr->SetMesh(mesh);
 	sr->SetMaterial(material);
