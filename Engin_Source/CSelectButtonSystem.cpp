@@ -420,6 +420,9 @@ void SelectButtonSystem::Select_Ok_Button()
 	WorldManager::GetInstance()->SetPlayer(player);
 	SceneManager::GetInstance()->LoadScene(eSceneType::Play);
 
+	if (mClickButton->GetDataPathIndex() >= mItemData.size())
+		return;
+
 	if (mItemData[mClickButton->GetDataPathIndex()] == L"")
 		return;
 

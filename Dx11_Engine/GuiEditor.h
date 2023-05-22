@@ -50,5 +50,6 @@ namespace gui
 		std::vector<DebugObject*> mDebugObjects;
 
 		class DockEditor* mDockObject;
+		EditorObject* mGrid;
 	};
 }

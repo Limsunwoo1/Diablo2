@@ -53,13 +53,15 @@ namespace gui
 
 		// Grid
 		EditorObject* girdObject = new EditorObject();
+		girdObject->SetName(L"GridObject");
 		MeshRenderer* gridMr = girdObject->AddComponent<MeshRenderer>();
 		gridMr->SetMesh(ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh"));
 		gridMr->SetMaterial(ResourceManager::GetInstance()->Find<Material>(L"GridMaterial"));
 		GridScript* gridScript = girdObject->AddComponent<GridScript>();
-		gridScript->SetCamera(Renderer::mainCamera);
+		//gridScript->SetCamera(Renderer::mainCamera);
 
 		mEditorObjects.push_back(girdObject);
+		mGrid = girdObject;
 
 		ImGui_Initalize();
 
@@ -97,6 +99,7 @@ namespace gui
 
 	void Editor::Update()
 	{
+		//mGridSc->SetCamera(Renderer::mainCamera);
 		for (EditorObject* obj : mEditorObjects)
 		{
 			if (!obj)
@@ -115,6 +118,9 @@ namespace gui
 
 			obj->FixedUpdate();
 		}
+
+		Vector3 cameraPos = Renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition();
+		mGrid->GetComponent<Transform>()->SetPosition(cameraPos);
 	}
 
 	void Editor::Render()
@@ -130,7 +136,7 @@ namespace gui
 		for (DebugMesh& mesh : Renderer::debugMeshes)
 		{
 
-			DebugRender(mesh);
+			//DebugRender(mesh);
 		}
 
 		Renderer::debugMeshes.clear();

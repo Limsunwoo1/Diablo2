@@ -27,6 +27,7 @@ void GridScript::Initalize()
 
 void GridScript::Update()
 {
+	mCamera = Renderer::mainCamera;
 	if (mCamera == nullptr)
 		return;
 
