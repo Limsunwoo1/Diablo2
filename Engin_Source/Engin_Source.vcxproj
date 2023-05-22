@@ -352,6 +352,7 @@
     <ClCompile Include="CUIManager.cpp" />
     <ClCompile Include="CMpPotionItem.cpp" />
     <ClCompile Include="CPotionItem.cpp" />
+    <ClCompile Include="Rtti.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math.inl" />
