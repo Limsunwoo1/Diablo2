@@ -35,6 +35,8 @@ namespace gui
 		void ImGui_Run();
 		void ImGui_Release();
 
+		void SetWidgetsPused(bool able = true);
+
 		template<typename T>
 		T* GetWidget(const std::string& name)
 		{
@@ -51,5 +53,7 @@ namespace gui
 
 		class DockEditor* mDockObject;
 		EditorObject* mGrid;
+
+		bool mbItemsAble;
 	};
 }

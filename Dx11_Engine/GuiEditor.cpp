@@ -9,6 +9,8 @@
 
 #include "..//Engin_Source/CRenderer.h"
 
+#include "..//Engin_Source/CInput.h"
+
 #include "GuiInspector.h"
 #include "GuiHierachy.h"
 #include "GuiProject.h"
@@ -20,6 +22,7 @@
 namespace gui
 {
 	Editor::Editor()
+		: mbItemsAble(false)
 	{
 	}
 
@@ -99,6 +102,11 @@ namespace gui
 
 	void Editor::Update()
 	{
+		if (Input::GetInstance()->GetKeyDown(eKeyCode::LSHIFT))
+		{
+			mbItemsAble = mbItemsAble == true ? false : true;
+			SetWidgetsPused(mbItemsAble);
+		}
 		//mGridSc->SetCamera(Renderer::mainCamera);
 		for (EditorObject* obj : mEditorObjects)
 		{
@@ -353,5 +361,30 @@ namespace gui
 		ImGui_ImplDX11_Shutdown();
 		ImGui_ImplWin32_Shutdown();
 		ImGui::DestroyContext();
+	}
+	void Editor::SetWidgetsPused(bool able)
+	{
+		if (able)
+		{
+			mDockObject->SetState(gui::Widget::eState::Paused);
+			for (auto widget : mWidgets)
+			{
+				if (widget.second == nullptr)
+					continue;
+
+				widget.second->SetState(gui::Widget::eState::Paused);
+			}
+		}
+		else
+		{
+			mDockObject->SetState(gui::Widget::eState::Active);
+			for (auto widget : mWidgets)
+			{
+				if (widget.second == nullptr)
+					continue;
+
+				widget.second->SetState(gui::Widget::eState::Active);
+			}
+		}
 	}
 }

@@ -57,6 +57,8 @@ public:
 	Math::Vector2 GetMousePos() { return mMousePos; }
 	Math::Vector2 GetMousePos(HWND hWnd);
 	Math::Vector2 GetMouseWorldPos(bool camType = true);
+	Math::Vector2 GetMouseWorldPos(Vector2 windowMouse);
+	Math::Vector2 GetMouseWorldPos(class Camera* camera);
 	Math::Vector2 GetMouseScreenIndex();
 
 	__forceinline bool GetKeyPress(eKeyCode key)

@@ -1,5 +1,5 @@
 #include "GuiDockEditor.h"
-
+#include "..//Engin_Source/CInput.h"
 
 namespace gui
 {
@@ -58,6 +58,7 @@ namespace gui
 
         if (mbFullScreen)
             ImGui::PopStyleVar(2);
+
 
         // Submit the DockSpace
         ImGuiIO& io = ImGui::GetIO();

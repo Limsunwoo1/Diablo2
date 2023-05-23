@@ -68,7 +68,6 @@ void CApplication::FixedUpdate()
 
 void CApplication::Render()
 {
-
 	graphicDevice->Clear();			  // 화면지우기
 	graphicDevice->AdjustViewPorts(); // 뷰보트 크기
 
@@ -144,6 +143,8 @@ void CApplication::SetWindow(HWND hwnd, UINT width, UINT height)
 	ShowWindow(mHwnd, true);
 	UpdateWindow(mHwnd);
 
+	mWidth = rt.right + rt.left;
+	mHeight = rt.bottom + rt.top;
 	/*HMENU menu = {};
 	LPRECT rect = {};
 

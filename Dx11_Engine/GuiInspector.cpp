@@ -59,6 +59,7 @@ namespace gui
 	}
 	void Inspector::Update()
 	{
+		
 	}
 	void Inspector::LateUpdate()
 	{
