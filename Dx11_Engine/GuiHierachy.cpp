@@ -9,6 +9,8 @@
 #include "..//Engin_Source/CRenderer.h"
 #include "..//Engin_Source/CUiBase.h"
 
+#include "..//Engin_Source/CItemManager.h"
+
 extern gui::Editor _Editor;
 extern CApplication Application;
 
@@ -80,6 +82,11 @@ namespace gui
             }
         }
 
+        const std::vector<ItemBase*>& items = ItemManager::GetInstance()->GetItems();
+        for (GameObject* obj : items)
+        {
+            AddGameObject(root, obj);
+        }
     }
     void Hierachy::AddGameObject(TreeWidget::Node* parent, GameObject* gameObject)
     {

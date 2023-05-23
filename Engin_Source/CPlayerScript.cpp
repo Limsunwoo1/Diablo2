@@ -197,7 +197,7 @@ void PlayerScript::FixedUpdate()
 
 			Vector3 meteorPos = tr->GetPosition();
 			// È­¸é¹Û·»´õ
-			meteorPos.y += 10.f;
+			meteorPos.y += 1000.f;
 
 			MeteorTr->SetPosition(Vector3(mousePos.x, meteorPos.y, 1.0f));
 

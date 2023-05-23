@@ -52,11 +52,11 @@ void EquipmentButton::Update()
 		// 아이템을 집고 있는상태이면 충돌 체크를 한다
 		Transform* itemTr = item->GetComponent<Transform>();
 		Vector3 itemPos = itemTr->GetPosition();
-		Vector3 itemScale = itemTr->GetScale();
+		Vector3 itemScale = itemTr->GetScale() * itemTr->GetSize();
 
 		Transform* InvenTr = this->GetComponent<Transform>();
 		Vector3 InvenPos = InvenTr->GetPosition();
-		Vector3 InvenScale = InvenTr->GetScale();
+		Vector3 InvenScale = InvenTr->GetScale() * InvenTr->GetSize();
 
 		if (InvenPos.x - (InvenScale.x * 0.5f) <= itemPos.x
 			&& InvenPos.x + (InvenScale.x * 0.5f) >= itemPos.x

@@ -74,11 +74,11 @@ public:
 	void SetTargetObject(GameObject* obj) { mTargetObject = obj; }
 	GameObject* GetTargetObject() { return mTargetObject; }
 
-	Vector3& GetWorldSacle() { return mWorldSacle; }
-	void SetWorldScale(const Vector3& scale) { mWorldSacle = scale; }
+	Vector3& GetWorldSize() { return mWorldSacle; }
+	void SetWorldSize(const Vector3& scale) { mWorldSacle = scale; }
 
-	Vector3& GetInvenSacle() { return mInvenScale; }
-	void SetInvenScale(const Vector3& scale) { mInvenScale = scale; }
+	Vector3& GetInvenSize() { return mInvenScale; }
+	void SetInvenSize(const Vector3& scale) { mInvenScale = scale; }
 
 private:
 	UINT mXSize;

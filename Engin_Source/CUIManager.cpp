@@ -68,6 +68,7 @@ void UIManager::Initialize()
 
 		///////////////////////////////////////////////////////////////////////////////
 		Panel* hpui = new Panel(eUIType::Panel);
+		hpui->SetName(L"HpPanel");
 		Object::Instantiate<Panel>(eLayerType::UI, eSceneType::Play, hpui);
 		hpui->InitRenderer(L"HpPanelMaterial", L"HPPanel", L"UI//ctrlpanellife.png");
 		hpui->Active();
@@ -78,6 +79,7 @@ void UIManager::Initialize()
 
 		///////////////////////////////////////////////////////////////////////////////
 		Panel* mpui = new Panel(eUIType::Panel);
+		mpui->SetName(L"MpPanel");
 		Object::Instantiate<Panel>(eLayerType::UI, eSceneType::Play, mpui);
 		mpui->InitRenderer(L"MpPanelMaterial", L"MPPanel", L"UI//ctrlpanelmana.png");
 		mpui->Active();
@@ -92,6 +94,7 @@ void UIManager::Initialize()
 
 		// HP MP
 		Panel* hp = new Panel(eUIType::Panel);
+		hp->SetName(L"Hp");
 		hp->InitRenderer(L"HPMaterial", L"HP", L"UI//life.png");
 		hp->Active();
 
@@ -102,6 +105,7 @@ void UIManager::Initialize()
 
 
 		Panel* mp = new Panel(eUIType::Panel);
+		mp->SetName(L"Mp");
 		mp->InitRenderer(L"MPMaterial", L"MP", L"UI//mana.png");
 		mp->Active();
 

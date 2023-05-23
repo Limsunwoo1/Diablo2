@@ -36,8 +36,8 @@ void MainPanel::InitPotionSlot()
 		button->SetName(L"PotionButton1");
 
 		Transform* tr = button->GetComponent<Transform>();
-		tr->SetScale(Vector3(ITEM_X_SIZE, ITEM_Y_SIZE, 1.0f));
-		tr->SetPosition(Vector3(1.83f, -3.0, 1.0f));
+		tr->SetSize(Vector3(ITEM_X_SIZE, ITEM_Y_SIZE, 1.0f));
+		tr->SetPosition(Vector3(80.f, -400.f, 1.0f));
 
 
 		this->SetChild(button);
@@ -55,8 +55,8 @@ void MainPanel::InitPotionSlot()
 		button->SetName(L"PotionButton2");
 
 		Transform* tr = button->GetComponent<Transform>();
-		tr->SetScale(Vector3(ITEM_X_SIZE, ITEM_Y_SIZE, 1.0f));
-		tr->SetPosition(Vector3(2.50f, -3.0, 1.0f));
+		tr->SetSize(Vector3(ITEM_X_SIZE, ITEM_Y_SIZE, 1.0f));
+		tr->SetPosition(Vector3(150.f, -400.f, 1.0f));
 
 
 		this->SetChild(button);
@@ -74,8 +74,8 @@ void MainPanel::InitPotionSlot()
 		button->SetName(L"PotionButton3");
 
 		Transform* tr = button->GetComponent<Transform>();
-		tr->SetScale(Vector3(ITEM_X_SIZE, ITEM_Y_SIZE, 1.0f));
-		tr->SetPosition(Vector3(3.15f, -3.0, 1.0f));
+		tr->SetSize(Vector3(ITEM_X_SIZE, ITEM_Y_SIZE, 1.0f));
+		tr->SetPosition(Vector3(215., -400.f, 1.0f));
 
 
 		this->SetChild(button);
@@ -93,8 +93,8 @@ void MainPanel::InitPotionSlot()
 		button->SetName(L"PotionButton4");
 
 		Transform* tr = button->GetComponent<Transform>();
-		tr->SetScale(Vector3(ITEM_X_SIZE, ITEM_Y_SIZE, 1.0f));
-		tr->SetPosition(Vector3(3.8f, -3.0, 1.0f));
+		tr->SetSize(Vector3(ITEM_X_SIZE, ITEM_Y_SIZE, 1.0f));
+		tr->SetPosition(Vector3(280.f, -400.f, 1.0f));
 
 
 		this->SetChild(button);

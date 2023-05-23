@@ -136,7 +136,7 @@ namespace gui
 		for (DebugMesh& mesh : Renderer::debugMeshes)
 		{
 
-			//DebugRender(mesh);
+			DebugRender(mesh);
 		}
 
 		Renderer::debugMeshes.clear();

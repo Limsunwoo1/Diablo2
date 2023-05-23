@@ -187,7 +187,7 @@ void Meteor::OnMeteor()
 		Vector3 Pos = mTr->GetPosition();
 
 		Vec = mPinPos - Pos;
-		if (fabs(Vec.y) < 0.05f /*&& fabs(Vec.x) < 0.005f*/)
+		if (fabs(Vec.y) < 30.f /*&& fabs(Vec.x) < 0.005f*/)
 		{
 			genericAnimator->Stop(true);
 			return;
@@ -197,7 +197,7 @@ void Meteor::OnMeteor()
 		if (runLine < InCurValue)
 		{
 			Vec.Normalize();
-			Pos += Vec * Time::GetInstance()->DeltaTime() * mSpeed * 3.0f;
+			Pos += Vec * Time::GetInstance()->DeltaTime() * mSpeed * 200.0f;
 			mTr->SetPosition(Pos);
 		}
 	};
@@ -227,7 +227,7 @@ void Meteor::OffMeteor()
 	tr->SetPosition(mPinPos);
 	mFlames[0]->Active();
 
-	float radius = 0.5f;
+	float radius = 50.f;
 	float arrX[9] = {0.f, -radius, radius, 0.f, 0.f, radius, -radius, -radius, radius};
 	float arrY[9] = {0.f, 0.f, 0.f, radius, -radius, radius, radius, -radius, -radius};
 

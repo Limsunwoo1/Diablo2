@@ -114,7 +114,7 @@ void FrozenMissile::RunMisile()
 		break;
 	}
 	
-	pos += tr->Right() * Time::GetInstance()->DeltaTime() * 3.0f;
+	pos += tr->Right() * Time::GetInstance()->DeltaTime() * 300.0f;
 	tr->SetPosition(pos);
 	tr->SetRotation(rotation);
 }

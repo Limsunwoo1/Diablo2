@@ -220,8 +220,8 @@ Math::Vector2 Input::GetMouseScreenIndex()
 {
 	Vector2 mouse = GetMousePos();
 
-	int x = mouse.x / 100;
-	int y = mouse.y / 100;
+	int x = mouse.x;
+	int y = mouse.y;
 
 	x -= 8;
 	y -= 4;

@@ -27,8 +27,8 @@ private:									\
 
 #define FAIL_EVENT -1
 
-#define ITEM_X_SIZE 0.54f
-#define ITEM_Y_SIZE 0.525f
+#define ITEM_X_SIZE 54.f
+#define ITEM_Y_SIZE 52.5f
 
 
 // ImGui_internal.h

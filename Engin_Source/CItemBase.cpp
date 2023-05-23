@@ -38,7 +38,7 @@ void ItemBase::Update()
 
 	Transform* tr = GetComponent<Transform>();
 	Vector3 colPos = tr->GetPosition();
-	Vector3 colScale = tr->GetScale();
+	Vector3 colScale = tr->GetScale() * tr->GetSize();
 
 	// 아이템와 마우스의 충돌 체크
 	if (mousePos.x > colPos.x + (colScale.x * 0.5f) || mousePos.x < colPos.x - (colScale.x * 0.5f))
@@ -54,7 +54,7 @@ void ItemBase::Update()
 			SetStage(false);
 
 			Transform* tr = this->GetComponent<Transform>();
-			tr->SetScale(this->GetInvenSacle());
+			tr->SetSize(this->GetInvenSize());
 
 			mbPick = true;
 			Input::GetInstance()->SetPickItem(this);
@@ -81,7 +81,7 @@ void ItemBase::Update()
 			SetStage(false);
 
 			Transform* tr = this->GetComponent<Transform>();
-			tr->SetScale(this->GetInvenSacle());
+			tr->SetSize(this->GetInvenSize());
 
 			mbPick = false;
 			Input::GetInstance()->SetPickItem(nullptr);
@@ -124,15 +124,15 @@ void ItemBase::Update()
 
 			Transform* mainTr = mainPanel->GetComponent<Transform>();
 			Vector3 mainPos = mainTr->GetPosition();
-			Vector3 mainScale = mainTr->GetScale();
+			Vector3 mainScale = mainTr->GetScale() * mainTr->GetSize();
 
 			Transform* InvenTr = InventoryPanel->GetComponent<Transform>();
 			Vector3 InvenPos = InvenTr->GetPosition();
-			Vector3 InvenScale = InvenTr->GetScale();
+			Vector3 InvenScale = InvenTr->GetScale() * InvenTr->GetSize();
 
 			Transform* ItemTr = this->GetComponent<Transform>();
 			Vector3 ItemPos = ItemTr->GetPosition();
-			Vector3 ItemScale = ItemTr->GetScale();
+			Vector3 ItemScale = ItemTr->GetScale()* ItemTr->GetSize();
 
 			mbPick = true;
 			if (mainPos.x - (mainScale.x * 0.5f) <= ItemPos.x && mainPos.x + (mainScale.x * 0.5f) >= ItemPos.x
@@ -175,8 +175,8 @@ void ItemBase::Update()
 			ItemPos = playerPos;
 			ItemTr->SetPosition(ItemPos);
 
-			Vector3 scale = this->GetWorldSacle();
-			ItemTr->SetScale(scale);
+			Vector3 scale = this->GetWorldSize();
+			ItemTr->SetSize(scale);
 
 			mbPick = false;
 			Input::GetInstance()->SetPickItem(nullptr);
@@ -215,7 +215,7 @@ void ItemBase::Update()
 			mbStage = false;
 
 			Transform* tr = this->GetComponent<Transform>();
-			tr->SetScale(this->GetInvenSacle());
+			tr->SetScale(this->GetInvenSize());
 
 			this->GetComponent<Animator>()->StopPlayAnimation();
 
@@ -244,7 +244,7 @@ void ItemBase::Update()
 			ItemPos = playerPos;
 			ItemTr->SetPosition(ItemPos);
 
-			Vector3 scale = this->GetWorldSacle();
+			Vector3 scale = this->GetWorldSize();
 			ItemTr->SetScale(scale);
 			mbStage = true;
 		}

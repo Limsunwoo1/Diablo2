@@ -36,324 +36,324 @@ void InventoryButton::Initalize()
 	Button::Initalize();
 
 	Vector3 mPos = this->GetComponent<Transform>()->GetPosition();
-	Vector3 mScale = this->GetComponent<Transform>()->GetScale();
-
-	//// 임의로 배열내부에 아이템을 채워준다
-	////test
-	//{
-	//	ShoesItem* item = new ShoesItem(L"SmileTexture");
-	//	item->Initalize();
-	//	item->SetInventory(this);
-
-	//	Vector2 size = item->GetItemSlotSize();
-	//	Transform* tr = item->GetComponent<Transform>();
-	//	tr->SetScale(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
-	//	tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * 1), mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * 1), 1.0f));
-
-	//	AddItem(item);
-
-	//	int x = 0;
-	//	int y = 0;
-
-	//	item->SetIndex(x, y);
-	//	mPoketSlot[0][0] = 1;
-	//	mPoketSlot[0][1] = 1;
-
-	//	mPoketSlot[1][0] = 1;
-	//	mPoketSlot[1][1] = 1;
-
-	//	item->SetOnInventory(true);
-	//	ItemManager::GetInstance()->AddItem(item);
-	//}
-
-	//// test
-	//{
-	//	GloveItem* item = new GloveItem(L"SmileTexture");
-	//	item->Initalize();
-	//	item->SetInventory(this);
-
-	//	Vector2 size = item->GetItemSlotSize();
-	//	Transform* tr = item->GetComponent<Transform>();
-	//	tr->SetScale(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
-	//	tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * 1), mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * 3), 1.0f));
-	//	int x = 0;
-	//	int y = 2;
-	//	item->SetIndex(x, y);
-	//	AddItem(item);
-
-	//	mPoketSlot[2][0] = 1;
-	//	mPoketSlot[2][1] = 1;
-
-	//	mPoketSlot[3][0] = 1;
-	//	mPoketSlot[3][1] = 1;
-
-	//	item->SetOnInventory(true);
-	//	ItemManager::GetInstance()->AddItem(item);
-	//}
-
-	//{
-	//	SuitItem* item = new SuitItem(L"SmileTexture");
-	//	item->Initalize();
-	//	item->SetInventory(this);
-
-	//	Vector2 size = item->GetItemSlotSize();
-	//	Transform* tr = item->GetComponent<Transform>();
-	//	tr->SetScale(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
-
-	//	int x = 2;
-	//	int y = 0;
-
-	//	// 현재 인덱스부터 출력될 위치를 계산하는 식
-	//	// 오브젝트의 인덱스 + (오브젝트의 크기 / 2 )  Ex) x = 2 + (2 * 0.5f), y = 0 + (2 * 0.5f)
-	//	float xSize = x + (size.x * 0.5f);
-	//	float ySize = y + (size.y * 0.5f);
-
-	//	// 오브젝트 크기의 절반만큼 포지션을 위치해준다
-	//	// ---------
-	//	// |  ↓   |
-	//	// |→ 0   |
-	//	// |       |
-	//	// ---------
-	//	tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
-	//		, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * ySize)
-	//		, 1.0f));
-
-	//	item->SetIndex(x, y);
-	//	AddItem(item);
-
-	//	mPoketSlot[0][2] = 1;
-	//	mPoketSlot[1][2] = 1;
-	//	mPoketSlot[2][2] = 1;
-
-	//	mPoketSlot[0][3] = 1;
-	//	mPoketSlot[1][3] = 1;
-	//	mPoketSlot[2][3] = 1;
-
-	//	item->SetOnInventory(true);
-	//	ItemManager::GetInstance()->AddItem(item);
-	//}
-
-	//{
-	//	BeltItem* item = new BeltItem(L"SmileTexture");
-	//	item->Initalize();
-	//	item->SetInventory(this);
-
-	//	Vector2 size = item->GetItemSlotSize();
-	//	Transform* tr = item->GetComponent<Transform>();
-	//	tr->SetScale(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
-
-	//	int x = 2;
-	//	int y = 3;
-	//	float xSize = x + (size.x * 0.5f);
-	//	float ySize = y + (size.y * 0.5f);
-	//	tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
-	//		, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * ySize)
-	//		, 1.0f));
-
-	//	item->SetIndex(x, y);
-	//	AddItem(item);
-
-	//	mPoketSlot[3][2] = 1;
-	//	mPoketSlot[3][3] = 1;
-
-	//	item->SetOnInventory(true);
-	//	ItemManager::GetInstance()->AddItem(item);
-	//}
-
-	//{
-	//	CapItem* item = new CapItem(L"SmileTexture");
-	//	item->Initalize();
-	//	item->SetInventory(this);
-
-	//	Vector2 size = item->GetItemSlotSize();
-	//	Transform* tr = item->GetComponent<Transform>();
-	//	tr->SetScale(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
-
-	//	int x = 4;
-	//	int y = 2;
-	//	float xSize = x + (size.x * 0.5f);
-	//	float ySize = y + (size.y * 0.5f);
-	//	tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
-	//		, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * ySize)
-	//		, 1.0f));
-
-	//	item->SetIndex(x, y);
-	//	AddItem(item);
-
-	//	mPoketSlot[2][4] = 1;
-	//	mPoketSlot[2][5] = 1;
-
-	//	mPoketSlot[3][4] = 1;
-	//	mPoketSlot[3][5] = 1;
-
-	//	item->SetOnInventory(true);
-	//	ItemManager::GetInstance()->AddItem(item);
-	//}
-
-	//{
-	//	WeponItem* item = new WeponItem(L"SmileTexture");
-	//	item->Initalize();
-	//	item->SetInventory(this);
-
-	//	Vector2 size = item->GetItemSlotSize();
-	//	Transform* tr = item->GetComponent<Transform>();
-	//	tr->SetScale(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
-
-	//	int x = 6;
-	//	int y = 0;
-	//	float xSize = x + (size.x * 0.5f);
-	//	float ySize = y + (size.y * 0.5f);
-	//	tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
-	//		, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * ySize)
-	//		, 1.0f));
-
-	//	item->SetIndex(x, y);
-	//	AddItem(item);
-
-	//	mPoketSlot[0][6] = 1;
-	//	mPoketSlot[1][6] = 1;
-	//	mPoketSlot[2][6] = 1;
-
-	//	item->SetOnInventory(true);
-	//	ItemManager::GetInstance()->AddItem(item);
-	//}
-
-	//{
-	//	WeponItem* item = new WeponItem(L"SmileTexture");
-	//	item->Initalize();
-	//	item->SetInventory(this);
-
-	//	Vector2 size = item->GetItemSlotSize();
-	//	Transform* tr = item->GetComponent<Transform>();
-	//	tr->SetScale(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
-
-	//	int x = 7;
-	//	int y = 0;
-	//	float xSize = x + (size.x * 0.5f);
-	//	float ySize = y + (size.y * 0.5f);
-	//	tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
-	//		, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * ySize)
-	//		, 1.0f));
-
-	//	item->SetIndex(x, y);
-	//	AddItem(item);
-
-	//	mPoketSlot[0][7] = 1;
-	//	mPoketSlot[1][7] = 1;
-	//	mPoketSlot[2][7] = 1;
-
-	//	item->SetOnInventory(true);
-	//	ItemManager::GetInstance()->AddItem(item);
-	//}
-
-	//{
-	//	HpPotionItem* item = new HpPotionItem();
-	//	item->Initalize();
-	//	item->SetInventory(this);
-
-	//	item->SetName(L"HpPotion1");
-
-	//	Vector2 size = item->GetItemSlotSize();
-	//	Transform* tr = item->GetComponent<Transform>();
-	//	tr->SetScale(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
-
-	//	int x = 4;
-	//	int y = 0;
-	//	float xSize = x + (size.x * 0.5f);
-	//	float ySize = y + (size.y * 0.5f);
-	//	tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
-	//		, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * ySize)
-	//		, 1.0f));
-
-	//	item->SetIndex(x, y);
-	//	AddItem(item);
-
-	//	mPoketSlot[0][4] = 1;
-
-	//	item->SetOnInventory(true);
-	//	ItemManager::GetInstance()->AddItem(item);
-	//}
-
-	//{
-	//	HpPotionItem* item = new HpPotionItem();
-	//	item->Initalize();
-	//	item->SetName(L"HpPotion2");
-	//	item->SetInventory(this);
-
-	//	Vector2 size = item->GetItemSlotSize();
-	//	Transform* tr = item->GetComponent<Transform>();
-	//	tr->SetScale(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
-
-	//	int x = 5;
-	//	int y = 0;
-	//	float xSize = x + (size.x * 0.5f);
-	//	float ySize = y + (size.y * 0.5f);
-	//	tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
-	//		, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * ySize)
-	//		, 1.0f));
-
-	//	item->SetIndex(x, y);
-	//	AddItem(item);
-
-	//	mPoketSlot[0][5] = 1;
-
-	//	item->SetOnInventory(true);
-	//	ItemManager::GetInstance()->AddItem(item);
-	//}
-
-	//{
-	//	MpPotionItem* item = new MpPotionItem();
-	//	item->Initalize();
-	//	item->SetName(L"MpPotion1");
-	//	item->SetInventory(this);
-
-	//	Vector2 size = item->GetItemSlotSize();
-	//	Transform* tr = item->GetComponent<Transform>();
-	//	tr->SetScale(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
-
-	//	int x = 4;
-	//	int y = 1;
-	//	float xSize = x + (size.x * 0.5f);
-	//	float ySize = y + (size.y * 0.5f);
-	//	tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
-	//		, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * ySize)
-	//		, 1.0f));
-
-	//	item->SetIndex(x, y);
-	//	AddItem(item);
-
-	//	mPoketSlot[1][4] = 1;
-
-	//	item->SetOnInventory(true);
-	//	ItemManager::GetInstance()->AddItem(item);
-	//}
-
-	//{
-	//	MpPotionItem* item = new MpPotionItem();
-	//	item->Initalize();
-	//	item->SetName(L"MpPotion2");
-	//	item->SetInventory(this);
-
-	//	Vector2 size = item->GetItemSlotSize();
-	//	Transform* tr = item->GetComponent<Transform>();
-	//	tr->SetScale(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
-
-	//	int x = 5;
-	//	int y = 1;
-	//	float xSize = x + (size.x * 0.5f);
-	//	float ySize = y + (size.y * 0.5f);
-	//	tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
-	//		, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * ySize)
-	//		, 1.0f));
-
-	//	item->SetIndex(x, y);
-	//	AddItem(item);
-
-	//	mPoketSlot[1][5] = 1;
-
-	//	item->SetOnInventory(true);
-	//	ItemManager::GetInstance()->AddItem(item);
-	//}
+	Vector3 mScale = this->GetComponent<Transform>()->GetScale() * this->GetComponent<Transform>()->GetSize();
+
+	// 임의로 배열내부에 아이템을 채워준다
+	//test
+	{
+		ShoesItem* item = new ShoesItem(L"SmileTexture");
+		item->Initalize();
+		item->SetInventory(this);
+
+		Vector2 size = item->GetItemSlotSize();
+		Transform* tr = item->GetComponent<Transform>();
+		tr->SetSize(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
+		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * 1), mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * 1), 1.0f));
+
+		AddItem(item);
+
+		int x = 0;
+		int y = 0;
+
+		item->SetIndex(x, y);
+		mPoketSlot[0][0] = 1;
+		mPoketSlot[0][1] = 1;
+
+		mPoketSlot[1][0] = 1;
+		mPoketSlot[1][1] = 1;
+
+		item->SetOnInventory(true);
+		ItemManager::GetInstance()->AddItem(item);
+	}
+
+	// test
+	{
+		GloveItem* item = new GloveItem(L"SmileTexture");
+		item->Initalize();
+		item->SetInventory(this);
+
+		Vector2 size = item->GetItemSlotSize();
+		Transform* tr = item->GetComponent<Transform>();
+		tr->SetSize(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
+		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * 1), mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * 3), 1.0f));
+		int x = 0;
+		int y = 2;
+		item->SetIndex(x, y);
+		AddItem(item);
+
+		mPoketSlot[2][0] = 1;
+		mPoketSlot[2][1] = 1;
+
+		mPoketSlot[3][0] = 1;
+		mPoketSlot[3][1] = 1;
+
+		item->SetOnInventory(true);
+		ItemManager::GetInstance()->AddItem(item);
+	}
+
+	{
+		SuitItem* item = new SuitItem(L"SmileTexture");
+		item->Initalize();
+		item->SetInventory(this);
+
+		Vector2 size = item->GetItemSlotSize();
+		Transform* tr = item->GetComponent<Transform>();
+		tr->SetSize(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
+
+		int x = 2;
+		int y = 0;
+
+		// 현재 인덱스부터 출력될 위치를 계산하는 식
+		// 오브젝트의 인덱스 + (오브젝트의 크기 / 2 )  Ex) x = 2 + (2 * 0.5f), y = 0 + (2 * 0.5f)
+		float xSize = x + (size.x * 0.5f);
+		float ySize = y + (size.y * 0.5f);
+
+		// 오브젝트 크기의 절반만큼 포지션을 위치해준다
+		// ---------
+		// |  ↓   |
+		// |→ 0   |
+		// |       |
+		// ---------
+		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
+			, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * ySize)
+			, 1.0f));
+
+		item->SetIndex(x, y);
+		AddItem(item);
+
+		mPoketSlot[0][2] = 1;
+		mPoketSlot[1][2] = 1;
+		mPoketSlot[2][2] = 1;
+
+		mPoketSlot[0][3] = 1;
+		mPoketSlot[1][3] = 1;
+		mPoketSlot[2][3] = 1;
+
+		item->SetOnInventory(true);
+		ItemManager::GetInstance()->AddItem(item);
+	}
+
+	{
+		BeltItem* item = new BeltItem(L"SmileTexture");
+		item->Initalize();
+		item->SetInventory(this);
+
+		Vector2 size = item->GetItemSlotSize();
+		Transform* tr = item->GetComponent<Transform>();
+		tr->SetSize(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
+
+		int x = 2;
+		int y = 3;
+		float xSize = x + (size.x * 0.5f);
+		float ySize = y + (size.y * 0.5f);
+		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
+			, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * ySize)
+			, 1.0f));
+
+		item->SetIndex(x, y);
+		AddItem(item);
+
+		mPoketSlot[3][2] = 1;
+		mPoketSlot[3][3] = 1;
+
+		item->SetOnInventory(true);
+		ItemManager::GetInstance()->AddItem(item);
+	}
+
+	{
+		CapItem* item = new CapItem(L"SmileTexture");
+		item->Initalize();
+		item->SetInventory(this);
+
+		Vector2 size = item->GetItemSlotSize();
+		Transform* tr = item->GetComponent<Transform>();
+		tr->SetSize(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
+
+		int x = 4;
+		int y = 2;
+		float xSize = x + (size.x * 0.5f);
+		float ySize = y + (size.y * 0.5f);
+		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
+			, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * ySize)
+			, 1.0f));
+
+		item->SetIndex(x, y);
+		AddItem(item);
+
+		mPoketSlot[2][4] = 1;
+		mPoketSlot[2][5] = 1;
+
+		mPoketSlot[3][4] = 1;
+		mPoketSlot[3][5] = 1;
+
+		item->SetOnInventory(true);
+		ItemManager::GetInstance()->AddItem(item);
+	}
+
+	{
+		WeponItem* item = new WeponItem(L"SmileTexture");
+		item->Initalize();
+		item->SetInventory(this);
+
+		Vector2 size = item->GetItemSlotSize();
+		Transform* tr = item->GetComponent<Transform>();
+		tr->SetSize(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
+
+		int x = 6;
+		int y = 0;
+		float xSize = x + (size.x * 0.5f);
+		float ySize = y + (size.y * 0.5f);
+		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
+			, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * ySize)
+			, 1.0f));
+
+		item->SetIndex(x, y);
+		AddItem(item);
+
+		mPoketSlot[0][6] = 1;
+		mPoketSlot[1][6] = 1;
+		mPoketSlot[2][6] = 1;
+
+		item->SetOnInventory(true);
+		ItemManager::GetInstance()->AddItem(item);
+	}
+
+	{
+		WeponItem* item = new WeponItem(L"SmileTexture");
+		item->Initalize();
+		item->SetInventory(this);
+
+		Vector2 size = item->GetItemSlotSize();
+		Transform* tr = item->GetComponent<Transform>();
+		tr->SetSize(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
+
+		int x = 7;
+		int y = 0;
+		float xSize = x + (size.x * 0.5f);
+		float ySize = y + (size.y * 0.5f);
+		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
+			, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * ySize)
+			, 1.0f));
+
+		item->SetIndex(x, y);
+		AddItem(item);
+
+		mPoketSlot[0][7] = 1;
+		mPoketSlot[1][7] = 1;
+		mPoketSlot[2][7] = 1;
+
+		item->SetOnInventory(true);
+		ItemManager::GetInstance()->AddItem(item);
+	}
+
+	{
+		HpPotionItem* item = new HpPotionItem();
+		item->Initalize();
+		item->SetInventory(this);
+
+		item->SetName(L"HpPotion1");
+
+		Vector2 size = item->GetItemSlotSize();
+		Transform* tr = item->GetComponent<Transform>();
+		tr->SetSize(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
+
+		int x = 4;
+		int y = 0;
+		float xSize = x + (size.x * 0.5f);
+		float ySize = y + (size.y * 0.5f);
+		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
+			, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * ySize)
+			, 1.0f));
+
+		item->SetIndex(x, y);
+		AddItem(item);
+
+		mPoketSlot[0][4] = 1;
+
+		item->SetOnInventory(true);
+		ItemManager::GetInstance()->AddItem(item);
+	}
+
+	{
+		HpPotionItem* item = new HpPotionItem();
+		item->Initalize();
+		item->SetName(L"HpPotion2");
+		item->SetInventory(this);
+
+		Vector2 size = item->GetItemSlotSize();
+		Transform* tr = item->GetComponent<Transform>();
+		tr->SetSize(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
+
+		int x = 5;
+		int y = 0;
+		float xSize = x + (size.x * 0.5f);
+		float ySize = y + (size.y * 0.5f);
+		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
+			, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * ySize)
+			, 1.0f));
+
+		item->SetIndex(x, y);
+		AddItem(item);
+
+		mPoketSlot[0][5] = 1;
+
+		item->SetOnInventory(true);
+		ItemManager::GetInstance()->AddItem(item);
+	}
+
+	{
+		MpPotionItem* item = new MpPotionItem();
+		item->Initalize();
+		item->SetName(L"MpPotion1");
+		item->SetInventory(this);
+
+		Vector2 size = item->GetItemSlotSize();
+		Transform* tr = item->GetComponent<Transform>();
+		tr->SetSize(Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f));
+
+		int x = 4;
+		int y = 1;
+		float xSize = x + (size.x * 0.5f);
+		float ySize = y + (size.y * 0.5f);
+		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
+			, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * ySize)
+			, 1.0f));
+
+		item->SetIndex(x, y);
+		AddItem(item);
+
+		mPoketSlot[1][4] = 1;
+
+		item->SetOnInventory(true);
+		ItemManager::GetInstance()->AddItem(item);
+	}
+
+	{
+		MpPotionItem* item = new MpPotionItem();
+		item->Initalize();
+		item->SetName(L"MpPotion2");
+		item->SetInventory(this);
+
+		Vector2 size = item->GetItemSlotSize();
+		Transform* tr = item->GetComponent<Transform>();
+		tr->SetSize((Vector3(size.x * ITEM_X_SIZE, size.y * ITEM_Y_SIZE, 1.0f)));
+
+		int x = 5;
+		int y = 1;
+		float xSize = x + (size.x * 0.5f);
+		float ySize = y + (size.y * 0.5f);
+		tr->SetPosition(Vector3(mPos.x - (mScale.x * 0.5f) + (ITEM_X_SIZE * xSize)
+			, mPos.y + (mScale.y * 0.5f) - (ITEM_Y_SIZE * ySize)
+			, 1.0f));
+
+		item->SetIndex(x, y);
+		AddItem(item);
+
+		mPoketSlot[1][5] = 1;
+
+		item->SetOnInventory(true);
+		ItemManager::GetInstance()->AddItem(item);
+	}
 }
 
 void InventoryButton::Update()
@@ -371,11 +371,11 @@ void InventoryButton::Update()
 
 		Transform* itemTr = item->GetComponent<Transform>();
 		Vector3 itemPos = itemTr->GetPosition();
-		Vector3 itemScale = itemTr->GetScale();
+		Vector3 itemScale = itemTr->GetScale() * itemTr->GetSize();
 
 		Transform* InvenTr = this->GetComponent<Transform>();
 		Vector3 InvenPos = InvenTr->GetPosition();
-		Vector3 InvenScale = InvenTr->GetScale();
+		Vector3 InvenScale = InvenTr->GetScale() * InvenTr->GetSize();
 
 		if (InvenPos.x - (InvenScale.x * 0.5f) <= itemPos.x + (itemScale.x * 0.5f)
 			&& InvenPos.x + (InvenScale.x * 0.5f) >= itemPos.x - (itemScale.x * 0.5f)
@@ -402,7 +402,7 @@ void InventoryButton::Update()
 		{
 			float itemX = (itemPos.x - (itemScale.x * 0.5f)) + ITEM_X_SIZE * 0.25f; // LeftTop에서 타일 한칸에 절반만큼
 			float itemY = (itemPos.y + (itemScale.y * 0.5f)) - ITEM_Y_SIZE * 0.5f;  // 위치부터 인덱스를 체크 한다
-																			  // 편의성 상승 효과		
+																					 // 편의성 상승 효과		
 			float InvenX = (InvenPos.x - (InvenScale.x * 0.5f));
 			float InvenY = (InvenPos.y + (InvenScale.y * 0.5f));
 
@@ -584,7 +584,7 @@ bool InventoryButton::PickUpItem(ItemBase* item)
 			{
 				mbDrop = true;
 				Transform* itemTr = item->GetComponent<Transform>();
-				itemTr->SetScale(item->GetInvenSacle());
+				itemTr->SetSize(item->GetInvenSize());
 
 				DropItem(item);
 				return true;
@@ -670,17 +670,17 @@ void InventoryButton::DropItem(ItemBase* item)
 
 	Transform* ItemTr = item->GetComponent<Transform>();
 	Vector3 ItemPos = ItemTr->GetPosition();
-	Vector3 ItemScale = Vector3(item->GetInvenSacle().x, item->GetInvenSacle().y, 0.0f);
+	Vector3 ItemScale = Vector3(item->GetInvenSize().x, item->GetInvenSize().y, 0.0f);
 
 	Transform* InvenTr = this->GetComponent<Transform>();
 	Vector3 InvenPos = InvenTr->GetPosition();
-	Vector3 InvenScale = InvenTr->GetScale();
+	Vector3 InvenScale = InvenTr->GetScale() * InvenTr->GetSize();
 
 	ItemPos.x = (InvenPos.x - (InvenScale.x * 0.5f)) + (ITEM_X_SIZE * mXIndex) + (ItemScale.x * 0.5f);
 	ItemPos.y = (InvenPos.y + (InvenScale.y * 0.5f)) - (ITEM_Y_SIZE * mYIndex) - (ItemScale.y * 0.5f);
 
 	ItemTr->SetPosition(ItemPos);
-	ItemTr->SetScale(item->GetInvenSacle());
+	ItemTr->SetSize(item->GetInvenSize());
 
 	mXIndex = -1.f;
 	mYIndex = -1.f;

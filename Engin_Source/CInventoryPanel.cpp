@@ -23,8 +23,8 @@ void InventoryPanel::Initalize()
 		button->SetLayerType(eLayerType::UI);
 
 		Transform* buttonTr = button->GetComponent<Transform>();
-		buttonTr->SetPosition(Vector3(6.05f, -0.3f, 1.0f));
-		buttonTr->SetScale(Vector3(5.4f, 2.1f, 0.0f));
+		buttonTr->SetPosition(Vector3(505.f, -130.f, 1.0f));
+		buttonTr->SetSize(Vector3(540.f, 210.f, 1.0f));
 		button->Initalize();
 
 		button->OnActive();
@@ -43,7 +43,7 @@ void InventoryPanel::Initalize()
 
 
 		Transform* buttonTr = button->GetComponent<Transform>();
-		buttonTr->SetPosition(Vector3(8.2f, 1.7f, 0.5f));
+		buttonTr->SetPosition(Vector3(720.f, 70.f, 0.5f));
 		buttonTr->SetScale(Vector3(1.f, 1.0f, 0.0f));
 		button->OnActive();
 
@@ -61,7 +61,7 @@ void InventoryPanel::Initalize()
 
 
 		Transform* buttonTr = button->GetComponent<Transform>();
-		buttonTr->SetPosition(Vector3(3.9f, 1.7f, 1.0f));
+		buttonTr->SetPosition(Vector3(290.f, 70.f, 1.0f));
 		buttonTr->SetScale(Vector3(1.f, 1.0f, 0.0f));
 		button->OnActive();
 
@@ -97,7 +97,7 @@ void InventoryPanel::Initalize()
 
 
 		Transform* buttonTr = button->GetComponent<Transform>();
-		buttonTr->SetPosition(Vector3(3.9f, 3.6f, 1.0f));
+		buttonTr->SetPosition(Vector3(290.f, 260.f, 1.0f));
 		buttonTr->SetScale(Vector3(1.f, 2.0f, 0.0f));
 		button->OnActive();
 
@@ -115,7 +115,7 @@ void InventoryPanel::Initalize()
 
 
 		Transform* buttonTr = button->GetComponent<Transform>();
-		buttonTr->SetPosition(Vector3(8.2f, 3.6f, 1.0f));
+		buttonTr->SetPosition(Vector3(720.f, 260.f, 1.0f));
 		buttonTr->SetScale(Vector3(1.f, 2.0f, 0.0f));
 		button->OnActive();
 
@@ -133,7 +133,7 @@ void InventoryPanel::Initalize()
 
 
 		Transform* buttonTr = button->GetComponent<Transform>();
-		buttonTr->SetPosition(Vector3(6.05f, 3.3f, 1.0f));
+		buttonTr->SetPosition(Vector3(505.f, 235.f, 1.0f));
 		buttonTr->SetScale(Vector3(1.f, 1.5f, 0.0f));
 		button->OnActive();
 
@@ -151,7 +151,7 @@ void InventoryPanel::Initalize()
 
 
 		Transform* buttonTr = button->GetComponent<Transform>();
-		buttonTr->SetPosition(Vector3(6.05f, 4.9f, 1.0f));
+		buttonTr->SetPosition(Vector3(505.f, 390.f, 1.0f));
 		buttonTr->SetScale(Vector3(1.f, 1.0f, 0.0f));
 		button->OnActive();
 

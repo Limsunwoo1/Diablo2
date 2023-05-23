@@ -183,7 +183,7 @@ void FrozenOrb::RunOrb()
 	Vector3 pos = tr->GetPosition();
 
 	mDirection.Normalize();
-	pos += Vector3(mDirection.x, mDirection.y, 0.0f) * Time::GetInstance()->DeltaTime() * 1.0f;
+	pos += Vector3(mDirection.x, mDirection.y, 0.0f) * Time::GetInstance()->DeltaTime() * 100.0f;
 
 	tr->SetPosition(pos);
 }

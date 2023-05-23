@@ -3,6 +3,8 @@
 #include "CInput.h"
 #include "CTime.h"
 #include "CSceneManager.h"
+#include "CCamera.h"
+#include "CWorldManager.h"
 
 CameraScript::CameraScript()
 	: Script()
@@ -19,14 +21,24 @@ void CameraScript::Initalize()
 
 void CameraScript::Update()
 {
-	if (SceneManager::GetInstance()->GetActiveScene()->GetScenType() != eSceneType::Tool)
-		return;
+	//if (SceneManager::GetInstance()->GetActiveScene()->GetScenType() != eSceneType::Tool)
+	//	return;
+
+	if (Input::GetInstance()->GetKeyDown(eKeyCode::SPACE))
+	{
+		Camera* camera = GetOwner()->GetComponent<Camera>();
+		if (camera != nullptr)
+		{
+			GameObject* player = WorldManager::GetInstance()->GetPlayer();
+			camera->GetTrace() == nullptr ? camera->SetTrace(player) : camera->SetTrace(nullptr);
+		}
+	}
 
 	Transform* tr = GetOwner()->GetComponent<Transform>();
 
 	Vector3 pos = tr->GetPosition();
 	
-	float speed = 50.f;
+	float speed = 500.f;
 
 	if (Input::GetInstance()->GetkeyState(eKeyCode::D) == eKeyState::PRESSED)
 	{
