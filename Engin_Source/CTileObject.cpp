@@ -11,8 +11,22 @@ TileObject::TileObject()
 	, mbPass(true)
 	, mArr{}
 	, mTexPath(L"")
+	, mMaxX(5)
+	, mMaxY(37)
+	, mIndexX(1)
+	, mIndexY(1)
 {
 	SetName(L"Tile");
+
+	MeshRenderer* mr = AddComponent<MeshRenderer>();
+	std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+	std::weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"TileMaterial");
+	mr->SetMesh(mesh);
+	mr->SetMaterial(material);
+	std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"TestTile");
+	material.lock()->SetTexture(eTextureSlot::T0, tex);
+
+	mbA = false;
 }
 
 TileObject::~TileObject()
@@ -30,15 +44,12 @@ void TileObject::Update()
 
 void TileObject::FixedUpdate()
 {
-	MeshRenderer* mr = GetComponent<MeshRenderer>();
-	std::weak_ptr<Material> mater = mr->GetMaterial();
-	std::weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"TileMaterial");
-	mr->SetMaterial(material);
-	std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"TestTile");
-	material.lock()->SetTexture(eTextureSlot::T0,tex);
-
+	if (mbA == true)
+		return;
 
 	GameObject::FixedUpdate();
+
+	mbA = true;
 }
 
 void TileObject::Render()

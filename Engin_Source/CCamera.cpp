@@ -134,8 +134,32 @@ void Camera::SortGameObjects()
 		if (gameObjects.size() == 0)
 			continue;
 
+		bool checkCamera = true;
+
+		if (i == (UINT)eLayerType::UI)
+			checkCamera = false;
+
 		for (GameObject* obj : gameObjects)
 		{
+			if (!checkCamera)
+			{
+				PushGameObjectToRenderingMode(obj);
+				continue;
+			}
+
+			Transform* tr = obj->GetComponent<Transform>();
+			Vector3 pos = tr->GetPosition();
+			
+			Transform* camerTr = GetOwner()->GetComponent<Transform>();
+			Vector3 cameraPos = camerTr->GetPosition();
+			Vector2 windowSize = Vector2(Application.GetWidth(), Application.GetHeight());
+
+			if (pos.x < cameraPos.x - (windowSize.x * 0.5f) || pos.x > cameraPos.x + (windowSize.x * 0.5f))
+				continue;
+
+			if (pos.y < cameraPos.y - (windowSize.y * 0.5f) || pos.y > cameraPos.y + (windowSize.y * 0.5f))
+				continue;
+
 			PushGameObjectToRenderingMode(obj);
 		}
 	}

@@ -215,7 +215,7 @@ void ItemBase::Update()
 			mbStage = false;
 
 			Transform* tr = this->GetComponent<Transform>();
-			tr->SetScale(this->GetInvenSize());
+			tr->SetSize(this->GetInvenSize());
 
 			this->GetComponent<Animator>()->StopPlayAnimation();
 
@@ -245,7 +245,7 @@ void ItemBase::Update()
 			ItemTr->SetPosition(ItemPos);
 
 			Vector3 scale = this->GetWorldSize();
-			ItemTr->SetScale(scale);
+			ItemTr->SetSize(scale);
 			mbStage = true;
 		}
 	}

@@ -39,8 +39,8 @@ float4 main(VSOut In) : SV_Target
     
     color = defaultTexture.Sample(pointSampler, In.UV);
     
-    //if (color.a <= 0.1f)
-    //    discard;
+    if (color.a <= 0.1f)
+       discard;
  
     if (color.x > 0.9f && color.z > 0.9f && color.y < 0.1f)
         discard;

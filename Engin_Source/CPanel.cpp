@@ -81,6 +81,7 @@ void Panel::Render()
 	if (mbEnable == false)
 	{
 		mr->SetRenderStop(true);
+		return;
 	}
 	else
 	{

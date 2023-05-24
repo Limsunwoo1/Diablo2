@@ -27,6 +27,7 @@ private:
 	UINT mIndexY;
 
 	bool mbPass;
+	bool mbA;
 
 	int mArr[5][5];
 	std::wstring mTexPath;
