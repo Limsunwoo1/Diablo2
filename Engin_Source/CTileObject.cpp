@@ -54,7 +54,7 @@ void TileObject::Render()
 		float MaxY = mMaxY;
 
 		info.StartUV = Math::Vector2(indexX / MaxX, indexY / MaxY);
-		info.EndUV = Math::Vector2((indexX + 1) / MaxX, (indexY + 1) / MaxY);
+		info.EndUV = Math::Vector2(((indexX + 1) / MaxX), ((indexY + 1) / MaxY));
 
 		ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::TileData];
 		cb->SetData(&info);

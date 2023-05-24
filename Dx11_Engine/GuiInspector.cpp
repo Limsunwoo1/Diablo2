@@ -85,17 +85,17 @@ namespace gui
 		if (curPos.x < 0 || curPos.y < 0)
 			return;
 
-		float u = curPos.x / size.x;
-		float v = curPos.y / size.y;
+		float fX = curPos.x / size.x;
+		float fY = curPos.y / size.y;
 
 		/*u *= dynamic_cast<guiTexture2D*>(mResources[(UINT)eResourceType::Texture])->GetMaxIndexX();
 		v *= dynamic_cast<guiTexture2D*>(mResources[(UINT)eResourceType::Texture])->GetMaxIndexY();*/
 
-		u *= 5;
-		v *= 37;
+		fX *= 5;
+		fY *= 37;
 
-		x = u;
-		y = v;
+		x = fX;
+		y = fY;
 
 
 		if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN))
