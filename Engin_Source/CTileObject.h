@@ -11,15 +11,24 @@ public:
 	virtual void Update();
 	virtual void FixedUpdate();
 	virtual void Render();
+
+	void SetMaxIndex(UINT x, UINT y) { mMaxX = x, mMaxY = y; }
+	void SetIndex(UINT x, UINT y) { mIndexX = x, mIndexY = y; }
+
+	std::pair<UINT, UINT> GetMaxIndex() { return std::make_pair(mMaxX, mMaxY); }
+	std::pair<UINT, UINT> GetIndex() { return std::make_pair(mIndexX, mIndexY); }
 private:
-	Vector2 mSize;
 	Vector2 mUV;
 
-	int mPalletIndex;
+	UINT mMaxX;
+	UINT mMaxY;
+
+	UINT mIndexX;
+	UINT mIndexY;
+
 	bool mbPass;
 
 	int mArr[5][5];
-
 	std::wstring mTexPath;
 };
 

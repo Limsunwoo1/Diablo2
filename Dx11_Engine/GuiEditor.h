@@ -46,6 +46,18 @@ namespace gui
 
 			return dynamic_cast<T*>(iter->second);
 		}
+
+		UINT GetTileMaxX() { return TileMaxX; }
+		UINT GetTileMaxY() { return TileMaxY; }
+
+		void SetTileMaxX(UINT x) { TileMaxX = x; }
+		void SetTileMaxY(UINT y) { TileMaxY = y; }
+
+		UINT GetTileIndexX() { return TileIndexX; }
+		UINT GetTileIndexY() { return TileIndexY; }
+
+		void SetTileIndexX(UINT x) { TileIndexX = x; }
+		void SetTileIndexY(UINT y) { TileIndexY = y; }
 	private:
 		std::map<std::string ,Widget*> mWidgets;
 		std::vector<EditorObject*> mEditorObjects;
@@ -53,6 +65,12 @@ namespace gui
 
 		class DockEditor* mDockObject;
 		EditorObject* mGrid;
+
+		UINT TileMaxX;
+		UINT TileMaxY;
+
+		UINT TileIndexX;
+		UINT TileIndexY;
 
 		bool mbItemsAble;
 	};

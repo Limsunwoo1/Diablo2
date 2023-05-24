@@ -125,6 +125,13 @@ namespace Renderer
 		UINT pick;
 		UINT OnInventory;
 	};
+
+	CBUFFER(TileDataCB, CBSLOT_TILEDATA)
+	{
+		Vector2 StartUV;
+		Vector2 EndUV;
+	};
+
 	extern Vertex FadeInOut[4];
 	extern Vertex vertexes[4];
 	extern Vertex HalfAlpha[4];

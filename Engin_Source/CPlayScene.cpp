@@ -62,7 +62,7 @@ void PlayScene::Initalize()
 
 	// IsoMetric
 	{
-		GameObject* IsoMetricCamera = Object::Instantiate<GameObject>(eLayerType::Camera, this);
+		/*GameObject* IsoMetricCamera = Object::Instantiate<GameObject>(eLayerType::Camera, this);
 		IsoMetricCamera->GetComponent<Transform>()->SetPosition(Vector3(10.f, 10.f, 10.f));
 		IsoMetricCamera->GetComponent<Transform>()->SetRotation(Vector3(0.f, 0.f, -45.f));
 		Camera* IsoMetricCameraComp = IsoMetricCamera->AddComponent<Camera>();
@@ -70,7 +70,7 @@ void PlayScene::Initalize()
 		IsoMetricCameraComp->TurnLayerMask(eLayerType::Tile, true);
 
 		IsoMetricCameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
-		mIsometricCamera = IsoMetricCameraComp;
+		mIsometricCamera = IsoMetricCameraComp;*/
 	}
 
 	// Main Camera Game Object
@@ -80,13 +80,13 @@ void PlayScene::Initalize()
 		cameraObj->GetComponent<Transform>()->SetPosition(Vector3(10.0f, 10.f, 1.0f));
 		//cameraComp->RegisterCameraInRenderer();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
-		cameraComp->TurnLayerMask(eLayerType::Tile, false);
+		//cameraComp->TurnLayerMask(eLayerType::Tile, false);
 		cameraObj->AddComponent<CameraScript>();
 		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
 		Renderer::mainCamera = cameraComp;
 		mMainCamera = cameraComp;
 
-		mIsometricCamera->SetTrace(GetMainCam()->GetOwner());
+		//mIsometricCamera->SetTrace(GetMainCam()->GetOwner());
 	}
 	// Ui Camera
 	{

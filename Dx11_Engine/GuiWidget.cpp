@@ -1,4 +1,5 @@
 #include "GuiWidget.h"
+#include "GuiTexture2D.h"
 
 namespace gui
 {
@@ -59,7 +60,12 @@ namespace gui
 		{
 			bool open = (bool)GetState();
 			FixedUpdate();
-			ImGui::Begin(GetName().c_str(), &open);
+
+			if(dynamic_cast<guiTexture2D*>(this) != nullptr)
+				ImGui::Begin(GetName().c_str(), &open, ImGuiWindowFlags_NoTitleBar);
+			else
+				ImGui::Begin(GetName().c_str(), &open);
+
 			Update();
 
 			for (Widget* child : mChilds)

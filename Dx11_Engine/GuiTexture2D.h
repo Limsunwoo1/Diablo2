@@ -11,8 +11,15 @@ namespace gui
 
 		virtual void Update() override;
 
-	private:
+		UINT GetMaxIndexX() { return mMaxIndexX; }
+		UINT GetMaxIndexY() { return mMaxIndexY; }
+		void SetMiaxIndeX(UINT x) { mMaxIndexX = x; }
+		void SetMaxIndexY(UINT y) { mMaxIndexY = y; }
+		
 
+	private:
+		UINT mMaxIndexX;
+		UINT mMaxIndexY;
 	};
 }
 

@@ -87,8 +87,8 @@ namespace gui
 		Consol* consol = new Consol();
 		mWidgets.insert(std::make_pair("consol", consol));
 
-		ListWidget* listWidget = new ListWidget();
-		mWidgets.insert(std::make_pair("ListWidget", listWidget));
+	/*	ListWidget* listWidget = new ListWidget();
+		mWidgets.insert(std::make_pair("ListWidget", listWidget));*/
 	}
 
 	void Editor::Run()

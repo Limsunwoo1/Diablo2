@@ -155,6 +155,7 @@
     <ClInclude Include="GuiMaterial.h">
       <Filter>GuiEditor\Material</Filter>
     </ClInclude>
+    <ClInclude Include="GuiObejctTex.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Dx11_Engine.rc">
@@ -257,6 +258,7 @@
     <ClCompile Include="GuiMaterial.cpp">
       <Filter>GuiEditor\Material</Filter>
     </ClCompile>
+    <ClCompile Include="GuiObejcTex.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="C:\Users\tjsdn\OneDrive\바탕 화면\0.cur">

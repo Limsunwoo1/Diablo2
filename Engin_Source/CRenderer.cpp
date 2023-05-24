@@ -342,6 +342,14 @@ namespace Renderer
 
 		grid2Shader.lock()->SetKey(L"Grid2Shader");
 
+		std::weak_ptr<Shader> TileShader = ResourceManager::GetInstance()->Find<Shader>(L"TileShader");
+		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, TileShader.lock()->GetVSBlobBufferPointer()
+			, TileShader.lock()->GetVSBlobBufferSize()
+			, TileShader.lock()->GetInputLayoutAddressOf());
+
+		TileShader.lock()->SetKey(L"TileShader");
+
 #pragma endregion
 #pragma region Sampler State
 		// »ùÇÃ·¯Ãß°¡
@@ -503,6 +511,9 @@ namespace Renderer
 
 		constantBuffers[(UINT)eCBType::ItemData] = new ConstantBuffer(eCBType::ItemData);
 		constantBuffers[(UINT)eCBType::ItemData]->Create(sizeof(ItemDataCB));
+
+		constantBuffers[(UINT)eCBType::TileData] = new ConstantBuffer(eCBType::TileData);
+		constantBuffers[(UINT)eCBType::TileData]->Create(sizeof(TileDataCB));
 #pragma endregion
 #pragma region STRUCTED BUFER
 		// Structed buffer
@@ -661,6 +672,14 @@ namespace Renderer
 		ResourceManager::GetInstance()->Insert<Shader>(L"PostProcessShader", postProcessshader);
 #pragma endregion
 
+#pragma region Tile Shader
+		std::shared_ptr<Shader> TileShader = std::make_shared<Shader>();
+		TileShader->Create(eShaderStage::VS, L"TileVS.hlsl", "main");
+		TileShader->Create(eShaderStage::PS, L"TilePS.hlsl", "main");
+
+		ResourceManager::GetInstance()->Insert<Shader>(L"TileShader", TileShader);
+#pragma endregion
+
 	}
 
 	void LoadTexture()
@@ -681,6 +700,7 @@ namespace Renderer
 		ResourceManager::GetInstance()->Load<Texture2D>(L"PlayerWalk", L"Diablo2_Walk.png");
 		ResourceManager::GetInstance()->Load<Texture2D>(L"PlayerRun", L"run.png");
 		ResourceManager::GetInstance()->Load<Texture2D>(L"PlayerIdle", L"Diablo2_Idle.png");
+		ResourceManager::GetInstance()->Load<Texture2D>(L"TestTile", L"testTile.png");
 #pragma endregion
 #pragma region DYNAMIC
 		// Create
@@ -989,6 +1009,16 @@ namespace Renderer
 			ButtonMaterial->SetRenderingMode(eRenderingMode::Transparent);
 			ButtonMaterial->SetShader(ButtonShader);
 			ResourceManager::GetInstance()->Insert<Material>(L"Button3Material", ButtonMaterial);;
+		}
+#pragma endregion
+
+#pragma region Button3 Material
+		{
+			std::weak_ptr<Shader> TileShader = ResourceManager::GetInstance()->Find<Shader>(L"TileShader");
+			std::shared_ptr<Material> TileMaterial = std::make_shared<Material>();
+			TileMaterial ->SetRenderingMode(eRenderingMode::Transparent);
+			TileMaterial ->SetShader(TileShader);
+			ResourceManager::GetInstance()->Insert<Material>(L"TileMaterial", TileMaterial);;
 		}
 #pragma endregion
 	}

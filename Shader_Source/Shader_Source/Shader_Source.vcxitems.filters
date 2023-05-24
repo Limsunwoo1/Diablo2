@@ -93,6 +93,9 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)Grid2PS.hlsl">
       <Filter>PS</Filter>
     </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)TilePS.hlsl">
+      <Filter>PS</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)globals.hlsli" />
@@ -102,5 +105,8 @@
     <None Include="$(MSBuildThisFileDirectory)Resource.hlsli" />
     <None Include="$(MSBuildThisFileDirectory)ConstantBuffer.hlsli" />
     <None Include="$(MSBuildThisFileDirectory)Blur.hlsli" />
+    <None Include="$(MSBuildThisFileDirectory)TileVS.hlsl">
+      <Filter>VS</Filter>
+    </None>
   </ItemGroup>
 </Project>

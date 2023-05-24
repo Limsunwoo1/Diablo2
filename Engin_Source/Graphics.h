@@ -22,6 +22,7 @@
 #define CBSLOT_NOISE			8
 #define CBSLOT_PLAYERDATA		9
 #define CBSLOT_ITEMDATA			10
+#define CBSLOT_TILEDATA			11
 
 namespace graphics
 {
@@ -38,6 +39,7 @@ namespace graphics
 		Noise,
 		PlayerData,
 		ItemData,
+		TileData,
 		End,
 	};
 

@@ -12,9 +12,13 @@
 
 #include "..//Engin_Source/CGraphicDevice_DX11.h"
 
+#include "..//Engin_Source/CTileObject.h"
+#include "GuiEditor.h"
+
 #include <iostream>
 
 extern CApplication Application;
+extern gui::Editor _Editor;
 
 namespace gui
 {
@@ -52,35 +56,40 @@ namespace gui
 							ImVec2(0.0f, 0.0f), ImVec2(1.0f, 1.0f),
 							tintColor);
 
-		this->WindowFocus(true);
 		ImVec2 window = ImGui::GetWindowPos();
 		ImVec2 windowSize = ImGui::GetWindowSize();
 		ImVec2 mouse = ImGui::GetMousePos();
 
-		ImVec2 left = mouse - window;
+		//ImVec2 client = ImGui::GetContentRegionAvail();
+
+
 		ImVec2 Pos = (mouse - window) /  windowSize;
 		
 		if (Pos.x < 0 || Pos.y < 0)
+		{
 			return;
-		
+		}
+	
 		UINT width = Application.GetWidth();
 		UINT height = Application.GetHeight();
 		Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos(Vector2(Pos.x * width, Pos.y * height));
 
-		std::cout << mousePos.x << "      X" << mousePos.y << "       Y" << std::endl;
 		if (Input::GetInstance()->GetKeyDown(eKeyCode::LCTRL))
 		{
-			GameObject* object = Object::Instantiate<GameObject>(eLayerType::Player, true);
+			TileObject* object = Object::Instantiate<TileObject>(eLayerType::Tile, true);
 			object->GetComponent<Transform>()->SetPosition(Vector3(mousePos.x, mousePos.y, 0.0f));
+			object->GetComponent<Transform>()->SetSize(Vector3(100.f * 5.f, 100.f * 37.f, 1.0f));
+
+			object->SetMaxIndex(_Editor.GetTileMaxX(), _Editor.GetTileMaxY());
+			object->SetIndex(_Editor.GetTileIndexX(), _Editor.GetTileIndexY());
+
 			MeshRenderer* mr = object->AddComponent<MeshRenderer>();
 			std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-			std::weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
+			std::weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"TileMaterial");
 
 			mr->SetMesh(mesh);
 			mr->SetMaterial(material);
 		}
-
-		this->WindowFocus(false);
 	}
 	void Game::LateUpdate()
 	{

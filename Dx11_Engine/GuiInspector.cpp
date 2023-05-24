@@ -4,11 +4,18 @@
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
 
+#include "GuiEditor.h"
+
 #include "Engin_Source/CRenderer.h"
 
 #include "GuiTransform.h"
 #include "GuiMeshRenderer.h"
 #include "GuiTexture2D.h"
+#include "..//Engin_Source/CInput.h"
+
+#include <iostream>
+
+extern gui::Editor _Editor;
 
 namespace gui
 {
@@ -59,7 +66,48 @@ namespace gui
 	}
 	void Inspector::Update()
 	{
-		
+		ImVec2 MousePos = ImGui::GetMousePos();
+
+		ImVec2 pos = ImGui::GetWindowPos();
+		ImVec2 windowSize = ImGui::GetWindowSize();
+
+		ImVec2 size = ImGui::GetContentRegionAvail();
+
+		float diff = windowSize.y - size.y;
+		pos.y += diff;
+
+		mResources[(UINT)eResourceType::Texture]->SetSize(ImVec2(size.x, size.y));
+
+		UINT x = 0;
+		UINT y = 0;
+
+		ImVec2 curPos = MousePos - pos;
+		if (curPos.x < 0 || curPos.y < 0)
+			return;
+
+		float u = curPos.x / size.x;
+		float v = curPos.y / size.y;
+
+		/*u *= dynamic_cast<guiTexture2D*>(mResources[(UINT)eResourceType::Texture])->GetMaxIndexX();
+		v *= dynamic_cast<guiTexture2D*>(mResources[(UINT)eResourceType::Texture])->GetMaxIndexY();*/
+
+		u *= 5;
+		v *= 37;
+
+		x = u;
+		y = v;
+
+
+		if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN))
+		{
+			_Editor.SetTileMaxX(5);
+			_Editor.SetTileMaxY(37);
+
+			_Editor.SetTileIndexX(x);
+			_Editor.SetTileIndexY(y);
+
+			std::cout << x << "   X Index" << y << "    Y Idex  " << std::endl;
+		}
 	}
 	void Inspector::LateUpdate()
 	{

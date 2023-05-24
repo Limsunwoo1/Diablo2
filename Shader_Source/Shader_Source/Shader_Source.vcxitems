@@ -86,6 +86,9 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)SpriteVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
     </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)TilePS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+    </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)UserInterfacePS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
     </FxCompile>
@@ -104,5 +107,6 @@
     <None Include="$(MSBuildThisFileDirectory)Particle.hlsli" />
     <None Include="$(MSBuildThisFileDirectory)Resource.hlsli" />
     <None Include="$(MSBuildThisFileDirectory)Sampler.hlsli" />
+    <None Include="$(MSBuildThisFileDirectory)TileVS.hlsl" />
   </ItemGroup>
 </Project>

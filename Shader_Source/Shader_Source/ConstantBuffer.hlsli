@@ -99,3 +99,8 @@ cbuffer ItemData : register(b10)
     uint onInventory;
 }
 
+cbuffer TileData : register(b11)
+{
+    float2 startUV;
+    float2 endUV;
+}

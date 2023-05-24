@@ -46,7 +46,7 @@ float4 main(VSOut In) : SV_Target
        // color.z -= NodseTexture.Sample(pointSampler, In.UV).x * 0.25 *  (10.0f - NoiseTime);
     //}
     
-    if (color.a <= 0.0f)
+    if (color.a <= 0.1f)
         discard;
     
     

@@ -148,6 +148,7 @@
     <ClInclude Include="GuiMaterial.h" />
     <ClInclude Include="GuiMesh.h" />
     <ClInclude Include="GuiMeshRenderer.h" />
+    <ClInclude Include="GuiObejctTex.h" />
     <ClInclude Include="GuiProject.h" />
     <ClInclude Include="GuiResource.h" />
     <ClInclude Include="GuiTexture2D.h" />
@@ -182,6 +183,7 @@
     <ClCompile Include="GuiMaterial.cpp" />
     <ClCompile Include="GuiMesh.cpp" />
     <ClCompile Include="GuiMeshRenderer.cpp" />
+    <ClCompile Include="GuiObejcTex.cpp" />
     <ClCompile Include="GuiProject.cpp" />
     <ClCompile Include="GuiResource.cpp" />
     <ClCompile Include="GuiTexture2D.cpp" />
