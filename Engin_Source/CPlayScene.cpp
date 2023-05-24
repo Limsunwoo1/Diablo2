@@ -100,6 +100,21 @@ void PlayScene::Initalize()
 		mUiCamera = uiCameraComp;
 	}
 
+	{
+		/*BackGround* bg = Object::Instantiate<BackGround>(eLayerType::BackGround, this);
+		SpriteRenderer* sr = bg->AddComponent<SpriteRenderer>();
+		weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"FadeMesh");
+		weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"Rect2Material");
+		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->
+			Load<Texture2D>(L"ItemSlot", L"UI//NoneCanvers.png");
+
+		sr->SetMesh(mesh);
+		sr->SetMaterial(material);
+		material.lock()->SetTexture(eTextureSlot::T0, tex);
+
+		Transform* tr = bg->GetComponent<Transform>();
+		tr->SetScale(Vector3(10000.f, 10000.f, 1.0f));*/
+	}
 	/*{
 		GameObject* fade = Object::Instantiate<GameObject>(eLayerType::BackGround, this);
 		SpriteRenderer* sr = fade->AddComponent<SpriteRenderer>();

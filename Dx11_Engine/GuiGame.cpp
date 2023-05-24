@@ -78,7 +78,7 @@ namespace gui
 		{
 			TileObject* object = Object::Instantiate<TileObject>(eLayerType::Tile, true);
 			object->GetComponent<Transform>()->SetPosition(Vector3(mousePos.x, mousePos.y, 0.0f));
-			object->GetComponent<Transform>()->SetSize(Vector3(100.f * 5.f, 100.f * 37.f, 1.0f));
+			object->GetComponent<Transform>()->SetSize(Vector3(200.f, 100.f , 1.0f));
 
 			object->SetMaxIndex(_Editor.GetTileMaxX(), _Editor.GetTileMaxY());
 			object->SetIndex(_Editor.GetTileIndexX(), _Editor.GetTileIndexY());

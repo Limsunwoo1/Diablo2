@@ -32,7 +32,7 @@ void EquipmentButton::Initalize()
 	std::weak_ptr<Texture2D> tex1 = ResourceManager::GetInstance()->
 		Find<Texture2D>(L"SmileTexture");
 
-	material.lock()->SetTexture(eTextureSlot::T0, tex1);
+	material.lock()->SetTexture(eTextureSlot::T0, tex);
 
 	sr->SetMesh(mesh);
 	sr->SetMaterial(material);
