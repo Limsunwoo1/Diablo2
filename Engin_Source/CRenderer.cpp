@@ -671,11 +671,12 @@ namespace Renderer
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"PostProcessShader", postProcessshader);
 #pragma endregion
-
 #pragma region Tile Shader
 		std::shared_ptr<Shader> TileShader = std::make_shared<Shader>();
 		TileShader->Create(eShaderStage::VS, L"TileVS.hlsl", "main");
 		TileShader->Create(eShaderStage::PS, L"TilePS.hlsl", "main");
+		TileShader->SetDepthStencil(eDepthStencilType::None);
+
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"TileShader", TileShader);
 #pragma endregion
@@ -700,7 +701,12 @@ namespace Renderer
 		ResourceManager::GetInstance()->Load<Texture2D>(L"PlayerWalk", L"Diablo2_Walk.png");
 		ResourceManager::GetInstance()->Load<Texture2D>(L"PlayerRun", L"run.png");
 		ResourceManager::GetInstance()->Load<Texture2D>(L"PlayerIdle", L"Diablo2_Idle.png");
-		ResourceManager::GetInstance()->Load<Texture2D>(L"TestTile", L"testTile.png");
+
+		{
+			std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"TestTile", L"testTile.png");
+			tex.lock()->SetMaxX(5);
+			tex.lock()->SetMaxY(37);
+		}
 #pragma endregion
 #pragma region DYNAMIC
 		// Create

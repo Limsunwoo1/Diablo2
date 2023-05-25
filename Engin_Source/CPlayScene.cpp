@@ -82,7 +82,7 @@ void PlayScene::Initalize()
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		//cameraComp->TurnLayerMask(eLayerType::Tile, false);
 		cameraObj->AddComponent<CameraScript>();
-		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
+		cameraComp->SetProjectionType(Camera::eProjectionType::Prespective);
 		Renderer::mainCamera = cameraComp;
 		mMainCamera = cameraComp;
 
@@ -220,19 +220,51 @@ void PlayScene::Initalize()
 	//}
 
 	{
-		float sizeX = 400.f;
-		float sizeY = 200.f;
-		for (int i = 0; i < 50; ++i)
+		float sizeX = 200.f;
+		float sizeY = 100.f;
+		for (int y = 0; y < 20; ++y)
 		{
-			for (int j = 0; j < 50; ++j)
+			for (int x = 0; x < 20; ++x)
 			{
-				TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
+				if (x + y >= 20)
+					continue;
 
+				TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
 				Transform* tr = tile->GetComponent<Transform>();
-				tr->SetPosition(Vector3((sizeX * i) + (sizeX * 0.5f) , (sizeY * j) + (sizeY* 0.5f), 1.0f));
+				UINT maxX = tile->GetMaterial()->GetTexture(eTextureSlot::T0).lock()->GetMaxX();
+				UINT maxY = tile->GetMaterial()->GetTexture(eTextureSlot::T0).lock()->GetMaxY();
+
+				tile->SetMaxIndex(maxX, maxY);
+				tile->SetIndex(2, 2);
+				
+
+
+				tr->SetPosition(Vector3( x * ( sizeX * 0.5f), (y * sizeY)+ (x * ( sizeY * 0.5f)), -50.0f));
 				tr->SetSize(Vector3(sizeX, sizeY, 1.0f));
 			}
 		}
+
+		/*for (int y = 0; y < 20; ++y)
+		{
+			for (int x = 0; x < 20; ++x)
+			{
+				if (x + y >= 20)
+					continue;
+
+				TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
+				Transform* tr = tile->GetComponent<Transform>();
+				UINT maxX = tile->GetMaterial()->GetTexture(eTextureSlot::T0).lock()->GetMaxX();
+				UINT maxY = tile->GetMaterial()->GetTexture(eTextureSlot::T0).lock()->GetMaxY();
+
+				tile->SetMaxIndex(maxX, maxY);
+				tile->SetIndex(2, 2);
+
+
+
+				tr->SetPosition(Vector3((- 1 * x) * (sizeX * 0.5f), (y* sizeY) + (x * (sizeY * 0.5f)), -50.0f));
+				tr->SetSize(Vector3(sizeX, sizeY, 1.0f));
+			}
+		}*/
 	}
 
 	//{

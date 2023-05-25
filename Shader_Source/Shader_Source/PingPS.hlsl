@@ -21,5 +21,9 @@ float4 main(VSOut In) : SV_Target
     color = defaultTexture.Sample(pointSampler, In.UV);
     color *= (1.0f - time);
     //color.w = time;
+    
+    if (color.a <= 0.1f)
+        discard;
+    
     return color;
 }

@@ -100,8 +100,9 @@ namespace gui
 
 		if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN))
 		{
-			_Editor.SetTileMaxX(5);
-			_Editor.SetTileMaxY(37);
+			Texture2D* tex = dynamic_cast<Texture2D*>(mResources[(UINT)eResourceType::Texture]->GetTarget());
+			_Editor.SetTileMaxX(tex->GetMaxX());
+			_Editor.SetTileMaxY(tex->GetMaxY());
 
 			_Editor.SetTileIndexX(x);
 			_Editor.SetTileIndexY(y);

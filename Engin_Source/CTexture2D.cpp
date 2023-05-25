@@ -7,6 +7,8 @@ namespace graphics
 		: Resource(eResourceType::Texture)
 		, mDesc{}
 		, mTexture(nullptr)
+		, mMaxX(1)
+		, mMaxY(1)
 	{
 	}
 

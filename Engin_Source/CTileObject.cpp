@@ -11,8 +11,8 @@ TileObject::TileObject()
 	, mbPass(true)
 	, mArr{}
 	, mTexPath(L"")
-	, mMaxX(5)
-	, mMaxY(37)
+	, mMaxX(1)
+	, mMaxY(1)
 	, mIndexX(1)
 	, mIndexY(1)
 {
@@ -26,7 +26,12 @@ TileObject::TileObject()
 	std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"TestTile");
 	material.lock()->SetTexture(eTextureSlot::T0, tex);
 
-	mbA = false;
+	mMaterial = material.lock().get();
+
+	mMaxX = tex.lock()->GetMaxX();
+	mMaxY = tex.lock()->GetMaxY();
+
+	mbUpdate = false;
 }
 
 TileObject::~TileObject()
@@ -44,12 +49,12 @@ void TileObject::Update()
 
 void TileObject::FixedUpdate()
 {
-	if (mbA == true)
+	if (mbUpdate == true)
 		return;
 
 	GameObject::FixedUpdate();
 
-	mbA = true;
+	mbUpdate = true;
 }
 
 void TileObject::Render()

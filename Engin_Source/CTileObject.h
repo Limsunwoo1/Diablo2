@@ -17,6 +17,9 @@ public:
 
 	std::pair<UINT, UINT> GetMaxIndex() { return std::make_pair(mMaxX, mMaxY); }
 	std::pair<UINT, UINT> GetIndex() { return std::make_pair(mIndexX, mIndexY); }
+
+	Material* GetMaterial() { return mMaterial; }
+	void SetMaterial(Material* mater) { mMaterial = mater; }
 private:
 	Vector2 mUV;
 
@@ -27,9 +30,11 @@ private:
 	UINT mIndexY;
 
 	bool mbPass;
-	bool mbA;
+	bool mbUpdate;
 
 	int mArr[5][5];
 	std::wstring mTexPath;
+
+	Material* mMaterial;
 };
 

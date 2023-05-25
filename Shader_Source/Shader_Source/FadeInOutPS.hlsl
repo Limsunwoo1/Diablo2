@@ -31,5 +31,8 @@ float4 main(VSOut _In) : SV_Target
     color *= _lightColor.diffuse;
     color.w *= _In.Color.w;
     
+    if (color.a <= 0.1f)
+        discard;
+    
     return color;
 }

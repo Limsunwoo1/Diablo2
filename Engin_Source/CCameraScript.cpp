@@ -56,7 +56,8 @@ void CameraScript::Update()
 	{
 		pos += speed * -tr->Forward() * Time::GetInstance()->DeltaTime();
 	}
-	else if (Input::GetInstance()->GetkeyState(eKeyCode::W) == eKeyState::PRESSED)
+
+	if (Input::GetInstance()->GetkeyState(eKeyCode::W) == eKeyState::PRESSED)
 	{
 		pos += speed * tr->Up() * Time::GetInstance()->DeltaTime();
 	}

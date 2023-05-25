@@ -40,7 +40,7 @@ void UIManager::Initialize()
 		Inventory->InitRenderer(L"InventoryMaterial", L"InventoryPanel", L"UI//invenpanel.png");
 		Inventory->UnActive();
 		Transform* InventoryTR = Inventory->GetComponent<Transform>();
-		InventoryTR->SetPosition(Vector3(500.f, 50.f, 1.0f));
+		InventoryTR->SetPosition(Vector3(500.f, 50.f, 0.01f));
 		InventoryTR->SetSize(Vector3(600.f, 800.f, 1.0f));
 
 		/*Collider2D* InventoryCollider = Inventory->AddComponent<Collider2D>();
@@ -55,7 +55,7 @@ void UIManager::Initialize()
 		mainPanelui->InitRenderer(L"mainPanelMaterial", L"mainPanel", L"UI//mainPanel.png");
 		mainPanelui->Active();
 		Transform* maintr = mainPanelui->GetComponent<Transform>();
-		maintr->SetPosition(Vector3(0.f, -400.f, 1.0f));
+		maintr->SetPosition(Vector3(0.f, -400.f, 0.01));
 		maintr->SetSize(Vector3(1000.f, 100.f, 0.f));
 		Push(L"mainPanel", mainPanelui);
 		///////////////////////////////////////////////////////////////////////////////
@@ -73,7 +73,7 @@ void UIManager::Initialize()
 		hpui->InitRenderer(L"HpPanelMaterial", L"HPPanel", L"UI//ctrlpanellife.png");
 		hpui->Active();
 		Transform* hpuitr = hpui->GetComponent<Transform>();
-		hpuitr->SetPosition(Vector3(-650.f, 50.f, 1.0f));
+		hpuitr->SetPosition(Vector3(-650.f, 50.f, 0.02f));
 		hpuitr->SetSize(Vector3(300.f, 300.f, 1.0f));
 		//Push(L"hpUi", hpui);
 
@@ -84,7 +84,7 @@ void UIManager::Initialize()
 		mpui->InitRenderer(L"MpPanelMaterial", L"MPPanel", L"UI//ctrlpanelmana.png");
 		mpui->Active();
 		Transform* mpuitr = mpui->GetComponent<Transform>();
-		mpuitr->SetPosition(Vector3(650.f, 50.f, 1.0f));
+		mpuitr->SetPosition(Vector3(650.f, 50.f, 0.02f));
 		mpuitr->SetSize(Vector3(300.f, 300.f, 1.f));
 		//Push(L"mpUi", mpui);
 
@@ -99,7 +99,7 @@ void UIManager::Initialize()
 		hp->Active();
 
 		Transform* hptr = hp->GetComponent<Transform>();
-		hptr->SetPosition(Vector3(30.f, 0.f, 0.f));
+		hptr->SetPosition(Vector3(30.f, 0.f, 0.02f));
 		hptr->SetSize(Vector3(220.0f, 220.0f, 0.f));
 		hptr->SetRotation(Vector3(0.0f, 0.0f, 90.f));
 
@@ -110,7 +110,7 @@ void UIManager::Initialize()
 		mp->Active();
 
 		Transform* mptr = mp->GetComponent<Transform>();
-		mptr->SetPosition(Vector3(-30.f, 0.f, 0.f));
+		mptr->SetPosition(Vector3(-30.f, 0.f, 0.02f));
 		mptr->SetSize(Vector3(220.0f, 220.0f, 0.f));
 		mptr->SetRotation(Vector3(0.0f, 0.0f, 90.f));
 
@@ -121,7 +121,7 @@ void UIManager::Initialize()
 		runIcon->Active();
 
 		Transform* runtr = runIcon->GetComponent<Transform>();
-		runtr->SetPosition(Vector3(-291.f, -10.f, 0.f));
+		runtr->SetPosition(Vector3(-291.f, -10.f, 0.02f));
 		runtr->SetSize(Vector3(35.f, 35.f, 1.f));
 
 		// WalkIcon
@@ -131,7 +131,7 @@ void UIManager::Initialize()
 		walkIcon ->Active();
 
 		Transform* walktr = walkIcon->GetComponent<Transform>();
-		walktr->SetPosition(Vector3(-291.f, -10.f, 0.f));
+		walktr->SetPosition(Vector3(-291.f, -10.f, 0.02f));
 		walktr->SetSize(Vector3(35.f, 35.f, 1.f));
 
 		// RunGauge
@@ -141,7 +141,7 @@ void UIManager::Initialize()
 		runGauge->Active();
 
 		Transform* RunGaugetr = runGauge->GetComponent<Transform>();
-		RunGaugetr->SetPosition(Vector3(-157.f, -11.f, 0.f));
+		RunGaugetr->SetPosition(Vector3(-157.f, -11.f, 0.02f));
 		RunGaugetr->SetSize(Vector3(2.2f * 100.f, 0.35f * 100.f, 0.f));
 
 		

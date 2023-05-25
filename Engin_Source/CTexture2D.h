@@ -37,6 +37,12 @@ namespace graphics
 		UINT GetHeight() { return mDesc.Height; }
 		UINT GetWidth() { return mDesc.Width; }
 
+		UINT GetMaxX() { return mMaxX; }
+		UINT GetMaxY() { return mMaxY; }
+
+		void SetMaxX(UINT x) { mMaxX = x; }
+		void SetMaxY(UINT y) { mMaxY = y; }
+
 		ComPtr<ID3D11Texture2D> GetTexture()		{ return mTexture; }
 		ComPtr<ID3D11DepthStencilView> GetDSV()		{ return mDSV; }
 		ComPtr<ID3D11RenderTargetView> GetRTV()		{ return mRTV; }
@@ -53,5 +59,8 @@ namespace graphics
 		ComPtr<ID3D11UnorderedAccessView> mUAV;
 		ComPtr<ID3D11ShaderResourceView> mSRV;
 		D3D11_TEXTURE2D_DESC mDesc;
+
+		UINT mMaxX;
+		UINT mMaxY;
 	};
 }

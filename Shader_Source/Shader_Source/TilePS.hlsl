@@ -39,6 +39,14 @@ float4 main(VSOut In) : SV_Target
     
     color = defaultTexture.Sample(pointSampler, In.UV);
     
+    LightColor _lightColor = (LightColor) 0.0f;
+    for (uint i = 0; i < numberOfLight; i++)
+    {
+        CalculateLight(_lightColor, In.WorldPos.xyz, i);
+    }
+    color *= _lightColor.diffuse;
+    color.w *= In.Color.w;
+    
     if (color.a <= 0.1f)
        discard;
  
