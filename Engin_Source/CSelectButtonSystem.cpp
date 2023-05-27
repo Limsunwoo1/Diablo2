@@ -404,8 +404,8 @@ void SelectButtonSystem::Select_Ok_Button()
 	collider->SetType(eColliderType::Rect);
 
 	Transform* tr = player->GetComponent<Transform>();
-	tr->SetPosition(Vector3(info.Postion.x, info.Postion.y, info.Postion.z));
-	tr->SetScale(Vector3(3.0f, 3.0f, 1.0f));
+	tr->SetPosition(Vector3(5000.f , 5000.f , info.Postion.z));
+	tr->SetSize(Vector3(300.f, 300.f, 300.f));
 
 	SpriteRenderer* spr = player->AddComponent<SpriteRenderer>();
 	std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");

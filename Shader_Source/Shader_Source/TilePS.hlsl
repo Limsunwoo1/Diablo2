@@ -39,6 +39,8 @@ float4 main(VSOut In) : SV_Target
     
     color = defaultTexture.Sample(pointSampler, In.UV);
     
+    
+    
     LightColor _lightColor = (LightColor) 0.0f;
     for (uint i = 0; i < numberOfLight; i++)
     {

@@ -148,6 +148,7 @@ namespace Renderer
 
 	extern Camera* mainCamera;
 	extern Camera* UiCamera;
+	extern Camera* IsometricCamera;
 
 	extern GameObject* InspectorGameObject;
 

@@ -62,15 +62,16 @@ void PlayScene::Initalize()
 
 	// IsoMetric
 	{
-		/*GameObject* IsoMetricCamera = Object::Instantiate<GameObject>(eLayerType::Camera, this);
+		GameObject* IsoMetricCamera = Object::Instantiate<GameObject>(eLayerType::Camera, this);
 		IsoMetricCamera->GetComponent<Transform>()->SetPosition(Vector3(10.f, 10.f, 10.f));
-		IsoMetricCamera->GetComponent<Transform>()->SetRotation(Vector3(0.f, 0.f, -45.f));
+		IsoMetricCamera->GetComponent<Transform>()->SetRotation(Vector3(0.f, 0.f, -0.f));
 		Camera* IsoMetricCameraComp = IsoMetricCamera->AddComponent<Camera>();
 		IsoMetricCameraComp->DisableLayerMasks();
 		IsoMetricCameraComp->TurnLayerMask(eLayerType::Tile, true);
 
 		IsoMetricCameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
-		mIsometricCamera = IsoMetricCameraComp;*/
+		mIsometricCamera = IsoMetricCameraComp;
+		Renderer::IsometricCamera = IsoMetricCameraComp;
 	}
 
 	// Main Camera Game Object
@@ -80,13 +81,14 @@ void PlayScene::Initalize()
 		cameraObj->GetComponent<Transform>()->SetPosition(Vector3(10.0f, 10.f, 1.0f));
 		//cameraComp->RegisterCameraInRenderer();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
+		cameraComp->TurnLayerMask(eLayerType::Tile, false);
 		//cameraComp->TurnLayerMask(eLayerType::Tile, false);
 		cameraObj->AddComponent<CameraScript>();
-		cameraComp->SetProjectionType(Camera::eProjectionType::Prespective);
+		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
 		Renderer::mainCamera = cameraComp;
 		mMainCamera = cameraComp;
 
-		//mIsometricCamera->SetTrace(GetMainCam()->GetOwner());
+		mIsometricCamera->SetTrace(GetMainCam()->GetOwner());
 	}
 	// Ui Camera
 	{
@@ -219,7 +221,10 @@ void PlayScene::Initalize()
 	//	WorldManager::GetInstance()->SetObstacle(tr->GetPosition().x, tr->GetPosition().y);
 	//}
 
+	int indexX = 0;
+	int indexY = 0;
 	{
+		bool a = false;
 		float sizeX = 200.f;
 		float sizeY = 100.f;
 		for (int y = 0; y < 20; ++y)
@@ -235,12 +240,25 @@ void PlayScene::Initalize()
 				UINT maxY = tile->GetMaterial()->GetTexture(eTextureSlot::T0).lock()->GetMaxY();
 
 				tile->SetMaxIndex(maxX, maxY);
-				tile->SetIndex(2, 2);
+				tile->SetIndex(x, y);
 				
-
-
-				tr->SetPosition(Vector3( x * ( sizeX * 0.5f), (y * sizeY)+ (x * ( sizeY * 0.5f)), -50.0f));
+				tr->SetPosition(Vector3((x*(sizeX * 0.5f) + 5000.f), (y* sizeY) + (x * (sizeY * 0.5f)) + 5000.f, -50.0f));
 				tr->SetSize(Vector3(sizeX, sizeY, 1.0f));
+
+				indexX = x;
+				indexY = y;
+
+				tile->SetScreenIndex(x, y);
+
+			/*	if (!a)
+				{
+					float xt = (x * (sizeX * 0.5f) + 5000.f) - (sizeX * 0.75f);
+					float yt = ((y * sizeY) + (x * (sizeY * 0.5f)) + 5000.f) - (sizeY * 0.75f);
+					tr->SetPosition(Vector3((x* (sizeX * 0.5f) + 5000.f) - (sizeX * 0.75f), ((y* sizeY) + (x * (sizeY * 0.5f)) + 5000.f) - (sizeY * 0.75f), -50.0f));
+
+					tile->SetIndex(x, y);
+					a = true;
+				}*/
 			}
 		}
 
@@ -257,12 +275,13 @@ void PlayScene::Initalize()
 				UINT maxY = tile->GetMaterial()->GetTexture(eTextureSlot::T0).lock()->GetMaxY();
 
 				tile->SetMaxIndex(maxX, maxY);
-				tile->SetIndex(2, 2);
+				tile->SetIndex(x, y);
 
 
-
-				tr->SetPosition(Vector3((- 1 * x) * (sizeX * 0.5f), (y* sizeY) + (x * (sizeY * 0.5f)), -50.0f));
+				tr->SetPosition(Vector3((- 1 * x) * (sizeX * 0.5f) + 5000.f, (y* sizeY) + (x * (sizeY * 0.5f)) + 5000.f, -50.0f));
 				tr->SetSize(Vector3(sizeX, sizeY, 1.0f));
+
+				tile->SetScreenIndex(x + indexX, y + indexY);
 			}
 		}*/
 	}

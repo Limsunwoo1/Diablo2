@@ -66,6 +66,9 @@ namespace gui
 	}
 	void Inspector::Update()
 	{
+		if (mResources[(UINT)eResourceType::Texture]->GetTarget() == nullptr)
+			return;
+
 		ImVec2 MousePos = ImGui::GetMousePos();
 
 		ImVec2 pos = ImGui::GetWindowPos();

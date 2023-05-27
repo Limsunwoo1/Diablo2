@@ -21,6 +21,7 @@ namespace Renderer
 
 	Camera* mainCamera = nullptr;
 	Camera* UiCamera = nullptr;
+	Camera* IsometricCamera = nullptr;
 	std::vector<Camera*> Cameras[(UINT)eSceneType::End];
 	std::vector<DebugMesh> debugMeshes;
 	std::vector<LightAttribute> lights;

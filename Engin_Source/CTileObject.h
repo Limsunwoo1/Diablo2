@@ -14,9 +14,11 @@ public:
 
 	void SetMaxIndex(UINT x, UINT y) { mMaxX = x, mMaxY = y; }
 	void SetIndex(UINT x, UINT y) { mIndexX = x, mIndexY = y; }
+	void SetScreenIndex(UINT x, UINT y) { mScreenIndexX = x, mScreenIndexY = y; }
 
 	std::pair<UINT, UINT> GetMaxIndex() { return std::make_pair(mMaxX, mMaxY); }
 	std::pair<UINT, UINT> GetIndex() { return std::make_pair(mIndexX, mIndexY); }
+	std::pair<UINT, UINT> GetScreenIndex() { return std::make_pair(mScreenIndexX, mScreenIndexY); }
 
 	Material* GetMaterial() { return mMaterial; }
 	void SetMaterial(Material* mater) { mMaterial = mater; }
@@ -28,6 +30,9 @@ private:
 
 	UINT mIndexX;
 	UINT mIndexY;
+
+	UINT mScreenIndexX;
+	UINT mScreenIndexY;
 
 	bool mbPass;
 	bool mbUpdate;

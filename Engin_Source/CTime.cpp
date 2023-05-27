@@ -50,9 +50,19 @@ void Time::Update()
 
 void Time::Render(HDC hdc)
 {
-	Math::Vector2 pos = Input::GetInstance()->GetMouseWorldPos(false);
+	Math::Vector2 pos = Input::GetInstance()->GetMouseWorldPos(true);
 	MouseX = pos.x;
 	MouseY = pos.y;
+
+	int IndexX = 0;
+	int IndexY = 0;
+
+	float pibotX = (MouseX - (200 * 0.75f));
+	float pibotY = (MouseY - (100 * 0.75f));
+
+	IndexX = MouseX / (200 * 0.5f);
+	IndexY = MouseY / (100 * 0.5f);
+
 	//wchar_t szFloat[50] = {};
 	// 델타 타임
 	// 한프레임 도는 동안 총 걸린시간
@@ -64,14 +74,14 @@ void Time::Render(HDC hdc)
 
 	TextOut(hdc, 10, 10, szFloat, strLen);*/
 	
+		wchar_t szBuffer[255] = {};
+		swprintf_s(szBuffer, L"FPS : %d  DT : %lf   MX : %lf   MY  : %lf  IX : %d  IY  :  %d", fps, mDeltaTime, MouseX, MouseY, IndexX, IndexY);
 	if (AccDeltaTime > 1.0f)
 	{
 		fps = CallCount;
 		CallCount = 0;
 		AccDeltaTime -= 1.0f;
 
-		wchar_t szBuffer[255] = {};
-		swprintf_s(szBuffer, L"FPS : %d  DT : %lf   MX : %lf   MY  : %lf", fps, mDeltaTime, MouseX, MouseY);
 		SetWindowText(Application.GetHwnd() , szBuffer);
 	}
 }
