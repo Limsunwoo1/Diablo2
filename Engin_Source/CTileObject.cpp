@@ -6,12 +6,17 @@
 #include "CConstantBuffer.h"
 #include "CInput.h"
 
+#include "..//Dx11_Engine/GuiEditor.h"
+
+extern gui::Editor _Editor;
+
 
 #include <iostream>
 TileObject::TileObject()
 	: GameObject()
 	, mUV(Vector2::One)
 	, mbPass(true)
+	, mbOnTile(false)
 	, mArr{}
 	, mTexPath(L"")
 	, mMaxX(1)
@@ -47,14 +52,16 @@ void TileObject::Initalize()
 
 void TileObject::Update()
 {
+	mbOnTile = false;
+
 	Transform* tileTr = GetComponent<Transform>();
 	Vector3 tilePos = tileTr->GetPosition();
 	Vector3 tileScale = tileTr->GetScale() * tileTr->GetSize();
 
-	Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos(Renderer::IsometricCamera);
+	Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos(Renderer::mainCamera);
 
-	mIndexX = 2;
-	mIndexY = 2;
+	if (_Editor.GetActive() == false)
+		mousePos = _Editor.GetEditorWorldMousePos();
 
 	if (tilePos.x - (tileScale.x * 0.5f) > mousePos.x || tilePos.x + (tileScale.x * 0.5f) < mousePos.x)
 		return;
@@ -105,8 +112,17 @@ void TileObject::Update()
 		0 > fSlope[2] * mousePos.x + fY_Intercept[2] - mousePos.y &&
 		0 > fSlope[3] * mousePos.x + fY_Intercept[3] - mousePos.y)
 	{
-		mIndexX = 1;
-		mIndexY = 37;
+		if (_Editor.GetActive() == false && Input::GetInstance()->GetKeyPress(eKeyCode::LBTN))
+		{
+			mIndexX = _Editor.GetTileIndexX();
+			mIndexY = _Editor.GetTileIndexY();
+
+			mbOnTile = true;
+		}
+		else if (_Editor.GetActive() == false)
+		{
+			mbOnTile = true;
+		}
 	}
 
 	GameObject::Update();
@@ -136,6 +152,10 @@ void TileObject::Render()
 
 		info.StartUV = Math::Vector2(indexX / MaxX, indexY / MaxY);
 		info.EndUV = Math::Vector2(((indexX + 1) / MaxX), ((indexY + 1) / MaxY));
+		info.OnTile = mbOnTile;
+
+		if (info.OnTile)
+			int a = 0;
 
 		ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::TileData];
 		cb->SetData(&info);

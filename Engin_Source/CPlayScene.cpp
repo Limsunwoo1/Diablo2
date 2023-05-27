@@ -240,9 +240,9 @@ void PlayScene::Initalize()
 				UINT maxY = tile->GetMaterial()->GetTexture(eTextureSlot::T0).lock()->GetMaxY();
 
 				tile->SetMaxIndex(maxX, maxY);
-				tile->SetIndex(x, y);
+				tile->SetIndex(1, 3);
 				
-				tr->SetPosition(Vector3((x*(sizeX * 0.5f) + 5000.f), (y* sizeY) + (x * (sizeY * 0.5f)) + 5000.f, -50.0f));
+				tr->SetPosition(Vector3((x*(sizeX * 0.5f) + 5000.f), (y* sizeY) + (x * (sizeY * 0.5f)) + 5000.f, 50.0f));
 				tr->SetSize(Vector3(sizeX, sizeY, 1.0f));
 
 				indexX = x;
@@ -262,7 +262,7 @@ void PlayScene::Initalize()
 			}
 		}
 
-		/*for (int y = 0; y < 20; ++y)
+		for (int y = 0; y < 20; ++y)
 		{
 			for (int x = 0; x < 20; ++x)
 			{
@@ -275,15 +275,15 @@ void PlayScene::Initalize()
 				UINT maxY = tile->GetMaterial()->GetTexture(eTextureSlot::T0).lock()->GetMaxY();
 
 				tile->SetMaxIndex(maxX, maxY);
-				tile->SetIndex(x, y);
+				tile->SetIndex(1, 3);
 
 
-				tr->SetPosition(Vector3((- 1 * x) * (sizeX * 0.5f) + 5000.f, (y* sizeY) + (x * (sizeY * 0.5f)) + 5000.f, -50.0f));
+				tr->SetPosition(Vector3((- 1 * x) * (sizeX * 0.5f) + 5000.f, (y* sizeY) + (x * (sizeY * 0.5f)) + 5000.f, 50.0f));
 				tr->SetSize(Vector3(sizeX, sizeY, 1.0f));
 
 				tile->SetScreenIndex(x + indexX, y + indexY);
 			}
-		}*/
+		}
 	}
 
 	//{

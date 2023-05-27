@@ -278,3 +278,70 @@ Math::Vector2 Input::GetMouseScreenIndex()
 
 	return Math::Vector2(x, y);
 }
+
+//UINT CPlayerScript::PlayerPicking(bool bLeft)
+//{
+//	if (m_fAttackCoolTime > 0.f)
+//		return 0;
+//	else
+//	{
+//		m_fAttackCoolTime = PLAYER_ATTACK_COOLTIME;
+//	}
+//	//POINT vPoint = CKeyMgr::GetInst()->GetMousePos();
+//
+//	//tResolution vResolution = CRenderMgr::GetInst()->GetResolution();
+//
+//	//Vec2 vPoint = Vec2(vResolution.fWidth / 2.f, vResolution.fHeight / 2.f);
+//
+//	Matrix matProj = m_pMainCamera->GetProjMat();
+//
+//	Vec3 vDirRay, vPosRay;
+//	vDirRay.x = ((2.0f * (float)vPoint.x) / vResolution.fWidth - 1.f) / matProj._11;
+//	vDirRay.y = ((-2.0f * (float)vPoint.y) / vResolution.fHeight + 1.f) / matProj._22;
+//	vDirRay.z = 1.f;
+//
+//	Matrix matView = m_pMainCamera->GetViewMat();
+//	Matrix matViewInv = m_pMainCamera->GetViewMatInv();
+//
+//	vPosRay = XMVector3TransformCoord(vPosRay, matViewInv);
+//	vDirRay = XMVector3TransformNormal(vDirRay, matViewInv);
+//	vDirRay = XMVector3Normalize(vDirRay);
+//
+//	CGameObject* pCollider = NULL;
+//	// 충돌반경 안에있는 물체들과 피킹을 수행
+//	for (int i = 0; i < m_vCollisionObj.size(); ++i)
+//	{
+//		if (CollisionRay(vPosRay, vDirRay, m_vCollisionObj[i]->Collider2D()))
+//		{
+//			pCollider = m_vCollisionObj[i];
+//			break;
+//		}
+//	}
+//}
+//
+//bool CPlayerScript::CollisionRay(Vec3 vPosRay, Vec3 vDirRay, CCollider2D* _pOther)
+//{
+//	Matrix matWorldInv = XMMatrixIdentity();
+//	Vec3 vPos = _pOther->Transform()->GetLocalPos();
+//	vPos += _pOther->Collider2D()->GetOffsetPos();
+//	matWorldInv._41 = -vPos.x;
+//	matWorldInv._42 = -vPos.y;
+//	matWorldInv._43 = -vPos.z;
+//
+//	vPosRay = XMVector3TransformCoord(vPosRay, matWorldInv);
+//	vDirRay = XMVector3TransformNormal(vDirRay, matWorldInv);
+//
+//	Vec3 vv = XMVector3Dot(vDirRay, vDirRay);
+//	Vec3 qv = XMVector3Dot(vPosRay, vDirRay);
+//	Vec3 qq = XMVector3Dot(vPosRay, vPosRay);
+//
+//	float r;
+//	// collider2D radius
+//	float rr = r * r;
+//
+//	if (qv.x * qv.x - vv.x * (qq.x - rr) >= 0)
+//	{
+//		return true;
+//	}
+//	return false;
+//}

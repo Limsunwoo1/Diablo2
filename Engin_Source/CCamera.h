@@ -39,6 +39,8 @@ public:
 	Matrix& GetViewMatrix() { return mView; }
 	Matrix& GetProjectionMatrix() { return mProjection; }
 
+	void SetScale(float scale) { mScale = scale; }
+
 	void SetTrace(GameObject* obj) { mTrace = obj; }
 	GameObject* GetTrace() { return mTrace; }
 

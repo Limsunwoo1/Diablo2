@@ -6,6 +6,7 @@
 
 Layer::Layer()
 {
+	mbSortTile = false;
 }
 
 Layer::~Layer()
@@ -40,6 +41,13 @@ void Layer::Update()
 			continue;
 		if (obj->GetState() != GameObject::active)
 			continue;
+
+		if (obj->GetLayerType() == eLayerType::Tile)
+		{
+		
+
+		}
+
 
 		obj->Update();
 	}
@@ -131,4 +139,42 @@ std::vector<GameObject*> Layer::GetDontDestroyGameObjects()
 	}
 
 	return donts;
+}
+
+void Layer::Sort_TileObject(vector<GameObject*>& object, int left, int right)
+{
+	if (mGameObjects.size() <= 1)
+		return;
+
+	int pivot = mGameObjects.size() / 2;
+	int L = left;
+	int R = right;
+	GameObject* temp = 0;
+
+	float fpivot = mGameObjects[pivot]->GetComponent<Transform>()->GetPosition().y;
+
+	do
+	{
+		while (mGameObjects[L]->GetComponent<Transform>()->GetPosition().y < fpivot)
+			L++;
+		while (mGameObjects[L]->GetComponent<Transform>()->GetPosition().y > fpivot)
+			R--;
+
+		if (L <= R)
+		{
+			temp = mGameObjects[L];
+			mGameObjects[L] = mGameObjects[R];
+			mGameObjects[R] = temp;
+
+			L++;
+			R--;
+		}
+
+	} while (L <= R);
+
+	if(left < R)
+		Sort_TileObject(object, left, R);
+	if(L < right)
+		Sort_TileObject(object, L, right);
+
 }

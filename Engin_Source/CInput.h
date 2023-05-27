@@ -1,6 +1,7 @@
 #pragma once
 #include "CEngine.h"
 #include "Math.h"
+#include "..//Dx11_Engine/GuiEditor.h"
 
 enum class eKeyCode
 {

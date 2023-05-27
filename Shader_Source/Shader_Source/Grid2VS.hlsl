@@ -1,29 +1,29 @@
 #include "globals.hlsli"
 
-struct VSIn
+struct VS_INPUT
 {
-    float4 Pos : POSITION;
-    float2 UV : TEXCOORD;
+    float4 position : POSITION;
 };
 
-struct VSOut
+struct PS_INPUT
 {
-    float4 Pos : SV_Position;
-    float4 WorldPos : POSITION;
+    float4 position : SV_POSITION;
 };
 
-
-
-VSOut main(VSIn _In)
+float2 IsometricToScreen(float2 isometricPos)
 {
-    VSOut Out = (VSOut) 0.0f;
-    
-    float4 worldPosition = mul(_In.Pos, world);
-    float4 viewPosition = mul(worldPosition, view);
-    float4 ProjPosition = mul(viewPosition, projection);
-    
-    Out.Pos = ProjPosition;
-    Out.WorldPos = worldPosition;
-    
-    return Out;
+    float2 screenPos;
+    screenPos.x = (isometricPos.x - isometricPos.y) * 0.5;
+    screenPos.y = (isometricPos.x + isometricPos.y) * 0.25;
+    return screenPos;
+}
+
+PS_INPUT main(VS_INPUT input)
+{
+    PS_INPUT output;
+    //float4 worldPosition = mul(input.position, world);
+    float2 pos = IsometricToScreen(float2(input.position.xy));
+    //worldPosition.xy = pos;
+    output.position = float4(pos.x, pos.y, 1.0f,1.0f);
+    return output;
 }

@@ -73,14 +73,30 @@ namespace gui
 		UINT width = Application.GetWidth();
 		UINT height = Application.GetHeight();
 		Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos(Vector2(Pos.x * width, Pos.y * height));
+		_Editor.SetEditorWorldMousePos(mousePos);
 
-		if (Input::GetInstance()->GetKeyDown(eKeyCode::LCTRL))
+		if (Input::GetInstance()->GetKeyPress(eKeyCode::LBTN))
 		{
-			TileObject* object = Object::Instantiate<TileObject>(eLayerType::Tile, true);
-			object->GetComponent<Transform>()->SetPosition(Vector3(mousePos.x, mousePos.y, 0.0f));
-			object->GetComponent<Transform>()->SetSize(Vector3(200.f, 100.f , 1.0f));
 
-			object->SetMaxIndex(_Editor.GetTileMaxX(), _Editor.GetTileMaxY());
+			/*TileObject* object = Object::Instantiate<TileObject>(eLayerType::Tile, true);
+			float x = (mousePos.x - 5000.f) - 100;
+			int fx = x / 100.f;
+
+
+			float y = (mousePos.y - 5000.f) - (fx * 50.f);
+			int fy = y / 100.f;
+
+			float posX = (fx * 100.f) + 5000.f;
+			float posY = (fy * 50.f) + 5000.f + (fx * 50.f);
+
+			std::cout << posX << "    X ÁÂÇ¥    " << posY << "    Y ÁÂÇ¥  " << std::endl;*/
+
+			//Transform* objectTr = object->GetComponent<Transform>();
+			//objectTr->SetPosition(Vector3(posX + 100.f, posY + 50.f, 50.f));
+			//object->GetComponent<Transform>()->SetPosition(Vector3(mousePos.x, mousePos.y, 100.0f));
+			//objectTr->SetSize(Vector3(200.f, 100.f , 1.0f));
+
+			/*object->SetMaxIndex(_Editor.GetTileMaxX(), _Editor.GetTileMaxY());
 			object->SetIndex(_Editor.GetTileIndexX(), _Editor.GetTileIndexY());
 
 			MeshRenderer* mr = object->AddComponent<MeshRenderer>();
@@ -88,7 +104,7 @@ namespace gui
 			std::weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"TileMaterial");
 
 			mr->SetMesh(mesh);
-			mr->SetMaterial(material);
+			mr->SetMaterial(material);*/
 		}
 	}
 	void Game::LateUpdate()

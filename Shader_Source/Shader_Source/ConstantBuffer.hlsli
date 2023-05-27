@@ -103,4 +103,6 @@ cbuffer TileData : register(b11)
 {
     float2 startUV;
     float2 endUV;
+    
+    bool OnTile;
 }

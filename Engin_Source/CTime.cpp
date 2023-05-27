@@ -57,8 +57,6 @@ void Time::Render(HDC hdc)
 	int IndexX = 0;
 	int IndexY = 0;
 
-	float pibotX = (MouseX - (200 * 0.75f));
-	float pibotY = (MouseY - (100 * 0.75f));
 
 	IndexX = MouseX / (200 * 0.5f);
 	IndexY = MouseY / (100 * 0.5f);

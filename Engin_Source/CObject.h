@@ -24,6 +24,7 @@ namespace Object
 		Layer& layer = scene->GetLayer(type);
 		layer.AddGameObject(gameObj);
 		gameObj->Initalize();
+		gameObj->SetLayerType(type);
 
 		return gameObj;
 	}

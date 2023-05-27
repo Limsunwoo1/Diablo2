@@ -130,6 +130,8 @@ namespace Renderer
 	{
 		Vector2 StartUV;
 		Vector2 EndUV;
+
+		bool OnTile;
 	};
 
 	extern Vertex FadeInOut[4];

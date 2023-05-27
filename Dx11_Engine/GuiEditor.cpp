@@ -61,7 +61,6 @@ namespace gui
 		gridMr->SetMesh(ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh"));
 		gridMr->SetMaterial(ResourceManager::GetInstance()->Find<Material>(L"GridMaterial"));
 		GridScript* gridScript = girdObject->AddComponent<GridScript>();
-		//gridScript->SetCamera(Renderer::mainCamera);
 
 		mEditorObjects.push_back(girdObject);
 		mGrid = girdObject;
@@ -104,7 +103,7 @@ namespace gui
 	{
 		if (Input::GetInstance()->GetKeyDown(eKeyCode::LSHIFT))
 		{
-			mbItemsAble = mbItemsAble == true ? false : true;
+			mbItemsAble = (mbItemsAble == true ? false : true);
 			SetWidgetsPused(mbItemsAble);
 		}
 		//mGridSc->SetCamera(Renderer::mainCamera);

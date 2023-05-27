@@ -55,5 +55,16 @@ float4 main(VSOut In) : SV_Target
     if (color.x > 0.9f && color.z > 0.9f && color.y < 0.1f)
         discard;
     
+    color *= float4(1.0f, 1.0f, 1.0f, 1.0f);
+    color *= float4(1.0f, 1.0f, 1.0f, 1.0f);
+    if (OnTile)
+    {
+        //color *= float4(0.f, 0.f, 1.0f, 1.0f);
+        
+        color.z = 0.8f;
+        
+        color.a = 0.6f;
+    }
+    
     return color;
 }

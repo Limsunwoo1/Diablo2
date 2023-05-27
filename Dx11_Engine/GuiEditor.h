@@ -58,6 +58,16 @@ namespace gui
 
 		void SetTileIndexX(UINT x) { TileIndexX = x; }
 		void SetTileIndexY(UINT y) { TileIndexY = y; }
+
+		void SetEditorWorldMousePos(Vector2 pos) { mEditorWorldMousePos = pos; }
+		void SetEditorUiMousePos(Vector2 pos) { mEditorUiMousePos = pos; }
+
+		Vector2 GetEditorWorldMousePos() { return mEditorWorldMousePos; }
+		Vector2 GetEditorUiMousePos() { return mEditorUiMousePos; }
+
+		bool GetActive() {return mbItemsAble;}
+		bool SetActive(bool active = true) { mbItemsAble = active; }
+
 	private:
 		std::map<std::string ,Widget*> mWidgets;
 		std::vector<EditorObject*> mEditorObjects;
@@ -71,6 +81,9 @@ namespace gui
 
 		UINT TileIndexX;
 		UINT TileIndexY;
+
+		Vector2 mEditorWorldMousePos;
+		Vector2 mEditorUiMousePos;
 
 		bool mbItemsAble;
 	};

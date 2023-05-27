@@ -36,6 +36,7 @@ private:
 
 	bool mbPass;
 	bool mbUpdate;
+	bool mbOnTile;
 
 	int mArr[5][5];
 	std::wstring mTexPath;
