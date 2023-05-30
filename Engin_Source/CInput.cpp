@@ -33,6 +33,8 @@ int ASCII[(UINT)eKeyCode::End] =
 };
 
 Input::Input()
+	: mIsometricTileIndexX(-1)
+	, mIsometricTileIndexY(-1)
 {
 
 }

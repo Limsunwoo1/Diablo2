@@ -82,10 +82,19 @@ public:
 
 	class ItemBase* GetPickItem() { return mPickItem; }
 	void SetPickItem(ItemBase* item) { mPickItem = item; }
+
+	int GetIsometricX() { return mIsometricTileIndexX; }
+	int GetIsometricY() { return mIsometricTileIndexY; }
+
+	void SetIsometricX(int x) { mIsometricTileIndexX = x; }
+	void SetIsometricY(int y) { mIsometricTileIndexY = y; }
 private:
 	std::vector<Key> mKeys;
 	Math::Vector2 mMousePos;
 
 	ItemBase* mPickItem;
 	bool mbMouseItemPick;
+
+	int mIsometricTileIndexX;
+	int mIsometricTileIndexY;
 };

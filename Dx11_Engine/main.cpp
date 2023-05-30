@@ -124,8 +124,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
     }
 
-    Application.Release();
     _Editor.Release();
+    Application.Release();
     return (int) msg.wParam;
 }
 

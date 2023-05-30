@@ -2,7 +2,10 @@
 #include "CInput.h"
 #include "CApplication.h"
 
+#include "..//Dx11_Engine/GuiEditor.h"
+
 extern CApplication Application;
+extern gui::Editor _Editor;
 
 static int CallCount = 0;
 static float AccDeltaTime = 0.0f;
@@ -51,15 +54,27 @@ void Time::Update()
 void Time::Render(HDC hdc)
 {
 	Math::Vector2 pos = Input::GetInstance()->GetMouseWorldPos(true);
+
+	if (!_Editor.GetActive())
+	{
+		pos = _Editor.GetEditorWorldMousePos();
+	}
+
 	MouseX = pos.x;
 	MouseY = pos.y;
 
-	int IndexX = 0;
-	int IndexY = 0;
+	float IndexX = 0;
+	float IndexY = 0;
 
 
-	IndexX = MouseX / (200 * 0.5f);
-	IndexY = MouseY / (100 * 0.5f);
+	IndexX = (((MouseX - 5000.f) / 100) + ((MouseY - 5000.f) / 50)) / 2;
+	IndexY = (((MouseY - 5000.f) / 50) - ((MouseX - 5000.f) / 100)) / 2;
+
+	IndexX += 0.5f;
+	IndexY += 0.5f;
+
+	Input::GetInstance()->SetIsometricX((int)IndexX);
+	Input::GetInstance()->SetIsometricY((int)IndexY);
 
 	//wchar_t szFloat[50] = {};
 	// µ¨Å¸ Å¸ÀÓ
@@ -73,7 +88,7 @@ void Time::Render(HDC hdc)
 	TextOut(hdc, 10, 10, szFloat, strLen);*/
 	
 		wchar_t szBuffer[255] = {};
-		swprintf_s(szBuffer, L"FPS : %d  DT : %lf   MX : %lf   MY  : %lf  IX : %d  IY  :  %d", fps, mDeltaTime, MouseX, MouseY, IndexX, IndexY);
+		swprintf_s(szBuffer, L"FPS : %d  DT : %lf   MX : %lf   MY  : %lf  IX : %d  IY  :  %d", fps, mDeltaTime, MouseX, MouseY, (int)IndexX, (int)IndexY);
 	if (AccDeltaTime > 1.0f)
 	{
 		fps = CallCount;
