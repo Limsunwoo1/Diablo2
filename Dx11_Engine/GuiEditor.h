@@ -61,9 +61,11 @@ namespace gui
 
 		void SetEditorWorldMousePos(Vector2 pos) { mEditorWorldMousePos = pos; }
 		void SetEditorUiMousePos(Vector2 pos) { mEditorUiMousePos = pos; }
+		void SetEditorImGuiMousePos(ImVec2 pos) { mImGuiMousePos = pos; }
 
 		Vector2 GetEditorWorldMousePos() { return mEditorWorldMousePos; }
 		Vector2 GetEditorUiMousePos() { return mEditorUiMousePos; }
+		Vector2 GetImGuiMousePos() { return Vector2(mImGuiMousePos.x, mImGuiMousePos.y); }
 
 		bool GetActive() {return mbItemsAble;}
 		bool SetActive(bool active = true) { mbItemsAble = active; }
@@ -84,6 +86,7 @@ namespace gui
 
 		Vector2 mEditorWorldMousePos;
 		Vector2 mEditorUiMousePos;
+		ImVec2 mImGuiMousePos;
 
 		bool mbItemsAble;
 	};

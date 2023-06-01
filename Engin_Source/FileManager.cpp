@@ -61,8 +61,8 @@ bool FileManager::CreateSaveFile(const std::wstring& path, const std::wstring& n
 	fs << "Mp," << to_string(50) << endl;
 	fs << "Exp," << to_string(0) << endl;
 	fs << "Name," << string(name.begin(), name.end()) << endl;
-	fs << "X," << std::to_string(1) << endl;
-	fs << "Y," << std::to_string(1) << endl;
+	fs << "X," << std::to_string(7500) << endl;
+	fs << "Y," << std::to_string(7500) << endl;
 	fs << "Z," << std::to_string(1) << endl;
 
 	fs.close();

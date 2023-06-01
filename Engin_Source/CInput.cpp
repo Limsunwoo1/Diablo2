@@ -265,6 +265,41 @@ Math::Vector2 Input::GetMouseWorldPos(class Camera* camera)
 	return Math::Vector2(result.x, result.y);
 }
 
+Math::Vector2 Input::GetMouseWorldPos(Camera* camera, Vector2 mousePos)
+{
+	Vector2 mouse = mousePos;
+	Math::Viewport mathViewport;
+
+	// viewport 크기
+	D3D11_VIEWPORT viewport;
+	UINT numVIewPorts = 1;
+	graphics::GetDevice()->GetID3D11DeviceContext()->RSGetViewports(&numVIewPorts, &viewport);
+
+	mathViewport.x = viewport.TopLeftX;
+	mathViewport.y = viewport.TopLeftY;
+	mathViewport.width = viewport.Width;
+	mathViewport.height = viewport.Height;
+	mathViewport.minDepth = viewport.MinDepth;
+	mathViewport.maxDepth = viewport.MaxDepth;
+
+	float ndcX = (2.0f * mouse.x / viewport.Width - 1.0f);
+	float ndcY = (-2.0f * mouse.y / viewport.Height + 1.0f);
+
+
+	float ndxZ = 1.0f;
+
+	// NDC 좌표를 월드 좌표로 변환
+	Math::Vector3 nearPoint(ndcX, ndcY, 0.0f);
+
+	Vector3 result = Vector3::Zero;
+
+	Math::Matrix projection = camera->GetProjectionMatrix();
+	Math::Matrix view = camera->GetViewMatrix();
+	result = mathViewport.Unproject(Vector3(mouse.x, mouse.y, 1.0f), projection, view, Math::Matrix::Identity);
+
+	return Math::Vector2(result.x, result.y);
+}
+
 
 Math::Vector2 Input::GetMouseScreenIndex()
 {

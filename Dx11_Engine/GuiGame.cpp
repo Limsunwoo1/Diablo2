@@ -73,6 +73,9 @@ namespace gui
 		UINT width = Application.GetWidth();
 		UINT height = Application.GetHeight();
 		Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos(Vector2(Pos.x * width, Pos.y * height));
+		Vector2 uiMousePos = Input::GetInstance()->GetMouseWorldPos(Renderer::UiCamera,Vector2(Pos.x * width, Pos.y * height));
+		_Editor.SetEditorUiMousePos(uiMousePos);
+		_Editor.SetEditorImGuiMousePos(mouse);
 		_Editor.SetEditorWorldMousePos(mousePos);
 
 		if (Input::GetInstance()->GetKeyPress(eKeyCode::LBTN))

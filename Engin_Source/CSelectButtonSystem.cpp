@@ -214,6 +214,7 @@ void SelectButtonSystem::Initalize()
 		mCreateButton->Initalize();
 		auto fun = std::bind(&SelectButtonSystem::CreateButton, this);
 		mCreateButton->BindEvnet(fun);
+		mCreateButton->SetName(L"CreateButton");
 
 		//Transform
 		Transform* tr = mCreateButton->GetComponent<Transform>();
@@ -246,6 +247,7 @@ void SelectButtonSystem::Initalize()
 		mReturnSceneButton->Initalize();
 		auto fun = std::bind(&SelectButtonSystem::RetrunSceneButton, this);
 		mReturnSceneButton->BindEvnet(fun);
+		mReturnSceneButton->SetName(L"ReternButton");
 
 		//Transform
 		Transform* tr = mReturnSceneButton->GetComponent<Transform>();
@@ -278,6 +280,7 @@ void SelectButtonSystem::Initalize()
 		mSelect_Ok_Button->Initalize();
 		auto fun = std::bind(&SelectButtonSystem::Select_Ok_Button, this);
 		mSelect_Ok_Button->BindEvnet(fun);
+		mSelect_Ok_Button->SetName(L"OkButton");
 
 		//Transform
 		Transform* tr = mSelect_Ok_Button->GetComponent<Transform>();
@@ -404,8 +407,8 @@ void SelectButtonSystem::Select_Ok_Button()
 	collider->SetType(eColliderType::Rect);
 
 	Transform* tr = player->GetComponent<Transform>();
-	tr->SetPosition(Vector3(5000.f , 5000.f , info.Postion.z));
-	tr->SetSize(Vector3(300.f, 300.f, 300.f));
+	tr->SetPosition(Vector3(info.Postion.x, info.Postion.y, info.Postion.z));
+	tr->SetSize(Vector3(300.f, 300.f, 1.f));
 
 	SpriteRenderer* spr = player->AddComponent<SpriteRenderer>();
 	std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
