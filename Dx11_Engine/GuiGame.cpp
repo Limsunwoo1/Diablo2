@@ -17,6 +17,7 @@
 #include "GuiInspector.h"
 #include "GuiHierachy.h"
 #include "..//Engin_Source/CTexture2D.h"
+#include "..//Engin_Source/CWallObject.h"
 
 #include <iostream>
 
@@ -84,6 +85,9 @@ namespace gui
 		_Editor.SetEditorImGuiMousePos(mouse);
 		_Editor.SetEditorWorldMousePos(mousePos);
 
+		if (SceneManager::GetInstance()->GetActiveScene()->GetScenType() != eSceneType::Tool)
+			return;
+
 		if (mTex == nullptr)
 			return;
 
@@ -106,7 +110,7 @@ namespace gui
 			int ypos = (x + y) * 50.f;
 
 			objectTr->SetPosition(Vector3(Xpos + 5000.f, ypos + 5000.f, 50.f));
-			objectTr->SetSize(Vector3(200.f, 200.f , 1.0f));
+			objectTr->SetSize(Vector3(200.f, 100.f , 1.0f));
 
 			object->SetMaxIndex(_Editor.GetTileMaxX(), _Editor.GetTileMaxY());
 			object->SetIndex(_Editor.GetTileIndexX(), _Editor.GetTileIndexY());
@@ -127,13 +131,30 @@ namespace gui
 		}
 
 		if (Input::GetInstance()->GetKeyPress(eKeyCode::LBTN)
+			&& mbCreateObject
 			&& mTex->GetName().find(L"Object") != wstring::npos
-			&& mTex->GetName().find(L"object") != wstring::npos)
+			)
 		{
+			int x = Input::GetInstance()->GetIsometricX();
+			int y = Input::GetInstance()->GetIsometricY();
 
+			if (x < 0 || y < 0)
+				return;
+
+			WallObject* object = Object::Instantiate<WallObject>(eLayerType::Wall, true);
+
+			Transform* objectTr = object->GetComponent<Transform>();
+			int Xpos = (x - y) * 100.f;
+			int ypos = (x + y) * 50.f;
+
+			objectTr->SetPosition(Vector3(Xpos + 5000.f, ypos + 5000.f, 50.f));
+			objectTr->SetSize(Vector3(300.f, 300.f, 1.0f));
+
+			object->SetTexture(ResourceManager::GetInstance()->Find<Texture2D>(mTex->GetName()));
 		}
 
 		mbCreateTile = true;
+		mbCreateObject = true;
 	}
 	void Game::LateUpdate()
 	{

@@ -23,6 +23,8 @@ namespace gui
 		void UiChilds(GameObject* obj, TreeWidget::Node* root);
 	private:
 		TreeWidget* mTreeWidget;
+
+		float mTime;
 	};
 }
 

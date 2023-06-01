@@ -724,7 +724,7 @@ namespace Renderer
 		ResourceManager::GetInstance()->Load<Texture2D>(L"PlayerIdle", L"Diablo2_Idle.png");
 
 		{
-			std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"TestTile", L"testTile.png");
+			std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"Tile", L"testTile.png");
 			tex.lock()->SetMaxX(5);
 			tex.lock()->SetMaxY(37);
 		}
@@ -740,7 +740,7 @@ namespace Renderer
 		}
 
 		{
-			for (int i = 0; i < 52; ++i)
+			for (int i = 0; i < 54; ++i)
 			{
 				wstring name = L"";
 				wstring path = L"";

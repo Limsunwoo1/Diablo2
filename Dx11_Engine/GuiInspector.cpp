@@ -83,6 +83,11 @@ namespace gui
 
 		mResources[(UINT)eResourceType::Texture]->SetSize(ImVec2(size.x, size.y));
 
+		if (mResources[(UINT)eResourceType::Texture]->GetTarget()->GetName().find(L"Wall") != std::wstring::npos)
+		{
+			mResources[(UINT)eResourceType::Texture]->SetSize(ImVec2(200.f,200.f));
+		}
+
 		UINT x = 0;
 		UINT y = 0;
 
@@ -93,23 +98,15 @@ namespace gui
 		float fX = curPos.x / size.x;
 		float fY = curPos.y / size.y;
 
-		/*u *= dynamic_cast<guiTexture2D*>(mResources[(UINT)eResourceType::Texture])->GetMaxIndexX();
-		v *= dynamic_cast<guiTexture2D*>(mResources[(UINT)eResourceType::Texture])->GetMaxIndexY();*/
 		Texture2D* tex = dynamic_cast<Texture2D*>(mResources[(UINT)eResourceType::Texture]->GetTarget());
 		if (tex == nullptr)
 			return;
 
-		/*fX *= tex->GetMaxX();
-		fY *= tex->GetMaxY();
+		float IdxX = size.x / tex->GetMaxX();
+		float IdxY = size.y / tex->GetMaxY();
 
-		x = fX;
-		y = fY;*/
-
-		float testx = size.x / tex->GetMaxX();
-		float testy = size.y / tex->GetMaxY();
-
-		testx = curPos.x /testx;
-		testy = curPos.y /testy;
+		IdxX = curPos.x /IdxX;
+		IdxY = curPos.y /IdxY;
 
 
 		if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN))
@@ -117,13 +114,11 @@ namespace gui
 			_Editor.SetTileMaxX(tex->GetMaxX());
 			_Editor.SetTileMaxY(tex->GetMaxY());
 
-			_Editor.SetTileIndexX((int)testx);
-			_Editor.SetTileIndexY((int)testy);
+			_Editor.SetTileIndexX((int)IdxX);
+			_Editor.SetTileIndexY((int)IdxY);
 
 			_Editor.GetWidget<Game>("Game")->SetTex(tex);
 		}
-
-		cout << (int)testx << " x IDX  " << testy << " y IDx " << endl;
 	}
 	void Inspector::LateUpdate()
 	{

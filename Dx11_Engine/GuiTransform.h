@@ -19,6 +19,7 @@ namespace gui
 		Math::Vector3 mRotation;
 		Math::Vector3 mScale;
 		Math::Vector3 mSize;
+		Math::Vector3 mOffset;
 	};
 }
 

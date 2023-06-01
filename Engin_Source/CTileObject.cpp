@@ -10,6 +10,7 @@
 
 #include "..//Dx11_Engine/GuiEditor.h"
 #include "..//Dx11_Engine/GuiGame.h"
+#include "..//Dx11_Engine/GuiInspector.h"
 
 extern gui::Editor _Editor;
 
@@ -32,7 +33,7 @@ TileObject::TileObject()
 	std::weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"TileMaterial");
 	mr->SetMesh(mesh);
 	mr->SetMaterial(material);
-	std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"TestTile");
+	std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Tile");
 	material.lock()->SetTexture(eTextureSlot::T0, tex);
 
 	mMaterial = material.lock().get();
@@ -60,9 +61,6 @@ void TileObject::Update()
 	Vector3 tileScale = tileTr->GetScale() * tileTr->GetSize();
 
 	Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos(Renderer::mainCamera);
-
-	if (_Editor.GetActive() == false)
-		return;
 
 	if (_Editor.GetActive())
 		mousePos = _Editor.GetEditorWorldMousePos();
@@ -126,6 +124,14 @@ void TileObject::Update()
 		{
 			Object::ObjectDestroy(this);
 			mbOnTile = true;
+		}
+		else if (Input::GetInstance()->GetKeyDown(eKeyCode::F) && _Editor.GetActive())
+		{
+			Renderer::InspectorGameObject = this;
+
+			gui::Inspector* inspector = _Editor.GetWidget<gui::Inspector>("Inspector");
+			inspector->SetTargetGameObject(Renderer::InspectorGameObject);
+			inspector->InitalizeTargetGameObject();
 		}
 		else if (_Editor.GetActive()) // 에디터모드에서 메모리할당 제한
 		{

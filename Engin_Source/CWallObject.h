@@ -35,6 +35,9 @@ private:
 	Vector2 mWidthHeight;
 	Vector2 mOffset;
 
+	UINT mScreenIndexX;
+	UINT mScreenIndexY;
+
 	std::weak_ptr<class Material> mMaterial;
 	std::weak_ptr<graphics::Texture2D> mTexture;
 

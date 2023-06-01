@@ -1,6 +1,5 @@
 #include "GuiComponent.h"
 
-
 namespace gui
 {
 	Component::Component(eComponentType type)

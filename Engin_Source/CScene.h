@@ -27,7 +27,7 @@ public:
 	Camera* GetMainCam() { return mMainCamera; }
 	Camera* GetUiCam() { return UiCamera; }
 	Camera* GetIsometricCam() { return mIsometricCamera; }
-private:
+protected:
 	std::vector<Layer> mLayers;
 	eSceneType mType;
 

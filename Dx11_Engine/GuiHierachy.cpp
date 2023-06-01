@@ -10,6 +10,7 @@
 #include "..//Engin_Source/CUiBase.h"
 
 #include "..//Engin_Source/CItemManager.h"
+#include "..//Engin_Source/CTime.h"
 
 extern gui::Editor _Editor;
 extern CApplication Application;
@@ -18,6 +19,7 @@ namespace gui
 {
     Hierachy::Hierachy()
         : mTreeWidget(nullptr)
+        , mTime(0.0f)
     {
         SetName("Hierarchy");
         SetSize(ImVec2(1600 / 2, 900 / 2));
@@ -41,6 +43,14 @@ namespace gui
     }
     void Hierachy::Update()
     {
+        mTime += Time::GetInstance()->DeltaTime();
+
+        if (mTime >= 2.0f)
+        {
+            mTime -= 2.0f;
+            InitalizeScene();
+        }
+
     }
     void Hierachy::LateUpdate()
     {

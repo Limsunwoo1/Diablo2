@@ -1,7 +1,7 @@
 #pragma once
 #include "GuiWidget.h"
-#include "Engin_Source/CComponent.h"
 
+class Component;
 namespace gui
 {
 	class Component : public Widget

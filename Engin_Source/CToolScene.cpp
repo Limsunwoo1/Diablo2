@@ -74,7 +74,7 @@ void ToolScene::Initalize()
 		Transform* tr = Wall->GetComponent<Transform>();
 		tr->SetPosition(Vector3(5000.f, 5000.f, 49.f));
 
-		Wall->SetOffset(Vector2(0.0f, 100.f));
+		Wall->SetOffset(Vector2(0.0f, 0.f));
 	}
 }
 
@@ -86,39 +86,89 @@ void ToolScene::Update()
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::F_1))		mTilePallet->Save();
 	else if (Input::GetInstance()->GetKeyDown(eKeyCode::F_2))	mTilePallet->Load();
 
-	switch (mode)
-	{
-	case eToolRenderMode::ALL:
-	{
-		mMainCamera->EnableLayerMasks();
-		break;
-	}
-	case eToolRenderMode::TILE: 
-	{
-		mMainCamera->EnableLayerMasks();
-		mMainCamera->TurnLayerMask(eLayerType::Wall, false);
-		break;
-	}
-	case eToolRenderMode::OBJECT:
-	{
-		mMainCamera->EnableLayerMasks();
-		mMainCamera->TurnLayerMask(eLayerType::Tile, false);
-		break;
-	}
-	case eToolRenderMode::END: mode = eToolRenderMode::ALL;  break;
-	default:
-		break;
-	}
-
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::M))
 	{
 		UINT modenum = (UINT)mode + 1;
 		mode = (eToolRenderMode)modenum;
 	}
 
-	mTilePallet->Update();
+
+	switch (mode)
+	{
+	case eToolRenderMode::ALL:
+	{
+		mMainCamera->EnableLayerMasks();
+
+		const vector<GameObject*>& wallobjects = mLayers[(UINT)eLayerType::Wall].GetGameObjects();
+		for (GameObject* obj : wallobjects)
+		{
+			obj->Active();
+		}
+
+		const vector<GameObject*>& tileobjects = mLayers[(UINT)eLayerType::Tile].GetGameObjects();
+		for (GameObject* obj : tileobjects)
+		{
+			obj->Active();
+		}
+
+		break;
+	}
+	case eToolRenderMode::TILE: 
+	{
+		mMainCamera->EnableLayerMasks();
+		mMainCamera->TurnLayerMask(eLayerType::Wall, false);
+
+		const vector<GameObject*>& tileobjects = mLayers[(UINT)eLayerType::Tile].GetGameObjects();
+		for (GameObject* obj : tileobjects)
+		{
+			obj->Active();
+		}
+
+		const vector<GameObject*>& objects = mLayers[(UINT)eLayerType::Wall].GetGameObjects();
+		for (GameObject* obj : objects)
+		{
+			obj->Paused();
+		}
+		break;
+	}
+	case eToolRenderMode::OBJECT:
+	{
+		mMainCamera->EnableLayerMasks();
+		mMainCamera->TurnLayerMask(eLayerType::Tile, false);
+
+		const vector<GameObject*>& wallobjects = mLayers[(UINT)eLayerType::Wall].GetGameObjects();
+		for (GameObject* obj : wallobjects)
+		{
+			obj->Active();
+		}
+
+		const vector<GameObject*>& objects = mLayers[(UINT)eLayerType::Tile].GetGameObjects();
+		for (GameObject* obj : objects)
+		{
+			obj->Paused();
+		}
+
+		break;
+	}
+	case eToolRenderMode::OFF:
+	{
+		mMainCamera->DisableLayerMasks();
+		break;
+	}
+	case eToolRenderMode::END: 
+	{
+		mode = eToolRenderMode::ALL;
+	}
+	break;
+	default:
+		break;
+	}
+
+	if (mode == eToolRenderMode::OFF)
+		return;
 
 	Scene::Update();
+	mTilePallet->Update();
 }
 
 void ToolScene::FixedUpdate()

@@ -1,5 +1,6 @@
 #include "GuiTransform.h"
 #include "Engin_Source/CTransform.h"
+#include "..//Engin_Source/CWallObject.h"
 
 namespace gui
 {
@@ -20,20 +21,26 @@ namespace gui
 		if (GetTarget() == nullptr)
 			return;
 
-		Component::FixedUpdate();
 
 		Transform* tr = GetTarget()->GetComponent<Transform>();
 
+		if (tr == nullptr)
+			return;
+
+		Component::FixedUpdate();
 		mPosition = tr->GetPosition();
 		mRotation = tr->GetRotation();
 		mScale = tr->GetScale();
 		mSize = tr->GetSize();
-
 	}
 
 	void guiTransform::Update()
 	{
 		if (GetTarget() == nullptr)
+			return;
+
+		Transform* tr = GetTarget()->GetComponent<Transform>();
+		if (tr == nullptr)
 			return;
 
 		Component::Update();
@@ -49,6 +56,17 @@ namespace gui
 
 		ImGui::Text("Size"); ImGui::SameLine();
 		ImGui::InputFloat3("##Size", (float*)&mSize);
+
+		WallObject* wall = dynamic_cast<WallObject*>(GetTarget());
+		if (wall != nullptr)
+		{
+			Vector2 offset = wall->GetOffset();
+
+			ImGui::Text("Offset"); ImGui::SameLine();
+			ImGui::InputFloat2("##Offset", (float*)&offset);
+
+			wall->SetOffset(offset);
+		}
 
 		if (GetTarget())
 		{

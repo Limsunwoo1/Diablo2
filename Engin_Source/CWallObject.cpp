@@ -6,8 +6,17 @@
 #include "CInput.h"
 #include "CRenderer.h"
 #include "CConstantBuffer.h"
+#include "CObject.h"
+
+#include "..//Dx11_Engine/GuiEditor.h"
+#include "..//Dx11_Engine/GuiGame.h"
+#include "..//Dx11_Engine/GuiInspector.h"
+
+extern gui::Editor _Editor;
 
 using namespace graphics;
+
+static int id = 0;
 
 WallObject::WallObject()
 	: GameObject()
@@ -17,6 +26,8 @@ WallObject::WallObject()
 	, mbUpdate(true)
 	, mWallType(eWallType::End)
 {
+	SetName(L"WallObject" + to_wstring(id));
+	id++;
 }
 
 WallObject::~WallObject()
@@ -54,17 +65,83 @@ void WallObject::Update()
 
 	Transform* mTr = GetComponent<Transform>();
 	Vector2 mPos = Vector2(mTr->GetPosition().x, mTr->GetPosition().y);
-	mPos += mOffset + ObjectManager::GetInstance()->GetOffsetData(mWallType);
-	Vector3 mSize = mTr->GetScale() * mTr->GetSize();
+	Vector3 mSize = Vector3(200.f, 100.f, 1.0f);
 
 	Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos();
-	if (mPos.x - (mSize.x * 0.5f) > mousePos.x || mPos.x + (mSize.x * 0.5f) < mousePos.x)
+
+	if (_Editor.GetActive())
+		mousePos = _Editor.GetEditorWorldMousePos();
+
+
+	if (mPos.x - TILE_X_HALF_SIZE > mousePos.x || mPos.x + TILE_X_HALF_SIZE < mousePos.x)
 		return;
 
-	if (mPos.y - (mSize.y * 0.5f) > mousePos.y || mPos.y + (mSize.y * 0.5f) < mousePos.y)
+	if (mPos.y - TILE_Y_HALF_SIZE > mousePos.y || mPos.y + TILE_Y_HALF_SIZE < mousePos.y)
 		return;
 
-	mbOnObject = true;
+	// 기울기
+	float fslope = (100.f * 0.5f) / (200.f * 0.5f);
+	float fSlope[4] =
+	{
+		fslope,
+		-fslope,
+		fslope,
+		-fslope,
+	};
+
+	// 마름모 정점
+	Vector2 vVertex[4] =
+	{
+		{mPos.x, mPos.y + TILE_Y_HALF_SIZE},
+		{mPos.x + TILE_X_HALF_SIZE, mPos.y},
+		{ mPos.x, mPos.y - TILE_Y_HALF_SIZE},
+		{ mPos.x - TILE_X_HALF_SIZE, mPos.y},
+	};
+
+	// 절편
+	float fY_Intercept[4] =
+	{
+		vVertex[0].y - (fSlope[0] * vVertex[0].x),
+		vVertex[1].y - (fSlope[1] * vVertex[1].x),
+		vVertex[2].y - (fSlope[2] * vVertex[2].x),
+		vVertex[3].y - (fSlope[3] * vVertex[3].x),
+	};
+
+	//0 = ax + b - y;
+
+	float tset[4] =
+	{
+		fSlope[0] * mousePos.x + fY_Intercept[0] - mousePos.y,
+		fSlope[1] * mousePos.x + fY_Intercept[1] - mousePos.y,
+		fSlope[2] * mousePos.x + fY_Intercept[2] - mousePos.y,
+		fSlope[3] * mousePos.x + fY_Intercept[3] - mousePos.y
+	};
+
+	if (0 < fSlope[0] * mousePos.x + fY_Intercept[0] - mousePos.y &&
+		0 < fSlope[1] * mousePos.x + fY_Intercept[1] - mousePos.y &&
+		0 > fSlope[2] * mousePos.x + fY_Intercept[2] - mousePos.y &&
+		0 > fSlope[3] * mousePos.x + fY_Intercept[3] - mousePos.y)
+	{
+		if (Input::GetInstance()->GetKeyPress(eKeyCode::LBTN))
+		{
+
+		}
+		else if (Input::GetInstance()->GetKeyPress(eKeyCode::RBTN))
+		{
+			Object::ObjectDestroy(this);
+		}
+		else if (Input::GetInstance()->GetKeyDown(eKeyCode::R) && _Editor.GetActive())
+		{
+			Renderer::InspectorGameObject = this;
+
+			gui::Inspector* inspector = _Editor.GetWidget<gui::Inspector>("Inspector");
+			inspector->SetTargetGameObject(Renderer::InspectorGameObject);
+			inspector->InitalizeTargetGameObject();
+		}
+
+		mbOnObject = true;
+		_Editor.GetWidget<gui::Game>("Game")->SetCreateObject(false);
+	}
 
 	GameObject* player = WorldManager::GetInstance()->GetPlayer();
 	if (player == nullptr)
@@ -88,8 +165,8 @@ void WallObject::Update()
 
 void WallObject::FixedUpdate()
 {
-	if (mbUpdate == false)
-		return;
+	/*if (mbUpdate == false)
+		return;*/
 
 	if (mTexture.lock() == nullptr)
 		return;

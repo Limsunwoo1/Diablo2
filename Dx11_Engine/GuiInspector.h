@@ -1,9 +1,9 @@
 #pragma once
 #include "GuiWidget.h"
-#include "Engin_Source/CGameObject.h"
 #include "GuiComponent.h"
 #include "GuiResource.h"
 
+class GameObject;
 namespace gui
 {
 	class Inspector : public Widget
