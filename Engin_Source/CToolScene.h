@@ -15,8 +15,8 @@ public:
 	virtual void OnEnter() override;
 	//virtual void OnExit() {};
 
-
 private:
 	class TilePallet* mTilePallet;
+	eToolRenderMode mode;
 };
 

@@ -17,8 +17,8 @@ public:
 	virtual void FixedUpdate();
 	virtual void Render();
 
-	void SetWidthHeigth(Vector2 size) { mWidthHeight = size; }
-	void SetOffset(Vector2 offset) { mOffset = offset; }
+	void SetWidthHeigth(Vector2 size);
+	void SetOffset(Vector2 offset);
 
 	Vector2 GetWidthHeight() { return mWidthHeight; }
 	Vector2 GetOffset() { return mOffset; }
@@ -27,7 +27,6 @@ public:
 	void SetMaterial(std::weak_ptr<class Material> mater) { mMaterial = mater; }
 
 	std::weak_ptr<graphics::Texture2D> GetTexture2D() { return mTexture; }
-	void SetTexture(std::weak_ptr <graphics::Texture2D> tex);
 
 	void SetWallType(eWallType type);
 	eWallType GetWallType() { return mWallType; }
@@ -43,5 +42,6 @@ private:
 
 	float mAlpha;
 	bool mbUpdate;
+	bool mbOnObject;
 };
 

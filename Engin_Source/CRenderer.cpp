@@ -351,6 +351,14 @@ namespace Renderer
 
 		TileShader.lock()->SetKey(L"TileShader");
 
+		std::weak_ptr<Shader> ObjectShader = ResourceManager::GetInstance()->Find<Shader>(L"ObjectShader");
+		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, ObjectShader.lock()->GetVSBlobBufferPointer()
+			, ObjectShader.lock()->GetVSBlobBufferSize()
+			, ObjectShader.lock()->GetInputLayoutAddressOf());
+
+		ObjectShader.lock()->SetKey(L"ObjectShader");
+
 #pragma endregion
 #pragma region Sampler State
 		// »ùÇÃ·¯Ãß°¡
@@ -515,6 +523,9 @@ namespace Renderer
 
 		constantBuffers[(UINT)eCBType::TileData] = new ConstantBuffer(eCBType::TileData);
 		constantBuffers[(UINT)eCBType::TileData]->Create(sizeof(TileDataCB));
+
+		constantBuffers[(UINT)eCBType::ObjectData] = new ConstantBuffer(eCBType::ObjectData);
+		constantBuffers[(UINT)eCBType::ObjectData]->Create(sizeof(ObjectDataCB));
 #pragma endregion
 #pragma region STRUCTED BUFER
 		// Structed buffer
@@ -681,6 +692,15 @@ namespace Renderer
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"TileShader", TileShader);
 #pragma endregion
+#pragma region Object Shader
+		std::shared_ptr<Shader> ObjectShader = std::make_shared<Shader>();
+		ObjectShader->Create(eShaderStage::VS, L"ObjectVS.hlsl", "main");
+		ObjectShader->Create(eShaderStage::PS, L"ObjectPS.hlsl", "main");
+		ObjectShader->SetDepthStencil(eDepthStencilType::None);
+
+
+		ResourceManager::GetInstance()->Insert<Shader>(L"ObjectShader", ObjectShader);
+#pragma endregion
 
 	}
 
@@ -720,14 +740,14 @@ namespace Renderer
 		}
 
 		{
-			for (int i = 0; i < 8; ++i)
+			for (int i = 0; i < 52; ++i)
 			{
 				wstring name = L"";
 				wstring path = L"";
 				wstring count = to_wstring(i + 1);
 
-				path = L"Object//Wall_0" + count + L".png";
-				name = L"Wall_0" + count + L"Object";
+				path = L"Object//Wall_" + count + L".png";
+				name = L"Wall_" + count + L"Object";
 
 				std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(name, path);
 				tex.lock()->SetMaxX(1);

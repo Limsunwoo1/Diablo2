@@ -23,6 +23,7 @@
 #define CBSLOT_PLAYERDATA		9
 #define CBSLOT_ITEMDATA			10
 #define CBSLOT_TILEDATA			11
+#define CBSLOT_OBEJECTDATA		12
 
 namespace graphics
 {
@@ -40,6 +41,7 @@ namespace graphics
 		PlayerData,
 		ItemData,
 		TileData,
+		ObjectData,
 		End,
 	};
 

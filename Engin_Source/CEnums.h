@@ -20,6 +20,7 @@ enum class eLayerType
 	BackGround,
 	TilePllet,
 	Tile,
+	Wall,
 	Grid,
 	MonsterSkil,
 	PlayerSKil,
@@ -152,6 +153,14 @@ enum class eWallType
 	Type8,
 	Type9,
 	End,
+};
+
+enum class eToolRenderMode
+{
+	ALL,
+	TILE,
+	OBJECT,
+	END,
 };
 
 extern const char* charComponentType[(int)eComponentType::End];

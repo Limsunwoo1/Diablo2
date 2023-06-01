@@ -134,6 +134,12 @@ namespace Renderer
 		bool OnTile;
 	};
 
+	CBUFFER(ObjectDataCB, CBSLOT_OBEJECTDATA)
+	{
+		bool OnObject;
+		float ObjectAlpha;
+	};
+
 	extern Vertex FadeInOut[4];
 	extern Vertex vertexes[4];
 	extern Vertex HalfAlpha[4];

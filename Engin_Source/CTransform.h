@@ -20,6 +20,7 @@ public:
 	Transform* GetParent() { return mParent; }
 
 	Vector3 GetPosition() { return mPosition; }
+	Vector3 GetOffset() { return mOffset; }
 	Vector3 GetRotation() { return mRotation; }
 	Vector3 GetScale() { return mScale; }
 	Vector3 GetSize() { return mSize; }
@@ -27,6 +28,8 @@ public:
 	void SetPosition(Vector3 position) { mPosition = position; }
 	void SetPosition(float x, float y, float z) { mPosition = Vector3(x, y, z); }
 
+
+	void SetOffset(Vector3 offset) { mOffset = offset; }
 	void SetRotation(Vector3 degree) { mRotation = degree; }
 	void SetScale(Vector3 scale) { mScale = scale; }
 	void SetSize(Vector3 size) { mSize = size; }
@@ -45,6 +48,7 @@ private:
 	Vector3 mUp;
 
 	Vector3 mPosition;
+	Vector3 mOffset;
 	Vector3 mRotation;
 	Vector3 mScale;
 	Vector3 mSize;

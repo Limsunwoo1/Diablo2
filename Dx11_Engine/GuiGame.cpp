@@ -15,6 +15,7 @@
 #include "..//Engin_Source/CTileObject.h"
 #include "GuiEditor.h"
 #include "GuiInspector.h"
+#include "GuiHierachy.h"
 #include "..//Engin_Source/CTexture2D.h"
 
 #include <iostream>
@@ -83,6 +84,8 @@ namespace gui
 		_Editor.SetEditorImGuiMousePos(mouse);
 		_Editor.SetEditorWorldMousePos(mousePos);
 
+		if (mTex == nullptr)
+			return;
 
 		if (Input::GetInstance()->GetKeyPress(eKeyCode::LBTN) 
 			&& mbCreateTile 

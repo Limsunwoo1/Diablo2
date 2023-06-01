@@ -48,10 +48,16 @@ Skil* ObjectManager::GetSkilObj(Player* owner)
 
 void ObjectManager::SetOffsetData(eWallType type, Vector2 offset)
 {
+	if (type == eWallType::End)
+		return;
+
 	ObjectOffsetData[(UINT)type] = offset;
 }
 
 Vector2 ObjectManager::GetOffsetData(eWallType type)
 {
+	if (type == eWallType::End)
+		return Vector2::Zero;
+
 	return ObjectOffsetData[(UINT)type];
 }

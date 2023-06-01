@@ -106,3 +106,9 @@ cbuffer TileData : register(b11)
     
     bool OnTile;
 }
+
+cbuffer ObjectData : register(b12)
+{
+    bool OnObject;
+    float ObjectAlpha;
+}

@@ -76,36 +76,7 @@ void CameraScript::Update()
 		ro.x += 10.f * Time::GetInstance()->DeltaTime();
 		tr->SetRotation(ro);
 	}
-	else if (Input::GetInstance()->GetkeyState(eKeyCode::J) == eKeyState::PRESSED)
-	{
-		Vector3 ro = tr->GetRotation();
-		ro.y += 10.f * Time::GetInstance()->DeltaTime();
-		tr->SetRotation(ro);
-	}
-	else if (Input::GetInstance()->GetkeyState(eKeyCode::K) == eKeyState::PRESSED)
-	{
-		Vector3 ro = tr->GetRotation();
-		ro.z += 10.f * Time::GetInstance()->DeltaTime();
-		tr->SetRotation(ro);
-	}
-	else if (Input::GetInstance()->GetkeyState(eKeyCode::B) == eKeyState::PRESSED)
-	{
-		Vector3 ro = tr->GetRotation();
-		ro.x -= 10.f * Time::GetInstance()->DeltaTime();
-		tr->SetRotation(ro);
-	}
-	else if (Input::GetInstance()->GetkeyState(eKeyCode::N) == eKeyState::PRESSED)
-	{
-		Vector3 ro = tr->GetRotation();
-		ro.y -= 10.f * Time::GetInstance()->DeltaTime();
-		tr->SetRotation(ro);
-	}
-	else if (Input::GetInstance()->GetkeyState(eKeyCode::M) == eKeyState::PRESSED)
-	{
-		Vector3 ro = tr->GetRotation();
-		ro.z -= 10.f * Time::GetInstance()->DeltaTime();
-		tr->SetRotation(ro);
-	}
+
 
 	tr->SetPosition(pos);
 }
