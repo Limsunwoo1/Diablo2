@@ -225,8 +225,8 @@ void PlayScene::Initalize()
 	int indexY = 0;
 	{
 		bool a = false;
-		float sizeX = 200.f;
-		float sizeY = 100.f;
+		float sizeX = 400.f;
+		float sizeY = 200.f;
 		/*for (int y = 0; y < 20; ++y)
 		{
 			for (int x = 0; x < 20; ++x)

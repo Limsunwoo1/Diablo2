@@ -62,19 +62,75 @@ void ToolScene::Initalize()
 
 
 		objectTr->SetPosition(Vector3(5000.f, 5000.f, 50.f));
-		objectTr->SetSize(Vector3(200.f, 100.f, 1.0f));
+		objectTr->SetSize(Vector3(400.f, 200.f, 1.0f));
+	}
+
+	int indexX = 0;
+	int indexY = 0;
+	{
+		bool a = false;
+		float sizeX = 400.f;
+		float sizeY = 200.f;
+		for (int y = 0; y < 20; ++y)
+		{
+			for (int x = 0; x < 20; ++x)
+			{
+				if (x + y >= 20)
+					continue;
+
+				TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
+				Transform* tr = tile->GetComponent<Transform>();
+				UINT maxX = tile->GetMaterial()->GetTexture(eTextureSlot::T0).lock()->GetMaxX();
+				UINT maxY = tile->GetMaterial()->GetTexture(eTextureSlot::T0).lock()->GetMaxY();
+
+				tile->SetMaxIndex(maxX, maxY);
+				tile->SetIndex(1, 3);
+
+				tr->SetPosition(Vector3((x*(sizeX * 0.5f) + 5000.f), (y* sizeY) + (x * (sizeY * 0.5f)) + 5000.f, 50.0f));
+				tr->SetSize(Vector3(sizeX, sizeY, 1.0f));
+
+				indexX = x;
+				indexY = y;
+
+				tile->SetScreenIndex(x, y);
+
+			}
+		}
+
+		for (int y = 0; y < 20; ++y)
+		{
+			for (int x = 0; x < 20; ++x)
+			{
+				if (x + y >= 20)
+					continue;
+
+				TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
+				Transform* tr = tile->GetComponent<Transform>();
+				UINT maxX = tile->GetMaterial()->GetTexture(eTextureSlot::T0).lock()->GetMaxX();
+				UINT maxY = tile->GetMaterial()->GetTexture(eTextureSlot::T0).lock()->GetMaxY();
+
+				tile->SetMaxIndex(maxX, maxY);
+				tile->SetIndex(1, 3);
+
+
+				tr->SetPosition(Vector3((- 1 * x) * (sizeX * 0.5f) + 5000.f, (y* sizeY) + (x * (sizeY * 0.5f)) + 5000.f, 50.0f));
+				tr->SetSize(Vector3(sizeX, sizeY, 1.0f));
+
+				tile->SetScreenIndex(x + indexX, y + indexY);
+			}
+		}
 	}
 
 	{
 		WallObject* Wall = Object::Instantiate<WallObject>(eLayerType::Wall, this);
 
-		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"Wall_1Object", L"Object//Wall_1");
+		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_1Object");
 		Wall->SetTexture(tex);
 
 		Transform* tr = Wall->GetComponent<Transform>();
 		tr->SetPosition(Vector3(5000.f, 5000.f, 49.f));
-
-		Wall->SetOffset(Vector2(0.0f, 0.f));
+		Wall->SetOffset(Vector2(0.0f, 200.f));
+		Wall->SetWidthHeigth(Vector2(600.f, 600.f));
 	}
 }
 

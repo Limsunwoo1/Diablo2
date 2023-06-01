@@ -106,11 +106,11 @@ namespace gui
 			TileObject* object = Object::Instantiate<TileObject>(eLayerType::Tile, true);
 
 			Transform* objectTr = object->GetComponent<Transform>();
-			int Xpos = (x - y) * 100.f;
-			int ypos = (x + y) * 50.f;
+			int Xpos = (x - y) * TILE_X_HALF_SIZE;
+			int ypos = (x + y) * TILE_Y_HALF_SIZE;
 
 			objectTr->SetPosition(Vector3(Xpos + 5000.f, ypos + 5000.f, 50.f));
-			objectTr->SetSize(Vector3(200.f, 100.f , 1.0f));
+			objectTr->SetSize(Vector3(400.f, 200.f , 1.0f));
 
 			object->SetMaxIndex(_Editor.GetTileMaxX(), _Editor.GetTileMaxY());
 			object->SetIndex(_Editor.GetTileIndexX(), _Editor.GetTileIndexY());

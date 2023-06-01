@@ -153,7 +153,7 @@ void Camera::SortGameObjects()
 			Transform* camerTr = GetOwner()->GetComponent<Transform>();
 			Vector3 cameraPos = camerTr->GetPosition();
 			Vector2 windowSize = Vector2(Application.GetWidth(), Application.GetHeight());
-			windowSize += Vector2(200.f, 200.f);
+			windowSize += Vector2(400.f, 400.f);
 
 			if (pos.x < cameraPos.x - (windowSize.x * 0.5f) || pos.x > cameraPos.x + (windowSize.x * 0.5f))
 				continue;

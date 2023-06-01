@@ -6,6 +6,11 @@ ObjectManager::ObjectManager()
 	{
 		ObjectOffsetData.emplace_back(Vector2::Zero);
 	}
+
+	for (UINT i = 0; i < (UINT)eWallType::End; ++i)
+	{
+		ObjectSizeData.emplace_back(Vector2(600.f, 600.f));
+	}
 }
 
 ObjectManager::~ObjectManager()
@@ -60,4 +65,20 @@ Vector2 ObjectManager::GetOffsetData(eWallType type)
 		return Vector2::Zero;
 
 	return ObjectOffsetData[(UINT)type];
+}
+
+void ObjectManager::SetSizeData(eWallType type, Vector2 size)
+{
+	if (type == eWallType::End)
+		return;
+
+	ObjectSizeData[(UINT)type] = size;
+}
+
+Vector2 ObjectManager::GetSizeData(eWallType type)
+{
+	if (type == eWallType::End)
+		return Vector2(100.f,100.f);
+
+	return ObjectSizeData[(UINT)type];
 }

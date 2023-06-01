@@ -67,8 +67,8 @@ void Time::Render(HDC hdc)
 	float IndexY = 0;
 
 
-	IndexX = (((MouseX - 5000.f) / 100) + ((MouseY - 5000.f) / 50)) / 2;
-	IndexY = (((MouseY - 5000.f) / 50) - ((MouseX - 5000.f) / 100)) / 2;
+	IndexX = (((MouseX - 5000.f) / TILE_X_HALF_SIZE) + ((MouseY - 5000.f) / TILE_Y_HALF_SIZE)) / 2;
+	IndexY = (((MouseY - 5000.f) / TILE_Y_HALF_SIZE) - ((MouseX - 5000.f) / TILE_X_HALF_SIZE)) / 2;
 
 	if (IndexX <= -1.0f || IndexY <= -1.0f)
 	{

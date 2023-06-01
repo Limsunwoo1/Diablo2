@@ -29,8 +29,12 @@ public:
 	void SetOffsetData(eWallType type, Vector2 offset);
 	Vector2 GetOffsetData(eWallType type);
 
+	void SetSizeData(eWallType type, Vector2 size);
+	Vector2 GetSizeData(eWallType type);
+
 private:
 	queue<Skil*> SkilContainer;
 	vector<Vector2> ObjectOffsetData;
+	vector<Vector2> ObjectSizeData;
 };
 

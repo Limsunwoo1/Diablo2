@@ -39,8 +39,8 @@ private:									\
 
 
 
-#define TILE_X_HALF_SIZE 100
-#define TILE_Y_HALF_SIZE 50
+#define TILE_X_HALF_SIZE 200
+#define TILE_Y_HALF_SIZE 100
 
 #define WORLD_OFFSET 5000
 

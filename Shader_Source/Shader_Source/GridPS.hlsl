@@ -18,12 +18,12 @@ float4 main(VSOut In) : SV_TARGET
 {
     float4 Out = float4(1.0f, 1.0f, 1.0f, 1.0f);
     
-    const float width = 200 * cameraScale.x;
-    const float height = 100 * cameraScale.y;
+    const float width = 400 * cameraScale.x;
+    const float height = 200 * cameraScale.y;
     
     float lean = height / width;
     
-    const float2 offset = float2(0.0f, height * 0.5f);
+    const float2 offset = float2(0.0f, 400.f);
     
     int x = In.WorldPos.x + offset.x;
     int y = In.WorldPos.y + offset.y;
