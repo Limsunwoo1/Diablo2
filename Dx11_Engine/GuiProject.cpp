@@ -60,7 +60,7 @@ namespace gui
         TreeWidget::Node* pRootNode = mTreeWidget->AddNode(nullptr, "Resources", 0, true);
 
         AddResources<Mesh>(pRootNode, "Mesh");
-        AddResources<graphics::Texture2D>(pRootNode, "Texture");
+        AddTileResources<graphics::Texture2D>(pRootNode, "Texture");
         AddResources<Material>(pRootNode, "Material");
         AddResources<Shader>(pRootNode, "Shader");
     }

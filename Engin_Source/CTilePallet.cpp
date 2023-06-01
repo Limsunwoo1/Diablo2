@@ -12,17 +12,7 @@ TilePallet::~TilePallet()
 
 void TilePallet::Initalize()
 {
-	Transform* tr = GetComponent<Transform>();
-	tr->SetScale(Vector3(32.f, 16.f, 0.f));
-	tr->SetPosition(Vector3(0.0f, 0.0f, 10.f));
 
-
-	MeshRenderer* mr = AddComponent<MeshRenderer>();
-	std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"IsoMetricMesh");
-	std::weak_ptr<Material> material= ResourceManager::GetInstance()->Find<Material>(L"Grid2Material");
-
-	mr->SetMesh(mesh);
-	mr->SetMaterial(material);
 }
 
 void TilePallet::Update()
@@ -38,4 +28,67 @@ void TilePallet::FixedUpdate()
 void TilePallet::Render()
 {
 	GameObject::Render();
+}
+
+void TilePallet::Load()
+{
+	OPENFILENAME ofn = {};
+
+	wchar_t szFilePath[256] = {};
+
+	ZeroMemory(&ofn, sizeof(ofn));
+	ofn.lStructSize = sizeof(ofn);
+	ofn.hwndOwner = NULL;
+	ofn.lpstrFile = szFilePath;
+	ofn.lpstrFile[0] = '\0';
+	ofn.nMaxFile = 256;
+	ofn.lpstrFilter = L"All\0*.*\0Text\0*.TXT\0";
+	ofn.nFilterIndex = 1;
+	ofn.lpstrFileTitle = NULL;
+	ofn.nMaxFileTitle = 0;
+	ofn.lpstrInitialDir = NULL;
+	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+
+	if (false == GetOpenFileName(&ofn))
+		return;
+
+	FILE* pFile = nullptr;
+	_wfopen_s(&pFile, szFilePath, L"rb");
+	if (pFile == nullptr)
+		return;
+
+	fclose(pFile);
+}
+
+void TilePallet::Save()
+{
+	// open a file name
+	OPENFILENAME ofn = {};
+
+	wchar_t szFilePath[256] = {};
+
+	ZeroMemory(&ofn, sizeof(ofn));
+	ofn.lStructSize = sizeof(ofn);
+	ofn.hwndOwner = NULL;
+	ofn.lpstrFile = szFilePath;
+	ofn.lpstrFile[0] = '\0';
+	ofn.nMaxFile = 256;
+	ofn.lpstrFilter = L"Tile\0*.tile\0";
+	ofn.nFilterIndex = 1;
+	ofn.lpstrFileTitle = NULL;
+	ofn.nMaxFileTitle = 0;
+	ofn.lpstrInitialDir = NULL;
+	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+
+	if (false == GetSaveFileName(&ofn))
+		return;
+
+	FILE* pFile = nullptr;
+	_wfopen_s(&pFile, szFilePath, L"wb");
+	if (pFile == nullptr)
+		return;
+
+
+
+	fclose(pFile);
 }

@@ -2,7 +2,10 @@
 
 ObjectManager::ObjectManager()
 {
-
+	for (UINT i = 0; i < (UINT)eWallType::End; ++i)
+	{
+		ObjectOffsetData.emplace_back(Vector2::Zero);
+	}
 }
 
 ObjectManager::~ObjectManager()
@@ -41,4 +44,14 @@ Skil* ObjectManager::GetSkilObj(Player* owner)
 	}
 
 	return out;
+}
+
+void ObjectManager::SetOffsetData(eWallType type, Vector2 offset)
+{
+	ObjectOffsetData[(UINT)type] = offset;
+}
+
+Vector2 ObjectManager::GetOffsetData(eWallType type)
+{
+	return ObjectOffsetData[(UINT)type];
 }

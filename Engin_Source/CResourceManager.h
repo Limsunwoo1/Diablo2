@@ -40,6 +40,28 @@ public:
 	}
 
 	template <typename T>
+	std::vector<std::shared_ptr<T>> FindsTileTex()
+	{
+		std::vector<std::shared_ptr<T>> resorces = {};
+		for (auto iter : mResources)
+		{
+			std::shared_ptr<T> resource = nullptr;
+			if (iter.second->GetName().find(L"Tile") != wstring::npos ||
+				iter.second->GetName().find(L"tile") != wstring::npos ||
+				iter.second->GetName().find(L"Object") != wstring::npos ||
+				iter.second->GetName().find(L"object") != wstring::npos)
+			{
+				resource = std::dynamic_pointer_cast<T>(iter.second);
+			}
+
+			if (resource != nullptr)
+				resorces.emplace_back(resource);
+		}
+
+		return resorces;
+	}
+
+	template <typename T>
 	weak_ptr<T> Load(const wstring& key, const wstring& path)
 	{
 		shared_ptr<T> resource = Find<T>(key).lock();
@@ -79,6 +101,16 @@ public:
 
 		if(Find<T>(key).lock() == nullptr)
 			mResources.insert(make_pair(key, dynamic_pointer_cast<Resource>(resource)));
+	}
+
+	template <typename T>
+	void Delete(const wstring& key)
+	{
+		map<wstring, shared_ptr<Resource>>::iterator iter = mResources.find(key);
+		if (iter == mResources.end())
+			return;
+
+		mResources.erase(iter);
 	}
 
 	//void Release(void)

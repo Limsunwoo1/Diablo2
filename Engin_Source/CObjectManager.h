@@ -26,9 +26,11 @@ public:
 	}
 	Skil* GetSkilObj(Player* owner);
 
-
+	void SetOffsetData(eWallType type, Vector2 offset);
+	Vector2 GetOffsetData(eWallType type);
 
 private:
 	queue<Skil*> SkilContainer;
+	vector<Vector2> ObjectOffsetData;
 };
 

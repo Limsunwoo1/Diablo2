@@ -22,6 +22,7 @@ public:
 
 	Material* GetMaterial() { return mMaterial; }
 	void SetMaterial(Material* mater) { mMaterial = mater; }
+
 private:
 	Vector2 mUV;
 

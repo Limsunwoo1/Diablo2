@@ -77,15 +77,18 @@ void CApplication::Render()
 	ItemManager::GetInstance()->Render();
 }
 
+void CApplication::LateUpdate()
+{
+	Destroy();
+	Instantiate();
+}
+
 // Running main engine loop
 void CApplication::Run()
 {
 	Update();
 	FixedUpdate();
 	Render();
-
-	Destroy();
-	Instantiate();
 }
 
 void CApplication::Destroy()

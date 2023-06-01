@@ -35,6 +35,20 @@ namespace gui
 			}
 		}
 
+		template <typename T>
+		void AddTileResources(TreeWidget::Node* rootNode, const char* name)
+		{
+			const std::vector<std::shared_ptr<T>> resources = ResourceManager::GetInstance()->FindsTileTex<T>();
+			TreeWidget::Node* stemNode = mTreeWidget->AddNode(rootNode, name, 0, true);
+
+			for (std::shared_ptr<T> resource : resources)
+			{
+				std::wstring wName = resource->GetName();
+				std::string sName(wName.begin(), wName.end());
+				mTreeWidget->AddNode(stemNode, sName, resource.get());
+			}
+		}
+
 		void toInspector(void* data);
 
 	private:

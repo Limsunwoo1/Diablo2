@@ -67,7 +67,7 @@ namespace gui
 		Vector2 GetEditorUiMousePos() { return mEditorUiMousePos; }
 		Vector2 GetImGuiMousePos() { return Vector2(mImGuiMousePos.x, mImGuiMousePos.y); }
 
-		bool GetActive() {return mbItemsAble;}
+		bool GetActive() {return !mbItemsAble;}
 		bool SetActive(bool active = true) { mbItemsAble = active; }
 
 	private:

@@ -139,6 +139,21 @@ enum class eFileType
 	End,
 };
 
+// Resource 폴더 WallDirection.pmg 참조
+enum class eWallType
+{
+	Type1,
+	Type2,
+	Type3,
+	Type4,
+	Type5,
+	Type6,
+	Type7,
+	Type8,
+	Type9,
+	End,
+};
+
 extern const char* charComponentType[(int)eComponentType::End];
 extern const wchar_t* wcharComponentType[(int)eComponentType::End];
 extern const char* charResourceType[(int)eResourceType::End];

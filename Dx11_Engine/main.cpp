@@ -89,6 +89,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             _Editor.Run();
 
             Application.Present();
+            Application.LateUpdate();
             // 여기서 게임 실행 로직이 돌아가야한다.
 
             // 라이브러리

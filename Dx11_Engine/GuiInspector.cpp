@@ -11,9 +11,11 @@
 #include "GuiTransform.h"
 #include "GuiMeshRenderer.h"
 #include "GuiTexture2D.h"
+#include "GuiGame.h"
 #include "..//Engin_Source/CInput.h"
 
 #include <iostream>
+
 
 extern gui::Editor _Editor;
 
@@ -93,25 +95,35 @@ namespace gui
 
 		/*u *= dynamic_cast<guiTexture2D*>(mResources[(UINT)eResourceType::Texture])->GetMaxIndexX();
 		v *= dynamic_cast<guiTexture2D*>(mResources[(UINT)eResourceType::Texture])->GetMaxIndexY();*/
+		Texture2D* tex = dynamic_cast<Texture2D*>(mResources[(UINT)eResourceType::Texture]->GetTarget());
+		if (tex == nullptr)
+			return;
 
-		fX *= 5;
-		fY *= 37;
+		/*fX *= tex->GetMaxX();
+		fY *= tex->GetMaxY();
 
 		x = fX;
-		y = fY;
+		y = fY;*/
+
+		float testx = size.x / tex->GetMaxX();
+		float testy = size.y / tex->GetMaxY();
+
+		testx = curPos.x /testx;
+		testy = curPos.y /testy;
 
 
 		if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN))
 		{
-			Texture2D* tex = dynamic_cast<Texture2D*>(mResources[(UINT)eResourceType::Texture]->GetTarget());
 			_Editor.SetTileMaxX(tex->GetMaxX());
 			_Editor.SetTileMaxY(tex->GetMaxY());
 
-			_Editor.SetTileIndexX(x);
-			_Editor.SetTileIndexY(y);
+			_Editor.SetTileIndexX((int)testx);
+			_Editor.SetTileIndexY((int)testy);
 
-			std::cout << x << "   X Index" << y << "    Y Idex  " << std::endl;
+			_Editor.GetWidget<Game>("Game")->SetTex(tex);
 		}
+
+		cout << (int)testx << " x IDX  " << testy << " y IDx " << endl;
 	}
 	void Inspector::LateUpdate()
 	{

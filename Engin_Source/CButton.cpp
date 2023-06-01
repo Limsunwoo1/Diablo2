@@ -79,12 +79,10 @@ void Button::Update()
 
 	Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos(false);
 
-	if (!_Editor.GetActive())
+	if (_Editor.GetActive())
 	{
 		mousePos = _Editor.GetEditorUiMousePos();
 	}
-
-	std::cout << mousePos.x << "  X ÁÂÇ¥  " << mousePos.y << "  Y ÁÂÇ¥" << std::endl;
 
 	Transform* tr = GetComponent<Transform>();
 	float x, y, z;

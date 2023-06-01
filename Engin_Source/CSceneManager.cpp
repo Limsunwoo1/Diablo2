@@ -73,6 +73,7 @@ void SceneManager::Instantiate()
 	while (!mInsertObject.empty())
 	{
 		GameObject* obj = mInsertObject.front();
+		obj->Active();
 		Scene* scene = mActiveScene;
 		Layer& layer = scene->GetLayer(obj->GetLayerType());
 

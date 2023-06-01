@@ -708,6 +708,32 @@ namespace Renderer
 			tex.lock()->SetMaxX(5);
 			tex.lock()->SetMaxY(37);
 		}
+		{
+			std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"Wall3Tile", L"Wall3.png");
+			tex.lock()->SetMaxX(51);
+			tex.lock()->SetMaxY(1);
+		}
+		{
+			std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"WallTile", L"Wall.png");
+			tex.lock()->SetMaxX(19);
+			tex.lock()->SetMaxY(1);
+		}
+
+		{
+			for (int i = 0; i < 8; ++i)
+			{
+				wstring name = L"";
+				wstring path = L"";
+				wstring count = to_wstring(i + 1);
+
+				path = L"Object//Wall_0" + count + L".png";
+				name = L"Wall_0" + count + L"Object";
+
+				std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(name, path);
+				tex.lock()->SetMaxX(1);
+				tex.lock()->SetMaxY(1);
+			}
+		}
 #pragma endregion
 #pragma region DYNAMIC
 		// Create
@@ -1019,13 +1045,22 @@ namespace Renderer
 		}
 #pragma endregion
 
-#pragma region Button3 Material
+#pragma region	Tile Material
 		{
 			std::weak_ptr<Shader> TileShader = ResourceManager::GetInstance()->Find<Shader>(L"TileShader");
 			std::shared_ptr<Material> TileMaterial = std::make_shared<Material>();
 			TileMaterial ->SetRenderingMode(eRenderingMode::Transparent);
 			TileMaterial ->SetShader(TileShader);
 			ResourceManager::GetInstance()->Insert<Material>(L"TileMaterial", TileMaterial);;
+		}
+#pragma endregion
+#pragma region Wall Material
+		{
+			std::weak_ptr<Shader> WallShader = ResourceManager::GetInstance()->Find<Shader>(L"TileShader");
+			std::shared_ptr<Material> WallMaterial = std::make_shared<Material>();
+			WallMaterial->SetRenderingMode(eRenderingMode::Transparent);
+			WallMaterial->SetShader(WallShader);
+			ResourceManager::GetInstance()->Insert<Material>(L"WallMaterial", WallMaterial);;
 		}
 #pragma endregion
 	}

@@ -5,13 +5,14 @@
 #include "CRenderer.h"
 #include "CConstantBuffer.h"
 #include "CInput.h"
+#include "CSceneManager.h"
+#include "CObject.h"
 
 #include "..//Dx11_Engine/GuiEditor.h"
+#include "..//Dx11_Engine/GuiGame.h"
 
 extern gui::Editor _Editor;
 
-
-#include <iostream>
 TileObject::TileObject()
 	: GameObject()
 	, mUV(Vector2::One)
@@ -61,6 +62,9 @@ void TileObject::Update()
 	Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos(Renderer::mainCamera);
 
 	if (_Editor.GetActive() == false)
+		return;
+
+	if (_Editor.GetActive())
 		mousePos = _Editor.GetEditorWorldMousePos();
 
 	if (tilePos.x - (tileScale.x * 0.5f) > mousePos.x || tilePos.x + (tileScale.x * 0.5f) < mousePos.x)
@@ -112,17 +116,24 @@ void TileObject::Update()
 		0 > fSlope[2] * mousePos.x + fY_Intercept[2] - mousePos.y &&
 		0 > fSlope[3] * mousePos.x + fY_Intercept[3] - mousePos.y)
 	{
-		if (_Editor.GetActive() == false && Input::GetInstance()->GetKeyPress(eKeyCode::LBTN))
+		if (_Editor.GetActive() && Input::GetInstance()->GetKeyPress(eKeyCode::LBTN))
 		{
 			mIndexX = _Editor.GetTileIndexX();
 			mIndexY = _Editor.GetTileIndexY();
-
 			mbOnTile = true;
 		}
-		else if (_Editor.GetActive() == false)
+		else if (_Editor.GetActive() && Input::GetInstance()->GetKeyPress(eKeyCode::RBTN))
+		{
+			Object::ObjectDestroy(this);
+			mbOnTile = true;
+		}
+		else if (_Editor.GetActive()) // 에디터모드에서 메모리할당 제한
 		{
 			mbOnTile = true;
 		}
+
+		_Editor.GetWidget<gui::Game>("Game")->SetCreateTile(false);
+
 	}
 
 	GameObject::Update();
@@ -153,9 +164,6 @@ void TileObject::Render()
 		info.StartUV = Math::Vector2(indexX / MaxX, indexY / MaxY);
 		info.EndUV = Math::Vector2(((indexX + 1) / MaxX), ((indexY + 1) / MaxY));
 		info.OnTile = mbOnTile;
-
-		if (info.OnTile)
-			int a = 0;
 
 		ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::TileData];
 		cb->SetData(&info);

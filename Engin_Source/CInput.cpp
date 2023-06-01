@@ -30,6 +30,9 @@ int ASCII[(UINT)eKeyCode::End] =
 
 	////Num Line
 	'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+
+	//
+	VK_F1, VK_F2,
 };
 
 Input::Input()

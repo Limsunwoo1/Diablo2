@@ -55,7 +55,7 @@ void Time::Render(HDC hdc)
 {
 	Math::Vector2 pos = Input::GetInstance()->GetMouseWorldPos(true);
 
-	if (!_Editor.GetActive())
+	if (_Editor.GetActive())
 	{
 		pos = _Editor.GetEditorWorldMousePos();
 	}
@@ -70,8 +70,17 @@ void Time::Render(HDC hdc)
 	IndexX = (((MouseX - 5000.f) / 100) + ((MouseY - 5000.f) / 50)) / 2;
 	IndexY = (((MouseY - 5000.f) / 50) - ((MouseX - 5000.f) / 100)) / 2;
 
-	IndexX += 0.5f;
-	IndexY += 0.5f;
+	if (IndexX <= -1.0f || IndexY <= -1.0f)
+	{
+		IndexX -= 1.f;
+		IndexY -= 1.f;
+	}
+	else
+	{
+		IndexX += 0.5f;
+		IndexY += 0.5f;
+	}
+
 
 	Input::GetInstance()->SetIsometricX((int)IndexX);
 	Input::GetInstance()->SetIsometricY((int)IndexY);

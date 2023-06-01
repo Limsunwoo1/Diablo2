@@ -14,6 +14,8 @@
 
 #include "..//Engin_Source/CTileObject.h"
 #include "GuiEditor.h"
+#include "GuiInspector.h"
+#include "..//Engin_Source/CTexture2D.h"
 
 #include <iostream>
 
@@ -25,6 +27,9 @@ namespace gui
 	Game::Game()
 	{
 		SetName("Game");
+		mbCreateTile = true;
+		mbCreateObject = true;
+		mbTickOff = false;
 	}
 	Game::~Game()
 	{
@@ -78,8 +83,13 @@ namespace gui
 		_Editor.SetEditorImGuiMousePos(mouse);
 		_Editor.SetEditorWorldMousePos(mousePos);
 
-		if (Input::GetInstance()->GetKeyPress(eKeyCode::LBTN))
+
+		if (Input::GetInstance()->GetKeyPress(eKeyCode::LBTN) 
+			&& mbCreateTile 
+			&& mTex->GetName().find(L"Object") == wstring::npos
+			&& mTex->GetName().find(L"object") == wstring::npos)
 		{
+
 			int x = Input::GetInstance()->GetIsometricX();
 			int y = Input::GetInstance()->GetIsometricY();
 
@@ -88,13 +98,12 @@ namespace gui
 
 			TileObject* object = Object::Instantiate<TileObject>(eLayerType::Tile, true);
 
-
 			Transform* objectTr = object->GetComponent<Transform>();
 			int Xpos = (x - y) * 100.f;
 			int ypos = (x + y) * 50.f;
 
 			objectTr->SetPosition(Vector3(Xpos + 5000.f, ypos + 5000.f, 50.f));
-			objectTr->SetSize(Vector3(200.f, 100.f , 1.0f));
+			objectTr->SetSize(Vector3(200.f, 200.f , 1.0f));
 
 			object->SetMaxIndex(_Editor.GetTileMaxX(), _Editor.GetTileMaxY());
 			object->SetIndex(_Editor.GetTileIndexX(), _Editor.GetTileIndexY());
@@ -103,9 +112,25 @@ namespace gui
 			std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
 			std::weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"TileMaterial");
 
+			// test
+			if (mTex != nullptr)
+			{
+				std::weak_ptr<graphics::Texture2D> tex = ResourceManager::GetInstance()->Find<graphics::Texture2D>(mTex->GetName());
+				material.lock()->SetTexture(eTextureSlot::T0, tex);
+			}
+
 			mr->SetMesh(mesh);
 			mr->SetMaterial(material);
 		}
+
+		if (Input::GetInstance()->GetKeyPress(eKeyCode::LBTN)
+			&& mTex->GetName().find(L"Object") != wstring::npos
+			&& mTex->GetName().find(L"object") != wstring::npos)
+		{
+
+		}
+
+		mbCreateTile = true;
 	}
 	void Game::LateUpdate()
 	{

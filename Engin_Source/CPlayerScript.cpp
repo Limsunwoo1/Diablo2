@@ -71,6 +71,8 @@ void PlayerScript::Update()
 
 void PlayerScript::FixedUpdate()
 {
+	return;
+
 	for (GameObject* obj : mRenderObj)
 	{
 		if (obj == nullptr)

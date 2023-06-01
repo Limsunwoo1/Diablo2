@@ -39,5 +39,23 @@ private:									\
 
 
 
-#define TILE_X_SIZE 32
-#define TILE_Y_SIZE 16
+#define TILE_X_SIZE 200
+#define TILE_Y_SIZE 100
+
+#define WORLD_OFFSET 5000
+
+
+
+
+
+
+union Tile_IDX_Data
+{
+	struct
+	{
+		int idxX;
+		int indY;
+	};
+
+	UINT64 ID;
+};
