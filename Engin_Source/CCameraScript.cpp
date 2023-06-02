@@ -24,9 +24,9 @@ void CameraScript::Update()
 	//if (SceneManager::GetInstance()->GetActiveScene()->GetScenType() != eSceneType::Tool)
 	//	return;
 
+	Camera* camera = GetOwner()->GetComponent<Camera>();
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::SPACE))
 	{
-		Camera* camera = GetOwner()->GetComponent<Camera>();
 		if (camera != nullptr)
 		{
 			GameObject* player = WorldManager::GetInstance()->GetPlayer();
@@ -50,16 +50,24 @@ void CameraScript::Update()
 	}
 	else if (Input::GetInstance()->GetkeyState(eKeyCode::Q) == eKeyState::PRESSED)
 	{
-		//pos += speed * tr->Forward() * Time::GetInstance()->DeltaTime();
-		Camera* camera = GetOwner()->GetComponent<Camera>();
-		camera->SetScale(camera->GetScale() + (Time::GetInstance()->DeltaTime()));
+		pos += speed * tr->Forward() * Time::GetInstance()->DeltaTime();
+		/*Camera* camera = GetOwner()->GetComponent<Camera>();
+		camera->SetScale(camera->GetScale() + (Time::GetInstance()->DeltaTime()));*/
 	}
 	else if (Input::GetInstance()->GetkeyState(eKeyCode::E) == eKeyState::PRESSED)
 	{
-		//pos += speed * -tr->Forward() * Time::GetInstance()->DeltaTime();
+		pos += speed * -tr->Forward() * Time::GetInstance()->DeltaTime();
 
-		Camera* camera = GetOwner()->GetComponent<Camera>();
-		camera->SetScale(camera->GetScale() - (Time::GetInstance()->DeltaTime()));
+		/*Camera* camera = GetOwner()->GetComponent<Camera>();
+		camera->SetScale(camera->GetScale() - (Time::GetInstance()->DeltaTime()));*/
+	}
+	else if (Input::GetInstance()->GetKeyDown(eKeyCode::Z))
+	{
+		Camera::eProjectionType type = camera->GetProejctionType();
+		type = type == Camera::eProjectionType::Prespective ? 
+						Camera::eProjectionType::Orthographic : Camera::eProjectionType::Prespective;
+
+		camera->SetProjectionType(type);
 	}
 
 	if (Input::GetInstance()->GetkeyState(eKeyCode::W) == eKeyState::PRESSED)

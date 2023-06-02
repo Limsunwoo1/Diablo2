@@ -33,6 +33,7 @@ public:
 	void EnableLayerMasks() { mLayerMasks.set(); }
 	void DisableLayerMasks() { mLayerMasks.reset(); }
 
+	eProjectionType GetProejctionType() {return mType; }
 	void SetProjectionType(eProjectionType type) { mType = type; }
 
 	float GetScale() { return mScale; }
