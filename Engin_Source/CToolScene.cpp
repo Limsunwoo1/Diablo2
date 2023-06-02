@@ -149,6 +149,26 @@ void ToolScene::Initalize()
 	}
 
 	{
+		int x = 1;
+		int y = 12;
+		for (int i = 0; i < 11; ++i)
+		{
+			WallObject* Wall = Object::Instantiate<WallObject>(eLayerType::Wall, this);
+
+			int Xpos = ((x + i) - y) * TILE_X_HALF_SIZE;
+			int Ypos = (x + i + y) * TILE_Y_HALF_SIZE;
+
+			std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_9Object");
+			Wall->SetTexture(tex);
+
+			Transform* tr = Wall->GetComponent<Transform>();
+			tr->SetPosition(Vector3(5000.f + Xpos, 5000.f + Ypos, 49.f));
+			Wall->SetOffset(Vector2(60.0f, -90.f));
+			Wall->SetWidthHeigth(Vector2(300.f, 500.f));
+		}
+	}
+
+	{
 		WallObject* Wall = Object::Instantiate<WallObject>(eLayerType::Wall, this);
 
 		int Xpos = (12 - 1) * TILE_X_HALF_SIZE;
@@ -181,6 +201,21 @@ void ToolScene::Initalize()
 			Wall->SetOffset(Vector2(-110.f, -130.f));
 			Wall->SetWidthHeigth(Vector2(300.f, 600.f));
 		}
+	}
+
+	{
+		WallObject* Wall = Object::Instantiate<WallObject>(eLayerType::Wall, this);
+
+		int Xpos = (12 - 12) * TILE_X_HALF_SIZE;
+		int Ypos = (12 + 12) * TILE_Y_HALF_SIZE;
+
+		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_4Object");
+		Wall->SetTexture(tex);
+
+		Transform* tr = Wall->GetComponent<Transform>();
+		tr->SetPosition(Vector3(5000.f + Xpos, 5000.f + Ypos, 49.f));
+		Wall->SetOffset(Vector2(-20.0f, -190.f));
+		Wall->SetWidthHeigth(Vector2(180.f, 650.f));
 	}
 
 	{
