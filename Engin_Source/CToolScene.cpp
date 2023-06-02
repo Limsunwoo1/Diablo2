@@ -84,7 +84,7 @@ void ToolScene::Initalize()
 				UINT maxY = tile->GetMaterial()->GetTexture(eTextureSlot::T0).lock()->GetMaxY();
 
 				tile->SetMaxIndex(maxX, maxY);
-				tile->SetIndex(1, 3);
+				tile->SetIndex(3, 30);
 
 				tr->SetPosition(Vector3((x*(sizeX * 0.5f) + 5000.f), (y* sizeY) + (x * (sizeY * 0.5f)) + 5000.f, 50.0f));
 				tr->SetSize(Vector3(sizeX, sizeY, 1.0f));
@@ -110,7 +110,7 @@ void ToolScene::Initalize()
 				UINT maxY = tile->GetMaterial()->GetTexture(eTextureSlot::T0).lock()->GetMaxY();
 
 				tile->SetMaxIndex(maxX, maxY);
-				tile->SetIndex(1, 3);
+				tile->SetIndex(3, 30);
 
 
 				tr->SetPosition(Vector3((- 1 * x) * (sizeX * 0.5f) + 5000.f, (y* sizeY) + (x * (sizeY * 0.5f)) + 5000.f, 50.0f));
@@ -146,6 +146,41 @@ void ToolScene::Initalize()
 		tr->SetPosition(Vector3(5000.f + Xpos, 5000.f + Ypos, 49.f));
 		Wall->SetOffset(Vector2(0.0f, 250.f));
 		Wall->SetWidthHeigth(Vector2(150.f, 600.f));
+	}
+
+	{
+		WallObject* Wall = Object::Instantiate<WallObject>(eLayerType::Wall, this);
+
+		int Xpos = (12 - 1) * TILE_X_HALF_SIZE;
+		int Ypos = (12 + 1) * TILE_Y_HALF_SIZE;
+
+		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_5Object");
+		Wall->SetTexture(tex);
+
+		Transform* tr = Wall->GetComponent<Transform>();
+		tr->SetPosition(Vector3(5000.f + Xpos, 5000.f + Ypos, 49.f));
+		Wall->SetOffset(Vector2(-100.f, -100.f));
+		Wall->SetWidthHeigth(Vector2(300.f, 600.f));
+	}
+
+	{
+		int x = 12;
+		int y = 2;
+		for (int i = 0; i < 10; ++i)
+		{
+			WallObject* Wall = Object::Instantiate<WallObject>(eLayerType::Wall, this);
+
+			int Xpos = (x - (i + y)) * TILE_X_HALF_SIZE;
+			int Ypos = (x + (i + y)) * TILE_Y_HALF_SIZE;
+
+			std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_53Object");
+			Wall->SetTexture(tex);
+
+			Transform* tr = Wall->GetComponent<Transform>();
+			tr->SetPosition(Vector3(5000.f + Xpos, 5000.f + Ypos, 49.f));
+			Wall->SetOffset(Vector2(-110.f, -130.f));
+			Wall->SetWidthHeigth(Vector2(300.f, 600.f));
+		}
 	}
 
 	{
@@ -193,7 +228,7 @@ void ToolScene::Initalize()
 
 			Transform* tr = Wall->GetComponent<Transform>();
 			tr->SetPosition(Vector3(5000.f + Xpos, 5000.f + Ypos, 49.f));
-			Wall->SetOffset(Vector2(-220.f, -60.f));
+			Wall->SetOffset(Vector2(-220.f, -70.f));
 			Wall->SetWidthHeigth(Vector2(300.f, 500.f));
 
 			Wall->SetTexture(ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_53Object"));
