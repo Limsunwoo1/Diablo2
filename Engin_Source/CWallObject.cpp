@@ -65,7 +65,6 @@ void WallObject::Update()
 
 	Transform* mTr = GetComponent<Transform>();
 	Vector2 mPos = Vector2(mTr->GetPosition().x, mTr->GetPosition().y);
-	Vector3 mSize = Vector3(200.f, 100.f, 1.0f);
 
 	Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos();
 

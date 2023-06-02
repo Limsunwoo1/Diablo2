@@ -132,6 +132,73 @@ void ToolScene::Initalize()
 		Wall->SetOffset(Vector2(0.0f, 200.f));
 		Wall->SetWidthHeigth(Vector2(600.f, 600.f));
 	}
+
+	{
+		WallObject* Wall = Object::Instantiate<WallObject>(eLayerType::Wall, this);
+
+		int Xpos = (-1 - -1) * TILE_X_HALF_SIZE;
+		int Ypos = (-1 + -1) * TILE_Y_HALF_SIZE;
+
+		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_4Object");
+		Wall->SetTexture(tex);
+
+		Transform* tr = Wall->GetComponent<Transform>();
+		tr->SetPosition(Vector3(5000.f + Xpos, 5000.f + Ypos, 49.f));
+		Wall->SetOffset(Vector2(0.0f, 250.f));
+		Wall->SetWidthHeigth(Vector2(150.f, 600.f));
+	}
+
+	{
+		for (int i = 0; i < 10; ++i)
+		{
+			// 300, 500
+			// 180, -65
+			// y 1 , x 2
+			int x = 2;
+			int y = 1;
+
+			WallObject* Wall = Object::Instantiate<WallObject>(eLayerType::Wall, this);
+
+			std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_1Object");
+			Wall->SetTexture(tex);
+
+			int Xpos = ((x + i) - y) * TILE_X_HALF_SIZE;
+			int Ypos = (x + i + y )* TILE_Y_HALF_SIZE;
+
+
+			Transform* tr = Wall->GetComponent<Transform>();
+			tr->SetPosition(Vector3(5000.f + Xpos  , 5000.f + Ypos, 49.f));
+			Wall->SetOffset(Vector2(180.f, -65.f));
+			Wall->SetWidthHeigth(Vector2(300.f, 500.f));
+
+			Wall->SetTexture(ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_54Object"));
+		}
+
+		for (int i = 0; i < 10; ++i)
+		{
+			// 300, 500
+			// 180, -65
+			// y 1 , x 2
+			int x = 1;
+			int y = 2;
+
+			WallObject* Wall = Object::Instantiate<WallObject>(eLayerType::Wall, this);
+
+			std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_1Object");
+			Wall->SetTexture(tex);
+
+			int Xpos = (x - (i + y)) * TILE_X_HALF_SIZE;
+			int Ypos = (x + (i + y)) * TILE_Y_HALF_SIZE;
+
+
+			Transform* tr = Wall->GetComponent<Transform>();
+			tr->SetPosition(Vector3(5000.f + Xpos, 5000.f + Ypos, 49.f));
+			Wall->SetOffset(Vector2(-220.f, -60.f));
+			Wall->SetWidthHeigth(Vector2(300.f, 500.f));
+
+			Wall->SetTexture(ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_53Object"));
+		}
+	}
 }
 
 void ToolScene::Update()

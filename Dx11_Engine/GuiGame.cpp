@@ -71,7 +71,9 @@ namespace gui
 
 
 		ImVec2 Pos = (mouse - window) /  windowSize;
-		
+		//mouse += window;
+	
+
 		if (Pos.x < 0 || Pos.y < 0)
 		{
 			return;
@@ -86,6 +88,12 @@ namespace gui
 		_Editor.SetEditorWorldMousePos(mousePos);
 
 		if (SceneManager::GetInstance()->GetActiveScene()->GetScenType() != eSceneType::Tool)
+			return;
+
+		if (mouse.x < window.x || window.x + windowSize.x < mouse.x)
+			return;
+
+		if (mouse.y < window.y || window.y + windowSize.y < mouse.y)
 			return;
 
 		if (mTex == nullptr)
@@ -144,10 +152,10 @@ namespace gui
 			WallObject* object = Object::Instantiate<WallObject>(eLayerType::Wall, true);
 
 			Transform* objectTr = object->GetComponent<Transform>();
-			int Xpos = (x - y) * 100.f;
-			int ypos = (x + y) * 50.f;
+			int Xpos = (x - y) * TILE_X_HALF_SIZE;
+			int ypos = (x + y) * TILE_Y_HALF_SIZE;
 
-			objectTr->SetPosition(Vector3(Xpos + 5000.f, ypos + 5000.f, 50.f));
+			objectTr->SetPosition(Vector3(Xpos + 5000.f, ypos + 5000.f, 49.f));
 			objectTr->SetSize(Vector3(300.f, 300.f, 1.0f));
 
 			object->SetTexture(ResourceManager::GetInstance()->Find<Texture2D>(mTex->GetName()));

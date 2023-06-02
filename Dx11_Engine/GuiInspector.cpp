@@ -118,6 +118,8 @@ namespace gui
 			_Editor.SetTileIndexY((int)IdxY);
 
 			_Editor.GetWidget<Game>("Game")->SetTex(tex);
+			_Editor.GetWidget<Game>("Game")->SetCreateTile(false);
+			_Editor.GetWidget<Game>("Game")->SetCreateObject(false);
 		}
 	}
 	void Inspector::LateUpdate()
