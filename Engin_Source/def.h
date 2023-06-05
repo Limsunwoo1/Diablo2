@@ -47,6 +47,16 @@ private:									\
 
 
 
+union Tile_POS_Data
+{
+	struct
+	{
+		int posX;
+		int posY;
+	};
+
+	UINT64 PosData;
+};
 
 
 union Tile_IDX_Data
@@ -54,8 +64,19 @@ union Tile_IDX_Data
 	struct
 	{
 		int idxX;
-		int indY;
+		int idxY;
 	};
 
 	UINT64 ID;
+};
+
+union TileScreen_IDX_Data
+{
+	struct
+	{
+		int screenIdxX;
+		int screenIdxY;
+	};
+
+	UINT64 ScrrenID;
 };

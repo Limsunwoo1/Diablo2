@@ -16,8 +16,11 @@ public:
 	virtual void Render() override;
 
 	void Load();
+	void Load(const std::wstring& path, eSceneType type);
 	void Save();
 
+	void CreateTile(const wstring& key, eLayerType type, Tile_POS_Data pos, TileScreen_IDX_Data screenIdx, Tile_IDX_Data uvIdx);
+	void CreateTile(const wstring& key, eLayerType type, Tile_POS_Data pos, TileScreen_IDX_Data screenIdx, Tile_IDX_Data uvIdx, eSceneType sceneType);
 private:
 	vector<class TileObject> mTiles;
 
