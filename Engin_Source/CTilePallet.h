@@ -19,8 +19,10 @@ public:
 	void Load(const std::wstring& path, eSceneType type);
 	void Save();
 
-	void CreateTile(const wstring& key, eLayerType type, Tile_POS_Data pos, TileScreen_IDX_Data screenIdx, Tile_IDX_Data uvIdx);
-	void CreateTile(const wstring& key, eLayerType type, Tile_POS_Data pos, TileScreen_IDX_Data screenIdx, Tile_IDX_Data uvIdx, eSceneType sceneType);
+	void CreateTile(const wstring& key, eLayerType type, Pos_Data pos, Screen_IDX_Data screenIdx, IDX_Data uvIdx);
+	void CreateTile(const wstring& key, eLayerType type, Pos_Data pos, Screen_IDX_Data screenIdx, IDX_Data uvIdx, eSceneType sceneType);
+	void CreateWall(const wstring& key, eLayerType type, Pos_Data pos, Size_Data size, Offset_Data offset, Screen_IDX_Data screenIdx);
+	void CreateWall(const wstring& key, eLayerType type, Pos_Data pos, Size_Data size, Offset_Data offset, Screen_IDX_Data screenIdx, eSceneType sceneType);
 private:
 	vector<class TileObject> mTiles;
 

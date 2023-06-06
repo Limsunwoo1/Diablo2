@@ -19,9 +19,11 @@ public:
 
 	void SetWidthHeigth(Vector2 size);
 	void SetOffset(Vector2 offset);
+	void SetScrrenIndex(UINT32 x, UINT32 y) { mScreenIndexX = x, mScreenIndexY = y; }
 
 	Vector2 GetWidthHeight() { return mWidthHeight; }
 	Vector2 GetOffset() { return mOffset; }
+	std::pair<UINT32, UINT32> GetScreenIDX() { return make_pair(mScreenIndexX, mScreenIndexY); }
 
 	void SetTexture(std::weak_ptr<class graphics::Texture2D> tex) { mTexture = tex; }
 	void SetMaterial(std::weak_ptr<class Material> mater) { mMaterial = mater; }

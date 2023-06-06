@@ -47,7 +47,7 @@ private:									\
 
 
 
-union Tile_POS_Data
+union Pos_Data
 {
 	struct
 	{
@@ -57,9 +57,27 @@ union Tile_POS_Data
 
 	UINT64 PosData;
 };
+union Size_Data
+{
+	struct
+	{
+		int sizeX;
+		int sizeY;
+	};
 
+	UINT64 SizeData;
+};
+union Offset_Data
+{
+	struct
+	{
+		int offsetX;
+		int offsetY;
+	};
 
-union Tile_IDX_Data
+	UINT64 OffsetData;
+};
+union IDX_Data
 {
 	struct
 	{
@@ -69,8 +87,7 @@ union Tile_IDX_Data
 
 	UINT64 ID;
 };
-
-union TileScreen_IDX_Data
+union Screen_IDX_Data
 {
 	struct
 	{
