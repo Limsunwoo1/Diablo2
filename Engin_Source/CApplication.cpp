@@ -9,6 +9,7 @@
 #include "CUIManager.h"
 #include "CItemManager.h"
 #include "FileManager.h"
+#include "CObjectManager.h"
 
 using namespace graphics;
 
@@ -30,6 +31,7 @@ void CApplication::Initalize()
 {
 	Time::GetInstance()->Initialize();
 	Input::GetInstance()->Initialize();
+	ObjectManager::GetInstance()->Initialize();
 	CollisionManager::GetInstance()->Initalize();
 	Renderer::Initialize();
 	WorldManager::GetInstance()->Initialize();
@@ -114,6 +116,7 @@ void CApplication::Release()
 	WorldManager::GetInstance()->DestroyInstance();
 	Renderer::Release();
 	CollisionManager::GetInstance()->DestroyInstance();
+	ObjectManager::GetInstance()->DestroyInstance();
 	Input::GetInstance()->DestroyInstance();
 	Time::GetInstance()->DestroyInstance();
 	ResourceManager::GetInstance()->DestroyInstance();

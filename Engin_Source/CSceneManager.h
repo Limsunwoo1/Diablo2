@@ -22,10 +22,12 @@ public:
 	Scene* GetScene(eSceneType type);
 
 	void AddLateInitObject(GameObject* obj) { mLateInitObject.push(obj); }
+	
+	void SortWallObject();
+
 private:
 	std::vector<Scene*> mScenes;
 	Scene* mActiveScene;
 	std::queue<GameObject*> mInsertObject;
 	std::queue<GameObject*> mLateInitObject;
 };
-

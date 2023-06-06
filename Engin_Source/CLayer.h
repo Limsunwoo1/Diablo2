@@ -19,9 +19,6 @@ public:
 	void AddGameObject(GameObject* gameObject);
 	const GameObjects GetGameObjects() { return mGameObjects; }
 	std::vector<GameObject*> GetDontDestroyGameObjects();
-
-	void Sort_TileObject(vector<GameObject*>& object, int left, int right);
-
 private:
 	std::vector<GameObject*> mGameObjects;
 	bool mbSortTile;

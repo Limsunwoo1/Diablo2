@@ -6,6 +6,7 @@
 #include "CEnddingScene.h"
 #include "CMainTitleScene.h"
 #include "CToolScene.h"
+#include "CObject.h"
 
 #include "..//Dx11_Engine/GuiEditor.h"
 #include "..//Dx11_Engine/GuiHierachy.h"
@@ -121,4 +122,29 @@ Scene* SceneManager::GetScene(eSceneType type)
 {
 	Scene* scene = mScenes[(UINT)type];
 	return scene;
+}
+
+void SceneManager::SortWallObject()
+{
+	if (mActiveScene == nullptr)
+		return;
+
+	Layer& layer = mActiveScene->GetLayer(eLayerType::Wall);
+	std::vector<GameObject*> Objects = layer.GetGameObjects();
+
+
+	// 벽에 렌더 순서를 정해주기위해 y 값이 높은순 정렬
+	std::sort(Objects.begin(), Objects.end(), [](GameObject* a, GameObject* b)
+		{
+			Transform* aTr = a->GetComponent<Transform>();
+			Transform* bTr = b->GetComponent<Transform>();
+
+			Vector3 aPos = aTr->GetPosition() + aTr->GetOffset();
+			Vector3 bPos = bTr->GetPosition() + bTr->GetOffset();
+
+			if (aPos.y == bPos.y)
+				return a < b;
+			else
+				return aPos.y > bPos.y;
+		});
 }

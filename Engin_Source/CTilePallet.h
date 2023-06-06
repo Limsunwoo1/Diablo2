@@ -24,7 +24,6 @@ public:
 	void CreateWall(const wstring& key, eLayerType type, Pos_Data pos, Size_Data size, Offset_Data offset, Screen_IDX_Data screenIdx);
 	void CreateWall(const wstring& key, eLayerType type, Pos_Data pos, Size_Data size, Offset_Data offset, Screen_IDX_Data screenIdx, eSceneType sceneType);
 private:
-	vector<class TileObject> mTiles;
 
 	int mCol;
 	int mRow;

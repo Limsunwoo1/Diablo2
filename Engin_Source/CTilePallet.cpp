@@ -291,6 +291,7 @@ void TilePallet::Save()
 		fwrite(&TileUV, sizeof(UINT64), 1, pFile);
 	}
 
+	SceneManager::GetInstance()->SortWallObject();
 	std::vector<GameObject*> Wallobjects = secne->GetLayer(eLayerType::Wall).GetGameObjects();
 	for (GameObject* object : Wallobjects)
 	{
@@ -386,7 +387,7 @@ void TilePallet::CreateWall(const wstring& key, eLayerType type, Pos_Data pos, S
 
 	Scene* scene = SceneManager::GetInstance()->GetScene(eSceneType::Tool);
 
-	WallObject* wall = Object::Instantiate<WallObject>(eLayerType::Tile, scene);
+	WallObject* wall = Object::Instantiate<WallObject>(eLayerType::Wall, scene);
 
 	wall->SetTexture(tex);
 	wall->SetOffset(Vector2(offset.offsetX, offset.offsetY));

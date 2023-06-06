@@ -15,7 +15,16 @@ ObjectManager::ObjectManager()
 
 ObjectManager::~ObjectManager()
 {
+	while (!SkilContainer.empty())
+	{
+		GameObject* obj = SkilContainer.front();
+		SkilContainer.pop();
 
+		if (obj == nullptr)
+			continue;
+
+		delete obj;
+	}
 }
 
 void ObjectManager::Update()

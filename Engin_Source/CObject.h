@@ -141,4 +141,15 @@ namespace Object
 
 		gameObject->DontDestroy(true);
 	}
+
+	static bool CompareWallObject(GameObject* a, GameObject* b)
+	{
+		Transform* aTr = a->GetComponent<Transform>();
+		Transform* bTr = b->GetComponent<Transform>();
+
+		Vector3 aPos = aTr->GetPosition() + aTr->GetOffset();
+		Vector3 bPos = bTr->GetPosition() + bTr->GetOffset();
+
+		return aPos.y >= bPos.y;
+	}
 }
