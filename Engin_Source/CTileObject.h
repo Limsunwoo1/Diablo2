@@ -39,7 +39,8 @@ private:
 	bool mbUpdate;
 	bool mbOnTile;
 
-	int mArr[5][5];
+	int mArr[4];
+	int mArrIdx;
 	std::wstring mTexPath;
 
 	Material* mMaterial;

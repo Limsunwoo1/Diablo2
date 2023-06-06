@@ -160,7 +160,7 @@ enum class eToolRenderMode
 	ALL,
 	TILE,
 	OBJECT,
-	OFF,
+	Unmovable_Area,
 	END,
 };
 

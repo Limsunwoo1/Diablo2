@@ -235,9 +235,9 @@ void ToolScene::Initalize()
 	{
 		for (int i = 0; i < 10; ++i)
 		{
-			// 300, 500
-			// 180, -65
-			// y 1 , x 2
+			 //300, 500
+			 //180, -65
+			 //y 1 , x 2
 			int x = 2;
 			int y = 1;
 
@@ -262,9 +262,9 @@ void ToolScene::Initalize()
 
 		for (int i = 0; i < 10; ++i)
 		{
-			// 300, 500
-			// 180, -65
-			// y 1 , x 2
+			 //300, 500
+			 //180, -65
+			 //y 1 , x 2
 			int x = 1;
 			int y = 2;
 
@@ -361,7 +361,7 @@ void ToolScene::Update()
 
 		break;
 	}
-	case eToolRenderMode::OFF:
+	case eToolRenderMode::Unmovable_Area:
 	{
 		mMainCamera->DisableLayerMasks();
 		break;
@@ -375,7 +375,7 @@ void ToolScene::Update()
 		break;
 	}
 
-	if (mode == eToolRenderMode::OFF)
+	if (mode == eToolRenderMode::Unmovable_Area)
 		return;
 
 	Scene::Update();

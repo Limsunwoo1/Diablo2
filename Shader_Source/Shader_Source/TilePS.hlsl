@@ -24,6 +24,8 @@ float4 main(VSOut In) : SV_Target
     In.UV = abs(endUV - startUV) * In.UV;
     In.UV += startUV;
     
+    color = defaultTexture.Sample(pointSampler, In.UV);
+    
     // float2 colrow = float2(5.0f, 37.0f);
     // In.UV.x = (In.UV.x / colrow.x) + (1.f / colrow.x);
     // In.UV.y = (In.UV.y / colrow.y) + (1.f / colrow.y);
@@ -37,7 +39,7 @@ float4 main(VSOut In) : SV_Target
     //if (In.UV.x > endUV.x || In.UV.y > endUV.y)
     //   discard;
     
-    color = defaultTexture.Sample(pointSampler, In.UV);
+    //color = defaultTexture.Sample(pointSampler, In.UV);
     
     
     
@@ -57,13 +59,71 @@ float4 main(VSOut In) : SV_Target
     
     color *= float4(1.0f, 1.0f, 1.0f, 1.0f);
     color *= float4(1.0f, 1.0f, 1.0f, 1.0f);
-    if (OnTile)
+    if (OnTile && arrIdx >= 0)
     {
-        //color *= float4(0.f, 0.f, 1.0f, 1.0f);
+        float sizex = endUV.x - startUV.x;
+        float sizey = endUV.y - startUV.y;
+    
+        float2 sUv = startUV;
+        sUv.x += sizex * 0.5f;
+        sUv.y += sizey * 0.5f;
         
-        color.z = 0.8f;
+        if (arrIdx == 0)
+            sUv.y += sizey * 0.25f;
+        else if (arrIdx == 1)
+            sUv.x += sizex * 0.25f;
+        else if (arrIdx == 2)
+            sUv.x -= sizex * 0.25f;
+        else if (arrIdx == 3)
+            sUv.y -= sizey * 0.25f;
+    
+    // 기울기
+        float fslope = (sizey * 0.5f) / (sizex * 0.5f);
+        float fSlope[4] =
+        {
+            fslope,
+		-fslope,
+		fslope,
+		-fslope,
+        };
+
+	// 마름모 정점
+        float2 vVertex[4] =
+        {
+            { sUv.x, sUv.y + (sizey * 0.25f) },
+            { sUv.x + (sizex * 0.25f), sUv.y },
+            { sUv.x, sUv.y - (sizey * 0.25f) },
+            { sUv.x - (sizex * 0.25f), sUv.y },
+        };
+
+	// 절편
+        float fY_Intercept[4] =
+        {
+            vVertex[0].y - (fSlope[0] * vVertex[0].x),
+		vVertex[1].y - (fSlope[1] * vVertex[1].x),
+		vVertex[2].y - (fSlope[2] * vVertex[2].x),
+		vVertex[3].y - (fSlope[3] * vVertex[3].x),
+        };
+
+	//0 = ax + b - y;
+
+        float tset[4] =
+        {
+            fSlope[0] * In.UV.x + fY_Intercept[0] - In.UV.y,
+		fSlope[1] * In.UV.x + fY_Intercept[1] - In.UV.y,
+		fSlope[2] * In.UV.x + fY_Intercept[2] - In.UV.y,
+		fSlope[3] * In.UV.x + fY_Intercept[3] - In.UV.y
+        };
+
+        if (0 < fSlope[0] * In.UV.x + fY_Intercept[0] - In.UV.y &&
+		0 < fSlope[1] * In.UV.x + fY_Intercept[1] - In.UV.y &&
+		0 > fSlope[2] * In.UV.x + fY_Intercept[2] - In.UV.y &&
+		0 > fSlope[3] * In.UV.x + fY_Intercept[3] - In.UV.y)
+        {
+            color.z = 0.8f;
         
-        color.a = 0.6f;
+            color.a = 0.6f;
+        }
     }
     
     return color;

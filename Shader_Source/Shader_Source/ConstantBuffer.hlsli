@@ -105,6 +105,7 @@ cbuffer TileData : register(b11)
     float2 endUV;
     
     bool OnTile;
+    int arrIdx;
 }
 
 cbuffer ObjectData : register(b12)

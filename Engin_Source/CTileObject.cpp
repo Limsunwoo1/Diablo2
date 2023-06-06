@@ -20,6 +20,7 @@ TileObject::TileObject()
 	, mbPass(true)
 	, mbOnTile(false)
 	, mArr{}
+	, mArrIdx(-1)
 	, mTexPath(L"")
 	, mMaxX(1)
 	, mMaxY(1)
@@ -55,6 +56,7 @@ void TileObject::Initalize()
 void TileObject::Update()
 {
 	mbOnTile = false;
+	mArrIdx = -1;
 
 	Transform* tileTr = GetComponent<Transform>();
 	Vector3 tilePos = tileTr->GetPosition();
@@ -140,6 +142,119 @@ void TileObject::Update()
 
 		_Editor.GetWidget<gui::Game>("Game")->SetCreateTile(false);
 
+
+		// 기울기
+		float childFslope = ((tileScale.y * 0.5f) / 4.f) / ((tileScale.x * 0.5f) / 4.f);
+		float childfSlope[4] =
+		{
+			fslope,
+			-fslope,
+			fslope,
+			-fslope,
+		};
+
+		// 마름모 정점
+		Vector3 childPos = tilePos;
+		childPos.y -= tileScale.y * 0.25f;
+		Vector2 vVertex0[4] =
+		{
+			{childPos.x, childPos.y + (tileScale.y * 0.25f)},
+			{childPos.x + (tileScale.x * 0.25f), childPos.y},
+			{childPos.x, childPos.y - (tileScale.y * 0.25f)},
+			{childPos.x - (tileScale.x * 0.25f), childPos.y},
+		};
+
+		childPos = tilePos;
+		childPos.x += tileScale.x * 0.25f;
+		Vector2 vVertex1[4] =
+		{
+			{childPos.x, childPos.y + (tileScale.y * 0.25f)},
+			{childPos.x + (tileScale.x * 0.25f), childPos.y},
+			{childPos.x, childPos.y - (tileScale.y * 0.25f)},
+			{childPos.x - (tileScale.x * 0.25f), childPos.y},
+		};
+
+		childPos = tilePos;
+		childPos.x -= tileScale.x * 0.25f;
+		Vector2 vVertex2[4] =
+		{
+			{childPos.x, childPos.y + (tileScale.y * 0.25f)},
+			{childPos.x + (tileScale.x * 0.25f), childPos.y},
+			{childPos.x, childPos.y - (tileScale.y * 0.25f)},
+			{childPos.x - (tileScale.x * 0.25f), childPos.y},
+		};
+
+		childPos = tilePos;
+		childPos.y += tileScale.y * 0.25f;
+		Vector2 vVertex3[4] =
+		{
+			{childPos.x, childPos.y + (tileScale.y * 0.25f)},
+			{childPos.x + (tileScale.x * 0.25f), childPos.y},
+			{childPos.x, childPos.y - (tileScale.y * 0.25f)},
+			{childPos.x - (tileScale.x * 0.25f), childPos.y},
+		};
+
+		// 절편
+		float fY_Intercept0[4] =
+		{
+			vVertex0[0].y - (childfSlope[0] * vVertex0[0].x),
+			vVertex0[1].y - (childfSlope[1] * vVertex0[1].x),
+			vVertex0[2].y - (childfSlope[2] * vVertex0[2].x),
+			vVertex0[3].y - (childfSlope[3] * vVertex0[3].x),
+		};
+
+		float fY_Intercept1[4] =
+		{
+			vVertex1[0].y - (childfSlope[0] * vVertex1[0].x),
+			vVertex1[1].y - (childfSlope[1] * vVertex1[1].x),
+			vVertex1[2].y - (childfSlope[2] * vVertex1[2].x),
+			vVertex1[3].y - (childfSlope[3] * vVertex1[3].x),
+		};
+
+		float fY_Intercept2[4] =
+		{
+			vVertex2[0].y - (childfSlope[0] * vVertex2[0].x),
+			vVertex2[1].y - (childfSlope[1] * vVertex2[1].x),
+			vVertex2[2].y - (childfSlope[2] * vVertex2[2].x),
+			vVertex2[3].y - (childfSlope[3] * vVertex2[3].x),
+		};
+
+		float fY_Intercept3[4] =
+		{
+			vVertex3[0].y - (childfSlope[0] * vVertex3[0].x),
+			vVertex3[1].y - (childfSlope[1] * vVertex3[1].x),
+			vVertex3[2].y - (childfSlope[2] * vVertex3[2].x),
+			vVertex3[3].y - (childfSlope[3] * vVertex3[3].x),
+		};
+
+		if (0 < childfSlope[0] * mousePos.x + fY_Intercept0[0] - mousePos.y &&
+			0 < childfSlope[1] * mousePos.x + fY_Intercept0[1] - mousePos.y &&
+			0 > childfSlope[2] * mousePos.x + fY_Intercept0[2] - mousePos.y &&
+			0 > childfSlope[3] * mousePos.x + fY_Intercept0[3] - mousePos.y)
+		{
+			mArrIdx = 0;
+		}
+		else if (0 < childfSlope[0] * mousePos.x + fY_Intercept1[0] - mousePos.y &&
+			0 < childfSlope[1] * mousePos.x + fY_Intercept1[1] - mousePos.y &&
+			0 > childfSlope[2] * mousePos.x + fY_Intercept1[2] - mousePos.y &&
+			0 > childfSlope[3] * mousePos.x + fY_Intercept1[3] - mousePos.y)
+		{
+			mArrIdx = 1;
+		}
+		else if (0 < childfSlope[0] * mousePos.x + fY_Intercept2[0] - mousePos.y &&
+			0 < childfSlope[1] * mousePos.x + fY_Intercept2[1] - mousePos.y &&
+			0 > childfSlope[2] * mousePos.x + fY_Intercept2[2] - mousePos.y &&
+			0 > childfSlope[3] * mousePos.x + fY_Intercept2[3] - mousePos.y)
+		{
+			mArrIdx = 2;
+		}
+		else if (0 < childfSlope[0] * mousePos.x + fY_Intercept3[0] - mousePos.y &&
+			0 < childfSlope[1] * mousePos.x + fY_Intercept3[1] - mousePos.y &&
+			0 > childfSlope[2] * mousePos.x + fY_Intercept3[2] - mousePos.y &&
+			0 > childfSlope[3] * mousePos.x + fY_Intercept3[3] - mousePos.y)
+		{
+			mArrIdx = 3;
+		}
 	}
 
 	GameObject::Update();
@@ -170,6 +285,7 @@ void TileObject::Render()
 		info.StartUV = Math::Vector2(indexX / MaxX, indexY / MaxY);
 		info.EndUV = Math::Vector2(((indexX + 1) / MaxX), ((indexY + 1) / MaxY));
 		info.OnTile = mbOnTile;
+		info.ArrIdx = mArrIdx;
 
 		ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::TileData];
 		cb->SetData(&info);

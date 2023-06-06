@@ -132,6 +132,7 @@ namespace Renderer
 		Vector2 EndUV;
 
 		bool OnTile;
+		int ArrIdx;
 	};
 
 	CBUFFER(ObjectDataCB, CBSLOT_OBEJECTDATA)
