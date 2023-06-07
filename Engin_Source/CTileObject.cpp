@@ -280,6 +280,8 @@ void TileObject::Update()
 
 			TilePallet* pallet = tool->GetTilePallet();
 			pallet->InserCarveObject(mScreenIndexX, mScreenIndexY, mArrIdx, this);
+
+			SetPassSituation();
 		}
 
 		if (mArrIdx >= 0
@@ -291,6 +293,8 @@ void TileObject::Update()
 
 			TilePallet* pallet = tool->GetTilePallet();
 			pallet->DeleteCarveObject(mScreenIndexX, mScreenIndexY, mArrIdx);
+
+			SetPassSituation();
 		}
 	}
 
@@ -333,4 +337,17 @@ void TileObject::Render()
 	mArrIdx = -1;
 
 	GameObject::Render();
+}
+
+void TileObject::SetPassSituation()
+{
+	if (mArr[0] == 1 && mArr[3] == 1)
+	{
+		mbPass = false;
+	}
+
+	if (mArr[1] == 1 && mArr[2] == 1)
+	{
+		mbPass = false;
+	}
 }

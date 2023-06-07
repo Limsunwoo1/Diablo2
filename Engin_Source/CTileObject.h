@@ -26,6 +26,11 @@ public:
 	const std::vector<int>& GetArr() { return mArr; }
 	void SetArr(const std::vector<int>& arr) { mArr = arr; }
 
+	void SetPass(bool pass) { mbPass = pass; }
+	bool GetPass() { return mbPass; }
+
+	void SetPassSituation();
+
 private:
 	Vector2 mUV;
 

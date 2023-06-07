@@ -399,6 +399,7 @@ void TilePallet::CreateTile(const wstring& key, eLayerType type, Pos_Data pos, S
 	tr->SetSize(Vector3(TILE_X_HALF_SIZE * 2, TILE_Y_HALF_SIZE * 2, 1.0f));
 
 	tile->SetArr(arrData);
+	tile->SetPassSituation();
 }
 
 void TilePallet::CreateTile(const wstring& key, eLayerType type, Pos_Data pos, Screen_IDX_Data screenIdx, IDX_Data uvIdx
@@ -421,6 +422,7 @@ void TilePallet::CreateTile(const wstring& key, eLayerType type, Pos_Data pos, S
 	tr->SetSize(Vector3(TILE_X_HALF_SIZE * 2, TILE_Y_HALF_SIZE * 2, 1.0f));
 
 	tile->SetArr(arrData);
+	tile->SetPassSituation();
 
 	Object::Instantiate<TileObject>(eLayerType::Tile, sceneType, tile);
 }
