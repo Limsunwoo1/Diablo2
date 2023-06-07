@@ -20,6 +20,7 @@ enum class eLayerType
 	BackGround,
 	TilePllet,
 	Tile,
+	TileCarve,
 	Wall,
 	Grid,
 	MonsterSkil,
@@ -32,7 +33,7 @@ enum class eLayerType
 	Fade,
 	PostProcess,
 	UI,
-	End = 16,
+	End = 20,
 };
 
 enum class eComponentType

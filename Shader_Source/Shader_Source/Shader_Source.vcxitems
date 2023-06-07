@@ -92,6 +92,8 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)SpriteVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
     </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)TileCarvePS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)TileCarveVS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)TilePS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
     </FxCompile>

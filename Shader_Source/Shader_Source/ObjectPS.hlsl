@@ -34,16 +34,16 @@ float4 main(VSOut In) : SV_Target
     color *= float4(1.0f, 1.0f, 1.0f, 1.0f);
     
     //color.a = ObjectAlpha;
+    color.a = ObjectAlpha;
     
     if (OnObject)
     {
-        //color *= float4(0.f, 0.f, 1.0f, 1.0f);
-        
+    //color *= float4(0.f, 0.f, 1.0f, 1.0f);
+    
         color.y = 0.6f;
         color.a = 0.6f;
     }
     
-    //color.a = 0.4f;
     
     return color;
 }

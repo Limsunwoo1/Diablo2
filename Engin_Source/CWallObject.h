@@ -32,6 +32,9 @@ public:
 
 	void SetWallType(eWallType type);
 	eWallType GetWallType() { return mWallType; }
+
+	void SetAlpha(float alpha) { mAlpha = alpha; }
+	float GetAlpha() { return mAlpha; }
 	
 private:
 	Vector2 mWidthHeight;

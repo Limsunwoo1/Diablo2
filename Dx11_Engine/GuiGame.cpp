@@ -11,13 +11,15 @@
 #include "..//Engin_Source/CApplication.h"
 
 #include "..//Engin_Source/CGraphicDevice_DX11.h"
-
 #include "..//Engin_Source/CTileObject.h"
+#include "..//Engin_Source/CTexture2D.h"
+#include "..//Engin_Source/CWallObject.h"
+
+#include "..//Engin_Source/CToolScene.h"
+
 #include "GuiEditor.h"
 #include "GuiInspector.h"
 #include "GuiHierachy.h"
-#include "..//Engin_Source/CTexture2D.h"
-#include "..//Engin_Source/CWallObject.h"
 
 #include <iostream>
 
@@ -99,66 +101,73 @@ namespace gui
 		if (mTex == nullptr)
 			return;
 
-		if (Input::GetInstance()->GetKeyPress(eKeyCode::LBTN) 
-			&& mbCreateTile 
-			&& mTex->GetName().find(L"Object") == wstring::npos
-			&& mTex->GetName().find(L"object") == wstring::npos)
+		ToolScene* toolscene = dynamic_cast<ToolScene*>(SceneManager::GetInstance()->GetActiveScene());
+		eToolRenderMode rMode = toolscene->GetToolRenderMode();
+
+		if (Input::GetInstance()->GetKeyPress(eKeyCode::LCTRL))
 		{
-
-			int x = Input::GetInstance()->GetIsometricX();
-			int y = Input::GetInstance()->GetIsometricY();
-
-			if (x < 0 || y < 0)
-				return;
-
-			TileObject* object = Object::Instantiate<TileObject>(eLayerType::Tile, true);
-
-			Transform* objectTr = object->GetComponent<Transform>();
-			int Xpos = (x - y) * TILE_X_HALF_SIZE;
-			int ypos = (x + y) * TILE_Y_HALF_SIZE;
-
-			objectTr->SetPosition(Vector3(Xpos + 5000.f, ypos + 5000.f, 50.f));
-			objectTr->SetSize(Vector3(400.f, 200.f , 1.0f));
-
-			object->SetMaxIndex(_Editor.GetTileMaxX(), _Editor.GetTileMaxY());
-			object->SetIndex(_Editor.GetTileIndexX(), _Editor.GetTileIndexY());
-
-			MeshRenderer* mr = object->AddComponent<MeshRenderer>();
-			std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-			std::weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"TileMaterial");
-
-			// test
-			if (mTex != nullptr)
+			if (Input::GetInstance()->GetKeyPress(eKeyCode::LBTN)
+				&& mbCreateTile
+				&& mTex->GetName().find(L"Object") == wstring::npos
+				&& mTex->GetName().find(L"object") == wstring::npos
+				&& rMode == eToolRenderMode::TILE)
 			{
-				std::weak_ptr<graphics::Texture2D> tex = ResourceManager::GetInstance()->Find<graphics::Texture2D>(mTex->GetName());
-				material.lock()->SetTexture(eTextureSlot::T0, tex);
+
+				int x = Input::GetInstance()->GetIsometricX();
+				int y = Input::GetInstance()->GetIsometricY();
+
+				if (x < 0 || y < 0)
+					return;
+
+				TileObject* object = Object::Instantiate<TileObject>(eLayerType::Tile, true);
+
+				Transform* objectTr = object->GetComponent<Transform>();
+				int Xpos = (x - y) * TILE_X_HALF_SIZE;
+				int ypos = (x + y) * TILE_Y_HALF_SIZE;
+
+				objectTr->SetPosition(Vector3(Xpos + 5000.f, ypos + 5000.f, 50.f));
+				objectTr->SetSize(Vector3(400.f, 200.f, 1.0f));
+
+				object->SetMaxIndex(_Editor.GetTileMaxX(), _Editor.GetTileMaxY());
+				object->SetIndex(_Editor.GetTileIndexX(), _Editor.GetTileIndexY());
+
+				MeshRenderer* mr = object->AddComponent<MeshRenderer>();
+				std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+				std::weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"TileMaterial");
+
+				// test
+				if (mTex != nullptr)
+				{
+					std::weak_ptr<graphics::Texture2D> tex = ResourceManager::GetInstance()->Find<graphics::Texture2D>(mTex->GetName());
+					material.lock()->SetTexture(eTextureSlot::T0, tex);
+				}
+
+				mr->SetMesh(mesh);
+				mr->SetMaterial(material);
 			}
 
-			mr->SetMesh(mesh);
-			mr->SetMaterial(material);
-		}
+			if (Input::GetInstance()->GetKeyPress(eKeyCode::LBTN)
+				&& mbCreateObject
+				&& mTex->GetName().find(L"Object") != wstring::npos
+				&& rMode == eToolRenderMode::OBJECT)
+			{
+				int x = Input::GetInstance()->GetIsometricX();
+				int y = Input::GetInstance()->GetIsometricY();
 
-		if (Input::GetInstance()->GetKeyPress(eKeyCode::LBTN)
-			&& mbCreateObject
-			&& mTex->GetName().find(L"Object") != wstring::npos
-			)
-		{
-			int x = Input::GetInstance()->GetIsometricX();
-			int y = Input::GetInstance()->GetIsometricY();
+				if (x < 0 || y < 0)
+					return;
 
-			if (x < 0 || y < 0)
-				return;
+				WallObject* object = Object::Instantiate<WallObject>(eLayerType::Wall, true);
 
-			WallObject* object = Object::Instantiate<WallObject>(eLayerType::Wall, true);
+				Transform* objectTr = object->GetComponent<Transform>();
+				int Xpos = (x - y) * TILE_X_HALF_SIZE;
+				int ypos = (x + y) * TILE_Y_HALF_SIZE;
 
-			Transform* objectTr = object->GetComponent<Transform>();
-			int Xpos = (x - y) * TILE_X_HALF_SIZE;
-			int ypos = (x + y) * TILE_Y_HALF_SIZE;
+				objectTr->SetPosition(Vector3(Xpos + 5000.f, ypos + 5000.f, 49.f));
+				objectTr->SetSize(Vector3(300.f, 300.f, 1.0f));
 
-			objectTr->SetPosition(Vector3(Xpos + 5000.f, ypos + 5000.f, 49.f));
-			objectTr->SetSize(Vector3(300.f, 300.f, 1.0f));
-
-			object->SetTexture(ResourceManager::GetInstance()->Find<Texture2D>(mTex->GetName()));
+				object->SetTexture(ResourceManager::GetInstance()->Find<Texture2D>(mTex->GetName()));
+			}
 		}
 
 		mbCreateTile = true;

@@ -5,6 +5,11 @@ Scene::Scene(eSceneType type)
 	, mMainCamera(nullptr)
 {
 	mLayers.resize((UINT)eLayerType::End);
+
+	for (int i = 0;i < mLayers.size(); ++i)
+	{
+		mLayers[i].SetLayerType(eLayerType(i));
+	}
 }
 
 Scene::~Scene()

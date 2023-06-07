@@ -59,7 +59,6 @@ void WallObject::Initalize()
 
 void WallObject::Update()
 {
-	mbOnObject = false;
 	if (mTexture.lock() == nullptr)
 		return;
 
@@ -121,21 +120,16 @@ void WallObject::Update()
 		0 > fSlope[2] * mousePos.x + fY_Intercept[2] - mousePos.y &&
 		0 > fSlope[3] * mousePos.x + fY_Intercept[3] - mousePos.y)
 	{
-		if (Input::GetInstance()->GetKeyPress(eKeyCode::LBTN))
+		if (Input::GetInstance()->GetKeyPress(eKeyCode::LBTN) && _Editor.GetActive())
 		{
-
+			gui::Inspector* inspector = _Editor.GetWidget<gui::Inspector>("Inspector");
+			Renderer::InspectorGameObject = this;
+			inspector->SetTargetGameObject(this);
+			inspector->InitalizeTargetGameObject();
 		}
 		else if (Input::GetInstance()->GetKeyPress(eKeyCode::RBTN))
 		{
 			Object::ObjectDestroy(this);
-		}
-		else if (Input::GetInstance()->GetKeyDown(eKeyCode::R) && _Editor.GetActive())
-		{
-			Renderer::InspectorGameObject = this;
-
-			gui::Inspector* inspector = _Editor.GetWidget<gui::Inspector>("Inspector");
-			inspector->SetTargetGameObject(Renderer::InspectorGameObject);
-			inspector->InitalizeTargetGameObject();
 		}
 
 		mbOnObject = true;
@@ -191,6 +185,8 @@ void WallObject::Render()
 	ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::ObjectData];
 	cb->SetData(&info);
 	cb->Bind(eShaderStage::PS);
+
+	mbOnObject = false;
 	
 	GameObject::Render();
 }

@@ -227,6 +227,7 @@
     <ClInclude Include="CTelePort.h" />
     <ClInclude Include="CTexture2D.h" />
     <ClInclude Include="CTile.h" />
+    <ClInclude Include="CTileCarveObject.h" />
     <ClInclude Include="CTileObject.h" />
     <ClInclude Include="CTilePallet.h" />
     <ClInclude Include="CTitleScene.h" />
@@ -329,6 +330,7 @@
     <ClCompile Include="CTelePort.cpp" />
     <ClCompile Include="CTexture2D.cpp" />
     <ClCompile Include="CTile.cpp" />
+    <ClCompile Include="CTileCarveObject.cpp" />
     <ClCompile Include="CTileObject.cpp" />
     <ClCompile Include="CTilePallet.cpp" />
     <ClCompile Include="CTitleScene.cpp" />

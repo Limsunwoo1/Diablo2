@@ -565,6 +565,9 @@
     <ClCompile Include="CWallObject.cpp">
       <Filter>GameObject\Object</Filter>
     </ClCompile>
+    <ClCompile Include="CTileCarveObject.cpp">
+      <Filter>GameObject\Tile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -870,6 +873,9 @@
     </ClInclude>
     <ClInclude Include="CWallObject.h">
       <Filter>GameObject\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CTileCarveObject.h">
+      <Filter>GameObject\Tile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

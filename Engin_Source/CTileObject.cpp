@@ -7,6 +7,8 @@
 #include "CInput.h"
 #include "CSceneManager.h"
 #include "CObject.h"
+#include "CToolScene.h"
+#include "CTilePallet.h"
 
 #include "..//Dx11_Engine/GuiEditor.h"
 #include "..//Dx11_Engine/GuiGame.h"
@@ -55,9 +57,6 @@ void TileObject::Initalize()
 
 void TileObject::Update()
 {
-	mbOnTile = false;
-	mArrIdx = -1;
-
 	Transform* tileTr = GetComponent<Transform>();
 	Vector3 tilePos = tileTr->GetPosition();
 	Vector3 tileScale = tileTr->GetScale() * tileTr->GetSize();
@@ -116,32 +115,47 @@ void TileObject::Update()
 		0 > fSlope[2] * mousePos.x + fY_Intercept[2] - mousePos.y &&
 		0 > fSlope[3] * mousePos.x + fY_Intercept[3] - mousePos.y)
 	{
-		if (_Editor.GetActive() && Input::GetInstance()->GetKeyPress(eKeyCode::LBTN))
-		{
-			mIndexX = _Editor.GetTileIndexX();
-			mIndexY = _Editor.GetTileIndexY();
-			mbOnTile = true;
-		}
-		else if (_Editor.GetActive() && Input::GetInstance()->GetKeyPress(eKeyCode::RBTN))
-		{
-			Object::ObjectDestroy(this);
-			mbOnTile = true;
-		}
-		else if (Input::GetInstance()->GetKeyDown(eKeyCode::F) && _Editor.GetActive())
-		{
-			Renderer::InspectorGameObject = this;
+		ToolScene* tool = dynamic_cast<ToolScene*>(SceneManager::GetInstance()->GetScene(eSceneType::Tool));
 
-			gui::Inspector* inspector = _Editor.GetWidget<gui::Inspector>("Inspector");
-			inspector->SetTargetGameObject(Renderer::InspectorGameObject);
-			inspector->InitalizeTargetGameObject();
-		}
-		else if (_Editor.GetActive()) // 에디터모드에서 메모리할당 제한
+		if (Input::GetInstance()->GetKeyPress(eKeyCode::LCTRL))
 		{
-			mbOnTile = true;
+			if (_Editor.GetActive() && Input::GetInstance()->GetKeyPress(eKeyCode::LBTN) && tool != nullptr)
+			{
+				if (tool->GetToolRenderMode() == eToolRenderMode::TILE)
+				{
+					mIndexX = _Editor.GetTileIndexX();
+					mIndexY = _Editor.GetTileIndexY();
+				}
+				mbOnTile = true;
+			}
+			else if (_Editor.GetActive() && Input::GetInstance()->GetKeyPress(eKeyCode::RBTN) && tool != nullptr)
+			{
+				if (tool->GetToolRenderMode() == eToolRenderMode::TILE)
+				{
+					Object::ObjectDestroy(this);
+				}
+				mbOnTile = true;
+			}
 		}
 
-		_Editor.GetWidget<gui::Game>("Game")->SetCreateTile(false);
+		if (Input::GetInstance()->GetKeyPress(eKeyCode::LBTN) && _Editor.GetActive() && tool != nullptr)
+		{
+			if (tool->GetToolRenderMode() == eToolRenderMode::TILE)
+			{
+				Renderer::InspectorGameObject = this;
 
+				gui::Inspector* inspector = _Editor.GetWidget<gui::Inspector>("Inspector");
+				inspector->SetTargetGameObject(Renderer::InspectorGameObject);
+				inspector->InitalizeTargetGameObject();
+			}
+		}
+
+		if (_Editor.GetActive()) // 에디터모드에서 메모리할당 제한
+		{
+			_Editor.GetWidget<gui::Game>("Game")->SetCreateTile(false);
+		}
+
+		mbOnTile = true;
 
 		// 기울기
 		float childFslope = ((tileScale.y * 0.5f) / 4.f) / ((tileScale.x * 0.5f) / 4.f);
@@ -255,6 +269,28 @@ void TileObject::Update()
 		{
 			mArrIdx = 3;
 		}
+
+		if (mArrIdx >= 0 
+		&& tool != nullptr 
+		&& tool->GetToolRenderMode() == eToolRenderMode::Unmovable_Area
+		&& Input::GetInstance()->GetKeyPress(eKeyCode::LBTN))
+		{
+			mArr[mArrIdx] = 1;
+
+			TilePallet* pallet = tool->GetTilePallet();
+			pallet->InserCarveObject(mScreenIndexX, mScreenIndexY, mArrIdx, this);
+		}
+
+		if (mArrIdx >= 0
+			&& tool != nullptr
+			&& tool->GetToolRenderMode() == eToolRenderMode::Unmovable_Area
+			&& Input::GetInstance()->GetKeyPress(eKeyCode::RBTN))
+		{
+			mArr[mArrIdx] = 0;
+
+			TilePallet* pallet = tool->GetTilePallet();
+			pallet->DeleteCarveObject(mScreenIndexX, mScreenIndexY, mArrIdx);
+		}
 	}
 
 	GameObject::Update();
@@ -291,6 +327,9 @@ void TileObject::Render()
 		cb->SetData(&info);
 		cb->Bind(eShaderStage::PS);
 	}
+
+	mbOnTile = false;
+	mArrIdx = -1;
 
 	GameObject::Render();
 }

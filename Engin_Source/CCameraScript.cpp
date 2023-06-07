@@ -61,7 +61,7 @@ void CameraScript::Update()
 		/*Camera* camera = GetOwner()->GetComponent<Camera>();
 		camera->SetScale(camera->GetScale() - (Time::GetInstance()->DeltaTime()));*/
 	}
-	else if (Input::GetInstance()->GetKeyDown(eKeyCode::Z))
+	else if (Input::GetInstance()->GetKeyDown(eKeyCode::P))
 	{
 		Camera::eProjectionType type = camera->GetProejctionType();
 		type = type == Camera::eProjectionType::Prespective ? 

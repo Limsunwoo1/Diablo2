@@ -11,7 +11,7 @@ namespace gui
 
 		virtual void FixedUpdate() override;
 		virtual void Update() override;
-		virtual void LateUpdate() override;
+		//virtual void LateUpdate() override;
 
 
 	private:
@@ -20,6 +20,12 @@ namespace gui
 		Math::Vector3 mScale;
 		Math::Vector3 mSize;
 		Math::Vector3 mOffset;
+
+		Math::Vector3 mBackupSize;
+		Math::Vector2 mBackupOffset;
+
+		Math::Vector3 mCaptureSize;
+		Math::Vector2 mCaptureOffset;
 	};
 }
 

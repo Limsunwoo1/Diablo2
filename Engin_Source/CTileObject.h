@@ -20,8 +20,10 @@ public:
 	std::pair<UINT, UINT> GetIndex() { return std::make_pair(mIndexX, mIndexY); }
 	std::pair<UINT, UINT> GetScreenIndex() { return std::make_pair(mScreenIndexX, mScreenIndexY); }
 
-	Material* GetMaterial() { return mMaterial; }
-	void SetMaterial(Material* mater) { mMaterial = mater; }
+	class Material* GetMaterial() { return mMaterial; }
+	void SetMaterial(class Material* mater) { mMaterial = mater; }
+
+	int* GetArr() { return mArr;}
 
 private:
 	Vector2 mUV;

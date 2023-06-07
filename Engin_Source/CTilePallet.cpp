@@ -5,6 +5,9 @@
 #include "CTileObject.h"
 #include "CObject.h"
 #include "CWallObject.h"
+#include "CToolScene.h"
+#include "CTileCarveObject.h"
+#include "CObject.h"
 
 TilePallet::TilePallet()
 {
@@ -22,6 +25,9 @@ void TilePallet::Initalize()
 void TilePallet::Update()
 {
 	GameObject::Update();
+
+	if (mToolScene == nullptr)
+		return;
 }
 
 void TilePallet::FixedUpdate()
@@ -78,6 +84,10 @@ void TilePallet::Load()
 
 		if (type == (UINT32)eLayerType::Tile)
 		{
+			static int i = 0;
+			if (i == 421)
+				int a = 0;
+
 			if (fread(&count, sizeof(UINT32), 1, pFile) == NULL)
 				break;
 
@@ -99,6 +109,8 @@ void TilePallet::Load()
 				break;
 
 			CreateTile(wstring(key.begin(), key.end()), (eLayerType)type, Pos, screenIndex, IDx);
+
+			i++;
 		}
 		else if(type == (UINT32)eLayerType::Wall)
 		{
@@ -342,6 +354,9 @@ void TilePallet::Save()
 
 void TilePallet::CreateTile(const wstring& key, eLayerType type, Pos_Data pos, Screen_IDX_Data screenIdx, IDX_Data uvIdx)
 {
+	if (uvIdx.idxX < 0 || uvIdx.idxY < 0)
+		return;
+
 	std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(key);
 	
 	Scene* scene = SceneManager::GetInstance()->GetScene(eSceneType::Tool);
@@ -415,4 +430,128 @@ void TilePallet::CreateWall(const wstring& key, eLayerType type, Pos_Data pos, S
 	tr->SetSize(Vector3(size.sizeX, size.sizeY, 1.0f));
 
 	Object::Instantiate<TileObject>(eLayerType::Wall, sceneType, wall);
+}
+
+void TilePallet::InsertUnMoveAbleData(int x, int y, int idx, TileObject* obj)
+{
+	UnMoveAbleMap::iterator iter = mUnMoveable_Data.find(std::make_pair(x, y));
+	if (iter == mUnMoveable_Data.end())
+	{
+		mUnMoveable_Data.insert(std::make_pair(std::make_pair(x, y), idx));
+		iter = mUnMoveable_Data.find(std::make_pair(x, y));
+	}
+
+	for (int num : iter->second)
+	{
+		if (num == idx)
+			return;
+	}
+
+	
+	iter->second.push_back(idx);
+}
+
+void TilePallet::DeleteUnMoveAbleData(int x, int y, int idx)
+{
+	UnMoveAbleMap::iterator iter = mUnMoveable_Data.find(std::make_pair(x, y));
+	if (iter == mUnMoveable_Data.end())
+	{
+		return;
+	}
+
+	if (iter->second.size() <= 0)
+	{
+		mUnMoveable_Data.erase(iter);
+		return;
+	}
+
+	std::vector<int>::iterator vecIter = iter->second.begin();
+	for (; vecIter != iter->second.end(); ++vecIter)
+	{
+		if (*vecIter == idx)
+		{
+			iter->second.erase(vecIter);
+			return;
+		}
+
+	}
+}
+
+void TilePallet::InserCarveObject(int x, int y, int idx, TileObject* obj)
+{
+	CarveObjects::iterator iter = mCarve_Object.find(std::make_pair(x, y));
+	if (iter == mCarve_Object.end())
+	{
+		mCarve_Object.insert(std::make_pair(std::make_pair(x, y), idx));
+		iter = mCarve_Object.find(std::make_pair(x, y));
+		iter->second.resize(4);
+	}
+
+	if (iter->second[idx] != nullptr)
+		return;
+
+	iter->second[idx] = new TileCarveObject();
+	iter->second[idx]->SetScreenIndex(x, y);
+
+	Transform* TileTr = obj->GetComponent<Transform>();
+	Vector3 TilePos = TileTr->GetPosition();
+	Vector3 TileSize = TileTr->GetSize();
+
+	Transform* CarveTr = iter->second[idx]->GetComponent<Transform>();
+	
+	Vector3 posTem = TilePos;
+	Vector3 sizeTem = TileSize * 0.5f;
+
+	switch (idx)
+	{
+	case 0:
+	{
+		posTem = TilePos;
+		posTem.y -= sizeTem.y * 0.5f;
+	}
+	break;
+
+	case 1:
+	{
+		posTem = TilePos;
+		posTem.x += sizeTem.x * 0.5f;
+	}
+	break;
+
+	case 2:
+	{
+		posTem = TilePos;
+		posTem.x -= sizeTem.x * 0.5f;
+	}
+	break;
+
+	case 3:
+	{
+		posTem = TilePos;
+		posTem.y += sizeTem.y * 0.5f;
+	}
+	break;
+
+	default:
+		break;
+	}
+
+	CarveTr->SetPosition(posTem);
+	CarveTr->SetSize(sizeTem);
+	Object::Instantiate<TileCarveObject>(eLayerType::TileCarve, eSceneType::Tool, iter->second[idx]);
+}
+
+void TilePallet::DeleteCarveObject(int x, int y, int idx)
+{
+	CarveObjects::iterator iter = mCarve_Object.find(std::make_pair(x, y));
+	if (iter == mCarve_Object.end())
+	{
+		return;
+	}
+
+	if (iter->second[idx] == nullptr)
+		return;
+
+	delete iter->second[idx];
+	iter->second[idx] = nullptr;
 }

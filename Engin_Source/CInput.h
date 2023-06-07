@@ -25,7 +25,7 @@ enum class eKeyCode
 	N_0, N_1, N_2, N_3, N_4, N_5, N_6, N_7, N_8, N_9,
 
 	// f
-	F_1, F_2,
+	F_1, F_2,F_3,F_4,F_5,F_6,
 	End,
 };
 

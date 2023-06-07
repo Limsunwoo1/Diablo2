@@ -27,8 +27,8 @@ void SceneManager::Initalize()
 {
 	mScenes.resize((UINT)eSceneType::End);
 
-	mScenes[(UINT)eSceneType::Title] = new TitleScene();
 	mScenes[(UINT)eSceneType::Tool] = new ToolScene();
+	mScenes[(UINT)eSceneType::Title] = new TitleScene();
 	mScenes[(UINT)eSceneType::MainTitle] = new MainTitleScene();
 	mScenes[(UINT)eSceneType::Play] = new PlayScene();
 	mScenes[(UINT)eSceneType::Selecte] = new CharacterSelectScene();

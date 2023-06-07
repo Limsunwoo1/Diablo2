@@ -359,6 +359,14 @@ namespace Renderer
 
 		ObjectShader.lock()->SetKey(L"ObjectShader");
 
+		std::weak_ptr<Shader> CarveShader = ResourceManager::GetInstance()->Find<Shader>(L"CarveShader");
+		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, CarveShader.lock()->GetVSBlobBufferPointer()
+			, CarveShader.lock()->GetVSBlobBufferSize()
+			, CarveShader.lock()->GetInputLayoutAddressOf());
+
+		CarveShader.lock()->SetKey(L"CarveShader");
+
 #pragma endregion
 #pragma region Sampler State
 		// »ùÇÃ·¯Ãß°¡
@@ -700,6 +708,15 @@ namespace Renderer
 
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"ObjectShader", ObjectShader);
+#pragma endregion
+#pragma region TileCarve Shader
+		std::shared_ptr<Shader> CarveShader = std::make_shared<Shader>();
+		CarveShader->Create(eShaderStage::VS, L"TileCarveVS.hlsl", "main");
+		CarveShader->Create(eShaderStage::PS, L"TileCarvePS.hlsl", "main");
+		CarveShader->SetDepthStencil(eDepthStencilType::None);
+
+
+		ResourceManager::GetInstance()->Insert<Shader>(L"CarveShader", CarveShader);
 #pragma endregion
 
 	}
@@ -1081,6 +1098,15 @@ namespace Renderer
 			WallMaterial->SetRenderingMode(eRenderingMode::Transparent);
 			WallMaterial->SetShader(WallShader);
 			ResourceManager::GetInstance()->Insert<Material>(L"WallMaterial", WallMaterial);;
+		}
+#pragma endregion
+#pragma region Carve Material
+		{
+			std::weak_ptr<Shader> CarveShader = ResourceManager::GetInstance()->Find<Shader>(L"CarveShader");
+			std::shared_ptr<Material> CarveMaterial = std::make_shared<Material>();
+			CarveMaterial->SetRenderingMode(eRenderingMode::Transparent);
+			CarveMaterial->SetShader(CarveShader);
+			ResourceManager::GetInstance()->Insert<Material>(L"CarveMaterial", CarveMaterial);
 		}
 #pragma endregion
 	}

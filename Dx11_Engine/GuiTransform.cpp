@@ -2,6 +2,9 @@
 #include "Engin_Source/CTransform.h"
 #include "..//Engin_Source/CWallObject.h"
 
+#include "..//Engin_Source/CInput.h"
+
+using namespace Math;
 namespace gui
 {
 	guiTransform::guiTransform()
@@ -66,6 +69,39 @@ namespace gui
 			ImGui::InputFloat2("##Offset", (float*)&offset);
 
 			wall->SetOffset(offset);
+
+			if (Input::GetInstance()->GetKeyPress(eKeyCode::LCTRL))
+			{
+				if (Input::GetInstance()->GetKeyDown(eKeyCode::C))
+				{
+					mCaptureSize = mSize;
+					mCaptureOffset = offset;
+				}
+				else if (Input::GetInstance()->GetKeyDown(eKeyCode::V))
+				{
+					Transform* tr = GetTarget()->GetComponent<Transform>();
+					mBackupOffset = wall->GetOffset();
+					mBackupSize = mSize;
+
+					tr->SetPosition(mPosition);
+					tr->SetRotation(mRotation);
+					tr->SetScale(mScale);
+					tr->SetSize(mCaptureSize);
+					wall->SetOffset(mCaptureOffset);
+					return;
+				}
+				if (Input::GetInstance()->GetKeyDown(eKeyCode::Z))
+				{
+					Transform* tr = GetTarget()->GetComponent<Transform>();
+
+					tr->SetPosition(mPosition);
+					tr->SetRotation(mRotation);
+					tr->SetScale(mScale);
+					tr->SetSize(mBackupSize);
+					wall->SetOffset(mBackupOffset);
+					return;
+				}
+			}
 		}
 
 		if (GetTarget())
@@ -77,14 +113,6 @@ namespace gui
 			tr->SetScale(mScale);
 			tr->SetSize(mSize);
 		}
-	}
-
-	void guiTransform::LateUpdate()
-	{
-		if (GetTarget() == nullptr)
-			return;
-
-		Component::LateUpdate();
 	}
 
 }

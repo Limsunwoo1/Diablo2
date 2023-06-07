@@ -19,7 +19,11 @@ public:
 	void AddGameObject(GameObject* gameObject);
 	const GameObjects GetGameObjects() { return mGameObjects; }
 	std::vector<GameObject*> GetDontDestroyGameObjects();
+
+	void SetLayerType(eLayerType type) { mType = type; }
+	eLayerType GetLayerType() { return mType; }
 private:
 	std::vector<GameObject*> mGameObjects;
 	bool mbSortTile;
+	eLayerType mType;
 };
