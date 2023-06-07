@@ -45,6 +45,7 @@ TileObject::TileObject()
 	mMaxY = tex.lock()->GetMaxY();
 
 	mbUpdate = false;
+	mArr.resize(4);
 }
 
 TileObject::~TileObject()

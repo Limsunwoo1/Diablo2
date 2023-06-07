@@ -78,6 +78,7 @@ void TilePallet::Load()
 		Offset_Data Offset;
 		Screen_IDX_Data screenIndex;
 		IDX_Data IDx;
+		std::vector<int> tileArr;
 
 		if (fread(&type, sizeof(UINT32), 1, pFile) == NULL)
 			break;
@@ -108,9 +109,17 @@ void TilePallet::Load()
 			if (fread(&IDx, sizeof(UINT64), 1, pFile) == NULL)
 				break;
 
-			CreateTile(wstring(key.begin(), key.end()), (eLayerType)type, Pos, screenIndex, IDx);
+			for (int i = 0; i < 4; ++i)
+			{
+				int data = 0;
 
-			i++;
+				if (fread(&data, sizeof(int), 1, pFile) == NULL)
+					break;
+
+				tileArr.push_back(data);
+			}
+
+			CreateTile(wstring(key.begin(), key.end()), (eLayerType)type, Pos, screenIndex, IDx, tileArr);
 		}
 		else if(type == (UINT32)eLayerType::Wall)
 		{
@@ -164,6 +173,7 @@ void TilePallet::Load(const std::wstring& path, eSceneType scenetype)
 		Offset_Data Offset;
 		Screen_IDX_Data screenIndex;
 		IDX_Data IDx;
+		std::vector<int> tileArr;
 
 		if (fread(&type, sizeof(UINT32), 1, pFile) == NULL)
 			break;
@@ -190,7 +200,17 @@ void TilePallet::Load(const std::wstring& path, eSceneType scenetype)
 			if (fread(&IDx, sizeof(UINT64), 1, pFile) == NULL)
 				break;
 
-			CreateTile(wstring(key.begin(), key.end()), (eLayerType)type, Pos, screenIndex, IDx, scenetype);
+			for (int i = 0; i < 4; ++i)
+			{
+				int data = 0;
+
+				if (fread(&data, sizeof(int), 1, pFile) == NULL)
+					break;
+
+				tileArr.push_back(data);
+			}
+
+			CreateTile(wstring(key.begin(), key.end()), (eLayerType)type, Pos, screenIndex, IDx, tileArr, scenetype);
 		}
 		else if (type == (UINT32)eLayerType::Wall)
 		{
@@ -301,6 +321,12 @@ void TilePallet::Save()
 		TileUV.idxX = uvIndex.first;
 		TileUV.idxY = uvIndex.second;
 		fwrite(&TileUV, sizeof(UINT64), 1, pFile);
+
+		const std::vector<int>& Arrdata = tile->GetArr();
+		for (int data : Arrdata)
+		{
+			fwrite(&data, sizeof(int), 1, pFile);
+		}
 	}
 
 	SceneManager::GetInstance()->SortWallObject();
@@ -352,7 +378,7 @@ void TilePallet::Save()
 	fclose(pFile);
 }
 
-void TilePallet::CreateTile(const wstring& key, eLayerType type, Pos_Data pos, Screen_IDX_Data screenIdx, IDX_Data uvIdx)
+void TilePallet::CreateTile(const wstring& key, eLayerType type, Pos_Data pos, Screen_IDX_Data screenIdx, IDX_Data uvIdx, std::vector<int>& arrData)
 {
 	if (uvIdx.idxX < 0 || uvIdx.idxY < 0)
 		return;
@@ -371,9 +397,12 @@ void TilePallet::CreateTile(const wstring& key, eLayerType type, Pos_Data pos, S
 	Transform* tr = tile->GetComponent<Transform>();
 	tr->SetPosition(Vector3(pos.posX, pos.posY, 50.f));
 	tr->SetSize(Vector3(TILE_X_HALF_SIZE * 2, TILE_Y_HALF_SIZE * 2, 1.0f));
+
+	tile->SetArr(arrData);
 }
 
-void TilePallet::CreateTile(const wstring& key, eLayerType type, Pos_Data pos, Screen_IDX_Data screenIdx, IDX_Data uvIdx, eSceneType sceneType)
+void TilePallet::CreateTile(const wstring& key, eLayerType type, Pos_Data pos, Screen_IDX_Data screenIdx, IDX_Data uvIdx
+	, std::vector<int>& arrData, eSceneType sceneType)
 {
 	std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(key);
 	if (tex.lock() == nullptr)
@@ -390,6 +419,8 @@ void TilePallet::CreateTile(const wstring& key, eLayerType type, Pos_Data pos, S
 	Transform* tr = tile->GetComponent<Transform>();
 	tr->SetPosition(Vector3(pos.posX, pos.posY, 50.f));
 	tr->SetSize(Vector3(TILE_X_HALF_SIZE * 2, TILE_Y_HALF_SIZE * 2, 1.0f));
+
+	tile->SetArr(arrData);
 
 	Object::Instantiate<TileObject>(eLayerType::Tile, sceneType, tile);
 }

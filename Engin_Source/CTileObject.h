@@ -23,7 +23,8 @@ public:
 	class Material* GetMaterial() { return mMaterial; }
 	void SetMaterial(class Material* mater) { mMaterial = mater; }
 
-	int* GetArr() { return mArr;}
+	const std::vector<int>& GetArr() { return mArr; }
+	void SetArr(const std::vector<int>& arr) { mArr = arr; }
 
 private:
 	Vector2 mUV;
@@ -41,7 +42,7 @@ private:
 	bool mbUpdate;
 	bool mbOnTile;
 
-	int mArr[4];
+	std::vector<int> mArr;
 	int mArrIdx;
 	std::wstring mTexPath;
 
