@@ -409,6 +409,8 @@ void TilePallet::CreateTile(const wstring& key, eLayerType type, Pos_Data pos, S
 			InserCarveObject(screenIdx.screenIdxX, screenIdx.screenIdxY, i, tile);
 		}
 	}
+
+	ObjectManager::GetInstance()->InsertTileObject(tile);
 }
 
 void TilePallet::CreateTile(const wstring& key, eLayerType type, Pos_Data pos, Screen_IDX_Data screenIdx, IDX_Data uvIdx
@@ -454,6 +456,8 @@ void TilePallet::CreateWall(const wstring& key, eLayerType type, Pos_Data pos, S
 	Transform* tr = wall->GetComponent<Transform>();
 	tr->SetPosition(Vector3(pos.posX, pos.posY, 49.f));
 	tr->SetSize(Vector3(size.sizeX, size.sizeY, 1.0f));
+
+	ObjectManager::GetInstance()->InsertWallObject(wall);
 }
 
 void TilePallet::CreateWall(const wstring& key, eLayerType type, Pos_Data pos, Size_Data size, Offset_Data offset, Screen_IDX_Data screenIdx, eSceneType sceneType)

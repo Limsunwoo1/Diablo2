@@ -16,6 +16,7 @@
 #include "..//Engin_Source/CWallObject.h"
 
 #include "..//Engin_Source/CToolScene.h"
+#include "..//Engin_Source/CObjectManager.h"
 
 #include "GuiEditor.h"
 #include "GuiInspector.h"
@@ -130,6 +131,7 @@ namespace gui
 
 				object->SetMaxIndex(_Editor.GetTileMaxX(), _Editor.GetTileMaxY());
 				object->SetIndex(_Editor.GetTileIndexX(), _Editor.GetTileIndexY());
+				object->SetScreenIndex(x, y);
 
 				MeshRenderer* mr = object->AddComponent<MeshRenderer>();
 				std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
@@ -144,6 +146,8 @@ namespace gui
 
 				mr->SetMesh(mesh);
 				mr->SetMaterial(material);
+
+				ObjectManager::GetInstance()->InsertTileObject(object);
 			}
 
 			if (Input::GetInstance()->GetKeyPress(eKeyCode::LBTN)
@@ -167,6 +171,9 @@ namespace gui
 				objectTr->SetSize(Vector3(300.f, 300.f, 1.0f));
 
 				object->SetTexture(ResourceManager::GetInstance()->Find<Texture2D>(mTex->GetName()));
+				object->SetScrrenIndex(x, y);
+
+				ObjectManager::GetInstance()->InsertWallObject(object);
 			}
 		}
 

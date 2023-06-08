@@ -32,6 +32,7 @@ public:
 	GameObject* GetPlayer() { return Player; }
 	void SetPlayer(GameObject* player) { Player = player; }
 
+	void PushWorldTileData(vector<vector<class TileObject*>> data) { mWorldTileData = data; }
 	
 private:
 	UINT worldScale;
@@ -40,7 +41,7 @@ private:
 	Math::Vector2 EndIndex;
 
 	vector<vector<int>> world;
-	vector<vector<class TileObject*>> Objworld;
+	vector<vector<class TileObject*>> mWorldTileData;
 	class GameObject* Player;
 };
 

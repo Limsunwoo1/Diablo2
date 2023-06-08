@@ -46,9 +46,6 @@ void WorldManager::Initialize()
 
 void WorldManager::Update()
 {
-	auto idx = Input::GetInstance()->GetIsoMetricIDX(Vector2(800.f, 450.f));
-
-
 }
 
 HRESULT WorldManager::Load(const std::wstring& path)

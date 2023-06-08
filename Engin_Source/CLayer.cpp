@@ -133,6 +133,21 @@ void Layer::Destroy()
 	// 삭제할 오브젝트들을 실제 메모리 할당 해제
 	for (GameObject* gameObj : deleteObjects)
 	{
+		if (gameObj->GetLayerType() == eLayerType::Tile || gameObj->GetLayerType() == eLayerType::Wall)
+		{
+			TileObject* tile = dynamic_cast<TileObject*>(gameObj);
+			if (tile != nullptr)
+			{
+				ObjectManager::GetInstance()->DeleteTileObject(tile);
+			}
+
+			WallObject* wall = dynamic_cast<WallObject*>(gameObj);
+			if (wall != nullptr)
+			{
+				ObjectManager::GetInstance()->DeleteWallObjet(wall);
+			}
+		}
+
 		delete gameObj;
 		gameObj = nullptr;
 	}

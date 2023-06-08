@@ -110,6 +110,12 @@ namespace gui
 			listUi->SetItemList(wName);
 			listUi->SetEvent(this, std::bind(&gui::guiMeshRenderer::SetMaterial, this, std::placeholders::_1));
 		}
+
+		std::wstring texName = mMaterial.lock()->GetTexture(eTextureSlot::T0).lock()->GetName();
+		std::string sTexName = string(texName.begin(), texName.end());
+		ImGui::Text("Texture2D");
+		ImGui::InputText("##Texture2D", (char*)sTexName.data(), sTexName.length() + 20, ImGuiInputTextFlags_ReadOnly);
+		ImGui::SameLine();
 	}
 
 	void guiMeshRenderer::LateUpdate()

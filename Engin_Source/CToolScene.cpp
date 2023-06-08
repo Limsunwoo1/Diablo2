@@ -68,7 +68,7 @@ void ToolScene::Initalize()
 	}
 
 	{
-		float sizeX = 400.f;
+		/*float sizeX = 400.f;
 		float sizeY = 200.f;
 		for (int y = 0; y < 40; ++y)
 		{
@@ -90,7 +90,7 @@ void ToolScene::Initalize()
 				tr->SetPosition(Vector3(5000.f + Xpos, 5000.f + Ypos, 50.f));
 				tr->SetSize(Vector3(sizeX, sizeY, 1.0f));
 			}
-		}
+		}*/
 
 		//	for (int y = 0; y < 20; ++y)
 		//	{
@@ -116,173 +116,173 @@ void ToolScene::Initalize()
 		//	}
 		//}
 
-		{
-			WallObject* Wall = Object::Instantiate<WallObject>(eLayerType::Wall, this);
+		//{
+		//	WallObject* Wall = Object::Instantiate<WallObject>(eLayerType::Wall, this);
 
-			std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_1Object");
-			Wall->SetTexture(tex);
+		//	std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_1Object");
+		//	Wall->SetTexture(tex);
 
-			int Xpos = (1 - 1) * TILE_X_HALF_SIZE;
-			int Ypos = (1 + 1) * TILE_Y_HALF_SIZE;
+		//	int Xpos = (1 - 1) * TILE_X_HALF_SIZE;
+		//	int Ypos = (1 + 1) * TILE_Y_HALF_SIZE;
 
-			Transform* tr = Wall->GetComponent<Transform>();
-			tr->SetPosition(Vector3(5000.f + Xpos, 5000.f + Ypos, 49.f));
-			Wall->SetOffset(Vector2(0.0f, 200.f));
-			Wall->SetWidthHeigth(Vector2(600.f, 600.f));
+		//	Transform* tr = Wall->GetComponent<Transform>();
+		//	tr->SetPosition(Vector3(5000.f + Xpos, 5000.f + Ypos, 49.f));
+		//	Wall->SetOffset(Vector2(0.0f, 200.f));
+		//	Wall->SetWidthHeigth(Vector2(600.f, 600.f));
 
-			Wall->SetScrrenIndex(0 + 1, 0 + 1);
-		}
+		//	Wall->SetScrrenIndex(0 + 1, 0 + 1);
+		//}
 
-		{
-			WallObject* Wall = Object::Instantiate<WallObject>(eLayerType::Wall, this);
+		//{
+		//	WallObject* Wall = Object::Instantiate<WallObject>(eLayerType::Wall, this);
 
-			int Xpos = ((-1 + 1) - (-1 + 1)) * TILE_X_HALF_SIZE;
-			int Ypos = ((1 + -1) + (1 + -1)) * TILE_Y_HALF_SIZE;
+		//	int Xpos = ((-1 + 1) - (-1 + 1)) * TILE_X_HALF_SIZE;
+		//	int Ypos = ((1 + -1) + (1 + -1)) * TILE_Y_HALF_SIZE;
 
-			std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_4Object");
-			Wall->SetTexture(tex);
+		//	std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_4Object");
+		//	Wall->SetTexture(tex);
 
-			Transform* tr = Wall->GetComponent<Transform>();
-			tr->SetPosition(Vector3(5000.f + Xpos, 5000.f + Ypos, 49.f));
-			Wall->SetOffset(Vector2(0.0f, 250.f));
-			Wall->SetWidthHeigth(Vector2(150.f, 600.f));
+		//	Transform* tr = Wall->GetComponent<Transform>();
+		//	tr->SetPosition(Vector3(5000.f + Xpos, 5000.f + Ypos, 49.f));
+		//	Wall->SetOffset(Vector2(0.0f, 250.f));
+		//	Wall->SetWidthHeigth(Vector2(150.f, 600.f));
 
-			Wall->SetScrrenIndex(-1 + 1, -1 + 1);
-		}
+		//	Wall->SetScrrenIndex(-1 + 1, -1 + 1);
+		//}
 
-		{
-			int x = 1;
-			int y = 12;
-			for (int i = 0; i < 11; ++i)
-			{
-				WallObject* Wall = Object::Instantiate<WallObject>(eLayerType::Wall, this);
+		//{
+		//	int x = 1;
+		//	int y = 12;
+		//	for (int i = 0; i < 11; ++i)
+		//	{
+		//		WallObject* Wall = Object::Instantiate<WallObject>(eLayerType::Wall, this);
 
-				int Xpos = ((x + i + 1) - (y + 1)) * TILE_X_HALF_SIZE;
-				int Ypos = (x + 1 + i + y + 1) * TILE_Y_HALF_SIZE;
+		//		int Xpos = ((x + i + 1) - (y + 1)) * TILE_X_HALF_SIZE;
+		//		int Ypos = (x + 1 + i + y + 1) * TILE_Y_HALF_SIZE;
 
-				std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_9Object");
-				Wall->SetTexture(tex);
+		//		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_9Object");
+		//		Wall->SetTexture(tex);
 
-				Transform* tr = Wall->GetComponent<Transform>();
-				tr->SetPosition(Vector3(5000.f + Xpos, 5000.f + Ypos, 49.f));
-				Wall->SetOffset(Vector2(60.0f, -90.f));
-				Wall->SetWidthHeigth(Vector2(300.f, 500.f));
+		//		Transform* tr = Wall->GetComponent<Transform>();
+		//		tr->SetPosition(Vector3(5000.f + Xpos, 5000.f + Ypos, 49.f));
+		//		Wall->SetOffset(Vector2(60.0f, -90.f));
+		//		Wall->SetWidthHeigth(Vector2(300.f, 500.f));
 
-				Wall->SetScrrenIndex(x + i + 1, y + 1);
-			}
-		}
+		//		Wall->SetScrrenIndex(x + i + 1, y + 1);
+		//	}
+		//}
 
-		{
-			WallObject* Wall = Object::Instantiate<WallObject>(eLayerType::Wall, this);
+		//{
+		//	WallObject* Wall = Object::Instantiate<WallObject>(eLayerType::Wall, this);
 
-			int Xpos = ((12 + 1) - (1 + 1)) * TILE_X_HALF_SIZE;
-			int Ypos = ((12 + 1) + (1 + 1)) * TILE_Y_HALF_SIZE;
+		//	int Xpos = ((12 + 1) - (1 + 1)) * TILE_X_HALF_SIZE;
+		//	int Ypos = ((12 + 1) + (1 + 1)) * TILE_Y_HALF_SIZE;
 
-			std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_5Object");
-			Wall->SetTexture(tex);
+		//	std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_5Object");
+		//	Wall->SetTexture(tex);
 
-			Transform* tr = Wall->GetComponent<Transform>();
-			tr->SetPosition(Vector3(5000.f + Xpos, 5000.f + Ypos, 49.f));
-			Wall->SetOffset(Vector2(-100.f, -100.f));
-			Wall->SetWidthHeigth(Vector2(300.f, 600.f));
+		//	Transform* tr = Wall->GetComponent<Transform>();
+		//	tr->SetPosition(Vector3(5000.f + Xpos, 5000.f + Ypos, 49.f));
+		//	Wall->SetOffset(Vector2(-100.f, -100.f));
+		//	Wall->SetWidthHeigth(Vector2(300.f, 600.f));
 
-			Wall->SetScrrenIndex(12 + 1, 1 + 1);
-		}
+		//	Wall->SetScrrenIndex(12 + 1, 1 + 1);
+		//}
 
-		{
-			int x = 12;
-			int y = 2;
-			for (int i = 0; i < 10; ++i)
-			{
-				WallObject* Wall = Object::Instantiate<WallObject>(eLayerType::Wall, this);
+		//{
+		//	int x = 12;
+		//	int y = 2;
+		//	for (int i = 0; i < 10; ++i)
+		//	{
+		//		WallObject* Wall = Object::Instantiate<WallObject>(eLayerType::Wall, this);
 
-				int Xpos = ((x + 1) - (i + y + 1)) * TILE_X_HALF_SIZE;
-				int Ypos = ((x + 1) + (i + y + 1)) * TILE_Y_HALF_SIZE;
+		//		int Xpos = ((x + 1) - (i + y + 1)) * TILE_X_HALF_SIZE;
+		//		int Ypos = ((x + 1) + (i + y + 1)) * TILE_Y_HALF_SIZE;
 
-				std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_53Object");
-				Wall->SetTexture(tex);
+		//		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_53Object");
+		//		Wall->SetTexture(tex);
 
-				Transform* tr = Wall->GetComponent<Transform>();
-				tr->SetPosition(Vector3(5000.f + Xpos, 5000.f + Ypos, 49.f));
-				Wall->SetOffset(Vector2(-110.f, -130.f));
-				Wall->SetWidthHeigth(Vector2(300.f, 600.f));
+		//		Transform* tr = Wall->GetComponent<Transform>();
+		//		tr->SetPosition(Vector3(5000.f + Xpos, 5000.f + Ypos, 49.f));
+		//		Wall->SetOffset(Vector2(-110.f, -130.f));
+		//		Wall->SetWidthHeigth(Vector2(300.f, 600.f));
 
-				Wall->SetScrrenIndex(x + 1, i + y + 1);
-			}
-		}
+		//		Wall->SetScrrenIndex(x + 1, i + y + 1);
+		//	}
+		//}
 
-		{
-			WallObject* Wall = Object::Instantiate<WallObject>(eLayerType::Wall, this);
+		//{
+		//	WallObject* Wall = Object::Instantiate<WallObject>(eLayerType::Wall, this);
 
-			int Xpos = ((12 + 1) - (12 + 1)) * TILE_X_HALF_SIZE;
-			int Ypos = ((12 + 1) + (12 + 1)) * TILE_Y_HALF_SIZE;
+		//	int Xpos = ((12 + 1) - (12 + 1)) * TILE_X_HALF_SIZE;
+		//	int Ypos = ((12 + 1) + (12 + 1)) * TILE_Y_HALF_SIZE;
 
-			std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_4Object");
-			Wall->SetTexture(tex);
+		//	std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_4Object");
+		//	Wall->SetTexture(tex);
 
-			Transform* tr = Wall->GetComponent<Transform>();
-			tr->SetPosition(Vector3(5000.f + Xpos, 5000.f + Ypos, 49.f));
-			Wall->SetOffset(Vector2(-20.0f, -190.f));
-			Wall->SetWidthHeigth(Vector2(180.f, 650.f));
+		//	Transform* tr = Wall->GetComponent<Transform>();
+		//	tr->SetPosition(Vector3(5000.f + Xpos, 5000.f + Ypos, 49.f));
+		//	Wall->SetOffset(Vector2(-20.0f, -190.f));
+		//	Wall->SetWidthHeigth(Vector2(180.f, 650.f));
 
-			Wall->SetScrrenIndex(12 + 1, 12 + 1);
-		}
+		//	Wall->SetScrrenIndex(12 + 1, 12 + 1);
+		//}
 
-		{
-			for (int i = 0; i < 10; ++i)
-			{
-				////300, 500
-				////180, -65
-				////y 1 , x 2
-				int x = 2;
-				int y = 1;
+		//{
+		//	for (int i = 0; i < 10; ++i)
+		//	{
+		//		////300, 500
+		//		////180, -65
+		//		////y 1 , x 2
+		//		int x = 2;
+		//		int y = 1;
 
-				WallObject* Wall = Object::Instantiate<WallObject>(eLayerType::Wall, this);
+		//		WallObject* Wall = Object::Instantiate<WallObject>(eLayerType::Wall, this);
 
-				std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_1Object");
-				Wall->SetTexture(tex);
+		//		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_1Object");
+		//		Wall->SetTexture(tex);
 
-				int Xpos = ((x + i + 1) - (y + 1)) * TILE_X_HALF_SIZE;
-				int Ypos = (x + 1 + i + y + 1) * TILE_Y_HALF_SIZE;
-
-
-				Transform* tr = Wall->GetComponent<Transform>();
-				tr->SetPosition(Vector3(5000.f + Xpos, 5000.f + Ypos, 49.f));
-				Wall->SetOffset(Vector2(180.f, -65.f));
-				Wall->SetWidthHeigth(Vector2(300.f, 500.f));
-
-				Wall->SetTexture(ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_54Object"));
-
-				Wall->SetScrrenIndex(x + i + 1, y + 1);
-			}
-
-			for (int i = 0; i < 10; ++i)
-			{
-				////300, 500
-				////180, -65
-				////y 1 , x 2
-				int x = 1;
-				int y = 2;
-
-				WallObject* Wall = Object::Instantiate<WallObject>(eLayerType::Wall, this);
-
-				std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_1Object");
-				Wall->SetTexture(tex);
-
-				int Xpos = ((x + 1) - (i + y + 1)) * TILE_X_HALF_SIZE;
-				int Ypos = ((x + 1) + (i + y + 1)) * TILE_Y_HALF_SIZE;
+		//		int Xpos = ((x + i + 1) - (y + 1)) * TILE_X_HALF_SIZE;
+		//		int Ypos = (x + 1 + i + y + 1) * TILE_Y_HALF_SIZE;
 
 
-				Transform* tr = Wall->GetComponent<Transform>();
-				tr->SetPosition(Vector3(5000.f + Xpos, 5000.f + Ypos, 49.f));
-				Wall->SetOffset(Vector2(-220.f, -70.f));
-				Wall->SetWidthHeigth(Vector2(300.f, 500.f));
+		//		Transform* tr = Wall->GetComponent<Transform>();
+		//		tr->SetPosition(Vector3(5000.f + Xpos, 5000.f + Ypos, 49.f));
+		//		Wall->SetOffset(Vector2(180.f, -65.f));
+		//		Wall->SetWidthHeigth(Vector2(300.f, 500.f));
 
-				Wall->SetTexture(ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_53Object"));
+		//		Wall->SetTexture(ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_54Object"));
 
-				Wall->SetScrrenIndex(x + 1, y + i + 1);
-			}
-		}
+		//		Wall->SetScrrenIndex(x + i + 1, y + 1);
+		//	}
+
+		//	for (int i = 0; i < 10; ++i)
+		//	{
+		//		////300, 500
+		//		////180, -65
+		//		////y 1 , x 2
+		//		int x = 1;
+		//		int y = 2;
+
+		//		WallObject* Wall = Object::Instantiate<WallObject>(eLayerType::Wall, this);
+
+		//		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_1Object");
+		//		Wall->SetTexture(tex);
+
+		//		int Xpos = ((x + 1) - (i + y + 1)) * TILE_X_HALF_SIZE;
+		//		int Ypos = ((x + 1) + (i + y + 1)) * TILE_Y_HALF_SIZE;
+
+
+		//		Transform* tr = Wall->GetComponent<Transform>();
+		//		tr->SetPosition(Vector3(5000.f + Xpos, 5000.f + Ypos, 49.f));
+		//		Wall->SetOffset(Vector2(-220.f, -70.f));
+		//		Wall->SetWidthHeigth(Vector2(300.f, 500.f));
+
+		//		Wall->SetTexture(ResourceManager::GetInstance()->Find<Texture2D>(L"Wall_53Object"));
+
+		//		Wall->SetScrrenIndex(x + 1, y + i + 1);
+		//	}
+		//}
 	}
 }
 
@@ -391,11 +391,6 @@ void ToolScene::Update()
 		if (mode == eToolRenderMode::TILE || mode == eToolRenderMode::Unmovable_Area)
 		{
 			if (layer.GetLayerType() == eLayerType::Wall)
-				continue;
-		}
-		else if (mode == eToolRenderMode::OBJECT)
-		{
-			if (layer.GetLayerType() == eLayerType::Tile)
 				continue;
 		}
 

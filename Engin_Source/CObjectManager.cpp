@@ -2,6 +2,9 @@
 #include "CInput.h"
 #include "CRenderer.h"
 #include "CCamera.h"
+#include "CSceneManager.h"
+#include "CLayer.h"
+#include "CWorldManager.h"
 
 ObjectManager::ObjectManager()
 {
@@ -43,32 +46,58 @@ void ObjectManager::Update()
 
 	auto idx = Input::GetInstance()->GetIsoMetricIDX(Vector2(pos.x, pos.y));
 
-	int startIdxX = idx.first - 4;
-	int startIdxY = idx.second - 4;
+	// 화면 중앙을 기준으로 상하좌우 총 25 개만 파이프라인에 속함
+	int startIdxX = idx.first - 5;
+	int startIdxY = idx.second - 5;
 
-	int endIdxX = idx.first + 4;
-	int endIdxY = idx.second + 4;
+	int endIdxX = idx.first + 5;
+	int endIdxY = idx.second + 5;
 
-	for (int i = startIdxY; i < endIdxY + 1; ++i)
+	std::vector<std::vector<TileObject*>> worldTileData = {};
+	worldTileData.resize(abs(endIdxY - startIdxY));
+
+	for (int i = 0; i < worldTileData.size(); ++i)
 	{
-		for (int j = startIdxX; j < endIdxX + 1; ++j)
+		worldTileData[i].resize(abs(endIdxY - startIdxY));
+	}
+	//std::vector<TileObject*> worldDataTile = ;
+
+	int worldX = 0;
+	int worldY = 0;
+
+	for (int i = startIdxY; i < endIdxY; ++i)
+	{
+		for (int j = startIdxX; j < endIdxX; ++j)
 		{
+			worldTileData[worldY][worldX] = nullptr;
 			if (i < 0 || j < 0)
+			{
+				worldX++;
 				continue;
+			}
 
 			TileObjectsIter::iterator Tileiter =
 				mTileObjects.find(std::pair(j, i));
 
 			if (Tileiter != mTileObjects.end())
+			{
 				mTiles.emplace_back(Tileiter->second);
+				worldTileData[worldY][worldX] = Tileiter->second;
+			}
 
 			WallObjectsIter::iterator Walliter =
 				mWallObjects.find(std::pair(j, i));
 
 			if (Walliter != mWallObjects.end())
 				mWalls.emplace_back(Walliter->second);
+
+			worldX++;
 		}
+		worldY++;
+		worldX = 0;
 	}
+
+	WorldManager::GetInstance()->PushWorldTileData(worldTileData);
 
 	std::sort(mTiles.begin(), mTiles.end(), [](GameObject* a, GameObject* b)
 		{
@@ -89,8 +118,8 @@ void ObjectManager::Update()
 			Transform* aTr = a->GetComponent<Transform>();
 			Transform* bTr = b->GetComponent<Transform>();
 
-			Vector3 aPos = aTr->GetPosition() + aTr->GetOffset();
-			Vector3 bPos = bTr->GetPosition() + bTr->GetOffset();
+			Vector3 aPos = aTr->GetPosition();
+			Vector3 bPos = bTr->GetPosition();
 
 			if (aPos.y == bPos.y)
 				return a < b;
@@ -199,8 +228,26 @@ void ObjectManager::InsertWallObject(WallObject* wall)
 
 void ObjectManager::DeleteTileObject(TileObject* tile)
 {
+	auto idx = tile->GetScreenIndex();
+
+	TileObjectsIter::iterator iter = mTileObjects.find(std::pair(idx));
+
+	if (iter != mTileObjects.end())
+	{
+		mTileObjects.erase(iter);
+		return;
+	}
 }
 
-void ObjectManager::InsertWallObjet(WallObject* wall)
+void ObjectManager::DeleteWallObjet(WallObject* wall)
 {
+	auto idx = wall->GetScreenIDX();
+
+	WallObjectsIter::iterator iter = mWallObjects.find(std::pair(idx));
+
+	if (iter != mWallObjects.end())
+	{
+		mWallObjects.erase(iter);
+		return;
+	}
 }

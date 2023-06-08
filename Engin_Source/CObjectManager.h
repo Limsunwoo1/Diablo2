@@ -45,7 +45,7 @@ public:
 	void InsertWallObject(WallObject* wall);
 
 	void DeleteTileObject(TileObject* tile);
-	void InsertWallObjet(WallObject* wall);
+	void DeleteWallObjet(WallObject* wall);
 private:
 	queue<Skil*> SkilContainer;
 	vector<Vector2> ObjectOffsetData;
