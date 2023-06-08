@@ -3,6 +3,8 @@
 #include "CApplication.h"
 
 #include "..//Dx11_Engine/GuiEditor.h"
+#include "CSceneManager.h"
+#include "CToolScene.h"
 
 extern CApplication Application;
 extern gui::Editor _Editor;
@@ -10,14 +12,12 @@ extern gui::Editor _Editor;
 static int CallCount = 0;
 static float AccDeltaTime = 0.0f;
 static int fps = 0;
-static float MouseX = 0.0f;
-static float MouseY = 0.0f;
 
 Time::Time()
 	: mCpuFrequency{}
 	, mPrevFrequency{}
 	, mCurFrequency{}
-	, mDeltaTime (0.f)
+	, mDeltaTime(0.f)
 {
 
 }
@@ -60,30 +60,11 @@ void Time::Render(HDC hdc)
 		pos = _Editor.GetEditorWorldMousePos();
 	}
 
-	MouseX = pos.x;
-	MouseY = pos.y;
+	auto idx = Input::GetInstance()->GetIsoMetricIDX(pos);
 
-	float IndexX = 0;
-	float IndexY = 0;
+	Input::GetInstance()->SetIsometricX((int)idx.first);
+	Input::GetInstance()->SetIsometricY((int)idx.second);
 
-
-	IndexX = (((MouseX - 5000.f) / TILE_X_HALF_SIZE) + ((MouseY - 5000.f) / TILE_Y_HALF_SIZE)) / 2;
-	IndexY = (((MouseY - 5000.f) / TILE_Y_HALF_SIZE) - ((MouseX - 5000.f) / TILE_X_HALF_SIZE)) / 2;
-
-	if (IndexX <= -1.0f || IndexY <= -1.0f)
-	{
-		IndexX -= 1.f;
-		IndexY -= 1.f;
-	}
-	else
-	{
-		IndexX += 0.5f;
-		IndexY += 0.5f;
-	}
-
-
-	Input::GetInstance()->SetIsometricX((int)IndexX);
-	Input::GetInstance()->SetIsometricY((int)IndexY);
 
 	//wchar_t szFloat[50] = {};
 	// µ®≈∏ ≈∏¿”
@@ -95,16 +76,41 @@ void Time::Render(HDC hdc)
 	int strLen = wcsnlen_s(szFloat, 50);
 
 	TextOut(hdc, 10, 10, szFloat, strLen);*/
-	
-		wchar_t szBuffer[255] = {};
-		swprintf_s(szBuffer, L"FPS : %d  DT : %lf   MX : %lf   MY  : %lf  IX : %d  IY  :  %d", fps, mDeltaTime, MouseX, MouseY, (int)IndexX, (int)IndexY);
+
+	wchar_t szBuffer[255] = {};
+	swprintf_s(szBuffer, L"FPS : %d  DT : %lf   MX : %lf   MY  : %lf  IX : %d  IY  :  %d", fps, mDeltaTime, pos.x, pos.y, (int)idx.first, (int)idx.second);
+	ToolScene* tool = dynamic_cast<ToolScene*>(SceneManager::GetInstance()->GetActiveScene());
+	if (tool != nullptr)
+	{
+		wchar_t Buffer[255] = {};
+
+		if (tool->GetToolRenderMode() == eToolRenderMode::TILE)
+		{
+			swprintf_s(szBuffer, L"FPS : %d  DT : %lf   MX : %lf   MY  : %lf  IX : %d  IY  :  %d     TileMode", fps, mDeltaTime, pos.x, pos.y, (int)idx.first, (int)idx.second);
+		}
+		else if (tool->GetToolRenderMode() == eToolRenderMode::OBJECT)
+		{
+			swprintf_s(szBuffer, L"FPS : %d  DT : %lf   MX : %lf   MY  : %lf  IX : %d  IY  :  %d     ObjectMode", fps, mDeltaTime, pos.x, pos.y, (int)idx.first, (int)idx.second);
+		}
+		else if (tool->GetToolRenderMode() == eToolRenderMode::Unmovable_Area)
+		{
+			swprintf_s(szBuffer, L"FPS : %d  DT : %lf   MX : %lf   MY  : %lf  IX : %d  IY  :  %d     CarveMode", fps, mDeltaTime, pos.x, pos.y, (int)idx.first, (int)idx.second);
+		}
+		else
+		{
+			swprintf_s(szBuffer, L"FPS : %d  DT : %lf   MX : %lf   MY  : %lf  IX : %d  IY  :  %d     ALLMode", fps, mDeltaTime, pos.x, pos.y, (int)idx.first, (int)idx.second);
+		}
+	}
+
+	SetWindowText(Application.GetHwnd(), szBuffer);
+
 	if (AccDeltaTime > 1.0f)
 	{
 		fps = CallCount;
 		CallCount = 0;
 		AccDeltaTime -= 1.0f;
 
-		SetWindowText(Application.GetHwnd() , szBuffer);
+		//SetWindowText(Application.GetHwnd(), szBuffer);
 	}
 }
 

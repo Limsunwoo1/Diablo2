@@ -4,6 +4,7 @@
 #include "CObjectManager.h"
 #include "CWorldManager.h"
 
+
 Layer::Layer()
 {
 	mbSortTile = false;
@@ -35,19 +36,42 @@ void Layer::Initalize()
 
 void Layer::Update()
 {
+	if (mType == eLayerType::Tile || mType == eLayerType::Wall)
+	{
+		if (mType == eLayerType::Tile)
+		{
+			std::vector<GameObject*> objects = ObjectManager::GetInstance()->GetTileRenderObject();
+
+			for (GameObject* obj : objects)
+			{
+				if (obj == nullptr)
+					continue;
+
+				obj->Update();
+			}
+		}
+		else if (mType == eLayerType::Wall)
+		{
+			std::vector<GameObject*> objects = ObjectManager::GetInstance()->GetWallRenderObejct();
+
+			for (GameObject* obj : objects)
+			{
+				if (obj == nullptr)
+					continue;
+
+				obj->Update();
+			}
+		}
+
+		return;
+	}
+
 	for (GameObject* obj : mGameObjects)
 	{
 		if (obj == nullptr)
 			continue;
 		if (obj->GetState() != GameObject::active)
 			continue;
-
-		if (obj->GetLayerType() == eLayerType::Tile)
-		{
-		
-
-		}
-
 
 		obj->Update();
 	}

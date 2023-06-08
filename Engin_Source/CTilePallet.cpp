@@ -8,6 +8,7 @@
 #include "CToolScene.h"
 #include "CTileCarveObject.h"
 #include "CObject.h"
+#include "CObjectManager.h"
 
 TilePallet::TilePallet()
 {
@@ -400,6 +401,14 @@ void TilePallet::CreateTile(const wstring& key, eLayerType type, Pos_Data pos, S
 
 	tile->SetArr(arrData);
 	tile->SetPassSituation();
+
+	for (int i = 0; i < arrData.size(); ++i)
+	{
+		if (arrData[i] > 0)
+		{
+			InserCarveObject(screenIdx.screenIdxX, screenIdx.screenIdxY, i, tile);
+		}
+	}
 }
 
 void TilePallet::CreateTile(const wstring& key, eLayerType type, Pos_Data pos, Screen_IDX_Data screenIdx, IDX_Data uvIdx
@@ -425,6 +434,7 @@ void TilePallet::CreateTile(const wstring& key, eLayerType type, Pos_Data pos, S
 	tile->SetPassSituation();
 
 	Object::Instantiate<TileObject>(eLayerType::Tile, sceneType, tile);
+	ObjectManager::GetInstance()->InsertTileObject(tile);
 }
 
 void TilePallet::CreateWall(const wstring& key, eLayerType type, Pos_Data pos, Size_Data size, Offset_Data offset, Screen_IDX_Data screenIdx)
@@ -453,6 +463,7 @@ void TilePallet::CreateWall(const wstring& key, eLayerType type, Pos_Data pos, S
 		return;
 
 	WallObject* wall = new WallObject();
+	Object::Instantiate<TileObject>(eLayerType::Wall, sceneType, wall);
 
 	wall->SetTexture(tex);
 	wall->SetOffset(Vector2(offset.offsetX, offset.offsetY));
@@ -462,7 +473,7 @@ void TilePallet::CreateWall(const wstring& key, eLayerType type, Pos_Data pos, S
 	tr->SetPosition(Vector3(pos.posX, pos.posY, 49.f));
 	tr->SetSize(Vector3(size.sizeX, size.sizeY, 1.0f));
 
-	Object::Instantiate<TileObject>(eLayerType::Wall, sceneType, wall);
+	ObjectManager::GetInstance()->InsertWallObject(wall);
 }
 
 void TilePallet::InsertUnMoveAbleData(int x, int y, int idx, TileObject* obj)
@@ -585,6 +596,20 @@ void TilePallet::DeleteCarveObject(int x, int y, int idx)
 	if (iter->second[idx] == nullptr)
 		return;
 
-	delete iter->second[idx];
+	/*Layer& layer = SceneManager::GetInstance()->GetActiveScene()->GetLayer(eLayerType::TileCarve);
+	std::vector<GameObject*> Objects = layer.GetGameObjects();
+	std::vector<GameObject*>::iterator ObjectsIter = Objects.begin();
+
+	for (; ObjectsIter != Objects.end(); ++iter)
+	{
+		if (*ObjectsIter == iter->second[idx])
+		{
+			Objects.erase(ObjectsIter);
+			break;
+		}
+	}*/
+
+
+	Object::ObjectDestroy(iter->second[idx]);
 	iter->second[idx] = nullptr;
 }

@@ -319,6 +319,33 @@ Math::Vector2 Input::GetMouseScreenIndex()
 	return Math::Vector2(x, y);
 }
 
+std::pair<int, int> Input::GetIsoMetricIDX(Vector2 MousePos)
+{
+	float MouseX = MousePos.x;
+	float MouseY = MousePos.y;
+
+	float IndexX = 0;
+	float IndexY = 0;
+
+
+	IndexX = (((MouseX - 5000.f) / TILE_X_HALF_SIZE) + ((MouseY - 5000.f) / TILE_Y_HALF_SIZE)) / 2;
+	IndexY = (((MouseY - 5000.f) / TILE_Y_HALF_SIZE) - ((MouseX - 5000.f) / TILE_X_HALF_SIZE)) / 2;
+
+	if (IndexX <= -1.0f || IndexY <= -1.0f)
+	{
+		IndexX -= 1.f;
+		IndexY -= 1.f;
+	}
+	else
+	{
+		IndexX += 0.5f;
+		IndexY += 0.5f;
+	}
+
+	
+	return std::make_pair((int)IndexX, (int)IndexY);
+}
+
 //UINT CPlayerScript::PlayerPicking(bool bLeft)
 //{
 //	if (m_fAttackCoolTime > 0.f)

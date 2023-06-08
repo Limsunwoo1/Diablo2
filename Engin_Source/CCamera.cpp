@@ -7,6 +7,7 @@
 #include "CBaseRenderer.h"
 #include "CSceneManager.h"
 #include "CItemManager.h"
+#include "CObjectManager.h"
 
 extern CApplication Application;
 
@@ -128,6 +129,30 @@ void Camera::SortGameObjects()
 	{
 		if (mLayerMasks[i] == false)
 			continue;
+
+		if (i == (UINT)eLayerType::Tile || i == (UINT)eLayerType::Wall)
+		{
+			if (i == (UINT)eLayerType::Tile)
+			{
+				std::vector<GameObject*> objects = ObjectManager::GetInstance()->GetTileRenderObject();
+
+				for (GameObject* obj : objects)
+				{
+					PushGameObjectToRenderingMode(obj);
+				}
+			}
+			else if (i == (UINT)eLayerType::Wall)
+			{
+				std::vector<GameObject*> objects = ObjectManager::GetInstance()->GetWallRenderObejct();
+
+				for (GameObject* obj : objects)
+				{
+					PushGameObjectToRenderingMode(obj);
+				}
+			}
+
+			continue;
+		}
 
 		Layer& layer = scene->GetLayer((eLayerType)i);
 		GameObjects gameObjects = layer.GetGameObjects();

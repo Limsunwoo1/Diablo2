@@ -92,6 +92,8 @@ public:
 
 	void SetIsometricX(int x) { mIsometricTileIndexX = x; }
 	void SetIsometricY(int y) { mIsometricTileIndexY = y; }
+
+	std::pair<int, int> GetIsoMetricIDX(Vector2 MousePos);
 private:
 	std::vector<Key> mKeys;
 	Math::Vector2 mMousePos;

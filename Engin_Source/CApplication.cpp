@@ -49,6 +49,9 @@ void CApplication::Update()
 	Time::GetInstance()->Update();
 	Input::GetInstance()->Update();
 	CollisionManager::GetInstance()->Update();
+	ObjectManager::GetInstance()->Update();
+	WorldManager::GetInstance()->Update();
+
 	SceneManager::GetInstance()->Update();
 	UIManager::GetInstance()->Update();
 	ItemManager::GetInstance()->Update();

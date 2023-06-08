@@ -1,4 +1,7 @@
 #include "CObjectManager.h"
+#include "CInput.h"
+#include "CRenderer.h"
+#include "CCamera.h"
 
 ObjectManager::ObjectManager()
 {
@@ -29,6 +32,71 @@ ObjectManager::~ObjectManager()
 
 void ObjectManager::Update()
 {
+	if (Renderer::mainCamera == nullptr)
+		return;
+
+	mTiles.clear();
+	mWalls.clear();
+
+	Transform* tr = Renderer::mainCamera->GetOwner()->GetComponent<Transform>();
+	Vector3 pos = tr->GetPosition();
+
+	auto idx = Input::GetInstance()->GetIsoMetricIDX(Vector2(pos.x, pos.y));
+
+	int startIdxX = idx.first - 4;
+	int startIdxY = idx.second - 4;
+
+	int endIdxX = idx.first + 4;
+	int endIdxY = idx.second + 4;
+
+	for (int i = startIdxY; i < endIdxY + 1; ++i)
+	{
+		for (int j = startIdxX; j < endIdxX + 1; ++j)
+		{
+			if (i < 0 || j < 0)
+				continue;
+
+			TileObjectsIter::iterator Tileiter =
+				mTileObjects.find(std::pair(j, i));
+
+			if (Tileiter != mTileObjects.end())
+				mTiles.emplace_back(Tileiter->second);
+
+			WallObjectsIter::iterator Walliter =
+				mWallObjects.find(std::pair(j, i));
+
+			if (Walliter != mWallObjects.end())
+				mWalls.emplace_back(Walliter->second);
+		}
+	}
+
+	std::sort(mTiles.begin(), mTiles.end(), [](GameObject* a, GameObject* b)
+		{
+			Transform* aTr = a->GetComponent<Transform>();
+			Transform* bTr = b->GetComponent<Transform>();
+
+			Vector3 aPos = aTr->GetPosition() + aTr->GetOffset();
+			Vector3 bPos = bTr->GetPosition() + bTr->GetOffset();
+
+			if (aPos.y == bPos.y)
+				return a < b;
+			else
+				return aPos.y > bPos.y;
+		});
+
+	std::sort(mWalls.begin(), mWalls.end(), [](GameObject* a, GameObject* b)
+		{
+			Transform* aTr = a->GetComponent<Transform>();
+			Transform* bTr = b->GetComponent<Transform>();
+
+			Vector3 aPos = aTr->GetPosition() + aTr->GetOffset();
+			Vector3 bPos = bTr->GetPosition() + bTr->GetOffset();
+
+			if (aPos.y == bPos.y)
+				return a < b;
+			else
+				return aPos.y > bPos.y;
+		});
 }
 
 void ObjectManager::FixedUpdate()
@@ -38,6 +106,19 @@ void ObjectManager::FixedUpdate()
 void ObjectManager::Initialize()
 {
 }
+
+std::vector<GameObject*> ObjectManager::GetTileRenderObject()
+{
+	std::vector<GameObject*> returnVec = mTiles;
+	return returnVec;
+}
+
+std::vector<GameObject*> ObjectManager::GetWallRenderObejct()
+{
+	std::vector<GameObject*> returnVec = mWalls;
+	return returnVec;
+}
+
 
 Skil* ObjectManager::GetSkilObj(Player* owner)
 {
@@ -90,4 +171,36 @@ Vector2 ObjectManager::GetSizeData(eWallType type)
 		return Vector2(100.f,100.f);
 
 	return ObjectSizeData[(UINT)type];
+}
+
+void ObjectManager::InsertTileObject(TileObject* tile)
+{
+	auto idx = tile->GetScreenIndex();
+	
+	TileObjectsIter::iterator iter = mTileObjects.find(std::pair(idx));
+
+	if (iter != mTileObjects.end())
+		return;
+
+	mTileObjects.insert(std::make_pair(idx, tile));
+}
+
+void ObjectManager::InsertWallObject(WallObject* wall)
+{
+	auto idx = wall->GetScreenIDX();
+
+	WallObjectsIter::iterator iter = mWallObjects.find(std::pair(idx));
+
+	if (iter != mWallObjects.end())
+		return;
+
+	mWallObjects.insert(std::make_pair(idx, wall));
+}
+
+void ObjectManager::DeleteTileObject(TileObject* tile)
+{
+}
+
+void ObjectManager::InsertWallObjet(WallObject* wall)
+{
 }

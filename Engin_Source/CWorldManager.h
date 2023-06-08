@@ -8,6 +8,8 @@ class WorldManager
 	SINGLE(WorldManager);
 public:
 	void Initialize();
+	void Update();
+
 	HRESULT Load(const std::wstring& path);
 	
 	UINT GetTileNum(const UINT& x, const UINT& y);
@@ -29,6 +31,8 @@ public:
 
 	GameObject* GetPlayer() { return Player; }
 	void SetPlayer(GameObject* player) { Player = player; }
+
+	
 private:
 	UINT worldScale;
 
@@ -36,6 +40,7 @@ private:
 	Math::Vector2 EndIndex;
 
 	vector<vector<int>> world;
+	vector<vector<class TileObject*>> Objworld;
 	class GameObject* Player;
 };
 

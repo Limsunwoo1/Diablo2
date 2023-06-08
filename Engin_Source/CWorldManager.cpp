@@ -1,4 +1,7 @@
 #include "CWorldManager.h"
+#include "CInput.h"
+#include "CObjectManager.h"
+
 #define WORLD_SCALE 1000
 
 // 1 플레이어, 2 도작치, 3 장애물, 0 이동가능
@@ -7,7 +10,12 @@ WorldManager::WorldManager()
 	: worldScale(WORLD_SCALE)
 	, world{}
 {
+	world.resize(5);
 
+	for (int i = 0; i < world.size(); ++i)
+	{
+		world[i].resize(5);
+	}
 }
 
 WorldManager::~WorldManager()
@@ -34,6 +42,13 @@ void WorldManager::Initialize()
 	PlayerIndex.x = 10;
 	PlayerIndex.y = 10;
 	//world[99][99] = 2;
+}
+
+void WorldManager::Update()
+{
+	auto idx = Input::GetInstance()->GetIsoMetricIDX(Vector2(800.f, 450.f));
+
+
 }
 
 HRESULT WorldManager::Load(const std::wstring& path)

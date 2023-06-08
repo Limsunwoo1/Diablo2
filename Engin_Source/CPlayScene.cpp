@@ -1,6 +1,9 @@
 #include "CPlayScene.h"
 #include "CTexture2D.h"
 #include "CpaintShader.h"
+#include "CSceneManager.h"
+#include "CToolScene.h"
+#include "CTilePallet.h"
 
 // Object
 #include "CTileObject.h"
@@ -62,7 +65,7 @@ void PlayScene::Initalize()
 
 	// IsoMetric
 	{
-		GameObject* IsoMetricCamera = Object::Instantiate<GameObject>(eLayerType::Camera, this);
+		/*GameObject* IsoMetricCamera = Object::Instantiate<GameObject>(eLayerType::Camera, this);
 		IsoMetricCamera->GetComponent<Transform>()->SetPosition(Vector3(10.f, 10.f, 10.f));
 		IsoMetricCamera->GetComponent<Transform>()->SetRotation(Vector3(0.f, 0.f, -0.f));
 		Camera* IsoMetricCameraComp = IsoMetricCamera->AddComponent<Camera>();
@@ -71,7 +74,7 @@ void PlayScene::Initalize()
 
 		IsoMetricCameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
 		mIsometricCamera = IsoMetricCameraComp;
-		Renderer::IsometricCamera = IsoMetricCameraComp;
+		Renderer::IsometricCamera = IsoMetricCameraComp;*/
 	}
 
 	// Main Camera Game Object
@@ -81,14 +84,11 @@ void PlayScene::Initalize()
 		cameraObj->GetComponent<Transform>()->SetPosition(Vector3(10.0f, 10.f, 1.0f));
 		//cameraComp->RegisterCameraInRenderer();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
-		cameraComp->TurnLayerMask(eLayerType::Tile, false);
 		//cameraComp->TurnLayerMask(eLayerType::Tile, false);
 		cameraObj->AddComponent<CameraScript>();
 		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
 		Renderer::mainCamera = cameraComp;
 		mMainCamera = cameraComp;
-
-		mIsometricCamera->SetTrace(GetMainCam()->GetOwner());
 	}
 	// Ui Camera
 	{
@@ -313,6 +313,16 @@ void PlayScene::OnEnter()
 	Renderer::InspectorGameObject = player;
 
 	this->GetLayer(eLayerType::Player).AddGameObject(player);
+
+	ToolScene* tool = dynamic_cast<ToolScene*>(SceneManager::GetInstance()->GetScene(eSceneType::Tool));
+	if (tool == nullptr)
+		return;
+
+	TilePallet* pallet = tool->GetTilePallet();
+	if (pallet == nullptr)
+		return;
+
+	pallet->Load(L"..//Resource//TileData//test",eSceneType::Play);
 }
 
 void PlayScene::OnExit()

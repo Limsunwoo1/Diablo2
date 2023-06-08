@@ -20,9 +20,12 @@ public:
 	void Load();
 	void Load(const std::wstring& path, eSceneType type);
 	void Save();
-
+	
+	// 툴에서만사용
 	void CreateTile(const wstring& key, eLayerType type, Pos_Data pos, Screen_IDX_Data screenIdx, IDX_Data uvIdx, std::vector<int>& arrData);
+	// 플레이 월드에서 사용
 	void CreateTile(const wstring& key, eLayerType type, Pos_Data pos, Screen_IDX_Data screenIdx, IDX_Data uvIdx, std::vector<int>& arrData, eSceneType sceneType);
+
 	void CreateWall(const wstring& key, eLayerType type, Pos_Data pos, Size_Data size, Offset_Data offset, Screen_IDX_Data screenIdx);
 	void CreateWall(const wstring& key, eLayerType type, Pos_Data pos, Size_Data size, Offset_Data offset, Screen_IDX_Data screenIdx, eSceneType sceneType);
 
