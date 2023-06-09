@@ -156,6 +156,21 @@ enum class eWallType
 	End,
 };
 
+enum class eTilePickType
+{
+	TileALL,
+	Tile0,
+	Tile1,
+	Tile2,
+	Tile3,
+	////////////////////////
+	//  --------------
+	// |   2  |   3  |
+	// | 天天    天天| 
+	// |   0  |   1  |
+	//  --------------
+};
+
 enum class eToolRenderMode
 {
 	ALL,

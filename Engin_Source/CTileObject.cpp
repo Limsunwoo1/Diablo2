@@ -73,51 +73,9 @@ void TileObject::Update()
 	if (tilePos.y - (tileScale.y * 0.5f) > mousePos.y || tilePos.y + (tileScale.y * 0.5f) < mousePos.y)
 		return;
 
-	// 기울기
-	float fslope = (tileScale.y * 0.5f) / (tileScale.x * 0.5f);
-	float fSlope[4] =
+	ToolScene* tool = dynamic_cast<ToolScene*>(SceneManager::GetInstance()->GetScene(eSceneType::Tool));
+	if (PickTile(mousePos, eTilePickType::TileALL))
 	{
-		fslope,
-		-fslope,
-		fslope,
-		-fslope,
-	};
-
-	// 마름모 정점
-	Vector2 vVertex[4] =
-	{
-		{tilePos.x, tilePos.y + (tileScale.y * 0.5f)},
-		{tilePos.x + (tileScale.x * 0.5f), tilePos.y},
-		{ tilePos.x, tilePos.y - (tileScale.y * 0.5f)},
-		{ tilePos.x - (tileScale.x * 0.5f), tilePos.y},
-	};
-
-	// 절편
-	float fY_Intercept[4] =
-	{
-		vVertex[0].y - (fSlope[0] * vVertex[0].x),
-		vVertex[1].y - (fSlope[1] * vVertex[1].x),
-		vVertex[2].y - (fSlope[2] * vVertex[2].x),
-		vVertex[3].y - (fSlope[3] * vVertex[3].x),
-	};
-
-	//0 = ax + b - y;
-
-	float tset[4] =
-	{
-		fSlope[0] * mousePos.x + fY_Intercept[0] - mousePos.y,
-		fSlope[1] * mousePos.x + fY_Intercept[1] - mousePos.y,
-		fSlope[2] * mousePos.x + fY_Intercept[2] - mousePos.y,
-		fSlope[3] * mousePos.x + fY_Intercept[3] - mousePos.y
-	};
-
-	if (0 < fSlope[0] * mousePos.x + fY_Intercept[0] - mousePos.y &&
-		0 < fSlope[1] * mousePos.x + fY_Intercept[1] - mousePos.y &&
-		0 > fSlope[2] * mousePos.x + fY_Intercept[2] - mousePos.y &&
-		0 > fSlope[3] * mousePos.x + fY_Intercept[3] - mousePos.y)
-	{
-		ToolScene* tool = dynamic_cast<ToolScene*>(SceneManager::GetInstance()->GetScene(eSceneType::Tool));
-
 		if (Input::GetInstance()->GetKeyPress(eKeyCode::LCTRL))
 		{
 			if (_Editor.GetActive() && Input::GetInstance()->GetKeyPress(eKeyCode::LBTN) && tool != nullptr)
@@ -158,143 +116,40 @@ void TileObject::Update()
 
 		mbOnTile = true;
 
-		// 기울기
-		float childFslope = ((tileScale.y * 0.5f) / 4.f) / ((tileScale.x * 0.5f) / 4.f);
-		float childfSlope[4] =
-		{
-			fslope,
-			-fslope,
-			fslope,
-			-fslope,
-		};
 
-		// 마름모 정점
-		Vector3 childPos = tilePos;
-		childPos.y -= tileScale.y * 0.25f;
-		Vector2 vVertex0[4] =
-		{
-			{childPos.x, childPos.y + (tileScale.y * 0.25f)},
-			{childPos.x + (tileScale.x * 0.25f), childPos.y},
-			{childPos.x, childPos.y - (tileScale.y * 0.25f)},
-			{childPos.x - (tileScale.x * 0.25f), childPos.y},
-		};
+		// 4등분 타일 충돌체크
+		if		((PickTile(mousePos, eTilePickType::Tile0))) { mArrIdx = 0; }
+		else if ((PickTile(mousePos, eTilePickType::Tile1))) { mArrIdx = 1; }
+		else if ((PickTile(mousePos, eTilePickType::Tile2))) { mArrIdx = 2; }
+		else if ((PickTile(mousePos, eTilePickType::Tile3))) { mArrIdx = 3; }
 
-		childPos = tilePos;
-		childPos.x += tileScale.x * 0.25f;
-		Vector2 vVertex1[4] =
-		{
-			{childPos.x, childPos.y + (tileScale.y * 0.25f)},
-			{childPos.x + (tileScale.x * 0.25f), childPos.y},
-			{childPos.x, childPos.y - (tileScale.y * 0.25f)},
-			{childPos.x - (tileScale.x * 0.25f), childPos.y},
-		};
-
-		childPos = tilePos;
-		childPos.x -= tileScale.x * 0.25f;
-		Vector2 vVertex2[4] =
-		{
-			{childPos.x, childPos.y + (tileScale.y * 0.25f)},
-			{childPos.x + (tileScale.x * 0.25f), childPos.y},
-			{childPos.x, childPos.y - (tileScale.y * 0.25f)},
-			{childPos.x - (tileScale.x * 0.25f), childPos.y},
-		};
-
-		childPos = tilePos;
-		childPos.y += tileScale.y * 0.25f;
-		Vector2 vVertex3[4] =
-		{
-			{childPos.x, childPos.y + (tileScale.y * 0.25f)},
-			{childPos.x + (tileScale.x * 0.25f), childPos.y},
-			{childPos.x, childPos.y - (tileScale.y * 0.25f)},
-			{childPos.x - (tileScale.x * 0.25f), childPos.y},
-		};
-
-		// 절편
-		float fY_Intercept0[4] =
-		{
-			vVertex0[0].y - (childfSlope[0] * vVertex0[0].x),
-			vVertex0[1].y - (childfSlope[1] * vVertex0[1].x),
-			vVertex0[2].y - (childfSlope[2] * vVertex0[2].x),
-			vVertex0[3].y - (childfSlope[3] * vVertex0[3].x),
-		};
-
-		float fY_Intercept1[4] =
-		{
-			vVertex1[0].y - (childfSlope[0] * vVertex1[0].x),
-			vVertex1[1].y - (childfSlope[1] * vVertex1[1].x),
-			vVertex1[2].y - (childfSlope[2] * vVertex1[2].x),
-			vVertex1[3].y - (childfSlope[3] * vVertex1[3].x),
-		};
-
-		float fY_Intercept2[4] =
-		{
-			vVertex2[0].y - (childfSlope[0] * vVertex2[0].x),
-			vVertex2[1].y - (childfSlope[1] * vVertex2[1].x),
-			vVertex2[2].y - (childfSlope[2] * vVertex2[2].x),
-			vVertex2[3].y - (childfSlope[3] * vVertex2[3].x),
-		};
-
-		float fY_Intercept3[4] =
-		{
-			vVertex3[0].y - (childfSlope[0] * vVertex3[0].x),
-			vVertex3[1].y - (childfSlope[1] * vVertex3[1].x),
-			vVertex3[2].y - (childfSlope[2] * vVertex3[2].x),
-			vVertex3[3].y - (childfSlope[3] * vVertex3[3].x),
-		};
-
-		if (0 < childfSlope[0] * mousePos.x + fY_Intercept0[0] - mousePos.y &&
-			0 < childfSlope[1] * mousePos.x + fY_Intercept0[1] - mousePos.y &&
-			0 > childfSlope[2] * mousePos.x + fY_Intercept0[2] - mousePos.y &&
-			0 > childfSlope[3] * mousePos.x + fY_Intercept0[3] - mousePos.y)
-		{
-			mArrIdx = 0;
-		}
-		else if (0 < childfSlope[0] * mousePos.x + fY_Intercept1[0] - mousePos.y &&
-			0 < childfSlope[1] * mousePos.x + fY_Intercept1[1] - mousePos.y &&
-			0 > childfSlope[2] * mousePos.x + fY_Intercept1[2] - mousePos.y &&
-			0 > childfSlope[3] * mousePos.x + fY_Intercept1[3] - mousePos.y)
-		{
-			mArrIdx = 1;
-		}
-		else if (0 < childfSlope[0] * mousePos.x + fY_Intercept2[0] - mousePos.y &&
-			0 < childfSlope[1] * mousePos.x + fY_Intercept2[1] - mousePos.y &&
-			0 > childfSlope[2] * mousePos.x + fY_Intercept2[2] - mousePos.y &&
-			0 > childfSlope[3] * mousePos.x + fY_Intercept2[3] - mousePos.y)
-		{
-			mArrIdx = 2;
-		}
-		else if (0 < childfSlope[0] * mousePos.x + fY_Intercept3[0] - mousePos.y &&
-			0 < childfSlope[1] * mousePos.x + fY_Intercept3[1] - mousePos.y &&
-			0 > childfSlope[2] * mousePos.x + fY_Intercept3[2] - mousePos.y &&
-			0 > childfSlope[3] * mousePos.x + fY_Intercept3[3] - mousePos.y)
-		{
-			mArrIdx = 3;
-		}
-
-		if (mArrIdx >= 0 
-		&& tool != nullptr 
-		&& tool->GetToolRenderMode() == eToolRenderMode::Unmovable_Area
-		&& Input::GetInstance()->GetKeyPress(eKeyCode::LBTN))
-		{
-			mArr[mArrIdx] = 1;
-
-			TilePallet* pallet = tool->GetTilePallet();
-			pallet->InserCarveObject(mScreenIndexX, mScreenIndexY, mArrIdx, this);
-
-			SetPassSituation();
-		}
-
+		// 툴모드일때 CarveObject 생성
 		if (mArrIdx >= 0
 			&& tool != nullptr
-			&& tool->GetToolRenderMode() == eToolRenderMode::Unmovable_Area
-			&& Input::GetInstance()->GetKeyPress(eKeyCode::RBTN))
+			&& tool->GetToolRenderMode() == eToolRenderMode::Unmovable_Area)
 		{
-			mArr[mArrIdx] = 0;
-
 			TilePallet* pallet = tool->GetTilePallet();
-			pallet->DeleteCarveObject(mScreenIndexX, mScreenIndexY, mArrIdx);
+			if (pallet == nullptr)
+				return;
+
+			if (Input::GetInstance()->GetKeyPress(eKeyCode::LBTN))
+			{
+				mArr[mArrIdx] = 1;
+				pallet->InserCarveObject(mScreenIndexX, mScreenIndexY, mArrIdx, this);
+			}
+			else if (Input::GetInstance()->GetKeyPress(eKeyCode::RBTN))
+			{
+				mArr[mArrIdx] = 0;
+				pallet->DeleteCarveObject(mScreenIndexX, mScreenIndexY, mArrIdx);
+			}
 
 			SetPassSituation();
+		}
+
+		// PlayGame
+		if (mArrIdx >= 0 && tool == nullptr)
+		{
+
 		}
 	}
 
@@ -350,4 +205,65 @@ void TileObject::SetPassSituation()
 	{
 		mbPass = false;
 	}
+}
+
+bool TileObject::PickTile(Vector2 mousePos, eTilePickType type)
+{
+	Transform* tileTr = GetComponent<Transform>();
+	Vector3 tilePos = tileTr->GetPosition();
+	Vector3 tileScale = tileTr->GetScale() * tileTr->GetSize();
+
+	// 기울기
+	float fslope = (tileScale.y * 0.5f) / (tileScale.x * 0.5f);
+	float fSlope[4] =
+	{
+		fslope,
+		-fslope,
+		fslope,
+		-fslope,
+	};
+	Vector3 InScale = tileScale * 0.25f;
+
+	vector<Vector2> vVertex = {};
+	vVertex.resize(4);
+
+	if (type == eTilePickType::TileALL)		InScale = tileScale * 0.5f;
+	else if (type == eTilePickType::Tile0)	tilePos.y -= InScale.y;
+	else if (type == eTilePickType::Tile1)	tilePos.x += InScale.x;
+	else if (type == eTilePickType::Tile2)	tilePos.x -= InScale.x;
+	else if (type == eTilePickType::Tile3)	tilePos.y += InScale.y;
+
+	vVertex = GetIsometricVertex(tilePos, InScale);
+
+	// 절편
+	float fY_Intercept[4] =
+	{
+		vVertex[0].y - (fSlope[0] * vVertex[0].x),
+		vVertex[1].y - (fSlope[1] * vVertex[1].x),
+		vVertex[2].y - (fSlope[2] * vVertex[2].x),
+		vVertex[3].y - (fSlope[3] * vVertex[3].x),
+	};
+
+	//0 = ax + b - y;
+	if (0 < fSlope[0] * mousePos.x + fY_Intercept[0] - mousePos.y &&
+		0 < fSlope[1] * mousePos.x + fY_Intercept[1] - mousePos.y &&
+		0 > fSlope[2] * mousePos.x + fY_Intercept[2] - mousePos.y &&
+		0 > fSlope[3] * mousePos.x + fY_Intercept[3] - mousePos.y)
+	{
+		return true;
+	}
+	return false;
+}
+
+vector<Vector2> TileObject::GetIsometricVertex(Vector3 pos, Vector3 size)
+{
+	vector<Vector2> vVerTex = {};
+	vVerTex.resize(4);
+
+	vVerTex[0] = Vector2(pos.x, pos.y + size.y);
+	vVerTex[1] = Vector2(pos.x + size.x, pos.y);
+	vVerTex[2] = Vector2(pos.x, pos.y - size.y);
+	vVerTex[3] = Vector2(pos.x - size.x, pos.y);
+
+	return vVerTex;
 }

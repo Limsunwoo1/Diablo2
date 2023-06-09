@@ -115,6 +115,7 @@ public:
 	Node DistanceList();
 
 	void Result();
+	void CarveTileAStar();
 
 	UINT GetMaxX() { return mMaxX; }
 	UINT GetMaxY() { return mMaxY; }

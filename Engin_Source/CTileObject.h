@@ -31,6 +31,9 @@ public:
 
 	void SetPassSituation();
 
+	bool PickTile(Vector2 mousePos, eTilePickType type);
+
+	vector<Vector2> GetIsometricVertex(Vector3 pos, Vector3 size);
 private:
 	Vector2 mUV;
 

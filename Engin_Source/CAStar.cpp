@@ -444,11 +444,8 @@ void AStar::Result()
 				mbNodeEmpty = false;
 
 			mbRun = false;
-
-			/*PlayerScript* script = GetOwner()->GetScript<PlayerScript>();
-			if (script)
-				script->AddRenderAStar();*/
-
+			//GetCarveTileAStar();
+			
 			return;
 		}
 
@@ -465,6 +462,14 @@ void AStar::Result()
 		mCurNode = iter->second;
 		count++;
 	}
+}
+
+void AStar::CarveTileAStar()
+{
+	if (mbNodeEmpty)
+		return;
+
+
 }
 
 void AStar::ClearNode()
