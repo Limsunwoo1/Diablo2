@@ -3,9 +3,13 @@
 #include "CTransform.h"
 #include "CGameObject.h"
 #include "CPlayerScript.h"
+#include "CTileObject.h"
+#include "CWorldManager.h"
+#include "CInput.h"
+#include "CObjectManager.h"
 
 AStar::AStar()
-	: Component(eComponentType::AStart)
+	: Component(eComponentType::AStar)
 	, mMaxX(0)
 	, mMaxY(0)
 	, mStart(-1, -1)
@@ -14,6 +18,7 @@ AStar::AStar()
 	, mbNodeEmpty(true)
 	, mCurNode{}
 {
+
 }
 
 AStar::~AStar()
@@ -27,29 +32,21 @@ void AStar::Initalize()
 
 void AStar::Update()
 {
-
-}
-
-void AStar::FixedUpdate()
-{
 	if (!mbRun)
 		return;
 
-	int count = 0;
+	Tiles = WorldManager::GetInstance()->DropWordTileData();
+
+	std::pair<int, int> StartTileIdx;
+	std::pair<int, int> EndTileIdx;
+	std::pair<int, int> CurTileIdx;
+
 	while (1)
 	{
-		count++;
-		if (mEnd.x == mCurNode.Pos.x && mEnd.y ==  mCurNode.Pos.y)
+		if (mCurNode.Pos == mEnd)
 		{
-			
+			// 큰타일에서 작은타일 길찾기 시행
 			Result();
-			return;
-		}
-
-		if (count > 1000)
-		{
-			ClearNode();
-			mbRun = false;
 			return;
 		}
 
@@ -67,6 +64,11 @@ void AStar::FixedUpdate()
 
 		AddCloseList();
 	}
+}
+
+void AStar::FixedUpdate()
+{
+
 }
 
 void AStar::Render()
@@ -99,9 +101,9 @@ UINT AStar::GetHeuristick2(int x, int y)
 	// 상황에 따른 가중치 알고리즘 추가하면
 	// 조금 더 정교한 탐색이 가능해진다
 	/*if (tem == 0)
-	    weight = 14;
+		weight = 14;
 	else
-	    weight = 10;*/
+		weight = 10;*/
 
 	return (int)(1 * (std::sqrt(std::pow(x - mEnd.x, 2) + std::pow(y - mEnd.y, 2))));
 }
@@ -132,32 +134,31 @@ void AStar::AddOpenList(int x, int y, bool diagonal)
 {
 	Node node = {};
 
+	// 포즈가 현재 화면상인덱스 임
+	// 시작 노드의 idx 를 변환해줘야함
 	node.Pos.x = x;
 	node.Pos.y = y;
 
 	node.Id = GetID(node.Pos.x, node.Pos.y);
+	node.Tile = Tiles[x][y];
+
+	//test 
+	//CurNode
 
 	// 맵 범위 밖 타일인지확인
-	if (node.Pos.x  < 0 || node.Pos.x  > mMaxX - 1)
+	if (y < 0 || y >= Tiles.size())
 		return;
 
-	if (node.Pos.y < 0 || node.Pos.y > mMaxY - 1)
+	if (x < 0 || x >= Tiles[y].size())
 		return;
+
 
 	// 해당타일이 장애물이 아닌지 확인
-	if (WorldManager::GetInstance()->GetTileNum(node.Pos.x, node.Pos.y) == 3)
+	if (Tiles[x][y] == nullptr)
 		return;
 
-	// 대각 선이동의 경우 해당타일의
-	// 직각이 되는 타일이 장애물이면 리턴
-	if (diagonal)
-	{
-		if (WorldManager::GetInstance()->GetTileNum(mCurNode.Pos.x, node.Pos.y) == 3)
-			return;
-
-		if (WorldManager::GetInstance()->GetTileNum(node.Pos.x, mCurNode.Pos.y) == 3)
-			return;
-	}
+	if (Tiles[x][y]->GetPass() == false)
+		return;
 
 	// 닫힌 목록에 있는 노드인지 탐색
 	unordered_map<UINT, Node>::iterator iter;
@@ -179,6 +180,27 @@ void AStar::AddOpenList(int x, int y, bool diagonal)
 		return;
 	}
 
+	// 대각 선이동의 경우 해당타일의
+	// 직각이 되는 타일이 장애물이면 리턴
+	if (diagonal)
+	{
+		int diffX = mCurNode.Pos.x - x;
+		int diffY = mCurNode.Pos.y - y;
+
+		bool check = false;
+		if (diffX < 0 && y > 0)
+			if (mCurNode.Tile->GetArr()[3] != 0 || node.Tile->GetArr()[0] != 0) check = true;
+		else if (diffX < 0 && diffY < 0)
+			if (mCurNode.Tile->GetArr()[1] != 0 || node.Tile->GetArr()[2] != 0) check = true;
+		else if (diffX > 0 && diffY < 0)
+			if (mCurNode.Tile->GetArr()[0] != 0 || node.Tile->GetArr()[3] != 0) check = true;
+		else if (diffX > 0 && diffY > 0)
+			if (mCurNode.Tile->GetArr()[2] != 0 || node.Tile->GetArr()[1] != 0) check = true;
+
+		if (check)
+			return;
+	}
+
 	int count = abs(mCurNode.Pos.x - node.Pos.x) + abs(mCurNode.Pos.y - node.Pos.y);
 	if (count > 1)
 		node.Cost = 14 + mCurNode.Cost;
@@ -190,11 +212,11 @@ void AStar::AddOpenList(int x, int y, bool diagonal)
 
 	node.ParentIndex = mCurNode.Pos;
 
-	Node pushNode = Node{node.Pos.x, node.Pos.y, node.Cost, node.Heuristick, node.Distance, node.ParentIndex };
+	Node pushNode = Node(node.Pos.x, node.Pos.y, node.Cost, node.Heuristick, node.Distance, node.ParentIndex, node.Tile);
 	pushNode.Id = node.Id;
 
-	mOpenList.insert(make_pair(pushNode.Id, pushNode));
-	mDistanceList.emplace(pushNode);
+	mOpenList.insert(make_pair(node.Id, node));
+	mDistanceList.emplace(node);
 }
 
 void AStar::AddCloseList()
@@ -221,8 +243,9 @@ bool AStar::OnA_Star(Node& node, Vec& start, Vec& end, bool run)
 
 	ClearNode();
 
-	mMaxX = WorldManager::GetInstance()->GetScale();
-	mMaxY = WorldManager::GetInstance()->GetScale();
+	Tiles = WorldManager::GetInstance()->DropWordTileData();
+	mMaxX = Tiles.size();
+	mMaxY = Tiles.size();
 
 	//SetIndex
 	mStart = start;
@@ -230,7 +253,7 @@ bool AStar::OnA_Star(Node& node, Vec& start, Vec& end, bool run)
 	mbRun = true;
 
 	// SetNode
-	mCurNode = Node{ node.Pos.x, node.Pos.y, node.Cost, node.Heuristick, node.Distance, node.ParentIndex };
+	mCurNode = Node{ node.Pos.x, node.Pos.y, node.Cost, node.Heuristick, node.Distance, node.ParentIndex, node.Tile };
 
 	mCurNode.Id = (mCurNode.Pos.y * mMaxY) + (mCurNode.Pos.x % mMaxX);
 	mCurNode.Cost = 0;
@@ -255,7 +278,7 @@ bool AStar::OnA_Star(Node& node, int x, int y, Vec& end, bool run)
 	mMaxY = WorldManager::GetInstance()->GetScale();
 
 	//SetIndex
-	mStart = Vec(x,y);
+	mStart = Vec(x, y);
 	mEnd = end;
 	mbRun = true;
 
@@ -299,6 +322,49 @@ bool AStar::OnA_Star(Node& node, int x, int y, int endX, int endY, bool run)
 
 	mCloseList.emplace(make_pair(mCurNode.Id, mCurNode));
 	return true;
+}
+
+bool AStar::OnA_Star(std::pair<int,int> idx)
+{
+	if (mbRun)
+		return false;
+
+	/*if ()
+		return false;*/
+
+	ClearNode();
+
+	mMaxX = WorldManager::GetInstance()->GetTileDataWorldSize();
+	mMaxY = WorldManager::GetInstance()->GetTileDataWorldSize();
+
+	//SetIndex
+	Transform* tr = GetOwner()->GetComponent<Transform>();
+	Vector3 pos = tr->GetPosition();
+
+	auto startIdx = WorldManager::GetInstance()->GetTileIndex(Vector2(pos.x, pos.y));
+	mStart = Vec(startIdx.first, startIdx.second);
+
+	mEnd = Vec(idx.first, idx.second);
+	mbRun = true;
+
+	// SetNode
+	mCurNode = Node{};
+
+	mCurNode.Pos = Vec(mStart);
+	mCurNode.Id = (mCurNode.Pos.y * mMaxY) + (mCurNode.Pos.x % mMaxX);
+	mCurNode.Cost = 0;
+	mCurNode.Heuristick = GetHeuristick(mCurNode.Pos.x, mCurNode.Pos.y);
+	mCurNode.Distance = mCurNode.GetDistance();
+
+	auto TileIdx = Input::GetInstance()->GetIsoMetricIDX(Vector2(pos.x, pos.y));
+	mCurNode.Tile = ObjectManager::GetInstance()->GetTile(TileIdx.first, TileIdx.second);
+
+	if (mCurNode.Tile == nullptr)
+		return false;
+
+	mCloseList.emplace(make_pair(mCurNode.Id, mCurNode));
+
+	return false;
 }
 
 void AStar::Compare(Node duplication)
@@ -359,7 +425,6 @@ void AStar::Result()
 {
 	while (!mResult.empty())
 	{
-		Node node = mResult.top();
 		mResult.pop();
 	}
 
@@ -369,17 +434,20 @@ void AStar::Result()
 	Node node = mCurNode;
 	while (1)
 	{
-		if ((mCurNode.Pos.x == mStart.x && mCurNode.Pos.y == mStart.y))
+		if ((mCurNode.Pos == mStart))
 		{
 			WorldManager::GetInstance()->SetEndIndex(node.Pos.x, node.Pos.y);
-			if(mResult.size() > 0)
+			// 맨 처음 시작 노드
+			mResult.push(mCurNode);
+
+			if (mResult.size() > 0)
 				mbNodeEmpty = false;
 
 			mbRun = false;
 
-			PlayerScript* script = GetOwner()->GetScript<PlayerScript>();
-			if(script)
-				script->AddRenderAStar();
+			/*PlayerScript* script = GetOwner()->GetScript<PlayerScript>();
+			if (script)
+				script->AddRenderAStar();*/
 
 			return;
 		}
@@ -427,4 +495,3 @@ AStar::Node* AStar::GetNextNode()
 	}
 	return nullptr;
 }
-

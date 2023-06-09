@@ -13,7 +13,16 @@ public:
 
 		Vec(int x, int y) : x(x), y(y) {};
 		Vec(const Vec& pos) : x(pos.x), y(pos.y) {};
+		Vec(Vector2 pos) : x((int)pos.x), y((int)pos.y) {};
 		Vec() : x(0), y(0) {};
+
+		bool operator == (Vec& vec)
+		{
+			if (this->x == vec.x && this->y == vec.y)
+				return true;
+			else
+				return false;
+		}
 	};
 	struct Node
 	{
@@ -27,23 +36,31 @@ public:
 
 		Vec ParentIndex;
 
+		class TileObject* Tile;
+
+		Node(const Vec& pos, int g, int h, long long int f, Vec parent,  TileObject* tile)
+			: Pos(pos), Id(0), Cost(g), Heuristick(h), Distance(f), ParentIndex(parent), Tile(tile) {};
+
 		Node(const Vec& pos, int g, int h, long long int f, Vec parent)
-			: Pos(pos), Id(0), Cost(g), Heuristick(h), Distance(f), ParentIndex(parent) {};
+			: Pos(pos), Id(0), Cost(g), Heuristick(h), Distance(f), ParentIndex(parent), Tile(nullptr) {};
 
 		Node(const Vec& pos, int g, int h, long long int f)
-			: Pos(pos), Id(0), Cost(g), Heuristick(h), Distance(f), ParentIndex(Vec{}) {};
+			: Pos(pos), Id(0), Cost(g), Heuristick(h), Distance(f), ParentIndex(Vec{}), Tile(nullptr) {};
+
+		Node(int& x, int& y, int& g, int& h, long long int& f, Vec parent, TileObject* tile)
+			: Pos(x, y), Id(0), Cost(g), Heuristick(h), Distance(f), ParentIndex(parent), Tile(tile) {};
 
 		Node(int& x, int& y, int& g, int& h, long long int& f, Vec parent)
-			: Pos(x,y), Id(0), Cost(g), Heuristick(h), Distance(f), ParentIndex(parent) {};
+			: Pos(x,y), Id(0), Cost(g), Heuristick(h), Distance(f), ParentIndex(parent), Tile(nullptr) {};
 
 		Node(int& x, int& y, int& g, int& h, long long int& f)
-			: Pos(x, y), Id(0), Cost(g), Heuristick(h), Distance(f), ParentIndex(Vec{}) {};
+			: Pos(x, y), Id(0), Cost(g), Heuristick(h), Distance(f), ParentIndex(Vec{}), Tile(nullptr) {};
 
 		Node(const Node& node) 
-			: Pos(node.Pos.x, node.Pos.y), Id(node.Id), Cost(node.Cost), Heuristick(node.Heuristick), Distance(node.Distance), ParentIndex(node.ParentIndex) {};
+			: Pos(node.Pos.x, node.Pos.y), Id(node.Id), Cost(node.Cost), Heuristick(node.Heuristick), Distance(node.Distance), ParentIndex(node.ParentIndex), Tile(node.Tile) {};
 
 		Node() 
-			: Pos(0, 0), Id(0), Cost(0), Heuristick(0), Distance(0), ParentIndex(Vec{}) {}
+			: Pos(0, 0), Id(0), Cost(0), Heuristick(0), Distance(0), ParentIndex(Vec{}), Tile(nullptr) {}
 
 		/*void operator=(const Node& node)
 		{
@@ -93,6 +110,7 @@ public:
 	bool OnA_Star(Node& node, Vec& start, Vec& end, bool run = true);
 	bool OnA_Star(Node& node, int x, int y, Vec& end, bool run = true);
 	bool OnA_Star(Node& node, int x, int y,int endX, int endY, bool run = true);
+	bool OnA_Star(std::pair<int, int> idx);
 	void Compare(Node overlap);
 	Node DistanceList();
 
@@ -125,6 +143,8 @@ private:
 
 	priority_queue< Node, vector< Node>, cmp> mDistanceList;
 	stack<Node> mResult;
+
+	std::vector<vector<TileObject*>> Tiles;
 
 	Node mCurNode;
 

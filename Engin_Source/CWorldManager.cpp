@@ -109,3 +109,23 @@ bool WorldManager::SetPath(const int& startX, const int& startY, const int& endX
 
 	return true;
 }
+
+std::pair<int, int> WorldManager::GetTileIndex(Vector2 MousePos)
+{
+	auto idx = Input::GetInstance()->GetIsoMetricIDX(MousePos);
+	TileObject* tile = ObjectManager::GetInstance()->GetTile(idx.first, idx.second);
+
+	if (tile == nullptr)
+		return pair(-1, -1);
+
+	for (int i = 0; i < mWorldTileData.size(); ++i)
+	{
+		for (int j = 0; j < mWorldTileData[i].size(); ++j)
+		{
+			if (mWorldTileData[i][j] == tile)
+				return std::pair(i,j);
+		}
+	}
+	
+	return pair(-1, -1);
+}

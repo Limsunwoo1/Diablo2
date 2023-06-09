@@ -46,6 +46,8 @@ public:
 
 	void DeleteTileObject(TileObject* tile);
 	void DeleteWallObjet(WallObject* wall);
+
+	TileObject* GetTile(int x, int y);
 private:
 	queue<Skil*> SkilContainer;
 	vector<Vector2> ObjectOffsetData;

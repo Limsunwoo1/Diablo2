@@ -71,8 +71,6 @@ void PlayerScript::Update()
 
 void PlayerScript::FixedUpdate()
 {
-	return;
-
 	for (GameObject* obj : mRenderObj)
 	{
 		if (obj == nullptr)
@@ -146,6 +144,7 @@ void PlayerScript::FixedUpdate()
 	}
 	else if (Input::GetInstance()->GetKeyDown(eKeyCode::D))
 	{
+		return;
 		if (player->GetState() == Player::PlayerState::Idle
 			|| player->GetState() == Player::PlayerState::Move)
 		{
@@ -247,11 +246,16 @@ void PlayerScript::FixedUpdate()
 			UINT max = WorldManager::GetInstance()->GetScale();
 			node.Id = (node.Pos.y * max) + (node.Pos.x % max);
 
+			Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos(true);
+			auto Idx = WorldManager::GetInstance()->GetTileIndex(mousePos);
+			if(Idx.first >= 0 && Idx.second >= 0)
+				astar->OnA_Star(Idx);
+
 			if (WorldManager::GetInstance()->SetPath(node.Pos.x, node.Pos.y, end.x, end.y))
 			{
-				if (astar->OnA_Star(node, node.Pos, end))
+				if (astar->OnA_Star(Idx))
 				{
-					Vector2 pos = WorldManager::GetInstance()->GetPlayerIndex();
+					/*Vector2 pos = WorldManager::GetInstance()->GetPlayerIndex();
 					WorldManager::GetInstance()->SetObstacle(pos.x, pos.y);
 
 					Vector3 trPos = GetOwner()->GetComponent<Transform>()->GetPosition();
@@ -259,7 +263,7 @@ void PlayerScript::FixedUpdate()
 					WorldManager::GetInstance()->SetPlayerIndex(trPos.x, trPos.y);
 
 					mPickPoint = Vector2::Zero;
-					mEndPos = index;
+					mEndPos = index;*/
 				}
 
 				Scene* scene = SceneManager::GetInstance()->GetActiveScene();

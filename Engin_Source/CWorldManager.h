@@ -33,7 +33,10 @@ public:
 	void SetPlayer(GameObject* player) { Player = player; }
 
 	void PushWorldTileData(vector<vector<class TileObject*>> data) { mWorldTileData = data; }
-	
+	std::vector<vector<TileObject*>> DropWordTileData() { return mWorldTileData; }
+
+	int GetTileDataWorldSize() {return mWorldTileData.size();}
+	std::pair<int, int> GetTileIndex(Vector2 MousePos);
 private:
 	UINT worldScale;
 

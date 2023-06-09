@@ -235,7 +235,6 @@ void ObjectManager::DeleteTileObject(TileObject* tile)
 	if (iter != mTileObjects.end())
 	{
 		mTileObjects.erase(iter);
-		return;
 	}
 }
 
@@ -248,6 +247,17 @@ void ObjectManager::DeleteWallObjet(WallObject* wall)
 	if (iter != mWallObjects.end())
 	{
 		mWallObjects.erase(iter);
-		return;
 	}
+}
+
+TileObject* ObjectManager::GetTile(int x, int y)
+{
+	TileObjectsIter::iterator iter = mTileObjects.find(std::pair(x,y));
+
+	if (iter == mTileObjects.end())
+	{
+		return nullptr;
+	}
+
+	return iter->second;
 }
