@@ -17,6 +17,8 @@ ObjectManager::ObjectManager()
 	{
 		ObjectSizeData.emplace_back(Vector2(600.f, 600.f));
 	}
+
+	mCurIDX = std::pair(-100, -100);
 }
 
 ObjectManager::~ObjectManager()
@@ -38,13 +40,18 @@ void ObjectManager::Update()
 	if (Renderer::mainCamera == nullptr)
 		return;
 
-	mTiles.clear();
-	mWalls.clear();
-
 	Transform* tr = Renderer::mainCamera->GetOwner()->GetComponent<Transform>();
 	Vector3 pos = tr->GetPosition();
 
 	auto idx = Input::GetInstance()->GetIsoMetricIDX(Vector2(pos.x, pos.y));
+
+	if (mCurIDX == idx)
+		return;
+
+	mCurIDX = idx;
+
+	mTiles.clear();
+	mWalls.clear();
 
 	// 화면 중앙을 기준으로 상하좌우 총 25 개만 파이프라인에 속함
 	int startIdxX = idx.first - 5;

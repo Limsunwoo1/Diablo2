@@ -58,5 +58,7 @@ private:
 
 	std::vector<GameObject*> mTiles;
 	std::vector<GameObject*> mWalls;
+
+	std::pair<int, int> mCurIDX;
 };
 
