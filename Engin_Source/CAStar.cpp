@@ -175,7 +175,7 @@ void AStar::AddOpenList(int x, int y, bool diagonal)
 	node.Pos.y = y;
 
 	node.Id = GetID(node.Pos.x, node.Pos.y);
-	node.Tile = Tiles[x][y];
+	node.Tile = Tiles[y][x];
 
 	//test 
 	//CurNode
