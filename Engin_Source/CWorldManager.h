@@ -11,7 +11,7 @@ public:
 	void Update();
 
 	HRESULT Load(const std::wstring& path);
-	
+
 	UINT GetTileNum(const UINT& x, const UINT& y);
 	UINT GetScale() { return worldScale; }
 
@@ -32,10 +32,12 @@ public:
 	GameObject* GetPlayer() { return Player; }
 	void SetPlayer(GameObject* player) { Player = player; }
 
-	void PushWorldTileData(vector<vector<class TileObject*>> data) { mWorldTileData = data; }
+	void PushWorldTileData(vector<vector<class TileObject*>> data);
 	std::vector<vector<TileObject*>> DropWordTileData() { return mWorldTileData; }
+	vector<vector<std::pair<std::pair<int, int>, int>>> DropWolrdTileCarveData() { return mWolrdTileCarveData; }
+	void SetWorldTileCarveData(int x, int y, TileObject* tile);
 
-	int GetTileDataWorldSize() {return mWorldTileData.size();}
+	int GetTileDataWorldSize() { return mWorldTileData.size(); }
 	std::pair<int, int> GetTileIndex(Vector2 MousePos);
 private:
 	UINT worldScale;
@@ -45,6 +47,6 @@ private:
 
 	vector<vector<int>> world;
 	vector<vector<class TileObject*>> mWorldTileData;
+	vector<vector<std::pair<std::pair<int, int>, int>>> mWolrdTileCarveData;
 	class GameObject* Player;
 };
-

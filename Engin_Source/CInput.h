@@ -97,6 +97,7 @@ public:
 private:
 	std::vector<Key> mKeys;
 	Math::Vector2 mMousePos;
+	std::stack<Vector2> mPosData;
 
 	ItemBase* mPickItem;
 	bool mbMouseItemPick;

@@ -36,6 +36,7 @@ private:
 	Vector2 mEndPos;
 
 	AStar::Node* mNode;
+	Vector2 mNodePos;
 	vector<GameObject*> mRenderObj;
 
 	bool mbInput;

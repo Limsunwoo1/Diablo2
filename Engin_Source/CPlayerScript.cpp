@@ -226,34 +226,14 @@ void PlayerScript::FixedUpdate()
 
 		if (!mbInput)
 		{
-			Vector2 index = Input::GetInstance()->GetMouseWorldPos();
-
-			// 플레이어 발끝에 위치하기위해
-			// 약간의 y 값을 증가시킴
-			//index.y += 0.7f;
-
-			Vector2 Wpos = WorldManager::GetInstance()->GetPlayerIndex();
-			Vector2 Wend = WorldManager::GetInstance()->GetEndIndex();
-
-			Transform* tr = GetOwner()->GetComponent<Transform>();
-			Vector3 PlayerPos = tr->GetPosition();
-			node.Pos.x = (UINT)PlayerPos.x;
-			node.Pos.y = (UINT)PlayerPos.y;
-
-			end.x = index.x;
-			end.y = index.y;
-
-			UINT max = WorldManager::GetInstance()->GetScale();
-			node.Id = (node.Pos.y * max) + (node.Pos.x % max);
-
 			Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos(true);
 			auto Idx = WorldManager::GetInstance()->GetTileIndex(mousePos);
 			if(Idx.first >= 0 && Idx.second >= 0)
-				astar->OnA_Star(Idx);
+				astar->OnA_Star(Idx, mousePos);
 
 			if (WorldManager::GetInstance()->SetPath(node.Pos.x, node.Pos.y, end.x, end.y))
 			{
-				if (astar->OnA_Star(Idx))
+				if (astar->OnA_Star(Idx, mousePos))
 				{
 					/*Vector2 pos = WorldManager::GetInstance()->GetPlayerIndex();
 					WorldManager::GetInstance()->SetObstacle(pos.x, pos.y);
@@ -273,8 +253,8 @@ void PlayerScript::FixedUpdate()
 
 					Transform* tr = ping->GetComponent<Transform>();
 
-					Vector3 posVec = Vector3(index.x, index.y, 1.0f);
-					tr->SetPosition(posVec);
+					/*Vector3 posVec = Vector3(index.x, index.y, 1.0f);
+					tr->SetPosition(posVec);*/
 
 					mbInput = true;
 				}
@@ -283,41 +263,49 @@ void PlayerScript::FixedUpdate()
 		}
 	}
 
-	if (mNode == nullptr && mPickPoint == Vector2::Zero)
+	if (mNodePos == Vector2::Zero && mPickPoint == Vector2::Zero)
 	{
-		AStar* astar = GetOwner()->GetComponent<AStar>();
-		mNode = astar->GetNextNode();
-		if (mNode != nullptr)
+		if (!mPosData.empty())
 		{
-			mPickPoint = Vector2((mNode->Pos.x), (mNode->Pos.y));
-			if (WorldManager::GetInstance()->GetEndIndex() == mPickPoint)
+			mNodePos = mPosData.top();
+			mPosData.pop();
+
+
+			if (mPickPoint == Vector2::Zero)
 			{
-				WorldManager::GetInstance()->SetPlayerIndex(mNode->Pos.x, mNode->Pos.y);
-			}
+				mPickPoint = mNodePos;
 
-			if (astar->GetNodeEmpyt())
-			{
-				WorldManager::GetInstance()->SetZero(mNode->Pos.x, mNode->Pos.y);
 
-				mPickPoint = mEndPos;
-				WorldManager::GetInstance()->SetPlayerIndex(mPickPoint.x, mPickPoint.y);
+				//if (astar->GetNodeEmpyt())
+				//{
+				//	WorldManager::GetInstance()->SetZero(mNode->Pos.x, mNode->Pos.y);
 
-				mEndPos = Vector2(-1.f, -1.f);
+				//	mPickPoint = mEndPos;
+				//	WorldManager::GetInstance()->SetPlayerIndex(mPickPoint.x, mPickPoint.y);
+
+				//	mEndPos = Vector2(-1.f, -1.f);
+				//}
 			}
 		}
 	}
 
 	if (mPickPoint != Vector2::Zero)
 	{
-		Vector3 vec = mPickPoint - pos;
+		Vector3 PosUnder = pos;
+		PosUnder.y -= tr->GetSize().y * 0.25f;
 
-		if (fabs(vec.x) < 0.05f && fabs(vec.y) < 0.05f)
+		Vector3 vec = mPickPoint - PosUnder;
+
+		if (fabs(vec.x) < 5.0f && fabs(vec.y) < 5.0f)
 		{
 			Vector2 pos = WorldManager::GetInstance()->GetPlayerIndex();
 			WorldManager::GetInstance()->SetZero(pos.x, pos.y);
 
 			mPickPoint = Vector2::Zero;
-			mNode = nullptr;
+			mNodePos = Vector2::Zero;
+
+			AStar* astar = GetOwner()->GetComponent<AStar>();
+			astar->PopNode();
 
 			player->SetState(Player::PlayerState::Idle);
 			return;
@@ -329,7 +317,7 @@ void PlayerScript::FixedUpdate()
 		vec.Normalize();
 		player->SetState(Player::PlayerState::Move);
 
-		pos += vec * Time::GetInstance()->DeltaTime() * player->GetRunSpeed();
+		pos += vec * Time::GetInstance()->DeltaTime() * player->GetRunSpeed() * 200;
 
 		mNode = nullptr;
 	}
@@ -587,29 +575,12 @@ void PlayerScript::AddRenderAStar()
 	ClearAstar();
 
 	AStar* astar = GetOwner()->GetComponent< AStar>();
-	stack<AStar::Node> ObjectStack = astar->GetNodes();
-	while (!ObjectStack.empty())
-	{
-		AStar::Node node = ObjectStack.top();
-		ObjectStack.pop();
-
-		GameObject* obj = new GameObject();
-		mRenderObj.push_back(obj);
-
-		Transform* tr = obj->GetComponent<Transform>();
-		tr->SetPosition(Vector3(node.Pos.x, node.Pos.y, 1.0f));
-
-		SpriteRenderer* sr = obj->AddComponent<SpriteRenderer>();
-		weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"FadeMesh");
-		weak_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"AstarMaterial");
-		sr->SetMesh(mesh);
-		sr->SetMaterial(mater);
-	}
+	mPosData = astar->GetPosData();
 }
 
 void PlayerScript::ClearAstar()
 {
-	for (GameObject* obj : mRenderObj)
+	/*for (GameObject* obj : mRenderObj)
 	{
 		if (obj == nullptr)
 			continue;
@@ -617,7 +588,7 @@ void PlayerScript::ClearAstar()
 		delete obj;
 		obj = nullptr;
 	}
-	mRenderObj.clear();
+	mRenderObj.clear();*/
 }
 
 float PlayerScript::GetAngle(Vector2 point)

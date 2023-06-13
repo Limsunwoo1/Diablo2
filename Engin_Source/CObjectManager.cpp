@@ -40,13 +40,26 @@ void ObjectManager::Update()
 	if (Renderer::mainCamera == nullptr)
 		return;
 
+	ResetWorld();
+}
+
+void ObjectManager::FixedUpdate()
+{
+}
+
+void ObjectManager::Initialize()
+{
+}
+
+void ObjectManager::ResetWorld()
+{
 	Transform* tr = Renderer::mainCamera->GetOwner()->GetComponent<Transform>();
 	Vector3 pos = tr->GetPosition();
 
 	auto idx = Input::GetInstance()->GetIsoMetricIDX(Vector2(pos.x, pos.y));
 
-	if (mCurIDX == idx)
-		return;
+	/*if (mCurIDX == idx)
+		return;*/
 
 	mCurIDX = idx;
 
@@ -70,19 +83,19 @@ void ObjectManager::Update()
 	//std::vector<TileObject*> worldDataTile = ;
 
 	int worldX = 0;
-	int worldY = 0;
+	int worldY = 9;
 
 	for (int i = startIdxY; i < endIdxY; ++i)
 	{
 		for (int j = startIdxX; j < endIdxX; ++j)
 		{
-			worldTileData[worldY][worldX] = nullptr;
 			if (i < 0 || j < 0)
 			{
 				worldX++;
 				continue;
 			}
 
+			worldTileData[worldY][worldX] = nullptr;
 			TileObjectsIter::iterator Tileiter =
 				mTileObjects.find(std::pair(j, i));
 
@@ -100,7 +113,7 @@ void ObjectManager::Update()
 
 			worldX++;
 		}
-		worldY++;
+		worldY--;
 		worldX = 0;
 	}
 
@@ -133,14 +146,6 @@ void ObjectManager::Update()
 			else
 				return aPos.y > bPos.y;
 		});
-}
-
-void ObjectManager::FixedUpdate()
-{
-}
-
-void ObjectManager::Initialize()
-{
 }
 
 std::vector<GameObject*> ObjectManager::GetTileRenderObject()

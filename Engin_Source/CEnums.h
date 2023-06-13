@@ -158,11 +158,11 @@ enum class eWallType
 
 enum class eTilePickType
 {
-	TileALL,
 	Tile0,
 	Tile1,
 	Tile2,
 	Tile3,
+	TileALL,
 	////////////////////////
 	//  --------------
 	// |   2  |   3  |

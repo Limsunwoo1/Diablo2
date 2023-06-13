@@ -13,7 +13,7 @@ public:
 
 		Vec(int x, int y) : x(x), y(y) {};
 		Vec(const Vec& pos) : x(pos.x), y(pos.y) {};
-		Vec(Vector2 pos) : x((int)pos.x), y((int)pos.y) {};
+		Vec(Math::Vector2 pos) : x((int)pos.x), y((int)pos.y) {};
 		Vec() : x(0), y(0) {};
 
 		bool operator == (Vec& vec)
@@ -22,6 +22,28 @@ public:
 				return true;
 			else
 				return false;
+		}
+
+		void operator *=(int num)
+		{
+			this->x = num * this->x;
+			this->y = num * this->y;
+		}
+
+		void operator =(const Vec& vec)
+		{
+			this->x = vec.x;
+			this->y = vec.y;
+		}
+
+		Vec operator * (int num)
+		{
+			return Vec(this->x * num, this->y * num);
+		}
+
+		Vec operator * (float num)
+		{
+			return Vec(this->x * num, this->y * num);
 		}
 	};
 	struct Node
@@ -71,6 +93,7 @@ public:
 
 			this->PartenNode = node.PartenNode;
 		}*/
+
 		bool operator<(const Node& other) const 
 		{   // 우선순위 큐에서 사용될 연산자
 			return Distance > other.Distance;
@@ -98,24 +121,32 @@ public:
 	virtual void Render() override;
 
 	UINT GetHeuristick(int x, int y);
+	UINT GetHeuristick(int x, int y, Vec End);
 	UINT GetHeuristick2(int x, int y);
+	UINT GetHeuristick2(int x, int y, Vec End);
 	UINT GetCost(int x, int y, int InG);
 	UINT GetID(int x, int y);
+	UINT GetID(int x, int y, int maxX, int maxY);
 
 	void AddOpenList(int x, int y, bool diagonal = true);
+	void CarveAddOpenList(int x, int y, Vec End, bool diagonal = true);
+
 	void AddCloseList();
+	void CarveAddCloseList();
 
 	void RemoveOpenList(Node node);
 
 	bool OnA_Star(Node& node, Vec& start, Vec& end, bool run = true);
 	bool OnA_Star(Node& node, int x, int y, Vec& end, bool run = true);
 	bool OnA_Star(Node& node, int x, int y,int endX, int endY, bool run = true);
-	bool OnA_Star(std::pair<int, int> idx);
+	bool OnA_Star(std::pair<int, int> idx, Math::Vector2 endPos);
 	void Compare(Node overlap);
+	void CarveCompare(Node overlap, bool carve = true);
 	Node DistanceList();
 
 	void Result();
 	void CarveTileAStar();
+	void SaveCarvePosData();
 
 	UINT GetMaxX() { return mMaxX; }
 	UINT GetMaxY() { return mMaxY; }
@@ -124,13 +155,15 @@ public:
 	Vec& GetEnd() { return mEnd; }
 
 	bool GetNodeEmpyt() { return mbNodeEmpty; }
-	stack<Node> GetNodes() { return mResult; }
+	std::stack<Math::Vector2>& GetPosData() { return PosData; }
+	Math::Vector2 GetCarvePos(Node curNode);
 
 	bool IsRunning() { return mbRun; }
 	void StopRun() { mbRun = false; }
 	void ClearNode();
 
 	Node* GetNextNode();
+	void PopNode() { PosData.pop(); }
 
 private:
 	UINT mMaxX;
@@ -138,18 +171,29 @@ private:
 
 	Vec mStart;
 	Vec mEnd;
+	Math::Vector2 mEndPos;
 	
 	unordered_map<UINT, Node> mOpenList;
 	unordered_map<UINT, Node> mCloseList;
 
 	priority_queue< Node, vector< Node>, cmp> mDistanceList;
-	stack<Node> mResult;
+	vector<Node> mResult;
+	map<UINT, Node> mFindResult;
 
 	std::vector<vector<TileObject*>> Tiles;
+	vector<vector<std::pair<std::pair<int, int>, int>>> mTilesCarveData;
+	std::stack<Math::Vector2>PosData;
 
+	Node mStartNode;
 	Node mCurNode;
+
+	Node mCarveCurNode;
+	Node mCarveStartNode;
+	Node mCarveEndNode;
 
 	bool mbRun;
 	bool mbNodeEmpty;
 };
 
+typedef vector<vector<Math::Vector2>> PositionDataIter;
+typedef vector<AStar::Node> ResultIter;

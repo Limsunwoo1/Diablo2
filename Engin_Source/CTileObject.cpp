@@ -255,6 +255,23 @@ bool TileObject::PickTile(Vector2 mousePos, eTilePickType type)
 	return false;
 }
 
+Vector2 TileObject::TileCarvePos(eTilePickType type)
+{
+	Transform* tileTr = GetComponent<Transform>();
+	Vector3 tilePos = tileTr->GetPosition();
+	Vector3 tileScale = tileTr->GetScale() * tileTr->GetSize();
+
+	Vector3 InScale = tileScale * 0.25f;
+
+	if (type == eTilePickType::Tile0)		tilePos.y -= InScale.y;
+	else if (type == eTilePickType::Tile1)	tilePos.x += InScale.x;
+	else if (type == eTilePickType::Tile2)	tilePos.x -= InScale.x;
+	else if (type == eTilePickType::Tile3)	tilePos.y += InScale.y;
+	else return Vector2(-1.f, -1.f);
+
+	return Vector2(tilePos.x, tilePos.y);
+}
+
 vector<Vector2> TileObject::GetIsometricVertex(Vector3 pos, Vector3 size)
 {
 	vector<Vector2> vVerTex = {};

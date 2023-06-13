@@ -97,3 +97,12 @@ union Screen_IDX_Data
 
 	UINT64 ScrrenID;
 };
+
+
+struct TileCarveData
+{
+	int TileIdxX;
+	int TileIdxY;
+
+	int ArrValue;
+};

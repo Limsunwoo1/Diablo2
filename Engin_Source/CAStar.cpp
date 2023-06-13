@@ -35,11 +35,8 @@ void AStar::Update()
 	if (!mbRun)
 		return;
 
+	ObjectManager::GetInstance()->ResetWorld();
 	Tiles = WorldManager::GetInstance()->DropWordTileData();
-
-	std::pair<int, int> StartTileIdx;
-	std::pair<int, int> EndTileIdx;
-	std::pair<int, int> CurTileIdx;
 
 	while (1)
 	{
@@ -92,6 +89,22 @@ UINT AStar::GetHeuristick(int x, int y)
 	return H;
 }
 
+UINT AStar::GetHeuristick(int x, int y, Vec End)
+{
+	int ix = abs(x - End.x);
+	int iy = abs(y - End.y);
+
+	int tem = abs(ix - iy);
+	int weight = 1;
+	if (tem == 0)
+		weight = 14;
+	else
+		weight = 10;
+
+	UINT H = (ix + iy) * 10;
+	return H;
+}
+
 UINT AStar::GetHeuristick2(int x, int y)
 {
 	int ix = abs(x - mEnd.x);
@@ -106,6 +119,22 @@ UINT AStar::GetHeuristick2(int x, int y)
 		weight = 10;*/
 
 	return (int)(1 * (std::sqrt(std::pow(x - mEnd.x, 2) + std::pow(y - mEnd.y, 2))));
+}
+
+UINT AStar::GetHeuristick2(int x, int y, Vec End)
+{
+	int ix = abs(x - End.x);
+	int iy = abs(y - End.y);
+
+	int weight = mCloseList.size();
+	// 상황에 따른 가중치 알고리즘 추가하면
+	// 조금 더 정교한 탐색이 가능해진다
+	/*if (tem == 0)
+		weight = 14;
+	else
+		weight = 10;*/
+
+	return (int)(1 * (std::sqrt(std::pow(x - End.x, 2) + std::pow(y - End.y, 2))));
 }
 
 UINT AStar::GetCost(int x, int y, int InG)
@@ -127,6 +156,12 @@ UINT AStar::GetCost(int x, int y, int InG)
 UINT AStar::GetID(int x, int y)
 {
 	UINT id = (y * mMaxY) + (x % mMaxX);
+	return id;
+}
+
+UINT AStar::GetID(int x, int y, int maxX, int maxY)
+{
+	UINT id = (y * maxY) + (x % maxX);
 	return id;
 }
 
@@ -174,8 +209,8 @@ void AStar::AddOpenList(int x, int y, bool diagonal)
 		/*if (diagonal)
 			return;*/
 
-		// G 값 비교후 들어있는 
-		// 타일 데이터 수정 G, F
+			// G 값 비교후 들어있는 
+			// 타일 데이터 수정 G, F
 		Compare(iter->second);
 		return;
 	}
@@ -212,8 +247,69 @@ void AStar::AddOpenList(int x, int y, bool diagonal)
 
 	node.ParentIndex = mCurNode.Pos;
 
-	Node pushNode = Node(node.Pos.x, node.Pos.y, node.Cost, node.Heuristick, node.Distance, node.ParentIndex, node.Tile);
-	pushNode.Id = node.Id;
+	mOpenList.insert(make_pair(node.Id, node));
+	mDistanceList.emplace(node);
+}
+
+void AStar::CarveAddOpenList(int x, int y, Vec End, bool diagonal)
+{
+	Node node = {};
+
+	// 포즈가 현재 화면상인덱스 임
+	// 시작 노드의 idx 를 변환해줘야함
+	node.Pos.x = x;
+	node.Pos.y = y;
+
+	node.Id = GetID(node.Pos.x, node.Pos.y, 20, 20);
+	node.Tile = Tiles[node.Pos.y / 2][node.Pos.x / 2];
+
+	if (mFindResult.find((UINT)node.Tile) == mFindResult.end())
+		return;
+
+	// 맵 범위 밖 타일인지확인
+	if (y < 0 || y >= mTilesCarveData.size())
+		return;
+
+	if (x < 0 || x >= mTilesCarveData[y].size())
+		return;
+
+
+	// 닫힌 목록에 있는 노드인지 탐색
+	unordered_map<UINT, Node>::iterator iter;
+	iter = mCloseList.find(node.Id);
+
+	if (iter != mCloseList.end())
+		return;
+
+	// 오픈노드에 있는 노드인지 탐색
+	iter = mOpenList.find(node.Id);
+	if (iter != mOpenList.end())
+	{
+			// G 값 비교후 들어있는 
+			// 타일 데이터 수정 G, F
+		CarveCompare(iter->second, true);
+		return;
+	}
+
+	if (diagonal)
+	{
+		if (mTilesCarveData[mCarveCurNode.Pos.x][node.Pos.y].second == 1)
+			return;
+
+		if (mTilesCarveData[node.Pos.x][mCarveCurNode.Pos.y].second == 1)
+			return;
+	}
+
+	int count = abs(mCarveCurNode.Pos.x - node.Pos.x) + abs(mCarveCurNode.Pos.y - node.Pos.y);
+	if (count > 1)
+		node.Cost = 14 + mCarveCurNode.Cost;
+	else
+		node.Cost = 10 + mCarveCurNode.Cost;
+
+	node.Heuristick = GetHeuristick(node.Pos.x, node.Pos.y, End);
+	node.Distance = node.GetDistance();
+
+	node.ParentIndex = mCarveCurNode.Pos;
 
 	mOpenList.insert(make_pair(node.Id, node));
 	mDistanceList.emplace(node);
@@ -223,6 +319,13 @@ void AStar::AddCloseList()
 {
 	mCurNode = DistanceList();
 	mCloseList.emplace(std::make_pair(mCurNode.Id, mCurNode));
+}
+
+void AStar::CarveAddCloseList()
+{
+	mCarveCurNode = DistanceList();
+	
+	mCloseList.emplace(std::make_pair(mCarveCurNode.Id, mCarveCurNode));
 }
 
 void AStar::RemoveOpenList(Node node)
@@ -324,11 +427,13 @@ bool AStar::OnA_Star(Node& node, int x, int y, int endX, int endY, bool run)
 	return true;
 }
 
-bool AStar::OnA_Star(std::pair<int,int> idx)
+bool AStar::OnA_Star(std::pair<int, int> idx, Vector2 endPos)
 {
 	if (mbRun)
 		return false;
 
+	if (!PosData.empty())
+		return false;
 	/*if ()
 		return false;*/
 
@@ -340,11 +445,13 @@ bool AStar::OnA_Star(std::pair<int,int> idx)
 	//SetIndex
 	Transform* tr = GetOwner()->GetComponent<Transform>();
 	Vector3 pos = tr->GetPosition();
+	//pos.y -= tr->GetSize().y * 0.25f;
 
 	auto startIdx = WorldManager::GetInstance()->GetTileIndex(Vector2(pos.x, pos.y));
 	mStart = Vec(startIdx.first, startIdx.second);
 
 	mEnd = Vec(idx.first, idx.second);
+	mEndPos = endPos;
 	mbRun = true;
 
 	// SetNode
@@ -356,12 +463,14 @@ bool AStar::OnA_Star(std::pair<int,int> idx)
 	mCurNode.Heuristick = GetHeuristick(mCurNode.Pos.x, mCurNode.Pos.y);
 	mCurNode.Distance = mCurNode.GetDistance();
 
+
 	auto TileIdx = Input::GetInstance()->GetIsoMetricIDX(Vector2(pos.x, pos.y));
 	mCurNode.Tile = ObjectManager::GetInstance()->GetTile(TileIdx.first, TileIdx.second);
 
 	if (mCurNode.Tile == nullptr)
 		return false;
 
+	mStartNode = mCurNode;
 	mCloseList.emplace(make_pair(mCurNode.Id, mCurNode));
 
 	return false;
@@ -412,6 +521,51 @@ void AStar::Compare(Node duplication)
 	NodeTemp.clear();
 }
 
+void AStar::CarveCompare(Node duplication, bool carve)
+{
+	UINT g = mCarveCurNode.Cost;
+
+	int x = abs(mCarveCurNode.Pos.x - duplication.Pos.x);
+	int y = abs(mCarveCurNode.Pos.y - duplication.Pos.y);
+
+	if (x + y > 1)
+		g += 14;
+	else
+		g += 10;
+
+	if (duplication.Cost > g)
+	{
+		duplication.ParentIndex = mCarveCurNode.Pos;
+
+		duplication.Cost = g;
+		duplication.Distance = duplication.Cost + duplication.Heuristick;
+	}
+
+	unordered_map<UINT, Node>::iterator iter;
+	iter = mOpenList.find(duplication.Id);
+	iter->second = duplication;
+
+	vector<Node> NodeTemp;
+	while (!mDistanceList.empty())
+	{
+		Node temp = mDistanceList.top();
+		mDistanceList.pop();
+
+		if (duplication.Id == temp.Id)
+			break;
+
+		NodeTemp.emplace_back(temp);
+	}
+
+	mDistanceList.emplace(duplication);
+	for (int i = 0; i < NodeTemp.size(); ++i)
+	{
+		mDistanceList.emplace(NodeTemp[i]);
+	}
+
+	NodeTemp.clear();
+}
+
 AStar::Node AStar::DistanceList()
 {
 	Node node = mDistanceList.top();
@@ -423,10 +577,7 @@ AStar::Node AStar::DistanceList()
 
 void AStar::Result()
 {
-	while (!mResult.empty())
-	{
-		mResult.pop();
-	}
+	mResult.clear();
 
 	unordered_map<UINT, Node>::iterator iter;
 	UINT count = 0;
@@ -436,23 +587,22 @@ void AStar::Result()
 	{
 		if ((mCurNode.Pos == mStart))
 		{
-			WorldManager::GetInstance()->SetEndIndex(node.Pos.x, node.Pos.y);
 			// 맨 처음 시작 노드
-			mResult.push(mCurNode);
+			mResult.emplace_back(mStartNode);
 
 			if (mResult.size() > 0)
 				mbNodeEmpty = false;
 
 			mbRun = false;
-			//GetCarveTileAStar();
-			
+			CarveTileAStar();
+
 			return;
 		}
 
-		if (count == 100000)
+		if (count == 100)
 			return;
 
-		mResult.push(mCurNode);
+		mResult.emplace_back(mCurNode);
 
 		int id = (mCurNode.ParentIndex.y * mMaxY) + (mCurNode.ParentIndex.x % mMaxX);
 		iter = mCloseList.find(id);
@@ -466,24 +616,219 @@ void AStar::Result()
 
 void AStar::CarveTileAStar()
 {
-	if (mbNodeEmpty)
+	if (mResult.size() <= 1)
 		return;
 
+	if (!PosData.empty())
+		return;
 
+	
+	ResultIter::iterator iter = mResult.begin();
+	
+	if (iter == mResult.end())
+		return;
+
+	auto beginIter = mResult.begin();
+
+	auto Enditer = mResult.end();
+	--Enditer;
+
+	Node Start(*Enditer);
+	Node End(*beginIter);
+
+	for (Node& node : mResult)
+	{
+		if (node.Tile == nullptr)
+			continue;
+
+		mFindResult.insert(std::make_pair((UINT)node.Tile, node));
+	}
+
+	vector<pair<pair<int, int>, int>> positionData;
+	
+	int count = 0;
+
+	Transform* tr = GetOwner()->GetComponent<Transform>();
+
+	Vector3 pos = tr->GetPosition();
+	//pos.y -= tr->GetSize().y * 0.25f;
+
+	Vector2 StartPos = Vector2(pos.x, pos.y);
+	Vector2 EndPos = mEndPos;
+	
+	int startIndex = -1;
+	if		(Start.Tile->PickTile(StartPos, eTilePickType::Tile0)) { startIndex = (UINT)eTilePickType::Tile0; }
+	else if (Start.Tile->PickTile(StartPos, eTilePickType::Tile1)) { startIndex = (UINT)eTilePickType::Tile1; }
+	else if (Start.Tile->PickTile(StartPos, eTilePickType::Tile2)) { startIndex = (UINT)eTilePickType::Tile2; }
+	else if (Start.Tile->PickTile(StartPos, eTilePickType::Tile3)) { startIndex = (UINT)eTilePickType::Tile3; }
+
+	int endIndex = -1;
+	if		(End.Tile->PickTile(EndPos, eTilePickType::Tile0)) { endIndex= (UINT)eTilePickType::Tile0; }
+	else if (End.Tile->PickTile(EndPos, eTilePickType::Tile1)) { endIndex= (UINT)eTilePickType::Tile1; }
+	else if (End.Tile->PickTile(EndPos, eTilePickType::Tile2)) { endIndex= (UINT)eTilePickType::Tile2; }
+	else if (End.Tile->PickTile(EndPos, eTilePickType::Tile3)) { endIndex= (UINT)eTilePickType::Tile3; }
+
+	if (startIndex < 0 || endIndex < 0)
+		return;
+
+	Start.Pos *= 2;
+	if (startIndex == 0)		{ Start.Pos.y = (Start.Pos.y + 1); }
+	else if (startIndex == 1)	{ Start.Pos = Vec((Start.Pos.x + 1), (Start.Pos.y + 1)); }
+	else if (startIndex == 2)	{ }
+	else if (startIndex == 3)	{ Start.Pos.x =  (Start.Pos.x + 1);}
+
+	End.Pos *= 2;
+	if (endIndex == 0) { End.Pos.y = (End.Pos.y + 1); }
+	else if (endIndex == 1) { End.Pos = Vec((End.Pos.x + 1), (End.Pos.y + 1)); }
+	else if (endIndex == 2) {}
+	else if (endIndex == 3) { End.Pos.x = (End.Pos.x + 1); }
+
+	Node CurNode = {};
+	CurNode.Pos = Start.Pos;
+	CurNode.Tile = Start.Tile;
+	// 20 == TileCarveData.size()
+	CurNode.Id = GetID(CurNode.Pos.x, CurNode.Pos.y, 20, 20);
+	mCarveCurNode = CurNode;
+	mCarveStartNode = CurNode;
+
+	Node EndNode = {};
+	EndNode.Pos = End.Pos;
+	EndNode.Tile = End.Tile;
+	// 20 == TileCarveData.size()
+	EndNode.Id = GetID(EndNode.Pos.x, EndNode.Pos.y, 20, 20);
+
+	mTilesCarveData = WorldManager::GetInstance()->DropWolrdTileCarveData();
+	mCarveEndNode = EndNode;
+
+	ClearNode();
+
+	mCloseList.insert(std::make_pair(mCarveCurNode.Id, mCarveCurNode));
+
+	while (1)
+	{
+		if (mCarveCurNode.Pos == mCarveEndNode.Pos)
+		{
+			SaveCarvePosData();
+			return;
+		}
+
+		// ↗ ↘ ↙ ↖
+		int arr1X[4] = { 1, 1, -1, -1 };
+		int arr1Y[4] = { -1, 1, 1, -1 };
+
+		for (int i = 0; i < 4; ++i) { CarveAddOpenList(mCarveCurNode.Pos.x + arr1X[i], mCarveCurNode.Pos.y + arr1Y[i], mCarveEndNode.Pos); }
+
+		// → ↓ ← ↑
+		int arr2X[4] = { 1, 0, -1, 0 };
+		int arr2Y[4] = { 0, 1, 0, -1 };
+
+		for (int i = 0; i < 4; ++i) { CarveAddOpenList(mCarveCurNode.Pos.x + arr2X[i], mCarveCurNode.Pos.y + arr2Y[i], mCarveEndNode.Pos, false); }
+
+		CarveAddCloseList();
+		count++;
+	}
+}
+
+void AStar::SaveCarvePosData()
+{
+	mResult.clear();
+	mFindResult.clear();
+
+	unordered_map<UINT, Node>::iterator iter;
+	UINT count = 0;
+
+	std::stack<Vec> test;
+	Node node = mCarveCurNode;
+	while (1)
+	{
+		if ((mCarveCurNode.Pos == mCarveStartNode.Pos))
+		{
+			// 맨 처음 시작 노드
+			/*Vector2 pos = Vector2(-1.f, -1.f);
+			pos = GetCarvePos(mCarveCurNode);
+
+			if(pos.x >= 0 && pos.y >= 0)
+				PosData.emplace(pos);*/
+
+			while (!test.empty())
+			{
+				Vec idx = test.top();
+				test.pop();
+
+				std::cout << idx.x << "      " << idx.y << "     " << endl;
+			}
+				std::cout <<  "+++++++++++++++++++++++++++++++++++++++" << endl;
+
+			if (PosData.empty())
+				mbNodeEmpty = false;
+
+			mbRun = false;
+
+			Script* script = GetOwner()->GetScript<Script>();
+			script->SetPosData(PosData);
+			return;
+		}
+
+		if (count >= 1000)
+			return;
+		
+		Vector2 pos = Vector2(-1.f, -1.f);
+		pos = GetCarvePos(mCarveCurNode);
+		test.push(mCarveCurNode.Pos);
+
+		if (pos.x < 0 || pos.y < 0)
+			return;
+
+		PosData.emplace(pos);
+
+		int id = (mCarveCurNode.ParentIndex.y * 20) + (mCarveCurNode.ParentIndex.x % 20);
+		iter = mCloseList.find(id);
+		if (iter == mCloseList.end())
+			continue;
+
+		mCarveCurNode = iter->second;
+		count++;
+	}
+}
+
+
+Vector2 AStar::GetCarvePos(Node curNode)
+{
+	/* { End.Pos.y = (End.Pos.y + 1); }
+	{ End.Pos = Vec((End.Pos.x + 1), (End.Pos.y + 1)); }
+	{ End.Pos.x = (End.Pos.x + 1); }
+	{  }*/
+
+	Vector2 pos = Vector2(-1.f, -1.f);
+
+	int diffX = curNode.Pos.x % 2;
+	int diffY = curNode.Pos.y % 2;
+	
+	eTilePickType type = eTilePickType::TileALL;
+
+	if (diffX <= 0 && diffY <= 0) { type = eTilePickType::Tile2; }
+	else if (diffX > 0 && diffY <= 0) { type = eTilePickType::Tile3; }
+	else if (diffX <= 0 && diffY > 0) { type = eTilePickType::Tile0; }
+	else /*diffX > 0 && diffY > 0*/ { type = eTilePickType::Tile1; }
+
+	pos = curNode.Tile->TileCarvePos(type);
+
+	return pos;
 }
 
 void AStar::ClearNode()
 {
 	mOpenList.clear();
 	mCloseList.clear();
+	mResult.clear();
 
-	while (!mResult.empty()) { mResult.pop(); }
+	while (!PosData.empty()) { PosData.pop(); }
 	while (!mDistanceList.empty()) { mDistanceList.pop(); }
 }
 
 AStar::Node* AStar::GetNextNode()
 {
-	if (mResult.empty())
+	/*if (mResult.empty())
 	{
 		mbNodeEmpty = true;
 		return nullptr;
@@ -497,6 +842,6 @@ AStar::Node* AStar::GetNextNode()
 			mbNodeEmpty = true;
 
 		return node;
-	}
+	}*/
 	return nullptr;
 }

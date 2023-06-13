@@ -21,8 +21,8 @@ public:
 	virtual void OnTriggerStay(Collider2D* collider) {};
 	virtual void OnTriggerExit(Collider2D* collider) {};
 
-private:
-	
-
+	void SetPosData(std::stack<Math::Vector2>& pos) { mPosData = pos; }
+protected:
+	std::stack<Math::Vector2> mPosData;
 };
 
