@@ -36,6 +36,7 @@ public:
 	void DeleteUnMoveAbleData(int x, int y, int idx);
 
 	void InserCarveObject(int x, int y, int idx, class TileObject* obj);
+	void InserCarveObject(int x, int y, int idx, class TileObject* obj, eSceneType type);
 	void DeleteCarveObject(int x, int y, int idx);
 
 private:

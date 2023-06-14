@@ -146,13 +146,11 @@ void Animator::Play(const wstring& name, bool loop)
 		events->mEndEvent();
 
 	int idx = -1;
-	if (name.find(L"Walk") != std::wstring::npos || name.find(L"Idle") != std::wstring::npos || name.find(L"Run") != std::wstring::npos)
+	if (name.find(L"Walk") != std::wstring::npos || name.find(L"Run") != std::wstring::npos)
 	{
 		if (mActiveAnimation != nullptr)
 		{
 			idx = mActiveAnimation->GetMoveIndex();
-
-			std::cout << idx << std::endl;
 		}
 	}
 	else

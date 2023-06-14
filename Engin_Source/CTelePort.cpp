@@ -53,8 +53,6 @@ void TelePort::FixedUpdate()
 			if (mMovePos.x >= 0 && mMovePos.y >= 0)
 			{
 				ownerTr->SetPosition(mMovePos);
-				WorldManager::GetInstance()->SetZero(OwnerPos.x, OwnerPos.y);
-				WorldManager::GetInstance()->SetPlayerIndex(mMovePos.x, mMovePos.y);
 			}
 		}
 	}

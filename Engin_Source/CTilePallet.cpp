@@ -437,6 +437,14 @@ void TilePallet::CreateTile(const wstring& key, eLayerType type, Pos_Data pos, S
 
 	Object::Instantiate<TileObject>(eLayerType::Tile, sceneType, tile);
 	ObjectManager::GetInstance()->InsertTileObject(tile);
+
+	for (int i = 0; i < arrData.size(); ++i)
+	{
+		if (arrData[i] > 0)
+		{
+			InserCarveObject(screenIdx.screenIdxX, screenIdx.screenIdxY, i, tile, sceneType);
+		}
+	}
 }
 
 void TilePallet::CreateWall(const wstring& key, eLayerType type, Pos_Data pos, Size_Data size, Offset_Data offset, Screen_IDX_Data screenIdx)
@@ -587,6 +595,70 @@ void TilePallet::InserCarveObject(int x, int y, int idx, TileObject* obj)
 	CarveTr->SetPosition(posTem);
 	CarveTr->SetSize(sizeTem);
 	Object::Instantiate<TileCarveObject>(eLayerType::TileCarve, eSceneType::Tool, iter->second[idx]);
+}
+
+void TilePallet::InserCarveObject(int x, int y, int idx, TileObject* obj, eSceneType type)
+{
+	CarveObjects::iterator iter = mCarve_Object.find(std::make_pair(x, y));
+	if (iter == mCarve_Object.end())
+	{
+		mCarve_Object.insert(std::make_pair(std::make_pair(x, y), idx));
+		iter = mCarve_Object.find(std::make_pair(x, y));
+		iter->second.resize(4);
+	}
+
+	if (iter->second[idx] != nullptr)
+		return;
+
+	TileCarveObject* carve = new TileCarveObject();
+	carve->SetScreenIndex(x, y);
+
+	Transform* TileTr = obj->GetComponent<Transform>();
+	Vector3 TilePos = TileTr->GetPosition();
+	Vector3 TileSize = TileTr->GetSize();
+
+	Transform* CarveTr = carve->GetComponent<Transform>();
+
+	Vector3 posTem = TilePos;
+	Vector3 sizeTem = TileSize * 0.5f;
+
+	switch (idx)
+	{
+	case 0:
+	{
+		posTem = TilePos;
+		posTem.y -= sizeTem.y * 0.5f;
+	}
+	break;
+
+	case 1:
+	{
+		posTem = TilePos;
+		posTem.x += sizeTem.x * 0.5f;
+	}
+	break;
+
+	case 2:
+	{
+		posTem = TilePos;
+		posTem.x -= sizeTem.x * 0.5f;
+	}
+	break;
+
+	case 3:
+	{
+		posTem = TilePos;
+		posTem.y += sizeTem.y * 0.5f;
+	}
+	break;
+
+	default:
+		break;
+	}
+
+	CarveTr->SetPosition(posTem);
+	CarveTr->SetSize(sizeTem);
+	Object::Instantiate<TileCarveObject>(eLayerType::TileCarve, type, carve);
 }
 
 void TilePallet::DeleteCarveObject(int x, int y, int idx)

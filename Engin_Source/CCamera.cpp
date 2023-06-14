@@ -62,7 +62,7 @@ void Camera::FixedUpdate()
 
 	Vector3 myPos = tr->GetPosition();
 
-	myPos += pos * Time::GetInstance()->DeltaTime() * speed;
+	myPos += pos * Time::GetInstance()->DeltaTime() * speed * 0.5f;
 	GetOwner()->GetComponent<Transform>()->SetPosition(myPos.x, myPos.y, 1.0f);
 }
 

@@ -44,8 +44,8 @@ UINT Animation::Update()
 		}
 
 		if (mAnimationName.find(L"Walk") != std::wstring::npos 
-			|| mAnimationName.find(L"Idle") != std::wstring::npos 
 			|| mAnimationName.find(L"Run") != std::wstring::npos)
+
 		{
 			moveIndex = mIndex;
 		}

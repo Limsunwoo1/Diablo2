@@ -58,8 +58,8 @@ void ObjectManager::ResetWorld()
 
 	auto idx = Input::GetInstance()->GetIsoMetricIDX(Vector2(pos.x, pos.y));
 
-	/*if (mCurIDX == idx)
-		return;*/
+	if (mCurIDX == idx)
+		return;
 
 	mCurIDX = idx;
 
@@ -87,6 +87,9 @@ void ObjectManager::ResetWorld()
 
 	for (int i = startIdxY; i < endIdxY; ++i)
 	{
+		if (worldY < 0)
+			break;
+
 		for (int j = startIdxX; j < endIdxX; ++j)
 		{
 			if (i < 0 || j < 0)
@@ -98,6 +101,7 @@ void ObjectManager::ResetWorld()
 			worldTileData[worldY][worldX] = nullptr;
 			TileObjectsIter::iterator Tileiter =
 				mTileObjects.find(std::pair(j, i));
+
 
 			if (Tileiter != mTileObjects.end())
 			{

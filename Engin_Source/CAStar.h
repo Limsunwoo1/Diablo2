@@ -163,7 +163,7 @@ public:
 	void ClearNode();
 
 	Node* GetNextNode();
-	void PopNode() { if (!PosData.empty()) { PosData.pop(); } }
+	void PopNode();
 
 private:
 	UINT mMaxX;
@@ -181,7 +181,7 @@ private:
 	map<UINT, Node> mFindResult;
 
 	std::vector<vector<TileObject*>> Tiles;
-	vector<vector<std::pair<std::pair<int, int>, int>>> mTilesCarveData;
+	vector<vector<TileCarveData>> mTilesCarveData;
 	std::stack<Math::Vector2>PosData;
 
 	Node mStartNode;

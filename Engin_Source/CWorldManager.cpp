@@ -11,40 +11,16 @@
 
 WorldManager::WorldManager()
 	: worldScale(WORLD_SCALE)
-	, world{}
 {
-	world.resize(5);
-
-	for (int i = 0; i < world.size(); ++i)
-	{
-		world[i].resize(5);
-	}
 }
 
 WorldManager::~WorldManager()
 {
 	Player = nullptr;
-	for (int i = 0; i < WORLD_SCALE; ++i)
-	{
-		world[i].clear();
-	}
-	world.clear();
 }
 
 void WorldManager::Initialize()
 {
-	world.resize(WORLD_SCALE);
-
-	for(int i = 0; i < WORLD_SCALE; ++i)
-	{
-		world[i].resize(WORLD_SCALE);
-	}
-
-	world[10][10] = 1;
-
-	PlayerIndex.x = 10;
-	PlayerIndex.y = 10;
-	//world[99][99] = 2;
 }
 
 void WorldManager::Update()
@@ -54,63 +30,6 @@ void WorldManager::Update()
 HRESULT WorldManager::Load(const std::wstring& path)
 {
 	return E_NOTIMPL;
-}
-
-UINT WorldManager::GetTileNum(const UINT& x, const UINT& y)
-{
-	return  world[y][x];
-}
-
-bool WorldManager::CheckPlayerIndex(const int& x, const int& y)
-{
-	if (x > worldScale -1 || y > worldScale -1)
-		return false;
-
-	if (x <  0 || y < 0)
-		return false;
-
-	if (world[y][x] == 3)
-		return false;
-
-	return true;
-}
-
-bool WorldManager::CheckEndIndex(const int& x, const int& y)
-{
-	if (x > worldScale -1 || y > worldScale -1)
-		return false;
-
-	if (x < 0 || y < 0)
-		return false;
-
-	if (world[y][x] == 3)
-		return false;
-
-	return true;
-}
-
-bool WorldManager::SetPath(const int& startX, const int& startY, const int& endX, const int& endY)
-{
-	Math::Vector2 playerTemp = PlayerIndex;
-	Math::Vector2 endTemp = EndIndex;
-
-	if (!CheckPlayerIndex(startX, startY) || !CheckEndIndex(endX, endY))
-	{
-		return false;
-	}
-
-	world[PlayerIndex.y][PlayerIndex.x] = 0;
-	world[EndIndex.y][EndIndex.x] = 0;
-
-	world[startY][startX] = 1;
-	PlayerIndex.x = startX;
-	PlayerIndex.y = startY;
-
-	world[endY][endX] = 2;
-	EndIndex.x = endX;
-	EndIndex.y = endY;
-
-	return true;
 }
 
 void WorldManager::PushWorldTileData(vector<vector<class TileObject*>> data)
@@ -126,7 +45,6 @@ void WorldManager::PushWorldTileData(vector<vector<class TileObject*>> data)
 		mWolrdTileCarveData[i].resize(vecSize);
 	}
 
-	int y = 9;
 	for (int i = 0; i < mWorldTileData.size(); ++i)
 	{
 		for (int j = 0; j < mWorldTileData.size(); ++j)
@@ -135,7 +53,7 @@ void WorldManager::PushWorldTileData(vector<vector<class TileObject*>> data)
 				continue;
 
 			
-			SetWorldTileCarveData(j, y - i, mWorldTileData[i][j]);
+			SetWorldTileCarveData(j, i, mWorldTileData[i][j]);
 		}
 	}
 
@@ -146,16 +64,27 @@ void WorldManager::SetWorldTileCarveData(int x, int y, TileObject* tile)
 	if (tile == nullptr)
 		return;
 
+	TileCarveData data = {};
+	data.TileIdxX = tile->GetScreenIndex().first;
+	data.TileIdxY = tile->GetScreenIndex().second;
+	data.tile = tile;
 	vector<int>  TileArr = tile->GetArr();
+
+	int arrIdx[4] = { 2,3,0,1 };
+	//int arrIdx[4] = { 0,1,2,3 };
 	int count = 0;
-	for (int i = y * 2 + 1; i >= y * 2; --i)
+	for (int i = y * 2; i <= y * 2 + 1; ++i)
 	{
 		for (int j = x * 2; j <= x * 2 + 1; ++j)
 		{
-			mWolrdTileCarveData[i][j] = std::pair(tile->GetScreenIndex(), TileArr[count]);
+			data.ArrValue = TileArr[arrIdx[count]];
+
+			mWolrdTileCarveData[i][j] = data;
 			count++;
 		}
 	}
+
+	int a = 0;
 }
 
 std::pair<int, int> WorldManager::GetTileIndex(Vector2 MousePos)
@@ -175,9 +104,9 @@ std::pair<int, int> WorldManager::GetTileIndex(Vector2 MousePos)
 		for (int j = 0; j < mWorldTileData[i].size(); ++j)
 		{
 			if (mWorldTileData[i][j] == tile)
-				return std::pair(j,i);
+				return std::pair(j, i);
 		}
 	}
-	
+
 	return pair(-1, -1);
 }

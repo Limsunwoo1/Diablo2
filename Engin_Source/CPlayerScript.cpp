@@ -161,13 +161,6 @@ void PlayerScript::FixedUpdate()
 			if (player)
 				teleport->SetOwner(player);
 
-			if (WorldManager::GetInstance()->GetTileNum(EndPos.x, EndPos.y) == 3)
-			{
-				return;
-			}
-
-			Vector2 playerIndex = WorldManager::GetInstance()->GetPlayerIndex();
-
 			pos = Vector3(EndPos.x, EndPos.y, pos.z);
 			teleport->SetMovePos(pos);
 
@@ -211,7 +204,7 @@ void PlayerScript::FixedUpdate()
 		player->ChangeRunMode();
 	}
 
-	if (Input::GetInstance()->GetKeyPress(eKeyCode::RBTN))
+	if (Input::GetInstance()->GetKeyDown(eKeyCode::RBTN))
 	{
 		Player* player = dynamic_cast<Player*>(GetOwner());
 		if (player->GetState() != Player::PlayerState::Idle &&
@@ -228,24 +221,10 @@ void PlayerScript::FixedUpdate()
 			auto Idx = WorldManager::GetInstance()->GetTileIndex(mousePos);
 			if (Idx.first >= 0 && Idx.second >= 0)
 			{
-				astar->OnA_Star(Idx, mousePos);
-				ResetAStar();
-			}
-
-			if (WorldManager::GetInstance()->SetPath(node.Pos.x, node.Pos.y, end.x, end.y))
-			{
 				if (astar->OnA_Star(Idx, mousePos))
 				{
+					ResetAStar();
 					mbInput = true;
-					/*Vector2 pos = WorldManager::GetInstance()->GetPlayerIndex();
-					WorldManager::GetInstance()->SetObstacle(pos.x, pos.y);
-
-					Vector3 trPos = GetOwner()->GetComponent<Transform>()->GetPosition();
-
-					WorldManager::GetInstance()->SetPlayerIndex(trPos.x, trPos.y);
-
-					mPickPoint = Vector2::Zero;
-					mEndPos = index;*/
 				}
 			}
 			///////////////////////////////////////////////////////////////////////////////////
@@ -291,7 +270,7 @@ void PlayerScript::FixedUpdate()
 		vec.Normalize();
 		player->SetState(Player::PlayerState::Move);
 
-		pos += vec * Time::GetInstance()->DeltaTime() * player->GetRunSpeed() * 200;
+		pos += vec * Time::GetInstance()->DeltaTime() * player->GetRunSpeed() * 150.f;
 	}
 
 	if (player->GetState() == Player::PlayerState::Idle
@@ -343,13 +322,12 @@ void PlayerScript::Render()
 
 void PlayerScript::ResetAStar()
 {
-	AStar* astar = GetOwner()->GetComponent<AStar>();
-	astar->ClearNode();
 	mPickPoint = Vector2::Zero;
 	mNodePos = Vector2::Zero;
 
 	while (!mPosData.empty())
 	{
+		Vector2 pos = mPosData.top();
 		mPosData.pop();
 	}
 
@@ -559,15 +537,7 @@ void PlayerScript::AddRenderAStar()
 
 void PlayerScript::ClearAstar()
 {
-	/*for (GameObject* obj : mRenderObj)
-	{
-		if (obj == nullptr)
-			continue;
-
-		delete obj;
-		obj = nullptr;
-	}
-	mRenderObj.clear();*/
+	ResetAStar();
 }
 
 float PlayerScript::GetAngle(Vector2 point)

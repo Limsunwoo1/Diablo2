@@ -149,11 +149,11 @@ void WallObject::Update()
 	// 플리이어와의 거리별 알파값 세팅
 	float distance = Vector2(mPos - PlayerPos).Length();
 
-	int maxDist = 10;
-	mAlpha = distance / maxDist;
+	//int maxDist = 10;
+	//mAlpha = distance / maxDist;
 
-	if (mAlpha >= 1.0f)
-		mAlpha = 1.0f;
+	//if (mAlpha >= 1.0f)
+	//	mAlpha = 1.0f;
 }
 
 void WallObject::FixedUpdate()

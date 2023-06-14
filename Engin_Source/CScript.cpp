@@ -8,3 +8,8 @@ Script::Script()
 Script::~Script()
 {
 }
+
+void Script::SetPosData(std::stack<Math::Vector2>& pos)
+{
+	 mPosData = pos;
+}

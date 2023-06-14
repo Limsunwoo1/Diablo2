@@ -33,6 +33,7 @@ void Scene::FixedUpdate()
 	for (Layer& layer : mLayers)
 	{
 		layer.FixedUpdate();
+
 	}
 }
 

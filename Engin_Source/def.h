@@ -105,4 +105,5 @@ struct TileCarveData
 	int TileIdxY;
 
 	int ArrValue;
+	class TileObject* tile;
 };
