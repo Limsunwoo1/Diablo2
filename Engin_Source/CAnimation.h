@@ -60,6 +60,10 @@ public:
 	Animator* GetAnimator() { return mAnimator; }
 	void SetAnimator(Animator* animator) { mAnimator = animator; }
 
+	void SetIndex(int index) { mIndex = index; }
+
+	int GetMoveIndex() { return moveIndex; }
+	void ResetMoveIndex() { moveIndex = 0; }
 private:
 	Animator* mAnimator;
 	wstring mAnimationName;
@@ -69,4 +73,6 @@ private:
 	float mTime;
 	bool mbComplete;
 	bool mbTimeControl;
+
+	int moveIndex;
 };

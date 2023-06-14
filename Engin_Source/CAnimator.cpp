@@ -136,6 +136,7 @@ Animator::Events* Animator::FindEvents(const wstring& name)
 
 void Animator::Play(const wstring& name, bool loop)
 {
+
 	Animation* preveAnimation = mActiveAnimation;
 	Events* events = nullptr;
 	if (preveAnimation)
@@ -144,9 +145,36 @@ void Animator::Play(const wstring& name, bool loop)
 	if (events)
 		events->mEndEvent();
 
+	int idx = -1;
+	if (name.find(L"Walk") != std::wstring::npos || name.find(L"Idle") != std::wstring::npos)
+	{
+		if (mActiveAnimation != nullptr)
+		{
+			idx = mActiveAnimation->GetMoveIndex();
+
+			std::cout << idx << std::endl;
+		}
+	}
+	else
+	{
+		idx = 0;
+
+		if (mActiveAnimation != nullptr)
+		{
+			mActiveAnimation->ResetMoveIndex();
+		}
+	}
+
 	mActiveAnimation = FindAnimation(name);
 	mActiveAnimation->Reset();
 	mbLoop = loop;
+
+	if (idx >= 0)
+	{
+
+
+		mActiveAnimation->SetIndex(idx);
+	}
 
 	events = FindEvents(mActiveAnimation->AnimationName());
 

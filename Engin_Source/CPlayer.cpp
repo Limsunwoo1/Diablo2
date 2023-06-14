@@ -197,6 +197,7 @@ bool Player::PlayerDirection(int index)
 	mDirection[index] = 1;
 	mIndex = index;
 
+	std::cout << index << std::endl;
 	return true;
 }
 

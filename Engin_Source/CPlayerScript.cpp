@@ -277,6 +277,9 @@ void PlayerScript::FixedUpdate()
 			mPosData.pop();
 
 			mPickPoint = mNodePos;
+
+			Vector3 driection = Vector3(mPickPoint.x, mPickPoint.y, 1.0f);
+			SetPlayerDirection(driection);
 		}
 	}
 
@@ -299,8 +302,8 @@ void PlayerScript::FixedUpdate()
 			return;
 		}
 
-		Vector3 driection = Vector3(mNodePos.x, mNodePos.y, 1.0f);
-		SetPlayerDirection(driection);
+		/*Vector3 driection = Vector3(mPickPoint.x, mPickPoint.y, 1.0f);
+		SetPlayerDirection(driection);*/
 
 		vec.Normalize();
 		player->SetState(Player::PlayerState::Move);
@@ -360,6 +363,13 @@ void PlayerScript::ResetAStar()
 	AStar* astar = GetOwner()->GetComponent<AStar>();
 	astar->ClearNode();
 	mPickPoint = Vector2::Zero;
+	mNodePos = Vector2::Zero;
+
+	while (!mPosData.empty())
+	{
+		mPosData.pop();
+	}
+
 	mNode = nullptr;
 }
 
@@ -492,7 +502,7 @@ void PlayerScript::SetPlayerDirection(Vector3& Direction)
 		}
 		else if (angle >= 22.5f && angle < 50.f)
 		{
-			player->PlayerDirection(1);
+			player->PlayerDirection(2);
 		}
 		else if (angle >= 50.f && angle < 75.5f)
 		{
@@ -500,7 +510,7 @@ void PlayerScript::SetPlayerDirection(Vector3& Direction)
 		}
 		else if (angle >= 75.5f && angle < 90.f)
 		{
-			player->PlayerDirection(3);
+			player->PlayerDirection(4);
 		}
 		else if (angle >= 90.f && angle < 115.f)
 		{
@@ -508,7 +518,7 @@ void PlayerScript::SetPlayerDirection(Vector3& Direction)
 		}
 		else if (angle >= 115.f && angle < 140.f)
 		{
-			player->PlayerDirection(5);
+			player->PlayerDirection(6);
 		}
 		else if (angle >= 140.f && angle < 165.5f)
 		{
@@ -516,7 +526,7 @@ void PlayerScript::SetPlayerDirection(Vector3& Direction)
 		}
 		else
 		{
-			player->PlayerDirection(7);
+			player->PlayerDirection(8);
 		}
 	}
 	else
@@ -527,7 +537,7 @@ void PlayerScript::SetPlayerDirection(Vector3& Direction)
 		}
 		else if (angle >= 22.5f && angle < 50.f)
 		{
-			player->PlayerDirection(9);
+			player->PlayerDirection(10);
 		}
 		else if (angle >= 50.f && angle < 75.5f)
 		{
@@ -535,7 +545,7 @@ void PlayerScript::SetPlayerDirection(Vector3& Direction)
 		}
 		else if (angle >= 75.5f && angle < 90.f)
 		{
-			player->PlayerDirection(11);
+			player->PlayerDirection(12);
 		}
 		else if (angle >= 90.f && angle < 115.f)
 		{
@@ -543,7 +553,7 @@ void PlayerScript::SetPlayerDirection(Vector3& Direction)
 		}
 		else if (angle >= 115.f && angle < 140.f)
 		{
-			player->PlayerDirection(13);
+			player->PlayerDirection(14);
 		}
 		else if (angle >= 140.f && angle < 165.5f)
 		{
@@ -551,7 +561,7 @@ void PlayerScript::SetPlayerDirection(Vector3& Direction)
 		}
 		else
 		{
-			player->PlayerDirection(15);
+			player->PlayerDirection(0);
 		}
 	}
 }

@@ -8,6 +8,7 @@
 #include "CSceneManager.h"
 #include "CItemManager.h"
 #include "CObjectManager.h"
+#include "CTime.h"
 
 extern CApplication Application;
 
@@ -50,7 +51,19 @@ void Camera::FixedUpdate()
 		return;
 
 	Transform* tr = mTrace->GetComponent<Transform>();
-	GetOwner()->GetComponent<Transform>()->SetPosition(tr->GetPosition());
+	Transform* TraceTr = mTrace->GetComponent<Transform>();
+
+	Vector3 pos = TraceTr->GetPosition() - tr->GetPosition();
+	pos.Normalize();
+	pos.z = 1.0f;
+
+	int speed = abs(tr->GetPosition().x - pos.x);
+	speed += abs(tr->GetPosition().y - pos.y);
+
+	Vector3 myPos = tr->GetPosition();
+
+	myPos += pos * Time::GetInstance()->DeltaTime() * speed;
+	GetOwner()->GetComponent<Transform>()->SetPosition(myPos.x, myPos.y, 1.0f);
 }
 
 void Camera::Render()

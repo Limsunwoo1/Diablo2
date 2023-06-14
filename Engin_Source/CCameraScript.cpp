@@ -21,8 +21,8 @@ void CameraScript::Initalize()
 
 void CameraScript::Update()
 {
-	//if (SceneManager::GetInstance()->GetActiveScene()->GetScenType() != eSceneType::Tool)
-	//	return;
+	if (SceneManager::GetInstance()->GetActiveScene()->GetScenType() != eSceneType::Tool)
+		return;
 
 	Camera* camera = GetOwner()->GetComponent<Camera>();
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::SPACE))

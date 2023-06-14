@@ -165,11 +165,11 @@ void PlayScene::Initalize()
 	}
 
 	{
-		MinosTauros* mino = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		/*MinosTauros* mino = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
 		Transform* minoTr = mino->GetComponent<Transform>();
 		minoTr->SetPosition(Vector3(10.f, 10.f, 1.0f));
 		minoTr->SetScale(Vector3(3.f, 3.f, 1.0f));
-		mino->SetTarget(obj);
+		mino->SetTarget(obj);*/
 	}
 
 	// PostProcess
