@@ -174,11 +174,6 @@ std::pair<int, int> WorldManager::GetTileIndex(Vector2 MousePos)
 	{
 		for (int j = 0; j < mWorldTileData[i].size(); ++j)
 		{
-			if (mWorldTileData[i][j]->GetScreenIndex().first == idx.first && mWorldTileData[i][j]->GetScreenIndex().first == idx.second)
-			{
-				int a = 0;
-			}
-
 			if (mWorldTileData[i][j] == tile)
 				return std::pair(j,i);
 		}

@@ -176,8 +176,8 @@ void AStar::AddOpenList(int x, int y, bool diagonal)
 
 	node.Id = GetID(node.Pos.x, node.Pos.y);
 	node.Tile = Tiles[y][x];
-
-	//test 
+	if (node.Tile == nullptr)
+		return;
 	//CurNode
 
 	// 맵 범위 밖 타일인지확인
@@ -189,10 +189,8 @@ void AStar::AddOpenList(int x, int y, bool diagonal)
 
 
 	// 해당타일이 장애물이 아닌지 확인
-	if (Tiles[x][y] == nullptr)
-		return;
 
-	if (Tiles[x][y]->GetPass() == false)
+	if (node.Tile->GetPass() == false)
 		return;
 
 	// 닫힌 목록에 있는 노드인지 탐색
@@ -261,10 +259,17 @@ void AStar::CarveAddOpenList(int x, int y, Vec End, bool diagonal)
 	node.Pos.y = y;
 
 	node.Id = GetID(node.Pos.x, node.Pos.y, 20, 20);
+
+	if (node.Pos.y / 2 < 0 || node.Pos.y / 2 >= 20)
+		return;
+
+	if (node.Pos.x / 2 < 0 || node.Pos.x / 2 >= 20)
+		return;
+
 	node.Tile = Tiles[node.Pos.y / 2][node.Pos.x / 2];
 
-	if (mFindResult.find((UINT)node.Tile) == mFindResult.end())
-		return;
+	//if (mFindResult.find((UINT)node.Tile) == mFindResult.end())
+	//	return;
 
 	// 맵 범위 밖 타일인지확인
 	if (y < 0 || y >= mTilesCarveData.size())
@@ -432,22 +437,29 @@ bool AStar::OnA_Star(std::pair<int, int> idx, Vector2 endPos)
 	if (mbRun)
 		return false;
 
-	if (!PosData.empty())
-		return false;
 	/*if ()
 		return false;*/
 
 	ClearNode();
 
-	mMaxX = WorldManager::GetInstance()->GetTileDataWorldSize();
-	mMaxY = WorldManager::GetInstance()->GetTileDataWorldSize();
+	ObjectManager::GetInstance()->ResetWorld();
+
+	mMaxX = WorldManager::GetInstance()->GetTileDataWorldSize() - 1;
+	mMaxY = WorldManager::GetInstance()->GetTileDataWorldSize() - 1;
 
 	//SetIndex
 	Transform* tr = GetOwner()->GetComponent<Transform>();
 	Vector3 pos = tr->GetPosition();
-	//pos.y -= tr->GetSize().y * 0.25f;
+	//
+	pos.y -= tr->GetSize().y * 0.25f;
 
 	auto startIdx = WorldManager::GetInstance()->GetTileIndex(Vector2(pos.x, pos.y));
+	if (startIdx.first < 0 || startIdx.second < 0)
+		return false;
+
+	if (idx.first < 0 || idx.second < 0)
+		return false;
+
 	mStart = Vec(startIdx.first, startIdx.second);
 
 	mEnd = Vec(idx.first, idx.second);
@@ -473,7 +485,7 @@ bool AStar::OnA_Star(std::pair<int, int> idx, Vector2 endPos)
 	mStartNode = mCurNode;
 	mCloseList.emplace(make_pair(mCurNode.Id, mCurNode));
 
-	return false;
+	return true;
 }
 
 void AStar::Compare(Node duplication)
@@ -651,7 +663,7 @@ void AStar::CarveTileAStar()
 	Transform* tr = GetOwner()->GetComponent<Transform>();
 
 	Vector3 pos = tr->GetPosition();
-	//pos.y -= tr->GetSize().y * 0.25f;
+	pos.y -= tr->GetSize().y * 0.25f;
 
 	Vector2 StartPos = Vector2(pos.x, pos.y);
 	Vector2 EndPos = mEndPos;
@@ -755,9 +767,7 @@ void AStar::SaveCarvePosData()
 				Vec idx = test.top();
 				test.pop();
 
-				std::cout << idx.x << "      " << idx.y << "     " << endl;
 			}
-				std::cout <<  "+++++++++++++++++++++++++++++++++++++++" << endl;
 
 			if (PosData.empty())
 				mbNodeEmpty = false;

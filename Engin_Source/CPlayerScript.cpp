@@ -228,8 +228,14 @@ void PlayerScript::FixedUpdate()
 		{
 			Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos(true);
 			auto Idx = WorldManager::GetInstance()->GetTileIndex(mousePos);
-			if(Idx.first >= 0 && Idx.second >= 0)
+			if (Idx.first >= 0 && Idx.second >= 0)
+			{
 				astar->OnA_Star(Idx, mousePos);
+				while (!mPosData.empty())
+				{
+					mPosData.pop();
+				}
+			}
 
 			if (WorldManager::GetInstance()->SetPath(node.Pos.x, node.Pos.y, end.x, end.y))
 			{
@@ -270,22 +276,7 @@ void PlayerScript::FixedUpdate()
 			mNodePos = mPosData.top();
 			mPosData.pop();
 
-
-			if (mPickPoint == Vector2::Zero)
-			{
-				mPickPoint = mNodePos;
-
-
-				//if (astar->GetNodeEmpyt())
-				//{
-				//	WorldManager::GetInstance()->SetZero(mNode->Pos.x, mNode->Pos.y);
-
-				//	mPickPoint = mEndPos;
-				//	WorldManager::GetInstance()->SetPlayerIndex(mPickPoint.x, mPickPoint.y);
-
-				//	mEndPos = Vector2(-1.f, -1.f);
-				//}
-			}
+			mPickPoint = mNodePos;
 		}
 	}
 
@@ -298,9 +289,6 @@ void PlayerScript::FixedUpdate()
 
 		if (fabs(vec.x) < 5.0f && fabs(vec.y) < 5.0f)
 		{
-			Vector2 pos = WorldManager::GetInstance()->GetPlayerIndex();
-			WorldManager::GetInstance()->SetZero(pos.x, pos.y);
-
 			mPickPoint = Vector2::Zero;
 			mNodePos = Vector2::Zero;
 
@@ -311,15 +299,13 @@ void PlayerScript::FixedUpdate()
 			return;
 		}
 
-		Vector3 driection = Vector3(mPickPoint.x, mPickPoint.y, 1.0f);
+		Vector3 driection = Vector3(mNodePos.x, mNodePos.y, 1.0f);
 		SetPlayerDirection(driection);
 
 		vec.Normalize();
 		player->SetState(Player::PlayerState::Move);
 
 		pos += vec * Time::GetInstance()->DeltaTime() * player->GetRunSpeed() * 200;
-
-		mNode = nullptr;
 	}
 
 	if (player->GetState() == Player::PlayerState::Idle

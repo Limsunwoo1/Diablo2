@@ -163,7 +163,7 @@ public:
 	void ClearNode();
 
 	Node* GetNextNode();
-	void PopNode() { PosData.pop(); }
+	void PopNode() { if (!PosData.empty()) { PosData.pop(); } }
 
 private:
 	UINT mMaxX;
