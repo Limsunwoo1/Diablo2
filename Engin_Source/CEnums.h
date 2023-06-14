@@ -21,7 +21,6 @@ enum class eLayerType
 	TilePllet,
 	Tile,
 	TileCarve,
-	Wall,
 	Grid,
 	MonsterSkil,
 	PlayerSKil,
@@ -30,6 +29,7 @@ enum class eLayerType
 
 	Particle,
 	Effect,
+	Wall,
 	Fade,
 	PostProcess,
 	UI,

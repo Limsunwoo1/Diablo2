@@ -39,8 +39,5 @@ private:
 	Vector2 mNodePos;
 	vector<GameObject*> mRenderObj;
 
-	bool mbInput;
-	float mInputDelay;
-
 };
 

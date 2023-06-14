@@ -127,7 +127,7 @@ void WallObject::Update()
 			inspector->SetTargetGameObject(this);
 			inspector->InitalizeTargetGameObject();
 		}
-		else if (Input::GetInstance()->GetKeyPress(eKeyCode::RBTN))
+		else if (Input::GetInstance()->GetKeyPress(eKeyCode::RBTN) && _Editor.GetActive())
 		{
 			Object::ObjectDestroy(this);
 		}

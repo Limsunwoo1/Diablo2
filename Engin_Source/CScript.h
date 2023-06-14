@@ -24,5 +24,7 @@ public:
 	void SetPosData(std::stack<Math::Vector2>& pos) { mPosData = pos; }
 protected:
 	std::stack<Math::Vector2> mPosData;
+	bool mbInput;
+	float mInputDelay;
 };
 

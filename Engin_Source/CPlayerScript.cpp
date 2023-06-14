@@ -28,10 +28,8 @@
 PlayerScript::PlayerScript()
 	: Script()
 	, mArrivePos(Vector3::Zero)
-	, mbInput(false)
 	, mPickPoint(Vector2::Zero)
 	, mNode(nullptr)
-	, mInputDelay(0.0f)
 	, mEndPos(Vector2(-1.f, -1.f))
 {
 }
@@ -231,16 +229,14 @@ void PlayerScript::FixedUpdate()
 			if (Idx.first >= 0 && Idx.second >= 0)
 			{
 				astar->OnA_Star(Idx, mousePos);
-				while (!mPosData.empty())
-				{
-					mPosData.pop();
-				}
+				ResetAStar();
 			}
 
 			if (WorldManager::GetInstance()->SetPath(node.Pos.x, node.Pos.y, end.x, end.y))
 			{
 				if (astar->OnA_Star(Idx, mousePos))
 				{
+					mbInput = true;
 					/*Vector2 pos = WorldManager::GetInstance()->GetPlayerIndex();
 					WorldManager::GetInstance()->SetObstacle(pos.x, pos.y);
 
@@ -250,19 +246,6 @@ void PlayerScript::FixedUpdate()
 
 					mPickPoint = Vector2::Zero;
 					mEndPos = index;*/
-				}
-
-				Scene* scene = SceneManager::GetInstance()->GetActiveScene();
-				if (scene != nullptr)
-				{
-					Ping* ping = Object::Instantiate<Ping>(eLayerType::Effect, true);
-
-					Transform* tr = ping->GetComponent<Transform>();
-
-					/*Vector3 posVec = Vector3(index.x, index.y, 1.0f);
-					tr->SetPosition(posVec);*/
-
-					mbInput = true;
 				}
 			}
 			///////////////////////////////////////////////////////////////////////////////////

@@ -99,7 +99,7 @@ void Player::InitAnimation()
 			wstring name = L"Walk";
 			name += std::to_wstring(i);
 
-			animator->Create(name, texture, Vector2(0.0f, y * i), Vector2(x, y), Vector2(0.0f, 0.0f), 8, 0.1f);
+			animator->Create(name, texture, Vector2(0.0f, y * i), Vector2(x, y), Vector2(0.0f, 0.0f), 8, 0.2f);
 		}
 		//60 75.875
 	}
@@ -119,7 +119,7 @@ void Player::InitAnimation()
 			wstring name = L"Run";
 			name += std::to_wstring(i);
 
-			animator->Create(name, texture, Vector2(0.0f, y * i), Vector2(x, y), Vector2(0.0f, 0.0f), 8, 0.1f);
+			animator->Create(name, texture, Vector2(0.0f, y * i), Vector2(x, y), Vector2(0.0f, 0.0f), 8, 0.2f);
 		}
 		//61 75.625
 	}
@@ -196,8 +196,6 @@ bool Player::PlayerDirection(int index)
 	mDirection.reset();
 	mDirection[index] = 1;
 	mIndex = index;
-
-	std::cout << index << std::endl;
 	return true;
 }
 

@@ -43,7 +43,9 @@ UINT Animation::Update()
 			mIndex = (int)mSpriteSheet.size() - 1;
 		}
 
-		if (mAnimationName.find(L"Walk") != std::wstring::npos || mAnimationName.find(L"Idle") != std::wstring::npos)
+		if (mAnimationName.find(L"Walk") != std::wstring::npos 
+			|| mAnimationName.find(L"Idle") != std::wstring::npos 
+			|| mAnimationName.find(L"Run") != std::wstring::npos)
 		{
 			moveIndex = mIndex;
 		}

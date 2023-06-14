@@ -223,12 +223,12 @@ void AStar::AddOpenList(int x, int y, bool diagonal)
 		bool check = false;
 		if (diffX < 0 && y > 0)
 			if (mCurNode.Tile->GetArr()[3] != 0 || node.Tile->GetArr()[0] != 0) check = true;
-		else if (diffX < 0 && diffY < 0)
-			if (mCurNode.Tile->GetArr()[1] != 0 || node.Tile->GetArr()[2] != 0) check = true;
-		else if (diffX > 0 && diffY < 0)
-			if (mCurNode.Tile->GetArr()[0] != 0 || node.Tile->GetArr()[3] != 0) check = true;
-		else if (diffX > 0 && diffY > 0)
-			if (mCurNode.Tile->GetArr()[2] != 0 || node.Tile->GetArr()[1] != 0) check = true;
+			else if (diffX < 0 && diffY < 0)
+				if (mCurNode.Tile->GetArr()[1] != 0 || node.Tile->GetArr()[2] != 0) check = true;
+				else if (diffX > 0 && diffY < 0)
+					if (mCurNode.Tile->GetArr()[0] != 0 || node.Tile->GetArr()[3] != 0) check = true;
+					else if (diffX > 0 && diffY > 0)
+						if (mCurNode.Tile->GetArr()[2] != 0 || node.Tile->GetArr()[1] != 0) check = true;
 
 		if (check)
 			return;
@@ -290,8 +290,8 @@ void AStar::CarveAddOpenList(int x, int y, Vec End, bool diagonal)
 	iter = mOpenList.find(node.Id);
 	if (iter != mOpenList.end())
 	{
-			// G 값 비교후 들어있는 
-			// 타일 데이터 수정 G, F
+		// G 값 비교후 들어있는 
+		// 타일 데이터 수정 G, F
 		CarveCompare(iter->second, true);
 		return;
 	}
@@ -329,7 +329,7 @@ void AStar::AddCloseList()
 void AStar::CarveAddCloseList()
 {
 	mCarveCurNode = DistanceList();
-	
+
 	mCloseList.emplace(std::make_pair(mCarveCurNode.Id, mCarveCurNode));
 }
 
@@ -634,9 +634,9 @@ void AStar::CarveTileAStar()
 	if (!PosData.empty())
 		return;
 
-	
+
 	ResultIter::iterator iter = mResult.begin();
-	
+
 	if (iter == mResult.end())
 		return;
 
@@ -657,7 +657,7 @@ void AStar::CarveTileAStar()
 	}
 
 	vector<pair<pair<int, int>, int>> positionData;
-	
+
 	int count = 0;
 
 	Transform* tr = GetOwner()->GetComponent<Transform>();
@@ -667,27 +667,27 @@ void AStar::CarveTileAStar()
 
 	Vector2 StartPos = Vector2(pos.x, pos.y);
 	Vector2 EndPos = mEndPos;
-	
+
 	int startIndex = -1;
-	if		(Start.Tile->PickTile(StartPos, eTilePickType::Tile0)) { startIndex = (UINT)eTilePickType::Tile0; }
+	if (Start.Tile->PickTile(StartPos, eTilePickType::Tile0)) { startIndex = (UINT)eTilePickType::Tile0; }
 	else if (Start.Tile->PickTile(StartPos, eTilePickType::Tile1)) { startIndex = (UINT)eTilePickType::Tile1; }
 	else if (Start.Tile->PickTile(StartPos, eTilePickType::Tile2)) { startIndex = (UINT)eTilePickType::Tile2; }
 	else if (Start.Tile->PickTile(StartPos, eTilePickType::Tile3)) { startIndex = (UINT)eTilePickType::Tile3; }
 
 	int endIndex = -1;
-	if		(End.Tile->PickTile(EndPos, eTilePickType::Tile0)) { endIndex= (UINT)eTilePickType::Tile0; }
-	else if (End.Tile->PickTile(EndPos, eTilePickType::Tile1)) { endIndex= (UINT)eTilePickType::Tile1; }
-	else if (End.Tile->PickTile(EndPos, eTilePickType::Tile2)) { endIndex= (UINT)eTilePickType::Tile2; }
-	else if (End.Tile->PickTile(EndPos, eTilePickType::Tile3)) { endIndex= (UINT)eTilePickType::Tile3; }
+	if (End.Tile->PickTile(EndPos, eTilePickType::Tile0)) { endIndex = (UINT)eTilePickType::Tile0; }
+	else if (End.Tile->PickTile(EndPos, eTilePickType::Tile1)) { endIndex = (UINT)eTilePickType::Tile1; }
+	else if (End.Tile->PickTile(EndPos, eTilePickType::Tile2)) { endIndex = (UINT)eTilePickType::Tile2; }
+	else if (End.Tile->PickTile(EndPos, eTilePickType::Tile3)) { endIndex = (UINT)eTilePickType::Tile3; }
 
 	if (startIndex < 0 || endIndex < 0)
 		return;
 
 	Start.Pos *= 2;
-	if (startIndex == 0)		{ Start.Pos.y = (Start.Pos.y + 1); }
-	else if (startIndex == 1)	{ Start.Pos = Vec((Start.Pos.x + 1), (Start.Pos.y + 1)); }
-	else if (startIndex == 2)	{ }
-	else if (startIndex == 3)	{ Start.Pos.x =  (Start.Pos.x + 1);}
+	if (startIndex == 0) { Start.Pos.y = (Start.Pos.y + 1); }
+	else if (startIndex == 1) { Start.Pos = Vec((Start.Pos.x + 1), (Start.Pos.y + 1)); }
+	else if (startIndex == 2) {}
+	else if (startIndex == 3) { Start.Pos.x = (Start.Pos.x + 1); }
 
 	End.Pos *= 2;
 	if (endIndex == 0) { End.Pos.y = (End.Pos.y + 1); }
@@ -781,7 +781,7 @@ void AStar::SaveCarvePosData()
 
 		if (count >= 1000)
 			return;
-		
+
 		Vector2 pos = Vector2(-1.f, -1.f);
 		pos = GetCarvePos(mCarveCurNode);
 		test.push(mCarveCurNode.Pos);
@@ -813,7 +813,7 @@ Vector2 AStar::GetCarvePos(Node curNode)
 
 	int diffX = curNode.Pos.x % 2;
 	int diffY = curNode.Pos.y % 2;
-	
+
 	eTilePickType type = eTilePickType::TileALL;
 
 	if (diffX <= 0 && diffY <= 0) { type = eTilePickType::Tile2; }
