@@ -19,7 +19,7 @@ void TelePort::Initalize()
 {
 	// Size
 	Transform* tr = GetComponent<Transform>();
-	tr->SetScale(Vector3(2.0f, 2.0f, 1.0f));
+	tr->SetSize(Vector3(200.0f, 200.0f, 1.0f));
 
 	// renderer
 	SpriteRenderer* sr = AddComponent<SpriteRenderer>();
@@ -53,13 +53,10 @@ void TelePort::FixedUpdate()
 			if (mMovePos.x >= 0 && mMovePos.y >= 0)
 			{
 				ownerTr->SetPosition(mMovePos);
+				Object::ObjectDestroy(this);
 			}
 		}
 	}
-	Animator* animator = GetComponent<Animator>();
-	if (animator->GetPlayAnimation()->IsComplete())
-		Object::ObjectDestroy(this);
-
 	Skil::FixedUpdate();
 }
 

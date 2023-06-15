@@ -24,11 +24,10 @@
 #include "CSceneManager.h"
 #include "CResourceManager.h"
 #include "CUIManager.h"
+#include "CObjectManager.h"
 
 PlayerScript::PlayerScript()
 	: Script()
-	, mArrivePos(Vector3::Zero)
-	, mPickPoint(Vector2::Zero)
 	, mNode(nullptr)
 	, mEndPos(Vector2(-1.f, -1.f))
 {
@@ -142,18 +141,81 @@ void PlayerScript::FixedUpdate()
 	}
 	else if (Input::GetInstance()->GetKeyDown(eKeyCode::D))
 	{
-		return;
 		if (player->GetState() == Player::PlayerState::Idle
 			|| player->GetState() == Player::PlayerState::Move)
 		{
 			player->SetState(Player::PlayerState::Skil);
 
-			Vector2 direction = (Input::GetInstance()->GetMouseWorldPos() - pos);
-			direction.Normalize();
-			Vector2 EndPos = direction * 2;
+			Vector2 PlayerPos = Vector2(pos.x,pos.y);
+			Vector2 MousePos = Input::GetInstance()->GetMouseWorldPos(true);
 
-			EndPos.x += pos.x;
-			EndPos.y += pos.y;
+			// std::pair<int,int> Çü auto
+			auto Idx = Input::GetInstance()->GetIsoMetricIDX(MousePos);
+			auto PosIdx = Input::GetInstance()->GetIsoMetricIDX(PlayerPos);
+
+			int X = Idx.first - PosIdx.first;
+			int Y = Idx.second - PosIdx.second;
+
+			if (X >= 2)
+			{
+				Idx.first -= X;
+			}
+			if (Y >= 2)
+			{
+				Idx.second -= Y;
+			}
+
+			if (X < 2 && Y < 2)
+			{
+				TileObject* tile = ObjectManager::GetInstance()->GetTile(Idx.first,Idx.second);
+				if (tile == nullptr)
+					return;
+
+				int num = -1;
+
+				if		(tile->PickTile(MousePos, eTilePickType::Tile0)) {num = (UINT)eTilePickType::Tile0;}
+				else if (tile->PickTile(MousePos, eTilePickType::Tile1)) { num = (UINT)eTilePickType::Tile1; }
+				else if (tile->PickTile(MousePos, eTilePickType::Tile2)) { num = (UINT)eTilePickType::Tile2; }
+				else if (tile->PickTile(MousePos, eTilePickType::Tile3)) { num = (UINT)eTilePickType::Tile3; }
+
+				if (num < 0)
+					return;
+
+				if (tile->GetArr()[num] == 1)
+					return;
+
+				TelePort* teleport = Object::Instantiate<TelePort>(eLayerType::Effect, true);
+
+				Player* player = dynamic_cast<Player*>(GetOwner());
+				if (player)
+					teleport->SetOwner(player);
+
+				pos = Vector3(MousePos.x, MousePos.y, pos.z);
+				Vector3 MovePos = Vector3(MousePos.x, MousePos.y, 1.0f);
+				teleport->SetMovePos(MovePos);
+
+				SetPlayerDirection();
+				ResetAStar();
+
+				return;
+			}
+
+			TileObject* PickTile = ObjectManager::GetInstance()->GetTile(Idx.first, Idx.second);
+			TileObject* ArriveTile = ObjectManager::GetInstance()->GetTile(PosIdx.first, PosIdx.second);
+
+			if (PickTile == nullptr || ArriveTile == nullptr)
+				return;
+
+			Transform* PickTr = PickTile->GetComponent<Transform>();
+			Transform* AriveTr = ArriveTile->GetComponent<Transform>();
+
+			Vector3 PickPos = PickTr->GetPosition();
+			Vector3 ArrivePos = AriveTr->GetPosition();
+
+			Vector3 diffPos = ArrivePos - PickPos;
+
+			MousePos -= Vector2(diffPos.x, diffPos.y);
+			//PlayerPos += MousePos;
 
 			TelePort* teleport = Object::Instantiate<TelePort>(eLayerType::Effect, true);
 
@@ -161,8 +223,9 @@ void PlayerScript::FixedUpdate()
 			if (player)
 				teleport->SetOwner(player);
 
-			pos = Vector3(EndPos.x, EndPos.y, pos.z);
-			teleport->SetMovePos(pos);
+			//pos = Vector3(PlayerPos.x, PlayerPos.y, pos.z);
+			Vector3 MovePos = Vector3(MousePos.x, MousePos.y, 1.0f);
+			teleport->SetMovePos(MovePos);
 
 			SetPlayerDirection();
 			ResetAStar();
@@ -231,30 +294,30 @@ void PlayerScript::FixedUpdate()
 		}
 	}
 
-	if (mNodePos == Vector2::Zero && mPickPoint == Vector2::Zero)
+	if (mNodePos == Vector2::Zero && mArrivePos == Vector2::Zero)
 	{
 		if (!mPosData.empty())
 		{
 			mNodePos = mPosData.top();
 			mPosData.pop();
 
-			mPickPoint = mNodePos;
+			mArrivePos = mNodePos;
 
-			Vector3 driection = Vector3(mPickPoint.x, mPickPoint.y, 1.0f);
+			Vector3 driection = Vector3(mArrivePos.x, mArrivePos.y, 1.0f);
 			SetPlayerDirection(driection);
 		}
 	}
 
-	if (mPickPoint != Vector2::Zero)
+	if (mArrivePos != Vector2::Zero)
 	{
 		Vector3 PosUnder = pos;
 		PosUnder.y -= tr->GetSize().y * 0.25f;
 
-		Vector3 vec = mPickPoint - PosUnder;
+		Vector3 vec = mArrivePos - PosUnder;
 
 		if (fabs(vec.x) < 5.0f && fabs(vec.y) < 5.0f)
 		{
-			mPickPoint = Vector2::Zero;
+			mArrivePos = Vector2::Zero;
 			mNodePos = Vector2::Zero;
 
 			AStar* astar = GetOwner()->GetComponent<AStar>();
@@ -322,7 +385,7 @@ void PlayerScript::Render()
 
 void PlayerScript::ResetAStar()
 {
-	mPickPoint = Vector2::Zero;
+	mArrivePos = Vector2::Zero;
 	mNodePos = Vector2::Zero;
 
 	while (!mPosData.empty())

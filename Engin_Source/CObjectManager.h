@@ -49,6 +49,8 @@ public:
 	void DeleteWallObjet(WallObject* wall);
 
 	TileObject* GetTile(int x, int y);
+
+	GameObject* GetMonster(int x, int y);
 private:
 	queue<Skil*> SkilContainer;
 	vector<Vector2> ObjectOffsetData;
@@ -56,6 +58,8 @@ private:
 
 	std::map<std::pair<int, int>, TileObject*> mTileObjects;
 	std::map<std::pair<int, int>, WallObject*> mWallObjects;
+
+	std::map<std::pair<int, int>, GameObject*> mMonsters;
 
 	std::vector<GameObject*> mTiles;
 	std::vector<GameObject*> mWalls;

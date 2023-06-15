@@ -22,9 +22,15 @@ public:
 	virtual void OnTriggerExit(Collider2D* collider) {};
 
 	void SetPosData(std::stack<Math::Vector2>& pos);
+	virtual void ResetAStar() {};
+
 protected:
 	std::stack<Math::Vector2> mPosData;
 	bool mbInput;
 	float mInputDelay;
+
+
+	Vector2 mNodePos;
+	Vector2 mArrivePos;
 };
 

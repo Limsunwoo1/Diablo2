@@ -14,7 +14,7 @@ public:
 	virtual void FixedUpdate() override;
 	virtual void Render() override;
 
-	void ResetAStar();
+	virtual void ResetAStar() override;
 
 	void Start();
 	void Action();
@@ -31,12 +31,9 @@ public:
 	float GetAngle(Vector2 point);
 	
 private:
-	Vector3 mArrivePos;
-	Vector2 mPickPoint;
 	Vector2 mEndPos;
 
 	AStar::Node* mNode;
-	Vector2 mNodePos;
 	vector<GameObject*> mRenderObj;
 
 };

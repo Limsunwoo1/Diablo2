@@ -69,7 +69,7 @@ void FrozenOrb::Initalize()
 
 	// Æ®·£½ºÆû
 	Transform* tr = GetComponent<Transform>();
-	tr->SetScale(Vector3(1.5f, 1.5f, 0.8f));
+	tr->SetSize(Vector3(180.f, 180.f, 1.0f));
 	
 	Vector3 Pos = tr->GetPosition();
 	tr->SetPosition(Vector3(Pos.x, Pos.y, 0.8f));
@@ -183,7 +183,7 @@ void FrozenOrb::RunOrb()
 	Vector3 pos = tr->GetPosition();
 
 	mDirection.Normalize();
-	pos += Vector3(mDirection.x, mDirection.y, 0.0f) * Time::GetInstance()->DeltaTime() * 100.0f;
+	pos += Vector3(mDirection.x, mDirection.y, 0.0f) * Time::GetInstance()->DeltaTime() * 150.0f;
 
 	tr->SetPosition(pos);
 }

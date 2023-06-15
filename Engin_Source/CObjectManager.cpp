@@ -290,3 +290,14 @@ TileObject* ObjectManager::GetTile(int x, int y)
 
 	return iter->second;
 }
+
+GameObject* ObjectManager::GetMonster(int x, int y)
+{
+	std::map<pair<int, int>, GameObject*>::iterator iter;
+	iter = mMonsters.find(pair(x, y));
+
+	if (iter != mMonsters.end())
+		return iter->second;
+
+	return nullptr;
+}

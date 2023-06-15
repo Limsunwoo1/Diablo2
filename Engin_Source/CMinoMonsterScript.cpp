@@ -8,7 +8,6 @@
 MinoMonsterScript::MinoMonsterScript()
 	: Script()
 	, mCurPos(Vector2(-1.f, -1.f))
-	, mNode(nullptr)
 {
 }
 
@@ -54,114 +53,117 @@ void MinoMonsterScript::FixedUpdate()
 
 
 
-	//AStar* astar = monster->GetComponent<AStar>();
-	//if (mNode == nullptr &&
-	//	(mCurPos.x < 0 && mCurPos.y < 0))
-	//{
-	//	mNode = astar->GetNextNode();
-	//	if (mNode)
-	//	{
-	//		mCurPos.x = mNode->Pos.x;
-	//		mCurPos.y = mNode->Pos.y;
-	//	}
-	//}
-
-	//Transform* tr = monster->GetComponent<Transform>();
-	//Vector3 pos = tr->GetPosition();
-
-	//if (mCurPos.x >= 0 && mCurPos.y >= 0)
-	//{
-	//	Vector2 vec = Vector2(mCurPos.x - pos.x, mCurPos.y  - pos.y);
-	//	if (fabs(vec.x) < 0.05f && fabs(vec.y) < 0.05f)
-	//	{
-	//		mCurPos = Vector2(-1.f, -1.f);
-	//		mNode = nullptr;
-
-	//		return;
-	//	}
-
-
-	//	vec.Normalize();
-	//	monster->SetMonsterState(Monster::MonsterState::Move);
-	//	pos += Vector3(vec.x, vec.y, 0.0f) * monster->GetCurDeltaTime() * 2;
-	//	tr->SetPosition(pos);
-	//}
-
-	/*mTime += Time::GetInstance()->DeltaTime();
-	if(mTime >= 2.0f)
+	mTime += Time::GetInstance()->DeltaTime();
+	if(mTime >= 0.1f)
 	{
-		mTime -= 2.0f;
 		AStar* astar = GetOwner()->GetComponent<AStar>();
-		Transform* tr = GetOwner()->GetComponent<Transform>();
+		if (astar == nullptr)
+			return;
 
-		AStar::Node node;
-		Vector3 pos = tr->GetPosition();
-		Vector3 targetPos = monster->GetTarget()->GetComponent<Transform>()->GetPosition();
+		Transform* followTr = monster->GetTarget()->GetComponent<Transform>();
+		Vector3 followPos = followTr->GetPosition();
+		Vector2 fPos = Vector2(followPos.x, followPos.y);
 
-		node.Pos.x = pos.x;
-		node.Pos.y = pos.y;
+		auto Idx = WorldManager::GetInstance()->GetTileIndex(fPos);
+		if (Idx.first >= 0 && Idx.second >= 0)
+		{
+			if (astar->OnA_Star(Idx, fPos))
+			{
+				ResetAStar();
+				mTime = 0.0f;
+			}
+		}
+	}
 
-		astar->OnA_Star(node, (int)pos.x, (int)pos.y, (int)targetPos.x, (int)targetPos.y);
-	}*/
-
-	if (monster->GetTarget())
+	if (mNodePos == Vector2::Zero && mArrivePos == Vector2::Zero)
 	{
+		if (!mPosData.empty())
+		{
+			mNodePos = mPosData.top();
+			mPosData.pop();
+
+			mArrivePos = mNodePos;
+
+			Vector3 driection = Vector3(mArrivePos.x, mArrivePos.y, 1.0f);
+			Vector2 V2Direction = Vector2(driection.x, driection.y);
+
+			float angle = GetAngle(V2Direction);
+
+			Transform* Tr = GetOwner()->GetComponent<Transform>();
+			Vector3 monsterPos = Tr->GetPosition();
+			Vector3 Vec = monsterPos - mArrivePos;
+			Vec.Normalize();
+
+			if (Vec.x < 0.f)
+			{
+				if (angle >= 0 && angle < 45.f)
+				{
+					monster->MonsterDirection(0);
+				}
+				else if (angle >= 45.f && angle < 90.f)
+				{
+					monster->MonsterDirection(1);
+				}
+				else if (angle >= 90.f && angle < 135.f)
+				{
+					monster->MonsterDirection(2);
+				}
+				else if (angle >= 135.f && angle < 180.f)
+				{
+					monster->MonsterDirection(3);
+				}
+			}
+			else
+			{
+				if (angle >= 0 && angle < 45.f)
+				{
+					monster->MonsterDirection(4);
+				}
+				else if (angle >= 45.f && angle < 90.f)
+				{
+					monster->MonsterDirection(5);
+				}
+				else if (angle >= 90.f && angle < 135.f)
+				{
+					monster->MonsterDirection(6);
+				}
+				else if (angle >= 135.f && angle < 180.f)
+				{
+					monster->MonsterDirection(7);
+				}
+			}
+
+			monster->MonsterDirection(angle);
+
+			monster->SetMonsterState(Monster::MonsterState::Move);
+		}
+	}
+
+	if (monster->GetTarget() && mArrivePos != Vector2::Zero)
+	{
+		if (monster->GetMonsterState() == Monster::MonsterState::Attack)
+			return;
+
 		Transform* tr = monster->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
 
 		Transform* TragetTr = monster->GetTarget()->GetComponent<Transform>();
 		Vector3 TargetPos = TragetTr->GetPosition();
 
-		Vector3 Vec = TargetPos - pos;
+		Vector3 Vec = mArrivePos - pos;
 
 		Vec.Normalize();
 		Vec.z = 0.0f;
+		
+		if (abs(TargetPos.x - pos.x) < 50 && (TargetPos.y - pos.y) < 25)
+		{
+			mArrivePos = Vector2::Zero;
+			monster->SetMonsterState(Monster::MonsterState::Attack);
+			return;
+		}
 
-		pos += Vec * Time::GetInstance()->DeltaTime() * 50.f;
+		pos += Vec * Time::GetInstance()->DeltaTime() * 150.f;
 		tr->SetPosition(pos);
-
-
-		float angle = GetAngle(mCurPos);
-		if (Vec.x > 0.f)
-		{
-			if (angle >= 0 && angle < 45.f)
-			{
-				monster->MonsterDirection(7);
-			}
-			else if (angle >= 45.f && angle < 90.f)
-			{
-				monster->MonsterDirection(6);
-			}
-			else if (angle >= 90.f && angle < 135.f)
-			{
-				monster->MonsterDirection(5);
-			}
-			else if (angle >= 135.f && angle < 180.f)
-			{
-				monster->MonsterDirection(4);
-			}
-		}
-		else
-		{
-			if (angle >= 0 && angle < 45.f)
-			{
-				monster->MonsterDirection(3);
-			}
-			else if (angle >= 45.f && angle < 90.f)
-			{
-				monster->MonsterDirection(2);
-			}
-			else if (angle >= 90.f && angle < 135.f)
-			{
-				monster->MonsterDirection(1);
-			}
-			else if (angle >= 135.f && angle < 180.f)
-			{
-				monster->MonsterDirection(0);
-			}
-		}
-
-		monster->MonsterDirection(angle);
 	}
 }
 
@@ -193,4 +195,16 @@ float MinoMonsterScript::GetAngle(Vector2& direction)
 	float angle = XMConvertToDegrees(radian);
 
 	return angle;
+}
+
+void MinoMonsterScript::ResetAStar()
+{
+	mArrivePos = Vector2::Zero;
+	mNodePos = Vector2::Zero;
+
+	while (!mPosData.empty())
+	{
+		Vector2 pos = mPosData.top();
+		mPosData.pop();
+	}
 }

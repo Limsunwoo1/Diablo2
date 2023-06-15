@@ -16,10 +16,10 @@ public:
 	virtual void Render();
 
 	float GetAngle(Vector2& direction);
+	virtual void ResetAStar() override;
 
 private:
 	Vector2 mCurPos;
-	AStar::Node* mNode;
 
 	float mTime;
 };

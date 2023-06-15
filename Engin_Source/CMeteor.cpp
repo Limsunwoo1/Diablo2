@@ -228,7 +228,7 @@ void Meteor::OffMeteor()
 	tr->SetPosition(mPinPos);
 	mFlames[0]->Active();
 
-	float radius = 50.f;
+	float radius = 100.f;
 	float arrX[9] = {0.f, -radius, radius, 0.f, 0.f, radius, -radius, -radius, radius};
 	float arrY[9] = {0.f, 0.f, 0.f, radius, -radius, radius, radius, -radius, -radius};
 

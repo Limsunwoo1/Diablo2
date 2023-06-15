@@ -20,11 +20,14 @@ void MinosTauros::Initalize()
 {
 	InitAnimation();
 
+	Transform* minoTr = GetComponent<Transform>();
+	minoTr->SetSize(Vector3(450.f, 450.f, 1.0f));
+
 	// hp
 	SetMaxHp(200.f);
 	SetHP(200.f);
 
-	SetMonsterStatusEffect(MonsterStatusEffect::HitFrozen);
+	//SetMonsterStatusEffect(MonsterStatusEffect::HitFrozen);
 	
 	// Astar
 	AddComponent<AStar>();
@@ -109,7 +112,7 @@ void MinosTauros::InitAnimation()
 			name += std::to_wstring(i);
 
 			animator->Create(name, tex,
-				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 16, 0.1f);
+				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 16, 0.05f);
 		}
 	}
 
@@ -134,12 +137,23 @@ void MinosTauros::InitAnimation()
 
 void MinosTauros::idle()
 {
+
+
 	Animator* animator = this->GetComponent<Animator>();
 	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
 
 	wstring playName = L"MinoIdle";
 	UINT index = GetDirection();
 	playName += std::to_wstring(index);
+
+	if (name.find(L"Attack") != std::wstring::npos)
+	{
+		if (!animator->GetPlayAnimation()->IsComplete())
+		{
+			SetMonsterState(MonsterState::Attack);
+			return;
+		}
+	}
 
 	if (playName == name)
 		return;
@@ -155,6 +169,15 @@ void MinosTauros::move()
 	wstring playName = L"MinoRun";
 	UINT index = GetDirection();
 	playName += std::to_wstring(index);
+
+	if (name.find(L"Attack") != std::wstring::npos)
+	{
+		if (!animator->GetPlayAnimation()->IsComplete())
+		{
+			SetMonsterState(MonsterState::Attack);
+			return;
+		}
+	}
 
 	if (playName == name)
 		return;

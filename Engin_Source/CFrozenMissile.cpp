@@ -35,7 +35,7 @@ void FrozenMissile::Initalize()
 
 	// ªÁ¿Ã¡Ó
 	Transform* tr = GetComponent<Transform>();
-	tr->SetScale(Vector3(2.0f, 2.0f, 1.0f));
+	tr->SetSize(Vector3(300.f, 300.f, 1.f));
 
 	Death();
 }
@@ -114,7 +114,7 @@ void FrozenMissile::RunMisile()
 		break;
 	}
 	
-	pos += tr->Right() * Time::GetInstance()->DeltaTime() * 300.0f;
+	pos += tr->Right() * Time::GetInstance()->DeltaTime() * 400.0f;
 	tr->SetPosition(pos);
 	tr->SetRotation(rotation);
 }
