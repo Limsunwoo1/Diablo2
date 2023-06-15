@@ -36,8 +36,8 @@ void Layer::Initalize()
 
 void Layer::Update()
 {
-	//if (mType == eLayerType::TileCarve)
-	//	return;
+	if (mType == eLayerType::TileCarve)
+		return;
 
 	if (mType == eLayerType::Tile || mType == eLayerType::Wall)
 	{
@@ -82,8 +82,8 @@ void Layer::Update()
 
 void Layer::FixedUpdate()
 {
-	/*if (mType == eLayerType::TileCarve)
-		return;*/
+	if (mType == eLayerType::TileCarve)
+		return;
 
 	for (GameObject* obj : mGameObjects)
 	{

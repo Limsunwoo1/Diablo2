@@ -143,8 +143,8 @@ void Camera::SortGameObjects()
 		if (mLayerMasks[i] == false)
 			continue;
 
-		/*if (i == (UINT)eLayerType::TileCarve)
-			continue;*/
+		if (i == (UINT)eLayerType::TileCarve)
+			continue;
 
 		if (i == (UINT)eLayerType::Tile || i == (UINT)eLayerType::Wall)
 		{

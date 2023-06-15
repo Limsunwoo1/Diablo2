@@ -71,11 +71,11 @@ void WallObject::Update()
 		mousePos = _Editor.GetEditorWorldMousePos();
 
 
-	if (mPos.x - TILE_X_HALF_SIZE > mousePos.x || mPos.x + TILE_X_HALF_SIZE < mousePos.x)
-		return;
+	//if (mPos.x - TILE_X_HALF_SIZE > mousePos.x || mPos.x + TILE_X_HALF_SIZE < mousePos.x)
+	//	return;
 
-	if (mPos.y - TILE_Y_HALF_SIZE > mousePos.y || mPos.y + TILE_Y_HALF_SIZE < mousePos.y)
-		return;
+	//if (mPos.y - TILE_Y_HALF_SIZE > mousePos.y || mPos.y + TILE_Y_HALF_SIZE < mousePos.y)
+	//	return;
 
 	// 기울기
 	float fslope = (100.f * 0.5f) / (200.f * 0.5f);
@@ -144,17 +144,27 @@ void WallObject::Update()
 	GameObject::Update();
 
 	Transform* playertr = player->GetComponent<Transform>();
-	Vector2 PlayerPos = Vector2(playertr->GetPosition().x, playertr->GetPosition().y);
+	Vector2 PlayerPos = Vector2(playertr->GetPosition().x, playertr->GetPosition().y) + (playertr->GetSize() * 0.25f);
+
+	Transform* Tr = GetComponent<Transform>();
+	Vector3 pos = Tr->GetPosition() + Tr->GetOffset();//- (Tr->GetSize() * 0.5f);
 
 
+	float distance = fabs(PlayerPos.y - pos.y);
 	// 플리이어와의 거리별 알파값 세팅
-	float distance = Vector2(mPos - PlayerPos).Length();
 
-	//int maxDist = 10;
-	//mAlpha = distance / maxDist;
+	float maxIdstance = 200.f;
 
-	//if (mAlpha >= 1.0f)
-	//	mAlpha = 1.0f;
+	mAlpha = distance / maxIdstance;
+
+	if (mAlpha >= 1.0f)
+	{
+		mAlpha = 1.0f;
+	}
+	else if (mAlpha < 0.2f)
+	{
+		mAlpha = 0.3f;
+	}
 }
 
 void WallObject::FixedUpdate()
