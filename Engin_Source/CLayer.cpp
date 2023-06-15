@@ -3,6 +3,7 @@
 #include "CTransform.h"
 #include "CObjectManager.h"
 #include "CWorldManager.h"
+#include "CSceneManager.h"
 
 
 Layer::Layer()
@@ -36,8 +37,11 @@ void Layer::Initalize()
 
 void Layer::Update()
 {
-	if (mType == eLayerType::TileCarve)
-		return;
+	if (SceneManager::GetInstance()->GetActiveScene()->GetScenType() != eSceneType::Tool)
+	{
+		if (mType == eLayerType::TileCarve)
+			return;
+	}
 
 	if (mType == eLayerType::Tile || mType == eLayerType::Wall)
 	{
@@ -82,8 +86,11 @@ void Layer::Update()
 
 void Layer::FixedUpdate()
 {
-	if (mType == eLayerType::TileCarve)
-		return;
+	if (SceneManager::GetInstance()->GetActiveScene()->GetScenType() != eSceneType::Tool)
+	{
+		if (mType == eLayerType::TileCarve)
+			return;
+	}
 
 	for (GameObject* obj : mGameObjects)
 	{
