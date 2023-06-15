@@ -18,7 +18,12 @@ public:
 
 	void SetOwner(Player* owner) { mOwner = owner; }
 
+	void SetElementType(eElementType type) { mElementType = type; }
+	eElementType GetElementType() { return mElementType; }
+
 protected:
 	Player* mOwner;
+	eElementType mElementType;
+	float mCost;
 };
 

@@ -1109,6 +1109,34 @@ namespace Renderer
 			ResourceManager::GetInstance()->Insert<Material>(L"CarveMaterial", CarveMaterial);
 		}
 #pragma endregion
+
+#pragma region FireBolt Material
+		{
+			std::weak_ptr<Shader> FireBolt = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+			std::shared_ptr<Material> FireBoltMaterial = std::make_shared<Material>();
+			FireBoltMaterial->SetRenderingMode(eRenderingMode::Transparent);
+			FireBoltMaterial->SetShader(FireBolt);
+			ResourceManager::GetInstance()->Insert<Material>(L"FireBoltMaterial", FireBoltMaterial);
+		}
+#pragma endregion
+#pragma region FrozenBolt Material
+		{
+			std::weak_ptr<Shader> FrozenBolt = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+			std::shared_ptr<Material> FrozenBoltMaterial = std::make_shared<Material>();
+			FrozenBoltMaterial->SetRenderingMode(eRenderingMode::Transparent);
+			FrozenBoltMaterial->SetShader(FrozenBolt);
+			ResourceManager::GetInstance()->Insert<Material>(L"FrozenBoltMaterial", FrozenBoltMaterial);
+		}
+#pragma endregion
+#pragma region LightnBolt Material
+		{
+			std::weak_ptr<Shader> LightnBolt = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+			std::shared_ptr<Material> LightnBolttMaterial = std::make_shared<Material>();
+			LightnBolttMaterial->SetRenderingMode(eRenderingMode::Transparent);
+			LightnBolttMaterial->SetShader(LightnBolt);
+			ResourceManager::GetInstance()->Insert<Material>(L"LightnBoltMaterial", LightnBolttMaterial);
+		}
+#pragma endregion
 	}
 
 	void Initialize()

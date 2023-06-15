@@ -7,6 +7,8 @@
 #include "CFrozenOrb.h"
 #include "CTelePort.h"
 #include "CMeteor.h"
+#include "CFireBolt.h"
+#include "CFrozenBolt.h"
 
 // Component
 #include "CSpriteRenderer.h"
@@ -255,6 +257,52 @@ void PlayerScript::FixedUpdate()
 			meteorPos.y += 1000.f;
 
 			MeteorTr->SetPosition(Vector3(mousePos.x, meteorPos.y, 1.0f));
+
+			SetPlayerDirection();
+			ResetAStar();
+			return;
+		}
+	}
+	if (Input::GetInstance()->GetKeyDown(eKeyCode::Q))
+	{
+		if (player->GetState() == Player::PlayerState::Idle
+			|| player->GetState() == Player::PlayerState::Move)
+		{
+			player->SetState(Player::PlayerState::Skil);
+
+			FireBolt* firebolt = Object::Instantiate<FireBolt>(eLayerType::PlayerSKil, true);
+			Transform* fireboltTr = firebolt->GetComponent<Transform>();
+			fireboltTr->SetPosition(pos);
+
+			Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos(true);
+			Vector2 direction = mousePos - Vector2(pos.x, pos.y);
+
+			firebolt->Angle(mousePos);
+			firebolt->SetOwner(player);
+
+
+			SetPlayerDirection();
+			ResetAStar();
+			return;
+		}
+	}
+	else if (Input::GetInstance()->GetKeyDown(eKeyCode::W))
+	{
+		if (player->GetState() == Player::PlayerState::Idle
+			|| player->GetState() == Player::PlayerState::Move)
+		{
+			player->SetState(Player::PlayerState::Skil);
+
+			FrozenBolt* frozenbolt = Object::Instantiate<FrozenBolt>(eLayerType::PlayerSKil, true);
+			Transform* frozenboltTr = frozenbolt->GetComponent<Transform>();
+			frozenboltTr->SetPosition(pos);
+
+			Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos(true);
+			Vector2 direction = mousePos - Vector2(pos.x, pos.y);
+
+			frozenbolt->Angle(mousePos);
+			frozenbolt->SetOwner(player);
+
 
 			SetPlayerDirection();
 			ResetAStar();

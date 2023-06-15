@@ -222,7 +222,7 @@ void Player::SetRunSpeed(bool mode)
 {
 	// °È±â 2, ¶Ù±â 4
 
-	UINT speed = mode == true ? 4 : 2 ;
+	UINT speed = mode == true ? 3 : 2 ;
 	mRunSpeed = speed;
 }
 

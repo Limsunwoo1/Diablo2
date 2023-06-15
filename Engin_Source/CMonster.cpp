@@ -5,7 +5,7 @@
 Monster::Monster()
 	: GameObject()
 	, mMonsterState(MonsterState::Idle)
-	, mMonsterStatusEffect(MonsterStatusEffect::None)
+	, mMonsterStatusEffect(eElementType::None)
 	, mMaxHP(100.f)
 	, mHP(100.f)
 	, mIndex(4)
@@ -57,7 +57,7 @@ void Monster::Render()
 void Monster::StatusEffect()
 {
 	float time = Time::GetInstance()->DeltaTime();
-	if (mMonsterStatusEffect == MonsterStatusEffect::HitFrozen)
+	if (mMonsterStatusEffect == eElementType::HitFrozen)
 	{
 		// 얼음 속성일때 모든 행동제약이 두배 느리게 이동
 		float intime = 0.0f;
@@ -71,7 +71,7 @@ void Monster::StatusEffect()
 			SetCurDeltaTime(time * 0.5f);
 		}
 	}
-	else if (mMonsterStatusEffect == MonsterStatusEffect::HitFire)
+	else if (mMonsterStatusEffect == eElementType::HitFire)
 	{
 		if (mDotDamageCoolTime >= 0.5f)
 		{
@@ -97,10 +97,10 @@ void Monster::Run()
 
 	switch (mMonsterStatusEffect)
 	{
-	case Monster::MonsterStatusEffect::HitFire:		hitFire();		break;
-	case Monster::MonsterStatusEffect::HitFrozen:	hitFrozen();	break;
-	case Monster::MonsterStatusEffect::HitLight:	hitLight();		break;
-	default:														break;
+	case eElementType::HitFire:		hitFire();				break;
+	case eElementType::HitFrozen:	hitFrozen();			break;
+	case eElementType::HitLight:		hitLight();				break;
+	default:												break;
 	}
 }
 

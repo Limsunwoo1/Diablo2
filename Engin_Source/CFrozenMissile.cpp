@@ -35,7 +35,7 @@ void FrozenMissile::Initalize()
 
 	// ªÁ¿Ã¡Ó
 	Transform* tr = GetComponent<Transform>();
-	tr->SetSize(Vector3(300.f, 300.f, 1.f));
+	tr->SetSize(Vector3(200.f, 200.f, 1.f));
 
 	Death();
 }

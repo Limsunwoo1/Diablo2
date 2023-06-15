@@ -100,7 +100,7 @@ private:
 	float mRunTime;
 	float mMaxRunTime;
 
-	// °È±â 2, ¶Ù±â 4
+	// °È±â 2, ¶Ù±â 3
 	UINT mRunSpeed;
 
 	string mSaveName;

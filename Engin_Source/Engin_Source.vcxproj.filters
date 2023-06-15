@@ -271,6 +271,18 @@
     <Filter Include="GameObject\Object">
       <UniqueIdentifier>{ef1fb6a4-2c22-47ab-993d-0c83c4552be1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\PlayerSkil\Bolt">
+      <UniqueIdentifier>{e5490dd5-7928-45bb-afe9-4721ffb54360}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\PlayerSkil\Bolt\FireBolt">
+      <UniqueIdentifier>{4317179a-b777-49b9-9232-b3d7c87a8034}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\PlayerSkil\Bolt\FrozenBolt">
+      <UniqueIdentifier>{f052b6a6-42f1-41db-887c-c3e8ac2585f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\PlayerSkil\Bolt\LigthBolt">
+      <UniqueIdentifier>{ceb24ff8-4c14-4c8f-99ef-db747feda82e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -567,6 +579,18 @@
     </ClCompile>
     <ClCompile Include="CTileCarveObject.cpp">
       <Filter>GameObject\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="CBoltBase.cpp">
+      <Filter>GameObject\PlayerSkil\Bolt</Filter>
+    </ClCompile>
+    <ClCompile Include="CFireBolt.cpp">
+      <Filter>GameObject\PlayerSkil\Bolt\FireBolt</Filter>
+    </ClCompile>
+    <ClCompile Include="CFrozenBolt.cpp">
+      <Filter>GameObject\PlayerSkil\Bolt\FrozenBolt</Filter>
+    </ClCompile>
+    <ClCompile Include="CLightBolt.cpp">
+      <Filter>GameObject\PlayerSkil\Bolt\LigthBolt</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -876,6 +900,18 @@
     </ClInclude>
     <ClInclude Include="CTileCarveObject.h">
       <Filter>GameObject\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="CBoltBase.h">
+      <Filter>GameObject\PlayerSkil\Bolt</Filter>
+    </ClInclude>
+    <ClInclude Include="CFireBolt.h">
+      <Filter>GameObject\PlayerSkil\Bolt\FireBolt</Filter>
+    </ClInclude>
+    <ClInclude Include="CFrozenBolt.h">
+      <Filter>GameObject\PlayerSkil\Bolt\FrozenBolt</Filter>
+    </ClInclude>
+    <ClInclude Include="CLightBolt.h">
+      <Filter>GameObject\PlayerSkil\Bolt\LigthBolt</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

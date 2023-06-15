@@ -69,7 +69,7 @@ void FrozenOrb::Initalize()
 
 	// Æ®·£½ºÆû
 	Transform* tr = GetComponent<Transform>();
-	tr->SetSize(Vector3(180.f, 180.f, 1.0f));
+	tr->SetSize(Vector3(140.f, 140.f, 1.0f));
 	
 	Vector3 Pos = tr->GetPosition();
 	tr->SetPosition(Vector3(Pos.x, Pos.y, 0.8f));

@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CBoltBase.h" />
     <ClInclude Include="CButton.h" />
     <ClInclude Include="CAnimation.h" />
     <ClInclude Include="CAnimator.h" />
@@ -175,7 +176,9 @@
     <ClInclude Include="CEngine.h" />
     <ClInclude Include="CEnums.h" />
     <ClInclude Include="CEquipmentButton.h" />
+    <ClInclude Include="CFireBolt.h" />
     <ClInclude Include="CFlames.h" />
+    <ClInclude Include="CFrozenBolt.h" />
     <ClInclude Include="CFrozenMissile.h" />
     <ClInclude Include="CFrozenOrb.h" />
     <ClInclude Include="CGameObject.h" />
@@ -187,6 +190,7 @@
     <ClInclude Include="CItemBase.h" />
     <ClInclude Include="CLayer.h" />
     <ClInclude Include="CLight.h" />
+    <ClInclude Include="CLightBolt.h" />
     <ClInclude Include="CMainPanel.h" />
     <ClInclude Include="CMainTitleScene.h" />
     <ClInclude Include="CMesh.h" />
@@ -258,6 +262,7 @@
     <ClInclude Include="CPotionItem.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CBoltBase.cpp" />
     <ClCompile Include="CButton.cpp" />
     <ClCompile Include="CAnimation.cpp" />
     <ClCompile Include="CAnimator.cpp" />
@@ -280,7 +285,9 @@
     <ClCompile Include="CEnums.cpp" />
     <ClCompile Include="CEquipmentButton.cpp" />
     <ClCompile Include="CFadeRenderer.cpp" />
+    <ClCompile Include="CFireBolt.cpp" />
     <ClCompile Include="CFlames.cpp" />
+    <ClCompile Include="CFrozenBolt.cpp" />
     <ClCompile Include="CFrozenMissile.cpp" />
     <ClCompile Include="CFrozenOrb.cpp" />
     <ClCompile Include="CGameObject.cpp" />
@@ -294,6 +301,7 @@
     <ClCompile Include="CItemBase.cpp" />
     <ClCompile Include="CLayer.cpp" />
     <ClCompile Include="CLight.cpp" />
+    <ClCompile Include="CLightBolt.cpp" />
     <ClCompile Include="CMainPanel.cpp" />
     <ClCompile Include="CMainTitleScene.cpp" />
     <ClCompile Include="CMesh.cpp" />

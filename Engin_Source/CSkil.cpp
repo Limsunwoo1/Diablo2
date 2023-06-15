@@ -9,6 +9,8 @@ Skil::Skil()
 Skil::Skil(Player* player)
 	: GameObject()
 	, mOwner(player)
+	, mElementType(eElementType::None)
+	, mCost(0.0f)
 {
 	
 }

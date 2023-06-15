@@ -47,7 +47,7 @@ void Meteor::Initalize()
 
 	// 사이즈
 	Transform* tr = GetComponent<Transform>();
-	tr->SetSize(Vector3(800.f, 400.f, 1.f));
+	tr->SetSize(Vector3(1000.f, 800.f, 1.f));
 
 	// 제네릭 애니메이터
 	AddComponent<GenericAnimator>();
@@ -139,7 +139,7 @@ void Meteor::InitAnimation()
 	weak_ptr<Texture2D> tex =
 		ResourceManager::GetInstance()->Load<Texture2D>(L"Meteor", L"Meteor//MeteorDrop.png");
 
-	animator->Create(L"Meteor", tex, Vector2::Zero, Vector2(100, 100.f), Vector2::Zero, 9, 0.1f);
+	animator->Create(L"Meteor", tex, Vector2::Zero, Vector2(30.f, 45.f), Vector2::Zero, 5, 0.2f);
 	animator->Play(L"Meteor");
 
 	tex = ResourceManager::GetInstance()->Load<Texture2D>(L"MeteorEnd", L"Meteor//MeteorEnd.png");
@@ -194,11 +194,12 @@ void Meteor::OnMeteor()
 			return;
 		}
 
+
 		// 일정시간후 메테오 낙하
 		if (runLine < InCurValue)
 		{
 			Vec.Normalize();
-			Pos.y += -1.0f * Time::GetInstance()->DeltaTime() * mSpeed;
+			Pos.y += -1.0f * Time::GetInstance()->DeltaTime() * mSpeed * 0.5f;
 			mTr->SetPosition(Pos);
 		}
 	};

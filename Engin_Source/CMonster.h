@@ -15,14 +15,6 @@ public:
 		End,
 	};
 
-	enum class MonsterStatusEffect
-	{
-		None,
-		HitFire,
-		HitFrozen,
-		HitLight,
-	};
-
 public:
 	Monster();
 	virtual ~Monster();
@@ -39,8 +31,8 @@ public:
 	void SetMonsterState(MonsterState state) { mMonsterState = state; }
 	MonsterState GetMonsterState() { return mMonsterState; }
 
-	void SetMonsterStatusEffect(MonsterStatusEffect state) { mMonsterStatusEffect = state; }
-	MonsterStatusEffect GetMonsterStatusEffect() { return mMonsterStatusEffect; }
+	void SetMonsterStatusEffect(eElementType state) { mMonsterStatusEffect = state; }
+	eElementType GetMonsterStatusEffect() { return mMonsterStatusEffect; }
 
 	float GetMaxHp() { return mMaxHP; }
 	void SetMaxHp(float hp) { mMaxHP = hp; }
@@ -82,7 +74,7 @@ private:
 	std::bitset<8> mDirection;
 	UINT mIndex;
 	MonsterState mMonsterState;
-	MonsterStatusEffect mMonsterStatusEffect;
+	eElementType mMonsterStatusEffect;
 	GameObject* mTarget;
 
 	float mMaxHP;
