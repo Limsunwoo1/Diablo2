@@ -47,7 +47,7 @@ void Meteor::Initalize()
 
 	// 사이즈
 	Transform* tr = GetComponent<Transform>();
-	tr->SetScale(Vector3(6.0f, 2.0f, 1.0f));
+	tr->SetSize(Vector3(800.f, 400.f, 1.f));
 
 	// 제네릭 애니메이터
 	AddComponent<GenericAnimator>();
@@ -185,9 +185,10 @@ void Meteor::OnMeteor()
 		Vector3 Vec;
 		Transform* mTr = GetComponent<Transform>();
 		Vector3 Pos = mTr->GetPosition();
+		Vector3 size = (mTr->GetSize() * 0.5f);
 
-		Vec = mPinPos - Pos;
-		if (fabs(Vec.y) < 30.f /*&& fabs(Vec.x) < 0.005f*/)
+		Vec = mPinPos - (Pos - size);
+		if (mPinPos.y >= Pos.y /*&& fabs(Vec.x) < 0.005f*/)
 		{
 			genericAnimator->Stop(true);
 			return;
@@ -197,7 +198,7 @@ void Meteor::OnMeteor()
 		if (runLine < InCurValue)
 		{
 			Vec.Normalize();
-			Pos += Vec * Time::GetInstance()->DeltaTime() * mSpeed * 200.0f;
+			Pos.y += -1.0f * Time::GetInstance()->DeltaTime() * mSpeed;
 			mTr->SetPosition(Pos);
 		}
 	};

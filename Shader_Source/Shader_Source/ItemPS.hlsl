@@ -38,6 +38,9 @@ float4 main(VSOut In) : SV_Target
     
     if (stage)
     {
+        if (color.a <= 0.2f)
+            discard;
+        
         return color;
     }
     

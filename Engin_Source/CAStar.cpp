@@ -32,17 +32,11 @@ void AStar::Initalize()
 
 void AStar::Update()
 {
-	ObjectManager::GetInstance()->ResetWorld();
-	Tiles = WorldManager::GetInstance()->DropWordTileData();
-	mTilesCarveData = WorldManager::GetInstance()->DropWolrdTileCarveData();
-
-	Vector3 Pos = GetOwner()->GetComponent<Transform>()->GetPosition();
-	auto startIdx = WorldManager::GetInstance()->GetTileIndex(Vector2(Pos.x, Pos.y));
-
-	int a = 0;
-
 	if (!mbRun)
+	{
+		ClearNode();
 		return;
+	}
 
 	int count = 0;
 	while (1)
@@ -55,7 +49,6 @@ void AStar::Update()
 			mbRun = false;
 			break;
 		}
-
 
 		if (mCurNode.Pos == mEnd)
 		{
@@ -485,6 +478,22 @@ bool AStar::OnA_Star(std::pair<int, int> idx, Vector2 endPos)
 
 	ClearNode();
 
+	bool RunCheck = false;
+	auto RuntileIdx = Input::GetInstance()->GetIsoMetricIDX(endPos);
+	TileObject* tile = ObjectManager::GetInstance()->GetTile(RuntileIdx.first, RuntileIdx.second);
+	int arrNum = -1;
+	
+	if		(tile->PickTile(endPos, eTilePickType::Tile0)) { arrNum = (UINT)eTilePickType::Tile0; }
+	else if (tile->PickTile(endPos, eTilePickType::Tile1)) { arrNum = (UINT)eTilePickType::Tile1; }
+	else if (tile->PickTile(endPos, eTilePickType::Tile2)) { arrNum = (UINT)eTilePickType::Tile2; }
+	else if (tile->PickTile(endPos, eTilePickType::Tile3)) { arrNum = (UINT)eTilePickType::Tile3; }
+
+	if (arrNum < 0)
+		return false;
+
+	if (tile->GetArr()[arrNum] == 1)
+		return false;
+	
 	Tiles = WorldManager::GetInstance()->DropWordTileData();
 	mTilesCarveData = WorldManager::GetInstance()->DropWolrdTileCarveData();
 
@@ -652,7 +661,6 @@ void AStar::Result()
 			mResult.emplace_back(mStartNode);
 
 			CarveTileAStar();
-
 			return;
 		}
 
@@ -662,6 +670,8 @@ void AStar::Result()
 			break;
 		}
 
+		count++;
+
 		mResult.emplace_back(mCurNode);
 
 		int id = (mCurNode.ParentIndex.y * mMaxY) + (mCurNode.ParentIndex.x % mMaxX);
@@ -670,18 +680,11 @@ void AStar::Result()
 			continue;
 
 		mCurNode = iter->second;
-		count++;
 	}
 }
 
 void AStar::CarveTileAStar()
 {
-	if (mResult.size() <= 1)
-	{
-		mbRun = false;
-		return;
-	}
-
 	if (!PosData.empty())
 	{
 		mbRun = false;
@@ -694,13 +697,24 @@ void AStar::CarveTileAStar()
 	if (iter == mResult.end())
 		return;
 
-	auto beginIter = mResult.begin();
+	Node Start = {};
+	Node End = {};
 
-	auto Enditer = mResult.end();
-	--Enditer;
+	if (mResult.size() == 1)
+	{
+		Start = mResult[0];
+		End = mResult[0];
+	}
+	else
+	{
+		auto beginIter = mResult.begin();
 
-	Node Start(*Enditer);
-	Node End(*beginIter);
+		auto Enditer = mResult.end();
+		--Enditer;
+
+		Start = *Enditer;
+		End = *beginIter;
+	}
 
 	for (Node& node : mResult)
 	{
@@ -838,70 +852,52 @@ void AStar::SaveCarvePosData()
 	UINT count = 0;
 
 	std::stack<Vector2> test;
+	std::vector<Node> testNode;
 	Node node = mCarveCurNode;
+	
 	while (1)
 	{
 		if ((mCarveCurNode.Pos == mCarveStartNode.Pos))
 		{
-			//Node testNode = {};
-			//Node nextNode = {};
-			//Node preveNode = {};
-			//std::stack<Vector2> tessPosition;
-			//if (!test.empty())
-			//{
-			//	testNode = test.top();
-			//	test.pop();
-			//}
+			vector<pair<int, int>> directionVec;
 
-			//Vector2 testPos = Vector2::Zero;
-			//while (!test.empty())
-			//{
-			//	nextNode = test.top();
-			//	test.pop();
+			if (testNode.size() > 1)
+			{
+				for (int i = 0; i < testNode.size() - 1; ++i)
+				{
+					directionVec.push_back(pair(testNode[i].Pos.x - testNode[i + 1].Pos.x
+						, testNode[i].Pos.y - testNode[i + 1].Pos.y));
+				}
+			}
 
-			//	if (nextNode.Pos.x == testNode.Pos.x || nextNode.Pos.y == testNode.Pos.y)
-			//	{
-			//		testNode = nextNode;
-			//	}
-			//	else
-			//	{
-			//		testPos = GetCarvePos(nextNode);
-			//		tessPosition.emplace(testPos);
-			//		testNode = nextNode;
-			//	}
+			if (directionVec.size() > 1)
+			{
+				for (int i = 0; i < directionVec.size() - 1; ++i)
+				{
+					if (directionVec[i] != directionVec[i + 1])
+					{
+						Vector2 Pos = GetCarvePos(testNode[i]);
+						test.push(Pos);
+					}
+				}
+			}
 
-			//	if (test.empty())
-			//	{
-			//		testPos = GetCarvePos(nextNode);
-			//		tessPosition.emplace(testPos);
-			//		PosData = tessPosition;
-			//	}
-			//}
-
+			if (test.empty())
+			{
+				test.push(mEndPos);
+			}
+			
 			// 맨 처음 시작 노드
 			/*Vector2 pos = Vector2(-1.f, -1.f);
 			pos = GetCarvePos(mCarveCurNode);
 
 			if(pos.x >= 0 && pos.y >= 0)
 				PosData.emplace(pos);*/
-			if (!PosData.empty())
-			{
+			
+				PosData = test;
 				Script* script = GetOwner()->GetScript<Script>();
 				script->SetPosData(PosData);
-			}
-
-			test = PosData;
-			while (!test.empty())
-			{
-				Vector2 pos = test.top();
-				test.pop();
-
-				cout << pos.x << "    X    " << pos.y << "       Y      " << endl;
-			}
-
-			std::cout << "+++++++++++++++++++++++++++++++++++++++++++++++" << endl;
-
-			mbRun = false;
+			
 
 			return;
 		}
@@ -915,6 +911,7 @@ void AStar::SaveCarvePosData()
 		Vector2 pos = Vector2(-1.f, -1.f);
 		pos = GetCarvePos(mCarveCurNode);
 		//test.push(mCarveCurNode);
+		testNode.push_back(mCarveCurNode);
 
 		if (pos.x < 0 || pos.y < 0)
 			return;
