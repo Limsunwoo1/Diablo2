@@ -84,10 +84,12 @@ void TilePallet::Load()
 		if (fread(&type, sizeof(UINT32), 1, pFile) == NULL)
 			break;
 
+		static int i = 0;
+		if (i == 2520)
+				int a = 0;
 		if (type == (UINT32)eLayerType::Tile)
 		{
-			static int i = 0;
-			if (i == 421)
+			if (i == 2520)
 				int a = 0;
 
 			if (fread(&count, sizeof(UINT32), 1, pFile) == NULL)
@@ -151,6 +153,7 @@ void TilePallet::Load()
 		}
 
 		delete cKey;
+		i++;
 	}
 
 	fclose(pFile);

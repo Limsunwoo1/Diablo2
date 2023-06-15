@@ -126,13 +126,14 @@ void WallObject::Update()
 			Renderer::InspectorGameObject = this;
 			inspector->SetTargetGameObject(this);
 			inspector->InitalizeTargetGameObject();
+			mbOnObject = true;
 		}
 		else if (Input::GetInstance()->GetKeyPress(eKeyCode::RBTN) && _Editor.GetActive())
 		{
 			Object::ObjectDestroy(this);
+			mbOnObject = true;
 		}
 
-		mbOnObject = true;
 		_Editor.GetWidget<gui::Game>("Game")->SetCreateObject(false);
 	}
 

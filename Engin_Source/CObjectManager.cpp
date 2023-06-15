@@ -58,8 +58,8 @@ void ObjectManager::ResetWorld()
 
 	auto idx = Input::GetInstance()->GetIsoMetricIDX(Vector2(pos.x, pos.y));
 
-	if (mCurIDX == idx)
-		return;
+	//if (mCurIDX == idx)
+	//	return;
 
 	mCurIDX = idx;
 
@@ -109,11 +109,11 @@ void ObjectManager::ResetWorld()
 				worldTileData[worldY][worldX] = Tileiter->second;
 			}
 
-			WallObjectsIter::iterator Walliter =
+			/*WallObjectsIter::iterator Walliter =
 				mWallObjects.find(std::pair(j, i));
 
 			if (Walliter != mWallObjects.end())
-				mWalls.emplace_back(Walliter->second);
+				mWalls.emplace_back(Walliter->second);*/
 
 			worldX++;
 		}
@@ -122,6 +122,19 @@ void ObjectManager::ResetWorld()
 	}
 
 	WorldManager::GetInstance()->PushWorldTileData(worldTileData);
+
+	for (int i = startIdxY - 2; i < endIdxY + 2; ++i)
+	{
+		for (int j = startIdxX - 2; j < endIdxX + 2; ++j)
+		{
+
+			WallObjectsIter::iterator Walliter =
+				mWallObjects.find(std::pair(j, i));
+
+			if (Walliter != mWallObjects.end())
+				mWalls.emplace_back(Walliter->second);
+		}
+	}
 
 	std::sort(mTiles.begin(), mTiles.end(), [](GameObject* a, GameObject* b)
 		{
@@ -142,8 +155,8 @@ void ObjectManager::ResetWorld()
 			Transform* aTr = a->GetComponent<Transform>();
 			Transform* bTr = b->GetComponent<Transform>();
 
-			Vector3 aPos = aTr->GetPosition();
-			Vector3 bPos = bTr->GetPosition();
+			Vector3 aPos = aTr->GetPosition() + aTr->GetOffset() - (aTr->GetSize() * 0.5f);
+			Vector3 bPos = bTr->GetPosition() + bTr->GetOffset() - (bTr->GetSize() * 0.5f);
 
 			if (aPos.y == bPos.y)
 				return a < b;

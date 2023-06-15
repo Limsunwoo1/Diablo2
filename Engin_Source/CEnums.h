@@ -26,10 +26,10 @@ enum class eLayerType
 	PlayerSKil,
 	Monster,
 	Player,
+	Wall,
 
 	Particle,
 	Effect,
-	Wall,
 	Fade,
 	PostProcess,
 	UI,

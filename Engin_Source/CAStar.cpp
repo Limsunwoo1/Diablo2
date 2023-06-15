@@ -96,12 +96,12 @@ UINT AStar::GetHeuristick(int x, int y)
 	int ix = abs(x - mEnd.x);
 	int iy = abs(y - mEnd.y);
 
-	int tem = abs(ix - iy);
+	int tem = abs(ix + iy);
 	int weight = 1;
 	if (tem == 0)
-		weight = 14;
-	else
 		weight = 10;
+	else
+		weight = 14;
 
 	UINT H = (ix + iy) * 10;
 	return H;
@@ -112,12 +112,12 @@ UINT AStar::GetHeuristick(int x, int y, Vec End)
 	int ix = abs(x - End.x);
 	int iy = abs(y - End.y);
 
-	int tem = abs(ix - iy);
+	int tem = abs(ix + iy);
 	int weight = 1;
 	if (tem == 0)
 		weight = 14;
 	else
-		weight = 0;
+		weight = 10;
 
 	UINT H = (ix + iy) * 10;
 	return H;
@@ -269,9 +269,9 @@ void AStar::AddOpenList(int x, int y, bool diagonal)
 
 	int count = abs(mCurNode.Pos.x - node.Pos.x) + abs(mCurNode.Pos.y - node.Pos.y);
 	if (count > 1)
-		node.Cost = 14 + mCurNode.Cost;
-	else
 		node.Cost = 10 + mCurNode.Cost;
+	else
+		node.Cost = 14 + mCurNode.Cost;
 
 	node.Heuristick = GetHeuristick(node.Pos.x, node.Pos.y);
 	node.Distance = node.GetDistance();
@@ -331,7 +331,7 @@ void AStar::CarveAddOpenList(int x, int y, Vec End, bool diagonal)
 		if (mTilesCarveData[mCarveCurNode.Pos.x][node.Pos.y].ArrValue == 1)
 			return;
 
-		if (mTilesCarveData[node.Pos.x][mCarveCurNode.Pos.y].ArrValue == 1)
+		if (mTilesCarveData[node.Pos.y][mCarveCurNode.Pos.x].ArrValue == 1)
 			return;
 	}
 

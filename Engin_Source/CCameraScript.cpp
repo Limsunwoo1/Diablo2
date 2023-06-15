@@ -38,7 +38,7 @@ void CameraScript::Update()
 
 	Vector3 pos = tr->GetPosition();
 	
-	float speed = 750.f;
+	float speed = 1000.f;
 
 	if (Input::GetInstance()->GetkeyState(eKeyCode::D) == eKeyState::PRESSED)
 	{

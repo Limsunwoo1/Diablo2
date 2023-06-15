@@ -204,7 +204,7 @@ void PlayerScript::FixedUpdate()
 		player->ChangeRunMode();
 	}
 
-	if (Input::GetInstance()->GetKeyDown(eKeyCode::RBTN))
+	if (Input::GetInstance()->GetKeyPress(eKeyCode::RBTN))
 	{
 		Player* player = dynamic_cast<Player*>(GetOwner());
 		if (player->GetState() != Player::PlayerState::Idle &&
@@ -463,7 +463,7 @@ void PlayerScript::SetPlayerDirection(Vector3& Direction)
 		}
 		else if (angle >= 22.5f && angle < 50.f)
 		{
-			player->PlayerDirection(2);
+			player->PlayerDirection(1);
 		}
 		else if (angle >= 50.f && angle < 75.5f)
 		{
@@ -471,7 +471,7 @@ void PlayerScript::SetPlayerDirection(Vector3& Direction)
 		}
 		else if (angle >= 75.5f && angle < 90.f)
 		{
-			player->PlayerDirection(4);
+			player->PlayerDirection(3);
 		}
 		else if (angle >= 90.f && angle < 115.f)
 		{
@@ -479,7 +479,7 @@ void PlayerScript::SetPlayerDirection(Vector3& Direction)
 		}
 		else if (angle >= 115.f && angle < 140.f)
 		{
-			player->PlayerDirection(6);
+			player->PlayerDirection(5);
 		}
 		else if (angle >= 140.f && angle < 165.5f)
 		{
@@ -487,7 +487,7 @@ void PlayerScript::SetPlayerDirection(Vector3& Direction)
 		}
 		else
 		{
-			player->PlayerDirection(8);
+			player->PlayerDirection(7);
 		}
 	}
 	else
@@ -498,7 +498,7 @@ void PlayerScript::SetPlayerDirection(Vector3& Direction)
 		}
 		else if (angle >= 22.5f && angle < 50.f)
 		{
-			player->PlayerDirection(10);
+			player->PlayerDirection(9);
 		}
 		else if (angle >= 50.f && angle < 75.5f)
 		{
@@ -506,7 +506,7 @@ void PlayerScript::SetPlayerDirection(Vector3& Direction)
 		}
 		else if (angle >= 75.5f && angle < 90.f)
 		{
-			player->PlayerDirection(12);
+			player->PlayerDirection(11);
 		}
 		else if (angle >= 90.f && angle < 115.f)
 		{
@@ -514,7 +514,7 @@ void PlayerScript::SetPlayerDirection(Vector3& Direction)
 		}
 		else if (angle >= 115.f && angle < 140.f)
 		{
-			player->PlayerDirection(14);
+			player->PlayerDirection(13);
 		}
 		else if (angle >= 140.f && angle < 165.5f)
 		{
@@ -522,7 +522,7 @@ void PlayerScript::SetPlayerDirection(Vector3& Direction)
 		}
 		else
 		{
-			player->PlayerDirection(0);
+			player->PlayerDirection(15);
 		}
 	}
 }

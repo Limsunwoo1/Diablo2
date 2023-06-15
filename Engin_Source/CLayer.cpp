@@ -36,6 +36,9 @@ void Layer::Initalize()
 
 void Layer::Update()
 {
+	//if (mType == eLayerType::TileCarve)
+	//	return;
+
 	if (mType == eLayerType::Tile || mType == eLayerType::Wall)
 	{
 		if (mType == eLayerType::Tile)
@@ -79,6 +82,9 @@ void Layer::Update()
 
 void Layer::FixedUpdate()
 {
+	/*if (mType == eLayerType::TileCarve)
+		return;*/
+
 	for (GameObject* obj : mGameObjects)
 	{
 		if (obj == nullptr)
@@ -92,6 +98,9 @@ void Layer::FixedUpdate()
 
 void Layer::Render()
 {
+	/*if (mType == eLayerType::TileCarve)
+		return;*/
+
 	for (GameObject* obj : mGameObjects)
 	{
 		if (obj == nullptr)
@@ -146,6 +155,8 @@ void Layer::Destroy()
 			{
 				ObjectManager::GetInstance()->DeleteWallObjet(wall);
 			}
+
+			ObjectManager::GetInstance()->ResetWorld();
 		}
 
 		delete gameObj;

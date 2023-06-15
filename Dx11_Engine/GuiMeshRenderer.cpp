@@ -111,6 +111,9 @@ namespace gui
 			listUi->SetEvent(this, std::bind(&gui::guiMeshRenderer::SetMaterial, this, std::placeholders::_1));
 		}
 
+		if (mMaterial.lock()->GetTexture(eTextureSlot::T0).lock() == nullptr)
+			return;
+
 		std::wstring texName = mMaterial.lock()->GetTexture(eTextureSlot::T0).lock()->GetName();
 		std::string sTexName = string(texName.begin(), texName.end());
 		ImGui::Text("Texture2D");
