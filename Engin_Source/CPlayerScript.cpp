@@ -10,6 +10,7 @@
 #include "CFireBolt.h"
 #include "CFrozenBolt.h"
 #include "CLightBolt.h"
+#include "CFrozenArmer.h"
 
 // Component
 #include "CSpriteRenderer.h"
@@ -392,6 +393,21 @@ void PlayerScript::FixedUpdate()
 			ResetAStar();
 			return;
 		}
+	}
+	else if (Input::GetInstance()->GetKeyDown(eKeyCode::T))
+	{
+	if (player->GetState() == Player::PlayerState::Idle
+		|| player->GetState() == Player::PlayerState::Move)
+	{
+		player->SetState(Player::PlayerState::Skil);
+
+		FrozenArmer* frozenArmer = Object::Instantiate<FrozenArmer>(eLayerType::Effect, true);
+		frozenArmer->SetTarget(player);
+
+		SetPlayerDirection();
+		ResetAStar();
+		return;
+	}
 	}
 
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::R))

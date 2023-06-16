@@ -11,6 +11,7 @@
 #include "CBackGround.h"
 #include "CPlayer.h"
 #include "CMinosTauros.h"
+#include "CSpearMonster.h"
 
 // Static
 #include "CObject.h"
@@ -165,6 +166,10 @@ void PlayScene::Initalize()
 	}
 
 	{
+		SpearMonster* monster = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+		Transform* spearTr = monster->GetComponent<Transform>();
+		spearTr->SetPosition(Vector3(5400.f, 7160.f, 1.0f));
+
 		MinosTauros* mino = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
 		Transform* minoTr = mino->GetComponent<Transform>();
 		minoTr->SetPosition(Vector3(5600.f, 7360.f, 1.0f));

@@ -178,6 +178,7 @@
     <ClInclude Include="CEquipmentButton.h" />
     <ClInclude Include="CFireBolt.h" />
     <ClInclude Include="CFlames.h" />
+    <ClInclude Include="CFrozenArmer.h" />
     <ClInclude Include="CFrozenBolt.h" />
     <ClInclude Include="CFrozenMissile.h" />
     <ClInclude Include="CFrozenOrb.h" />
@@ -226,6 +227,7 @@
     <ClInclude Include="CShoesItem.h" />
     <ClInclude Include="CSkil.h" />
     <ClInclude Include="CFireTargetPin.h" />
+    <ClInclude Include="CSpearMonster.h" />
     <ClInclude Include="CSpriteRenderer.h" />
     <ClInclude Include="CStructedBuffer.h" />
     <ClInclude Include="CSuitItem.h" />
@@ -288,6 +290,7 @@
     <ClCompile Include="CFadeRenderer.cpp" />
     <ClCompile Include="CFireBolt.cpp" />
     <ClCompile Include="CFlames.cpp" />
+    <ClCompile Include="CFrozenArmer.cpp" />
     <ClCompile Include="CFrozenBolt.cpp" />
     <ClCompile Include="CFrozenMissile.cpp" />
     <ClCompile Include="CFrozenOrb.cpp" />
@@ -334,6 +337,7 @@
     <ClCompile Include="CShoesItem.cpp" />
     <ClCompile Include="CSkil.cpp" />
     <ClCompile Include="CFireTargetPin.cpp" />
+    <ClCompile Include="CSpearMonster.cpp" />
     <ClCompile Include="CSpriteRenderer.cpp" />
     <ClCompile Include="CStructedBuffer.cpp" />
     <ClCompile Include="CSuitItem.cpp" />

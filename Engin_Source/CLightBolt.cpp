@@ -328,7 +328,7 @@ void LightBolt::LightningEnd()
 	param.AnimType = eAnimType::Linear;
 	param.StartValue = 1.0f;
 	param.EndValue = 0.0f;
-	param.DurationTime = 0.05f;
+	param.DurationTime = 0.1f;
 
 	param.DurationFunc = [this](float InCurValue)
 	{

@@ -162,7 +162,7 @@ void MinoMonsterScript::FixedUpdate()
 			return;
 		}
 
-		//pos += Vec * Time::GetInstance()->DeltaTime() * 250.f;
+		pos += Vec * Time::GetInstance()->DeltaTime() * 180.f;
 		tr->SetPosition(pos);
 	}
 }

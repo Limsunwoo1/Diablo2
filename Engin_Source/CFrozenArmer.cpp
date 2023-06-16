@@ -1,4 +1,4 @@
-#include "CShockHit.h"
+#include "CFrozenArmer.h"
 #include "CAnimator.h"
 #include "CResourceManager.h"
 #include "CTransform.h"
@@ -7,18 +7,18 @@
 #include "CLight.h"
 #include "CTime.h"
 
-ShockHit::ShockHit()
+FrozenArmer::FrozenArmer()
 	: Skil()
-	, mDeathTime(0.0f)
+	, mDeathTime(8.0f)
 {
-	SetElementType(eElementType::HitLight);
+	SetElementType(eElementType::None);
 }
 
-ShockHit::~ShockHit()
+FrozenArmer::~FrozenArmer()
 {
 }
 
-void ShockHit::Initalize()
+void FrozenArmer::Initalize()
 {
 	// ªÁ¿Ã¡Ó
 	Transform* tr = GetComponent<Transform>();
@@ -32,10 +32,10 @@ void ShockHit::Initalize()
 	weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
 
 	mMaterial = std::make_shared<Material>();
-	weak_ptr<Shader> shader= ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+	weak_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
 	mMaterial.get()->SetShader(shader);
 
-	weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShockHit");
+	weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"FrozenArmer");
 	mMaterial->SetTexture(eTextureSlot::T0, tex);
 	mMaterial.get()->SetRenderingMode(graphics::eRenderingMode::Transparent);
 
@@ -43,7 +43,7 @@ void ShockHit::Initalize()
 	sr->SetMaterial(mMaterial);
 }
 
-void ShockHit::Update()
+void FrozenArmer::Update()
 {
 	if (mDeathTime < 0.f)
 	{
@@ -59,28 +59,26 @@ void ShockHit::Update()
 		return;
 
 	Vector3 TargetPos = mTargetTr->GetPosition();
+	Vector3 TargetSize = mTargetTr->GetSize();
+	TargetPos.y += TargetSize.y * 0.1f;
+
 	GetComponent<Transform>()->SetPosition(TargetPos);
 
 	Skil::Update();
 }
 
-void ShockHit::InitAnimation()
+void FrozenArmer::InitAnimation()
 {
 	Animator* animator = AddComponent<Animator>();
 
 	weak_ptr<Texture2D> tex =
-		ResourceManager::GetInstance()->Load<Texture2D>(L"ShockHit", L"LightBolt//ShockHit.png");
+		ResourceManager::GetInstance()->Load<Texture2D>(L"FrozenArmer", L"FrozenArmer//FrozenArmer.png");
 
-	float drrationTime = 0.02f;
-	int spriteLenght = 20.f;
-
-	animator->Create(L"ShockHit", tex, Vector2::Zero, Vector2(113.f, 99.f), Vector2::Zero, spriteLenght, drrationTime);
-	animator->Play(L"ShockHit");
-
-	mDeathTime = spriteLenght * drrationTime * 2.0f;
+	animator->Create(L"FrozenArmer", tex, Vector2::Zero, Vector2(184.f, 140.f), Vector2::Zero, 12, 0.1f);
+	animator->Play(L"FrozenArmer");
 }
 
-void ShockHit::SetTarget(GameObject* obj)
+void FrozenArmer::SetTarget(GameObject* obj)
 {
 	mTargetTr = obj->GetComponent<Transform>();
 }

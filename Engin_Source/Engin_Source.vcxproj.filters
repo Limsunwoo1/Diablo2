@@ -283,6 +283,9 @@
     <Filter Include="GameObject\PlayerSkil\Bolt\LigthBolt">
       <UniqueIdentifier>{ceb24ff8-4c14-4c8f-99ef-db747feda82e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Monster\SpearMonster">
+      <UniqueIdentifier>{b47d79cd-97e9-47ee-8101-ff93d0cd21d1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -594,6 +597,12 @@
     </ClCompile>
     <ClCompile Include="CShockHit.cpp">
       <Filter>GameObject\PlayerSkil\Bolt\LigthBolt</Filter>
+    </ClCompile>
+    <ClCompile Include="CFrozenArmer.cpp">
+      <Filter>GameObject\PlayerSkil\IceSkil</Filter>
+    </ClCompile>
+    <ClCompile Include="CSpearMonster.cpp">
+      <Filter>GameObject\Monster\SpearMonster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -918,6 +927,12 @@
     </ClInclude>
     <ClInclude Include="CShockHit.h">
       <Filter>GameObject\PlayerSkil\Bolt\LigthBolt</Filter>
+    </ClInclude>
+    <ClInclude Include="CFrozenArmer.h">
+      <Filter>GameObject\PlayerSkil\IceSkil</Filter>
+    </ClInclude>
+    <ClInclude Include="CSpearMonster.h">
+      <Filter>GameObject\Monster\SpearMonster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
