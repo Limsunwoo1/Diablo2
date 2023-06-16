@@ -21,9 +21,9 @@ float4 main(VSOut In) : SV_Target
     
     if (animationType == 1) // 2D
     {
-        //float2 colrow = float2(3.0f, 3.0f);
-        //In.UV.x = (In.UV.x / colrow.x) + (1.f / colrow.x);
-        //In.UV.y = (In.UV.y / colrow.y) + (1.f / colrow.y);
+        float2 colrow = float2(3.0f, 3.0f);
+        In.UV.x = (In.UV.x / colrow.x) + (1.f / colrow.x);
+        In.UV.y = (In.UV.y / colrow.y) + (1.f / colrow.y);
         
         float2 diff = (atlasSize - spriteSize) / 2.0f;
         float2 UV = (leftTop - diff - offset) + (atlasSize * In.UV);
@@ -49,14 +49,29 @@ float4 main(VSOut In) : SV_Target
     if (color.a <= 0.1f)
         discard;
     
-    
-    LightColor _lightColor = (LightColor) 0.0f;
-    for (uint i = 0; i < numberOfLight; i++)
+    if (ElementType == 3)
     {
-        CalculateLight(_lightColor, In.WorldPos.xyz, i);
+        if (!direction)
+        {
+            if (In.UV.y < vScale)
+                discard;
+        }
+        //else
+        //{
+        //    if (In.UV.y > vScale)
+        //        discard;
+        //}
     }
-    color *= _lightColor.diffuse;
-    color.w *= In.Color.w;
+    
+    
+    
+    //LightColor _lightColor = (LightColor) 0.0f;
+    //for (uint i = 0; i < numberOfLight; i++)
+    //{
+    //    CalculateLight(_lightColor, In.WorldPos.xyz, i);
+    //}
+    //color *= _lightColor.diffuse;
+    //color.w *= In.Color.w;
     
     if (elementType == 1)
     {
@@ -72,5 +87,5 @@ float4 main(VSOut In) : SV_Target
         color.xyz *= float3(0.8f, 0.8f, 0.8f);
     }
     
-     return color;
+    return color;
 }

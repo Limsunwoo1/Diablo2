@@ -367,6 +367,14 @@ namespace Renderer
 
 		CarveShader.lock()->SetKey(L"CarveShader");
 
+		std::weak_ptr<Shader> LightBolt = ResourceManager::GetInstance()->Find<Shader>(L"LightBoltShader");
+		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, LightBolt.lock()->GetVSBlobBufferPointer()
+			, LightBolt.lock()->GetVSBlobBufferSize()
+			, LightBolt.lock()->GetInputLayoutAddressOf());
+
+		LightBolt.lock()->SetKey(L"LightBoltShader");
+
 #pragma endregion
 #pragma region Sampler State
 		// »ùÇÃ·¯Ãß°¡
@@ -721,6 +729,16 @@ namespace Renderer
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"CarveShader", CarveShader);
 #pragma endregion
+#pragma region LightBolt Shader
+		std::shared_ptr<Shader> LightBoltShader = std::make_shared<Shader>();
+		LightBoltShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
+		LightBoltShader->Create(eShaderStage::PS, L"LightBoltPS.hlsl", "main");
+		LightBoltShader->SetDepthStencil(eDepthStencilType::None);
+
+
+		ResourceManager::GetInstance()->Insert<Shader>(L"LightBoltShader", LightBoltShader);
+#pragma endregion
+
 
 	}
 
@@ -1133,7 +1151,7 @@ namespace Renderer
 #pragma endregion
 #pragma region LightnBolt Material
 		{
-			std::weak_ptr<Shader> LightnBolt = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+			std::weak_ptr<Shader> LightnBolt = ResourceManager::GetInstance()->Find<Shader>(L"LightBoltShader");
 			std::shared_ptr<Material> LightnBolttMaterial = std::make_shared<Material>();
 			LightnBolttMaterial->SetRenderingMode(eRenderingMode::Transparent);
 			LightnBolttMaterial->SetShader(LightnBolt);

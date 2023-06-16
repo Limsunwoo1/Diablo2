@@ -317,19 +317,75 @@ void PlayerScript::FixedUpdate()
 		{
 			player->SetState(Player::PlayerState::Skil);
 
-			LightBolt* lightbolt = Object::Instantiate<LightBolt>(eLayerType::PlayerSKil, true);
-			Transform* lightboltTr = lightbolt->GetComponent<Transform>();
-			lightboltTr->SetPosition(pos);
-
 			Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos(true);
 			Vector2 direction = mousePos - Vector2(pos.x, pos.y);
 
-			lightbolt->SetOwner(player);
+			float lenght = direction.Length();
+			float radius = 250.f;
 
+			Transform* tr = GetOwner()->GetComponent<Transform>();
+
+			Vector3 pos = tr->GetPosition();
+			Vector2 vec = mousePos - Vector2(pos.x, pos.y);
+			Vector2 Vec1 = Vector2(0.0f, 0.0f);
+
+			if (vec.x <= 0.f)
+				Vec1 = Vector2(-1.0f, 0.0f);
+			else
+				Vec1 = Vector2(1.0f, 0.0f);
+
+			Vec1.Normalize();
+			vec.Normalize();
+
+			float that = Vec1.Dot(vec);
+			float radian = acos(that);
+
+			// 원의 방정식
+			// https://nenara.com/68
+			int x = cosf(radian) * radius;
+			int y = sinf(radian) * radius;
+
+			if (vec.x < 0)
+				x *= -1.f;
+			if(vec.y < 0)
+				y *= -1.f;
+
+			Vector3 SearchPos = pos;
+			SearchPos.x += x;
+			SearchPos.y += y;
+
+			std::unordered_map<float, GameObject*> ArriveList;
 			// test
 			Layer& layer = SceneManager::GetInstance()->GetActiveScene()->GetLayer(eLayerType::Monster);
-			GameObject* obj = *(layer.GetGameObjects().begin());
-			lightbolt->LightingOn(obj);
+			const std::vector<GameObject*>& objects = layer.GetGameObjects();
+
+			int lightRadius = 300.f;
+			for (GameObject* obj : objects)
+			{
+				if (obj == nullptr)
+					continue;
+
+				Transform* objTr = obj->GetComponent<Transform>();
+				Vector3 objPos = objTr->GetPosition();
+
+				Vector3 diff = objPos - SearchPos;
+				float len = diff.Length();
+
+				if (len > lightRadius)
+					continue;
+
+				ArriveList.insert(std::make_pair(len, obj));
+			}
+
+			if (ArriveList.size() == 0)
+				return;
+
+			LightBolt* lightbolt = Object::Instantiate<LightBolt>(eLayerType::PlayerSKil, true);
+			Transform* lightboltTr = lightbolt->GetComponent<Transform>();
+			lightboltTr->SetPosition(pos);
+			lightbolt->SetOwner(player);
+
+			lightbolt->LightingOn(ArriveList.begin()->second);
 
 
 			SetPlayerDirection();

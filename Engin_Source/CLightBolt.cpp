@@ -13,12 +13,13 @@
 
 LightBolt::LightBolt()
 	: BoltBase()
-	, mAriiveList {}
+	, mArriveList {}
 	, mCurObject(nullptr)
+	, mNextObject(nullptr)
 	, mDriectionTime(0.1f)
-	, mRadius(400.f)
+	, mRadius(1500.f)
 	, mBounceCount(0)
-	, mBounceMaxCount(3)
+	, mBounceMaxCount(6)
 	, mDirection(false) // false Y 가 줄어듬 true Y 가 늘어남
 	, mYScale(0.0f)
 {
@@ -56,6 +57,9 @@ void LightBolt::Initalize()
 
 void LightBolt::Update()
 {
+	if (mOwner == nullptr)
+		return;
+
 	if (GetRun() == false)
 	{
 		BaseRenderer* renderer = GetComponent<BaseRenderer>();
@@ -77,6 +81,57 @@ void LightBolt::Update()
 		SetRun(true);
 		renderer->SetRenderStop(false);
 	}
+
+	if (mCurObject == nullptr)
+		return;
+
+	if (mNextObject == nullptr)
+	{
+		Transform* Tr = GetComponent<Transform>();
+		Transform* OwnerTr = mOwner->GetComponent<Transform>();
+		Transform* MonsterTr = mCurObject->GetComponent<Transform>();
+
+		Vector3 OwnerPos = OwnerTr->GetPosition();
+		Vector3 MonsterPos = MonsterTr->GetPosition();
+
+		Vector3 diff = MonsterPos - OwnerPos;
+		Vector3 CurPos = OwnerPos + (diff * 0.5f);
+		CurPos.z = 1.0f;
+
+		Tr->SetPosition(CurPos);
+
+		Vector3 Size = Tr->GetSize();
+		Size.y = diff.Length();
+		Size.x = 200.f;
+
+		Tr->SetSize(Size);
+
+		Angle(Vector2(MonsterPos.x, MonsterPos.y));
+	}
+	else
+	{
+		Transform* Tr = GetComponent<Transform>();
+		Transform* NextTr = mNextObject->GetComponent<Transform>();
+		Transform* MonsterTr = mCurObject->GetComponent<Transform>();
+
+		Vector3 NextPos = NextTr->GetPosition();
+		Vector3 MonsterPos = MonsterTr->GetPosition();
+
+		Vector3 diff = NextPos - MonsterPos;
+		Vector3 CurPos = MonsterPos + (diff * 0.5f);
+		CurPos.z = 1.0f;
+
+		Tr->SetPosition(CurPos);
+
+		Vector3 Size = Tr->GetSize();
+		Size.y = diff.Length();
+		Size.x = 200.f;
+
+		Tr->SetSize(Size);
+
+		Angle(Vector2(NextPos.x, NextPos.y));
+	}
+
 
 	Skil::Update();
 }
@@ -100,8 +155,8 @@ void LightBolt::Render()
 	BoltBase::Render();
 
 	// 초기화
-	cb->SetData(&Info);
-	cb->Bind(eShaderStage::PS);
+	/*cb->SetData(&Info);
+	cb->Bind(eShaderStage::PS);*/
 }
 
 void LightBolt::InitAnimation()
@@ -111,7 +166,7 @@ void LightBolt::InitAnimation()
 	weak_ptr<Texture2D> tex =
 		ResourceManager::GetInstance()->Load<Texture2D>(L"LightBolt", L"LightBolt//LightBolt.png");
 
-	animator->Create(L"LightBolt", tex, Vector2::Zero, Vector2(43.f, 98.f), Vector2::Zero, 8, 0.1f);
+	animator->Create(L"LightBolt", tex, Vector2::Zero, Vector2(43.f, 85.f), Vector2::Zero, 8, 0.1f);
 	animator->Play(L"LightBolt");
 }
 
@@ -126,9 +181,9 @@ void LightBolt::SearchArriveTarget()
 	}
 
 	Layer& layer = SceneManager::GetInstance()->GetActiveScene()->GetLayer(eLayerType::Monster);
-	const vector<GameObject*> Objects = layer.GetGameObjects();
+	const vector<GameObject*>& Objects = layer.GetGameObjects();
 
-	Transform* tr = GetComponent<Transform>();
+	Transform* tr = mCurObject->GetComponent<Transform>();
 	Vector3 Pos = tr->GetPosition();
 
 
@@ -145,7 +200,10 @@ void LightBolt::SearchArriveTarget()
 		if (obj == mCurObject)
 			continue;
 
-		Transform* objTr = obj->GetComponent<Transform>();
+		if (mArriveList.find(obj) != mArriveList.end())
+			continue;
+
+		const Transform* objTr = obj->GetComponent<Transform>();
 		Vector3 objPos = objTr->GetPosition();
 
 		Vector3 Vec = Pos - objPos;
@@ -157,28 +215,29 @@ void LightBolt::SearchArriveTarget()
 
 
 	// 인접한 몬스터를 찾지못한경우 메모리 해제
-	if (arriveList.size() < 0)
+	if (arriveList.size() < 1)
 	{
 		Death();
 		return;
 	}
 
-	mBounceCount++;
+	mNextObject = arriveList.begin()->second;
 
-	mCurObject = arriveList.begin()->second;
-	mAriiveList.insert(mCurObject);
-	
+	int a = 0;
+
 	// 다음 갈위치와 연결
-	float xSize = abs(Pos.y) - abs(mCurObject->GetComponent<Transform>()->GetPosition().y);
-	Vector3 Size = tr->GetSize();
-	Size.x = xSize;
-	tr->SetSize(Size);
+	//float ySize = fabs(Pos.y - mNextObject->GetComponent<Transform>()->GetPosition().y);
 
-	// 다음 갈 위치 와 현위치 중간지점에 위치한다
-	Vector3 finalPos = mCurObject->GetComponent<Transform>()->GetPosition() - Pos;
-	Pos += (finalPos * 0.5f);
+	//Transform* LightTr = GetComponent<Transform>();
+	//Vector3 Size = LightTr->GetSize();
+	//Size.y = ySize;
+	//LightTr->SetSize(Size);
 
-	tr->SetPosition(Pos);
+	//// 다음 갈 위치 와 현위치 중간지점에 위치한다
+	//Vector3 finalPos = mNextObject->GetComponent<Transform>()->GetPosition() - Pos;
+	//Pos += (finalPos * 0.5f);
+
+	//LightTr->SetPosition(Pos);
 
 	LinghtingRun();
 }
@@ -191,7 +250,11 @@ void LightBolt::LightingOn(GameObject* object)
 
 void LightBolt::LinghtingRun()
 {
+	mBounceCount++;
 	if (mBounceCount > mBounceMaxCount)
+		return;
+
+	if (mCurObject == nullptr)
 		return;
 
 	GenericAnimator* generic = GetComponent<GenericAnimator>();
@@ -202,12 +265,24 @@ void LightBolt::LinghtingRun()
 	param.AnimType = eAnimType::Linear;
 	param.StartValue = 0.0f;
 	param.EndValue = 1.0f;
-	param.DurationTime = 0.05f;
+	param.DurationTime = 0.1f;
 
 	// 각도 세팅
 	Transform* Tr = mCurObject->GetComponent<Transform>();
 	Vector3 Pos = Tr->GetPosition();
 	Angle(Vector2(Pos.x,Pos.y));
+
+	if (mNextObject != nullptr)
+	{
+		Transform* mTr = GetComponent<Transform>();
+		mTr->SetPosition(Pos);
+
+		Transform* nextTr = mNextObject->GetComponent<Transform>();
+		Vector3 nextPos = nextTr->GetPosition();
+
+		Angle(Vector2(nextPos.x, nextPos.y));
+	}
+
 
 
 	param.DurationFunc = [this](float InCurValue)
@@ -218,7 +293,11 @@ void LightBolt::LinghtingRun()
 
 	param.CompleteFunc = [this](float InCurValue)
 	{
-		LightningEnd();
+		if(mNextObject != nullptr)
+			mCurObject = mNextObject;
+
+		mArriveList.insert(mCurObject);
+		SearchArriveTarget();
 	};
 
 	generic->Start(param);
@@ -247,6 +326,7 @@ void LightBolt::LightningEnd()
 
 	param.CompleteFunc = [this](float InCurValue)
 	{
+		mCurObject = mNextObject;
 		SearchArriveTarget();
 	};
 

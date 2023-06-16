@@ -19,11 +19,11 @@ public:
 	void SetParent(Transform* parent) { mParent = parent; }
 	Transform* GetParent() { return mParent; }
 
-	Vector3 GetPosition() { return mPosition; }
-	Vector3 GetOffset() { return mOffset; }
-	Vector3 GetRotation() { return mRotation; }
-	Vector3 GetScale() { return mScale; }
-	Vector3 GetSize() { return mSize; }
+	Vector3 GetPosition() const { return mPosition; }
+	Vector3 GetOffset() const { return mOffset; }
+	Vector3 GetRotation() const { return mRotation; }
+	Vector3 GetScale() const { return mScale; }
+	Vector3 GetSize() const { return mSize; }
 
 	void SetPosition(Vector3 position) { mPosition = position; }
 	void SetPosition(float x, float y, float z) { mPosition = Vector3(x, y, z); }

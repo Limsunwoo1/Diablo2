@@ -22,8 +22,9 @@ public:
 	void LinghtingRun();
 	void LightningEnd();
 private:
-	std::set<GameObject*> mAriiveList;
+	std::set<GameObject*> mArriveList;
 	GameObject* mCurObject;
+	GameObject* mNextObject;
 
 	float mDriectionTime;
 	float mRadius;

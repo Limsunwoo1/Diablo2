@@ -162,14 +162,13 @@ void MinoMonsterScript::FixedUpdate()
 			return;
 		}
 
-		pos += Vec * Time::GetInstance()->DeltaTime() * 250.f;
+		//pos += Vec * Time::GetInstance()->DeltaTime() * 250.f;
 		tr->SetPosition(pos);
 	}
 }
 
 void MinoMonsterScript::Render()
 {
-
 }
 
 float MinoMonsterScript::GetAngle(Vector2& direction)
