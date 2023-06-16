@@ -592,6 +592,9 @@
     <ClCompile Include="CLightBolt.cpp">
       <Filter>GameObject\PlayerSkil\Bolt\LigthBolt</Filter>
     </ClCompile>
+    <ClCompile Include="CShockHit.cpp">
+      <Filter>GameObject\PlayerSkil\Bolt\LigthBolt</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -911,6 +914,9 @@
       <Filter>GameObject\PlayerSkil\Bolt\FrozenBolt</Filter>
     </ClInclude>
     <ClInclude Include="CLightBolt.h">
+      <Filter>GameObject\PlayerSkil\Bolt\LigthBolt</Filter>
+    </ClInclude>
+    <ClInclude Include="CShockHit.h">
       <Filter>GameObject\PlayerSkil\Bolt\LigthBolt</Filter>
     </ClInclude>
   </ItemGroup>

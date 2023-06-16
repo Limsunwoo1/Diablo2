@@ -10,6 +10,9 @@
 #include "CLayer.h"
 #include "CRenderer.h"
 #include "CConstantBuffer.h"
+#include "CCamera.h"
+#include "CRenderer.h"
+#include "CShockHit.h"
 
 LightBolt::LightBolt()
 	: BoltBase()
@@ -17,7 +20,7 @@ LightBolt::LightBolt()
 	, mCurObject(nullptr)
 	, mNextObject(nullptr)
 	, mDriectionTime(0.1f)
-	, mRadius(1500.f)
+	, mRadius(600.f)
 	, mBounceCount(0)
 	, mBounceMaxCount(6)
 	, mDirection(false) // false Y 가 줄어듬 true Y 가 늘어남
@@ -36,7 +39,7 @@ void LightBolt::Initalize()
 {
 	// 사이즈
 	Transform* tr = GetComponent<Transform>();
-	tr->SetSize(Vector3(320.f, 320.f, 1.0f));
+	tr->SetSize(Vector3(5000, 5000, 1.0f));
 
 	// 애니메이터 초기화
 	InitAnimation();
@@ -186,6 +189,10 @@ void LightBolt::SearchArriveTarget()
 	Transform* tr = mCurObject->GetComponent<Transform>();
 	Vector3 Pos = tr->GetPosition();
 
+	Camera* camera = Renderer::mainCamera;
+	Transform* cameraTr = camera->GetOwner()->GetComponent<Transform>();
+	Vector3 CameraPos = cameraTr->GetPosition();
+	Vector2 WindowSize = Vector2(1600.f, 900.f);
 
 	// 현재 위치에 인접한 몬스터 탐색
 	std::unordered_map<float, GameObject*> arriveList;
@@ -206,7 +213,13 @@ void LightBolt::SearchArriveTarget()
 		const Transform* objTr = obj->GetComponent<Transform>();
 		Vector3 objPos = objTr->GetPosition();
 
-		Vector3 Vec = Pos - objPos;
+		/*if (objPos.x < CameraPos.x - (WindowSize.x * 0.5f) || objPos.x > CameraPos.x + (WindowSize.x * 0.5f))
+			continue;
+
+		if (objPos.y < CameraPos.y - (WindowSize.y * 0.5f) || objPos.y > CameraPos.y + (WindowSize.y * 0.5f))
+			continue;*/
+
+		Vector3 Vec = objPos - Pos;
 
 		float len = Vec.Length();
 		if (len < mRadius)
@@ -222,8 +235,6 @@ void LightBolt::SearchArriveTarget()
 	}
 
 	mNextObject = arriveList.begin()->second;
-
-	int a = 0;
 
 	// 다음 갈위치와 연결
 	//float ySize = fabs(Pos.y - mNextObject->GetComponent<Transform>()->GetPosition().y);
@@ -283,8 +294,6 @@ void LightBolt::LinghtingRun()
 		Angle(Vector2(nextPos.x, nextPos.y));
 	}
 
-
-
 	param.DurationFunc = [this](float InCurValue)
 	{
 		mDirection = false;
@@ -293,6 +302,9 @@ void LightBolt::LinghtingRun()
 
 	param.CompleteFunc = [this](float InCurValue)
 	{
+		ShockHit* shock = Object::Instantiate<ShockHit>(eLayerType::Effect, true);
+		shock->SetTarget(mCurObject);
+
 		if(mNextObject != nullptr)
 			mCurObject = mNextObject;
 
@@ -326,6 +338,9 @@ void LightBolt::LightningEnd()
 
 	param.CompleteFunc = [this](float InCurValue)
 	{
+		ShockHit* shock = Object::Instantiate<ShockHit>(eLayerType::Effect, true);
+		shock->SetTarget(mCurObject);
+
 		mCurObject = mNextObject;
 		SearchArriveTarget();
 	};

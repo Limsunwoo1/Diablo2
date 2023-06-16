@@ -222,6 +222,7 @@
     <ClInclude Include="CSelectButtonSystem.h" />
     <ClInclude Include="CSelectSystemButton.h" />
     <ClInclude Include="CShader.h" />
+    <ClInclude Include="CShockHit.h" />
     <ClInclude Include="CShoesItem.h" />
     <ClInclude Include="CSkil.h" />
     <ClInclude Include="CFireTargetPin.h" />
@@ -329,6 +330,7 @@
     <ClCompile Include="CSelectButtonSystem.cpp" />
     <ClCompile Include="CSelectSystemButton.cpp" />
     <ClCompile Include="CShader.cpp" />
+    <ClCompile Include="CShockHit.cpp" />
     <ClCompile Include="CShoesItem.cpp" />
     <ClCompile Include="CSkil.cpp" />
     <ClCompile Include="CFireTargetPin.cpp" />
