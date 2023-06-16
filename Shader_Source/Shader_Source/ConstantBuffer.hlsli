@@ -113,3 +113,10 @@ cbuffer ObjectData : register(b12)
     bool OnObject;
     float ObjectAlpha;
 }
+
+cbuffer LightingData : register(b13)
+{
+    uint ElementType;
+    bool direction;
+    float vScale;
+}

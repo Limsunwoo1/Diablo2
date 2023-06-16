@@ -141,6 +141,13 @@ namespace Renderer
 		float ObjectAlpha;
 	};
 
+	CBUFFER(LightingBoltCB, CBSLOT_LIGHTNING)
+	{
+		UINT BoltType;
+		bool Driection;
+		float vValue;
+	};
+
 	extern Vertex FadeInOut[4];
 	extern Vertex vertexes[4];
 	extern Vertex HalfAlpha[4];

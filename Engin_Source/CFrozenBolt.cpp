@@ -9,7 +9,7 @@
 FrozenBolt::FrozenBolt()
 	: BoltBase()
 {
-	SetElementType(eElementType::HitFire);
+	SetElementType(eElementType::HitFrozen);
 }
 
 FrozenBolt::~FrozenBolt()

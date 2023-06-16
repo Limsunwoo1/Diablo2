@@ -24,6 +24,7 @@
 #define CBSLOT_ITEMDATA			10
 #define CBSLOT_TILEDATA			11
 #define CBSLOT_OBEJECTDATA		12
+#define CBSLOT_LIGHTNING		13
 
 namespace graphics
 {
@@ -42,6 +43,7 @@ namespace graphics
 		ItemData,
 		TileData,
 		ObjectData,
+		LightingData,
 		End,
 	};
 

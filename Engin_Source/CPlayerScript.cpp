@@ -9,6 +9,7 @@
 #include "CMeteor.h"
 #include "CFireBolt.h"
 #include "CFrozenBolt.h"
+#include "CLightBolt.h"
 
 // Component
 #include "CSpriteRenderer.h"
@@ -302,6 +303,33 @@ void PlayerScript::FixedUpdate()
 
 			frozenbolt->Angle(mousePos);
 			frozenbolt->SetOwner(player);
+
+
+			SetPlayerDirection();
+			ResetAStar();
+			return;
+		}
+	}
+	else if (Input::GetInstance()->GetKeyDown(eKeyCode::E))
+	{
+		if (player->GetState() == Player::PlayerState::Idle
+			|| player->GetState() == Player::PlayerState::Move)
+		{
+			player->SetState(Player::PlayerState::Skil);
+
+			LightBolt* lightbolt = Object::Instantiate<LightBolt>(eLayerType::PlayerSKil, true);
+			Transform* lightboltTr = lightbolt->GetComponent<Transform>();
+			lightboltTr->SetPosition(pos);
+
+			Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos(true);
+			Vector2 direction = mousePos - Vector2(pos.x, pos.y);
+
+			lightbolt->SetOwner(player);
+
+			// test
+			Layer& layer = SceneManager::GetInstance()->GetActiveScene()->GetLayer(eLayerType::Monster);
+			GameObject* obj = *(layer.GetGameObjects().begin());
+			lightbolt->LightingOn(obj);
 
 
 			SetPlayerDirection();

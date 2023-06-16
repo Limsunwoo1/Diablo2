@@ -49,6 +49,20 @@ float4 main(VSOut In) : SV_Target
     if (color.a <= 0.1f)
         discard;
     
+    if (ElementType == 3)
+    {
+        if(direction)
+        {
+            if(In.UV.y > vScale)
+                discard;
+        }
+        else
+        {
+            if(In.UV.y < vScale)
+                discard;
+        }
+    }
+    
     
     
     LightColor _lightColor = (LightColor) 0.0f;

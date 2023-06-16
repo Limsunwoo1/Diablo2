@@ -534,6 +534,9 @@ namespace Renderer
 
 		constantBuffers[(UINT)eCBType::ObjectData] = new ConstantBuffer(eCBType::ObjectData);
 		constantBuffers[(UINT)eCBType::ObjectData]->Create(sizeof(ObjectDataCB));
+
+		constantBuffers[(UINT)eCBType::LightingData] = new ConstantBuffer(eCBType::LightingData);
+		constantBuffers[(UINT)eCBType::LightingData]->Create(sizeof(LightingBoltCB));
 #pragma endregion
 #pragma region STRUCTED BUFER
 		// Structed buffer
@@ -1134,7 +1137,7 @@ namespace Renderer
 			std::shared_ptr<Material> LightnBolttMaterial = std::make_shared<Material>();
 			LightnBolttMaterial->SetRenderingMode(eRenderingMode::Transparent);
 			LightnBolttMaterial->SetShader(LightnBolt);
-			ResourceManager::GetInstance()->Insert<Material>(L"LightnBoltMaterial", LightnBolttMaterial);
+			ResourceManager::GetInstance()->Insert<Material>(L"LightBoltMaterial", LightnBolttMaterial);
 		}
 #pragma endregion
 	}
