@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CAndarielMonster.h" />
     <ClInclude Include="CBoltBase.h" />
     <ClInclude Include="CButton.h" />
     <ClInclude Include="CAnimation.h" />
@@ -194,6 +195,7 @@
     <ClInclude Include="CLightBolt.h" />
     <ClInclude Include="CMainPanel.h" />
     <ClInclude Include="CMainTitleScene.h" />
+    <ClInclude Include="CMephistoMonster.h" />
     <ClInclude Include="CMesh.h" />
     <ClInclude Include="CMaterial.h" />
     <ClInclude Include="CMeteor.h" />
@@ -217,6 +219,7 @@
     <ClInclude Include="CPlayScene.h" />
     <ClInclude Include="CPotionButton.h" />
     <ClInclude Include="CPrefab.h" />
+    <ClInclude Include="CRadamentMonster.h" />
     <ClInclude Include="CRenderer.h" />
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CScript.h" />
@@ -265,6 +268,7 @@
     <ClInclude Include="CPotionItem.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CAndarielMonster.cpp" />
     <ClCompile Include="CBoltBase.cpp" />
     <ClCompile Include="CButton.cpp" />
     <ClCompile Include="CAnimation.cpp" />
@@ -308,6 +312,7 @@
     <ClCompile Include="CLightBolt.cpp" />
     <ClCompile Include="CMainPanel.cpp" />
     <ClCompile Include="CMainTitleScene.cpp" />
+    <ClCompile Include="CMephistoMonster.cpp" />
     <ClCompile Include="CMesh.cpp" />
     <ClCompile Include="CMaterial.cpp" />
     <ClCompile Include="CCollider3D.cpp" />
@@ -327,6 +332,7 @@
     <ClCompile Include="CPlayScene.cpp" />
     <ClCompile Include="CPotionButton.cpp" />
     <ClCompile Include="CPrefab.cpp" />
+    <ClCompile Include="CRadamentMonster.cpp" />
     <ClCompile Include="CRenderer.cpp" />
     <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CScript.cpp" />

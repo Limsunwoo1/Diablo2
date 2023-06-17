@@ -183,7 +183,7 @@ void FrozenOrb::RunOrb()
 	Vector3 pos = tr->GetPosition();
 
 	mDirection.Normalize();
-	pos += Vector3(mDirection.x, mDirection.y, 0.0f) * Time::GetInstance()->DeltaTime() * 150.0f;
+	pos += Vector3(mDirection.x, mDirection.y, 0.0f) * Time::GetInstance()->DeltaTime() * 250.f;
 
 	tr->SetPosition(pos);
 }
@@ -198,7 +198,7 @@ void FrozenOrb::OnOrb()
 	param.AnimType = eAnimType::Linear;
 	param.StartValue = 0.0f;
 	param.EndValue = 1.0f;
-	param.DurationTime = 3.f;
+	param.DurationTime = 1.5;
 
 
 	int iSlice = 20;
@@ -265,10 +265,13 @@ void FrozenOrb::OnOrb()
 
 void FrozenOrb::RunningOrb()
 {
+	if (mSpeakerIndex >= mSpeakerMissile.size())
+		return;
+
 	mRunningTime += Time::GetInstance()->DeltaTime();
-	if (mRunningTime >= 0.1f)
+	if (mRunningTime >= 0.05f)
 	{
-		mRunningTime -= 0.1f;
+		mRunningTime -= 0.05f;
 
 		mSpeakerMissile[mSpeakerIndex]->Active();
 
@@ -279,7 +282,7 @@ void FrozenOrb::RunningOrb()
 		tr->SetRotation(Vector3(0.0f, 0.0f, mSpeakerIndex * fTheta));
 
 
-		if(mSpeakerIndex < mSpeakerMissile.size() - 1)
+		if(mSpeakerIndex < mSpeakerMissile.size())
 			mSpeakerIndex++;
 	}
 }
@@ -327,7 +330,7 @@ void FrozenOrb::OffOrb()
 	float startLine = 0.05f;
 	param.DurationFunc = [this, startLine](float InCurValue)
 	{
-		if (InCurValue * 5.0f >= startLine)
+		if (InCurValue * 20.f >= startLine)
 		{
 			for (int i = 0; i < 20; ++i)
 			{

@@ -92,10 +92,10 @@ void CharacterSelectScene::Initalize()
 
 void CharacterSelectScene::Update()
 {
-	if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN))
-	{
-		//SceneManager::GetInstance()->LoadScene(eSceneType::Create);
-	}
+	//if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN))
+	//{
+	//	//SceneManager::GetInstance()->LoadScene(eSceneType::Create);
+	//}
 
 	Scene::Update();
 }

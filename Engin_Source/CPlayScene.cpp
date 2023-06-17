@@ -12,6 +12,9 @@
 #include "CPlayer.h"
 #include "CMinosTauros.h"
 #include "CSpearMonster.h"
+#include "CRadamentMonster.h"
+#include "CMephistoMonster.h"
+#include "CAndarielMonster.h"
 
 // Static
 #include "CObject.h"
@@ -170,11 +173,11 @@ void PlayScene::Initalize()
 		Transform* spearTr = monster->GetComponent<Transform>();
 		spearTr->SetPosition(Vector3(5400.f, 7160.f, 1.0f));
 
-		MinosTauros* mino = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		MephistoMonster* mino = Object::Instantiate<MephistoMonster>(eLayerType::Monster, this);
 		Transform* minoTr = mino->GetComponent<Transform>();
 		minoTr->SetPosition(Vector3(5600.f, 7360.f, 1.0f));
 
-		MinosTauros* mino1 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		AndarielMonster* mino1 = Object::Instantiate<AndarielMonster>(eLayerType::Monster, this);
 		Transform* minoTr1 = mino1->GetComponent<Transform>();
 		minoTr1->SetPosition(Vector3(4081.f, 9000.f, 1.0f));
 
@@ -195,7 +198,7 @@ void PlayScene::Initalize()
 			Transform* minoTr2 = mino2->GetComponent<Transform>();
 			minoTr2->SetPosition(Vector3(4800, 8761.f, 1.0f));
 
-			MinosTauros* mino3 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+			RadamentMonster* mino3 = Object::Instantiate<RadamentMonster>(eLayerType::Monster, this);
 			Transform* minoTr3 = mino3->GetComponent<Transform>();
 			minoTr3->SetPosition(Vector3(4500, 8361.f, 1.0f));
 		}

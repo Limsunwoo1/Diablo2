@@ -1,4 +1,4 @@
-#include "CSpearMonster.h"
+#include "CRadamentMonster.h"
 #include "CAnimator.h"
 #include "CSpriteRenderer.h"
 #include "CResourceManager.h"
@@ -7,16 +7,16 @@
 #include "CMinoMonsterScript.h"
 
 
-SpearMonster::SpearMonster()
+RadamentMonster::RadamentMonster()
 	: Monster()
 {
 }
 
-SpearMonster::~SpearMonster()
+RadamentMonster::~RadamentMonster()
 {
 }
 
-void SpearMonster::Initalize()
+void RadamentMonster::Initalize()
 {
 	InitAnimation();
 
@@ -27,7 +27,7 @@ void SpearMonster::Initalize()
 	SetMaxHp(200.f);
 	SetHP(200.f);
 
-	SetMonsterStatusEffect(eElementType::HitFrozen);
+	//SetMonsterStatusEffect(MonsterStatusEffect::HitFrozen);
 
 	// Astar
 	AddComponent<AStar>();
@@ -41,14 +41,14 @@ void SpearMonster::Initalize()
 	mMaterial = std::make_shared<Material>();
 	mMaterial.get()->SetRenderingMode(graphics::eRenderingMode::Transparent);
 
-	std::weak_ptr<Shader> shader= ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+	std::weak_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
 	mMaterial->SetShader(shader);
 
 	sr->SetMesh(mesh);
 	sr->SetMaterial(mMaterial);
 }
 
-void SpearMonster::Update()
+void RadamentMonster::Update()
 {
 	if (GetHP() < 0)
 	{
@@ -58,95 +58,95 @@ void SpearMonster::Update()
 	Monster::Update();
 }
 
-void SpearMonster::FixedUpdate()
+void RadamentMonster::FixedUpdate()
 {
 	Monster::FixedUpdate();
 }
 
-void SpearMonster::Render()
+void RadamentMonster::Render()
 {
 	Monster::Render();
 }
 
-void SpearMonster::InitAnimation()
+void RadamentMonster::InitAnimation()
 {
 	Animator* animator = AddComponent<Animator>();
 	{
 		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->
-			Load<Texture2D>(L"SpearIdle", L"Monster//SpearMonster//Idle.png");
-		// 128.7 100.875
-		float x = 128.7f;
-		float y = 100.875f;
+			Load<Texture2D>(L"RadamentIdle", L"Monster//Radament//idle.png");
+		// 202 202.125
+		float x = 202.f;
+		float y = 202.125f;
 		for (int i = 0; i < 8; ++i)
 		{
-			wstring name = L"SpearIdle";
+			wstring name = L"RadamentIdle";
 			name += std::to_wstring(i);
 
 			animator->Create(name, tex,
-				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 10, 0.1f);
+				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 12, 0.1f);
 		}
 
 	}
 
 	{
 		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->
-			Load<Texture2D>(L"SpearRun", L"Monster//SpearMonster//Run.png");
-		// 125.75 101
-		float x = 125.75f;
-		float y = 101.f;
+			Load<Texture2D>(L"RadamentRun", L"Monster//Radament//Run.png");
+		// 202.055 202.125
+		float x = 202.055f;
+		float y = 202.125f;
 		for (int i = 0; i < 8; ++i)
 		{
-			wstring name = L"SpearRun";
+			wstring name = L"RadamentRun";
 			name += std::to_wstring(i);
 
 			animator->Create(name, tex,
-				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 8, 0.1f);
+				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 18, 0.1f);
 		}
 	}
 
 	{
 		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->
-			Load<Texture2D>(L"SpearAttack", L"Monster//SpearMonster//Attack.png");
-		// 164.95 167.875
-		float x = 164.95f;
-		float y = 167.875f;
+			Load<Texture2D>(L"RadamentAttack", L"Monster//Radament//Attack.png");
+		// 202.0625 202.125
+		float x = 202.0625f;
+		float y = 202.125f;
 		for (int i = 0; i < 8; ++i)
 		{
-			wstring name = L"SpearAttack";
+			wstring name = L"RadamentAttack";
 			name += std::to_wstring(i);
 
 			animator->Create(name, tex,
-				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 20, 0.05f);
+				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 16, 0.05f);
 		}
 	}
 
 	{
 		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->
-			Load<Texture2D>(L"SpearDeath", L"Monster//SpearMonster//Death.png");
-		// 161.0526 149
-		float x = 161.0526f;
-		float y = 149.f;
+			Load<Texture2D>(L"RadamentDeath", L"Monster//Radament//Death.png");
+		// 202.05 202.125
+		float x = 202.05f;
+		float y = 202.125f;
 		for (int i = 0; i < 8; ++i)
 		{
-			wstring name = L"SpearDeath";
+			wstring name = L"RadamentDeath";
 			name += std::to_wstring(i);
 
 			animator->Create(name, tex,
-				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 15, 0.1f);
+				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 20, 0.1f);
 		}
 	}
 
-	animator->Play(L"SpearIdle4");
+	animator->Play(L"RadamentIdle4");
 }
 
-void SpearMonster::idle()
+void RadamentMonster::idle()
 {
 
 
 	Animator* animator = this->GetComponent<Animator>();
 	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
 
-	wstring playName = L"SpearIdle";
+	wstring playName = L"RadamentIdle";
 	UINT index = GetDirection();
 	playName += std::to_wstring(index);
 
@@ -165,12 +165,12 @@ void SpearMonster::idle()
 	animator->Play(playName);
 }
 
-void SpearMonster::move()
+void RadamentMonster::move()
 {
 	Animator* animator = GetComponent<Animator>();
 	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
 
-	wstring playName = L"SpearRun";
+	wstring playName = L"RadamentRun";
 	UINT index = GetDirection();
 	playName += std::to_wstring(index);
 
@@ -190,12 +190,12 @@ void SpearMonster::move()
 
 }
 
-void SpearMonster::attack()
+void RadamentMonster::attack()
 {
 	Animator* animator = GetComponent<Animator>();
 	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
 
-	wstring playName = L"SpearAttack";
+	wstring playName = L"RadamentAttack";
 	UINT Index = GetIndex();
 	playName += std::to_wstring(Index);
 
@@ -213,16 +213,17 @@ void SpearMonster::attack()
 	}
 }
 
-void SpearMonster::hit()
+void RadamentMonster::hit()
 {
+
 }
 
-void SpearMonster::monsterDead()
+void RadamentMonster::monsterDead()
 {
 	Animator* animator = GetComponent<Animator>();
 	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
 
-	wstring playName = L"SpearDeath";
+	wstring playName = L"RadamentDeath";
 	UINT index = GetDirection();
 	playName += std::to_wstring(index);
 
@@ -238,16 +239,16 @@ void SpearMonster::monsterDead()
 	animator->Play(playName, false);
 }
 
-void SpearMonster::hitFire()
+void RadamentMonster::hitFire()
 {
 
 }
 
-void SpearMonster::hitFrozen()
+void RadamentMonster::hitFrozen()
 {
 }
 
-void SpearMonster::hitLight()
+void RadamentMonster::hitLight()
 {
 }
 

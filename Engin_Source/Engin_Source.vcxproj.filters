@@ -286,6 +286,15 @@
     <Filter Include="GameObject\Monster\SpearMonster">
       <UniqueIdentifier>{b47d79cd-97e9-47ee-8101-ff93d0cd21d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Monster\RadamentMonster">
+      <UniqueIdentifier>{a6b94077-5ad7-4517-a8c1-f78547a3a857}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Monster\MephistoMonster">
+      <UniqueIdentifier>{abdeefde-1209-46b4-a0ad-51db1d402353}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Monster\AndarielMonster">
+      <UniqueIdentifier>{e9318d07-407f-4d8f-8d99-692bb79be0f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -603,6 +612,15 @@
     </ClCompile>
     <ClCompile Include="CSpearMonster.cpp">
       <Filter>GameObject\Monster\SpearMonster</Filter>
+    </ClCompile>
+    <ClCompile Include="CMephistoMonster.cpp">
+      <Filter>GameObject\Monster\MephistoMonster</Filter>
+    </ClCompile>
+    <ClCompile Include="CRadamentMonster.cpp">
+      <Filter>GameObject\Monster\RadamentMonster</Filter>
+    </ClCompile>
+    <ClCompile Include="CAndarielMonster.cpp">
+      <Filter>GameObject\Monster\AndarielMonster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -933,6 +951,15 @@
     </ClInclude>
     <ClInclude Include="CSpearMonster.h">
       <Filter>GameObject\Monster\SpearMonster</Filter>
+    </ClInclude>
+    <ClInclude Include="CMephistoMonster.h">
+      <Filter>GameObject\Monster\MephistoMonster</Filter>
+    </ClInclude>
+    <ClInclude Include="CRadamentMonster.h">
+      <Filter>GameObject\Monster\RadamentMonster</Filter>
+    </ClInclude>
+    <ClInclude Include="CAndarielMonster.h">
+      <Filter>GameObject\Monster\AndarielMonster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

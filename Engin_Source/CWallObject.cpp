@@ -173,6 +173,32 @@ void WallObject::Update()
 	{
 		mAlpha = 0.3f;
 	}
+
+
+	if (mAlpha >= 1.0f)
+	{
+		Layer& layer = SceneManager::GetInstance()->GetActiveScene()->GetLayer(eLayerType::Monster);
+
+		const std::vector<GameObject*>& object = layer.GetGameObjects();
+
+		Transform* Tr = GetComponent<Transform>();
+		Vector3 pos = Tr->GetPosition() + Tr->GetOffset();//- (Tr->GetSize() * 0.5f);
+
+		for (GameObject* obj : object)
+		{
+			if (obj == nullptr)
+				return;
+
+			Transform* objtr = obj->GetComponent<Transform>();
+			Vector2 objPos = Vector2(objtr->GetPosition().x, objtr->GetPosition().y) + (objtr->GetSize() * 0.25f);
+
+			Vector3 diff = pos - objPos;
+
+			float len = diff.Length();
+
+			mAlpha = len / 200.f;
+		}
+	}
 }
 
 void WallObject::FixedUpdate()

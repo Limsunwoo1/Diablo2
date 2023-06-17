@@ -1,4 +1,4 @@
-#include "CSpearMonster.h"
+#include "CMephistoMonster.h"
 #include "CAnimator.h"
 #include "CSpriteRenderer.h"
 #include "CResourceManager.h"
@@ -7,16 +7,16 @@
 #include "CMinoMonsterScript.h"
 
 
-SpearMonster::SpearMonster()
+MephistoMonster::MephistoMonster()
 	: Monster()
 {
 }
 
-SpearMonster::~SpearMonster()
+MephistoMonster::~MephistoMonster()
 {
 }
 
-void SpearMonster::Initalize()
+void MephistoMonster::Initalize()
 {
 	InitAnimation();
 
@@ -27,7 +27,7 @@ void SpearMonster::Initalize()
 	SetMaxHp(200.f);
 	SetHP(200.f);
 
-	SetMonsterStatusEffect(eElementType::HitFrozen);
+	//SetMonsterStatusEffect(MonsterStatusEffect::HitFrozen);
 
 	// Astar
 	AddComponent<AStar>();
@@ -41,14 +41,14 @@ void SpearMonster::Initalize()
 	mMaterial = std::make_shared<Material>();
 	mMaterial.get()->SetRenderingMode(graphics::eRenderingMode::Transparent);
 
-	std::weak_ptr<Shader> shader= ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+	std::weak_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
 	mMaterial->SetShader(shader);
 
 	sr->SetMesh(mesh);
 	sr->SetMaterial(mMaterial);
 }
 
-void SpearMonster::Update()
+void MephistoMonster::Update()
 {
 	if (GetHP() < 0)
 	{
@@ -58,95 +58,125 @@ void SpearMonster::Update()
 	Monster::Update();
 }
 
-void SpearMonster::FixedUpdate()
+void MephistoMonster::FixedUpdate()
 {
 	Monster::FixedUpdate();
 }
 
-void SpearMonster::Render()
+void MephistoMonster::Render()
 {
 	Monster::Render();
 }
 
-void SpearMonster::InitAnimation()
+void MephistoMonster::InitAnimation()
 {
 	Animator* animator = AddComponent<Animator>();
 	{
 		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->
-			Load<Texture2D>(L"SpearIdle", L"Monster//SpearMonster//Idle.png");
-		// 128.7 100.875
-		float x = 128.7f;
-		float y = 100.875f;
+			Load<Texture2D>(L"MephistoIdle", L"Monster//Mephisto//idle.png");
+		// 307.076 307
+		float x = 307.076f;
+		float y = 307.f;
+
+		int count = 4;
+
 		for (int i = 0; i < 8; ++i)
 		{
-			wstring name = L"SpearIdle";
-			name += std::to_wstring(i);
+			wstring name = L"MephistoIdle";
+			name += std::to_wstring(count);
 
 			animator->Create(name, tex,
-				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 10, 0.1f);
+				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 13, 0.1f);
+
+			count++;
+
+			if (count >= 8)
+				count = 0;
 		}
 
 	}
 
 	{
 		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->
-			Load<Texture2D>(L"SpearRun", L"Monster//SpearMonster//Run.png");
-		// 125.75 101
-		float x = 125.75f;
-		float y = 101.f;
+			Load<Texture2D>(L"MephistoRun", L"Monster//Mephisto//Run.png");
+		// 307.0769 307
+		float x = 307.0769f;
+		float y = 307.f;
+
+		int count = 4;
 		for (int i = 0; i < 8; ++i)
 		{
-			wstring name = L"SpearRun";
-			name += std::to_wstring(i);
+			wstring name = L"MephistoRun";
+			name += std::to_wstring(count);
 
 			animator->Create(name, tex,
-				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 8, 0.1f);
+				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 13, 0.1f);
+
+			count++;
+
+			if (count >= 8)
+				count = 0;
 		}
 	}
 
 	{
 		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->
-			Load<Texture2D>(L"SpearAttack", L"Monster//SpearMonster//Attack.png");
-		// 164.95 167.875
-		float x = 164.95f;
-		float y = 167.875f;
+			Load<Texture2D>(L"MephistoAttack", L"Monster//Mephisto//Attack.png");
+		// 202.0625 202.125
+		float x = 307.f;
+		float y = 307.f;
+
+		int count = 4;
 		for (int i = 0; i < 8; ++i)
 		{
-			wstring name = L"SpearAttack";
-			name += std::to_wstring(i);
+			wstring name = L"MephistoAttack";
+			name += std::to_wstring(count);
 
 			animator->Create(name, tex,
-				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 20, 0.05f);
+				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 18, 0.05f);
+
+			count++;
+
+			if (count >= 8)
+				count = 0;
 		}
 	}
 
 	{
 		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->
-			Load<Texture2D>(L"SpearDeath", L"Monster//SpearMonster//Death.png");
-		// 161.0526 149
-		float x = 161.0526f;
-		float y = 149.f;
+			Load<Texture2D>(L"MephistoDeath", L"Monster//Mephisto//Death.png");
+		// 202.05 202.125
+		float x = 307.f;
+		float y = 307.f;
+
+		int count = 4;
+
 		for (int i = 0; i < 8; ++i)
 		{
-			wstring name = L"SpearDeath";
-			name += std::to_wstring(i);
+			wstring name = L"MephistoDeath";
+			name += std::to_wstring(count);
 
 			animator->Create(name, tex,
-				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 15, 0.1f);
+				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 25, 0.1f);
+
+			count++;
+
+			if (count >= 8)
+				count = 0;
 		}
 	}
 
-	animator->Play(L"SpearIdle4");
+	animator->Play(L"MephistoDeath4");
 }
 
-void SpearMonster::idle()
+void MephistoMonster::idle()
 {
 
 
 	Animator* animator = this->GetComponent<Animator>();
 	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
 
-	wstring playName = L"SpearIdle";
+	wstring playName = L"MephistoIdle";
 	UINT index = GetDirection();
 	playName += std::to_wstring(index);
 
@@ -165,12 +195,12 @@ void SpearMonster::idle()
 	animator->Play(playName);
 }
 
-void SpearMonster::move()
+void MephistoMonster::move()
 {
 	Animator* animator = GetComponent<Animator>();
 	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
 
-	wstring playName = L"SpearRun";
+	wstring playName = L"MephistoRun";
 	UINT index = GetDirection();
 	playName += std::to_wstring(index);
 
@@ -190,12 +220,12 @@ void SpearMonster::move()
 
 }
 
-void SpearMonster::attack()
+void MephistoMonster::attack()
 {
 	Animator* animator = GetComponent<Animator>();
 	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
 
-	wstring playName = L"SpearAttack";
+	wstring playName = L"MephistoAttack";
 	UINT Index = GetIndex();
 	playName += std::to_wstring(Index);
 
@@ -213,16 +243,17 @@ void SpearMonster::attack()
 	}
 }
 
-void SpearMonster::hit()
+void MephistoMonster::hit()
 {
+
 }
 
-void SpearMonster::monsterDead()
+void MephistoMonster::monsterDead()
 {
 	Animator* animator = GetComponent<Animator>();
 	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
 
-	wstring playName = L"SpearDeath";
+	wstring playName = L"MephistoDeath";
 	UINT index = GetDirection();
 	playName += std::to_wstring(index);
 
@@ -238,16 +269,16 @@ void SpearMonster::monsterDead()
 	animator->Play(playName, false);
 }
 
-void SpearMonster::hitFire()
+void MephistoMonster::hitFire()
 {
 
 }
 
-void SpearMonster::hitFrozen()
+void MephistoMonster::hitFrozen()
 {
 }
 
-void SpearMonster::hitLight()
+void MephistoMonster::hitLight()
 {
 }
 

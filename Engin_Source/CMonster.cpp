@@ -74,9 +74,9 @@ void Monster::Update()
 		Vector3 diff = objPos - Pos;
 		diff.Normalize();
 		objPos += diff * Time::GetInstance()->DeltaTime() * 300.f;
-		//Pos += diff * 0.5f;
+		Pos += -(diff) * Time::GetInstance()->DeltaTime() * 300.f;
 
-		//Tr->SetPosition(Pos);
+		Tr->SetPosition(Pos);
 		objTr->SetPosition(objPos);
 
 		Script* sript = obj->GetScript<Script>();
@@ -84,6 +84,7 @@ void Monster::Update()
 			continue;
 
 		sript->ResetAStar();
+		break;
 		//sript->SetTime(0.f);
 	}
 
