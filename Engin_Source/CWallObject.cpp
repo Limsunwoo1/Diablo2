@@ -68,14 +68,15 @@ void WallObject::Update()
 	Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos();
 
 	if (_Editor.GetActive())
+	{
 		mousePos = _Editor.GetEditorWorldMousePos();
 
+		if (mPos.x - TILE_X_HALF_SIZE > mousePos.x || mPos.x + TILE_X_HALF_SIZE < mousePos.x)
+			return;
 
-	//if (mPos.x - TILE_X_HALF_SIZE > mousePos.x || mPos.x + TILE_X_HALF_SIZE < mousePos.x)
-	//	return;
-
-	//if (mPos.y - TILE_Y_HALF_SIZE > mousePos.y || mPos.y + TILE_Y_HALF_SIZE < mousePos.y)
-	//	return;
+		if (mPos.y - TILE_Y_HALF_SIZE > mousePos.y || mPos.y + TILE_Y_HALF_SIZE < mousePos.y)
+			return;
+	}
 
 	// 기울기
 	float fslope = (100.f * 0.5f) / (200.f * 0.5f);
@@ -134,14 +135,20 @@ void WallObject::Update()
 			mbOnObject = true;
 		}
 
+		if(SceneManager::GetInstance()->GetActiveScene()->GetScenType() == eSceneType::Tool)
+			mbOnObject = true;
+
 		_Editor.GetWidget<gui::Game>("Game")->SetCreateObject(false);
 	}
 
 	GameObject* player = WorldManager::GetInstance()->GetPlayer();
 	if (player == nullptr)
+	{ 
+		mAlpha = 1.0f;
+		GameObject::Update();
 		return;
+	}
 
-	GameObject::Update();
 
 	Transform* playertr = player->GetComponent<Transform>();
 	Vector2 PlayerPos = Vector2(playertr->GetPosition().x, playertr->GetPosition().y) + (playertr->GetSize() * 0.25f);
@@ -150,12 +157,13 @@ void WallObject::Update()
 	Vector3 pos = Tr->GetPosition() + Tr->GetOffset();//- (Tr->GetSize() * 0.5f);
 
 
-	float distance = fabs(PlayerPos.y - pos.y);
+	Vector3 distance = PlayerPos - pos;
+	float len = distance.Length();
 	// 플리이어와의 거리별 알파값 세팅
 
-	float maxIdstance = 200.f;
+	float maxIdstance = 400.f;
 
-	mAlpha = distance / maxIdstance;
+	mAlpha = len / maxIdstance;
 
 	if (mAlpha >= 1.0f)
 	{

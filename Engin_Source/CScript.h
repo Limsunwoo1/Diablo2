@@ -24,10 +24,14 @@ public:
 	void SetPosData(std::stack<Math::Vector2>& pos);
 	virtual void ResetAStar() {};
 
+	void SetTime(float time) { mTime = time; }
+	void SetMaxTime(float time) { mMaxTime = time; }
 protected:
 	std::stack<Math::Vector2> mPosData;
 	bool mbInput;
 	float mInputDelay;
+	float mTime;
+	float mMaxTime;
 
 
 	Vector2 mNodePos;

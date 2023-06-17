@@ -54,8 +54,10 @@ void MinoMonsterScript::FixedUpdate()
 
 
 	mTime += Time::GetInstance()->DeltaTime();
-	if(mTime >= 0.1f)
+	if(mTime >= mMaxTime)
 	{
+		mMaxTime = 0.1f;
+
 		AStar* astar = GetOwner()->GetComponent<AStar>();
 		if (astar == nullptr)
 			return;
@@ -154,8 +156,11 @@ void MinoMonsterScript::FixedUpdate()
 
 		Vec.Normalize();
 		Vec.z = 0.0f;
+
+		Vector3 lenght = TargetPos - pos;
+		float len = lenght.Length();
 		
-		if (abs(TargetPos.x - pos.x) < 50 && (TargetPos.y - pos.y) < 25)
+		if (len <= 100.f)
 		{
 			mArrivePos = Vector2::Zero;
 			monster->SetMonsterState(Monster::MonsterState::Attack);

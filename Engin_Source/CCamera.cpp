@@ -172,8 +172,11 @@ void Camera::SortGameObjects()
 
 			continue;
 		}
-
 		Layer& layer = scene->GetLayer((eLayerType)i);
+
+		if(i != (UINT)eLayerType::UI)
+			layer.SortObjects();
+
 		GameObjects gameObjects = layer.GetGameObjects();
 		if (gameObjects.size() == 0)
 			continue;

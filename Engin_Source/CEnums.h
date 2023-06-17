@@ -23,8 +23,8 @@ enum class eLayerType
 	TileCarve,
 	Grid,
 	MonsterSkil,
-	PlayerSKil,
 	Monster,
+	PlayerSKil,
 	Player,
 	Wall,
 

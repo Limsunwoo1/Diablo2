@@ -1,6 +1,9 @@
 #include "CMonster.h"
 #include "CTime.h"
 #include "CAnimator.h"
+#include "CLayer.h"
+#include "CSceneManager.h"
+#include "CScript.h"
 
 Monster::Monster()
 	: GameObject()
@@ -39,6 +42,50 @@ void Monster::Update()
 
 	if(mTarget == nullptr)
 		mReset = true;
+
+
+	Scene* scene = SceneManager::GetInstance()->GetActiveScene();
+	Layer& layer = scene->GetLayer(eLayerType::Monster);
+	const std::vector<GameObject*>& Objects = layer.GetGameObjects();
+	
+	Vector2 collisionSize = Vector2(35.f, 35.f);
+
+	for (GameObject* obj : Objects)
+	{
+		if (obj == nullptr)
+			continue;
+
+		if (obj == this)
+			continue;
+
+		Transform* Tr = GetComponent<Transform>();
+		Vector3 Pos = Tr->GetPosition();
+
+		Transform* objTr = obj->GetComponent<Transform>();
+		Vector3 objPos = objTr->GetPosition();
+
+		if ((Pos.x + collisionSize.x) < (objPos.x - collisionSize.x) || (Pos.x - collisionSize.x) > (objPos.x + collisionSize.x))
+			continue;
+
+		if ((Pos.y + collisionSize.y) < (objPos.y - collisionSize.y) || (Pos.y - collisionSize.y) > (objPos.y + collisionSize.y))
+			continue;
+
+
+		Vector3 diff = objPos - Pos;
+		diff.Normalize();
+		objPos += diff * Time::GetInstance()->DeltaTime() * 300.f;
+		//Pos += diff * 0.5f;
+
+		//Tr->SetPosition(Pos);
+		objTr->SetPosition(objPos);
+
+		Script* sript = obj->GetScript<Script>();
+		if (sript == nullptr)
+			continue;
+
+		sript->ResetAStar();
+		//sript->SetTime(0.f);
+	}
 
 	Run();
 	GameObject::Update();

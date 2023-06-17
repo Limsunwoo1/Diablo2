@@ -171,6 +171,23 @@ void Layer::Destroy()
 	}
 }
 
+void Layer::SortObjects()
+{
+	std::sort(mGameObjects.begin(), mGameObjects.end(), [](GameObject* a, GameObject* b)
+		{
+			Transform* aTr = a->GetComponent<Transform>();
+			Transform* bTr = b->GetComponent<Transform>();
+
+			Vector3 aPos = aTr->GetPosition() + aTr->GetOffset() - (aTr->GetSize() * 0.5f);
+			Vector3 bPos = bTr->GetPosition() + bTr->GetOffset() - (bTr->GetSize() * 0.5f);
+
+			if (aPos.y == bPos.y)
+				return a < b;
+			else
+				return aPos.y > bPos.y;
+		});
+}
+
 void Layer::AddGameObject(GameObject* gameObject)
 {
 	if (gameObject == nullptr)

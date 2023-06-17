@@ -20,7 +20,5 @@ public:
 
 private:
 	Vector2 mCurPos;
-
-	float mTime;
 };
 

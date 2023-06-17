@@ -276,7 +276,7 @@ void LightBolt::LinghtingRun()
 	param.AnimType = eAnimType::Linear;
 	param.StartValue = 0.0f;
 	param.EndValue = 1.0f;
-	param.DurationTime = 0.1f;
+	param.DurationTime = 0.15f;
 
 	// 각도 세팅
 	Transform* Tr = mCurObject->GetComponent<Transform>();
@@ -341,7 +341,10 @@ void LightBolt::LightningEnd()
 		ShockHit* shock = Object::Instantiate<ShockHit>(eLayerType::Effect, true);
 		shock->SetTarget(mCurObject);
 
-		mCurObject = mNextObject;
+		if (mNextObject != nullptr)
+			mCurObject = mNextObject;
+
+		mArriveList.insert(mCurObject);
 		SearchArriveTarget();
 	};
 

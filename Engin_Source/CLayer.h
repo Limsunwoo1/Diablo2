@@ -16,6 +16,8 @@ public:
 	virtual void Render();
 	virtual void Destroy();
 
+	void SortObjects();
+
 	void AddGameObject(GameObject* gameObject);
 	const GameObjects GetGameObjects() { return mGameObjects; }
 	std::vector<GameObject*> GetDontDestroyGameObjects();
