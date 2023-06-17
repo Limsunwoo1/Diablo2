@@ -6,6 +6,7 @@
 #include "CWorldManager.h"
 #include "CMinoMonsterScript.h"
 #include "CTime.h"
+#include "CAndarielScript.h"
 
 AndarielMonster::AndarielMonster()
 	: Monster()
@@ -42,7 +43,7 @@ void AndarielMonster::Initalize()
 	AddComponent<AStar>();
 
 	// Script
-	AddComponent<MinoMonsterScript>();
+	AddComponent<AndarielScript>();
 
 	// Renderer
 	SpriteRenderer* sr = AddComponent<SpriteRenderer>();

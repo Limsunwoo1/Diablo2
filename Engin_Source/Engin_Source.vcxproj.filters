@@ -622,6 +622,10 @@
     <ClCompile Include="CAndarielMonster.cpp">
       <Filter>GameObject\Monster\AndarielMonster</Filter>
     </ClCompile>
+    <ClCompile Include="CAndarielScript.cpp">
+      <Filter>Component\Script\Contents\MonsterScript</Filter>
+    </ClCompile>
+    <ClCompile Include="CAndarielSkil.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -961,6 +965,10 @@
     <ClInclude Include="CAndarielMonster.h">
       <Filter>GameObject\Monster\AndarielMonster</Filter>
     </ClInclude>
+    <ClInclude Include="CAndarielScript.h">
+      <Filter>Component\Script\Contents\MonsterScript</Filter>
+    </ClInclude>
+    <ClInclude Include="CAndarielSkil.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math.inl">

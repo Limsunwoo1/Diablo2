@@ -14,6 +14,9 @@ public:
 
 	virtual void InitAnimation() override;
 
+	float GetSkilCurTime() { return mSkilCurTime; }
+	float GetSkilCoolTime() { return mSkilCoolTime; }
+
 protected:
 	virtual void idle() override;
 	virtual void move() override;
@@ -26,7 +29,6 @@ protected:
 private:
 	std::shared_ptr<class Material> mMaterial;
 	std::shared_ptr<class Material> mOverlayMaterial;
-	std::vector<GameObject*> mSpecialCastSkil;
 	GameObject* mOverlay;
 
 	float mSkilCoolTime;

@@ -1,31 +1,37 @@
-#include "CMinoMonsterScript.h"
+#include "CAndarielScript.h"
 #include "CTransform.h"
 #include "CMonster.h"
 #include "CTime.h"
 #include "CWorldManager.h"
 #include "Cplayer.h"
+#include "CAndarielMonster.h"
 
-MinoMonsterScript::MinoMonsterScript()
+AndarielScript::AndarielScript()
 	: Script()
 	, mCurPos(Vector2(-1.f, -1.f))
 {
 }
 
-MinoMonsterScript::~MinoMonsterScript()
+AndarielScript::~AndarielScript()
 {
 }
 
-void MinoMonsterScript::Initalize()
+void AndarielScript::Initalize()
 {
 }
 
-void MinoMonsterScript::Update()
+void AndarielScript::Update()
 {
 }
 
-void MinoMonsterScript::FixedUpdate()
+void AndarielScript::FixedUpdate()
 {
-	Monster* monster = dynamic_cast<Monster*>(GetOwner());
+	Monster* owner = dynamic_cast<Monster*>(GetOwner());
+	if (owner == nullptr)
+		return;
+
+	AndarielMonster* monster = dynamic_cast<AndarielMonster*>(owner);
+
 	if (monster == nullptr)
 		return;
 
@@ -52,9 +58,29 @@ void MinoMonsterScript::FixedUpdate()
 	}
 
 
+	if (monster->GetSkilCurTime() > monster->GetSkilCoolTime())
+	{
+		Transform* playerTr = player->GetComponent<Transform>();
+		Vector3 playerPos = playerTr->GetPosition();
+
+		Transform* OwnerTr = monster->GetComponent<Transform>();
+		Vector3 OwnerPos = OwnerTr->GetPosition();
+
+		Vector3 diff = playerPos - OwnerPos;
+		float len = diff.Length();
+		
+		if (len < 800.f)
+		{
+			ResetAStar();
+			mArrivePos = Vector2::Zero;
+			monster->SetMonsterState(Monster::MonsterState::Attack);
+			return;
+		}
+	}
+
 
 	mTime += Time::GetInstance()->DeltaTime();
-	if(mTime >= mMaxTime)
+	if (mTime >= mMaxTime)
 	{
 		mMaxTime = 0.1f;
 
@@ -159,7 +185,7 @@ void MinoMonsterScript::FixedUpdate()
 
 		Vector3 lenght = TargetPos - pos;
 		float len = lenght.Length();
-		
+
 		if (len <= 100.f)
 		{
 			mArrivePos = Vector2::Zero;
@@ -167,16 +193,16 @@ void MinoMonsterScript::FixedUpdate()
 			return;
 		}
 
-		pos += Vec * Time::GetInstance()->DeltaTime() * 180.f;
+		pos += Vec * Time::GetInstance()->DeltaTime() * 240.f;
 		tr->SetPosition(pos);
 	}
 }
 
-void MinoMonsterScript::Render()
+void AndarielScript::Render()
 {
 }
 
-float MinoMonsterScript::GetAngle(Vector2& direction)
+float AndarielScript::GetAngle(Vector2& direction)
 {
 	Transform* tr = GetOwner()->GetComponent<Transform>();
 
@@ -201,7 +227,7 @@ float MinoMonsterScript::GetAngle(Vector2& direction)
 	return angle;
 }
 
-void MinoMonsterScript::ResetAStar()
+void AndarielScript::ResetAStar()
 {
 	mArrivePos = Vector2::Zero;
 	mNodePos = Vector2::Zero;

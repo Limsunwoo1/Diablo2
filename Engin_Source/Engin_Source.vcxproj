@@ -153,7 +153,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CAndarielSkil.h" />
     <ClInclude Include="CAndarielMonster.h" />
+    <ClInclude Include="CAndarielScript.h" />
     <ClInclude Include="CBoltBase.h" />
     <ClInclude Include="CButton.h" />
     <ClInclude Include="CAnimation.h" />
@@ -268,7 +270,9 @@
     <ClInclude Include="CPotionItem.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CAndarielSkil.cpp" />
     <ClCompile Include="CAndarielMonster.cpp" />
+    <ClCompile Include="CAndarielScript.cpp" />
     <ClCompile Include="CBoltBase.cpp" />
     <ClCompile Include="CButton.cpp" />
     <ClCompile Include="CAnimation.cpp" />
