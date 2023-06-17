@@ -105,5 +105,7 @@ private:
 
 	string mSaveName;
 	UINT mSavePathIndex;
+
+	GameObject* mShadow;
 };
 

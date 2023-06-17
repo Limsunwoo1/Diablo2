@@ -760,6 +760,7 @@ namespace Renderer
 		ResourceManager::GetInstance()->Load<Texture2D>(L"PlayerWalk", L"Diablo2_Walk.png");
 		ResourceManager::GetInstance()->Load<Texture2D>(L"PlayerRun", L"run.png");
 		ResourceManager::GetInstance()->Load<Texture2D>(L"PlayerIdle", L"Diablo2_Idle.png");
+		ResourceManager::GetInstance()->Load<Texture2D>(L"Shadow", L"Shadow.png");
 
 		{
 			std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"Tile", L"testTile.png");
@@ -1156,6 +1157,15 @@ namespace Renderer
 			LightnBolttMaterial->SetRenderingMode(eRenderingMode::Transparent);
 			LightnBolttMaterial->SetShader(LightnBolt);
 			ResourceManager::GetInstance()->Insert<Material>(L"LightBoltMaterial", LightnBolttMaterial);
+		}
+#pragma endregion
+#pragma region Shadow Material
+		{
+			std::weak_ptr<Shader>  ShadowShader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
+			std::shared_ptr<Material>ShadowMaterial = std::make_shared<Material>();
+			ShadowMaterial->SetRenderingMode(eRenderingMode::Transparent);
+			ShadowMaterial->SetShader(ShadowShader);
+			ResourceManager::GetInstance()->Insert<Material>(L"ShadowMaterial", ShadowMaterial);
 		}
 #pragma endregion
 	}

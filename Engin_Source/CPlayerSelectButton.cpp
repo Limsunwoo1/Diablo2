@@ -118,7 +118,8 @@ void PlayerSelectButton::Update()
 
 	if (!mCharterAnimation)
 		return;
-	
+	mCharterAnimation->Update();
+
 	if (mbPointToButton == 0 && mSystem->GetClickButton() != this)
 	{
 		BaseRenderer* ren = GetComponent<BaseRenderer>();
@@ -147,8 +148,6 @@ void PlayerSelectButton::Update()
 		Click();
 		mSystem->SetClickButton(this);
 	}
-
-	mCharterAnimation->Update();
 }
 
 void PlayerSelectButton::FixedUpdate()

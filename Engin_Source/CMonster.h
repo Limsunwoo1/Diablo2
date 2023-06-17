@@ -84,4 +84,7 @@ private:
 	float mDotDamageCoolTime;
 
 	bool mReset;
+
+protected:
+	GameObject* mShadow;
 };

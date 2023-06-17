@@ -4,6 +4,9 @@
 #include "CLayer.h"
 #include "CSceneManager.h"
 #include "CScript.h"
+#include "CMeshRenderer.h"
+#include "CResourceManager.h"
+#include "CTexture2D.h"
 
 Monster::Monster()
 	: GameObject()
@@ -23,10 +26,25 @@ Monster::Monster()
 
 Monster::~Monster()
 {
+	if (mShadow)
+		delete mShadow;
+
+	mShadow = nullptr;
 }
 
 void Monster::Initalize()
 {
+	// Shdow Init
+	mShadow = new GameObject;
+
+	MeshRenderer* mr = mShadow->AddComponent<MeshRenderer>();
+	std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+	std::weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"ShadowMaterial");
+	std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Shadow");
+	material.lock()->SetTexture(eTextureSlot::T0, tex);
+
+	mr->SetMesh(mesh);
+	mr->SetMaterial(material);
 }
 
 void Monster::Update()
@@ -90,15 +108,43 @@ void Monster::Update()
 
 	Run();
 	GameObject::Update();
+
+	if (mShadow)
+		mShadow->Update();
+
+	Transform* shadowTr = mShadow->GetComponent<Transform>();
+	Transform* OwnerTr = GetComponent<Transform>();
+
+	Vector3 OwnerPos = OwnerTr->GetPosition();
+	Vector3 OwnerSize = OwnerTr->GetSize();
+
+	float shadowY = OwnerPos.y - (OwnerSize.y * 0.25f);
+
+	Vector3 ShadowPos = shadowTr->GetPosition();
+	ShadowPos = OwnerPos;
+	ShadowPos.y = shadowY;
+
+	shadowTr->SetPosition(ShadowPos);
+	OwnerSize.x = OwnerSize.x * 0.15f;
+	OwnerSize.y = OwnerSize.y * 0.075f;
+	shadowTr->SetSize(OwnerSize);
 }
 
 void Monster::FixedUpdate()
 {
 	GameObject::FixedUpdate();
+
+	if (mShadow)
+		mShadow->FixedUpdate();
 }
 
 void Monster::Render()
 {
+
+	if (mShadow)
+		mShadow->Render();
+
+	
 	GameObject::Render();
 }
 

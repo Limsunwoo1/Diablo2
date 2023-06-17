@@ -37,7 +37,10 @@ Player::Player()
 
 Player::~Player()
 {
+	if (mShadow)
+		delete mShadow;
 
+	mShadow = nullptr;
 }
 
 void Player::Initalize()
@@ -48,17 +51,54 @@ void Player::Initalize()
 	AStar* astart = AddComponent<AStar>();
 
 	GameObject::Initalize();
+
+	// Shdow Init
+	mShadow = new GameObject;
+
+	MeshRenderer* mr = mShadow->AddComponent<MeshRenderer>();
+	std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+	std::weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"ShadowMaterial");
+	std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Shadow");
+	material.lock()->SetTexture(eTextureSlot::T0, tex);
+
+	mr->SetMesh(mesh);
+	mr->SetMaterial(material);
+
+
 }
 
 void Player::Update()
 {
 	GameObject::Update();
+	if(mShadow)
+		mShadow->Update();
+
+	Transform* shadowTr = mShadow->GetComponent<Transform>();
+	Transform* OwnerTr = GetComponent<Transform>();
+
+	Vector3 OwnerPos = OwnerTr->GetPosition();
+	Vector3 OwnerSize = OwnerTr->GetSize();
+
+	float shadowY = OwnerPos.y - (OwnerSize.y * 0.15f);
+
+	Vector3 ShadowPos = shadowTr->GetPosition();
+	ShadowPos = OwnerPos;
+	ShadowPos.y = shadowY;
+
+	shadowTr->SetPosition(ShadowPos);
+	OwnerSize.x = OwnerSize.x * 0.15f;
+	OwnerSize.y = OwnerSize.y * 0.075f;
+	shadowTr->SetSize(OwnerSize);
+
+
 	Run();
 }
 
 void Player::FixedUpdate()
 {
 	GameObject::FixedUpdate();
+	if (mShadow)
+		mShadow->FixedUpdate();
 }
 
 void Player::Render()
@@ -78,6 +118,8 @@ void Player::Render()
 	std::weak_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"test");
 	spr->GetMaterial().lock()->SetTexture(eTextureSlot::T0 ,texture);
 
+	if (mShadow)
+		mShadow->Render();
 
 	GameObject::Render();
 }

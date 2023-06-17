@@ -18,6 +18,8 @@ MephistoMonster::~MephistoMonster()
 
 void MephistoMonster::Initalize()
 {
+	Monster::Initalize();
+
 	InitAnimation();
 
 	Transform* minoTr = GetComponent<Transform>();

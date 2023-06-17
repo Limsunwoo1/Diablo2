@@ -41,6 +41,7 @@ void CharacterSelectScene::Initalize()
 	// Main Camera Game Object
 	GameObject* cameraObj = Object::Instantiate<GameObject>(eLayerType::Camera, this);
 	Camera* cameraComp = cameraObj->AddComponent<Camera>();
+	cameraComp->SetName(L"MainCamera");
 	//cameraComp->RegisterCameraInRenderer();
 	cameraComp->TurnLayerMask(eLayerType::UI, false);
 	cameraObj->AddComponent<CameraScript>();
@@ -51,6 +52,7 @@ void CharacterSelectScene::Initalize()
 		GameObject* cameraObj = Object::Instantiate<GameObject>(eLayerType::Camera, this);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
 		//cameraComp->RegisterCameraInRenderer();
+		cameraComp->SetName(L"UICamera");
 		cameraComp->EnableLayerMasks();
 		cameraComp->DisableLayerMasks();
 		cameraComp->TurnLayerMask(eLayerType::UI, true);

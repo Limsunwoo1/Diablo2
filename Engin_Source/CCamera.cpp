@@ -172,9 +172,10 @@ void Camera::SortGameObjects()
 
 			continue;
 		}
+
 		Layer& layer = scene->GetLayer((eLayerType)i);
 
-		if(i != (UINT)eLayerType::UI && i != (UINT)eLayerType::BackGround)
+		if(i != (UINT)eLayerType::UI && i != (UINT)eLayerType::BackGround && i != (UINT)eLayerType::Camera)
 			layer.SortObjects();
 
 		GameObjects gameObjects = layer.GetGameObjects();

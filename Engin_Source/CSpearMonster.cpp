@@ -18,6 +18,8 @@ SpearMonster::~SpearMonster()
 
 void SpearMonster::Initalize()
 {
+	Monster::Initalize();
+
 	InitAnimation();
 
 	Transform* minoTr = GetComponent<Transform>();
@@ -56,6 +58,23 @@ void SpearMonster::Update()
 	}
 
 	Monster::Update();
+
+	Transform* shadowTr = mShadow->GetComponent<Transform>();
+	Transform* OwnerTr = GetComponent<Transform>();
+
+	Vector3 OwnerPos = OwnerTr->GetPosition();
+	Vector3 OwnerSize = OwnerTr->GetSize();
+
+	float shadowY = OwnerPos.y - (OwnerSize.y * 0.25f);
+
+	Vector3 ShadowPos = shadowTr->GetPosition();
+	ShadowPos = OwnerPos;
+	ShadowPos.y = shadowY;
+
+	shadowTr->SetPosition(ShadowPos);
+	OwnerSize.x = OwnerSize.x * 0.15f;
+	OwnerSize.y = OwnerSize.y * 0.075f;
+	shadowTr->SetSize(OwnerSize);
 }
 
 void SpearMonster::FixedUpdate()

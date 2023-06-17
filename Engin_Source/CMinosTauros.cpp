@@ -66,6 +66,8 @@ void MinosTauros::Render()
 
 void MinosTauros::InitAnimation()
 {
+	Monster::Initalize();
+
 	Animator* animator = AddComponent<Animator>();
 	{
 		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->

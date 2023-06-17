@@ -18,6 +18,8 @@ RadamentMonster::~RadamentMonster()
 
 void RadamentMonster::Initalize()
 {
+	Monster::Initalize();
+
 	InitAnimation();
 
 	Transform* minoTr = GetComponent<Transform>();
