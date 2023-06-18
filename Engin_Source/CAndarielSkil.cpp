@@ -9,7 +9,7 @@
 
 AndarielSkil::AndarielSkil()
 	: Skil()
-	, mInterval(0.05f)
+	, mInterval(0.1f)
 	, mDeleta(0.f)
 {
 	mSpecialCastSkil.resize(9);
@@ -57,8 +57,9 @@ void AndarielSkil::Initalize()
 		mSpecialCastSkil[i] = new BoltBase();
 		mSpecialCastSkil[i]->SetRun(true);
 		mSpecialCastSkil[i]->Paused();
+		mSpecialCastSkil[i]->SetSpeed(600.f);
 
-		mSpecialCastSkil[i]->GetComponent<Transform>()->SetSize(Vector3(400.f, 400.f, 1.0f));
+		mSpecialCastSkil[i]->GetComponent<Transform>()->SetSize(Vector3(700.f, 700.f, 1.0f));
 
 
 		mSpecialCastSkil[i]->Initalize();
@@ -83,7 +84,8 @@ void AndarielSkil::Update()
 	if (mDeleta >= mInterval)
 	{
 		mDeleta -= mInterval;
-
+		int cout = 0;
+		int diffDegree = 15;
 		for (BoltBase* obj : mSpecialCastSkil)
 		{
 			if (obj == nullptr)
@@ -108,10 +110,28 @@ void AndarielSkil::Update()
 
 				Transform* playerTr = player->GetComponent<Transform>();
 				Vector3 PlayerPos = playerTr->GetPosition();
+				Vector3 diff = PlayerPos - Pos;
 
-				obj->Angle(Vector2(PlayerPos.x, PlayerPos.y));
+				float radian = XMConvertToRadians(45 - (cout * diffDegree));
+
+				int radius = 100.f;
+				int x = cosf(radian) * radius;
+				int y = sinf(radian) * radius;
+
+
+				if (diff.x < 0)
+					x *= -1.f;
+				if (diff.y < 0)
+					y *= -1.f;
+
+				Vector3 DurationPos = Pos;
+				DurationPos.x += x;
+				DurationPos.y += y;
+
+				obj->Angle(Vector2(DurationPos.x, DurationPos.y));
 				break;
 			}
+			cout++;
 		}
 	}
 

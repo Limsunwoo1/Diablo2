@@ -792,6 +792,20 @@ namespace Renderer
 				tex.lock()->SetMaxX(1);
 				tex.lock()->SetMaxY(1);
 			}
+
+			for (int i = 0; i < 17; ++i)
+			{
+				wstring name = L"";
+				wstring path = L"";
+				wstring count = to_wstring(900 + i + 1);
+
+				path = L"Object//Wall_" + count + L".png";
+				name = L"Wall_" + count + L"Object";
+
+				std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(name, path);
+				tex.lock()->SetMaxX(1);
+				tex.lock()->SetMaxY(1);
+			}
 		}
 #pragma endregion
 #pragma region DYNAMIC

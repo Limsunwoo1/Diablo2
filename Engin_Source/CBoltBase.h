@@ -18,6 +18,7 @@ public:
 	float GetDamage() { return mDameage; }
 	void SetDamage(float damage) { mDameage = damage; }
 
+	void SetSpeed(int speed) { mSpeed = speed; }
 private:
 	int mSpeed;
 

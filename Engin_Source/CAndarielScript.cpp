@@ -195,7 +195,7 @@ void AndarielScript::FixedUpdate()
 			return;
 		}
 
-		pos += Vec * Time::GetInstance()->DeltaTime() * 240.f;
+		pos += Vec * Time::GetInstance()->DeltaTime() * mSpeed;
 		tr->SetPosition(pos);
 	}
 }

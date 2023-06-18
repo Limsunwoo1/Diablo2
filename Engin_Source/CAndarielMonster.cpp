@@ -12,7 +12,7 @@
 
 AndarielMonster::AndarielMonster()
 	: Monster()
-	, mSkilCoolTime(5.0f)
+	, mSkilCoolTime(8.0f)
 	, mSkilCurTime(0.0f)
 {
 	
@@ -261,7 +261,7 @@ void AndarielMonster::InitAnimation()
 			name += std::to_wstring(count);
 
 			animator->Create(name, tex,
-				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 18, 0.05f);
+				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 18, 0.1f);
 
 
 			count++;

@@ -161,7 +161,7 @@ void Player::InitAnimation()
 			wstring name = L"Run";
 			name += std::to_wstring(i);
 
-			animator->Create(name, texture, Vector2(0.0f, y * i), Vector2(x, y), Vector2(0.0f, 0.0f), 8, 0.2f);
+			animator->Create(name, texture, Vector2(0.0f, y * i), Vector2(x, y), Vector2(0.0f, 0.0f), 8, 0.1f);
 		}
 		//61 75.625
 	}
