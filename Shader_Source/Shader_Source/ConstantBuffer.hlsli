@@ -87,6 +87,7 @@ cbuffer PlayerData : register(b9)
     float mpGauge;
     float RunGauge;
     float expGauge;
+    uint gaugeType;
 }
 
 cbuffer ItemData : register(b10)

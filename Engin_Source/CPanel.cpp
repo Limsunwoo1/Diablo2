@@ -2,10 +2,12 @@
 #include "CResourceManager.h"
 #include "CInput.h"
 #include "CTransform.h"
-
+#include "CWorldManager.h"
+#include "Cplayer.h"
 
 Panel::Panel(eUIType type)
 	: UiBase(type)
+	, mType(eGaugeUi::None)
 {
 
 }
@@ -86,6 +88,26 @@ void Panel::Render()
 	else
 	{
 		mr->SetRenderStop(false);
+	}
+
+	if (mType != eGaugeUi::None)
+	{
+		Player* player = dynamic_cast<Player*>(WorldManager::GetInstance()->GetPlayer());
+
+		if (player == nullptr)
+			return;
+
+		Renderer::PlayerDataCB info = {};
+		info.Gaugetype = mType;
+		info.RunGauge = player->GetRunTime() / player->GetMaxRunTime();
+		info.hpGauge = player->GetHP() / player->GetMaxHP();
+		info.mpGauge = player->GetMP() / player->GetMaxMP();
+		//info.hpGauge = ;
+
+		ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::PlayerData];
+		cb->SetData(&info);
+
+		cb->Bind(eShaderStage::ALL);
 	}
 
 	UiBase::Render();

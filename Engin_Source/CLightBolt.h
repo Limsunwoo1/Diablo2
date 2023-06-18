@@ -21,6 +21,8 @@ public:
 	void LightingOn(GameObject* object);
 	void LinghtingRun();
 	void LightningEnd();
+
+	virtual void HitSkil(GameObject* obj) override;
 private:
 	std::set<GameObject*> mArriveList;
 	GameObject* mCurObject;

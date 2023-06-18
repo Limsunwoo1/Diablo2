@@ -16,11 +16,29 @@ struct VSOut
 
 float4 main(VSOut In) : SV_Target
 {
-    float gauge = 1.0f - RunGauge;
+    float playerGauge = 0.0f;
+    
+    if (gaugeType == 1)
+    {
+        playerGauge = RunGauge;
+    }
+    else if (gaugeType == 2)
+    {
+        playerGauge = hpGauge;
+
+    }
+    else if (gaugeType == 3)
+    {
+        playerGauge = mpGauge;
+
+    }
+    
+    
+    float gauge = 1.0f - playerGauge;
     float renderGauge = 1.0f - gauge;
     float2 uv = In.UV;
     
-    if (RunGauge <= In.UV.x)
+    if (playerGauge <= In.UV.x)
         discard;
     
     float4 color = (float) 0.0f;

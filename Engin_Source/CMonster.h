@@ -62,6 +62,9 @@ public:
 	float GetDamege() { return mDamege; }
 	void SetDamege(float damege) { mDamege = damege; }
 
+	virtual void Attack();
+	virtual void DropItem();
+
 protected:
 	virtual void idle()			{};
 	virtual void move()			{};
@@ -93,6 +96,8 @@ private:
 	float mDamege;
 	float mLightElementDamege;
 
+
 protected:
 	GameObject* mShadow;
+	Vector2 AttackSize;
 };

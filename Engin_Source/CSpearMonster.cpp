@@ -132,6 +132,8 @@ void SpearMonster::InitAnimation()
 
 			animator->Create(name, tex,
 				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 20, 0.05f);
+
+			animator->GetEvent(name, 13) = std::bind(&Monster::Attack, this);
 		}
 	}
 
@@ -244,7 +246,8 @@ void SpearMonster::monsterDead()
 	if (name.find(L"Death") != wstring::npos &&
 		animator->GetPlayAnimation()->IsComplete())
 	{
-		this->Death();
+		mShadow->Paused();
+		this->Paused();
 	}
 
 	if (playName == name)

@@ -15,7 +15,7 @@ AndarielMonster::AndarielMonster()
 	, mSkilCoolTime(8.0f)
 	, mSkilCurTime(0.0f)
 {
-	SetHP(500.f);
+	SetHP(1000.f);
 	SetDamege(20.f);
 }
 
@@ -111,6 +111,7 @@ void AndarielMonster::Initalize()
 				count = 0;
 		}
 	}
+
 
 	// SpriteRenderer
 	SpriteRenderer* Oversr = mOverlay->AddComponent<SpriteRenderer>();
@@ -266,6 +267,7 @@ void AndarielMonster::InitAnimation()
 			animator->Create(name, tex,
 				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 16, 0.035f);
 
+			animator->GetEvent(name, 11) = std::bind(&Monster::Attack, this);
 			count++;
 
 			if (count >= 8)
@@ -314,6 +316,7 @@ void AndarielMonster::InitAnimation()
 			animator->Create(name, tex,
 				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 23, 0.1f);
 
+			animator->GetCompleteEvent(name) = std::bind(&AndarielMonster::CreateNextScenePotal, this);
 
 			count++;
 
@@ -323,6 +326,14 @@ void AndarielMonster::InitAnimation()
 	}
 
 	animator->Play(L"AndarielIdle4");
+}
+
+void AndarielMonster::CreateNextScenePotal()
+{
+	mOverlay->Paused();
+
+
+	int a = 0;
 }
 
 void AndarielMonster::idle()
@@ -447,7 +458,8 @@ void AndarielMonster::monsterDead()
 	if (name.find(L"Death") != wstring::npos &&
 		animator->GetPlayAnimation()->IsComplete())
 	{
-		this->Death();
+		mShadow->Paused();
+		this->Paused();
 	}
 
 	if (name.find(L"Death") != wstring::npos)

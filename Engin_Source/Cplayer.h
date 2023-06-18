@@ -54,8 +54,14 @@ public:
 	void SetHP(float hp) { mHP = hp; }
 	float GetHP() { return mHP; }
 
+	void SetMaxHP(float hp) { mMaxHP = hp; }
+	float GetMaxHP() { return mMaxHP; }
+
 	void SetMP(float mp) { mMP = mp; }
 	float GetMP() { return mMP; }
+
+	void SetMaxMP(float hp) { mMaxMP = hp; }
+	float GetMaxMP() { return mMaxMP; }
 
 	void SetExp(float exp) { mExp = exp; }
 	float GetExp() { return mExp; }

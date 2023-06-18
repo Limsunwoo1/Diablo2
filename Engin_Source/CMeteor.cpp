@@ -8,7 +8,11 @@
 
 #include "CTime.h"
 #include "CResourceManager.h"
-
+#include "CCollisionManager.h"
+#include "CMonster.h"
+#include "CCollider2D.h"
+#include "CLayer.h"
+#include "CSceneManager.h"
 
 Meteor::Meteor()
 	: Skil()
@@ -66,6 +70,10 @@ void Meteor::Initalize()
 
 	sr->SetMesh(mesh);
 	sr->SetMaterial(material);
+
+	Collider2D* col = AddComponent<Collider2D>();
+	col->SetType(eColliderType::Rect);
+	col->SetSize(Vector2(0.25f, 0.25f));
 }
 
 void Meteor::Update()
@@ -206,6 +214,27 @@ void Meteor::OnMeteor()
 
 	param.CompleteFunc = [this](float InCurValue)
 	{
+		Layer& layer = SceneManager::GetInstance()->GetActiveScene()->GetLayer(eLayerType::Monster);
+		const std::vector<GameObject*>& Objects = layer.GetGameObjects();
+
+		Collider2D* col = GetComponent<Collider2D>();
+		if (col != nullptr)
+		{
+			for (GameObject* obj : Objects)
+			{
+				if (obj == nullptr)
+					continue;
+
+				bool collistion = false;
+				collistion = CollisionManager::GetInstance()->AABBRect_VS_Rect(col, obj->GetComponent<Collider2D>());
+
+				if (collistion)
+				{
+					HitSkil(obj);
+				}
+			}
+
+		}
 		mTargetPin->Paused();
 		OffMeteor();
 		// 애니메이션 교체
@@ -301,4 +330,18 @@ void Meteor::SetPinPos(float& x, float& y, float& z)
 {
 	mPinPos = Vector3(x, y, z); 
 	SetSpeed();
+}
+
+
+void Meteor::HitSkil(GameObject* obj)
+{
+	Monster* monster = dynamic_cast<Monster*>(obj);
+
+	if (monster == nullptr)
+		return;
+
+	float hp = monster->GetHP();
+	hp -= 35.f;
+
+	monster->SetHP(hp);
 }

@@ -13,6 +13,7 @@
 #include "CCamera.h"
 #include "CRenderer.h"
 #include "CShockHit.h"
+#include "CMonster.h"
 
 LightBolt::LightBolt()
 	: BoltBase()
@@ -26,8 +27,6 @@ LightBolt::LightBolt()
 	, mDirection(false) // false Y °¡ ÁÙ¾îµë true Y °¡ ´Ã¾î³²
 	, mYScale(0.0f)
 {
-	bool mDirection;
-	float mYScale;
 	SetElementType(eElementType::HitLight);
 }
 
@@ -113,6 +112,9 @@ void LightBolt::Update()
 	}
 	else
 	{
+		if (mCurObject == nullptr || mNextObject == nullptr)
+			return;
+
 		Transform* Tr = GetComponent<Transform>();
 		Transform* NextTr = mNextObject->GetComponent<Transform>();
 		Transform* MonsterTr = mCurObject->GetComponent<Transform>();
@@ -205,6 +207,10 @@ void LightBolt::SearchArriveTarget()
 			continue;
 
 		if (obj == mCurObject)
+			continue;
+
+
+		if (obj->GetState() != eState::active)
 			continue;
 
 		if (mArriveList.find(obj) != mArriveList.end())
@@ -308,6 +314,7 @@ void LightBolt::LinghtingRun()
 		if(mNextObject != nullptr)
 			mCurObject = mNextObject;
 
+		HitSkil(mCurObject);
 		mArriveList.insert(mCurObject);
 		SearchArriveTarget();
 	};
@@ -349,4 +356,18 @@ void LightBolt::LightningEnd()
 	};
 
 	generic->Start(param);
+}
+
+void LightBolt::HitSkil(GameObject* obj)
+{
+	Monster* monster = dynamic_cast<Monster*>(obj);
+
+	if (monster == nullptr)
+		return;
+
+	float hp = monster->GetHP();
+	hp -= 20.f;
+
+	monster->SetHP(hp);
+	monster->SetMonsterStatusEffect(eElementType::HitLight);
 }

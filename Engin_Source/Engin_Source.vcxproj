@@ -188,6 +188,7 @@
     <ClInclude Include="CFrozenOrb.h" />
     <ClInclude Include="CGameObject.h" />
     <ClInclude Include="CGateCollider.h" />
+    <ClInclude Include="CGateObject.h" />
     <ClInclude Include="CGloveItem.h" />
     <ClInclude Include="CGraphicDevice_DX11.h" />
     <ClInclude Include="CGridScript.h" />
@@ -252,6 +253,7 @@
     <ClInclude Include="CTransform.h" />
     <ClInclude Include="CBeltItem.h" />
     <ClInclude Include="CTriggerCollider.h" />
+    <ClInclude Include="CTriggerObject.h" />
     <ClInclude Include="CWallCollider.h" />
     <ClInclude Include="CWallObject.h" />
     <ClInclude Include="CWeponItem.h" />
@@ -312,6 +314,7 @@
     <ClCompile Include="CFrozenOrb.cpp" />
     <ClCompile Include="CGameObject.cpp" />
     <ClCompile Include="CGateCollider.cpp" />
+    <ClCompile Include="CGateObject.cpp" />
     <ClCompile Include="CGloveItem.cpp" />
     <ClCompile Include="CGraphicDevice_DX11.cpp" />
     <ClCompile Include="CEntity.cpp" />
@@ -374,6 +377,7 @@
     <ClCompile Include="CTransform.cpp" />
     <ClCompile Include="CBeltItem.cpp" />
     <ClCompile Include="CTriggerCollider.cpp" />
+    <ClCompile Include="CTriggerObject.cpp" />
     <ClCompile Include="CWallCollider.cpp" />
     <ClCompile Include="CWallObject.cpp" />
     <ClCompile Include="CWeponItem.cpp" />

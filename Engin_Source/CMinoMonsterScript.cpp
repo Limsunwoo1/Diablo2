@@ -9,6 +9,7 @@ MinoMonsterScript::MinoMonsterScript()
 	: Script()
 	, mCurPos(Vector2(-1.f, -1.f))
 {
+	mMaxTime = 0.1f;
 }
 
 MinoMonsterScript::~MinoMonsterScript()
@@ -62,7 +63,6 @@ void MinoMonsterScript::FixedUpdate()
 	mTime += Time::GetInstance()->DeltaTime();
 	if(mTime >= mMaxTime)
 	{
-		mMaxTime = 0.1f;
 
 		AStar* astar = GetOwner()->GetComponent<AStar>();
 		if (astar == nullptr)

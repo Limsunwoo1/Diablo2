@@ -24,6 +24,8 @@ public:
 	float GetDamege() { return mDamege; }
 	void SetDamege(float damege) { mDamege = damege; }
 
+	float GetCost() { return mCost; }
+
 	virtual void HitSkil(GameObject* obj) {};
 
 protected:

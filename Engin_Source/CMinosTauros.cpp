@@ -111,6 +111,8 @@ void MinosTauros::InitAnimation()
 
 			animator->Create(name, tex,
 				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 16, 0.05f);
+
+			animator->GetEvent(name, 6) = std::bind(&Monster::Attack, this);
 		}
 	}
 
@@ -223,7 +225,8 @@ void MinosTauros::monsterDead()
 	if (name.find(L"MinoDeath") != wstring::npos &&
 		animator->GetPlayAnimation()->IsComplete())
 	{
-		this->Death();
+		mShadow->Paused();
+		this->Paused();
 	}
 
 	if (playName == name)

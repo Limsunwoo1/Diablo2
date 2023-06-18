@@ -156,6 +156,21 @@ void ItemManager::Rlease()
 	}
 }
 
+// 씬 이동할때 월드 드랍 아이템 초기화
+void ItemManager::ClearWorldItem()
+{
+	for (ItemBase* item : mItemes)
+	{
+		if (item == nullptr)
+			continue;
+
+		if (item->GetState())
+		{
+			DeleteItem(item);
+		}
+	}
+}
+
 void ItemManager::ItemPushTop(ItemBase* item)
 {
 	// 아이템을 집은경우 제일 위에 렌더되어서

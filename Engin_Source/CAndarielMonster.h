@@ -17,6 +17,7 @@ public:
 	float GetSkilCurTime() { return mSkilCurTime; }
 	float GetSkilCoolTime() { return mSkilCoolTime; }
 
+	void CreateNextScenePotal();
 protected:
 	virtual void idle() override;
 	virtual void move() override;

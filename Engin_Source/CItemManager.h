@@ -19,6 +19,7 @@ public:
 	void DeleteItem(ItemBase* item);
 
 	void Rlease();
+	void ClearWorldItem();
 
 	void SetPickUpItem(bool pick) { mbPickUpItem = pick; }
 	bool GetPickUpItem() { return mbPickUpItem; }

@@ -188,6 +188,15 @@ enum class eElementType
 	HitLight,
 };
 
+enum class eGaugeUi
+{
+	None,
+	Run,
+	Hp,
+	Mp,
+	Exp,
+};
+
 extern const char* charComponentType[(int)eComponentType::End];
 extern const wchar_t* wcharComponentType[(int)eComponentType::End];
 extern const char* charResourceType[(int)eResourceType::End];

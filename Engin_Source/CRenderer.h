@@ -114,6 +114,7 @@ namespace Renderer
 		float mpGauge;
 		float RunGauge;
 		float expGauge;
+		eGaugeUi Gaugetype;
 	};
 
 	CBUFFER(ItemDataCB, CBSLOT_ITEMDATA)

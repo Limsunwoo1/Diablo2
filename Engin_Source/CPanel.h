@@ -25,6 +25,8 @@ public:
 
 	virtual void OnActive() override;
 	virtual void UnActive() override;
+
+	void SetUiGaugeType(eGaugeUi type) { mType = type; }
 protected:
 	virtual void OnInit() override;
 	virtual void OnInActive() override;
@@ -32,5 +34,6 @@ protected:
 	virtual void OnRender(HDC hdc) override;
 public:
 	GameObject* mTarget;
+	eGaugeUi mType;
 };
 

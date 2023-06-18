@@ -96,6 +96,7 @@ void UIManager::Initialize()
 		Panel* hp = new Panel(eUIType::Panel);
 		hp->SetName(L"Hp");
 		hp->InitRenderer(L"HPMaterial", L"HP", L"UI//life.png");
+		hp->SetUiGaugeType(eGaugeUi::Hp);
 		hp->Active();
 
 		Transform* hptr = hp->GetComponent<Transform>();
@@ -108,6 +109,7 @@ void UIManager::Initialize()
 		mp->SetName(L"Mp");
 		mp->InitRenderer(L"MPMaterial", L"MP", L"UI//mana.png");
 		mp->Active();
+		mp->SetUiGaugeType(eGaugeUi::Mp);
 
 		Transform* mptr = mp->GetComponent<Transform>();
 		mptr->SetPosition(Vector3(-30.f, 0.f, 0.02f));
@@ -139,6 +141,7 @@ void UIManager::Initialize()
 		runGauge->SetName(L"RunGauge");
 		runGauge->InitRenderer(L"RunGaugeMaterial", L"RunGauge", L"UI//RunGauge.png");
 		runGauge->Active();
+		runGauge->SetUiGaugeType(eGaugeUi::Run);
 
 		Transform* RunGaugetr = runGauge->GetComponent<Transform>();
 		RunGaugetr->SetPosition(Vector3(-157.f, -11.f, 0.02f));

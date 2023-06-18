@@ -8,6 +8,14 @@
 #include "CWorldManager.h"
 #include "CObject.h"
 
+#include "CCollisionManager.h"
+#include "CMonster.h"
+#include "CCollider2D.h"
+#include "CLayer.h"
+#include "CSceneManager.h"
+
+#include "Cplayer.h"
+
 AndarielSkil::AndarielSkil()
 	: Skil()
 	, mInterval(0.1f)
@@ -61,8 +69,11 @@ void AndarielSkil::Initalize()
 		mSpecialCastSkil[i]->Paused();
 		mSpecialCastSkil[i]->SetSpeed(600.f);
 
-		mSpecialCastSkil[i]->GetComponent<Transform>()->SetSize(Vector3(700.f, 700.f, 1.0f));
+		mSpecialCastSkil[i]->GetComponent<Transform>()->SetSize(Vector3(550.f, 550.f, 1.0f));
 
+		Collider2D* col = mSpecialCastSkil[i]->AddComponent<Collider2D>();
+		col->SetType(eColliderType::Rect);
+		col->SetSize(Vector2(0.13f, 0.13f));
 
 		mSpecialCastSkil[i]->Initalize();
 		SpriteRenderer* sr = mSpecialCastSkil[i]->AddComponent<SpriteRenderer>();
@@ -148,6 +159,23 @@ void AndarielSkil::Update()
 	{
 		if (obj == nullptr)
 			continue;
+
+		if (obj->GetState() != eState::active)
+			continue;
+
+		Collider2D* objCol = obj->GetComponent<Collider2D>();
+		Player* player = dynamic_cast<Player*>(WorldManager::GetInstance()->GetPlayer());
+		Collider2D* playerCol = player->GetComponent<Collider2D>();
+
+		if (CollisionManager::GetInstance()->AABBRect_VS_Rect(objCol, playerCol))
+		{
+			float hp = player->GetHP();
+			hp -= GetDamege();
+			player->SetHP(hp);
+
+			obj->Paused();
+			continue;
+		}
 
 		obj->Update();
 	}

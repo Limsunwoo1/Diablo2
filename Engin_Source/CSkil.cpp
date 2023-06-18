@@ -3,6 +3,7 @@
 
 Skil::Skil()
 	: GameObject()
+	, mCost(20.f)
 {
 }
 

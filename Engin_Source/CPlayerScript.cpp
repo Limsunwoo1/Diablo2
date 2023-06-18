@@ -89,6 +89,7 @@ void PlayerScript::FixedUpdate()
 	Vector3 pos = tr->GetPosition();
 
 	float speed = 3.f;
+	float playerMp = player->GetMP();
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::I))
 	{
 		Panel* inventory = UIManager::GetInstance()->GetUiInstance<Panel>(L"mainInventory");
@@ -124,8 +125,17 @@ void PlayerScript::FixedUpdate()
 			player->SetState(Player::PlayerState::Skil);
 
 			FrozenOrb* orb = Object::Instantiate<FrozenOrb>(eLayerType::PlayerSKil, true);
-			Player* player = dynamic_cast<Player*>(GetOwner());
 			orb->SetOwner(player);
+
+			playerMp -= orb->GetCost();
+			if (playerMp < 0)
+			{
+				orb->Death();
+				player->SetMP(0);
+				return;
+			}
+
+			player->SetMP(playerMp);
 
 			Vector3 OwnerPos = GetOwner()->GetComponent<Transform>()->GetPosition();
 
@@ -190,6 +200,16 @@ void PlayerScript::FixedUpdate()
 
 				TelePort* teleport = Object::Instantiate<TelePort>(eLayerType::Effect, true);
 
+				playerMp -= teleport->GetCost();
+				if (playerMp < 0)
+				{
+					teleport->Death();
+					player->SetMP(0);
+					return;
+				}
+
+				player->SetMP(playerMp);
+
 				Player* player = dynamic_cast<Player*>(GetOwner());
 				if (player)
 					teleport->SetOwner(player);
@@ -246,9 +266,18 @@ void PlayerScript::FixedUpdate()
 			Meteor* meteor = Object::Instantiate<Meteor>(eLayerType::PlayerSKil, true);
 			Transform* MeteorTr = meteor->GetComponent<Transform>();
 
-			Player* player = dynamic_cast<Player*>(GetOwner());
-			meteor->SetOwner(player);
+			playerMp -= meteor->GetCost();
+			if (playerMp < 0)
+			{
+				meteor->Death();
+				player->SetMP(0);
+				return;
+			}
 
+			player->SetMP(playerMp);
+
+
+			meteor->SetOwner(player);
 
 			Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos();
 			Vector3 pinPos = Vector3(mousePos.x, mousePos.y, 1.0f);
@@ -273,6 +302,16 @@ void PlayerScript::FixedUpdate()
 			player->SetState(Player::PlayerState::Skil);
 
 			FireBolt* firebolt = Object::Instantiate<FireBolt>(eLayerType::PlayerSKil, true);
+			playerMp -= firebolt->GetCost();
+			if (playerMp < 0)
+			{
+				firebolt->Death();
+				player->SetMP(0);
+				return;
+			}
+
+			player->SetMP(playerMp);
+
 			Transform* fireboltTr = firebolt->GetComponent<Transform>();
 			fireboltTr->SetPosition(pos);
 
@@ -296,6 +335,16 @@ void PlayerScript::FixedUpdate()
 			player->SetState(Player::PlayerState::Skil);
 
 			FrozenBolt* frozenbolt = Object::Instantiate<FrozenBolt>(eLayerType::PlayerSKil, true);
+			playerMp -= frozenbolt->GetCost();
+			if (playerMp < 0)
+			{
+				frozenbolt->Death();
+				player->SetMP(0);
+				return;
+			}
+
+			player->SetMP(playerMp);
+
 			Transform* frozenboltTr = frozenbolt->GetComponent<Transform>();
 			frozenboltTr->SetPosition(pos);
 
@@ -366,6 +415,9 @@ void PlayerScript::FixedUpdate()
 				if (obj == nullptr)
 					continue;
 
+				if (obj->GetState() != GameObject::eState::active)
+					continue;
+
 				Transform* objTr = obj->GetComponent<Transform>();
 				Vector3 objPos = objTr->GetPosition();
 
@@ -382,6 +434,16 @@ void PlayerScript::FixedUpdate()
 				return;
 
 			LightBolt* lightbolt = Object::Instantiate<LightBolt>(eLayerType::PlayerSKil, true);
+			playerMp -= lightbolt->GetCost();
+			if (playerMp < 0)
+			{
+				lightbolt->Death();
+				player->SetMP(0);
+				return;
+			}
+
+			player->SetMP(playerMp);
+
 			Transform* lightboltTr = lightbolt->GetComponent<Transform>();
 			lightboltTr->SetPosition(pos);
 			lightbolt->SetOwner(player);
@@ -402,6 +464,16 @@ void PlayerScript::FixedUpdate()
 		player->SetState(Player::PlayerState::Skil);
 
 		FrozenArmer* frozenArmer = Object::Instantiate<FrozenArmer>(eLayerType::Effect, true);
+		playerMp -= frozenArmer->GetCost();
+		if (playerMp < 0)
+		{
+			frozenArmer->Death();
+			player->SetMP(0);
+			return;
+		}
+
+		player->SetMP(playerMp);
+
 		frozenArmer->SetTarget(player);
 
 		SetPlayerDirection();

@@ -8,6 +8,8 @@
 #include "CResourceManager.h"
 #include "CTexture2D.h"
 #include "CCollider2D.h"
+#include "Cplayer.h"
+#include "CWorldManager.h"
 
 Monster::Monster()
 	: GameObject()
@@ -24,6 +26,7 @@ Monster::Monster()
 	, mDamege(20.0f)
 	, mLightElementDamege(mDamege * 0.5f)
 	, mElementTime(3.0f)
+	, AttackSize(Vector2(200.f,200.f))
 {
 	mDirection[mIndex] = 1;
 }
@@ -75,6 +78,7 @@ void Monster::Update()
 			}
 
 			Paused();
+			mShadow->Paused();
 		}
 	}
 
@@ -236,6 +240,62 @@ void Monster::Run()
 	case eElementType::HitLight:		hitLight();			break;
 	default:												break;
 	}
+}
+
+void Monster::Attack()
+{
+	Player* player = dynamic_cast<Player*>(WorldManager::GetInstance()->GetPlayer());
+
+	if (player == nullptr)
+		return;
+
+	Vector3 PlayerPos = player->GetComponent<Transform>()->GetPosition();
+	Vector3 Pos = GetComponent<Transform>()->GetPosition();
+
+	Vector2 vec = Pos - Vector2(PlayerPos.x, PlayerPos.y);
+	Vector2 Vec1 = Vector2(0.0f, 0.0f);
+
+	if (vec.x <= 0.f)
+		Vec1 = Vector2(-1.0f, 0.0f);
+	else
+		Vec1 = Vector2(1.0f, 0.0f);
+
+	Vec1.Normalize();
+	vec.Normalize();
+
+	float that = Vec1.Dot(vec);
+	float radian = acos(that);
+
+	int radius = 100.f;
+	// 원의 방정식
+	// https://nenara.com/68
+	int x = cosf(radian) * radius;
+	int y = sinf(radian) * radius;
+
+	if (vec.x < 0)
+		x *= -1.f;
+	if (vec.y < 0)
+		y *= -1.f;
+
+	Vector3 SearchPos = PlayerPos;
+	SearchPos.x += x;
+	SearchPos.y += y;
+
+
+	if (SearchPos.x + (AttackSize.x * 0.5f) < PlayerPos.x || SearchPos.x - (AttackSize.x * 0.5f) > PlayerPos.x)
+		return;
+
+	if (SearchPos.y + (AttackSize.y * 0.5f) < PlayerPos.y || SearchPos.y - (AttackSize.y * 0.5f) > PlayerPos.y)
+		return;
+
+	float hp = player->GetHP();
+	hp -= GetDamege();
+
+	player->SetHP(hp);
+}
+
+void Monster::DropItem()
+{
 }
 
 bool Monster::MonsterDirection(int index)

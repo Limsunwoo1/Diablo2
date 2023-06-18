@@ -29,6 +29,8 @@ public:
 
 	void OnMeteor();
 	void OffMeteor();
+
+	virtual void HitSkil(GameObject* obj) override;
 private:
 	FireTargetPin* mTargetPin;
 	std::vector<Flames*> mFlames;

@@ -10,15 +10,16 @@
 #include "CWorldManager.h"
 #include "CObjectManager.h"
 #include "CPlayerSelectButton.h"
+#include "CTime.h"
 
 using namespace graphics;
 
 Player::Player()
 	: GameObject()
 	, mHP(10)
-	, mMaxHP(50)
+	, mMaxHP(500)
 	, mMP(10)
-	, mMaxMP(50)
+	, mMaxMP(500)
 	, mDamege(5)
 	, mIndex(0)
 	, mbRunMode(false)
@@ -64,11 +65,27 @@ void Player::Initalize()
 	mr->SetMesh(mesh);
 	mr->SetMaterial(material);
 
-
 }
 
 void Player::Update()
 {
+	if (mHP <= 0)
+	{
+		SetHP(1.f);
+	}
+
+	if (!IsDead())
+	{
+		mHP += Time::GetInstance()->DeltaTime() * 8.f;
+		mMP += Time::GetInstance()->DeltaTime() * 10.f;
+
+		if (mHP > mMaxHP)
+			mHP = mMaxHP;
+
+		if (mMP > mMaxMP)
+			mMP = mMaxMP;
+	}
+
 	GameObject::Update();
 	if(mShadow)
 		mShadow->Update();
@@ -103,16 +120,6 @@ void Player::FixedUpdate()
 
 void Player::Render()
 {
-	Renderer::PlayerDataCB info = {};
-	info.RunGauge = mRunTime / mMaxRunTime;
-	info.hpGauge = mHP / mMaxHP;
-	info.mpGauge = mMP / mMaxMP;
-	//info.hpGauge = ;
-
-	ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::PlayerData];
-	cb->SetData(&info);
-
-	cb->Bind(eShaderStage::ALL);
 
 	SpriteRenderer* spr = GetComponent<SpriteRenderer>();
 	std::weak_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"test");

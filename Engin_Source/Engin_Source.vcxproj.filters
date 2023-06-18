@@ -316,6 +316,9 @@
     <Filter Include="Component\Collider\2D\PlayerSkilCollider">
       <UniqueIdentifier>{1594d5b4-3aed-4f9a-b974-7f2223c370e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\TriggerObject">
+      <UniqueIdentifier>{e1318b30-1177-4d09-bd56-a224419a100c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -668,6 +671,10 @@
     <ClCompile Include="CGateCollider.cpp">
       <Filter>Component\Collider\2D\GateCollider</Filter>
     </ClCompile>
+    <ClCompile Include="CTriggerObject.cpp">
+      <Filter>GameObject\TriggerObject</Filter>
+    </ClCompile>
+    <ClCompile Include="CGateObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -1032,6 +1039,10 @@
     <ClInclude Include="CAttackCollider.h">
       <Filter>Component\Collider\2D\AttackCollider</Filter>
     </ClInclude>
+    <ClInclude Include="CTriggerObject.h">
+      <Filter>GameObject\TriggerObject</Filter>
+    </ClInclude>
+    <ClInclude Include="CGateObject.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math.inl">
