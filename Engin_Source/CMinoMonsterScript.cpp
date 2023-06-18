@@ -29,9 +29,15 @@ void MinoMonsterScript::FixedUpdate()
 	if (monster == nullptr)
 		return;
 
+	if (monster->GetMonsterState() == Monster::MonsterState::Dead)
+		return;
+
 	GameObject* player = WorldManager::GetInstance()->GetPlayer();
 	if (player == nullptr)
 		return;
+
+	float Delta = monster->GetCurDeltaTime();
+
 
 	Transform* Tr = GetOwner()->GetComponent<Transform>();
 	Vector3 mPos = Tr->GetPosition();
@@ -167,7 +173,7 @@ void MinoMonsterScript::FixedUpdate()
 			return;
 		}
 
-		pos += Vec * Time::GetInstance()->DeltaTime() * 180.f;
+		pos += Vec * Delta * 180.f;
 		tr->SetPosition(pos);
 	}
 }

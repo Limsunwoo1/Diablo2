@@ -4,6 +4,13 @@
 #include "CSpriteRenderer.h"
 
 #include "CResourceManager.h"
+#include "CPlayerSkilCollider.h"
+#include "CMonster.h"
+#include "CSceneManager.h"
+#include "CLayer.h"
+
+#include "CCollisionManager.h"
+#include "CCollider2D.h"
 
 FrozenMissile::FrozenMissile()
 	: Skil()
@@ -12,6 +19,8 @@ FrozenMissile::FrozenMissile()
 	, mbMode(eMisileMode::Straight)
 	, mOrb(nullptr)
 {
+	SetElementType(eElementType::HitFrozen);
+	SetDamege(3.0f);
 }
 
 FrozenMissile::~FrozenMissile()
@@ -37,12 +46,38 @@ void FrozenMissile::Initalize()
 	Transform* tr = GetComponent<Transform>();
 	tr->SetSize(Vector3(200.f, 200.f, 1.f));
 
-	Death();
+
+	PlayerSkilCollider* collider = AddComponent<PlayerSkilCollider>();
+	collider->SetType(eColliderType::Rect);
+	collider->SetSize(Vector2(0.05f, 0.05));
+	Paused();
 }
 
 void FrozenMissile::Update()
 {
 	mTime += Time::GetInstance()->DeltaTime();
+
+	Layer& layer = SceneManager::GetInstance()->GetActiveScene()->GetLayer(eLayerType::Monster);
+	const std::vector<GameObject*>& Objects = layer.GetGameObjects();
+
+	Collider2D* col = GetComponent<Collider2D>();
+	if (col != nullptr && !mHit)
+	{
+		for (GameObject* obj : Objects)
+		{
+			if (obj == nullptr)
+				continue;
+
+			bool collistion = false;
+			collistion = CollisionManager::GetInstance()->AABBRect_VS_Rect(col, obj->GetComponent<Collider2D>());
+
+			if (collistion)
+			{
+				HitSkil(obj);
+				break;
+			}
+		}
+	}
 
 	Skil::Update();
 }
@@ -117,4 +152,25 @@ void FrozenMissile::RunMisile()
 	pos += tr->Right() * Time::GetInstance()->DeltaTime() * 400.0f;
 	tr->SetPosition(pos);
 	tr->SetRotation(rotation);
+}
+
+
+void FrozenMissile::HitSkil(GameObject* obj)
+{
+	Monster* monster = dynamic_cast<Monster*>(obj);
+
+	if (monster == nullptr)
+		return;
+
+	float hp = monster->GetHP();
+	float damage = GetDamege();
+
+	hp -= damage;
+	monster->SetHP(hp);
+
+	monster->SetMonsterStatusEffect(GetElementType());
+	mHit = true;
+
+	Paused();
+	//Death();
 }

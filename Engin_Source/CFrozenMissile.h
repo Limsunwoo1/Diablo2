@@ -29,11 +29,19 @@ public:
 	const wstring& GetKeyName() { return mKeyName; }
 	void SetMode(eMisileMode mode) { mbMode = mode; }
 	void SetTime(float time) { mTime = time; }
+
+	virtual void HitSkil(GameObject* obj) override;
+
+	void SetHit(bool hit) { mHit = hit; }
+private:
+
 private:
 	FrozenOrb* mOrb;
 	wstring mKeyName;
 
 	eMisileMode mbMode;
 	float mTime;
+
+	bool mHit;
 };
 

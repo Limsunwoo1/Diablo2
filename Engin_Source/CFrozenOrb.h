@@ -31,6 +31,7 @@ private:
 	Vector2 mDirection;
 
 	float mRunningTime;
+	int mFrozenIndex;
 	int mSpeakerIndex;
 	bool mbOnOrb;
 	bool mbOff;

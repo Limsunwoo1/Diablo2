@@ -47,6 +47,10 @@ public:
 	void SetCharType(eCharType type) { mCharType = (UINT)type; }
 	eCharType GetCharType() { return (eCharType)mCharType; }
 
+	void SetDamege(float damege) { mDamege = damege; }
+	float GetDamege() { return mDamege; }
+
+
 	void SetHP(float hp) { mHP = hp; }
 	float GetHP() { return mHP; }
 

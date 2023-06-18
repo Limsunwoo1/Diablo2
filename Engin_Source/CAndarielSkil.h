@@ -19,5 +19,7 @@ private:
 	std::shared_ptr<class Material>  mMaterial;
 	float mInterval;
 	float mDeleta;
+
+	float mDeathTime;
 };
 

@@ -15,7 +15,8 @@ AndarielMonster::AndarielMonster()
 	, mSkilCoolTime(8.0f)
 	, mSkilCurTime(0.0f)
 {
-	
+	SetHP(500.f);
+	SetDamege(20.f);
 }
 
 AndarielMonster::~AndarielMonster()
@@ -66,24 +67,49 @@ void AndarielMonster::Initalize()
 	mOverlay->Paused();
 
 
-	std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->
-		Load<Texture2D>(L"SpecialCast", L"Monster//Andariel//AndarielSpecialCastOverlay.png");
-	int count = 4;
-	// 163 108.375
-	float x = 163.f;
-	float y = 108.375f;
-	for (int i = 0; i < 8; ++i)
 	{
-		wstring name = L"SpecialCast";
-		name += std::to_wstring(count);
+		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->
+			Load<Texture2D>(L"SpecialCast", L"Monster//Andariel//AndarielSpecialCastOverlay.png");
+		int count = 4;
+		// 163 108.375
+		float x = 163.f;
+		float y = 108.375f;
+		for (int i = 0; i < 8; ++i)
+		{
+			wstring name = L"SpecialCast";
+			name += std::to_wstring(count);
 
-		overlayAnimator->Create(name, tex,
-			Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 18, 0.05f);
+			overlayAnimator->Create(name, tex,
+				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 18, 0.1f);
 
-		count++;
+			count++;
 
-		if (count >= 8)
-			count = 0;
+			if (count >= 8)
+				count = 0;
+		}
+	}
+
+	{
+		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->
+			Load<Texture2D>(L"DeathOverlay", L"Monster//Andariel//OverlayDeath.png");
+
+		int count = 4;
+		// 101.869 161.875
+		float x = 101.869f;
+		float y = 161.875f;
+		for (int i = 0; i < 8; ++i)
+		{
+			wstring name = L"DeathOverlay";
+			name += std::to_wstring(i);
+
+			overlayAnimator->Create(name, tex,
+				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 23, 0.1f);
+
+			count++;
+
+			if (count >= 8)
+				count = 0;
+		}
 	}
 
 	// SpriteRenderer
@@ -101,12 +127,9 @@ void AndarielMonster::Initalize()
 
 void AndarielMonster::Update()
 {
-	if (GetHP() < 0)
-	{
-		SetMonsterState(MonsterState::Dead);
-	}
+	SetMonsterStatusEffect(eElementType::None);
 
-	if (GetMonsterState() != MonsterState::Attack)
+	if (GetMonsterState() != MonsterState::Attack && GetMonsterState() != MonsterState::Dead)
 		mOverlay->Paused();
 
 	mSkilCurTime += Time::GetInstance()->DeltaTime();
@@ -136,6 +159,9 @@ void AndarielMonster::FixedUpdate()
 {
 	Monster::FixedUpdate();
 	mOverlay->FixedUpdate();
+
+	if (GetMonsterState() == MonsterState::Dead)
+		return;
 
 	Animator* animator = this->GetComponent<Animator>();
 	if (mSkilCurTime >= mSkilCoolTime)
@@ -286,7 +312,7 @@ void AndarielMonster::InitAnimation()
 			name += std::to_wstring(count);
 
 			animator->Create(name, tex,
-				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 23, 0.05f);
+				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 23, 0.1f);
 
 
 			count++;
@@ -301,8 +327,6 @@ void AndarielMonster::InitAnimation()
 
 void AndarielMonster::idle()
 {
-
-
 	Animator* animator = this->GetComponent<Animator>();
 	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
 
@@ -412,6 +436,7 @@ void AndarielMonster::hit()
 
 void AndarielMonster::monsterDead()
 {
+
 	Animator* animator = GetComponent<Animator>();
 	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
 
@@ -425,9 +450,23 @@ void AndarielMonster::monsterDead()
 		this->Death();
 	}
 
-	if (playName == name)
+	if (name.find(L"Death") != wstring::npos)
 		return;
 
+	// overlayInit
+	Transform* Tr = GetComponent<Transform>();
+	Vector3 Pos = Tr->GetPosition();
+
+	mOverlay->Active();
+	Transform* OverlayTr = mOverlay->GetComponent<Transform>();
+	OverlayTr->SetPosition(Pos);
+	OverlayTr->SetSize(Tr->GetSize());
+
+	wstring cast = L"DeathOverlay";
+	cast += std::to_wstring(index);
+
+
+	mOverlay->GetComponent<Animator>()->Play(cast, false);
 	animator->Play(playName, false);
 }
 

@@ -52,10 +52,6 @@ void SpearMonster::Initalize()
 
 void SpearMonster::Update()
 {
-	if (GetHP() < 0)
-	{
-		SetMonsterState(MonsterState::Dead);
-	}
 
 	Monster::Update();
 

@@ -2,6 +2,7 @@
 #include "CComponent.h"
 
 using namespace Math;
+#include "CGameObject.h"
 
 class Transform;
 class Collider2D : public Component
@@ -30,7 +31,9 @@ public:
 	void SetSize(Vector2 size) { mSize = size; }
 	Vector2 GetSize() { return mSize; }
 
+	Vector2 GetCenter() { return mCenter; }
 	void SetCenter(Vector2 center) { mCenter = center; }
+
 	bool IsTrigger() { return mbTrigger; }
 
 	UINT GetID() { return mID; }

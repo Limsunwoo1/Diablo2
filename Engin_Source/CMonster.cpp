@@ -7,6 +7,7 @@
 #include "CMeshRenderer.h"
 #include "CResourceManager.h"
 #include "CTexture2D.h"
+#include "CCollider2D.h"
 
 Monster::Monster()
 	: GameObject()
@@ -20,6 +21,9 @@ Monster::Monster()
 	, mReset(false)
 	, mDirection{}
 	, mSpawnPos(-1.f, -1.f)
+	, mDamege(20.0f)
+	, mLightElementDamege(mDamege * 0.5f)
+	, mElementTime(3.0f)
 {
 	mDirection[mIndex] = 1;
 }
@@ -45,10 +49,35 @@ void Monster::Initalize()
 
 	mr->SetMesh(mesh);
 	mr->SetMaterial(material);
+
+	Collider2D* col = AddComponent<Collider2D>();
+	col->SetType(eColliderType::Rect);
+	col->SetSize(Vector2(0.25f, 0.4f));
 }
 
 void Monster::Update()
 {
+	if (GetHP() < 0)
+	{
+		SetMonsterState(MonsterState::Dead);
+		SetMonsterStatusEffect(eElementType::None);
+	}
+
+	if (GetMonsterState() == MonsterState::Dead)
+	{
+		Animator* animator = GetComponent<Animator>();
+		wstring name = animator->GetPlayAnimation()->GetName();
+		if (name.find(L"Death") != std::wstring::npos)
+		{
+			if (!animator->GetPlayAnimation()->IsComplete())
+			{
+				return;
+			}
+
+			Paused();
+		}
+	}
+
 	float time = Time::GetInstance()->DeltaTime();
 	SetCurDeltaTime(time);
 	StatusEffect();
@@ -74,6 +103,9 @@ void Monster::Update()
 			continue;
 
 		if (obj == this)
+			continue;
+
+		if (obj->GetState() != eState::active)
 			continue;
 
 		Transform* Tr = GetComponent<Transform>();
@@ -167,13 +199,18 @@ void Monster::StatusEffect()
 	}
 	else if (mMonsterStatusEffect == eElementType::HitFire)
 	{
-		if (mDotDamageCoolTime >= 0.5f)
+		mDotDamageCoolTime += Time::GetInstance()->DeltaTime();
+		if (mDotDamageCoolTime >= 0.3f)
 		{
-			mDotDamageCoolTime -= 0.5f;
+			mDotDamageCoolTime -= 0.3f;
 			int hp = GetHP();
-			hp -= 5;
+			hp -= 1.f;
 			SetHP(hp);
 		}
+	}
+	else if (mMonsterStatusEffect == eElementType::HitLight)
+	{
+		SetDamege(mLightElementDamege);
 	}
 }
 
@@ -189,11 +226,14 @@ void Monster::Run()
 	default:												break;
 	}
 
+	if (mMonsterStatusEffect != eElementType::None)
+		discountElement();
+
 	switch (mMonsterStatusEffect)
 	{
 	case eElementType::HitFire:		hitFire();				break;
 	case eElementType::HitFrozen:	hitFrozen();			break;
-	case eElementType::HitLight:		hitLight();				break;
+	case eElementType::HitLight:		hitLight();			break;
 	default:												break;
 	}
 }
@@ -213,4 +253,36 @@ bool Monster::MonsterDirection(int index)
 UINT Monster::GetDirection()
 {
 	return mIndex;
+}
+
+void Monster::discountElement()
+{
+	mElementTime -= Time::GetInstance()->DeltaTime();
+
+	if (mElementTime <= 0.0f)
+	{
+		mElementTime = 3.0f;
+
+		if (mMonsterStatusEffect == eElementType::HitLight)
+		{
+			SetDamege(mDamege);
+		}
+
+		mMonsterStatusEffect = eElementType::None;
+	}
+}
+
+void Monster::hitFire()
+{
+
+}
+
+void Monster::hitFrozen()
+{
+
+}
+
+void Monster::hitLight()
+{
+
 }

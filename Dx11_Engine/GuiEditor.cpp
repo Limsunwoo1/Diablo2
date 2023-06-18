@@ -26,6 +26,7 @@ namespace gui
 	{
 	}
 
+
 	Editor::~Editor()
 	{
 	}
@@ -189,7 +190,7 @@ namespace gui
 		mesh.position.z = -100.f;
 		tr->SetPosition(mesh.position); 
 	
-		//tr->SetRotation(Vector3(XM_2PI / 60.f, XM_2PI / 60.f, mesh.rotation.z));
+		tr->SetRotation(Vector3(XM_2PI / 60.f, XM_2PI / 60.f, mesh.rotation.z));
 
 		// 레이어별 차이
 		if (mesh.type == eColliderType::Rect)

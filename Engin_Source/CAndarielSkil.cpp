@@ -6,11 +6,13 @@
 #include "CTexture2D.h"
 #include "CSpriteRenderer.h"
 #include "CWorldManager.h"
+#include "CObject.h"
 
 AndarielSkil::AndarielSkil()
 	: Skil()
 	, mInterval(0.1f)
 	, mDeleta(0.f)
+	, mDeathTime(10.0f)
 {
 	mSpecialCastSkil.resize(9);
 }
@@ -77,9 +79,16 @@ void AndarielSkil::Initalize()
 
 void AndarielSkil::Update()
 {
+	if (mDeathTime <= 0)
+	{
+		Object::ObjectDestroy(this);
+		return;
+	}
+
 	Skil::Update();
 
 	mDeleta += Time::GetInstance()->DeltaTime();
+	mDeathTime -= Time::GetInstance()->DeltaTime();
 
 	if (mDeleta >= mInterval)
 	{
@@ -112,7 +121,7 @@ void AndarielSkil::Update()
 				Vector3 PlayerPos = playerTr->GetPosition();
 				Vector3 diff = PlayerPos - Pos;
 
-				float radian = XMConvertToRadians(45 - (cout * diffDegree));
+				float radian = XMConvertToRadians(-45 + (cout * diffDegree));
 
 				int radius = 100.f;
 				int x = cosf(radian) * radius;

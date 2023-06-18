@@ -71,7 +71,7 @@ void MainTitleScene::Initalize()
 	{
 		GameObject* logo = Object::Instantiate<GameObject>(eLayerType::Player, this);
 		Transform* tr = logo->GetComponent<Transform>();
-		tr->SetSize(Vector3(1000.0f, 2400.0f, 1.0f));
+		tr->SetSize(Vector3(1000.0f, 3500.f, 1.0f));
 		tr->SetPosition(Vector3(0.0f, 350.f, 0.0f));
 
 		SpriteRenderer* sr = logo->AddComponent<SpriteRenderer>();

@@ -5,6 +5,9 @@
 #include "CSpriteRenderer.h"
 #include "CObject.h"
 #include "CLight.h"
+#include "CCollisionManager.h"
+#include "CMonster.h"
+#include "CCollider2D.h"
 
 FrozenBolt::FrozenBolt()
 	: BoltBase()
@@ -34,11 +37,42 @@ void FrozenBolt::Initalize()
 
 	sr->SetMesh(mesh);
 	sr->SetMaterial(material);
+
+	// �浹ü
+	Collider2D* col = AddComponent<Collider2D>();
+	col->SetType(eColliderType::Rect);
+	col->SetSize(Vector2(0.05f, 0.1f));
+	col->SetCenter(Vector2(0.f, 0.f));
 }
 
 void FrozenBolt::Update()
 {
 	BoltBase::Update();
+
+	if (GetRun() == false)
+		return;
+
+	Layer& layer = SceneManager::GetInstance()->GetActiveScene()->GetLayer(eLayerType::Monster);
+	const std::vector<GameObject*>& Objects = layer.GetGameObjects();
+
+	Collider2D* col = GetComponent<Collider2D>();
+	if (col != nullptr)
+	{
+		for (GameObject* obj : Objects)
+		{
+			if (obj == nullptr)
+				continue;
+
+			bool collistion = false;
+			collistion = CollisionManager::GetInstance()->AABBRect_VS_Rect(col, obj->GetComponent<Collider2D>());
+
+			if (collistion)
+			{
+				HitSkil(obj);
+				break;
+			}
+		}
+	}
 }
 
 void FrozenBolt::FixedUpdate()
@@ -60,4 +94,21 @@ void FrozenBolt::InitAnimation()
 
 	animator->Create(L"FrozenBolt", tex, Vector2::Zero, Vector2(45.f, 59.f), Vector2::Zero, 5, 0.1f);
 	animator->Play(L"FrozenBolt");
+}
+
+void FrozenBolt::HitSkil(GameObject* obj)
+{
+	Monster* monster = dynamic_cast<Monster*>(obj);
+
+	if (monster == nullptr)
+		return;
+
+	float hp = monster->GetHP();
+	float damage = GetDamege();
+
+	hp -= damage;
+	monster->SetHP(hp);
+
+	monster->SetMonsterStatusEffect(GetElementType());
+	Death();
 }

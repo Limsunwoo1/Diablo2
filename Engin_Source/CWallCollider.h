@@ -1,21 +1,20 @@
 #pragma once
-#include "CBoltBase.h"
-
-class FireBolt : public BoltBase
+#include "CCollider2D.h"
+class WallCollider : public Collider2D
 {
 public:
-	FireBolt();
-	~FireBolt();
+	WallCollider();
+	virtual ~WallCollider();
 
 	virtual void Initalize() override;
 	virtual void Update() override;
 	virtual void FixedUpdate() override;
 	virtual void Render() override;
 
-	virtual void InitAnimation() override;
-	virtual void HitSkil(GameObject* obj) override;
+	virtual void OnCollisionEnter(Collider2D* collider);
 
 private:
+
 
 };
 

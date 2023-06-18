@@ -59,15 +59,19 @@ public:
 
 	void Run();
 
+	float GetDamege() { return mDamege; }
+	void SetDamege(float damege) { mDamege = damege; }
+
 protected:
 	virtual void idle()			{};
 	virtual void move()			{};
 	virtual void attack()		{};
 	virtual void hit()			{};
 	virtual void monsterDead()	{};
-	virtual void hitFire()		{};
-	virtual void hitFrozen()	{};
-	virtual void hitLight()		{};
+	virtual void hitFire();
+	virtual void hitFrozen();
+	virtual void hitLight();
+	virtual void discountElement();
 private:
 	Vector2 mSpawnPos;
 	// 0(ก่) 2(กๆ) 4(ก้) 6(ก็)
@@ -82,8 +86,12 @@ private:
 
 	float mDeltaTime;
 	float mDotDamageCoolTime;
+	float mElementTime;
 
 	bool mReset;
+
+	float mDamege;
+	float mLightElementDamege;
 
 protected:
 	GameObject* mShadow;

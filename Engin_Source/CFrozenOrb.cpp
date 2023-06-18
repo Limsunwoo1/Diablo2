@@ -11,6 +11,7 @@ FrozenOrb::FrozenOrb()
 	: Skil()
 	, mFrozenMissile{}
 	, mSpeakerIndex(0)
+	, mFrozenIndex(0)
 	, mRunningTime(0.0f)
 	, mbOff(false)
 	, mbOnOrb(false)
@@ -70,10 +71,10 @@ void FrozenOrb::Initalize()
 	// 트랜스폼
 	Transform* tr = GetComponent<Transform>();
 	tr->SetSize(Vector3(140.f, 140.f, 1.0f));
-	
+
 	Vector3 Pos = tr->GetPosition();
 	tr->SetPosition(Vector3(Pos.x, Pos.y, 0.8f));
-	
+
 	// 제네릭 애니메이터
 	AddComponent<GenericAnimator>();
 
@@ -123,7 +124,7 @@ void FrozenOrb::Update()
 
 void FrozenOrb::FixedUpdate()
 {
-	if(!mbOff && mbOnOrb)
+	if (!mbOff && mbOnOrb)
 		RunOrb();
 
 	Skil::FixedUpdate();
@@ -224,6 +225,9 @@ void FrozenOrb::OnOrb()
 				if (mFrozenMissile[i]->GetState() == eState::active)
 					continue;
 
+				if (mFrozenMissile[i]->GetState() == eState::dead)
+					continue;
+
 				mFrozenMissile[i]->Active();
 
 				Vector3 pos = GetComponent<Transform>()->GetPosition();
@@ -231,8 +235,8 @@ void FrozenOrb::OnOrb()
 				tr->SetPosition(pos);
 			}
 		}
-		
-		if(InCurValue >= startLine + 0.1f && InCurValue  <= endLine)
+
+		if (InCurValue >= startLine + 0.1f && InCurValue <= endLine)
 		{
 			RunningOrb();
 		}
@@ -243,6 +247,8 @@ void FrozenOrb::OnOrb()
 			{
 				mFrozenMissile[i]->Death();
 			}
+
+			mFrozenIndex = 0;
 		}
 	};
 
@@ -251,6 +257,7 @@ void FrozenOrb::OnOrb()
 		for (int i = 0; i < 20; ++i)
 		{
 			mFrozenMissile[i]->Active();
+			mFrozenMissile[i]->SetHit(false);
 
 			Vector3 pos = GetComponent<Transform>()->GetPosition();
 			Transform* tr = mFrozenMissile[i]->GetComponent<Transform>();
@@ -282,7 +289,7 @@ void FrozenOrb::RunningOrb()
 		tr->SetRotation(Vector3(0.0f, 0.0f, mSpeakerIndex * fTheta));
 
 
-		if(mSpeakerIndex < mSpeakerMissile.size())
+		if (mSpeakerIndex < mSpeakerMissile.size())
 			mSpeakerIndex++;
 	}
 }
@@ -327,22 +334,24 @@ void FrozenOrb::OffOrb()
 	Vector3 size = tr->GetScale();
 	tr->SetScale(Vector3(size.x * 2, size.y * 2, size.z));
 
+	mFrozenIndex = 0;
+
 	float startLine = 0.05f;
 	param.DurationFunc = [this, startLine](float InCurValue)
 	{
-		if (InCurValue * 20.f >= startLine)
+		for (int i = 0; i < 20; ++i)
 		{
-			for (int i = 0; i < 20; ++i)
-			{
-				if (mFrozenMissile[i]->GetState() == eState::active)
-					continue;
+			if (mFrozenMissile[i]->GetState() == eState::active)
+				continue;
 
-				mFrozenMissile[i]->Active();
+			if (mFrozenMissile[i]->GetState() == eState::dead)
+				continue;
 
-				Vector3 pos = GetComponent<Transform>()->GetPosition();
-				Transform* tr = mFrozenMissile[i]->GetComponent<Transform>();
-				tr->SetPosition(pos);
-			}
+			mFrozenMissile[i]->Active();
+
+			Vector3 pos = GetComponent<Transform>()->GetPosition();
+			Transform* tr = mFrozenMissile[i]->GetComponent<Transform>();
+			tr->SetPosition(pos);
 		}
 	};
 

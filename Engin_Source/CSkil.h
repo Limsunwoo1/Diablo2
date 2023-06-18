@@ -21,9 +21,16 @@ public:
 	void SetElementType(eElementType type) { mElementType = type; }
 	eElementType GetElementType() { return mElementType; }
 
+	float GetDamege() { return mDamege; }
+	void SetDamege(float damege) { mDamege = damege; }
+
+	virtual void HitSkil(GameObject* obj) {};
+
 protected:
 	Player* mOwner;
 	eElementType mElementType;
 	float mCost;
+
+	float mDamege;
 };
 

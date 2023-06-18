@@ -52,10 +52,7 @@ void RadamentMonster::Initalize()
 
 void RadamentMonster::Update()
 {
-	if (GetHP() < 0)
-	{
-		SetMonsterState(MonsterState::Dead);
-	}
+
 
 	Monster::Update();
 }

@@ -295,6 +295,27 @@
     <Filter Include="GameObject\Monster\AndarielMonster">
       <UniqueIdentifier>{e9318d07-407f-4d8f-8d99-692bb79be0f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Collider\2D\WallCollider">
+      <UniqueIdentifier>{4688814b-ae77-41f7-a2ac-40e98901806e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider\2D\TriggerCollider">
+      <UniqueIdentifier>{1ab4dd87-b9c0-456f-8366-b1f2c395ac78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider\2D\GateCollider">
+      <UniqueIdentifier>{9a31b968-3369-49bf-ab2e-eb977a5b4552}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider\2D\AttackCollider">
+      <UniqueIdentifier>{68c53155-cfc3-4998-8cec-6462a6e639e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider\2D\MonsterSkilCollider">
+      <UniqueIdentifier>{4fd2a713-9b42-481b-9c15-638c39b48305}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider\2D\ObjectHitCollider">
+      <UniqueIdentifier>{d29763dd-7f21-42c6-b3c5-ce6fe070fdcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider\2D\PlayerSkilCollider">
+      <UniqueIdentifier>{1594d5b4-3aed-4f9a-b974-7f2223c370e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -626,6 +647,27 @@
       <Filter>Component\Script\Contents\MonsterScript</Filter>
     </ClCompile>
     <ClCompile Include="CAndarielSkil.cpp" />
+    <ClCompile Include="CPlayerSkilCollider.cpp">
+      <Filter>Component\Collider\2D\PlayerSkilCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="CWallCollider.cpp">
+      <Filter>Component\Collider\2D\WallCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="CTriggerCollider.cpp">
+      <Filter>Component\Collider\2D\TriggerCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjectHitCollider.cpp">
+      <Filter>Component\Collider\2D\ObjectHitCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterSkilCollider.cpp">
+      <Filter>Component\Collider\2D\MonsterSkilCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="CAttackCollider.cpp">
+      <Filter>Component\Collider\2D\AttackCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="CGateCollider.cpp">
+      <Filter>Component\Collider\2D\GateCollider</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -969,6 +1011,27 @@
       <Filter>Component\Script\Contents\MonsterScript</Filter>
     </ClInclude>
     <ClInclude Include="CAndarielSkil.h" />
+    <ClInclude Include="CPlayerSkilCollider.h">
+      <Filter>Component\Collider\2D\PlayerSkilCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="CWallCollider.h">
+      <Filter>Component\Collider\2D\WallCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="CTriggerCollider.h">
+      <Filter>Component\Collider\2D\TriggerCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjectHitCollider.h">
+      <Filter>Component\Collider\2D\ObjectHitCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterSkilCollider.h">
+      <Filter>Component\Collider\2D\MonsterSkilCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="CGateCollider.h">
+      <Filter>Component\Collider\2D\GateCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="CAttackCollider.h">
+      <Filter>Component\Collider\2D\AttackCollider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Math.inl">

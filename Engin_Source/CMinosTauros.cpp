@@ -46,10 +46,6 @@ void MinosTauros::Initalize()
 
 void MinosTauros::Update()
 {
-	if (GetHP() < 0)
-	{
-		SetMonsterState(MonsterState::Dead);
-	}
 
 	Monster::Update();
 }

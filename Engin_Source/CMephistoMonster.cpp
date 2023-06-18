@@ -52,10 +52,6 @@ void MephistoMonster::Initalize()
 
 void MephistoMonster::Update()
 {
-	if (GetHP() < 0)
-	{
-		SetMonsterState(MonsterState::Dead);
-	}
 
 	Monster::Update();
 }

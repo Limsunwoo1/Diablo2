@@ -7,9 +7,9 @@
 BoltBase::BoltBase()
 	: mDirection(0.0f)
 	, mSpeed(600.f)
-	, mDameage(20.f)
 	, mbRun(false)
 {
+	SetDamege(10.f);
 }
 
 BoltBase::~BoltBase()
@@ -101,4 +101,9 @@ float BoltBase::Angle(Vector2 point)
 	SetDirection(mDirection);
 
 	return angle;
+}
+
+void BoltBase::HitSkil(GameObject* obj)
+{
+
 }

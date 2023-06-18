@@ -37,13 +37,17 @@ void AndarielScript::FixedUpdate()
 	if (monster == nullptr)
 		return;
 
+	if (monster->GetMonsterState() == Monster::MonsterState::Dead)
+		return;
+
+	float Delta = monster->GetCurDeltaTime();
 	GameObject* player = WorldManager::GetInstance()->GetPlayer();
 	if (player == nullptr)
 		return;
 
 	Transform* Tr = GetOwner()->GetComponent<Transform>();
 	Vector3 mPos = Tr->GetPosition();
-	Vector3 searchSize = Vector3(600.f, 600.f, 1.0f);
+	Vector3 searchSize = Vector3(700.f, 700.f, 1.0f);
 
 	Transform* playertr = player->GetComponent<Transform>();
 	Vector3 PlayerPos = playertr->GetPosition();
@@ -71,7 +75,7 @@ void AndarielScript::FixedUpdate()
 		Vector3 diff = playerPos - OwnerPos;
 		float len = diff.Length();
 		
-		if (len < 800.f)
+		if (len < 500.f)
 		{
 			ResetAStar();
 			mArrivePos = Vector2::Zero;
@@ -195,7 +199,7 @@ void AndarielScript::FixedUpdate()
 			return;
 		}
 
-		pos += Vec * Time::GetInstance()->DeltaTime() * mSpeed;
+		pos += Vec * Delta * 450.f;
 		tr->SetPosition(pos);
 	}
 }

@@ -15,7 +15,7 @@ public:
 	virtual void Render() override;
 
 	virtual void InitAnimation() override;
-
+	virtual void HitSkil(GameObject* obj) override;
 private:
 
 };

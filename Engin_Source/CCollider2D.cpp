@@ -41,8 +41,7 @@ void Collider2D::FixedUpdate()
 	Vector3 size = mTransform->GetSize();
 	scale = (size * scale) * mSize;
 
-	Vector3 rotation = mTransform->GetRotation();
-
+	Vector3 rotation = GetOwner()->GetComponent<Transform>()->GetRotation();
 	Vector3 position = mTransform->GetPosition();
 	Vector3 colliderPos = position + Vector3(mCenter.x, mCenter.y, 0.0f);
 	mPosition = colliderPos;

@@ -188,10 +188,10 @@ bool CollisionManager::Rect_VS_Rect(Collider2D* left, Collider2D* right)
 	Matrix leftMatrix = leftTransform->GetWorldMatrix();
 	Matrix rightMatrix = rightTransform->GetWorldMatrix();
 
-	Matrix filnalleft = Matrix::CreateScale(leftTransform->GetScale());
+	Matrix filnalleft = Matrix::CreateScale(leftTransform->GetSize());
 	filnalleft *= leftMatrix;
 
-	Matrix filnalright = Matrix::CreateScale(rightTransform->GetScale());
+	Matrix filnalright = Matrix::CreateScale(rightTransform->GetSize());
 	filnalright *= rightMatrix;
 	// 분리축 벡터 4 개 구하기
 	Vector3 Axis[4] = {};
@@ -228,6 +228,36 @@ bool CollisionManager::Rect_VS_Rect(Collider2D* left, Collider2D* right)
 		if (projDist < fabsf(centerDir.Dot(vA)))
 			return false;
 	}
+	return true;
+}
+
+bool CollisionManager::AABBRect_VS_Rect(Collider2D* left, Collider2D* right)
+{
+	Transform* leftTransform = left->GetOwner()->GetComponent<Transform>();
+
+	Vector3 Lscale = leftTransform->GetScale();
+	Vector3 Lsize = leftTransform->GetSize();
+	Lscale = (Lsize * Lscale) * left->GetSize();
+
+	Vector3 Lposition = leftTransform->GetPosition();
+	Vector3 LcolliderPos = Lposition + Vector3(left->GetCenter().x, left->GetCenter().y, 0.0f);
+
+	Transform* rightTransform = right->GetOwner()->GetComponent<Transform>();
+	Vector3 Rscale = rightTransform->GetScale();
+	Vector3 Rsize = rightTransform->GetSize();
+	Rscale = (Rsize * Rscale) * right->GetSize();
+
+	Vector3 Rposition = rightTransform->GetPosition();
+	Vector3 RcolliderPos = Rposition + Vector3(right->GetCenter().x, right->GetCenter().y, 0.0f);
+
+	if (LcolliderPos.x + (Lscale.x * 0.5f) < RcolliderPos.x - (Rscale.x * 0.5f)
+		|| LcolliderPos.x - (Lscale.x * 0.5f) > RcolliderPos.x + (Rscale.x * 0.5f))
+		return false;
+
+	if (LcolliderPos.y + (Lscale.y * 0.5f) < RcolliderPos.y - (Rscale.y * 0.5f)
+		|| LcolliderPos.y - (Lscale.y * 0.5f) > RcolliderPos.y + (Rscale.y * 0.5f))
+		return false;
+
 	return true;
 }
 

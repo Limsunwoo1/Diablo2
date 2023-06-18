@@ -11,6 +11,7 @@ Skil::Skil(Player* player)
 	, mOwner(player)
 	, mElementType(eElementType::None)
 	, mCost(0.0f)
+	, mDamege(20.f)
 {
 	
 }

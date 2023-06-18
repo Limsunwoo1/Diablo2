@@ -15,15 +15,13 @@ public:
 	bool GetRun() { return mbRun; }
 	void SetRun(bool run) { mbRun = run; }
 
-	float GetDamage() { return mDameage; }
-	void SetDamage(float damage) { mDameage = damage; }
-
 	void SetSpeed(int speed) { mSpeed = speed; }
+
+	virtual void HitSkil(GameObject* obj) override;
 private:
 	int mSpeed;
 
 	float mDirection;
-	float mDameage;
 
 	bool mbRun;
 };

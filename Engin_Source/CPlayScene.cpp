@@ -179,7 +179,7 @@ void PlayScene::Initalize()
 
 		AndarielMonster* mino1 = Object::Instantiate<AndarielMonster>(eLayerType::Monster, this);
 		Transform* minoTr1 = mino1->GetComponent<Transform>();
-		minoTr1->SetPosition(Vector3(4081.f, 9000.f, 1.0f));
+		minoTr1->SetPosition(Vector3(5655.f, 9701.f, 1.0f));
 
 		MinosTauros* mino2 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
 		Transform* minoTr2 = mino2->GetComponent<Transform>();
@@ -355,6 +355,14 @@ void PlayScene::OnEnter()
 		return;
 
 	pallet->Load(L"..//Resource//TileData//test",eSceneType::Play);
+
+	// collision
+	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::PlayerSKil, eLayerType::Monster);
+	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::Player, eLayerType::MonsterSkil);
+	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::PlayerSKil, eLayerType::Wall);
+	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::MonsterSkil, eLayerType::Wall);
+
+	
 }
 
 void PlayScene::OnExit()

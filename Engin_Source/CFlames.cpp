@@ -3,6 +3,11 @@
 #include "CAnimator.h"
 
 #include "CResourceManager.h"
+#include "CCollisionManager.h"
+#include "CMonster.h"
+#include "CCollider2D.h"
+#include "CLayer.h"
+#include "CSceneManager.h"
 
 
 Flames::Flames()
@@ -35,12 +40,38 @@ void Flames::Initalize()
 	sr->SetMesh(mesh);
 	sr->SetMaterial(material);
 
+	Collider2D* col = AddComponent<Collider2D>();
+	col->SetType(eColliderType::Rect);
+	col->SetSize(Vector2(0.25f, 0.25f));
+	col->SetCenter(Vector2(0.f, -30.f));
+
 	Death();
 }
 
 void Flames::Update()
 {
 	Skil::Update();
+
+	Layer& layer = SceneManager::GetInstance()->GetActiveScene()->GetLayer(eLayerType::Monster);
+	const std::vector<GameObject*>& Objects = layer.GetGameObjects();
+
+	Collider2D* col = GetComponent<Collider2D>();
+	if (col != nullptr)
+	{
+		for (GameObject* obj : Objects)
+		{
+			if (obj == nullptr)
+				continue;
+
+			bool collistion = false;
+			collistion = CollisionManager::GetInstance()->AABBRect_VS_Rect(col, obj->GetComponent<Collider2D>());
+
+			if (collistion)
+			{
+				HitSkil(obj);
+			}
+		}
+	}
 }
 
 void Flames::FixedUpdate()
@@ -65,4 +96,14 @@ void Flames::InitAnimation()
 	animator->Create(L"FlameBoom", tex, Vector2::Zero, Vector2(100.f, 100.f), Vector2::Zero, 19, 0.1f);
 
 	animator->Play(L"FlameBoom", false);
+}
+
+void Flames::HitSkil(GameObject* obj)
+{
+	Monster* monster = dynamic_cast<Monster*>(obj);
+
+	if (monster == nullptr)
+		return;
+
+	monster->SetMonsterStatusEffect(eElementType::HitFire);
 }
