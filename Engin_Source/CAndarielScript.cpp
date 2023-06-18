@@ -5,6 +5,8 @@
 #include "CWorldManager.h"
 #include "Cplayer.h"
 #include "CAndarielMonster.h"
+#include "CAndarielSkil.h"
+#include "CObject.h"
 
 AndarielScript::AndarielScript()
 	: Script()

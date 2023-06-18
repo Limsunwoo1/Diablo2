@@ -7,13 +7,15 @@
 #include "CMinoMonsterScript.h"
 #include "CTime.h"
 #include "CAndarielScript.h"
+#include "CAndarielSkil.h"
+#include "CObject.h"
 
 AndarielMonster::AndarielMonster()
 	: Monster()
 	, mSkilCoolTime(5.0f)
 	, mSkilCurTime(0.0f)
 {
-	mSpecialCastSkil.resize(9);
+	
 }
 
 AndarielMonster::~AndarielMonster()
@@ -134,6 +136,36 @@ void AndarielMonster::FixedUpdate()
 {
 	Monster::FixedUpdate();
 	mOverlay->FixedUpdate();
+
+	Animator* animator = this->GetComponent<Animator>();
+	if (mSkilCurTime >= mSkilCoolTime)
+	{
+		mSkilCurTime = 0.0f;
+		UINT index = GetDirection();
+		wstring specialCast = L"AndarielAttack2";
+		specialCast += std::to_wstring(index);
+
+		animator->Play(specialCast, false);
+
+		//Overlay
+		Transform* Tr = GetComponent<Transform>();
+		Vector3 Pos = Tr->GetPosition();
+
+		mOverlay->Active();
+		Transform* OverlayTr = mOverlay->GetComponent<Transform>();
+		OverlayTr->SetPosition(Pos);
+		OverlayTr->SetSize(Vector3(400.f, 400.f, 1.0f));
+
+		wstring cast = L"SpecialCast";
+		cast += std::to_wstring(index);
+
+		mOverlay->GetComponent<Animator>()->Play(cast, false);
+
+		AndarielSkil* skil = Object::Instantiate<AndarielSkil>(eLayerType::MonsterSkil, true);
+		Transform* skilTr = skil->GetComponent<Transform>();
+
+		skilTr->SetPosition(Pos);
+	}
 }
 
 void AndarielMonster::Render()
@@ -335,7 +367,6 @@ void AndarielMonster::attack()
 			mSkilCurTime = 0.0f;
 
 			wstring specialCast = L"AndarielAttack2";
-			UINT Index = GetIndex();
 			specialCast += std::to_wstring(Index);
 
 			animator->Play(specialCast, false);
@@ -354,10 +385,16 @@ void AndarielMonster::attack()
 
 			mOverlay->GetComponent<Animator>()->Play(cast, false);
 
-			return;
+			AndarielSkil* skil = Object::Instantiate<AndarielSkil>(eLayerType::MonsterSkil, true);
+			Transform* skilTr = skil->GetComponent<Transform>();
+
+			skilTr->SetPosition(Pos);
+		}
+		else
+		{ 
+			animator->Play(playName, false);
 		}
 		
-		animator->Play(playName, false);
 	}
 	else
 	{

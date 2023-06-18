@@ -3,7 +3,7 @@
 
 class AndarielSkil : public Skil
 {
-private:
+public:
 	AndarielSkil();
 	~AndarielSkil();
 
@@ -14,8 +14,9 @@ private:
 
 	virtual void InitAnimation() override;
 
-public:
+private:
 	std::vector<class BoltBase*> mSpecialCastSkil;
+	std::shared_ptr<class Material>  mMaterial;
 	float mInterval;
 	float mDeleta;
 };

@@ -54,9 +54,9 @@ void FireBolt::Render()
 void FireBolt::InitAnimation()
 {
 	Animator* animator = AddComponent<Animator>();
-
 	weak_ptr<Texture2D> tex =
 		ResourceManager::GetInstance()->Load<Texture2D>(L"FireBolt", L"FirBolt//FirteBolt2.png");
+
 
 	animator->Create(L"FireBolt", tex, Vector2::Zero, Vector2(100.f, 100.f), Vector2::Zero, 9, 0.1f);
 	animator->Play(L"FireBolt");
