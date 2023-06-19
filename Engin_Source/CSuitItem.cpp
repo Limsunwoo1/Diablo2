@@ -44,4 +44,6 @@ void SuitItem::Initalize()
 
 	SetWorldSize(Vector3(4.0f * ITEM_X_SIZE * 2.0f, 4.0f * ITEM_Y_SIZE * 2.0f, 1.0f));
 	SetInvenSize(Vector3(ITEM_X_SIZE * 2.0f, ITEM_Y_SIZE * 3.0f, 1.0f));
+
+	ItemBase::Initalize();
 }

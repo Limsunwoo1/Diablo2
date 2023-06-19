@@ -261,6 +261,28 @@ bool CollisionManager::AABBRect_VS_Rect(Collider2D* left, Collider2D* right)
 	return true;
 }
 
+bool CollisionManager::AABBRect_VS_Point(Collider2D* left, Vector2 point)
+{
+	Transform* leftTransform = left->GetOwner()->GetComponent<Transform>();
+
+	Vector3 Lscale = leftTransform->GetScale();
+	Vector3 Lsize = leftTransform->GetSize();
+	Lscale = (Lsize * Lscale) * left->GetSize();
+
+	Vector3 Lposition = leftTransform->GetPosition();
+	Vector3 LcolliderPos = Lposition + Vector3(left->GetCenter().x, left->GetCenter().y, 0.0f);
+
+	if (LcolliderPos.x + (Lscale.x * 0.5f) < point.x
+		|| LcolliderPos.x - (Lscale.x * 0.5f) > point.x)
+		return false;
+
+	if (LcolliderPos.y + (Lscale.y * 0.5f) < point.y
+		|| LcolliderPos.y - (Lscale.y * 0.5f) > point.y)
+		return false;
+
+	return true;
+}
+
 bool CollisionManager::Circle_VS_Circle(Collider2D* left, Collider2D* right)
 {
 	Transform* leftTransform = left->GetOwner()->GetComponent<Transform>();

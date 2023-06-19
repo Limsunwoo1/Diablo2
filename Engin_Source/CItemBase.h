@@ -20,7 +20,7 @@ public:
 	ItemBase(eEquipmentType type);
 	virtual ~ItemBase();
 
-	virtual void Initalize() override {};
+	virtual void Initalize() override;
 	virtual void Update() override;
 	virtual void FixedUpdate() override;
 	virtual void Render() override;
@@ -74,8 +74,8 @@ public:
 	void SetTargetObject(GameObject* obj) { mTargetObject = obj; }
 	GameObject* GetTargetObject() { return mTargetObject; }
 
-	Vector3& GetWorldSize() { return mWorldSacle; }
-	void SetWorldSize(const Vector3& scale) { mWorldSacle = scale; }
+	Vector3& GetWorldSize() { return mWorldScale; }
+	void SetWorldSize(const Vector3& scale) { mWorldScale = scale; }
 
 	Vector3& GetInvenSize() { return mInvenScale; }
 	void SetInvenSize(const Vector3& scale) { mInvenScale = scale; }
@@ -87,7 +87,7 @@ private:
 	UINT mXIndex;
 	UINT mYIndex;
 
-	Vector3 mWorldSacle;
+	Vector3 mWorldScale;
 	Vector3 mInvenScale;
 
 	Material* mMaterial;

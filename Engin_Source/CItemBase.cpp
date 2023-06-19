@@ -7,6 +7,8 @@
 #include "CInventoryPanel.h"
 #include "CInventoryButton.h"
 #include "CItemManager.h"
+#include "CCollider2D.h"
+#include "CCollisionManager.h"
 
 ItemBase::ItemBase(eEquipmentType type)
 	: GameObject()
@@ -24,10 +26,25 @@ ItemBase::ItemBase(eEquipmentType type)
 	, mSlotInventory(nullptr)
 	, mTargetObject(nullptr)
 {
+
 }
 
 ItemBase::~ItemBase()
 {
+}
+
+void ItemBase::Initalize()
+{
+	Transform* tr = GetComponent<Transform>();
+	Vector3 Pos = tr->GetPosition();
+	float offsetY = Pos.y - (mWorldScale.y * 0.8f);
+
+
+
+	Collider2D* col = AddComponent<Collider2D>();
+	col->SetType(eColliderType::Rect);
+	col->SetCenter(Vector2(0, -(mWorldScale.y * 0.35f)));
+	col->SetSize(Vector2(0.1f, 0.1f));
 }
 
 void ItemBase::Update()
@@ -41,13 +58,30 @@ void ItemBase::Update()
 	Vector3 colScale = tr->GetScale() * tr->GetSize();
 
 	// 아이템와 마우스의 충돌 체크
-	if (mousePos.x > colPos.x + (colScale.x * 0.5f) || mousePos.x < colPos.x - (colScale.x * 0.5f))
-		return;
-	if (mousePos.y > colPos.y + (colScale.x * 0.5f) || mousePos.y < colPos.y - (colScale.y * 0.5f))
-		return;
+	if (mbStage == false)
+	{
+		if (mousePos.x > colPos.x + (colScale.x * 0.5f) || mousePos.x < colPos.x - (colScale.x * 0.5f))
+			return;
+		if (mousePos.y > colPos.y + (colScale.x * 0.5f) || mousePos.y < colPos.y - (colScale.y * 0.5f))
+			return;
+	}
+	else
+	{
+		bool collision = CollisionManager::GetInstance()->AABBRect_VS_Point(GetComponent<Collider2D>(), mousePos);
+		if (!collision)
+			return;
+	}
 
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN))
 	{
+		if (mbStage == true)
+		{
+			Panel* inventory = UIManager::GetInstance()->GetUiInstance<Panel>(L"mainInventory");
+			bool able = inventory->GetIsAble();
+
+			if (able == false)
+				return;
+		}
 		// 마우스가 다른 아이템을 집지 않고 있는 상태
 		if (Input::GetInstance()->GetPickItem() == nullptr)
 		{

@@ -28,6 +28,7 @@ public:
 	bool Intersect(Collider2D* left, Collider2D* right);
 	bool Rect_VS_Rect(Collider2D* left, Collider2D* right);
 	bool AABBRect_VS_Rect(Collider2D* left, Collider2D* right);
+	bool AABBRect_VS_Point(Collider2D* left, Vector2 point);
 	bool Circle_VS_Circle(Collider2D* left, Collider2D* right);
 
 	bool ButtonCollisionCheck(const Vector2& mousePos, Collider2D* button);

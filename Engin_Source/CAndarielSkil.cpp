@@ -155,7 +155,7 @@ void AndarielSkil::Update()
 		}
 	}
 
-	for (GameObject* obj : mSpecialCastSkil)
+	for (BoltBase* obj : mSpecialCastSkil)
 	{
 		if (obj == nullptr)
 			continue;
@@ -170,10 +170,10 @@ void AndarielSkil::Update()
 		if (CollisionManager::GetInstance()->AABBRect_VS_Rect(objCol, playerCol))
 		{
 			float hp = player->GetHP();
-			hp -= GetDamege();
+			hp -= obj->GetDamege();
 			player->SetHP(hp);
 
-			obj->Paused();
+			obj->Death();
 			continue;
 		}
 
