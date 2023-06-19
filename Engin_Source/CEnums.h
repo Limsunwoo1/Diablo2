@@ -2,7 +2,6 @@
 
 enum class eSceneType
 {
-	
 	Title,
 	Tool,
 	MainTitle,
@@ -26,6 +25,7 @@ enum class eLayerType
 	PlayerSKil,
 	Monster,
 	Player,
+	Gate,
 	Wall,
 
 	Particle,
@@ -33,7 +33,7 @@ enum class eLayerType
 	Fade,
 	PostProcess,
 	UI,
-	End = 20,
+	End = 23,
 };
 
 enum class eComponentType
@@ -195,6 +195,7 @@ enum class eGaugeUi
 	Hp,
 	Mp,
 	Exp,
+	MonsterHp,
 };
 
 extern const char* charComponentType[(int)eComponentType::End];

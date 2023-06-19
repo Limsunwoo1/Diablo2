@@ -124,7 +124,7 @@ void TilePallet::Load()
 
 			CreateTile(wstring(key.begin(), key.end()), (eLayerType)type, Pos, screenIndex, IDx, tileArr);
 		}
-		else if(type == (UINT32)eLayerType::Wall)
+		else if(type ==( (UINT32)eLayerType::Wall) - 1)
 		{
 			if (fread(&count, sizeof(UINT32), 1, pFile) == NULL)
 				break;
@@ -182,7 +182,7 @@ void TilePallet::Load(const std::wstring& path, eSceneType scenetype)
 		if (fread(&type, sizeof(UINT32), 1, pFile) == NULL)
 			break;
 
-		if (type == (UINT32)eLayerType::Tile)
+		if (type == (UINT)eLayerType::Tile)
 		{
 			if (fread(&count, sizeof(UINT32), 1, pFile) == NULL)
 				break;
@@ -216,7 +216,7 @@ void TilePallet::Load(const std::wstring& path, eSceneType scenetype)
 
 			CreateTile(wstring(key.begin(), key.end()), (eLayerType)type, Pos, screenIndex, IDx, tileArr, scenetype);
 		}
-		else if (type == (UINT32)eLayerType::Wall)
+		else if (type == (UINT)eLayerType::Wall - 1)
 		{
 			if (fread(&count, sizeof(UINT32), 1, pFile) == NULL)
 				break;

@@ -52,7 +52,6 @@ void SpearMonster::Initalize()
 
 void SpearMonster::Update()
 {
-
 	Monster::Update();
 
 	Transform* shadowTr = mShadow->GetComponent<Transform>();

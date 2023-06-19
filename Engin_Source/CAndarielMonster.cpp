@@ -9,6 +9,7 @@
 #include "CAndarielScript.h"
 #include "CAndarielSkil.h"
 #include "CObject.h"
+#include "CGateObject.h"
 
 AndarielMonster::AndarielMonster()
 	: Monster()
@@ -332,8 +333,14 @@ void AndarielMonster::CreateNextScenePotal()
 {
 	mOverlay->Paused();
 
+	GateObject* obj = Object::Instantiate<GateObject>(eLayerType::Gate, true);
+	obj->SetNextScenetype(eSceneType::Title);
 
-	int a = 0;
+	Transform* andarielTr = GetComponent<Transform>();
+	Vector3 Pos = andarielTr->GetPosition();
+
+	Transform* objTr = obj->GetComponent<Transform>();
+	objTr->SetPosition(Vector3(7303.f,9503.f,1.0f));
 }
 
 void AndarielMonster::idle()

@@ -67,6 +67,7 @@ void Input::Initialize()
 
 	mbMouseItemPick = false;
 	mPickItem = nullptr;
+	mPickMonster = nullptr;
 }
 
 void Input::Update()
@@ -126,6 +127,8 @@ void Input::Update()
 
 		itemTr->SetPosition(pos);
 	}
+
+	mPickMonster = nullptr;
 }
 
 void Input::Render(HDC hdc)

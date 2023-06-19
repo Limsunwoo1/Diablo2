@@ -1,4 +1,6 @@
 #include "CScene.h"
+#include "CCamera.h"
+#include "CGameObject.h"
 
 Scene::Scene(eSceneType type)
 	: mType(type)

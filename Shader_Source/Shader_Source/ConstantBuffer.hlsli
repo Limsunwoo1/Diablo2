@@ -87,6 +87,8 @@ cbuffer PlayerData : register(b9)
     float mpGauge;
     float RunGauge;
     float expGauge;
+    
+    float monsterHP;
     uint gaugeType;
 }
 

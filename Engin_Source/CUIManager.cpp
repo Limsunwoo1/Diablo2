@@ -147,7 +147,18 @@ void UIManager::Initialize()
 		RunGaugetr->SetPosition(Vector3(-157.f, -11.f, 0.02f));
 		RunGaugetr->SetSize(Vector3(2.2f * 100.f, 0.35f * 100.f, 0.f));
 
-		
+		Panel* monseterHP = new Panel(eUIType::Panel);
+		monseterHP->SetName(L"MonsterHp");
+		monseterHP->InitRenderer(L"MonsterHpMaterial", L"MonsterHp", L"UI//MonsterHp.png");
+		monseterHP->Active();
+		monseterHP->SetUiGaugeType(eGaugeUi::MonsterHp);
+
+		Transform* monseterHPtr = monseterHP->GetComponent<Transform>();
+		monseterHPtr->SetPosition(Vector3(0.0f,400.f, 0.01f));
+		monseterHPtr->SetSize(Vector3(150.f, 75.f, 0.f));
+		Object::Instantiate<Panel>(eLayerType::UI, eSceneType::Play, monseterHP);
+		Push(L"MonsterHp", monseterHP);
+
 		// 부모자식 연결
 		mainPanelui->SetChild(hpui);
 		mainPanelui->SetChild(mpui);

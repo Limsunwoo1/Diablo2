@@ -33,6 +33,10 @@ float4 main(VSOut In) : SV_Target
 
     }
     
+    if (gaugeType == 5)
+    {
+        playerGauge = monsterHP;
+    }
     
     float gauge = 1.0f - playerGauge;
     float renderGauge = 1.0f - gauge;
@@ -47,5 +51,10 @@ float4 main(VSOut In) : SV_Target
     if (color.a <= 0.1f)
         discard;
     
-    return color;
+    if (gaugeType == 5)
+    {
+        color.a = 0.8f;
+    }
+    
+     return color;
 }

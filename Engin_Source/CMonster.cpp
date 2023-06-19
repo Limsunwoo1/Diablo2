@@ -10,13 +10,16 @@
 #include "CCollider2D.h"
 #include "Cplayer.h"
 #include "CWorldManager.h"
+#include "CInput.h"
+#include "CCollisionManager.h"
+#include "Cplayer.h"
 
 Monster::Monster()
 	: GameObject()
 	, mMonsterState(MonsterState::Idle)
 	, mMonsterStatusEffect(eElementType::None)
-	, mMaxHP(100.f)
-	, mHP(100.f)
+	, mMaxHP(200.f)
+	, mHP(200.f)
 	, mIndex(4)
 	, mDotDamageCoolTime(0.0f)
 	, mDeltaTime(0.0f)
@@ -65,6 +68,9 @@ void Monster::Update()
 		SetMonsterState(MonsterState::Dead);
 		SetMonsterStatusEffect(eElementType::None);
 	}
+
+	CheckPointCollision();
+
 
 	if (GetMonsterState() == MonsterState::Dead)
 	{
@@ -187,6 +193,7 @@ void Monster::Render()
 void Monster::StatusEffect()
 {
 	float time = Time::GetInstance()->DeltaTime();
+	GetComponent<Animator>()->GetPlayAnimation()->SetTimeControl(false);
 	if (mMonsterStatusEffect == eElementType::HitFrozen)
 	{
 		// 얼음 속성일때 모든 행동제약이 두배 느리게 이동
@@ -214,6 +221,7 @@ void Monster::StatusEffect()
 	}
 	else if (mMonsterStatusEffect == eElementType::HitLight)
 	{
+		GetComponent<Animator>()->GetPlayAnimation()->SetTimeControl(false);
 		SetDamege(mLightElementDamege);
 	}
 }
@@ -239,6 +247,32 @@ void Monster::Run()
 	case eElementType::HitFrozen:	hitFrozen();			break;
 	case eElementType::HitLight:		hitLight();			break;
 	default:												break;
+	}
+}
+
+void Monster::CheckPointCollision()
+{
+	Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos(true);
+
+	bool colCheck = false;
+	colCheck = CollisionManager::GetInstance()->AABBRect_VS_Point(GetComponent<Collider2D>(), mousePos);
+
+	if (colCheck)
+	{
+		Input::GetInstance()->SetPicMonster(this);
+
+		if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN))
+		{
+			Player* player = dynamic_cast<Player*>(WorldManager::GetInstance()->GetPlayer());
+
+			if (player->GetState() == Player::PlayerState::Attack)
+				return;
+
+			float damege = player->GetDamege();
+			mHP -= damege;
+
+			player->SetState(Player::PlayerState::Attack);
+		}
 	}
 }
 

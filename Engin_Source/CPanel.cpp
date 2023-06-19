@@ -4,6 +4,7 @@
 #include "CTransform.h"
 #include "CWorldManager.h"
 #include "Cplayer.h"
+#include "CMonster.h"
 
 Panel::Panel(eUIType type)
 	: UiBase(type)
@@ -92,22 +93,44 @@ void Panel::Render()
 
 	if (mType != eGaugeUi::None)
 	{
-		Player* player = dynamic_cast<Player*>(WorldManager::GetInstance()->GetPlayer());
+		if (mType != eGaugeUi::MonsterHp)
+		{
+			Player* player = dynamic_cast<Player*>(WorldManager::GetInstance()->GetPlayer());
 
-		if (player == nullptr)
-			return;
+			if (player == nullptr)
+				return;
 
-		Renderer::PlayerDataCB info = {};
-		info.Gaugetype = mType;
-		info.RunGauge = player->GetRunTime() / player->GetMaxRunTime();
-		info.hpGauge = player->GetHP() / player->GetMaxHP();
-		info.mpGauge = player->GetMP() / player->GetMaxMP();
-		//info.hpGauge = ;
+			Renderer::PlayerDataCB info = {};
+			info.Gaugetype = mType;
+			info.RunGauge = player->GetRunTime() / player->GetMaxRunTime();
+			info.hpGauge = player->GetHP() / player->GetMaxHP();
+			info.mpGauge = player->GetMP() / player->GetMaxMP();
+			//info.hpGauge = ;
 
-		ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::PlayerData];
-		cb->SetData(&info);
+			ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::PlayerData];
+			cb->SetData(&info);
 
-		cb->Bind(eShaderStage::ALL);
+			cb->Bind(eShaderStage::ALL);
+		}
+		else if(mType == eGaugeUi::MonsterHp)
+		{
+			Monster* monseter = Input::GetInstance()->GetPicMonster();
+
+			Renderer::PlayerDataCB info = {};
+			info.Gaugetype = mType;
+			if (monseter == nullptr)
+			{ 
+			}
+			else
+			{
+				info.monsterHp = monseter->GetHP() / monseter->GetMaxHp();
+			}
+
+			ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::PlayerData];
+			cb->SetData(&info);
+
+			cb->Bind(eShaderStage::ALL);
+		}
 	}
 
 	UiBase::Render();

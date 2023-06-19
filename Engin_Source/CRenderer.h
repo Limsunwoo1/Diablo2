@@ -114,6 +114,8 @@ namespace Renderer
 		float mpGauge;
 		float RunGauge;
 		float expGauge;
+
+		float monsterHp;
 		eGaugeUi Gaugetype;
 	};
 

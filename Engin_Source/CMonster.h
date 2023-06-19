@@ -31,7 +31,7 @@ public:
 	void SetMonsterState(MonsterState state) { mMonsterState = state; }
 	MonsterState GetMonsterState() { return mMonsterState; }
 
-	void SetMonsterStatusEffect(eElementType state) { mMonsterStatusEffect = state; }
+	void SetMonsterStatusEffect(eElementType state) { mMonsterStatusEffect = state; mElementTime = 3.0f; }
 	eElementType GetMonsterStatusEffect() { return mMonsterStatusEffect; }
 
 	float GetMaxHp() { return mMaxHP; }
@@ -61,6 +61,8 @@ public:
 
 	float GetDamege() { return mDamege; }
 	void SetDamege(float damege) { mDamege = damege; }
+
+	void CheckPointCollision();
 
 	virtual void Attack();
 	virtual void DropItem();

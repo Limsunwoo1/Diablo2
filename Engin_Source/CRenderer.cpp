@@ -877,6 +877,14 @@ namespace Renderer
 		uiMaterial->SetTexture(eTextureSlot::T0, uiTexture);
 		ResourceManager::GetInstance()->Insert<Material>(L"UIMaterial", uiMaterial);
 #pragma endregion
+#pragma region MONSTER HP MATERIAL
+		// UI
+		std::weak_ptr<Shader> monsterHPShader = ResourceManager::GetInstance()->Find<Shader>(L"GaugeShader");
+		std::shared_ptr<Material> monsterHPMaterial = std::make_shared<Material>();
+		monsterHPMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		monsterHPMaterial->SetShader(monsterHPShader);
+		ResourceManager::GetInstance()->Insert<Material>(L"MonsterHpMaterial", monsterHPMaterial);
+#pragma endregion
 #pragma region HP MATERIAL
 		// UI
 		std::weak_ptr<Shader> HPShader = ResourceManager::GetInstance()->Find<Shader>(L"GaugeShader");

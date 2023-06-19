@@ -87,6 +87,9 @@ public:
 	class ItemBase* GetPickItem() { return mPickItem; }
 	void SetPickItem(ItemBase* item) { mPickItem = item; }
 
+	class Monster* GetPicMonster() { return mPickMonster; }
+	void SetPicMonster(Monster* monster) { mPickMonster = monster; }
+
 	int GetIsometricX() { return mIsometricTileIndexX; }
 	int GetIsometricY() { return mIsometricTileIndexY; }
 
@@ -101,6 +104,8 @@ private:
 
 	ItemBase* mPickItem;
 	bool mbMouseItemPick;
+
+	class Monster* mPickMonster;
 
 	int mIsometricTileIndexX;
 	int mIsometricTileIndexY;
