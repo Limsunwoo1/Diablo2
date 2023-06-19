@@ -29,7 +29,7 @@ LavaTile::LavaTile()
 	mMaterial = mater.lock().get();
 
 	Animator* animator = AddComponent<Animator>();
-	std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"LavaTile", L"..//Resource//LavaTile.png");
+	std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"LavaTile");
 	animator->Create(L"LavaTile", tex, Vector2::Zero, Vector2(160.f, 80.f), Vector2::Zero, Vector2(160.f * 4, 80.f),4, 0.4f);
 	animator->Play(L"LavaTile");
 	

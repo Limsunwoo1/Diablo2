@@ -354,7 +354,7 @@ void PlayScene::OnEnter()
 	if (pallet == nullptr)
 		return;
 
-	pallet->Load(L"..//Resource//TileData//test",eSceneType::Play);
+	pallet->Load(L"..//Resource//TileData//play",eSceneType::Play);
 
 	// collision
 	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::PlayerSKil, eLayerType::Monster);

@@ -5,7 +5,7 @@
 #include "CSceneManager.h"
 #include "CLayer.h"
 #include "CWorldManager.h"
-
+#include "CObject.h"
 ObjectManager::ObjectManager()
 {
 	for (UINT i = 0; i < (UINT)eWallType::End; ++i)
@@ -32,6 +32,24 @@ ObjectManager::~ObjectManager()
 			continue;
 
 		delete obj;
+	}
+
+	for (auto tile : mTileObjects)
+	{
+		if (tile.second == nullptr)
+			continue;
+
+		delete tile.second;
+		tile.second = nullptr;
+	}
+
+	for (auto Wall : mWallObjects)
+	{
+		if (Wall.second == nullptr)
+			continue;
+
+		delete Wall.second;
+		Wall.second = nullptr;
 	}
 }
 
@@ -238,7 +256,13 @@ void ObjectManager::InsertTileObject(TileObject* tile)
 	TileObjectsIter::iterator iter = mTileObjects.find(std::pair(idx));
 
 	if (iter != mTileObjects.end())
+	{
+		delete tile;
+		tile = nullptr;
+
+		
 		return;
+	}
 
 	mTileObjects.insert(std::make_pair(idx, tile));
 }
@@ -250,7 +274,13 @@ void ObjectManager::InsertWallObject(WallObject* wall)
 	WallObjectsIter::iterator iter = mWallObjects.find(std::pair(idx));
 
 	if (iter != mWallObjects.end())
+	{
+		delete wall;
+		wall = nullptr;
+
+
 		return;
+	}
 
 	mWallObjects.insert(std::make_pair(idx, wall));
 }
@@ -263,6 +293,7 @@ void ObjectManager::DeleteTileObject(TileObject* tile)
 
 	if (iter != mTileObjects.end())
 	{
+		deleteObjects.push_back(tile);
 		mTileObjects.erase(iter);
 	}
 }
@@ -275,8 +306,23 @@ void ObjectManager::DeleteWallObjet(WallObject* wall)
 
 	if (iter != mWallObjects.end())
 	{
+		deleteObjects.push_back(wall);
 		mWallObjects.erase(iter);
 	}
+}
+
+void ObjectManager::LateUpdate()
+{
+	for (auto* obj : deleteObjects)
+	{
+		if (obj == nullptr)
+			continue;
+
+		delete obj;
+		obj = nullptr;
+	}
+
+	deleteObjects.clear();
 }
 
 TileObject* ObjectManager::GetTile(int x, int y)

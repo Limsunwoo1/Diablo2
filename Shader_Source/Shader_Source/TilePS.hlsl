@@ -18,7 +18,7 @@ struct VSOut
 float4 main(VSOut In) : SV_Target
 {
      float4 color = (float) 0.0f;
-    
+
     if (tileType == 1) // 2D
     {
         //float2 colrow = float2(4.0f, 1.0f);
@@ -33,8 +33,8 @@ float4 main(VSOut In) : SV_Target
         //    || UV.y > leftTop.y + spriteSize.y)
         //    discard;
         
-        float x = ((0.25f / 1) * In.UV.x) + leftTop.x;
-        float y = In.UV.y;
+        float x =In.UV.x / 4.f + leftTop.x;
+        float y = In.UV.y / 1.f + leftTop.y;
         
         float2 UV = float2(x, y);
         

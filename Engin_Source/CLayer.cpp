@@ -92,6 +92,36 @@ void Layer::FixedUpdate()
 			return;
 	}
 
+	if (mType == eLayerType::Tile || mType == eLayerType::Wall)
+	{
+		if (mType == eLayerType::Tile)
+		{
+			std::vector<GameObject*> objects = ObjectManager::GetInstance()->GetTileRenderObject();
+
+			for (GameObject* obj : objects)
+			{
+				if (obj == nullptr)
+					continue;
+
+				obj->FixedUpdate();
+			}
+		}
+		else if (mType == eLayerType::Wall)
+		{
+			std::vector<GameObject*> objects = ObjectManager::GetInstance()->GetWallRenderObejct();
+
+			for (GameObject* obj : objects)
+			{
+				if (obj == nullptr)
+					continue;
+
+				obj->FixedUpdate();
+			}
+		}
+
+		return;
+	}
+
 	for (GameObject* obj : mGameObjects)
 	{
 		if (obj == nullptr)
@@ -108,7 +138,7 @@ void Layer::Render()
 	/*if (mType == eLayerType::TileCarve)
 		return;*/
 
-	for (GameObject* obj : mGameObjects)
+	/*for (GameObject* obj : mGameObjects)
 	{
 		if (obj == nullptr)
 			continue;
@@ -116,7 +146,7 @@ void Layer::Render()
 			continue;
 
 		obj->Render();
-	}
+	}*/
 }
 
 void Layer::Destroy()
@@ -164,6 +194,8 @@ void Layer::Destroy()
 			}
 
 			ObjectManager::GetInstance()->ResetWorld();
+
+			return;
 		}
 
 		delete gameObj;

@@ -35,6 +35,7 @@ public:
 	Vector2 TileCarvePos(eTilePickType type);
 
 	vector<Vector2> GetIsometricVertex(Vector3 pos, Vector3 size);
+	UINT GetTileType() { return mTileType; }
 
 protected:
 	Vector2 mUV;

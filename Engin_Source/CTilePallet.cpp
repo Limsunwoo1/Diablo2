@@ -9,6 +9,9 @@
 #include "CTileCarveObject.h"
 #include "CObject.h"
 #include "CObjectManager.h"
+#include <filesystem>
+#include "CAnimator.h"
+#include "CLavaTile.h"
 
 TilePallet::TilePallet()
 {
@@ -124,7 +127,7 @@ void TilePallet::Load()
 
 			CreateTile(wstring(key.begin(), key.end()), (eLayerType)type, Pos, screenIndex, IDx, tileArr);
 		}
-		else if(type ==( (UINT32)eLayerType::Wall) - 1)
+		else if(type ==( (UINT32)eLayerType::Wall))
 		{
 			if (fread(&count, sizeof(UINT32), 1, pFile) == NULL)
 				break;
@@ -216,7 +219,7 @@ void TilePallet::Load(const std::wstring& path, eSceneType scenetype)
 
 			CreateTile(wstring(key.begin(), key.end()), (eLayerType)type, Pos, screenIndex, IDx, tileArr, scenetype);
 		}
-		else if (type == (UINT)eLayerType::Wall - 1)
+		else if (type == (UINT)eLayerType::Wall)
 		{
 			if (fread(&count, sizeof(UINT32), 1, pFile) == NULL)
 				break;
@@ -283,13 +286,14 @@ void TilePallet::Save()
 		return;
 
 	Scene* secne = SceneManager::GetInstance()->GetScene(eSceneType::Tool);
+	if (secne == nullptr)
+		return;
 
-	std::vector<GameObject*> objects = secne->GetLayer(eLayerType::Tile).GetGameObjects();
-	std::vector<GameObject*>::iterator iter;
+	const std::map<std::pair<int, int>, TileObject*>& Tiles = ObjectManager::GetInstance()->GetTileObjects();
 
-	for (iter = objects.begin(); iter != objects.end(); ++iter)
+	for (auto pushTile : Tiles)
 	{
-		TileObject* tile = dynamic_cast<TileObject*>((*iter));
+		TileObject* tile = pushTile.second;
 		if (tile == nullptr)
 			continue;
 
@@ -298,7 +302,12 @@ void TilePallet::Save()
 
 		BaseRenderer* renderer = tile->GetComponent<BaseRenderer>();
 		Texture2D* tex = renderer->GetMaterial().lock()->GetTexture(eTextureSlot::T0).lock().get();
-		const wstring& texKey = tex->GetKey();
+		wstring texKey = tex->GetKey();
+		if (tile->GetComponent<Animator>() != nullptr)
+		{
+			texKey = L"LavaTile";
+		}
+
 		string biteSize = string(texKey.begin(), texKey.end());
 		const char* cKey = biteSize.c_str();
 		UINT32 count = biteSize.size();
@@ -306,7 +315,7 @@ void TilePallet::Save()
 		fwrite(&count, sizeof(UINT32), 1, pFile);
 		fwrite(cKey, sizeof(char), count, pFile);
 
-		Transform* tr = (*iter)->GetComponent<Transform>();
+		Transform* tr = tile->GetComponent<Transform>();
 		Vector3 Pos = tr->GetPosition();
 		Pos_Data pos;
 		pos.posX = Pos.x;
@@ -333,11 +342,10 @@ void TilePallet::Save()
 		}
 	}
 
-	SceneManager::GetInstance()->SortWallObject();
-	std::vector<GameObject*> Wallobjects = secne->GetLayer(eLayerType::Wall).GetGameObjects();
-	for (GameObject* object : Wallobjects)
+	const std::map<std::pair<int, int>, WallObject*>& WallObjects = ObjectManager::GetInstance()->GetWallObjects();
+	for (auto PushWall : WallObjects)
 	{
-		WallObject* Wall = dynamic_cast<WallObject*>(object);
+		WallObject* Wall = PushWall.second;
 		if (Wall == nullptr)
 			continue;
 
@@ -391,7 +399,16 @@ void TilePallet::CreateTile(const wstring& key, eLayerType type, Pos_Data pos, S
 	
 	Scene* scene = SceneManager::GetInstance()->GetScene(eSceneType::Tool);
 
-	TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, scene);
+	TileObject* tile = nullptr;
+	if (key.find(L"Lava") != std::wstring::npos)
+	{
+		tile = new LavaTile();
+	}
+	else
+	{
+		tile = new TileObject();
+	}
+	tile->Initalize();
 
 	tile->SetScreenIndex(screenIdx.screenIdxX, screenIdx.screenIdxY);
 	tile->SetMaxIndex(tex.lock()->GetMaxX(), tex.lock()->GetMaxY());
@@ -423,7 +440,16 @@ void TilePallet::CreateTile(const wstring& key, eLayerType type, Pos_Data pos, S
 	if (tex.lock() == nullptr)
 		return;
 
-	TileObject* tile = new TileObject();
+	TileObject* tile = nullptr;
+	if (key.find(L"Lava") != std::wstring::npos)
+	{
+		tile = new LavaTile();
+	}
+	else
+	{
+		tile = new TileObject();
+	}
+
 	tile->Initalize();
 
 	tile->SetScreenIndex(screenIdx.screenIdxX, screenIdx.screenIdxY);
@@ -438,14 +464,13 @@ void TilePallet::CreateTile(const wstring& key, eLayerType type, Pos_Data pos, S
 	tile->SetArr(arrData);
 	tile->SetPassSituation();
 
-	Object::Instantiate<TileObject>(eLayerType::Tile, sceneType, tile);
 	ObjectManager::GetInstance()->InsertTileObject(tile);
 
 	for (int i = 0; i < arrData.size(); ++i)
 	{
 		if (arrData[i] > 0)
 		{
-			InserCarveObject(screenIdx.screenIdxX, screenIdx.screenIdxY, i, tile, sceneType);
+			//InserCarveObject(screenIdx.screenIdxX, screenIdx.screenIdxY, i, tile, sceneType);
 		}
 	}
 }
@@ -456,9 +481,8 @@ void TilePallet::CreateWall(const wstring& key, eLayerType type, Pos_Data pos, S
 	if (tex.lock() == nullptr)
 		return;
 
-	Scene* scene = SceneManager::GetInstance()->GetScene(eSceneType::Tool);
-
-	WallObject* wall = Object::Instantiate<WallObject>(eLayerType::Wall, scene);
+	WallObject* wall = new WallObject();
+	wall->Initalize();
 
 	wall->SetTexture(tex);
 	wall->SetOffset(Vector2(offset.offsetX, offset.offsetY));
@@ -478,7 +502,7 @@ void TilePallet::CreateWall(const wstring& key, eLayerType type, Pos_Data pos, S
 		return;
 
 	WallObject* wall = new WallObject();
-	Object::Instantiate<TileObject>(eLayerType::Wall, sceneType, wall);
+	wall->Initalize();
 
 	wall->SetTexture(tex);
 	wall->SetOffset(Vector2(offset.offsetX, offset.offsetY));

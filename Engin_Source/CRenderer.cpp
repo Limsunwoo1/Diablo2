@@ -706,7 +706,7 @@ namespace Renderer
 		std::shared_ptr<Shader> TileShader = std::make_shared<Shader>();
 		TileShader->Create(eShaderStage::VS, L"TileVS.hlsl", "main");
 		TileShader->Create(eShaderStage::PS, L"TilePS.hlsl", "main");
-		TileShader->SetDepthStencil(eDepthStencilType::None);
+		//TileShader->SetDepthStencil(eDepthStencilType::Less);
 
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"TileShader", TileShader);
@@ -776,6 +776,10 @@ namespace Renderer
 			std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"WallTile", L"Wall.png");
 			tex.lock()->SetMaxX(19);
 			tex.lock()->SetMaxY(1);
+		}
+
+		{
+			std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"LavaTile", L"..//Resource//LavaTile.png");
 		}
 
 		{

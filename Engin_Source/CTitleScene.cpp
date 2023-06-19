@@ -115,7 +115,7 @@ void TitleScene::Initalize()
 	}
 
 	{
-		LavaTile* tile = Object::Instantiate<LavaTile>(eLayerType::Monster);
+		/*LavaTile* tile = Object::Instantiate<LavaTile>(eLayerType::Monster);
 
 		TileObject* tile2 = Object::Instantiate<TileObject>(eLayerType::Monster);
 		Transform* b = tile2->GetComponent<Transform>();
@@ -128,7 +128,7 @@ void TitleScene::Initalize()
 
 		TileObject* tile3 = Object::Instantiate<TileObject>(eLayerType::Monster);
 		Transform* c = tile3->GetComponent<Transform>();
-		c->SetPosition(Vector3(400, -200, 1.0f));
+		c->SetPosition(Vector3(400, -200, 1.0f));*/
 	}
 	
 	Scene::Initalize();
@@ -140,7 +140,7 @@ void TitleScene::Update()
 
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN))
 	{
-		//SceneManager::GetInstance()->LoadScene(eSceneType::Tool);
+		SceneManager::GetInstance()->LoadScene(eSceneType::MainTitle);
 	}
 }
 

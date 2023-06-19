@@ -94,6 +94,8 @@ void CApplication::Run()
 	Update();
 	FixedUpdate();
 	Render();
+
+	ObjectManager::GetInstance()->LateUpdate();
 }
 
 void CApplication::Destroy()

@@ -28,6 +28,8 @@ WallObject::WallObject()
 {
 	SetName(L"WallObject" + to_wstring(id));
 	id++;
+
+	SetLayerType(eLayerType::Wall);
 }
 
 WallObject::~WallObject()
@@ -131,7 +133,7 @@ void WallObject::Update()
 		}
 		else if (Input::GetInstance()->GetKeyPress(eKeyCode::RBTN) && _Editor.GetActive())
 		{
-			Object::ObjectDestroy(this);
+			ObjectManager::GetInstance()->DeleteWallObjet(this);
 			mbOnObject = true;
 		}
 

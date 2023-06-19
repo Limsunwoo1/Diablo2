@@ -9,6 +9,7 @@
 #include "CObject.h"
 #include "CToolScene.h"
 #include "CTilePallet.h"
+#include "CObjectManager.h"
 
 #include "..//Dx11_Engine/GuiEditor.h"
 #include "..//Dx11_Engine/GuiGame.h"
@@ -41,6 +42,7 @@ TileObject::TileObject()
 	material.lock()->SetTexture(eTextureSlot::T0, tex);
 
 	mMaterial = material.lock().get();
+	mMaterial->SetRenderingMode(graphics::eRenderingMode::Transparent);
 
 	mMaxX = tex.lock()->GetMaxX();
 	mMaxY = tex.lock()->GetMaxY();
@@ -50,6 +52,8 @@ TileObject::TileObject()
 
 	Transform* Tr = GetComponent<Transform>();
 	Tr->SetSize(Vector3(TILE_X_HALF_SIZE * 2.f, TILE_Y_HALF_SIZE * 2.f, 1.0f));
+
+	SetLayerType(eLayerType::Tile);
 }
 
 TileObject::~TileObject()
@@ -95,7 +99,7 @@ void TileObject::Update()
 			{
 				if (tool->GetToolRenderMode() == eToolRenderMode::TILE)
 				{
-					Object::ObjectDestroy(this);
+					ObjectManager::GetInstance()->DeleteTileObject(this);
 				}
 				mbOnTile = true;
 			}

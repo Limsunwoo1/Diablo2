@@ -1,5 +1,6 @@
 #pragma once
 #include "CTileObject.h"
+
 class LavaTile : public TileObject
 {
 public:
@@ -9,6 +10,6 @@ public:
 	virtual void Update() override;
 
 private:
-
+	int a;
 };
 

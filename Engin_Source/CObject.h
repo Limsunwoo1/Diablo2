@@ -56,7 +56,7 @@ namespace Object
 	}
 
 	template <typename T>
-	static T* Instantiate(eLayerType type, eSceneType scenetype, GameObject* obj)
+	static T* Instantiate(eLayerType type, eSceneType scenetype, T* obj)
 	{
 		Scene* scene = SceneManager::GetInstance()->GetScene(scenetype);
 		Layer& layer = scene->GetLayer(type);
@@ -64,7 +64,7 @@ namespace Object
 		obj->Initalize();
 		obj->SetLayerType(type);
 
-		return dynamic_cast<T*>(obj);
+		return obj;
 	}
 
 	template <typename T>

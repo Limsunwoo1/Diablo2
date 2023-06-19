@@ -291,8 +291,16 @@ void ToolScene::Update()
 	if (mTilePallet == nullptr)
 		return;
 
-	if (Input::GetInstance()->GetKeyDown(eKeyCode::F_1))		mTilePallet->Save();
-	else if (Input::GetInstance()->GetKeyDown(eKeyCode::F_2))	mTilePallet->Load();
+	if (Input::GetInstance()->GetKeyDown(eKeyCode::F_1))
+	{
+		mTilePallet->Save();
+		return;
+	}
+	else if (Input::GetInstance()->GetKeyDown(eKeyCode::F_2))
+	{
+		mTilePallet->Load();
+		return;
+	}
 
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::UP))
 	{

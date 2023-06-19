@@ -100,8 +100,8 @@ namespace gui
 		if (mouse.y < window.y || window.y + windowSize.y < mouse.y)
 			return;
 
-		/*if (mTex == nullptr)
-			return;*/
+		if (mTex == nullptr)
+			return;
 
 		ToolScene* toolscene = dynamic_cast<ToolScene*>(SceneManager::GetInstance()->GetActiveScene());
 		eToolRenderMode rMode = toolscene->GetToolRenderMode();
@@ -112,6 +112,7 @@ namespace gui
 				&& mbCreateTile
 				&& mTex->GetName().find(L"Object") == wstring::npos
 				&& mTex->GetName().find(L"object") == wstring::npos
+				&& mTex->GetName().find(L"Lava") == wstring::npos
 				&& rMode == eToolRenderMode::TILE
 				&& mTex != nullptr)
 			{
@@ -122,7 +123,7 @@ namespace gui
 				if (x < 0 || y < 0)
 					return;
 
-				TileObject* object = Object::Instantiate<TileObject>(eLayerType::Tile, true);
+				TileObject* object = new TileObject();
 
 				Transform* objectTr = object->GetComponent<Transform>();
 				int Xpos = (x - y) * TILE_X_HALF_SIZE;
@@ -164,7 +165,7 @@ namespace gui
 				if (x < 0 || y < 0)
 					return;
 
-				WallObject* object = Object::Instantiate<WallObject>(eLayerType::Wall, true);
+				WallObject* object = new WallObject();
 
 				Transform* objectTr = object->GetComponent<Transform>();
 				int Xpos = (x - y) * TILE_X_HALF_SIZE;
@@ -179,13 +180,13 @@ namespace gui
 				ObjectManager::GetInstance()->InsertWallObject(object);
 			}
 
-		}
-
-		if (Input::GetInstance()->GetKeyPress(eKeyCode::SPACE))
-		{
 			if (Input::GetInstance()->GetKeyPress(eKeyCode::LBTN)
 				&& mbCreateTile
-				&& rMode == eToolRenderMode::TILE)
+				&& mTex->GetName().find(L"Object") == wstring::npos
+				&& mTex->GetName().find(L"object") == wstring::npos
+				&& mTex->GetName().find(L"Lava") != wstring::npos
+				&& rMode == eToolRenderMode::TILE
+				&& mTex != nullptr)
 			{
 
 				int x = Input::GetInstance()->GetIsometricX();
@@ -194,7 +195,7 @@ namespace gui
 				if (x < 0 || y < 0)
 					return;
 
-				LavaTile* object = Object::Instantiate<LavaTile>(eLayerType::Tile, true);
+				LavaTile* object = new LavaTile();
 
 				Transform* objectTr = object->GetComponent<Transform>();
 				int Xpos = (x - y) * TILE_X_HALF_SIZE;
@@ -208,6 +209,9 @@ namespace gui
 				ObjectManager::GetInstance()->InsertTileObject(object);
 			}
 		}
+
+
+			
 
 		mbCreateTile = true;
 		mbCreateObject = true;
