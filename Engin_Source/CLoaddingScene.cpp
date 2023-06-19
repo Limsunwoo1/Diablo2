@@ -1,81 +1,68 @@
-#pragma once
-#include "CTitleScene.h"
-#include "CRenderer.h"
-#include "CMeshRenderer.h"
+#include "CLoaddingScene.h"
+#include "CCamera.h"
+#include "CAnimator.h"
+#include "CTransform.h"
+#include "CSceneManager.h"
+#include "CObject.h"
+#include "CLight.h"
 #include "CSpriteRenderer.h"
 #include "CResourceManager.h"
-#include "CTexture2D.h"
-#include "CPlayerScript.h"
 #include "CCameraScript.h"
-#include "CGridScript.h"
-#include "CObject.h"
-#include "CInput.h"
-#include "CCollider2D.h"
-#include "CCollisionManager.h"
+#include "CCamera.h"
 #include "CBackGround.h"
-#include "CApplication.h"
-#include "CAnimator.h"
-#include "CLight.h"
-#include "CLoaddingScene.h"
-
-extern CApplication Application;
+#include "CMeshRenderer.h"
+#include "CTime.h"
 
 
-TitleScene::TitleScene()
-	: Scene(eSceneType::Title)
+LoaddingScene::LoaddingScene()
+	: Scene(eSceneType::Loadding)
+	, mTime(2.5f)
+	, NextScene(eSceneType::MainTitle)
 {
-
-}
-TitleScene::~TitleScene()
-{
-
 }
 
-void TitleScene::Initalize()
+LoaddingScene::~LoaddingScene()
+{
+}
+
+void LoaddingScene::Initalize()
 {
 	// Light
 	{
-		GameObject* directionalLight = Object::Instantiate<GameObject>(eLayerType::Player);
+		GameObject* directionalLight = Object::Instantiate<GameObject>(eLayerType::Player, this);
 		Transform* tr = directionalLight->GetComponent<Transform>();
 		tr->SetPosition(Vector3(0.0f, 0.0f, -100.f));
 		Light* lightcomp = directionalLight->AddComponent<Light>();
 		lightcomp->SetType(eLightType::Directional);
 		lightcomp->SetDiffuse(Vector4(1.f, 1.0f, 1.f, 1.0f));
 	}
-	
+
 	{
 		// Main Camera Game Object
-		GameObject* cameraObj = Object::Instantiate<GameObject>(eLayerType::Camera);
+		GameObject* cameraObj = Object::Instantiate<GameObject>(eLayerType::Camera,this);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
 		//cameraComp->RegisterCameraInRenderer();
 		//cameraComp->TurnLayerMask(eLayerType::UI, false);
 		cameraObj->AddComponent<CameraScript>();
 		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
-		Renderer::mainCamera = cameraComp;
 		mMainCamera = cameraComp;
 
 		cameraObj->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -100.f));
 	}
 
-	RECT winRect;
-	GetClientRect(Application.GetHwnd(), &winRect);
-
-	float width = (float)(winRect.right - winRect.left);
-	float height = (float)(winRect.bottom - winRect.top);
-
 	//renderer::cameras[0] = cameraComp;
 	// BackGround
 	{
-		BackGround* ground = Object::Instantiate<BackGround>(eLayerType::BackGround);
+		BackGround* ground = Object::Instantiate<BackGround>(eLayerType::BackGround,this);
 		ground->SetName(L"BackGround");
-		
+
 		Transform* tr = ground->GetComponent<Transform>();
 		tr->SetSize(Vector3(1600.f, 900.f, 1.0f));
 
 		tr->SetPosition(mMainCamera->GetOwner()->GetComponent<Transform>()->GetPosition());
 		tr->SetPosition(Vector3(0.0f, 0.0f, 1.0f));
 
-		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"Title1", L"UI//Title_01.png");
+		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"LoadSceneBack", L"BlackBackGround.png");
 		ground->SetTexture(tex);
 
 		MeshRenderer* mr = ground->AddComponent<MeshRenderer>();
@@ -89,11 +76,9 @@ void TitleScene::Initalize()
 
 	// Logo
 	{
-		GameObject* logo = Object::Instantiate<GameObject>(eLayerType::Effect);
+		GameObject* logo = Object::Instantiate<GameObject>(eLayerType::Effect,this);
 		Transform* tr = logo->GetComponent<Transform>();
-		tr->SetSize(Vector3(1000.0f, 3500.f, 1.0f));
-
-		tr->SetPosition(Vector3(0.0f, 350.f, 0.0f));
+		tr->SetSize(Vector3(4500, 500, 1.0f));
 
 		SpriteRenderer* sr = logo->AddComponent<SpriteRenderer>();
 
@@ -104,51 +89,44 @@ void TitleScene::Initalize()
 
 		Animator* animator = logo->AddComponent<Animator>();
 		std::shared_ptr<Texture2D> tex = std::make_shared<Texture2D>();
-		tex->Load(L"UI\\Logo.png");
+		tex->Load(L"UI\\LodingSprite//LodingSprite1.png");
 
-		ResourceManager::GetInstance()->Insert<Texture2D>(L"LogoTex", tex);
+		ResourceManager::GetInstance()->Insert<Texture2D>(L"LoaddingTex", tex);
 
 		material.lock()->SetTexture(eTextureSlot::T0, tex);
-		animator->Create(L"Logo", tex, Vector2(0.0f, 0.0f), 216.f, Vector2::Zero, 15, 0.1f);
-		animator->Play(L"Logo");
+		animator->Create(L"Loadding", tex, Vector2::Zero, Vector2(796.f,537.f),
+			Vector2::Zero, Vector2(796.f * 10.f, 537.f),10, 0.1f);
+		animator->Play(L"Loadding");
+
+		LoadObject = logo;
 	}
-	
-	Scene::Initalize();
 }
 
-void TitleScene::Update()
+void LoaddingScene::Update()
 {
-	Scene::Update();
+	mTime -= Time::GetInstance()->DeltaTime();
 
-	if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN))
+	if (mTime <= 0)
 	{
-		/*Scene* scene = SceneManager::GetInstance()->GetScene(eSceneType::Loadding);
-		LoaddingScene* load = dynamic_cast<LoaddingScene*>(scene);
-		if (load == nullptr)
-			return;
-
-		load->SeteSceneType(eSceneType::MainTitle);*/
-
-		SceneManager::GetInstance()->LoadScene(eSceneType::MainTitle);
+		mTime = 1.7f;
+		SceneManager::GetInstance()->LoadScene(NextScene);
 	}
+	Scene::Update();
 }
 
-void TitleScene::FixedUpdate()
+void LoaddingScene::FixedUpdate()
 {
 	Scene::FixedUpdate();
 }
 
-void TitleScene::Render()
+void LoaddingScene::Render()
 {
 	Scene::Render();
 }
 
-void TitleScene::OnEnter()
+void LoaddingScene::OnEnter()
 {
-	Renderer::mainCamera = mMainCamera;
-}
-
-void TitleScene::OnExit()
-{
-
+	//Renderer::mainCamera = mMainCamera;
+	LoadObject->GetComponent<Animator>()->Play(L"Loadding", false);
+	mTime = 1.7f;
 }

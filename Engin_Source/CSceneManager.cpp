@@ -7,6 +7,7 @@
 #include "CMainTitleScene.h"
 #include "CToolScene.h"
 #include "CObject.h"
+#include "CLoaddingScene.h"
 
 #include "..//Dx11_Engine/GuiEditor.h"
 #include "..//Dx11_Engine/GuiHierachy.h"
@@ -34,6 +35,7 @@ void SceneManager::Initalize()
 	mScenes[(UINT)eSceneType::Selecte] = new CharacterSelectScene();
 	mScenes[(UINT)eSceneType::Create] = new CreateCharactorScene();
 	mScenes[(UINT)eSceneType::Endding] = new EnddingScene();
+	mScenes[(UINT)eSceneType::Loadding] = new LoaddingScene();
 
 	mActiveScene = mScenes[(UINT)eSceneType::Title];
 

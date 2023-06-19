@@ -675,6 +675,9 @@
       <Filter>GameObject\TriggerObject</Filter>
     </ClCompile>
     <ClCompile Include="CGateObject.cpp" />
+    <ClCompile Include="CLoaddingScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -1043,6 +1046,9 @@
       <Filter>GameObject\TriggerObject</Filter>
     </ClInclude>
     <ClInclude Include="CGateObject.h" />
+    <ClInclude Include="CLoaddingScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Math.inl">

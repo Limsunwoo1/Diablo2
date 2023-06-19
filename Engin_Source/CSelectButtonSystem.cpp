@@ -31,6 +31,8 @@
 #include "CHpPotionItem.h"
 #include "CMpPotionItem.h"
 
+#include "CLoaddingScene.h"
+
 
 SelectButtonSystem::SelectButtonSystem()
 	: UiBase(eUIType::Panel)
@@ -421,7 +423,17 @@ void SelectButtonSystem::Select_Ok_Button()
 	player->PlayAnimation(L"Idle0");
 
 	WorldManager::GetInstance()->SetPlayer(player);
-	SceneManager::GetInstance()->LoadScene(eSceneType::Play);
+
+	{
+		Scene* scene = SceneManager::GetInstance()->GetScene(eSceneType::Loadding);
+		LoaddingScene* load = dynamic_cast<LoaddingScene*>(scene);
+		if (load == nullptr)
+			return;
+
+		load->SeteSceneType(eSceneType::Play);
+
+		SceneManager::GetInstance()->LoadScene(eSceneType::Loadding);
+	}
 
 	if (mClickButton->GetDataPathIndex() >= mItemData.size())
 		return;

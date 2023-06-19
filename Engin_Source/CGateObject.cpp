@@ -5,6 +5,7 @@
 #include "CSpriteRenderer.h"
 #include "CSceneManager.h"
 #include "CGateCollider.h"
+#include "CLoaddingScene.h"
 
 GateObject::GateObject()
 	: GameObject()
@@ -70,5 +71,13 @@ void GateObject::Render()
 
 void GateObject::NextScene()
 {
-	SceneManager::GetInstance()->LoadScene(mNextScene);
+	Scene* scene = SceneManager::GetInstance()->GetScene(eSceneType::Loadding);
+	LoaddingScene* load = dynamic_cast<LoaddingScene*>(scene);
+	if (load == nullptr)
+		return;
+
+	load->SeteSceneType(mNextScene);
+
+	SceneManager::GetInstance()->LoadScene(eSceneType::Loadding);
+
 }

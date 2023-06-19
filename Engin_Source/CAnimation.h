@@ -44,6 +44,10 @@ public:
 		, Vector2 leftTop,float size, Vector2 offset
 		, UINT spriteLenght, float duration);
 
+	void Create(const wstring& name, weak_ptr<Texture2D> atlas
+		, Vector2 leftTop, Vector2 size, Vector2 offset
+		, Vector2 atlasSize, UINT spriteLenght, float duration);
+
 	void BindShader();
 	void Reset();
 	void Clear();

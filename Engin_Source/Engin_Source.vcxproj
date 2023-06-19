@@ -198,6 +198,7 @@
     <ClInclude Include="CLayer.h" />
     <ClInclude Include="CLight.h" />
     <ClInclude Include="CLightBolt.h" />
+    <ClInclude Include="CLoaddingScene.h" />
     <ClInclude Include="CMainPanel.h" />
     <ClInclude Include="CMainTitleScene.h" />
     <ClInclude Include="CMephistoMonster.h" />
@@ -326,6 +327,7 @@
     <ClCompile Include="CLayer.cpp" />
     <ClCompile Include="CLight.cpp" />
     <ClCompile Include="CLightBolt.cpp" />
+    <ClCompile Include="CLoaddingScene.cpp" />
     <ClCompile Include="CMainPanel.cpp" />
     <ClCompile Include="CMainTitleScene.cpp" />
     <ClCompile Include="CMephistoMonster.cpp" />

@@ -9,6 +9,7 @@ enum class eSceneType
 	Selecte,
 	Create,
 	Endding,
+	Loadding,
 	End,
 };
 

@@ -112,6 +112,28 @@ bool Animator::Create(const wstring& name, weak_ptr<Texture2D> atlas, Vector2 le
 	return true;
 }
 
+bool Animator::Create(const wstring& name, weak_ptr<Texture2D> atlas, Vector2 leftTop, Vector2 size, Vector2 offset, Vector2 atlasSize, UINT spriteLength, float duation)
+{
+	if (atlas.lock() == nullptr)
+		return false;
+
+	Animation* animation = Animator::FindAnimation(name);
+	if (animation != nullptr)
+		return false;
+
+	animation = new Animation();
+	animation->SetAnimator(this);
+	animation->Create(name, atlas, leftTop, size, offset, atlasSize, spriteLength, duation);
+
+	mAnimations.insert(make_pair(name, animation));
+
+	Events* events = new Events();
+	events->mEvents.resize(spriteLength);
+	mEvents.insert(make_pair(name, events));
+
+	return true;
+}
+
 Animation* Animator::FindAnimation(const wstring& name)
 {
 	map<wstring, Animation*>::iterator iter;
