@@ -6,6 +6,7 @@ enum class eSceneType
 	Tool,
 	MainTitle,
 	Play,
+	Play2,
 	Selecte,
 	Create,
 	Endding,

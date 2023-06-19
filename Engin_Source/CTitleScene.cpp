@@ -36,7 +36,7 @@ void TitleScene::Initalize()
 {
 	// Light
 	{
-		GameObject* directionalLight = Object::Instantiate<GameObject>(eLayerType::Player);
+		GameObject* directionalLight = Object::Instantiate<GameObject>(eLayerType::None);
 		Transform* tr = directionalLight->GetComponent<Transform>();
 		tr->SetPosition(Vector3(0.0f, 0.0f, -100.f));
 		Light* lightcomp = directionalLight->AddComponent<Light>();
@@ -140,7 +140,7 @@ void TitleScene::Update()
 
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN))
 	{
-		SceneManager::GetInstance()->LoadScene(eSceneType::Tool);
+		SceneManager::GetInstance()->LoadScene(eSceneType::MainTitle);
 	}
 }
 

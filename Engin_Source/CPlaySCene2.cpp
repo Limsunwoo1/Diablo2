@@ -1,4 +1,4 @@
-#include "CPlayScene.h"
+#include "CPlaySCene2.h"
 #include "CTexture2D.h"
 #include "CpaintShader.h"
 #include "CSceneManager.h"
@@ -15,7 +15,6 @@
 #include "CRadamentMonster.h"
 #include "CMephistoMonster.h"
 #include "CAndarielMonster.h"
-#include "CTriggerObject.h"
 
 // Static
 #include "CObject.h"
@@ -36,28 +35,34 @@
 #include "CInput.h"
 #include "CCollisionManager.h"
 #include "CWorldManager.h"
+#include "CUIManager.h"
+#include "CUiBase.h"
+#include "CInventoryPanel.h"
+#include "CMainPanel.h"
+#include "CEquipmentButton.h"
+
 using namespace graphics;
 
-PlayScene::PlayScene()
-	: Scene(eSceneType::Play)
+PlayScene2::PlayScene2()
+	: Scene(eSceneType::Play2)
 {
 
 }
-PlayScene::~PlayScene()
+PlayScene2::~PlayScene2()
 {
 
 }
 
-void PlayScene::Initalize()
+void PlayScene2::Initalize()
 {
 	// PaintShader
-	
+
 		//shared_ptr<PaintShader> paintShader = ResourceManager::GetInstance()->Find<PaintShader>(L"PaintShader");
 		//shared_ptr<graphics::Texture2D> paintTex = ResourceManager::GetInstance()->Find<graphics::Texture2D>(L"PaintTexture");
 
 		//paintShader->SetTarget(paintTex);
 		//paintShader->OnExcute();
-	
+
 
 	{
 		GameObject* directionalLight = Object::Instantiate<GameObject>(eLayerType::None, this);
@@ -169,16 +174,7 @@ void PlayScene::Initalize()
 		//60 75.875f
 	}
 
-	{
-		TriggerObject* trigger = Object::Instantiate<TriggerObject>(eLayerType::Gate, this);
-		Transform* TGTr = trigger->GetComponent<Transform>();
-		TGTr->SetPosition(Vector3(3610.f, 9470.f, 1.0f));
-		TGTr->SetSize(Vector3(400.f, 250.f, 1.0f));
-
-		trigger->GetFunc() = std::bind(&PlayScene::OnEvent,this);
-	}
-
-	{
+	/*{
 		SpearMonster* monster = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
 		Transform* spearTr = monster->GetComponent<Transform>();
 		spearTr->SetPosition(Vector3(5400.f, 7160.f, 1.0f));
@@ -186,6 +182,10 @@ void PlayScene::Initalize()
 		MephistoMonster* mino = Object::Instantiate<MephistoMonster>(eLayerType::Monster, this);
 		Transform* minoTr = mino->GetComponent<Transform>();
 		minoTr->SetPosition(Vector3(5600.f, 7360.f, 1.0f));
+
+		AndarielMonster* mino1 = Object::Instantiate<AndarielMonster>(eLayerType::Monster, this);
+		Transform* minoTr1 = mino1->GetComponent<Transform>();
+		minoTr1->SetPosition(Vector3(5655.f, 9701.f, 1.0f));
 
 		MinosTauros* mino2 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
 		Transform* minoTr2 = mino2->GetComponent<Transform>();
@@ -208,7 +208,7 @@ void PlayScene::Initalize()
 			Transform* minoTr3 = mino3->GetComponent<Transform>();
 			minoTr3->SetPosition(Vector3(4500, 8361.f, 1.0f));
 		}
-	}
+	}*/
 
 	// PostProcess
 	{
@@ -279,7 +279,7 @@ void PlayScene::Initalize()
 
 				tile->SetMaxIndex(maxX, maxY);
 				tile->SetIndex(1, 3);
-				
+
 				tr->SetPosition(Vector3((x*(sizeX * 0.5f) + 5000.f), (y* sizeY) + (x * (sizeY * 0.5f)) + 5000.f, 50.0f));
 				tr->SetSize(Vector3(sizeX, sizeY, 1.0f));
 
@@ -315,39 +315,43 @@ void PlayScene::Initalize()
 		}*/
 	}
 
-	
+
 	Scene::Initalize();
 }
 
-void PlayScene::Update()
+void PlayScene2::Update()
 {
 	Scene::Update();
 }
 
-void PlayScene::FixedUpdate()
+void PlayScene2::FixedUpdate()
 {
 	Scene::FixedUpdate();
 }
 
-void PlayScene::Render()
+void PlayScene2::Render()
 {
 	Scene::Render();
 }
 
-void PlayScene::OnEnter()
+void PlayScene2::OnEnter()
 {
 	if (mMainCamera)
 		Renderer::mainCamera = mMainCamera;
 
-	if(mUiCamera)
+	if (mUiCamera)
 		Renderer::UiCamera = mUiCamera;
 
 	GameObject* player = WorldManager::GetInstance()->GetPlayer();
-	player->DontDestroy(true);
-	player->GetComponent<Transform>()->SetPosition(Vector3(5000.f, 6850.f,1.0f));
 
 	if (player == nullptr)
 		return;
+
+	Transform* tr = player->GetComponent<Transform>();
+	tr->SetPosition(Vector3(4567.f, 7567.f, 1.0f));
+
+	player->GetScript<PlayerScript>()->ResetAStar();
+	player->GetComponent<AStar>()->StopRun();
 
 	Renderer::mainCamera->SetTrace(player);
 	Renderer::InspectorGameObject = player;
@@ -362,7 +366,7 @@ void PlayScene::OnEnter()
 	if (pallet == nullptr)
 		return;
 
-	pallet->Load(L"..//Resource//TileData//play",eSceneType::Play);
+	pallet->Load(L"..//Resource//TileData//lavaMap", eSceneType::Play);
 
 	// collision
 	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::PlayerSKil, eLayerType::Monster);
@@ -370,24 +374,23 @@ void PlayScene::OnEnter()
 	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::PlayerSKil, eLayerType::Wall);
 	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::MonsterSkil, eLayerType::Wall);
 	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::Player, eLayerType::Gate);
-	
-}
 
-void PlayScene::OnExit()
-{
+	UiBase* invenpanel = UIManager::GetInstance()->GetUiInstance<InventoryPanel>(L"mainInventory");
+	UiBase* mainpanel = UIManager::GetInstance()->GetUiInstance<MainPanel>(L"mainPanel");
+	UiBase* monsterHp = UIManager::GetInstance()->GetUiInstance<Panel>(L"MonsterHp");
+
+	Object::Instantiate<InventoryPanel>(eLayerType::UI, invenpanel, true, eSceneType::Play2);
+	Object::Instantiate<MainPanel>(eLayerType::UI, mainpanel, true, eSceneType::Play2);
+	Object::Instantiate<Panel>(eLayerType::UI, monsterHp, true, eSceneType::Play2);
+
 	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::PlayerSKil, eLayerType::Monster, false);
 	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::Player, eLayerType::MonsterSkil, false);
 	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::PlayerSKil, eLayerType::Wall, false);
 	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::MonsterSkil, eLayerType::Wall, false);
 	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::Player, eLayerType::Gate, false);
-
-	GameObject* player = WorldManager::GetInstance()->GetPlayer();
-	SceneManager::GetInstance()->GetScene(eSceneType::Play)->GetLayer(eLayerType::Player).EreaseObj(player);
 }
 
-void PlayScene::OnEvent()
+void PlayScene2::OnExit()
 {
-	AndarielMonster* mino1 = Object::Instantiate<AndarielMonster>(eLayerType::Monster, this);
-	Transform* minoTr1 = mino1->GetComponent<Transform>();
-	minoTr1->SetPosition(Vector3(5655.f, 9701.f, 1.0f));
+
 }

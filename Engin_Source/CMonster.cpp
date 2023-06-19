@@ -58,7 +58,7 @@ void Monster::Initalize()
 
 	Collider2D* col = AddComponent<Collider2D>();
 	col->SetType(eColliderType::Rect);
-	col->SetSize(Vector2(0.25f, 0.4f));
+	col->SetSize(Vector2(0.25f, 0.6f));
 }
 
 void Monster::Update()

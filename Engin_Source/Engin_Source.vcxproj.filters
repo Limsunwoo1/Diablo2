@@ -681,6 +681,9 @@
     <ClCompile Include="CLavaTile.cpp">
       <Filter>GameObject\Tile</Filter>
     </ClCompile>
+    <ClCompile Include="CPlaySCene2.cpp">
+      <Filter>Scene\Play</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -1054,6 +1057,9 @@
     </ClInclude>
     <ClInclude Include="CLavaTile.h">
       <Filter>GameObject\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlaySCene2.h">
+      <Filter>Scene\Play</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -24,6 +24,8 @@ public:
 
 	void SetLayerType(eLayerType type) { mType = type; }
 	eLayerType GetLayerType() { return mType; }
+
+	void EreaseObj(GameObject* obj);
 private:
 	std::vector<GameObject*> mGameObjects;
 	bool mbSortTile;

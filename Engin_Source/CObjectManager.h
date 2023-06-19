@@ -50,6 +50,8 @@ public:
 
 	void LateUpdate();
 
+	void Clear();
+
 	TileObject* GetTile(int x, int y);
 
 	GameObject* GetMonster(int x, int y);

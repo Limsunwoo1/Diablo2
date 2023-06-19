@@ -227,6 +227,7 @@
     <ClInclude Include="CPlayerSelectButton.h" />
     <ClInclude Include="CPlayerSkilCollider.h" />
     <ClInclude Include="CPlayScene.h" />
+    <ClInclude Include="CPlaySCene2.h" />
     <ClInclude Include="CPotionButton.h" />
     <ClInclude Include="CPrefab.h" />
     <ClInclude Include="CRadamentMonster.h" />
@@ -353,6 +354,7 @@
     <ClCompile Include="CPlayerSelectButton.cpp" />
     <ClCompile Include="CPlayerSkilCollider.cpp" />
     <ClCompile Include="CPlayScene.cpp" />
+    <ClCompile Include="CPlaySCene2.cpp" />
     <ClCompile Include="CPotionButton.cpp" />
     <ClCompile Include="CPrefab.cpp" />
     <ClCompile Include="CRadamentMonster.cpp" />

@@ -12,6 +12,7 @@
 #include "CBackGround.h"
 #include "CMeshRenderer.h"
 #include "CTime.h"
+#include "CObjectManager.h"
 
 
 LoaddingScene::LoaddingScene()
@@ -29,7 +30,7 @@ void LoaddingScene::Initalize()
 {
 	// Light
 	{
-		GameObject* directionalLight = Object::Instantiate<GameObject>(eLayerType::Player, this);
+		GameObject* directionalLight = Object::Instantiate<GameObject>(eLayerType::None, this);
 		Transform* tr = directionalLight->GetComponent<Transform>();
 		tr->SetPosition(Vector3(0.0f, 0.0f, -100.f));
 		Light* lightcomp = directionalLight->AddComponent<Light>();
@@ -128,5 +129,6 @@ void LoaddingScene::OnEnter()
 {
 	//Renderer::mainCamera = mMainCamera;
 	LoadObject->GetComponent<Animator>()->Play(L"Loadding", false);
+	ObjectManager::GetInstance()->Clear();
 	mTime = 1.7f;
 }

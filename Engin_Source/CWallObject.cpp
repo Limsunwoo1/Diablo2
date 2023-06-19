@@ -7,6 +7,7 @@
 #include "CRenderer.h"
 #include "CConstantBuffer.h"
 #include "CObject.h"
+#include "CSceneManager.h"
 
 #include "..//Dx11_Engine/GuiEditor.h"
 #include "..//Dx11_Engine/GuiGame.h"
@@ -69,7 +70,7 @@ void WallObject::Update()
 
 	Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos();
 
-	/*if (_Editor.GetActive())
+	if (_Editor.GetActive())
 	{
 		mousePos = _Editor.GetEditorWorldMousePos();
 
@@ -78,7 +79,7 @@ void WallObject::Update()
 
 		if (mPos.y - TILE_Y_HALF_SIZE > mousePos.y || mPos.y + TILE_Y_HALF_SIZE < mousePos.y)
 			return;
-	}*/
+	}
 
 	// ±â¿ï±â
 	float fslope = (100.f * 0.5f) / (200.f * 0.5f);
@@ -131,7 +132,8 @@ void WallObject::Update()
 			inspector->InitalizeTargetGameObject();
 			mbOnObject = true;
 		}
-		else if (Input::GetInstance()->GetKeyPress(eKeyCode::RBTN) && _Editor.GetActive())
+		else if (Input::GetInstance()->GetKeyPress(eKeyCode::RBTN) && _Editor.GetActive()
+			&& Input::GetInstance()->GetKeyPress(eKeyCode::LCTRL))
 		{
 			ObjectManager::GetInstance()->DeleteWallObjet(this);
 			mbOnObject = true;
@@ -205,14 +207,22 @@ void WallObject::Update()
 
 void WallObject::FixedUpdate()
 {
-	if (mbUpdate == false)
-		return;
+	if (SceneManager::GetInstance()->GetActiveScene()->GetScenType() != eSceneType::Tool)
+	{
+		if (mbUpdate == false)
+			return;
+
+		if (mTexture.lock() == nullptr)
+			return;
+
+		GameObject::FixedUpdate();
+		mbUpdate = false;
+	}
 
 	if (mTexture.lock() == nullptr)
 		return;
 
 	GameObject::FixedUpdate();
-	mbUpdate = false;
 }
 
 void WallObject::Render()

@@ -327,6 +327,29 @@ void ObjectManager::LateUpdate()
 	deleteObjects.clear();
 }
 
+void ObjectManager::Clear()
+{
+	for (auto tile : mTileObjects)
+	{
+		if (tile.second == nullptr)
+			continue;
+
+		delete tile.second;
+		tile.second = nullptr;
+	}
+	mTileObjects.clear();
+
+	for (auto Wall : mWallObjects)
+	{
+		if (Wall.second == nullptr)
+			continue;
+
+		delete Wall.second;
+		Wall.second = nullptr;
+	}
+	mWallObjects.clear();
+}
+
 TileObject* ObjectManager::GetTile(int x, int y)
 {
 	TileObjectsIter::iterator iter = mTileObjects.find(std::pair(x,y));

@@ -2,11 +2,11 @@
 #include "CScene.h"
 
 
-class PlayScene : public Scene
+class PlayScene2 : public Scene
 {
 public:
-	PlayScene();
-	virtual ~PlayScene();
+	PlayScene2();
+	virtual ~PlayScene2();
 
 	virtual void Initalize();
 	virtual void Update();
@@ -15,8 +15,6 @@ public:
 
 	virtual void OnEnter();
 	virtual void OnExit();
-
-	void OnEvent();
 
 private:
 };

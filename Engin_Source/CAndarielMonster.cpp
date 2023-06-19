@@ -334,7 +334,7 @@ void AndarielMonster::CreateNextScenePotal()
 	mOverlay->Paused();
 
 	GateObject* obj = Object::Instantiate<GateObject>(eLayerType::Gate, true);
-	obj->SetNextScenetype(eSceneType::Title);
+	obj->SetNextScenetype(eSceneType::Play2);
 
 	Transform* andarielTr = GetComponent<Transform>();
 	Vector3 Pos = andarielTr->GetPosition();

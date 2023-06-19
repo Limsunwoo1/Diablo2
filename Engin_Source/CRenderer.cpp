@@ -811,7 +811,7 @@ namespace Renderer
 				tex.lock()->SetMaxY(1);
 			}
 
-			for (int i = 0; i < 44; ++i)
+			for (int i = 0; i < 62; ++i)
 			{
 				wstring name = L"";
 				wstring path = L"";

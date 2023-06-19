@@ -13,6 +13,9 @@ Layer::Layer()
 
 Layer::~Layer()
 {
+	if (mType == eLayerType::Player)
+		return;
+
 	for (GameObject* obj : mGameObjects)
 	{
 		if (obj == nullptr)
@@ -245,4 +248,18 @@ std::vector<GameObject*> Layer::GetDontDestroyGameObjects()
 	}
 
 	return donts;
+}
+
+void Layer::EreaseObj(GameObject* obj)
+{
+	auto iter = mGameObjects.begin();
+
+	for (; iter != mGameObjects.end(); ++iter)
+	{
+		if (*iter == obj)
+		{
+			iter = mGameObjects.erase(iter);
+			return;
+		}
+	}
 }

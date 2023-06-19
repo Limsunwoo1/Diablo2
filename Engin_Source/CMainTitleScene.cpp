@@ -29,7 +29,7 @@ void MainTitleScene::Initalize()
 {
 	// Light
 	{
-		GameObject* directionalLight = Object::Instantiate<GameObject>(eLayerType::Player,this);
+		GameObject* directionalLight = Object::Instantiate<GameObject>(eLayerType::None,this);
 		Transform* tr = directionalLight->GetComponent<Transform>();
 		tr->SetPosition(Vector3(0.0f, 0.0f, -100.f));
 		Light* lightcomp = directionalLight->AddComponent<Light>();
@@ -69,7 +69,7 @@ void MainTitleScene::Initalize()
 
 	// Logo
 	{
-		GameObject* logo = Object::Instantiate<GameObject>(eLayerType::Player, this);
+		GameObject* logo = Object::Instantiate<GameObject>(eLayerType::Effect, this);
 		Transform* tr = logo->GetComponent<Transform>();
 		tr->SetSize(Vector3(1000.0f, 3500.f, 1.0f));
 		tr->SetPosition(Vector3(0.0f, 350.f, 0.0f));

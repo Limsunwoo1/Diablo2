@@ -16,6 +16,9 @@ WorldManager::WorldManager()
 
 WorldManager::~WorldManager()
 {
+	if (Player)
+		delete Player;
+
 	Player = nullptr;
 }
 

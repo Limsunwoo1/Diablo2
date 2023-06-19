@@ -56,6 +56,28 @@ namespace Object
 	}
 
 	template <typename T>
+	static T* Instantiate(eLayerType type, GameObject* obj, bool nextParam)
+	{
+		SceneManager::GetInstance()->AddEvent(obj);
+		obj->SetLayerType(type);
+
+		return dynamic_cast<T*>(obj);
+	}
+
+	template <typename T>
+	static T* Instantiate(eLayerType type, GameObject* obj, bool nextParam, eSceneType scene)
+	{
+		Scene* Scene = SceneManager::GetInstance()->GetScene(scene);
+		Layer& layer = Scene->Scene::GetLayer(type);
+		layer.AddGameObject(obj);
+
+		obj->GameObject::SetLayerType(type);
+
+
+		return dynamic_cast<T*>(obj);
+	}
+
+	template <typename T>
 	static T* Instantiate(eLayerType type, eSceneType scenetype, T* obj)
 	{
 		Scene* scene = SceneManager::GetInstance()->GetScene(scenetype);
@@ -124,7 +146,9 @@ namespace Object
 		SceneManager::GetInstance()->AddEvent(gameObject);
 
 		gameObject->GameObject::SetLayerType(type);
-		gameObject->Initalize();
+
+		if(nextPram)
+			gameObject->Initalize();
 
 		return gameObject;
 	}
