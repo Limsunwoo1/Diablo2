@@ -25,9 +25,6 @@ LavaTile::LavaTile()
 		mArr[i] = 1;
 	}
 
-	std::weak_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"LavaMaterial");
-	mMaterial = mater.lock().get();
-
 	Animator* animator = AddComponent<Animator>();
 	std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"LavaTile");
 	animator->Create(L"LavaTile", tex, Vector2::Zero, Vector2(160.f, 80.f), Vector2::Zero, Vector2(160.f * 4, 80.f),4, 0.4f);

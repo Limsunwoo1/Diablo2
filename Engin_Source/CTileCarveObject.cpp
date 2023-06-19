@@ -18,8 +18,9 @@ void TileCarveObject::Initalize()
 {
 	std::weak_ptr<Material> mCarveMater = ResourceManager::GetInstance()->Find<Material>(L"CarveMaterial");
 	mCarveMater.lock()->SetTexture(eTextureSlot::T0, GetMaterial()->GetTexture(eTextureSlot::T0));
-
-	SetMaterial(mCarveMater.lock().get());
+	std::weak_ptr<Shader> CarveShader = ResourceManager::GetInstance()->Find<Shader>(L"CarveShader");
+	mMaterial.get()->SetShader(CarveShader);
+	mMaterial.get()->SetRenderingMode(graphics::eRenderingMode::Transparent);
 
 	BaseRenderer* renderer = this->GetComponent<BaseRenderer>();
 	renderer->SetMaterial(mCarveMater);

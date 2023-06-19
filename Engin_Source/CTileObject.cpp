@@ -35,14 +35,15 @@ TileObject::TileObject()
 
 	MeshRenderer* mr = AddComponent<MeshRenderer>();
 	std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-	std::weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"TileMaterial");
+	mMaterial = std::make_shared<Material>();
 	mr->SetMesh(mesh);
-	mr->SetMaterial(material);
+	mr->SetMaterial(mMaterial);
 	std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"Tile");
-	material.lock()->SetTexture(eTextureSlot::T0, tex);
-
-	mMaterial = material.lock().get();
+	mMaterial.get()->SetTexture(eTextureSlot::T0, tex);
 	mMaterial->SetRenderingMode(graphics::eRenderingMode::Transparent);
+
+	std::weak_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"TileShader");
+	mMaterial.get()->SetShader(shader);
 
 	mMaxX = tex.lock()->GetMaxX();
 	mMaxY = tex.lock()->GetMaxY();
@@ -58,6 +59,7 @@ TileObject::TileObject()
 
 TileObject::~TileObject()
 {
+	
 }
 
 void TileObject::Initalize()
@@ -90,8 +92,8 @@ void TileObject::Update()
 			{
 				if (tool->GetToolRenderMode() == eToolRenderMode::TILE)
 				{
-					mIndexX = _Editor.GetTileIndexX();
-					mIndexY = _Editor.GetTileIndexY();
+					/*mIndexX = _Editor.GetTileIndexX();
+					mIndexY = _Editor.GetTileIndexY();*/
 				}
 				mbOnTile = true;
 			}

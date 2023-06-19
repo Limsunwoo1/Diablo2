@@ -136,19 +136,13 @@ namespace gui
 				object->SetIndex(_Editor.GetTileIndexX(), _Editor.GetTileIndexY());
 				object->SetScreenIndex(x, y);
 
-				MeshRenderer* mr = object->AddComponent<MeshRenderer>();
-				std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-				std::weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"TileMaterial");
 
 				// test
 				if (mTex != nullptr)
 				{
 					std::weak_ptr<graphics::Texture2D> tex = ResourceManager::GetInstance()->Find<graphics::Texture2D>(mTex->GetName());
-					material.lock()->SetTexture(eTextureSlot::T0, tex);
+					object->GetMaterial()->SetTexture(eTextureSlot::T0, tex);
 				}
-
-				mr->SetMesh(mesh);
-				mr->SetMaterial(material);
 
 				ObjectManager::GetInstance()->InsertTileObject(object);
 			}

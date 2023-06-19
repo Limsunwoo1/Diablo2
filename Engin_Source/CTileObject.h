@@ -20,8 +20,7 @@ public:
 	std::pair<UINT, UINT> GetIndex() { return std::make_pair(mIndexX, mIndexY); }
 	std::pair<UINT, UINT> GetScreenIndex() { return std::make_pair(mScreenIndexX, mScreenIndexY); }
 
-	class Material* GetMaterial() { return mMaterial; }
-	void SetMaterial(class Material* mater) { mMaterial = mater; }
+	class Material* GetMaterial() { return mMaterial.get(); }
 
 	const std::vector<int>& GetArr() { return mArr; }
 	void SetArr(const std::vector<int>& arr) { mArr = arr; }
@@ -57,7 +56,7 @@ protected:
 	int mArrIdx;
 	std::wstring mTexPath;
 
-	Material* mMaterial;
+	std::shared_ptr<Material> mMaterial;
 
 	UINT mTileType;
 };

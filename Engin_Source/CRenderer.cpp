@@ -767,6 +767,14 @@ namespace Renderer
 			tex.lock()->SetMaxX(5);
 			tex.lock()->SetMaxY(37);
 		}
+
+		{
+			std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"Tile2", L"Tile2.png");
+			tex.lock()->SetMaxX(5);
+			tex.lock()->SetMaxY(17);
+		}
+
+
 		{
 			std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"Wall3Tile", L"Wall3.png");
 			tex.lock()->SetMaxX(51);
