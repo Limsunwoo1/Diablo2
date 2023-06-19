@@ -265,6 +265,7 @@ void ObjectManager::InsertTileObject(TileObject* tile)
 	}
 
 	mTileObjects.insert(std::make_pair(idx, tile));
+	tile->FixedUpdate();
 }
 
 void ObjectManager::InsertWallObject(WallObject* wall)
@@ -283,6 +284,7 @@ void ObjectManager::InsertWallObject(WallObject* wall)
 	}
 
 	mWallObjects.insert(std::make_pair(idx, wall));
+	wall->FixedUpdate();
 }
 
 void ObjectManager::DeleteTileObject(TileObject* tile)

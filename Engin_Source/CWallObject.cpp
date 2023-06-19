@@ -69,7 +69,7 @@ void WallObject::Update()
 
 	Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos();
 
-	if (_Editor.GetActive())
+	/*if (_Editor.GetActive())
 	{
 		mousePos = _Editor.GetEditorWorldMousePos();
 
@@ -78,7 +78,7 @@ void WallObject::Update()
 
 		if (mPos.y - TILE_Y_HALF_SIZE > mousePos.y || mPos.y + TILE_Y_HALF_SIZE < mousePos.y)
 			return;
-	}
+	}*/
 
 	// ±â¿ï±â
 	float fslope = (100.f * 0.5f) / (200.f * 0.5f);
@@ -205,8 +205,8 @@ void WallObject::Update()
 
 void WallObject::FixedUpdate()
 {
-	/*if (mbUpdate == false)
-		return;*/
+	if (mbUpdate == false)
+		return;
 
 	if (mTexture.lock() == nullptr)
 		return;

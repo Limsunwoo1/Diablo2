@@ -774,6 +774,12 @@ namespace Renderer
 			tex.lock()->SetMaxY(17);
 		}
 
+		{
+			std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"Tile3", L"Tile3.png");
+			tex.lock()->SetMaxX(5);
+			tex.lock()->SetMaxY(29);
+		}
+
 
 		{
 			std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"Wall3Tile", L"Wall3.png");
@@ -805,7 +811,7 @@ namespace Renderer
 				tex.lock()->SetMaxY(1);
 			}
 
-			for (int i = 0; i < 17; ++i)
+			for (int i = 0; i < 44; ++i)
 			{
 				wstring name = L"";
 				wstring path = L"";

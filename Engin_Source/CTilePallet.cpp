@@ -422,11 +422,14 @@ void TilePallet::CreateTile(const wstring& key, eLayerType type, Pos_Data pos, S
 	tile->SetArr(arrData);
 	tile->SetPassSituation();
 
-	for (int i = 0; i < arrData.size(); ++i)
+	if (key.find(L"Lava") == std::wstring::npos)
 	{
-		if (arrData[i] > 0)
+		for (int i = 0; i < arrData.size(); ++i)
 		{
-			InserCarveObject(screenIdx.screenIdxX, screenIdx.screenIdxY, i, tile);
+			if (arrData[i] > 0)
+			{
+				InserCarveObject(screenIdx.screenIdxX, screenIdx.screenIdxY, i, tile);
+			}
 		}
 	}
 

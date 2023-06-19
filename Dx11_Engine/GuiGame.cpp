@@ -149,7 +149,7 @@ namespace gui
 
 			if (Input::GetInstance()->GetKeyPress(eKeyCode::LBTN)
 				&& mbCreateObject
-				&& mTex->GetName().find(L"Object") != wstring::npos
+				&& mTex->GetName().find(L"Wall") != wstring::npos
 				&& rMode == eToolRenderMode::OBJECT
 				&& mTex != nullptr)
 			{
@@ -160,6 +160,7 @@ namespace gui
 					return;
 
 				WallObject* object = new WallObject();
+				object->Initalize();
 
 				Transform* objectTr = object->GetComponent<Transform>();
 				int Xpos = (x - y) * TILE_X_HALF_SIZE;

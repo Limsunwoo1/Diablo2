@@ -113,9 +113,9 @@ void TileObject::Update()
 			{
 				Renderer::InspectorGameObject = this;
 
-				gui::Inspector* inspector = _Editor.GetWidget<gui::Inspector>("Inspector");
-				inspector->SetTargetGameObject(Renderer::InspectorGameObject);
-				inspector->InitalizeTargetGameObject();
+				//gui::Inspector* inspector = _Editor.GetWidget<gui::Inspector>("Inspector");
+				//inspector->SetTargetGameObject(Renderer::InspectorGameObject);
+				//inspector->InitalizeTargetGameObject();
 			}
 		}
 
