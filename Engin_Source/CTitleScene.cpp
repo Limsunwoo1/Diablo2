@@ -17,6 +17,7 @@
 #include "CAnimator.h"
 #include "CLight.h"
 #include "CLoaddingScene.h"
+#include "CLavaTile.h"
 
 extern CApplication Application;
 
@@ -112,6 +113,23 @@ void TitleScene::Initalize()
 		animator->Create(L"Logo", tex, Vector2(0.0f, 0.0f), 216.f, Vector2::Zero, 15, 0.1f);
 		animator->Play(L"Logo");
 	}
+
+	{
+		LavaTile* tile = Object::Instantiate<LavaTile>(eLayerType::Monster);
+
+		TileObject* tile2 = Object::Instantiate<TileObject>(eLayerType::Monster);
+		Transform* b = tile2->GetComponent<Transform>();
+		b->SetPosition(Vector3(400, 0, 1.0f));
+
+
+		LavaTile* tile1 = Object::Instantiate<LavaTile>(eLayerType::Monster);
+		Transform* a = tile1->GetComponent<Transform>();
+		a->SetPosition(Vector3(-200, -200, 1.0f));
+
+		TileObject* tile3 = Object::Instantiate<TileObject>(eLayerType::Monster);
+		Transform* c = tile3->GetComponent<Transform>();
+		c->SetPosition(Vector3(400, -200, 1.0f));
+	}
 	
 	Scene::Initalize();
 }
@@ -122,14 +140,7 @@ void TitleScene::Update()
 
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN))
 	{
-		/*Scene* scene = SceneManager::GetInstance()->GetScene(eSceneType::Loadding);
-		LoaddingScene* load = dynamic_cast<LoaddingScene*>(scene);
-		if (load == nullptr)
-			return;
-
-		load->SeteSceneType(eSceneType::MainTitle);*/
-
-		SceneManager::GetInstance()->LoadScene(eSceneType::MainTitle);
+		//SceneManager::GetInstance()->LoadScene(eSceneType::Tool);
 	}
 }
 

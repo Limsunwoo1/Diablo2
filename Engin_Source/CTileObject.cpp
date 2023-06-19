@@ -28,6 +28,7 @@ TileObject::TileObject()
 	, mMaxY(1)
 	, mIndexX(1)
 	, mIndexY(1)
+	, mTileType(0)
 {
 	SetName(L"Tile");
 
@@ -46,6 +47,9 @@ TileObject::TileObject()
 
 	mbUpdate = false;
 	mArr.resize(4);
+
+	Transform* Tr = GetComponent<Transform>();
+	Tr->SetSize(Vector3(TILE_X_HALF_SIZE * 2.f, TILE_Y_HALF_SIZE * 2.f, 1.0f));
 }
 
 TileObject::~TileObject()
@@ -182,6 +186,7 @@ void TileObject::Render()
 		info.EndUV = Math::Vector2(((indexX + 1) / MaxX), ((indexY + 1) / MaxY));
 		info.OnTile = mbOnTile;
 		info.ArrIdx = mArrIdx;
+		info.TileType = mTileType;
 
 		ConstantBuffer* cb = Renderer::constantBuffers[(UINT)eCBType::TileData];
 		cb->SetData(&info);

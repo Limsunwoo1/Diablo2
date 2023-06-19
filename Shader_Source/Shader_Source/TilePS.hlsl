@@ -19,12 +19,37 @@ float4 main(VSOut In) : SV_Target
 {
      float4 color = (float) 0.0f;
     
+    if (tileType == 1) // 2D
+    {
+        //float2 colrow = float2(4.0f, 1.0f);
+        //In.UV.x = (In.UV.x / colrow.x);
+        //In.UV.y = (In.UV.y / colrow.y) + (1.f / colrow.y);
+        
+        //float2 diff = (atlasSize - spriteSize) / 2.0f;
+        //float2 UV = (leftTop - diff - offset) + In.UV;
+
+        //if (UV.x < leftTop.x || UV.y < leftTop.y
+        //    || UV.x > leftTop.x + spriteSize.x
+        //    || UV.y > leftTop.y + spriteSize.y)
+        //    discard;
+        
+        float x = ((0.25f / 1) * In.UV.x) + leftTop.x;
+        float y = In.UV.y;
+        
+        float2 UV = float2(x, y);
+        
+        color = atlasTexture.Sample(pointSampler, UV);
+    }
+    else
+    {
+        In.UV = abs(endUV - startUV) * In.UV;
+        In.UV += startUV;
+    
+        color = defaultTexture.Sample(pointSampler, In.UV);
+    }
+    
+    
     //In.UV = In.UV + startUV;
-    
-    In.UV = abs(endUV - startUV) * In.UV;
-    In.UV += startUV;
-    
-    color = defaultTexture.Sample(pointSampler, In.UV);
     
     // float2 colrow = float2(5.0f, 37.0f);
     // In.UV.x = (In.UV.x / colrow.x) + (1.f / colrow.x);

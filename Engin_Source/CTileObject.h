@@ -36,7 +36,7 @@ public:
 
 	vector<Vector2> GetIsometricVertex(Vector3 pos, Vector3 size);
 
-private:
+protected:
 	Vector2 mUV;
 
 	UINT mMaxX;
@@ -57,5 +57,7 @@ private:
 	std::wstring mTexPath;
 
 	Material* mMaterial;
+
+	UINT mTileType;
 };
 

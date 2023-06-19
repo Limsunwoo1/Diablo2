@@ -136,6 +136,7 @@ namespace Renderer
 
 		bool OnTile;
 		int ArrIdx;
+		UINT TileType;
 	};
 
 	CBUFFER(ObjectDataCB, CBSLOT_OBEJECTDATA)

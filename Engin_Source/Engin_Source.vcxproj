@@ -195,6 +195,7 @@
     <ClInclude Include="CInventoryButton.h" />
     <ClInclude Include="CInventoryPanel.h" />
     <ClInclude Include="CItemBase.h" />
+    <ClInclude Include="CLavaTile.h" />
     <ClInclude Include="CLayer.h" />
     <ClInclude Include="CLight.h" />
     <ClInclude Include="CLightBolt.h" />
@@ -324,6 +325,7 @@
     <ClCompile Include="CInventoryButton.cpp" />
     <ClCompile Include="CInventoryPanel.cpp" />
     <ClCompile Include="CItemBase.cpp" />
+    <ClCompile Include="CLavaTile.cpp" />
     <ClCompile Include="CLayer.cpp" />
     <ClCompile Include="CLight.cpp" />
     <ClCompile Include="CLightBolt.cpp" />

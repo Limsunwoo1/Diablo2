@@ -109,6 +109,7 @@ cbuffer TileData : register(b11)
     
     bool OnTile;
     int arrIdx;
+    uint tileType;
 }
 
 cbuffer ObjectData : register(b12)

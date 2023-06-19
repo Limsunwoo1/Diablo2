@@ -1135,6 +1135,15 @@ namespace Renderer
 			ResourceManager::GetInstance()->Insert<Material>(L"TileMaterial", TileMaterial);;
 		}
 #pragma endregion
+#pragma region	LavaTile Material
+		{
+			std::weak_ptr<Shader> TileShader = ResourceManager::GetInstance()->Find<Shader>(L"TileShader");
+			std::shared_ptr<Material> LavaTileMaterial = std::make_shared<Material>();
+			LavaTileMaterial->SetRenderingMode(eRenderingMode::Transparent);
+			LavaTileMaterial->SetShader(TileShader);
+			ResourceManager::GetInstance()->Insert<Material>(L"LavaMaterial", LavaTileMaterial);;
+		}
+#pragma endregion
 #pragma region Wall Material
 		{
 			std::weak_ptr<Shader> WallShader = ResourceManager::GetInstance()->Find<Shader>(L"TileShader");

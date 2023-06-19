@@ -14,6 +14,7 @@
 #include "..//Engin_Source/CTileObject.h"
 #include "..//Engin_Source/CTexture2D.h"
 #include "..//Engin_Source/CWallObject.h"
+#include "..//Engin_Source/CLavaTile.h"
 
 #include "..//Engin_Source/CToolScene.h"
 #include "..//Engin_Source/CObjectManager.h"
@@ -99,8 +100,8 @@ namespace gui
 		if (mouse.y < window.y || window.y + windowSize.y < mouse.y)
 			return;
 
-		if (mTex == nullptr)
-			return;
+		/*if (mTex == nullptr)
+			return;*/
 
 		ToolScene* toolscene = dynamic_cast<ToolScene*>(SceneManager::GetInstance()->GetActiveScene());
 		eToolRenderMode rMode = toolscene->GetToolRenderMode();
@@ -111,7 +112,8 @@ namespace gui
 				&& mbCreateTile
 				&& mTex->GetName().find(L"Object") == wstring::npos
 				&& mTex->GetName().find(L"object") == wstring::npos
-				&& rMode == eToolRenderMode::TILE)
+				&& rMode == eToolRenderMode::TILE
+				&& mTex != nullptr)
 			{
 
 				int x = Input::GetInstance()->GetIsometricX();
@@ -153,7 +155,8 @@ namespace gui
 			if (Input::GetInstance()->GetKeyPress(eKeyCode::LBTN)
 				&& mbCreateObject
 				&& mTex->GetName().find(L"Object") != wstring::npos
-				&& rMode == eToolRenderMode::OBJECT)
+				&& rMode == eToolRenderMode::OBJECT
+				&& mTex != nullptr)
 			{
 				int x = Input::GetInstance()->GetIsometricX();
 				int y = Input::GetInstance()->GetIsometricY();
@@ -174,6 +177,35 @@ namespace gui
 				object->SetScrrenIndex(x, y);
 
 				ObjectManager::GetInstance()->InsertWallObject(object);
+			}
+
+		}
+
+		if (Input::GetInstance()->GetKeyPress(eKeyCode::SPACE))
+		{
+			if (Input::GetInstance()->GetKeyPress(eKeyCode::LBTN)
+				&& mbCreateTile
+				&& rMode == eToolRenderMode::TILE)
+			{
+
+				int x = Input::GetInstance()->GetIsometricX();
+				int y = Input::GetInstance()->GetIsometricY();
+
+				if (x < 0 || y < 0)
+					return;
+
+				LavaTile* object = Object::Instantiate<LavaTile>(eLayerType::Tile, true);
+
+				Transform* objectTr = object->GetComponent<Transform>();
+				int Xpos = (x - y) * TILE_X_HALF_SIZE;
+				int ypos = (x + y) * TILE_Y_HALF_SIZE;
+
+				objectTr->SetPosition(Vector3(Xpos + 5000.f, ypos + 5000.f, 50.f));
+				objectTr->SetSize(Vector3(400.f, 200.f, 1.0f));
+
+				object->SetScreenIndex(x, y);
+
+				ObjectManager::GetInstance()->InsertTileObject(object);
 			}
 		}
 
