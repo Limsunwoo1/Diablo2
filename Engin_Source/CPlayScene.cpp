@@ -16,6 +16,7 @@
 #include "CMephistoMonster.h"
 #include "CAndarielMonster.h"
 #include "CTriggerObject.h"
+#include "CItemManager.h"
 
 // Static
 #include "CObject.h"
@@ -381,8 +382,12 @@ void PlayScene::OnExit()
 	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::MonsterSkil, eLayerType::Wall, false);
 	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::Player, eLayerType::Gate, false);
 
-	GameObject* player = WorldManager::GetInstance()->GetPlayer();
+	GameObject* obj = WorldManager::GetInstance()->GetPlayer();
+	Player* player = dynamic_cast<Player*>(obj);
 	SceneManager::GetInstance()->GetScene(eSceneType::Play)->GetLayer(eLayerType::Player).EreaseObj(player);
+	player->SetState(Player::PlayerState::Idle);
+
+	ItemManager::GetInstance()->ClearWorldItem();
 }
 
 void PlayScene::OnEvent()

@@ -80,6 +80,7 @@ public:
 	Vector3& GetInvenSize() { return mInvenScale; }
 	void SetInvenSize(const Vector3& scale) { mInvenScale = scale; }
 
+	void Drop();
 private:
 	UINT mXSize;
 	UINT mYSize;

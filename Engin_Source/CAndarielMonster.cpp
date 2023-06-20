@@ -16,8 +16,8 @@ AndarielMonster::AndarielMonster()
 	, mSkilCoolTime(8.0f)
 	, mSkilCurTime(0.0f)
 {
-	SetHP(1000.f);
-	SetDamege(20.f);
+	SetHP(2000.f);
+	SetDamege(40.f);
 }
 
 AndarielMonster::~AndarielMonster()
@@ -317,6 +317,7 @@ void AndarielMonster::InitAnimation()
 			animator->Create(name, tex,
 				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 23, 0.1f);
 
+			animator->GetEvent(name, 22) = std::bind(&Monster::DropItem, this);
 			animator->GetCompleteEvent(name) = std::bind(&AndarielMonster::CreateNextScenePotal, this);
 
 			count++;

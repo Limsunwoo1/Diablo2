@@ -74,6 +74,8 @@ void EquipmentButton::Update()
 				mbDrop = true;
 				item->SetSlotInventory(this);
 				item->SetDrop(mbDrop);
+
+				item->SetStage(false);
 			}
 			else
 			{
@@ -132,6 +134,7 @@ void EquipmentButton::Render()
 		color = Vector4(0.0f, 0.0f, 0.0f, 0.0f);
 
 	sr->GetMaterial().lock()->SetData(eGpuParam::Vector4, &color);
+
 
 	Button::Render();
 }

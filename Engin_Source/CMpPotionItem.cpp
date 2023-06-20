@@ -3,11 +3,13 @@
 #include "CSpriteRenderer.h"
 #include "CResourceManager.h"
 #include "CAnimator.h"
+#include "Cplayer.h"
+#include "CWorldManager.h"
 
 MpPotionItem::MpPotionItem()
 	: PotionItem()
 {
-	SetFill(20);
+	SetFill(150);
 	SetItemType(eEquipmentType::MpPotion);
 }
 
@@ -35,6 +37,8 @@ void MpPotionItem::Initalize()
 		animator->Create(L"WorldDrop", tex, Vector2(0.0f, 0.0f), Vector2(20.f, 159.f), Vector2(0.0f, 0.0f), 17, 0.05f);
 	}
 
+	SetItemType(eEquipmentType::HpPotion);
+
 }
 
 void MpPotionItem::UsePotion()
@@ -42,12 +46,18 @@ void MpPotionItem::UsePotion()
 	GameObject* object = GetTargetObject();
 	if (object)
 	{
-		// 오브젝트의 마나 회복
+		Player* player = dynamic_cast<Player*>(WorldManager::GetInstance()->GetPlayer());
+		float mp = player->GetMP();
+		float maxmp = player->GetMaxMP();
 
-		if (GetSlotInventory() != nullptr)
+		mp += GetFill();
+		if (mp > maxmp)
 		{
-	
+			mp = maxmp;
+
 		}
+
+		player->SetMP(mp);
 	}
 	this->Death();
 }

@@ -28,6 +28,8 @@ public:
 	void PushItem(ItemBase* item) { mItemes.emplace_back(item); }
 
 	const vector<ItemBase*>& GetItems() { return mItemes; }
+
+	void InventoryRenderStop(bool render = true);
 private:
 	void pushItem();
 	void removeItem();

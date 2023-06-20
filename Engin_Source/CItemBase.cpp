@@ -336,3 +336,8 @@ void ItemBase::Render()
 	GameObject::Render();
 }
 
+void ItemBase::Drop()
+{
+	GetComponent<Animator>()->Play(L"WorldDrop", false);
+}
+

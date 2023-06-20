@@ -42,7 +42,7 @@ void MinoMonsterScript::FixedUpdate()
 
 	Transform* Tr = GetOwner()->GetComponent<Transform>();
 	Vector3 mPos = Tr->GetPosition();
-	Vector3 searchSize = Vector3(600.f, 600.f, 1.0f);
+	Vector3 searchSize = Vector3(1000.f, 750.f, 1.0f);
 
 	Transform* playertr = player->GetComponent<Transform>();
 	Vector3 PlayerPos = playertr->GetPosition();

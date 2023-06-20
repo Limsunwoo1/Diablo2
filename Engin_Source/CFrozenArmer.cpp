@@ -6,6 +6,8 @@
 #include "CObject.h"
 #include "CLight.h"
 #include "CTime.h"
+#include "CWorldManager.h"
+#include "Cplayer.h"
 
 FrozenArmer::FrozenArmer()
 	: Skil()
@@ -57,6 +59,24 @@ void FrozenArmer::Update()
 
 	if (mTargetTr->GetOwner()->GetState() == eState::dead)
 		return;
+
+	Player* player = dynamic_cast<Player*>(WorldManager::GetInstance()->GetPlayer());
+	float hp = player->GetHP();
+	float mp = player->GetMP();
+
+	float MaxHp = player->GetMaxHP();
+	float Maxmp = player->GetMaxMP();
+
+	hp += Time::GetInstance()->DeltaTime() * 120.f;
+	mp += Time::GetInstance()->DeltaTime() * 100.f;
+
+	if (hp > MaxHp)
+		hp = MaxHp;
+	if (mp > Maxmp)
+		mp = Maxmp;
+
+	player->SetHP(hp);
+	player->SetMP(mp);
 
 	Vector3 TargetPos = mTargetTr->GetPosition();
 	Vector3 TargetSize = mTargetTr->GetSize();

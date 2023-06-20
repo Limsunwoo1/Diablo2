@@ -29,7 +29,7 @@ void SpearMonster::Initalize()
 	SetMaxHp(200.f);
 	SetHP(200.f);
 
-	SetMonsterStatusEffect(eElementType::HitFrozen);
+	//SetMonsterStatusEffect(eElementType::HitFrozen);
 
 	// Astar
 	AddComponent<AStar>();
@@ -149,6 +149,10 @@ void SpearMonster::InitAnimation()
 
 			animator->Create(name, tex,
 				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 15, 0.1f);
+
+			animator->GetCompleteEvent(name) = std::bind(&Monster::DropItem, this);
+
+			//animator->GetEvent(name, 14) = std::bind(&Monster::DropItem, this);
 		}
 	}
 

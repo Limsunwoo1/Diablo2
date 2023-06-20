@@ -134,6 +134,9 @@ void RadamentMonster::InitAnimation()
 
 			animator->Create(name, tex,
 				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 20, 0.1f);
+
+			animator->GetCompleteEvent(name) = std::bind(&Monster::DropItem, this);
+
 		}
 	}
 

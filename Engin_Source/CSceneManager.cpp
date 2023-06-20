@@ -9,6 +9,7 @@
 #include "CObject.h"
 #include "CLoaddingScene.h"
 #include "CPlaySCene2.h"
+#include "CItemManager.h"
 
 #include "..//Dx11_Engine/GuiEditor.h"
 #include "..//Dx11_Engine/GuiHierachy.h"

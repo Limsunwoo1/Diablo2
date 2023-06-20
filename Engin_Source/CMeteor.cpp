@@ -18,6 +18,7 @@ Meteor::Meteor()
 	: Skil()
 	, mbRun(false)
 {
+	mCost = 60.f;
 }
 
 Meteor::~Meteor()

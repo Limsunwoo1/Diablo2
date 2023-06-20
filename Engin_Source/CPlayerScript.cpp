@@ -122,7 +122,6 @@ void PlayerScript::FixedUpdate()
 		if (player->GetState() == Player::PlayerState::Idle
 			|| player->GetState() == Player::PlayerState::Move)
 		{
-			player->SetState(Player::PlayerState::Skil);
 
 			FrozenOrb* orb = Object::Instantiate<FrozenOrb>(eLayerType::PlayerSKil, true);
 			orb->SetOwner(player);
@@ -131,9 +130,10 @@ void PlayerScript::FixedUpdate()
 			if (playerMp < 0)
 			{
 				orb->Death();
-				player->SetMP(0);
+				player->SetMP(playerMp + orb->GetCost());
 				return;
 			}
+			player->SetState(Player::PlayerState::Skil);
 
 			player->SetMP(playerMp);
 
@@ -158,7 +158,6 @@ void PlayerScript::FixedUpdate()
 		if (player->GetState() == Player::PlayerState::Idle
 			|| player->GetState() == Player::PlayerState::Move)
 		{
-			player->SetState(Player::PlayerState::Skil);
 
 			Vector2 PlayerPos = Vector2(pos.x,pos.y);
 			Vector2 MousePos = Input::GetInstance()->GetMouseWorldPos(true);
@@ -204,9 +203,11 @@ void PlayerScript::FixedUpdate()
 				if (playerMp < 0)
 				{
 					teleport->Death();
-					player->SetMP(0);
+					player->SetMP(playerMp + teleport->GetCost());
 					return;
 				}
+
+				player->SetState(Player::PlayerState::Skil);
 
 				player->SetMP(playerMp);
 
@@ -261,7 +262,6 @@ void PlayerScript::FixedUpdate()
 		if (player->GetState() == Player::PlayerState::Idle
 			|| player->GetState() == Player::PlayerState::Move)
 		{
-			player->SetState(Player::PlayerState::Skil);
 
 			Meteor* meteor = Object::Instantiate<Meteor>(eLayerType::PlayerSKil, true);
 			Transform* MeteorTr = meteor->GetComponent<Transform>();
@@ -270,9 +270,10 @@ void PlayerScript::FixedUpdate()
 			if (playerMp < 0)
 			{
 				meteor->Death();
-				player->SetMP(0);
+				player->SetMP(playerMp + meteor->GetCost());
 				return;
 			}
+			player->SetState(Player::PlayerState::Skil);
 
 			player->SetMP(playerMp);
 
@@ -299,17 +300,17 @@ void PlayerScript::FixedUpdate()
 		if (player->GetState() == Player::PlayerState::Idle
 			|| player->GetState() == Player::PlayerState::Move)
 		{
-			player->SetState(Player::PlayerState::Skil);
 
 			FireBolt* firebolt = Object::Instantiate<FireBolt>(eLayerType::PlayerSKil, true);
 			playerMp -= firebolt->GetCost();
 			if (playerMp < 0)
 			{
 				firebolt->Death();
-				player->SetMP(0);
+				player->SetMP(playerMp + firebolt->GetCost());
 				return;
 			}
 
+			player->SetState(Player::PlayerState::Skil);
 			player->SetMP(playerMp);
 
 			Transform* fireboltTr = firebolt->GetComponent<Transform>();
@@ -332,16 +333,16 @@ void PlayerScript::FixedUpdate()
 		if (player->GetState() == Player::PlayerState::Idle
 			|| player->GetState() == Player::PlayerState::Move)
 		{
-			player->SetState(Player::PlayerState::Skil);
 
 			FrozenBolt* frozenbolt = Object::Instantiate<FrozenBolt>(eLayerType::PlayerSKil, true);
 			playerMp -= frozenbolt->GetCost();
 			if (playerMp < 0)
 			{
 				frozenbolt->Death();
-				player->SetMP(0);
+				player->SetMP(playerMp + frozenbolt->GetCost());
 				return;
 			}
+			player->SetState(Player::PlayerState::Skil);
 
 			player->SetMP(playerMp);
 
@@ -365,7 +366,6 @@ void PlayerScript::FixedUpdate()
 		if (player->GetState() == Player::PlayerState::Idle
 			|| player->GetState() == Player::PlayerState::Move)
 		{
-			player->SetState(Player::PlayerState::Skil);
 
 			Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos(true);
 			Vector2 direction = mousePos - Vector2(pos.x, pos.y);
@@ -438,10 +438,11 @@ void PlayerScript::FixedUpdate()
 			if (playerMp < 0)
 			{
 				lightbolt->Death();
-				player->SetMP(0);
+				player->SetMP(playerMp + lightbolt->GetCost());
 				return;
 			}
 
+			player->SetState(Player::PlayerState::Skil);
 			player->SetMP(playerMp);
 
 			Transform* lightboltTr = lightbolt->GetComponent<Transform>();
@@ -461,17 +462,17 @@ void PlayerScript::FixedUpdate()
 	if (player->GetState() == Player::PlayerState::Idle
 		|| player->GetState() == Player::PlayerState::Move)
 	{
-		player->SetState(Player::PlayerState::Skil);
 
 		FrozenArmer* frozenArmer = Object::Instantiate<FrozenArmer>(eLayerType::Effect, true);
 		playerMp -= frozenArmer->GetCost();
 		if (playerMp < 0)
 		{
 			frozenArmer->Death();
-			player->SetMP(0);
+			player->SetMP(playerMp + frozenArmer->GetCost());
 			return;
 		}
 
+		player->SetState(Player::PlayerState::Skil);
 		player->SetMP(playerMp);
 
 		frozenArmer->SetTarget(player);

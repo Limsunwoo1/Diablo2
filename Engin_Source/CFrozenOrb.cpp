@@ -16,6 +16,7 @@ FrozenOrb::FrozenOrb()
 	, mbOff(false)
 	, mbOnOrb(false)
 {
+	mCost = 45.f;
 }
 
 FrozenOrb::~FrozenOrb()

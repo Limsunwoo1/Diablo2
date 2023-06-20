@@ -159,6 +159,9 @@ void MephistoMonster::InitAnimation()
 			animator->Create(name, tex,
 				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 25, 0.1f);
 
+			animator->GetCompleteEvent(name) = std::bind(&Monster::DropItem, this);
+
+
 			count++;
 
 			if (count >= 8)

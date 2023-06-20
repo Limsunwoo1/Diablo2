@@ -40,6 +40,7 @@
 #include "CInventoryPanel.h"
 #include "CMainPanel.h"
 #include "CEquipmentButton.h"
+#include "CItemManager.h"
 
 using namespace graphics;
 
@@ -392,5 +393,5 @@ void PlayScene2::OnEnter()
 
 void PlayScene2::OnExit()
 {
-
+	ItemManager::GetInstance()->ClearWorldItem();
 }

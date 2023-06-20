@@ -28,6 +28,7 @@ LightBolt::LightBolt()
 	, mYScale(0.0f)
 {
 	SetElementType(eElementType::HitLight);
+	mCost = 30.f;
 }
 
 LightBolt::~LightBolt()

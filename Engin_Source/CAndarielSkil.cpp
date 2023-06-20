@@ -70,6 +70,7 @@ void AndarielSkil::Initalize()
 		mSpecialCastSkil[i]->SetSpeed(600.f);
 
 		mSpecialCastSkil[i]->GetComponent<Transform>()->SetSize(Vector3(550.f, 550.f, 1.0f));
+		mSpecialCastSkil[i]->SetDamege(40.f);
 
 		Collider2D* col = mSpecialCastSkil[i]->AddComponent<Collider2D>();
 		col->SetType(eColliderType::Rect);

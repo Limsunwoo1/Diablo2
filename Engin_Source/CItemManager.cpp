@@ -202,6 +202,21 @@ vector<ItemBase*> ItemManager::GetSaveItemData()
 	return outVec;
 }
 
+void ItemManager::InventoryRenderStop(bool render)
+{
+	for (ItemBase* item : mItemes)
+	{
+		if (item == nullptr)
+			continue;
+
+		if (item->GetStage() == false )
+		{
+			if(item->GetItemType() != eEquipmentType::HpPotion && item->GetItemType() != eEquipmentType::MpPotion)
+			item->GetComponent<BaseRenderer>()->SetRenderStop(render);
+		}
+	}
+}
+
 void ItemManager::pushItem()
 {
 	while (!mPushQueue.empty())

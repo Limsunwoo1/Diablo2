@@ -14,6 +14,29 @@
 #include "CCollisionManager.h"
 #include "Cplayer.h"
 
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+
+#include "CItemBase.h"
+#include "CCapItem.h"
+#include "CGloveItem.h"
+#include "CHpPotionItem.h"
+#include "CMpPotionItem.h"
+#include "CShoesItem.h"
+#include "CBeltItem.h"
+#include "CWeponItem.h"
+#include "CSuitItem.h"
+
+#include "CItemManager.h"
+
+#include <random>
+
+
+std::random_device random;
+std::mt19937 gen(random());
+std::uniform_int_distribution<int> type(0, 8);
+
 Monster::Monster()
 	: GameObject()
 	, mMonsterState(MonsterState::Idle)
@@ -32,6 +55,8 @@ Monster::Monster()
 	, AttackSize(Vector2(200.f,200.f))
 {
 	mDirection[mIndex] = 1;
+
+	srand(time(NULL));
 }
 
 Monster::~Monster()
@@ -330,6 +355,88 @@ void Monster::Attack()
 
 void Monster::DropItem()
 {
+	ItemBase* item = nullptr;
+	
+	UINT itemType = type(gen);
+
+	switch ((eEquipmentType)itemType)
+	{
+	case eEquipmentType::Belt:
+	{
+		item = new BeltItem(L"Belt");
+		item->SetItemType(eEquipmentType::Belt);
+	}
+	break;
+
+	case eEquipmentType::Cap:
+	{
+		item = new CapItem(L"Cap");
+		item->SetItemType(eEquipmentType::Cap);
+	}
+	break;
+
+	case eEquipmentType::Glove:
+	{
+		item = new GloveItem(L"Glove");
+		item->SetItemType(eEquipmentType::Glove);
+	}
+	break;
+
+	case eEquipmentType::HpPotion:
+	{
+		item = new HpPotionItem();
+
+		item->SetItemType(eEquipmentType::HpPotion);
+	}
+	break;
+
+	case eEquipmentType::MpPotion:
+	{
+		item = new MpPotionItem();
+		item->SetItemType(eEquipmentType::MpPotion);
+	}
+	break;
+
+	case eEquipmentType::Shoes:
+	{
+		item = new ShoesItem(L"Shoes");
+		item->SetItemType(eEquipmentType::Shoes);
+	}
+	break;
+
+	case eEquipmentType::Suit:
+	{
+		item = new SuitItem(L"Suit");
+		item->SetItemType(eEquipmentType::Suit);
+	}
+	break;
+
+	case eEquipmentType::Wepon:
+	{
+		item = new WeponItem(L"Suit");
+		item->SetItemType(eEquipmentType::Wepon);
+	}
+	break;
+
+
+	default:
+		break;
+	}
+
+	if (item)
+	{
+		item->Initalize();
+		item->Drop();
+		item->SetStage(true);
+
+		ItemManager::GetInstance()->AddItem(item);
+
+		Transform* itemTr = item->GetComponent<Transform>();
+		Transform* Tr = GetComponent<Transform>();
+
+		itemTr->SetPosition(Tr->GetPosition());
+		itemTr->SetSize(item->GetWorldSize());
+	}
 }
 
 bool Monster::MonsterDirection(int index)
