@@ -10,6 +10,7 @@
 #include "CAndarielSkil.h"
 #include "CObject.h"
 #include "CGateObject.h"
+#include "CWorldManager.h"
 
 AndarielMonster::AndarielMonster()
 	: Monster()
@@ -68,22 +69,16 @@ void AndarielMonster::Initalize()
 	{
 		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->
 			Load<Texture2D>(L"SpecialCast", L"Monster//Andariel//AndarielSpecialCastOverlay.png");
-		int count = 4;
 		// 163 108.375
 		float x = 163.f;
 		float y = 108.375f;
 		for (int i = 0; i < 8; ++i)
 		{
 			wstring name = L"SpecialCast";
-			name += std::to_wstring(count);
+			name += std::to_wstring(7 - i);
 
 			overlayAnimator->Create(name, tex,
 				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, 18, 0.1f);
-
-			count++;
-
-			if (count >= 8)
-				count = 0;
 		}
 	}
 
@@ -324,7 +319,7 @@ void AndarielMonster::InitAnimation()
 		}
 	}
 
-	animator->Play(L"AndarielIdle4");
+	animator->Play(L"AndarielIdle7");
 }
 
 void AndarielMonster::CreateNextScenePotal()
@@ -417,6 +412,43 @@ void AndarielMonster::attack()
 
 			mOverlay->Active();
 			Transform* OverlayTr = mOverlay->GetComponent<Transform>();
+
+			GameObject* player = WorldManager::GetInstance()->GetPlayer();
+			Transform* playerTr = player->GetComponent<Transform>();
+			Vector3 playerPos = playerTr->GetPosition();
+
+
+			Vector2 vec = playerPos - Vector2(Pos.x, Pos.y);
+			Vector2 Vec1 = Vector2(0.0f, 0.0f);
+
+			if (vec.x <= 0.f)
+				Vec1 = Vector2(-1.0f, 0.0f);
+			else
+				Vec1 = Vector2(1.0f, 0.0f);
+
+			Vec1.Normalize();
+			vec.Normalize();
+
+			float that = Vec1.Dot(vec);
+			float radian = acos(that);
+
+			float radius = 200.f;
+
+			// 원의 방정식
+			// https://nenara.com/68
+			int x = cosf(radian) * radius;
+			int y = sinf(radian) * radius;
+
+			if (vec.x < 0)
+				x *= -1.f;
+			if (vec.y < 0)
+				y *= -1.f;
+
+			Vector3 SearchPos = Pos;
+			SearchPos.x += x;
+			SearchPos.y += y;
+
+
 			OverlayTr->SetPosition(Pos);
 			OverlayTr->SetSize(Vector3(400.f, 400.f, 1.0f));
 
@@ -428,7 +460,7 @@ void AndarielMonster::attack()
 			AndarielSkil* skil = Object::Instantiate<AndarielSkil>(eLayerType::MonsterSkil, true);
 			Transform* skilTr = skil->GetComponent<Transform>();
 
-			skilTr->SetPosition(Pos);
+			skilTr->SetPosition(SearchPos);
 		}
 		else
 		{ 

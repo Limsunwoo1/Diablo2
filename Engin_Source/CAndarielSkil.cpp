@@ -122,7 +122,6 @@ void AndarielSkil::Update()
 				Transform* Tr = GetComponent<Transform>();
 				Vector3 Pos = Tr->GetPosition();
 
-				objtr->SetPosition(Pos);
 
 				GameObject* player = WorldManager::GetInstance()->GetPlayer();
 
@@ -135,7 +134,7 @@ void AndarielSkil::Update()
 
 				float radian = XMConvertToRadians(-45 + (cout * diffDegree));
 
-				int radius = 100.f;
+				int radius = 200.f;
 				int x = cosf(radian) * radius;
 				int y = sinf(radian) * radius;
 
@@ -149,6 +148,7 @@ void AndarielSkil::Update()
 				DurationPos.x += x;
 				DurationPos.y += y;
 
+				objtr->SetPosition(Pos);
 				obj->Angle(Vector2(DurationPos.x, DurationPos.y));
 				break;
 			}

@@ -53,7 +53,7 @@ float4 main(VSOut In) : SV_Target
     
     if (gaugeType == 5)
     {
-        color.a = 0.8f;
+        color.a = 1.0f;
     }
     
      return color;

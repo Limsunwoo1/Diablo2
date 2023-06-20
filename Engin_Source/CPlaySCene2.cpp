@@ -125,6 +125,42 @@ void PlayScene2::Initalize()
 		trigger->GetFunc() = std::bind(&PlayScene2::OnEvent, this);
 	}
 
+	{
+		MinosTauros* mino0 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* mino0Tr = mino0->GetComponent<Transform>();
+		mino0Tr->SetPosition(Vector3(7590.f, 8150.f, 1.0f));
+
+		MinosTauros* mino = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr = mino->GetComponent<Transform>();
+		minoTr->SetPosition(Vector3(7622.f, 7999.f, 1.0f));
+
+		MinosTauros* mino2 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr2 = mino2->GetComponent<Transform>();
+		minoTr2->SetPosition(Vector3(7966.f, 8288.f, 1.0f));
+
+		MinosTauros* mino3 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr3 = mino3->GetComponent<Transform>();
+		minoTr3->SetPosition(Vector3(7140.f, 8300.f, 1.0f));
+
+		MinosTauros* mino4 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr4 = mino4->GetComponent<Transform>();
+		minoTr4->SetPosition(Vector3(6140, 9100.f, 1.0f));
+	}
+
+	{
+		MephistoMonster* mino2 = Object::Instantiate<MephistoMonster>(eLayerType::Monster, this);
+		Transform* minoTr2 = mino2->GetComponent<Transform>();
+		minoTr2->SetPosition(Vector3(7600.f, 8450.f, 1.0f));
+
+		MephistoMonster* mino3 = Object::Instantiate<MephistoMonster>(eLayerType::Monster, this);
+		Transform* minoTr3 = mino3->GetComponent<Transform>();
+		minoTr3->SetPosition(Vector3(4786, 10654.f, 1.0f));
+
+		MephistoMonster* mino4 = Object::Instantiate<MephistoMonster>(eLayerType::Monster, this);
+		Transform* minoTr4 = mino4->GetComponent<Transform>();
+		minoTr4->SetPosition(Vector3(4622, 10514.f, 1.0f));
+	}
+
 	Scene::Initalize();
 }
 

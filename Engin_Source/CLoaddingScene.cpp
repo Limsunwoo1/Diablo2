@@ -79,7 +79,7 @@ void LoaddingScene::Initalize()
 	{
 		GameObject* logo = Object::Instantiate<GameObject>(eLayerType::Effect,this);
 		Transform* tr = logo->GetComponent<Transform>();
-		tr->SetSize(Vector3(4500, 500, 1.0f));
+		tr->SetSize(Vector3(5500.f, 500, 1.0f));
 
 		SpriteRenderer* sr = logo->AddComponent<SpriteRenderer>();
 

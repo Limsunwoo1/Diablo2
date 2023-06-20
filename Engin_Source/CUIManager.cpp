@@ -155,7 +155,7 @@ void UIManager::Initialize()
 
 		Transform* monseterHPtr = monseterHP->GetComponent<Transform>();
 		monseterHPtr->SetPosition(Vector3(0.0f,400.f, 0.01f));
-		monseterHPtr->SetSize(Vector3(150.f, 75.f, 0.f));
+		monseterHPtr->SetSize(Vector3(250.f, 75.f, 0.f));
 		Object::Instantiate<Panel>(eLayerType::UI, eSceneType::Play, monseterHP);
 		Push(L"MonsterHp", monseterHP);
 

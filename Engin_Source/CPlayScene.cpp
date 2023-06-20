@@ -183,140 +183,50 @@ void PlayScene::Initalize()
 	{
 		SpearMonster* monster = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
 		Transform* spearTr = monster->GetComponent<Transform>();
-		spearTr->SetPosition(Vector3(5400.f, 7160.f, 1.0f));
+		spearTr->SetPosition(Vector3(5985.f,7257.f, 1.0f));
 
-		MephistoMonster* mino = Object::Instantiate<MephistoMonster>(eLayerType::Monster, this);
+		SpearMonster* mino = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
 		Transform* minoTr = mino->GetComponent<Transform>();
-		minoTr->SetPosition(Vector3(5600.f, 7360.f, 1.0f));
+		minoTr->SetPosition(Vector3(5690.f, 7418.f, 1.0f));
 
-		MephistoMonster* mino2 = Object::Instantiate<MephistoMonster>(eLayerType::Monster, this);
+		SpearMonster* mino2 = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
 		Transform* minoTr2 = mino2->GetComponent<Transform>();
-		minoTr2->SetPosition(Vector3(4710.f, 9000.f, 1.0f));
+		minoTr2->SetPosition(Vector3(5550.f, 7170.f, 1.0f));
 
-		MinosTauros* mino3 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		SpearMonster* mino3 = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
 		Transform* minoTr3 = mino3->GetComponent<Transform>();
-		minoTr3->SetPosition(Vector3(4500.f, 8761.f, 1.0f));
+		minoTr3->SetPosition(Vector3(5332.f, 7380.f, 1.0f));
 
-		{
-			MinosTauros* mino1 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
-			Transform* minoTr1 = mino1->GetComponent<Transform>();
-			minoTr1->SetPosition(Vector3(4081.f, 8400.f, 1.0f));
-
-			MinosTauros* mino2 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
-			Transform* minoTr2 = mino2->GetComponent<Transform>();
-			minoTr2->SetPosition(Vector3(4800, 8761.f, 1.0f));
-
-			RadamentMonster* mino3 = Object::Instantiate<RadamentMonster>(eLayerType::Monster, this);
-			Transform* minoTr3 = mino3->GetComponent<Transform>();
-			minoTr3->SetPosition(Vector3(4500, 8361.f, 1.0f));
-		}
+		RadamentMonster* mino4 = Object::Instantiate<RadamentMonster>(eLayerType::Monster, this);
+		Transform* minoTr4 = mino4->GetComponent<Transform>();
+		minoTr4->SetPosition(Vector3(5431, 7357.f, 1.0f));
 	}
 
-	// PostProcess
 	{
-		/*Player* player = Object::Instantiate<Player>(eLayerType::Player, this);
-		PlayerScript* sc = player->AddComponent<PlayerScript>();
+		SpearMonster* monster = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+		Transform* spearTr = monster->GetComponent<Transform>();
+		spearTr->SetPosition(Vector3(4141.f, 9047.f, 1.0f));
 
-		Collider2D* collider = player->AddComponent<Collider2D>();
-		collider->SetSize(Vector2(0.5f, 0.5f));
-		collider->SetType(eColliderType::Rect);
+		SpearMonster* mino = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+		Transform* minoTr = mino->GetComponent<Transform>();
+		minoTr->SetPosition(Vector3(4152.f, 8916.f, 1.0f));
 
-		Transform* tr = player->GetComponent<Transform>();
-		tr->SetPosition(Vector3(10.0f, 10.0f, 1.0f));
-		tr->SetScale(Vector3(30.0f, 30.0f, 1.0f));
+		SpearMonster* mino2 = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+		Transform* minoTr2 = mino2->GetComponent<Transform>();
+		minoTr2->SetPosition(Vector3(4392.f, 8929, 1.0f));
 
-		SpriteRenderer* spr = player->AddComponent<SpriteRenderer>();
-		std::shared_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-		std::shared_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"PostProcessMaterial");
+		SpearMonster* mino3 = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+		Transform* minoTr3 = mino3->GetComponent<Transform>();
+		minoTr3->SetPosition(Vector3(4562.f, 8890.f, 1.0f));
 
-		spr->SetMesh(mesh);
-		spr->SetMaterial(material);
+		RadamentMonster* mino4 = Object::Instantiate<RadamentMonster>(eLayerType::Monster, this);
+		Transform* minoTr4 = mino4->GetComponent<Transform>();
+		minoTr4->SetPosition(Vector3(4568.f, 8843.f, 1.0f));
 
-		player->InitAnimation();
-		player->PlayAnimation(L"Walk0");*/
+		RadamentMonster* mino5 = Object::Instantiate<RadamentMonster>(eLayerType::Monster, this);
+		Transform* minoTr5 = mino5->GetComponent<Transform>();
+		minoTr5->SetPosition(Vector3(4072.f, 9045.f, 1.0f));
 	}
-
-	// tile
-	//{
-	//	TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
-
-	//	/*Collider2D* collider = tile->AddComponent<Collider2D>();
-	//	collider->SetSize(Vector2(0.5f, 0.5f));
-	//	collider->SetType(eColliderType::Rect);*/
-
-	//	Transform* tr = tile->GetComponent<Transform>();
-	//	tr->SetPosition(Vector3(11.0f, 11.0f, 1.0f));
-	//	tr->SetRotation(Vector3(0.f, 0.f, -45.f));
-
-	//	MeshRenderer* mr = tile->AddComponent<MeshRenderer>();
-	//	std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-	//	std::weak_ptr<Material> mater= ResourceManager::GetInstance()->Find<Material>(L"RectMaterial");
-	//	std::weak_ptr<Texture2D>tex = ResourceManager::GetInstance()->Find<Texture2D>(L"ShopIdel");
-
-	//	mater.lock()->SetTexture(eTextureSlot::T0, tex);
-
-	//	mr->SetMesh(mesh);
-	//	mr->SetMaterial(mater);
-
-	//	WorldManager::GetInstance()->SetObstacle(tr->GetPosition().x, tr->GetPosition().y);
-	//}
-
-	int indexX = 0;
-	int indexY = 0;
-	{
-		bool a = false;
-		float sizeX = 400.f;
-		float sizeY = 200.f;
-		/*for (int y = 0; y < 20; ++y)
-		{
-			for (int x = 0; x < 20; ++x)
-			{
-				if (x + y >= 20)
-					continue;
-
-				TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
-				Transform* tr = tile->GetComponent<Transform>();
-				UINT maxX = tile->GetMaterial()->GetTexture(eTextureSlot::T0).lock()->GetMaxX();
-				UINT maxY = tile->GetMaterial()->GetTexture(eTextureSlot::T0).lock()->GetMaxY();
-
-				tile->SetMaxIndex(maxX, maxY);
-				tile->SetIndex(1, 3);
-				
-				tr->SetPosition(Vector3((x*(sizeX * 0.5f) + 5000.f), (y* sizeY) + (x * (sizeY * 0.5f)) + 5000.f, 50.0f));
-				tr->SetSize(Vector3(sizeX, sizeY, 1.0f));
-
-				indexX = x;
-				indexY = y;
-
-				tile->SetScreenIndex(x, y);
-
-			}
-		}
-
-		for (int y = 0; y < 20; ++y)
-		{
-			for (int x = 0; x < 20; ++x)
-			{
-				if (x + y >= 20)
-					continue;
-
-				TileObject* tile = Object::Instantiate<TileObject>(eLayerType::Tile, this);
-				Transform* tr = tile->GetComponent<Transform>();
-				UINT maxX = tile->GetMaterial()->GetTexture(eTextureSlot::T0).lock()->GetMaxX();
-				UINT maxY = tile->GetMaterial()->GetTexture(eTextureSlot::T0).lock()->GetMaxY();
-
-				tile->SetMaxIndex(maxX, maxY);
-				tile->SetIndex(1, 3);
-
-
-				tr->SetPosition(Vector3((- 1 * x) * (sizeX * 0.5f) + 5000.f, (y* sizeY) + (x * (sizeY * 0.5f)) + 5000.f, 50.0f));
-				tr->SetSize(Vector3(sizeX, sizeY, 1.0f));
-
-				tile->SetScreenIndex(x + indexX, y + indexY);
-			}
-		}*/
-	}
-
 	
 	Scene::Initalize();
 }
