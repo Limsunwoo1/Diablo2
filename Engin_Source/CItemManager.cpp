@@ -211,8 +211,12 @@ void ItemManager::InventoryRenderStop(bool render)
 
 		if (item->GetStage() == false )
 		{
-			if(item->GetItemType() != eEquipmentType::HpPotion && item->GetItemType() != eEquipmentType::MpPotion)
-			item->GetComponent<BaseRenderer>()->SetRenderStop(render);
+			if(item->GetItemType() != eEquipmentType::HpPotion
+				&& item->GetItemType() != eEquipmentType::MpPotion
+				&&item->GetItemType() != eEquipmentType::Potion)
+			{ 
+				item->GetComponent<BaseRenderer>()->SetRenderStop(render);
+			}
 		}
 	}
 }

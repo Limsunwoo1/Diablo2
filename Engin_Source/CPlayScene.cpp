@@ -17,6 +17,7 @@
 #include "CAndarielMonster.h"
 #include "CTriggerObject.h"
 #include "CItemManager.h"
+#include "CDiabloMonster.h"
 
 // Static
 #include "CObject.h"
@@ -188,7 +189,7 @@ void PlayScene::Initalize()
 		Transform* minoTr = mino->GetComponent<Transform>();
 		minoTr->SetPosition(Vector3(5600.f, 7360.f, 1.0f));
 
-		MinosTauros* mino2 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		MephistoMonster* mino2 = Object::Instantiate<MephistoMonster>(eLayerType::Monster, this);
 		Transform* minoTr2 = mino2->GetComponent<Transform>();
 		minoTr2->SetPosition(Vector3(4710.f, 9000.f, 1.0f));
 

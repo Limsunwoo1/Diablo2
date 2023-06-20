@@ -5,6 +5,7 @@
 #include "CAnimator.h"
 #include "Cplayer.h"
 #include "CWorldManager.h"
+#include "CItemManager.h"
 
 MpPotionItem::MpPotionItem()
 	: PotionItem()
@@ -59,5 +60,7 @@ void MpPotionItem::UsePotion()
 
 		player->SetMP(mp);
 	}
+
+	ItemManager::GetInstance()->DeleteItem(this);
 	this->Death();
 }

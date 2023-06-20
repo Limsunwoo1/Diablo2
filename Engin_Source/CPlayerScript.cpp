@@ -159,6 +159,7 @@ void PlayerScript::FixedUpdate()
 			|| player->GetState() == Player::PlayerState::Move)
 		{
 
+			player->SetState(Player::PlayerState::Skil);
 			Vector2 PlayerPos = Vector2(pos.x,pos.y);
 			Vector2 MousePos = Input::GetInstance()->GetMouseWorldPos(true);
 
@@ -207,7 +208,6 @@ void PlayerScript::FixedUpdate()
 					return;
 				}
 
-				player->SetState(Player::PlayerState::Skil);
 
 				player->SetMP(playerMp);
 

@@ -16,5 +16,6 @@ public:
 	virtual void OnEnter();
 	virtual void OnExit();
 
+	void OnEvent();
 private:
 };

@@ -199,7 +199,7 @@ void AndarielScript::FixedUpdate()
 			return;
 		}
 
-		pos += Vec * Delta * 450.f;
+		pos += Vec * Delta * 350.f;
 		tr->SetPosition(pos);
 	}
 }

@@ -67,8 +67,8 @@ void FrozenArmer::Update()
 	float MaxHp = player->GetMaxHP();
 	float Maxmp = player->GetMaxMP();
 
-	hp += Time::GetInstance()->DeltaTime() * 120.f;
-	mp += Time::GetInstance()->DeltaTime() * 100.f;
+	hp += Time::GetInstance()->DeltaTime() * 12;
+	mp += Time::GetInstance()->DeltaTime() * 14.f;
 
 	if (hp > MaxHp)
 		hp = MaxHp;

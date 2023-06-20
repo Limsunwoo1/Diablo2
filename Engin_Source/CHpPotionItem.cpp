@@ -4,6 +4,7 @@
 #include "CAnimator.h"
 #include "CWorldManager.h"
 #include "Cplayer.h"
+#include "CItemManager.h"
 
 HpPotionItem::HpPotionItem()
 	: PotionItem()
@@ -59,5 +60,7 @@ void HpPotionItem::UsePotion()
 		// hp += GetFIll();
 		// object->SetHP(hp);
 	}
+
+	ItemManager::GetInstance()->DeleteItem(this);
 	this->Death();
 }

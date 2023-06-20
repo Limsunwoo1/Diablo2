@@ -16,7 +16,8 @@ AndarielMonster::AndarielMonster()
 	, mSkilCoolTime(8.0f)
 	, mSkilCurTime(0.0f)
 {
-	SetHP(2000.f);
+	SetMaxHp(700.f);
+	SetHP(700.f);
 	SetDamege(40.f);
 }
 
@@ -36,10 +37,6 @@ void AndarielMonster::Initalize()
 
 	Transform* minoTr = GetComponent<Transform>();
 	minoTr->SetSize(Vector3(350.f, 350.f, 1.0f));
-
-	// hp
-	SetMaxHp(200.f);
-	SetHP(200.f);
 
 	//SetMonsterStatusEffect(MonsterStatusEffect::HitFrozen);
 
