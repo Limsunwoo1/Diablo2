@@ -393,6 +393,8 @@ void InventoryButton::Update()
 			// 충돌 X
 			item->SetOnInventory(false);
 			item->SetInventory(nullptr);
+
+			EreaseItem(item);
 		}
 
 		// 아이템 드랍 가능한지 여부
@@ -441,6 +443,7 @@ void InventoryButton::Update()
 				mYIndex = Y;
 
 				item->SetIndex(mXIndex, mYIndex);
+				item->SetStage(false);
 			}
 			item->SetDrop(mbDrop);
 		}
@@ -739,6 +742,19 @@ void InventoryButton::DeleteOnWolrdItem()
 		deleteQueue.pop();
 
 		DeleteItem(item);
+	}
+}
+
+void InventoryButton::EreaseItem(ItemBase* item)
+{
+	auto iter = mPoketItem.begin();
+	for (; iter != mPoketItem.end(); ++iter)
+	{
+		if (*iter = item)
+		{
+			iter = mPoketItem.erase(iter);
+			return;
+		}
 	}
 }
 

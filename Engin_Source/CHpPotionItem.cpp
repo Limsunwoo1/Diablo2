@@ -44,6 +44,9 @@ void HpPotionItem::UsePotion()
 	if (object)
 	{
 		Player* player = dynamic_cast<Player*>(WorldManager::GetInstance()->GetPlayer());
+		if (player == nullptr)
+			return;
+
 		float hp = player->GetHP();
 		float maxHp = player->GetMaxHP();
 
@@ -62,5 +65,5 @@ void HpPotionItem::UsePotion()
 	}
 
 	ItemManager::GetInstance()->DeleteItem(this);
-	this->Death();
+	this->Paused();
 }

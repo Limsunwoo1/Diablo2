@@ -48,6 +48,9 @@ void MpPotionItem::UsePotion()
 	if (object)
 	{
 		Player* player = dynamic_cast<Player*>(WorldManager::GetInstance()->GetPlayer());
+		if (player == nullptr)
+			return;
+
 		float mp = player->GetMP();
 		float maxmp = player->GetMaxMP();
 
@@ -62,5 +65,5 @@ void MpPotionItem::UsePotion()
 	}
 
 	ItemManager::GetInstance()->DeleteItem(this);
-	this->Death();
+	this->Paused();
 }

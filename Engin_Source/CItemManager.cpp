@@ -114,7 +114,7 @@ void ItemManager::DeleteItem(ItemBase* item)
 		if (*iter == item)
 		{
 			mRemoveQueue.push(item);
-			mItemes.erase(iter);
+			iter = mItemes.erase(iter);
 			break;
 		}
 	}
@@ -211,12 +211,14 @@ void ItemManager::InventoryRenderStop(bool render)
 
 		if (item->GetStage() == false )
 		{
-			if(item->GetItemType() != eEquipmentType::HpPotion
+			/*if(item->GetItemType() != eEquipmentType::HpPotion
 				&& item->GetItemType() != eEquipmentType::MpPotion
 				&&item->GetItemType() != eEquipmentType::Potion)
 			{ 
 				item->GetComponent<BaseRenderer>()->SetRenderStop(render);
-			}
+			}*/
+
+			item->GetComponent<BaseRenderer>()->SetRenderStop(render);
 		}
 	}
 }
@@ -236,8 +238,8 @@ void ItemManager::removeItem()
 {
 	while (!mRemoveQueue.empty())
 	{
-		ItemBase* item = mPushQueue.front();
-		mPushQueue.pop();
+		ItemBase* item = mRemoveQueue.front();
+		mRemoveQueue.pop();
 
 		delete item;
 		item = nullptr;

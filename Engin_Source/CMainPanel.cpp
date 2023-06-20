@@ -17,6 +17,7 @@ MainPanel::~MainPanel()
 void MainPanel::Update()
 {
 	UsePotion();
+	RenderOn();
 	Panel::Update();
 }
 
@@ -114,11 +115,11 @@ void MainPanel::UsePotion()
 		{
 			PotionItem* potion = dynamic_cast<PotionItem*>(item);
 
-			if (potion)
+			if (potion && potion->GetState() == eState::active)
 			{
-				potion->UsePotion();
 				mPotionSlot[0]->SetItem(nullptr);
 				mPotionSlot[0]->SetUsed(false);
+				potion->UsePotion();
 			}
 		}
 	}
@@ -130,11 +131,11 @@ void MainPanel::UsePotion()
 		{
 			PotionItem* potion = dynamic_cast<PotionItem*>(item);
 
-			if (potion)
+			if (potion && potion->GetState() == eState::active)
 			{
-				potion->UsePotion();
 				mPotionSlot[1]->SetItem(nullptr);
 				mPotionSlot[1]->SetUsed(false);
+				potion->UsePotion();
 			}
 		}
 	}
@@ -142,24 +143,15 @@ void MainPanel::UsePotion()
 	{
 		ItemBase* item = mPotionSlot[2]->GetItem();
 
-		// test
-		for (int i = 0; i < 4; ++i)
-		{
-			if (i == 2)
-				continue;
-
-			if (mPotionSlot[i]->GetItem() == item)
-				int a = 0;
-		}
 		if (item != nullptr)
 		{
 			PotionItem* potion = dynamic_cast<PotionItem*>(item);
 
-			if (potion)
+			if (potion && potion->GetState() == eState::active)
 			{
-				potion->UsePotion();
 				mPotionSlot[2]->SetItem(nullptr);
 				mPotionSlot[2]->SetUsed(false);
+				potion->UsePotion();
 			}
 		}
 	}
@@ -171,12 +163,26 @@ void MainPanel::UsePotion()
 		{
 			PotionItem* potion = dynamic_cast<PotionItem*>(item);
 
-			if (potion)
+			if (potion && potion->GetState() == eState::active)
 			{
-				potion->UsePotion();
 				mPotionSlot[3]->SetItem(nullptr);
 				mPotionSlot[3]->SetUsed(false);
+				potion->UsePotion();
 			}
 		}
+	}
+}
+
+void MainPanel::RenderOn()
+{
+	for (EquipmentButton* slot : mPotionSlot)
+	{
+		if (slot == nullptr)
+			continue;
+
+		if (slot->GetItem() == nullptr)
+			continue;
+
+		slot->GetItem()->GetComponent<BaseRenderer>()->SetRenderStop(false);
 	}
 }

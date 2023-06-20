@@ -86,7 +86,7 @@ void EquipmentButton::Update()
 					return;
 				}
 
-				mItem = nullptr;
+				//mItem = nullptr;
 
 				if(item->GetSlotInventory() == this)
 					item->SetSlotInventory(nullptr);
@@ -105,6 +105,7 @@ void EquipmentButton::Update()
 				mItem = nullptr;
 				item->SetSlotInventory(nullptr);
 				item->SetDrop(false);
+
 			}
 		}
 	}

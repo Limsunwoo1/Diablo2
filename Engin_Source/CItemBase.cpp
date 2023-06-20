@@ -254,6 +254,9 @@ void ItemBase::Update()
 			this->GetComponent<Animator>()->StopPlayAnimation();
 
 			ItemManager::GetInstance()->SetPickUpItem(true);
+			
+			bool render = invenPanel->GetComponent<BaseRenderer>()->GetRenderStop();
+			this->GetComponent<BaseRenderer>()->SetRenderStop(render);
 		}
 		else
 		{
