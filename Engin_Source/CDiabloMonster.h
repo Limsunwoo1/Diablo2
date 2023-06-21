@@ -14,6 +14,13 @@ public:
 
 	virtual void InitAnimation() override;
 
+	float GetSkilCurTime() { return mSkilCurTime; }
+	float GetSkilCoolTime() { return mSkilCoolTime; }
+
+	void CreateNextScenePotal();
+	void DiabloSpecialCast1();
+	void DiabloSpecialCast2();
+
 protected:
 	virtual void idle() override;
 	virtual void move() override;
@@ -25,5 +32,8 @@ protected:
 	virtual void hitLight() override;
 private:
 	std::shared_ptr<class Material> mMaterial;
+
+	float mSkilCoolTime;
+	float mSkilCurTime;
 };
 

@@ -4,11 +4,17 @@
 #include "CResourceManager.h"
 #include "CAStar.h"
 #include "CWorldManager.h"
-#include "CMinoMonsterScript.h"
+#include "CTime.h"
+#include "CDiabloSkilBreath.h"
+#include "CObject.h"
+#include "CDiabloScript.h"
+#include "CDiabloSkilFireStom.h"
 
 
 DiabloMonster::DiabloMonster()
 	: Monster()
+	, mSkilCoolTime(8.0f)
+	, mSkilCurTime(0.0f)
 {
 }
 
@@ -26,8 +32,8 @@ void DiabloMonster::Initalize()
 	minoTr->SetSize(Vector3(500.f, 500.f, 1.0f));
 
 	// hp
-	SetMaxHp(1000.f);
-	SetHP(1000.f);
+	SetMaxHp(700.f);
+	SetHP(700.f);
 	SetDamege(55.f);
 
 	//SetMonsterStatusEffect(eElementType::HitFrozen);
@@ -36,7 +42,7 @@ void DiabloMonster::Initalize()
 	AddComponent<AStar>();
 
 	// Script
-	AddComponent<MinoMonsterScript>();
+	AddComponent<DiabloScript>();
 
 	// Renderer
 	SpriteRenderer* sr = AddComponent<SpriteRenderer>();
@@ -53,6 +59,10 @@ void DiabloMonster::Initalize()
 
 void DiabloMonster::Update()
 {
+	SetMonsterStatusEffect(eElementType::None);
+
+	mSkilCurTime += Time::GetInstance()->DeltaTime();
+
 	Monster::Update();
 
 	Transform* shadowTr = mShadow->GetComponent<Transform>();
@@ -166,7 +176,9 @@ void DiabloMonster::InitAnimation()
 			name += std::to_wstring(count);
 
 			animator->Create(name, tex,
-				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, Vector2(250.f, 250.f),18, 0.1f);
+				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, Vector2(250.f, 250.f),18, 0.15f);
+
+			animator->GetEvent(name, 11) = std::bind(&DiabloMonster::DiabloSpecialCast1, this);
 
 			count++;
 
@@ -189,6 +201,8 @@ void DiabloMonster::InitAnimation()
 
 			animator->Create(name, tex,
 				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, Vector2(200.f, 200.f), 17, 0.1f);
+
+			animator->GetEvent(name, 8) = std::bind(&DiabloMonster::DiabloSpecialCast2, this);
 
 			count++;
 
@@ -222,9 +236,69 @@ void DiabloMonster::InitAnimation()
 	animator->Play(L"DiabloIdle4");
 }
 
+void DiabloMonster::CreateNextScenePotal()
+{
+}
+
+void DiabloMonster::DiabloSpecialCast1()
+{
+	DiabloSkilFireStom* skil = Object::Instantiate<DiabloSkilFireStom>(eLayerType::MonsterSkil, true);
+	Transform* skilTr = skil->GetComponent<Transform>();
+
+	Transform* monsterTr = GetComponent<Transform>();
+	skilTr->SetPosition(monsterTr->GetPosition());
+}
+
+void DiabloMonster::DiabloSpecialCast2()
+{
+	//Overlay
+	Transform* Tr = GetComponent<Transform>();
+	Vector3 Pos = Tr->GetPosition();
+
+	GameObject* player = WorldManager::GetInstance()->GetPlayer();
+	Transform* playerTr = player->GetComponent<Transform>();
+	Vector3 playerPos = playerTr->GetPosition();
+
+
+	Vector2 vec = playerPos - Vector2(Pos.x, Pos.y);
+	Vector2 Vec1 = Vector2(0.0f, 0.0f);
+
+	if (vec.x <= 0.f)
+		Vec1 = Vector2(-1.0f, 0.0f);
+	else
+		Vec1 = Vector2(1.0f, 0.0f);
+
+	Vec1.Normalize();
+	vec.Normalize();
+
+	float that = Vec1.Dot(vec);
+	float radian = acos(that);
+
+	float radius = 200.f;
+
+	// 원의 방정식
+	// https://nenara.com/68
+	int x = cosf(radian) * radius;
+	int y = sinf(radian) * radius;
+
+	if (vec.x < 0)
+		x *= -1.f;
+	if (vec.y < 0)
+		y *= -1.f;
+
+	Vector3 SearchPos = Pos;
+	SearchPos.x += x;
+	SearchPos.y += y;
+
+
+	DiabloSkilBreath* skil = Object::Instantiate<DiabloSkilBreath>(eLayerType::MonsterSkil, true);
+	Transform* skilTr = skil->GetComponent<Transform>();
+
+	skilTr->SetPosition(SearchPos);
+}
+
 void DiabloMonster::idle()
 {
-
 
 	Animator* animator = this->GetComponent<Animator>();
 	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
@@ -285,7 +359,26 @@ void DiabloMonster::attack()
 
 	if (name.find(L"Attack") == wstring::npos)
 	{
-		animator->Play(playName, false);
+		if (mSkilCurTime >= mSkilCoolTime)
+		{
+
+			mSkilCurTime = 0.0f;
+
+			wstring specialCast = L"DiabloAttack2";
+			specialCast += std::to_wstring(Index);
+
+			/*wstring specialCast = L"DiabloAttack3";
+			specialCast += std::to_wstring(Index);*/
+
+			animator->Play(specialCast, false);
+
+
+		}
+		else
+		{
+			animator->Play(playName, false);
+		}
+
 	}
 	else
 	{
@@ -334,4 +427,3 @@ void DiabloMonster::hitFrozen()
 void DiabloMonster::hitLight()
 {
 }
-

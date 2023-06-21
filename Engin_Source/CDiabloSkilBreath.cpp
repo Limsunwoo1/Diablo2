@@ -1,4 +1,4 @@
-#include "CAndarielSkil.h"
+#include "CDiabloSkilBreath.h"
 #include "CBoltBase.h"
 #include "CTime.h"
 #include "CResourceManager.h"
@@ -16,16 +16,16 @@
 
 #include "Cplayer.h"
 
-AndarielSkil::AndarielSkil()
+DiabloSkilBreath::DiabloSkilBreath()
 	: Skil()
-	, mInterval(0.1f)
+	, mInterval(0.2f)
 	, mDeleta(0.f)
 	, mDeathTime(10.0f)
 {
-	mSpecialCastSkil.resize(9);
+	mSpecialCastSkil.resize(5);
 }
 
-AndarielSkil::~AndarielSkil()
+DiabloSkilBreath::~DiabloSkilBreath()
 {
 	for (BoltBase* obj : mSpecialCastSkil)
 	{
@@ -37,7 +37,7 @@ AndarielSkil::~AndarielSkil()
 	}
 }
 
-void AndarielSkil::Initalize()
+void DiabloSkilBreath::Initalize()
 {
 	{
 		// 주체의 렌더러와 마터리얼이 없으면 렌더가 호출이 안된다
@@ -56,7 +56,7 @@ void AndarielSkil::Initalize()
 	mMaterial = std::make_shared<Material>();
 	std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
 	std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->
-		Load<Texture2D>(L"AndarielSpel", L"..//Resource//Monster//Andariel//AndarielSpel.png");
+		Load<Texture2D>(L"DiabloLightnig", L"..//Resource//Monster//Diablo//DiabloLightnig.png");
 
 	std::weak_ptr<Shader> shader = ResourceManager::GetInstance()->Find<Shader>(L"SpriteShader");
 	mMaterial->SetShader(shader);
@@ -67,14 +67,14 @@ void AndarielSkil::Initalize()
 		mSpecialCastSkil[i] = new BoltBase();
 		mSpecialCastSkil[i]->SetRun(true);
 		mSpecialCastSkil[i]->Paused();
-		mSpecialCastSkil[i]->SetSpeed(600.f);
+		mSpecialCastSkil[i]->SetSpeed(760.f);
 
-		mSpecialCastSkil[i]->GetComponent<Transform>()->SetSize(Vector3(550.f, 550.f, 1.0f));
-		mSpecialCastSkil[i]->SetDamege(10.f);
+		mSpecialCastSkil[i]->GetComponent<Transform>()->SetSize(Vector3(200.f, 650.f, 1.0f));
+		mSpecialCastSkil[i]->SetDamege(70.f);
 
 		Collider2D* col = mSpecialCastSkil[i]->AddComponent<Collider2D>();
 		col->SetType(eColliderType::Rect);
-		col->SetSize(Vector2(0.13f, 0.13f));
+		col->SetSize(Vector2(0.05f, 0.1f));
 
 		mSpecialCastSkil[i]->Initalize();
 		SpriteRenderer* sr = mSpecialCastSkil[i]->AddComponent<SpriteRenderer>();
@@ -82,14 +82,14 @@ void AndarielSkil::Initalize()
 		sr->SetMaterial(mMaterial);
 
 		Animator* animator = mSpecialCastSkil[i]->AddComponent<Animator>();
-		animator->Create(L"AndarielSpel", tex, Vector2::Zero, Vector2(65.f, 65.f), Vector2::Zero, 24, 0.2f);
-		animator->Play(L"AndarielSpel");
+		animator->Create(L"DiabloLightnig", tex, Vector2::Zero, Vector2(120.f, 157.f), Vector2::Zero, 15, 0.1f);
+		animator->Play(L"DiabloLightnig");
 	}
 
 	InitAnimation();
 }
 
-void AndarielSkil::Update()
+void DiabloSkilBreath::Update()
 {
 	if (mDeathTime <= 0)
 	{
@@ -105,8 +105,6 @@ void AndarielSkil::Update()
 	if (mDeleta >= mInterval)
 	{
 		mDeleta -= mInterval;
-		int cout = 0;
-		int diffDegree = 15;
 		for (BoltBase* obj : mSpecialCastSkil)
 		{
 			if (obj == nullptr)
@@ -116,8 +114,6 @@ void AndarielSkil::Update()
 			{
 				obj->Active();
 
-				// 포지션이랑 앵글 설정 해야함
-				// 각도 5 도
 				Transform* objtr = obj->GetComponent<Transform>();
 				Transform* Tr = GetComponent<Transform>();
 				Vector3 Pos = Tr->GetPosition();
@@ -127,32 +123,14 @@ void AndarielSkil::Update()
 
 				if (player == nullptr)
 					continue;
-
 				Transform* playerTr = player->GetComponent<Transform>();
 				Vector3 PlayerPos = playerTr->GetPosition();
-				Vector3 diff = PlayerPos - Pos;
-
-				float radian = XMConvertToRadians(-45 + (cout * diffDegree));
-
-				int radius = 200.f;
-				int x = cosf(radian) * radius;
-				int y = sinf(radian) * radius;
-
-
-				if (diff.x < 0)
-					x *= -1.f;
-				if (diff.y < 0)
-					y *= -1.f;
-
-				Vector3 DurationPos = Pos;
-				DurationPos.x += x;
-				DurationPos.y += y;
 
 				objtr->SetPosition(Pos);
-				obj->Angle(Vector2(DurationPos.x, DurationPos.y));
+				obj->Angle(Vector2(PlayerPos.x, PlayerPos.y));
+
 				break;
 			}
-			cout++;
 		}
 	}
 
@@ -182,7 +160,7 @@ void AndarielSkil::Update()
 	}
 }
 
-void AndarielSkil::FixedUpdate()
+void DiabloSkilBreath::FixedUpdate()
 {
 	Skil::FixedUpdate();
 
@@ -195,7 +173,7 @@ void AndarielSkil::FixedUpdate()
 	}
 }
 
-void AndarielSkil::Render()
+void DiabloSkilBreath::Render()
 {
 	Skil::Render();
 
@@ -208,7 +186,7 @@ void AndarielSkil::Render()
 	}
 }
 
-void AndarielSkil::InitAnimation()
+void DiabloSkilBreath::InitAnimation()
 {
 
 }

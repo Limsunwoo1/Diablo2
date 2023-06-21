@@ -164,7 +164,7 @@ void ItemManager::ClearWorldItem()
 		if (item == nullptr)
 			continue;
 
-		if (item->GetState())
+		if (item->GetStage())
 		{
 			DeleteItem(item);
 		}

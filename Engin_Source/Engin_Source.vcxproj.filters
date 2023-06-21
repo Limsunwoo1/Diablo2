@@ -684,6 +684,11 @@
     <ClCompile Include="CPlaySCene2.cpp">
       <Filter>Scene\Play</Filter>
     </ClCompile>
+    <ClCompile Include="CDiabloScript.cpp">
+      <Filter>Component\Script\Contents\MonsterScript</Filter>
+    </ClCompile>
+    <ClCompile Include="CDiabloSkilBreath.cpp" />
+    <ClCompile Include="CDiabloSkilFireStom.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -1061,6 +1066,11 @@
     <ClInclude Include="CPlaySCene2.h">
       <Filter>Scene\Play</Filter>
     </ClInclude>
+    <ClInclude Include="CDiabloScript.h">
+      <Filter>Component\Script\Contents\MonsterScript</Filter>
+    </ClInclude>
+    <ClInclude Include="CDiabloSkilBreath.h" />
+    <ClInclude Include="CDiabloSkilFireStom.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math.inl">

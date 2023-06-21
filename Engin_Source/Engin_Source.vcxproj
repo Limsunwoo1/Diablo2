@@ -176,6 +176,9 @@
     <ClInclude Include="CConstantBuffer.h" />
     <ClInclude Include="CCreateCharacter.h" />
     <ClInclude Include="CDiabloMonster.h" />
+    <ClInclude Include="CDiabloScript.h" />
+    <ClInclude Include="CDiabloSkilBreath.h" />
+    <ClInclude Include="CDiabloSkilFireStom.h" />
     <ClInclude Include="CEnddingScene.h" />
     <ClInclude Include="CEngine.h" />
     <ClInclude Include="CEnums.h" />
@@ -305,6 +308,9 @@
     <ClCompile Include="CConstantBuffer.cpp" />
     <ClCompile Include="CCreateCharacter.cpp" />
     <ClCompile Include="CDiabloMonster.cpp" />
+    <ClCompile Include="CDiabloScript.cpp" />
+    <ClCompile Include="CDiabloSkilBreath.cpp" />
+    <ClCompile Include="CDiabloSkilFireStom.cpp" />
     <ClCompile Include="CEnddingScene.cpp" />
     <ClCompile Include="CEnums.cpp" />
     <ClCompile Include="CEquipmentButton.cpp" />
