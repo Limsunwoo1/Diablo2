@@ -214,8 +214,7 @@ void SelectButtonSystem::Initalize()
 	{
 		// Init
 		mCreateButton->Initalize();
-		auto fun = std::bind(&SelectButtonSystem::CreateButton, this);
-		mCreateButton->BindEvnet(fun);
+		mCreateButton->BindEvnet(std::bind(&SelectButtonSystem::CreateButton, this));
 		mCreateButton->SetName(L"CreateButton");
 
 		//Transform

@@ -26,7 +26,7 @@ void SelectSystemButton::Update()
 
 	if (mbPointToButton > 0 && Input::GetInstance()->GetKeyUp(eKeyCode::LBTN))
 	{
-		OnEvent();
+		//OnEvent();
 	}
 
 	if (mbPointToButton > 0 && Input::GetInstance()->GetKeyPress(eKeyCode::LBTN))

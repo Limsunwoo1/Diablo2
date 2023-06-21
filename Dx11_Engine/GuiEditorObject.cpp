@@ -1,5 +1,7 @@
 #include "GuiEditorObject.h"
 
+#include "..//Engin_Source/CSceneManager.h"
+#include "..//Engin_Source/CScene.h"
 namespace gui
 {
 	EditorObject::EditorObject()
@@ -16,8 +18,10 @@ namespace gui
 		GameObject::Initalize();
 	}
 
+
 	void EditorObject::Update()
 	{
+
 		GameObject::Update();
 	}
 

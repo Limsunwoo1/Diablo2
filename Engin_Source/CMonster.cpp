@@ -143,6 +143,16 @@ void Monster::Update()
 		if (obj->GetState() != eState::active)
 			continue;
 
+		if (GetMonsterState() == MonsterState::Dead)
+			continue;
+
+		Monster* monsterobj = dynamic_cast<Monster*>(obj);
+		if (monsterobj)
+		{
+			if (monsterobj->GetMonsterState() == MonsterState::Dead)
+				continue;
+		}
+
 		Transform* Tr = GetComponent<Transform>();
 		Vector3 Pos = Tr->GetPosition();
 

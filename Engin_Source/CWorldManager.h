@@ -17,7 +17,7 @@ public:
 	GameObject* GetPlayer() { return Player; }
 	void SetPlayer(GameObject* player) { Player = player; }
 
-	void PushWorldTileData(vector<vector<class TileObject*>> data);
+	void PushWorldTileData(vector<vector<class TileObject*>>& data);
 	std::vector<vector<TileObject*>> DropWordTileData() { return mWorldTileData; }
 	vector<vector<TileCarveData>> DropWolrdTileCarveData() { return mWolrdTileCarveData; }
 	void SetWorldTileCarveData(int x, int y, TileObject* tile);

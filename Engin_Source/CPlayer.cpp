@@ -191,9 +191,7 @@ void Player::InitAnimation()
 	}
 
 	{
-		std::shared_ptr<Texture2D> texture = std::make_shared<Texture2D>();
-		texture->Load(L"attack1.png");
-		ResourceManager::GetInstance()->Insert(L"PlayerAttack", texture);
+		std::weak_ptr<Texture2D> tex =ResourceManager::GetInstance()->Load<Texture2D>(L"PlayerAttack", L"..//Resource//attack1.png");
 
 		float x = 124.95f;
 		float y = 78.8125f;
@@ -203,16 +201,14 @@ void Player::InitAnimation()
 			wstring name = L"Attack";
 			name += std::to_wstring(i);
 
-			animator->Create(name, texture, Vector2(0.0f, y * i), Vector2(x, y), Vector2(0.0f, 0.0f), 20, 0.03f);
+			animator->Create(name, tex, Vector2(0.0f, y * i), Vector2(x, y), Vector2(0.0f, 0.0f), 20, 0.03f);
 
 		}
 		// 124.95  78.8125
 	}
 
 	{
-		std::shared_ptr<Texture2D> texture = std::make_shared<Texture2D>();
-		texture->Load(L"skill1.png");
-		ResourceManager::GetInstance()->Insert(L"PlayerSKil", texture);
+		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"PlayerSkil", L"..//Resource//skill1.png");
 
 		float x = 88.7857142857f;
 		float y = 91.9375f;
@@ -222,7 +218,7 @@ void Player::InitAnimation()
 			wstring name = L"Skil";
 			name += std::to_wstring(i);
 
-			animator->Create(name, texture, Vector2(0.0f, y * i), Vector2(x, y), Vector2(0.0f, 0.0f), 14, 0.03f);
+			animator->Create(name, tex, Vector2(0.0f, y * i), Vector2(x, y), Vector2(0.0f, 0.0f), 14, 0.03f);
 
 		}
 

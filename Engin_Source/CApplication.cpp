@@ -112,6 +112,8 @@ void CApplication::Release()
 	//ResourceManager::GetInstance()->Release();
 	SceneManager::GetInstance()->Rlease();
 	ItemManager::GetInstance()->Rlease();
+	ObjectManager::GetInstance()->Realse();
+	UIManager::GetInstance()->Rlease();
 
 	// 싱글톤 매니저 메모리 해제
 	FileManager::GetInstance()->DestroyInstance();

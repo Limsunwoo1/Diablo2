@@ -154,6 +154,9 @@ void Layer::Render()
 
 void Layer::Destroy()
 {
+	if (mType == eLayerType::Player)
+		return;
+	
 	// 탐색속도를위해 트리형식에 std::set<> 사용
 	std::set<GameObject*> deleteObjects;
 	// 삭제할 오브젝트를 전부 찾아온다

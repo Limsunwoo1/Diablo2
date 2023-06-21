@@ -67,7 +67,7 @@ void DiabloSkilFireStom::Initalize()
 		mSpecialCastSkil[i] = new BoltBase();
 		mSpecialCastSkil[i]->SetRun(true);
 		mSpecialCastSkil[i]->Paused();
-		mSpecialCastSkil[i]->SetSpeed(760.f);
+		mSpecialCastSkil[i]->SetSpeed(850.f);
 
 		mSpecialCastSkil[i]->GetComponent<Transform>()->SetSize(Vector3(450.f, 450.f, 1.0f));
 		mSpecialCastSkil[i]->SetDamege(30.f);

@@ -706,7 +706,7 @@ namespace Renderer
 		std::shared_ptr<Shader> TileShader = std::make_shared<Shader>();
 		TileShader->Create(eShaderStage::VS, L"TileVS.hlsl", "main");
 		TileShader->Create(eShaderStage::PS, L"TilePS.hlsl", "main");
-		//TileShader->SetDepthStencil(eDepthStencilType::Less);
+		TileShader->SetDepthStencil(eDepthStencilType::None);
 
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"TileShader", TileShader);

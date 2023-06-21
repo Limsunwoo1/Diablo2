@@ -93,6 +93,8 @@ void PlayerScript::FixedUpdate()
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::I))
 	{
 		Panel* inventory = UIManager::GetInstance()->GetUiInstance<Panel>(L"mainInventory");
+		UiBase* skiltree = UIManager::GetInstance()->GetUiInstance<UiBase>(L"SkilTree");
+
 		bool able = inventory->GetIsAble();
 
 		if (able)
@@ -102,6 +104,25 @@ void PlayerScript::FixedUpdate()
 		else
 		{
 			inventory->OnActive();
+			skiltree->UnActive();
+		}
+	}
+
+	if (Input::GetInstance()->GetKeyDown(eKeyCode::K))
+	{
+		Panel* inventory = UIManager::GetInstance()->GetUiInstance<Panel>(L"mainInventory");
+		UiBase* skiltree = UIManager::GetInstance()->GetUiInstance<UiBase>(L"SkilTree");
+
+		bool able = skiltree->GetIsAble();
+		
+		if (!able)
+		{
+			skiltree->OnActive();
+			inventory->UnActive();
+		}
+		else
+		{
+			skiltree->UnActive();
 		}
 	}
 

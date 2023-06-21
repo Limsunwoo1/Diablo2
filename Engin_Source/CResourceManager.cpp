@@ -8,7 +8,7 @@ ResourceManager::ResourceManager()
 
 ResourceManager::~ResourceManager()
 {
-
+	mResources.clear();
 }
 
 

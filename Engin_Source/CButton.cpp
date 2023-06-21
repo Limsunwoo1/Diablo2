@@ -13,15 +13,22 @@ extern gui::Editor _Editor;
 Button::Button(eUIType type)
 	: UiBase(type)
 	, mbMouseOn(false)
+	, mbChildRun(false)
+	, mChild(nullptr)
 {
-	mOnClick = std::bind(&Button::Click, this);
+	mOnClick = nullptr;
 
 	Collider2D* col = this->AddComponent<Collider2D>();
 	col->SetType(eColliderType::Rect);
+
+	SetLayerType(eLayerType::UI);
 }
 Button::~Button()
 {
+	if (mChild)
+		delete mChild;
 
+	mChild = nullptr;
 }
 
 void Button::OnInit()
@@ -39,6 +46,9 @@ void Button::OnActive()
 
 		child->OnActive();
 	}
+
+	if (mChild)
+		mChild->OnActive();
 }
 
 void Button::UnActive()
@@ -52,6 +62,9 @@ void Button::UnActive()
 
 		child->UnActive();
 	}
+
+	if (mChild)
+		mChild->UnActive();
 }
 
 void Button::OnUpdate()
@@ -70,12 +83,15 @@ void Button::OnClear()
 
 void Button::Initalize()
 {
-	mOnClick = std::bind(&Button::Click, this);
+	mOnClick = nullptr;
 }
 
 void Button::Update()
 {
 	GameObject::Update();
+
+	if (mbChildRun && mChild)
+		mChild->Update();
 
 	Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos(false);
 
@@ -103,16 +119,26 @@ void Button::Update()
 
 	// 마우스가 버튼이랑 충돌 0
 	SetPointToRect(1);
+
+	if (Input::GetInstance()->GetKeyUp(eKeyCode::LBTN) && mOnClick.mEvent != nullptr)
+		mOnClick();
+		
 }
 
 void Button::FixedUpdate()
 {
 	GameObject::FixedUpdate();
+
+	if (mbChildRun && mChild)
+		mChild->FixedUpdate();
 }
 
 void Button::Render()
 {
 	GameObject::Render();
+
+	if (mbChildRun && mChild)
+		mChild->Render();
 }
 
 void Button::InitAnimation()

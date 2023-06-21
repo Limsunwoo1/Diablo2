@@ -10,6 +10,13 @@
 #include "CDiabloScript.h"
 #include "CDiabloSkilFireStom.h"
 
+#include <random>
+
+
+extern std::random_device random;
+extern std::mt19937 gen;
+std::uniform_int_distribution<int> skil(1, 1000);
+
 
 DiabloMonster::DiabloMonster()
 	: Monster()
@@ -364,15 +371,24 @@ void DiabloMonster::attack()
 
 			mSkilCurTime = 0.0f;
 
-			wstring specialCast = L"DiabloAttack2";
-			specialCast += std::to_wstring(Index);
+			wstring skilname = L"";
+			if (skil(gen) % 2)
+			{
+				wstring specialCast = L"DiabloAttack2";
+				specialCast += std::to_wstring(Index);
 
-			/*wstring specialCast = L"DiabloAttack3";
-			specialCast += std::to_wstring(Index);*/
+				skilname = specialCast;
+			}
+			else
+			{
+				wstring specialCast = L"DiabloAttack3";
+				specialCast += std::to_wstring(Index);
 
-			animator->Play(specialCast, false);
+				skilname = specialCast;
+			}
 
-
+			if(skilname != L"")
+				animator->Play(skilname, false);
 		}
 		else
 		{

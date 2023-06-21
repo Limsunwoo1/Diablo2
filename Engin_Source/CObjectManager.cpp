@@ -23,34 +23,7 @@ ObjectManager::ObjectManager()
 
 ObjectManager::~ObjectManager()
 {
-	while (!SkilContainer.empty())
-	{
-		GameObject* obj = SkilContainer.front();
-		SkilContainer.pop();
-
-		if (obj == nullptr)
-			continue;
-
-		delete obj;
-	}
-
-	for (auto tile : mTileObjects)
-	{
-		if (tile.second == nullptr)
-			continue;
-
-		delete tile.second;
-		tile.second = nullptr;
-	}
-
-	for (auto Wall : mWallObjects)
-	{
-		if (Wall.second == nullptr)
-			continue;
-
-		delete Wall.second;
-		Wall.second = nullptr;
-	}
+	
 }
 
 void ObjectManager::Update()
@@ -181,6 +154,23 @@ void ObjectManager::ResetWorld()
 			else
 				return aPos.y > bPos.y;
 		});
+}
+
+void ObjectManager::Realse()
+{
+	while (!SkilContainer.empty())
+	{
+		GameObject* obj = SkilContainer.front();
+		SkilContainer.pop();
+
+		if (obj == nullptr)
+			continue;
+
+		delete obj;
+	}
+
+	LateUpdate();
+	Clear();
 }
 
 std::vector<GameObject*> ObjectManager::GetTileRenderObject()

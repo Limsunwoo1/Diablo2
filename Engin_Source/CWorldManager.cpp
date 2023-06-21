@@ -35,7 +35,7 @@ HRESULT WorldManager::Load(const std::wstring& path)
 	return E_NOTIMPL;
 }
 
-void WorldManager::PushWorldTileData(vector<vector<class TileObject*>> data)
+void WorldManager::PushWorldTileData(vector<vector<class TileObject*>>& data)
 {
 	mWorldTileData = data;
 

@@ -27,8 +27,15 @@ public:
 	virtual void BindEvnet(std::function<void()> fun);
 	virtual void OnEvent();
 
+	void SetChildRun(bool run) { mbChildRun = run; }
+	void SetChild(Button* child) { mChild = child; }
+	Button* GetChild() { return mChild; }
+
 private:
 	Event mOnClick;
 	bool mbMouseOn;
+
+	Button* mChild;
+	bool mbChildRun;
 };
 

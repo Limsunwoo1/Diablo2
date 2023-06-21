@@ -35,6 +35,8 @@ public:
 	void Push(eUIType type);
 	void Pop(eUIType type);
 
+	void Rlease();
+
 	template<typename T>
 	inline T* GetUiInstance(const std::wstring& type)
 	{

@@ -8,6 +8,7 @@
 #include "CInventoryPanel.h"
 #include "CMainPanel.h"
 #include "CEquipmentButton.h"
+#include "CSkilTreePanel.h"
 
 UIManager::UIManager()
 	: mCurrentData(nullptr)
@@ -65,6 +66,16 @@ void UIManager::Initialize()
 		InventoryCollider->SetOwner(Inventory);
 		InventoryCollider->Initalize();*/
 		Push(L"mainInventory", Inventory);
+		///////////////////////////////////////////////////////////////////////////////
+		SkilTreePanel* skilTree = new SkilTreePanel();
+		Object::Instantiate<SkilTreePanel>(eLayerType::UI, eSceneType::Play, skilTree);
+		skilTree->UnActive();
+
+		Transform* skilTreeTR = skilTree->GetComponent<Transform>();
+		skilTreeTR->SetPosition(Vector3(500.f, 50.f, 0.01f));
+		skilTreeTR->SetSize(Vector3(600.f, 800.f, 1.0f));
+
+		Push(L"SkilTree", skilTree);
 
 		///////////////////////////////////////////////////////////////////////////////
 		Panel* hpui = new Panel(eUIType::Panel);
@@ -87,7 +98,6 @@ void UIManager::Initialize()
 		mpuitr->SetPosition(Vector3(650.f, 50.f, 0.02f));
 		mpuitr->SetSize(Vector3(300.f, 300.f, 1.f));
 		//Push(L"mpUi", mpui);
-
 
 
 		// ui childs
@@ -332,6 +342,18 @@ void UIManager::Pop(eUIType type)
 		tempStack.pop();
 		mUiBases.push(uiBase);
 	}
+}
+void UIManager::Rlease()
+{
+	for (auto ui : mUIs)
+	{
+		if (ui.second == nullptr)
+			continue;
+
+		delete ui.second;
+		ui.second = nullptr;
+	}
+	mUIs.clear();
 }
 inline void UIManager::DeleteUi(const std::wstring& type)
 {

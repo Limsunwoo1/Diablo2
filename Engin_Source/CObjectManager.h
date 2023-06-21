@@ -20,6 +20,7 @@ public:
 	void FixedUpdate();
 	void Initialize();
 	void ResetWorld();
+	void Realse();
 
 	// 카메라의 Transparnets 렌더 부분에서 렌더링
 	std::vector<GameObject*> GetTileRenderObject();

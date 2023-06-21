@@ -35,7 +35,7 @@ enum class eLayerType
 	Fade,
 	PostProcess,
 	UI,
-	End = 23,
+	End = 18,
 };
 
 enum class eComponentType
@@ -198,6 +198,18 @@ enum class eGaugeUi
 	Mp,
 	Exp,
 	MonsterHp,
+};
+
+
+enum class eSkilList
+{
+	FireBolt,
+	FrozenBolt,
+	LightBolt,
+	TelePort,
+	FrozenOrb,
+	FrozenArmer,
+	Meteor,
 };
 
 extern const char* charComponentType[(int)eComponentType::End];

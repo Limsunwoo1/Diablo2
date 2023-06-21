@@ -689,6 +689,8 @@
     </ClCompile>
     <ClCompile Include="CDiabloSkilBreath.cpp" />
     <ClCompile Include="CDiabloSkilFireStom.cpp" />
+    <ClCompile Include="CSkilTreePanel.cpp" />
+    <ClCompile Include="CSKiltreeButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -1071,6 +1073,8 @@
     </ClInclude>
     <ClInclude Include="CDiabloSkilBreath.h" />
     <ClInclude Include="CDiabloSkilFireStom.h" />
+    <ClInclude Include="CSkilTreePanel.h" />
+    <ClInclude Include="CSKiltreeButton.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math.inl">
