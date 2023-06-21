@@ -4,6 +4,8 @@
 #include "CCollider2D.h"
 #include "CSpriteRenderer.h"
 #include "CResourceManager.h"
+#include "CSkilSelectPanel.h"
+#include "CUIManager.h"
 
 #include "..//Dx11_Engine/GuiEditor.h"
 
@@ -86,8 +88,17 @@ void SkiltreeButton::Update()
 	// 마우스가 버튼이랑 충돌 0
 	SetPointToRect(1);
 
+	Transform* Tr = GetComponent<Transform>();
+
 	if (Input::GetInstance()->GetKeyUp(eKeyCode::LBTN))
+	{
 		UpPoint();
+		Tr->SetSize(Vector3(80.f, 80.f, 1.0f));
+	}
+	else if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN))
+	{
+		Tr->SetSize(Vector3(70.f, 70.f, 1.0f));
+	}
 }
 
 void SkiltreeButton::FixedUpdate()
@@ -110,5 +121,10 @@ void SkiltreeButton::Render()
 
 	if (mPoint >= mMaxPoint && GetChild())
 		GetChild()->Render();
+}
+
+const std::weak_ptr<Texture2D>& SkiltreeButton::GetTex()
+{
+	return mMaterial->GetTexture(eTextureSlot::T0);
 }
 

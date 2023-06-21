@@ -83,7 +83,7 @@ void Button::OnClear()
 
 void Button::Initalize()
 {
-	mOnClick = nullptr;
+	mOnClick = std::bind(&Button::Click, this);
 }
 
 void Button::Update()

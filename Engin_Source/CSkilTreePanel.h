@@ -21,6 +21,13 @@ public:
 	void ButtonSelect2();
 	void ButtonSelect3();
 
+	void SetPoint(UINT point) { mHavePoint = point; }
+	UINT GetPoint() { return mHavePoint; }
+	void UpPoint() { mHavePoint++; }
+
+	std::vector<Button*> GetButtonChild(UINT Idx);
+	std::vector<eSkilList> GetButtonChildType(UINT Idx);
+
 private:
 	Button* mCurButton;
 
@@ -28,5 +35,7 @@ private:
 	
 	std::vector<std::weak_ptr<Texture2D>> mSkilTreeTex;
 	std::shared_ptr<Material> mMaterial;
+
+	UINT mHavePoint;
 };
 

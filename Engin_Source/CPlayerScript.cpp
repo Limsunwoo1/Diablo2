@@ -94,6 +94,7 @@ void PlayerScript::FixedUpdate()
 	{
 		Panel* inventory = UIManager::GetInstance()->GetUiInstance<Panel>(L"mainInventory");
 		UiBase* skiltree = UIManager::GetInstance()->GetUiInstance<UiBase>(L"SkilTree");
+		UiBase* panel = UIManager::GetInstance()->GetUiInstance<UiBase>(L"SkilSelect");
 
 		bool able = inventory->GetIsAble();
 
@@ -104,7 +105,9 @@ void PlayerScript::FixedUpdate()
 		else
 		{
 			inventory->OnActive();
+
 			skiltree->UnActive();
+			panel->UnActive();
 		}
 	}
 
@@ -112,13 +115,16 @@ void PlayerScript::FixedUpdate()
 	{
 		Panel* inventory = UIManager::GetInstance()->GetUiInstance<Panel>(L"mainInventory");
 		UiBase* skiltree = UIManager::GetInstance()->GetUiInstance<UiBase>(L"SkilTree");
+		UiBase* panel = UIManager::GetInstance()->GetUiInstance<UiBase>(L"SkilSelect");
 
 		bool able = skiltree->GetIsAble();
 		
 		if (!able)
 		{
 			skiltree->OnActive();
+
 			inventory->UnActive();
+			panel->UnActive();
 		}
 		else
 		{

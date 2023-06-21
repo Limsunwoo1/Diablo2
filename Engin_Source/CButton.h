@@ -31,11 +31,13 @@ public:
 	void SetChild(Button* child) { mChild = child; }
 	Button* GetChild() { return mChild; }
 
+protected:
+	Button* mChild;
+	bool mbChildRun;
+
 private:
 	Event mOnClick;
 	bool mbMouseOn;
 
-	Button* mChild;
-	bool mbChildRun;
 };
 

@@ -19,7 +19,12 @@ public:
 	void SetPoint(int point) { mPoint = point; }
 	void SetMaxPoint(int max) { mMaxPoint = max; }
 
+	UINT GetPoint() { return mPoint; }
+	UINT GetMaxPoint() {return  mMaxPoint; }
+
 	void UpPoint() { mPoint += 1; }
+
+	const std::weak_ptr<Texture2D>& GetTex();
 
 private:
 

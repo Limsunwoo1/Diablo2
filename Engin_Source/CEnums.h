@@ -203,6 +203,7 @@ enum class eGaugeUi
 
 enum class eSkilList
 {
+	Attack,
 	FireBolt,
 	FrozenBolt,
 	LightBolt,

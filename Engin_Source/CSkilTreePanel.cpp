@@ -73,7 +73,7 @@ void SkilTreePanel::Initalize()
 	telePort->GetComponent<Transform>()->SetPosition(Vector3(400.f, 131.f, 1.0f));
 
 	SkiltreeButton* FrozenOrb = new SkiltreeButton();	FrozenOrb->SetSkilType(eSkilList::FrozenOrb);
-	FrozenOrb->GetComponent<Transform>()->SetPosition(Vector3(400.f, 15.f, 1.0f));
+	FrozenOrb->GetComponent<Transform>()->SetPosition(Vector3(400.f, 2.f, 1.0f));
 
 	SkiltreeButton* Meteor = new SkiltreeButton();		Meteor->SetSkilType(eSkilList::Meteor);
 	Meteor->GetComponent<Transform>()->SetPosition(Vector3(400.f, 131.f, 1.0f));
@@ -207,4 +207,61 @@ void SkilTreePanel::ButtonSelect3()
 	ButtonList[1]->SetChildRun(false);
 
 	mMaterial->SetTexture(eTextureSlot::T0, mSkilTreeTex[2]);
+}
+
+std::vector<Button*> SkilTreePanel::GetButtonChild(UINT Idx)
+{
+	std::vector<Button*> returnButtons = {};
+	Button* curButton = ButtonList[Idx];
+	while (1)
+	{
+		Button* InputButton = curButton->GetChild();
+
+		if (InputButton == nullptr)
+			break;
+
+
+		returnButtons.emplace_back(InputButton);
+		curButton = InputButton;
+
+		SkiltreeButton* skil = dynamic_cast<SkiltreeButton*>(curButton);
+		if (skil != nullptr)
+		{
+			if (skil->GetPoint() < skil->GetMaxPoint())
+				break;
+		}
+	}
+
+	return returnButtons;
+}
+
+std::vector<eSkilList> SkilTreePanel::GetButtonChildType(UINT Idx)
+{
+	std::vector<eSkilList> OutSkilList = {};
+	std::vector<Button*> returnButtons = {};
+	Button* curButton = ButtonList[Idx];
+	while (1)
+	{
+		Button* InputButton = curButton->GetChild();
+
+		if (InputButton == nullptr)
+			break;
+
+		returnButtons.emplace_back(InputButton);
+		curButton = InputButton;
+	}
+
+	for (Button* bot : returnButtons)
+	{
+		SkiltreeButton* skil = dynamic_cast<SkiltreeButton*>(bot);
+		if (skil != nullptr)
+		{
+			OutSkilList.emplace_back(skil->GetSkilType());
+
+			if (skil->GetPoint() < skil->GetMaxPoint())
+				break;
+		}
+	}
+
+	return OutSkilList;
 }

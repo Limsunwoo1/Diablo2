@@ -175,6 +175,7 @@
     <ClInclude Include="CComputeShader.h" />
     <ClInclude Include="CConstantBuffer.h" />
     <ClInclude Include="CCreateCharacter.h" />
+    <ClInclude Include="CCurSelectSkilButton.h" />
     <ClInclude Include="CDiabloMonster.h" />
     <ClInclude Include="CDiabloScript.h" />
     <ClInclude Include="CDiabloSkilBreath.h" />
@@ -244,6 +245,8 @@
     <ClInclude Include="CShoesItem.h" />
     <ClInclude Include="CSkil.h" />
     <ClInclude Include="CFireTargetPin.h" />
+    <ClInclude Include="CSkilSelectButton.h" />
+    <ClInclude Include="CSkilSelectPanel.h" />
     <ClInclude Include="CSKiltreeButton.h" />
     <ClInclude Include="CSkilTreePanel.h" />
     <ClInclude Include="CSpearMonster.h" />
@@ -309,6 +312,7 @@
     <ClCompile Include="CComputeShader.cpp" />
     <ClCompile Include="CConstantBuffer.cpp" />
     <ClCompile Include="CCreateCharacter.cpp" />
+    <ClCompile Include="CCurSelectSkilButton.cpp" />
     <ClCompile Include="CDiabloMonster.cpp" />
     <ClCompile Include="CDiabloScript.cpp" />
     <ClCompile Include="CDiabloSkilBreath.cpp" />
@@ -376,6 +380,8 @@
     <ClCompile Include="CShoesItem.cpp" />
     <ClCompile Include="CSkil.cpp" />
     <ClCompile Include="CFireTargetPin.cpp" />
+    <ClCompile Include="CSkilSelectButton.cpp" />
+    <ClCompile Include="CSkilSelectPanel.cpp" />
     <ClCompile Include="CSKiltreeButton.cpp" />
     <ClCompile Include="CSkilTreePanel.cpp" />
     <ClCompile Include="CSpearMonster.cpp" />

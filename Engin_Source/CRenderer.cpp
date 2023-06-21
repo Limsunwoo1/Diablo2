@@ -601,6 +601,7 @@ namespace Renderer
 		std::shared_ptr<Shader> uiShader = std::make_shared<Shader>();
 		uiShader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
 		uiShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
+		uiShader->SetDepthStencil(graphics::eDepthStencilType::None);
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"UIShader", uiShader);
 #pragma endregion

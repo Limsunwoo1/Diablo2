@@ -9,6 +9,8 @@
 #include "CMainPanel.h"
 #include "CEquipmentButton.h"
 #include "CSkilTreePanel.h"
+#include "CSkilSelectPanel.h"
+#include "CCurSelectSkilButton.h"
 
 UIManager::UIManager()
 	: mCurrentData(nullptr)
@@ -76,6 +78,30 @@ void UIManager::Initialize()
 		skilTreeTR->SetSize(Vector3(600.f, 800.f, 1.0f));
 
 		Push(L"SkilTree", skilTree);
+		//////////////////////////////////////////////////////////////////////////////////
+		SkilSelectPanel* selectPanel = new SkilSelectPanel();
+
+		Object::Instantiate<SkilSelectPanel>(eLayerType::UI, eSceneType::Play, selectPanel);
+
+		Transform* selectPanelTR = selectPanel->GetComponent<Transform>();
+		selectPanelTR->SetPosition(Vector3(0, 0, 0.01f));
+		selectPanelTR->SetSize(Vector3(0, 0, 1.0f));
+
+		selectPanel->UnActive();
+		Push(L"SkilSelect", selectPanel);
+
+		///////////////////////////////////////////////////////////////////////////////
+		CurSelectSkilButton* selectButton = new CurSelectSkilButton();
+		Object::Instantiate<CurSelectSkilButton>(eLayerType::UI, eSceneType::Play, selectButton);
+
+		Transform* selectButtonTR = selectButton->GetComponent<Transform>();
+		selectButtonTR->SetPosition(Vector3(380.f, -400.f, 0.009f));
+		//selectButtonTR->SetPosition(Vector3(0, -0, 1.0f));
+		selectButtonTR->SetSize(Vector3(65.f, 65.f, 1.0f));
+
+		selectButton->OnActive();
+		Push(L"SkilSelectButton", selectButton);
+
 
 		///////////////////////////////////////////////////////////////////////////////
 		Panel* hpui = new Panel(eUIType::Panel);
