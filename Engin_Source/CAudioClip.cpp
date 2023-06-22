@@ -18,9 +18,12 @@ AudioClip::~AudioClip()
 	mSound = nullptr;
 }
 
-HRESULT AudioClip::Load(const std::wstring& path)
+HRESULT AudioClip::Load(const std::wstring& name)
 {
-	std::string cPath(path.begin(), path.end());
+	std::filesystem::path parentPath = std::filesystem::current_path().parent_path();
+	std::wstring fullPath = parentPath.wstring() + L"\\Resource\\" + name;
+
+	std::string cPath(fullPath.begin(), fullPath.end());
 	if (!Fmod::GetInstance()->CreateSound(cPath, &mSound))
 		return S_FALSE;
 

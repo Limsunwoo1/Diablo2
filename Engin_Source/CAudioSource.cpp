@@ -6,7 +6,7 @@
 
 AudioSource::AudioSource()
 	: Component(eComponentType::AudioSource)
-	, mAudioClip(nullptr)
+	, mAudioClip{}
 {
 
 }
@@ -30,7 +30,7 @@ void AudioSource::FixedUpdate()
 	Vector3 pos = tr->GetPosition();
 	Vector3 foward = tr->Foward();
 
-	mAudioClip->Set3DAttributes(pos, foward);
+	mAudioClip.lock()->Set3DAttributes(pos, foward);
 }
 
 void AudioSource::Render()
@@ -39,13 +39,13 @@ void AudioSource::Render()
 
 void AudioSource::Play()
 {
-	mAudioClip->Play();
+	mAudioClip.lock()->Play();
 }
 void AudioSource::Stop()
 {
-	mAudioClip->Stop();
+	mAudioClip.lock()->Stop();
 }
 void AudioSource::SetLoop(bool loop)
 {
-	mAudioClip->SetLoop(loop);
+	mAudioClip.lock()->SetLoop(loop);
 }

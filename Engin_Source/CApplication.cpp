@@ -36,10 +36,11 @@ void CApplication::Initalize()
 	CollisionManager::GetInstance()->Initalize();
 	Renderer::Initialize();
 	WorldManager::GetInstance()->Initialize();
+	Fmod::GetInstance()->Initialize();
+
 	SceneManager::GetInstance()->Initalize();
 	UIManager::GetInstance()->Initialize();
 	ItemManager::GetInstance()->Initalize();
-	Fmod::GetInstance()->Initialize();
 
 	SceneManager::GetInstance()->LateInitalize();
 }
@@ -113,13 +114,11 @@ void CApplication::Release()
 	// 동적 오브젝트 메모리 해제
 	//ResourceManager::GetInstance()->Release();
 	SceneManager::GetInstance()->Rlease();
-	Fmod::GetInstance()->Release();
 	ItemManager::GetInstance()->Rlease();
 	ObjectManager::GetInstance()->Realse();
 	UIManager::GetInstance()->Rlease();
 
 	// 싱글톤 매니저 메모리 해제
-	Fmod::GetInstance()->DestroyInstance();
 	FileManager::GetInstance()->DestroyInstance();
 	ItemManager::GetInstance()->DestroyInstance();
 	UIManager::GetInstance()->DestroyInstance();
@@ -131,6 +130,9 @@ void CApplication::Release()
 	Input::GetInstance()->DestroyInstance();
 	Time::GetInstance()->DestroyInstance();
 	ResourceManager::GetInstance()->DestroyInstance();
+
+	Fmod::GetInstance()->Release();
+	Fmod::GetInstance()->DestroyInstance();
 }
 
 void CApplication::Present()
