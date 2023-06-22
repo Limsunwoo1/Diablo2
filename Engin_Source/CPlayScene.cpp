@@ -180,6 +180,13 @@ void PlayScene::Initalize()
 		trigger->GetFunc() = std::bind(&PlayScene::OnEvent,this);
 	}
 
+	AndarielMonster* mino1 = Object::Instantiate<AndarielMonster>(eLayerType::Monster, this);
+	Transform* minoTr1 = mino1->GetComponent<Transform>();
+	minoTr1->SetPosition(Vector3(5655.f, 9701.f, 1.0f));
+	mino1->Paused();
+
+	Boss = mino1;
+
 	{
 		SpearMonster* monster = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
 		Transform* spearTr = monster->GetComponent<Transform>();
@@ -303,7 +310,10 @@ void PlayScene::OnExit()
 
 void PlayScene::OnEvent()
 {
-	AndarielMonster* mino1 = Object::Instantiate<AndarielMonster>(eLayerType::Monster, this);
+	/*AndarielMonster* mino1 = Object::Instantiate<AndarielMonster>(eLayerType::Monster, this);
 	Transform* minoTr1 = mino1->GetComponent<Transform>();
-	minoTr1->SetPosition(Vector3(5655.f, 9701.f, 1.0f));
+	minoTr1->SetPosition(Vector3(5655.f, 9701.f, 1.0f));*/
+
+	if (Boss)
+		Boss->Active();
 }

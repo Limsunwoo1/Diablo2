@@ -69,10 +69,13 @@ void ItemManager::WorldRender()
 
 void ItemManager::Render()
 {
-	Matrix& view = Renderer::UiCamera->GetViewMatrix();
-	Matrix& proejction = Renderer::UiCamera->GetProjectionMatrix();
-	Renderer::UiCamera->SetGpuViewMatrix(view);
-	Renderer::UiCamera->SetGpuProjectionMatrix(proejction);
+	if (Renderer::UiCamera != nullptr)
+	{
+		Matrix& view = Renderer::UiCamera->GetViewMatrix();
+		Matrix& proejction = Renderer::UiCamera->GetProjectionMatrix();
+		Renderer::UiCamera->SetGpuViewMatrix(view);
+		Renderer::UiCamera->SetGpuProjectionMatrix(proejction);
+	}
 
 	for (ItemBase* item : mItemes)
 	{

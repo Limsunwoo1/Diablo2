@@ -46,19 +46,18 @@ void CharacterSelectScene::Initalize()
 	cameraComp->TurnLayerMask(eLayerType::UI, false);
 	cameraObj->AddComponent<CameraScript>();
 	cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
-	Renderer::mainCamera = cameraComp;
+	mMainCamera = cameraComp;
 
 	{ // UiCamera
 		GameObject* cameraObj = Object::Instantiate<GameObject>(eLayerType::Camera, this);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
 		//cameraComp->RegisterCameraInRenderer();
-		cameraComp->SetName(L"UICamera");
+		cameraComp->SetName(L"SelectSceneUICamera");
 		cameraComp->EnableLayerMasks();
 		cameraComp->DisableLayerMasks();
 		cameraComp->TurnLayerMask(eLayerType::UI, true);
 		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
-
-		Renderer::UiCamera = cameraComp;
+		mUiCamera = cameraComp;
 	}
 
 	// BackGround2
@@ -114,7 +113,8 @@ void CharacterSelectScene::Render()
 
 void CharacterSelectScene::OnEnter()
 {
-
+	Renderer::mainCamera = GetMainCam();
+	Renderer::UiCamera = GetUiCam();
 }
 
 void CharacterSelectScene::OnExit()

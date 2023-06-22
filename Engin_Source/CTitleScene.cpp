@@ -44,18 +44,27 @@ void TitleScene::Initalize()
 		lightcomp->SetDiffuse(Vector4(1.f, 1.0f, 1.f, 1.0f));
 	}
 	
+	// Main Camera Game Object
 	{
-		// Main Camera Game Object
-		GameObject* cameraObj = Object::Instantiate<GameObject>(eLayerType::Camera);
+		GameObject* cameraObj = Object::Instantiate<GameObject>(eLayerType::Camera, this);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
+		cameraObj->GetComponent<Transform>()->SetPosition(Vector3(0, 0, 1.0f));
 		//cameraComp->RegisterCameraInRenderer();
-		//cameraComp->TurnLayerMask(eLayerType::UI, false);
+		cameraComp->TurnLayerMask(eLayerType::UI, false);
+		//cameraComp->TurnLayerMask(eLayerType::Tile, false);
 		cameraObj->AddComponent<CameraScript>();
 		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
-		Renderer::mainCamera = cameraComp;
 		mMainCamera = cameraComp;
+	}
+	// Ui Camera
+	{
+		GameObject* uiCamera = Object::Instantiate<GameObject>(eLayerType::Camera, this);
+		Camera* uiCameraComp = uiCamera->AddComponent<Camera>();
+		uiCameraComp->DisableLayerMasks();
+		uiCameraComp->TurnLayerMask(eLayerType::UI, true);
 
-		cameraObj->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -100.f));
+		uiCameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
+		mUiCamera = uiCameraComp;
 	}
 
 	RECT winRect;
@@ -138,7 +147,7 @@ void TitleScene::Update()
 {
 	Scene::Update();
 
-	if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN))
+	if (Input::GetInstance()->GetKeyUp(eKeyCode::LBTN))
 	{
 		SceneManager::GetInstance()->LoadScene(eSceneType::MainTitle);
 	}
@@ -156,7 +165,8 @@ void TitleScene::Render()
 
 void TitleScene::OnEnter()
 {
-	Renderer::mainCamera = mMainCamera;
+	Renderer::mainCamera = GetMainCam();
+	Renderer::UiCamera = GetUiCam();
 }
 
 void TitleScene::OnExit()

@@ -19,4 +19,5 @@ public:
 	void OnEvent();
 
 private:
+	GameObject* Boss;
 };

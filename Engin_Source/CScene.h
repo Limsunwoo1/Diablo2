@@ -25,7 +25,7 @@ public:
 	eSceneType GetScenType() { return mType; }
 
 	Camera* GetMainCam() { return mMainCamera; }
-	Camera* GetUiCam() { return UiCamera; }
+	Camera* GetUiCam() { return mUiCamera; }
 	Camera* GetIsometricCam() { return mIsometricCamera; }
 protected:
 	std::vector<Layer> mLayers;

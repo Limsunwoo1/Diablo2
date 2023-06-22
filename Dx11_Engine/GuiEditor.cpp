@@ -90,6 +90,9 @@ namespace gui
 
 	/*	ListWidget* listWidget = new ListWidget();
 		mWidgets.insert(std::make_pair("ListWidget", listWidget));*/
+
+		SetWidgetsPused(true);
+		mbItemsAble = true;
 	}
 
 	void Editor::Run()

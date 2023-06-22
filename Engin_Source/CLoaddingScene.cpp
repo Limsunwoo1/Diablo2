@@ -38,17 +38,27 @@ void LoaddingScene::Initalize()
 		lightcomp->SetDiffuse(Vector4(1.f, 1.0f, 1.f, 1.0f));
 	}
 
+	// Main Camera Game Object
 	{
-		// Main Camera Game Object
-		GameObject* cameraObj = Object::Instantiate<GameObject>(eLayerType::Camera,this);
+		GameObject* cameraObj = Object::Instantiate<GameObject>(eLayerType::Camera, this);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
+		cameraObj->GetComponent<Transform>()->SetPosition(Vector3(0, 0, 1.0f));
 		//cameraComp->RegisterCameraInRenderer();
-		//cameraComp->TurnLayerMask(eLayerType::UI, false);
+		cameraComp->TurnLayerMask(eLayerType::UI, false);
+		//cameraComp->TurnLayerMask(eLayerType::Tile, false);
 		cameraObj->AddComponent<CameraScript>();
 		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
 		mMainCamera = cameraComp;
+	}
+	// Ui Camera
+	{
+		GameObject* uiCamera = Object::Instantiate<GameObject>(eLayerType::Camera, this);
+		Camera* uiCameraComp = uiCamera->AddComponent<Camera>();
+		uiCameraComp->DisableLayerMasks();
+		uiCameraComp->TurnLayerMask(eLayerType::UI, true);
 
-		cameraObj->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -100.f));
+		uiCameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
+		mUiCamera = uiCameraComp;
 	}
 
 	//renderer::cameras[0] = cameraComp;
@@ -131,4 +141,7 @@ void LoaddingScene::OnEnter()
 	LoadObject->GetComponent<Animator>()->Play(L"Loadding", false);
 	ObjectManager::GetInstance()->Clear();
 	mTime = 1.7f;
+
+	Renderer::mainCamera = GetMainCam();
+	Renderer::UiCamera = GetUiCam();
 }

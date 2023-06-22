@@ -15,6 +15,9 @@
 #include "CApplication.h"
 #include "CAnimator.h"
 #include "CLight.h"
+#include "CButton.h"
+#include "CUIManager.h"
+#include "CSelectSystemButton.h"
 
 MainTitleScene::MainTitleScene()
 	: Scene(eSceneType::MainTitle)
@@ -42,10 +45,24 @@ void MainTitleScene::Initalize()
 		GameObject* cameraObj = Object::Instantiate<GameObject>(eLayerType::Camera, this);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
 		//cameraComp->RegisterCameraInRenderer();
-		//cameraComp->TurnLayerMask(eLayerType::UI, false);
+		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		cameraObj->AddComponent<CameraScript>();
 		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
 		Renderer::mainCamera = cameraComp;
+		mMainCamera = cameraComp;
+	}
+
+	{
+		// Main Camera Game Object
+		GameObject* uicameraObj = Object::Instantiate<GameObject>(eLayerType::Camera, this);
+		uicameraObj->SetName(L"MainTitleUiCam");
+		Camera* uicameraComp = uicameraObj->AddComponent<Camera>();
+		uicameraComp->DisableLayerMasks();
+		//cameraComp->RegisterCameraInRenderer();
+		uicameraComp->TurnLayerMask(eLayerType::UI, true);
+		uicameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
+		Renderer::UiCamera = uicameraComp;
+		mUiCamera = uicameraComp;
 	}
 
 	//BackGround2
@@ -89,15 +106,95 @@ void MainTitleScene::Initalize()
 		animator->Play(L"Logo");
 	}
 
+	{
+		SelectSystemButton* button = new SelectSystemButton();
+		button->Initalize();
+
+		SpriteRenderer* sr = button->AddComponent<SpriteRenderer>();
+		
+		std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::weak_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"Button1Material");
+
+		sr->SetMesh(mesh);
+		sr->SetMaterial(mater);
+
+		std::weak_ptr<Texture2D> tex1 = ResourceManager::GetInstance()->Load<Texture2D>(L"playStart", L"..//Resource//UI//PlayStart.png");
+		std::weak_ptr<Texture2D> tex2 = ResourceManager::GetInstance()->Load<Texture2D>(L"playStartClick", L"..//Resource//UI//playstartCkilck.png");
+
+		button->SetButtonTex(0, tex1);
+		button->SetButtonTex(1, tex2);
+
+		Object::Instantiate<SelectSystemButton>(eLayerType::UI, button, true, eSceneType::MainTitle);
+		UIManager::GetInstance()->Push(L"StartButton", button);
+
+		Transform* buttonTr = button->GetComponent<Transform>();
+		buttonTr->SetPosition(Vector3(0.f, -100.f, 1.0f));
+		buttonTr->SetSize(Vector3(550.f, 50.f, 1.0f));
+
+		button->BindEvnet(std::bind(&MainTitleScene::NextScene, this));
+	}
+
+	{
+		SelectSystemButton* button = new SelectSystemButton();
+		button->Initalize();
+
+		SpriteRenderer* sr = button->AddComponent<SpriteRenderer>();
+
+		std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::weak_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"Button2Material");
+
+		sr->SetMesh(mesh);
+		sr->SetMaterial(mater);
+
+		std::weak_ptr<Texture2D> tex1 = ResourceManager::GetInstance()->Load<Texture2D>(L"PrveButton", L"..//Resource//UI//playEnd.png");
+		std::weak_ptr<Texture2D> tex2 = ResourceManager::GetInstance()->Load<Texture2D>(L"PrveButtonClick", L"..//Resource//UI//playEndClick.png");
+
+		button->SetButtonTex(0, tex1);
+		button->SetButtonTex(1, tex2);
+
+		Object::Instantiate<SelectSystemButton>(eLayerType::UI, button, true, eSceneType::MainTitle);
+		UIManager::GetInstance()->Push(L"PrevButton", button);
+
+		Transform* buttonTr = button->GetComponent<Transform>();
+		buttonTr->SetPosition(Vector3(0.f, -350.f, 1.0f));
+		buttonTr->SetSize(Vector3(550.f, 50.f, 1.0f));
+
+		button->BindEvnet(std::bind(&MainTitleScene::PrevScene, this));
+	}
+
+	{
+		SelectSystemButton* button = new SelectSystemButton();
+		button->Initalize();
+
+		SpriteRenderer* sr = button->AddComponent<SpriteRenderer>();
+
+		std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+		std::weak_ptr<Material> mater = ResourceManager::GetInstance()->Find<Material>(L"Button3Material");
+
+		sr->SetMesh(mesh);
+		sr->SetMaterial(mater);
+
+		std::weak_ptr<Texture2D> tex1 = ResourceManager::GetInstance()->Load<Texture2D>(L"CreaptingStart", L"..//Resource//UI//CreaptingButton.png");
+		std::weak_ptr<Texture2D> tex2 = ResourceManager::GetInstance()->Load<Texture2D>(L"CreaptingClick", L"..//Resource//UI//CreaptingButton.png");
+
+		button->SetButtonTex(0, tex1);
+		button->SetButtonTex(1, tex2);
+
+		Object::Instantiate<SelectSystemButton>(eLayerType::UI, button, true, eSceneType::MainTitle);
+		UIManager::GetInstance()->Push(L"Creapting", button);
+
+		Transform* buttonTr = button->GetComponent<Transform>();
+		buttonTr->SetPosition(Vector3(0.f, -180.f, 1.0f));
+		buttonTr->SetSize(Vector3(550.f, 50.f, 1.0f));
+
+		button->BindEvnet(std::bind(&MainTitleScene::ToolScene, this));
+	}
+
 	Scene::Initalize();
 }
 
 void MainTitleScene::Update()
 {
-	if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN))
-	{
-		SceneManager::GetInstance()->LoadScene(eSceneType::Selecte);
-	}
 
 	Scene::Update();
 }
@@ -114,8 +211,25 @@ void MainTitleScene::Render()
 
 void MainTitleScene::OnEnter()
 {
+	Renderer::mainCamera = GetMainCam();
+	Renderer::UiCamera = GetUiCam();
 }
 
 void MainTitleScene::OnExit()
 {
+}
+
+void MainTitleScene::NextScene()
+{
+	SceneManager::GetInstance()->LoadScene(eSceneType::Selecte);
+}
+
+void MainTitleScene::PrevScene()
+{
+	SceneManager::GetInstance()->LoadScene(eSceneType::Title);
+}
+
+void MainTitleScene::ToolScene()
+{
+	SceneManager::GetInstance()->LoadScene(eSceneType::Tool);
 }

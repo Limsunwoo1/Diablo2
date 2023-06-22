@@ -15,7 +15,7 @@
 
 extern std::random_device random;
 extern std::mt19937 gen;
-std::uniform_int_distribution<int> skil(1, 1000);
+std::uniform_int_distribution<int> skil(0, 999);
 
 
 DiabloMonster::DiabloMonster()
@@ -162,6 +162,8 @@ void DiabloMonster::InitAnimation()
 
 			animator->Create(name, tex,
 				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, Vector2(250.f, 250.f),20, 0.05f);
+
+			animator->GetEvent(name, 13) = std::bind(&Monster::Attack, this);
 
 			count++;
 

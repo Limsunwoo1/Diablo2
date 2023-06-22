@@ -13,7 +13,7 @@ public:
 	virtual void Render() override;
 
 	virtual void OnEnter() override;
-	//virtual void OnExit() {};
+	virtual void OnExit() override;
 
 	eToolRenderMode GetToolRenderMode() { return mode; }
 	class TilePallet* GetTilePallet() { return mTilePallet; }

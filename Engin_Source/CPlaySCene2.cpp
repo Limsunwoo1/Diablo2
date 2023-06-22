@@ -125,6 +125,12 @@ void PlayScene2::Initalize()
 		trigger->GetFunc() = std::bind(&PlayScene2::OnEvent, this);
 	}
 
+	DiabloMonster* diablo = Object::Instantiate<DiabloMonster>(eLayerType::Monster, this);
+	Transform* diabloTr = diablo->GetComponent<Transform>();
+	diabloTr->SetPosition(Vector3(4677.f, 12680.f, 1.0f));
+
+	Boss = diablo;
+
 	{
 		MinosTauros* mino0 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
 		Transform* mino0Tr = mino0->GetComponent<Transform>();
@@ -223,10 +229,17 @@ void PlayScene2::OnEnter()
 	UiBase* invenpanel = UIManager::GetInstance()->GetUiInstance<InventoryPanel>(L"mainInventory");
 	UiBase* mainpanel = UIManager::GetInstance()->GetUiInstance<MainPanel>(L"mainPanel");
 	UiBase* monsterHp = UIManager::GetInstance()->GetUiInstance<Panel>(L"MonsterHp");
+	UiBase* skiltree = UIManager::GetInstance()->GetUiInstance<UiBase>(L"SkilTree");
+	UiBase* panel = UIManager::GetInstance()->GetUiInstance<UiBase>(L"SkilSelect");
+	UiBase* panelbutton = UIManager::GetInstance()->GetUiInstance<UiBase>(L"SkilSelectButton");
 
 	Object::Instantiate<InventoryPanel>(eLayerType::UI, invenpanel, true, eSceneType::Play2);
 	Object::Instantiate<MainPanel>(eLayerType::UI, mainpanel, true, eSceneType::Play2);
 	Object::Instantiate<Panel>(eLayerType::UI, monsterHp, true, eSceneType::Play2);
+	Object::Instantiate<UiBase>(eLayerType::UI, skiltree, true, eSceneType::Play2);
+	Object::Instantiate<UiBase>(eLayerType::UI, panel, true, eSceneType::Play2);
+	Object::Instantiate<UiBase>(eLayerType::UI, panelbutton, true, eSceneType::Play2);
+
 
 	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::PlayerSKil, eLayerType::Monster, false);
 	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::Player, eLayerType::MonsterSkil, false);
@@ -242,7 +255,10 @@ void PlayScene2::OnExit()
 
 void PlayScene2::OnEvent()
 {
-	DiabloMonster* diablo = Object::Instantiate<DiabloMonster>(eLayerType::Monster, this);
+	/*DiabloMonster* diablo = Object::Instantiate<DiabloMonster>(eLayerType::Monster, this);
 	Transform* diabloTr = diablo->GetComponent<Transform>();
-	diabloTr->SetPosition(Vector3(4677.f, 12680.f, 1.0f));
+	diabloTr->SetPosition(Vector3(4677.f, 12680.f, 1.0f));*/
+
+	if (Boss)
+		Boss->Active();
 }

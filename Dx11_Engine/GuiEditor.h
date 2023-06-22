@@ -68,7 +68,7 @@ namespace gui
 		Vector2 GetImGuiMousePos() { return Vector2(mImGuiMousePos.x, mImGuiMousePos.y); }
 
 		bool GetActive() {return !mbItemsAble;}
-		bool SetActive(bool active = true) { mbItemsAble = active; }
+		void SetActive(bool active = true) { mbItemsAble = active; }
 
 	private:
 		std::map<std::string ,Widget*> mWidgets;

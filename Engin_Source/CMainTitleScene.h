@@ -15,6 +15,9 @@ public:
 	virtual void OnEnter();
 	virtual void OnExit();
 
+	void NextScene();
+	void PrevScene();
+	void ToolScene();
 
 private:
 

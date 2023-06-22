@@ -1237,6 +1237,8 @@ namespace Renderer
 		//BindTime();
 
 		eSceneType type = SceneManager::GetInstance()->GetActiveScene()->GetScenType();
+		Renderer::mainCamera = SceneManager::GetInstance()->GetActiveScene()->GetMainCam();
+		Renderer::UiCamera = SceneManager::GetInstance()->GetActiveScene()->GetUiCam();
 		for (Camera* cam : Cameras[(UINT)type])
 		{
 			if (cam == nullptr)
