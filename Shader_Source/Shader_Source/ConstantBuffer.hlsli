@@ -32,6 +32,9 @@ cbuffer FadeData : register(b3)
     float padding1;
     float padding2;
     float padding3;
+    
+    float2 ImageStartUV;
+    float2 ImageEndUV;
 }
 
 cbuffer Animation : register(b4)

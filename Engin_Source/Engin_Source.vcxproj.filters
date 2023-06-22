@@ -694,6 +694,7 @@
     <ClCompile Include="CSkilSelectPanel.cpp" />
     <ClCompile Include="CSkilSelectButton.cpp" />
     <ClCompile Include="CCurSelectSkilButton.cpp" />
+    <ClCompile Include="CFontHUD.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -1081,6 +1082,7 @@
     <ClInclude Include="CSkilSelectPanel.h" />
     <ClInclude Include="CSkilSelectButton.h" />
     <ClInclude Include="CCurSelectSkilButton.h" />
+    <ClInclude Include="CFontHUD.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math.inl">

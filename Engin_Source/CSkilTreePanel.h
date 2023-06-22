@@ -1,5 +1,6 @@
 #pragma once
 #include "CUiBase.h"
+#include "CFontHUD.h"
 
 class Button;
 class SkilTreePanel : public UiBase
@@ -30,6 +31,7 @@ public:
 
 private:
 	Button* mCurButton;
+	FontHUD* mFont;
 
 	Button* ButtonList[3];
 	

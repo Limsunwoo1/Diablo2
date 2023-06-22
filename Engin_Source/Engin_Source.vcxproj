@@ -186,6 +186,7 @@
     <ClInclude Include="CEquipmentButton.h" />
     <ClInclude Include="CFireBolt.h" />
     <ClInclude Include="CFlames.h" />
+    <ClInclude Include="CFontHUD.h" />
     <ClInclude Include="CFrozenArmer.h" />
     <ClInclude Include="CFrozenBolt.h" />
     <ClInclude Include="CFrozenMissile.h" />
@@ -323,6 +324,7 @@
     <ClCompile Include="CFadeRenderer.cpp" />
     <ClCompile Include="CFireBolt.cpp" />
     <ClCompile Include="CFlames.cpp" />
+    <ClCompile Include="CFontHUD.cpp" />
     <ClCompile Include="CFrozenArmer.cpp" />
     <ClCompile Include="CFrozenBolt.cpp" />
     <ClCompile Include="CFrozenMissile.cpp" />

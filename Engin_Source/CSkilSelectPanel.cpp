@@ -5,6 +5,7 @@
 #include "CSKiltreeButton.h"
 #include "CSpriteRenderer.h"
 #include "CResourceManager.h"
+#include "CFontHUD.h"
 
 SkilSelectPanel::SkilSelectPanel()
 	: UiBase(eUIType::Panel)
@@ -30,10 +31,12 @@ SkilSelectPanel::~SkilSelectPanel()
 	{
 		delete mSelectButton[2][i];
 	}
+
 }
 
 void SkilSelectPanel::Initalize()
 {
+	///////////////////////////////////////////////////////////
 	SpriteRenderer* sr = AddComponent<SpriteRenderer>();
 	
 	mMater = std::make_shared<Material>();

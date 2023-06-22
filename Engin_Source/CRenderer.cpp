@@ -375,6 +375,14 @@ namespace Renderer
 
 		LightBolt.lock()->SetKey(L"LightBoltShader");
 
+		std::weak_ptr<Shader> Font = ResourceManager::GetInstance()->Find<Shader>(L"FontShader");
+		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, Font.lock()->GetVSBlobBufferPointer()
+			, Font.lock()->GetVSBlobBufferSize()
+			, Font.lock()->GetInputLayoutAddressOf());
+
+		Font.lock()->SetKey(L"FontShader");
+
 #pragma endregion
 #pragma region Sampler State
 		// »ùÇÃ·¯Ãß°¡
@@ -739,6 +747,16 @@ namespace Renderer
 
 		ResourceManager::GetInstance()->Insert<Shader>(L"LightBoltShader", LightBoltShader);
 #pragma endregion
+#pragma region Font Shader
+		std::shared_ptr<Shader> FontShader = std::make_shared<Shader>();
+		FontShader->Create(eShaderStage::VS, L"fontVS.hlsl", "main");
+		FontShader->Create(eShaderStage::PS, L"fontPS.hlsl", "main");
+		FontShader->SetDepthStencil(eDepthStencilType::None);
+
+
+		ResourceManager::GetInstance()->Insert<Shader>(L"FontShader", FontShader);
+#pragma endregion
+
 
 
 	}
@@ -1216,6 +1234,15 @@ namespace Renderer
 			ShadowMaterial->SetRenderingMode(eRenderingMode::Transparent);
 			ShadowMaterial->SetShader(ShadowShader);
 			ResourceManager::GetInstance()->Insert<Material>(L"ShadowMaterial", ShadowMaterial);
+		}
+#pragma endregion
+#pragma region Font Material
+		{
+			std::weak_ptr<Shader>  FontShader = ResourceManager::GetInstance()->Find<Shader>(L"FontShader");
+			std::shared_ptr<Material>FontMaterial = std::make_shared<Material>();
+			FontMaterial->SetRenderingMode(eRenderingMode::Transparent);
+			FontMaterial->SetShader(FontShader);
+			ResourceManager::GetInstance()->Insert<Material>(L"FontMaterial", FontMaterial);
 		}
 #pragma endregion
 	}

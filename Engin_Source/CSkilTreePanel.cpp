@@ -56,10 +56,20 @@ SkilTreePanel::~SkilTreePanel()
 	ButtonList[0] = nullptr;
 	ButtonList[1] = nullptr;
 	ButtonList[2] = nullptr;
+
+	delete mFont;
+	mFont = nullptr;
 }
 
 void SkilTreePanel::Initalize()
 {
+	mFont = new FontHUD();
+	mFont->Initalize();
+	Transform* fontTr = mFont->GetComponent<Transform>();
+	fontTr->SetSize(Vector3(30.f, 30.f, 1.0f));
+	fontTr->SetPosition(Vector3(705.f, 326.f, 1.0f));
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////
 	SkiltreeButton* fireBolt = new SkiltreeButton();	fireBolt->SetSkilType(eSkilList::FireBolt);
 	fireBolt->GetComponent<Transform>()->SetPosition(Vector3(400.f, 379.f, 1.0f));
 
@@ -130,6 +140,8 @@ void SkilTreePanel::Update()
 	{
 		ButtonList[i]->Update();
 	}
+
+	mFont->Update();
 }
 
 void SkilTreePanel::FixedUpdate()
@@ -145,6 +157,8 @@ void SkilTreePanel::FixedUpdate()
 	{
 		ButtonList[i]->FixedUpdate();
 	}
+
+	mFont->FixedUpdate();
 }
 
 void SkilTreePanel::Render()
@@ -158,6 +172,8 @@ void SkilTreePanel::Render()
 	{
 		ButtonList[i]->Render();
 	}
+
+	mFont->Render();
 }
 
 void SkilTreePanel::OnActive()
@@ -167,6 +183,8 @@ void SkilTreePanel::OnActive()
 	{
 		ButtonList[i]->OnActive();
 	}
+
+	mFont->OnActive();
 }
 
 void SkilTreePanel::UnActive()
@@ -176,6 +194,8 @@ void SkilTreePanel::UnActive()
 	{
 		ButtonList[i]->UnActive();
 	}
+
+	mFont->UnActive();
 }
 
 

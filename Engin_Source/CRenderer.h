@@ -57,6 +57,9 @@ namespace Renderer
 		float padding1;
 		float padding2;
 		float padding3;
+
+		Vector2 ImageStart;
+		Vector2 ImageEnd;
 	};
 
 	CBUFFER(AnimationCB, CBSLOT_ANIMATION)

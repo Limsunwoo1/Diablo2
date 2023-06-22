@@ -54,14 +54,17 @@ void HUD::Initalize()
 
 void HUD::Update()
 {
+	UiBase::Update();
 }
 
 void HUD::FixedUpdate()
 {
+	UiBase::FixedUpdate();
 }
 
 void HUD::Render()
 {
+	UiBase::Render();
 }
 
 void HUD::InitAnimation()
