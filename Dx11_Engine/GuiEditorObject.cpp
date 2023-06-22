@@ -21,16 +21,22 @@ namespace gui
 
 	void EditorObject::Update()
 	{
+		/*if (SceneManager::GetInstance()->GetActiveScene()->GetScenType() != eSceneType::Tool)
+			return;*/
 
 		GameObject::Update();
 	}
 
 	void EditorObject::FixedUpdate()
 	{
+	/*	if (SceneManager::GetInstance()->GetActiveScene()->GetScenType() != eSceneType::Tool)
+			return;*/
 		GameObject::FixedUpdate();
 	}
 	void EditorObject::Render()
 	{
+		if (SceneManager::GetInstance()->GetActiveScene()->GetScenType() != eSceneType::Tool)
+			return;
 		GameObject::Render();
 	}
 }

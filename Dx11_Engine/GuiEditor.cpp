@@ -145,11 +145,11 @@ namespace gui
 			obj->Render();
 		}
 
-		for (DebugMesh& mesh : Renderer::debugMeshes)
+		/*for (DebugMesh& mesh : Renderer::debugMeshes)
 		{
 
 			DebugRender(mesh);
-		}
+		}*/
 
 		Renderer::debugMeshes.clear();
 	}
