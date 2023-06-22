@@ -39,6 +39,11 @@
 #include "CInput.h"
 #include "CCollisionManager.h"
 #include "CWorldManager.h"
+
+
+#include "CAudioClip.h"
+#include "CAudioListner.h"
+#include "CAudioSource.h"
 using namespace graphics;
 
 PlayScene::PlayScene()
@@ -99,6 +104,14 @@ void PlayScene::Initalize()
 		mMainCamera = cameraComp;
 
 		cameraObj->AddComponent<AudioListener>();
+		cameraObj->AddComponent<AudioSource>();
+
+
+		AudioSource* source = cameraComp->GetSound();
+
+		std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"Ac1", L"SoundResource\\ActWild.mp3");
+		source->SetClip(clip);
+		source->SetLoop(false);
 	}
 	// Ui Camera
 	{
@@ -369,6 +382,15 @@ void PlayScene::Initalize()
 
 void PlayScene::Update()
 {
+	if (mCameraTrace)
+	{
+		Transform* tr = GetMainCam()->GetOwner()->GetComponent<Transform>();
+		Vector3 Pos = tr->GetPosition();
+		Pos.z -= 0.1f;
+
+		mCameraTrace->GetComponent<Transform>()->SetPosition(Pos);
+	}
+
 	Scene::Update();
 }
 
@@ -389,6 +411,9 @@ void PlayScene::OnEnter()
 
 	if(mUiCamera)
 		Renderer::UiCamera = mUiCamera;
+
+	AudioSource* source = GetMainCam()->GetSound();
+	source->Play(0.1f);
 
 	GameObject* player = WorldManager::GetInstance()->GetPlayer();
 	player->DontDestroy(true);
@@ -435,6 +460,9 @@ void PlayScene::OnExit()
 	player->SetState(Player::PlayerState::Idle);
 
 	ItemManager::GetInstance()->ClearWorldItem();
+
+	AudioSource* source = GetMainCam()->GetSound();
+	source->Stop();
 }
 
 void PlayScene::OnEvent()

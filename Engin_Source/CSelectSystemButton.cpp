@@ -1,5 +1,7 @@
 #include "CSelectSystemButton.h"
 #include "CInput.h"
+#include "CAudioSource.h"
+#include "CAudioClip.h"
 
 SelectSystemButton::SelectSystemButton()
 	: Button(eUIType::Button)
@@ -26,6 +28,11 @@ void SelectSystemButton::Update()
 
 	if (mbPointToButton > 0 && Input::GetInstance()->GetKeyUp(eKeyCode::LBTN))
 	{
+		AudioSource* source = GetComponent<AudioSource>();
+		if (source != nullptr)
+		{
+			source->Play();
+		}
 		//OnEvent();
 	}
 

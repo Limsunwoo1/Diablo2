@@ -54,7 +54,7 @@ void Fmod::Initialize()
 
 bool Fmod::CreateSound(const std::string& path, FMOD::Sound** sound)
 {
-	if (FMOD_OK != mCoreSystem->createSound(path.c_str(), FMOD_3D, 0, sound))
+	if (FMOD_OK != mCoreSystem->createSound(path.c_str(), FMOD_2D, 0, sound))
 		return false;
 
 	return true;

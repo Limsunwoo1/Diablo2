@@ -10,6 +10,11 @@
 #include "CCollider2D.h"
 #include "CCollisionManager.h"
 
+#include "CSceneManager.h"
+#include "CAudioClip.h"
+#include "CAudioSource.h"
+#include "CResourceManager.h"
+
 ItemBase::ItemBase(eEquipmentType type)
 	: GameObject()
 	, mType(type)
@@ -45,6 +50,12 @@ void ItemBase::Initalize()
 	col->SetType(eColliderType::Rect);
 	col->SetCenter(Vector2(0, -(mWorldScale.y * 0.35f)));
 	col->SetSize(Vector2(0.1f, 0.1f));
+
+	AudioSource* source = AddComponent<AudioSource>();
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"ItemDrop", L"SoundResource\\Effect\\flippy.wav");
+
+	source->SetClip(clip);
+	source->SetLoop(false);
 }
 
 void ItemBase::Update()
@@ -227,6 +238,7 @@ void ItemBase::Update()
 
 			if (animator != nullptr)
 			{
+				GetComponent<AudioSource>()->Play();
 				animator->Play(L"WorldDrop", false);
 			}
 
@@ -264,6 +276,7 @@ void ItemBase::Update()
 
 			if (animator != nullptr)
 			{
+				
 				animator->Play(L"WorldDrop", false);
 			}
 

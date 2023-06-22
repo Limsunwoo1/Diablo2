@@ -5,6 +5,9 @@
 #include "CObject.h"
 #include "CWorldManager.h"
 
+#include "CAudioClip.h"
+#include "CAudioSource.h"
+
 TelePort::TelePort()
 	: Skil()
 	, mMovePos(Vector3(-1.f, -1.f,-1.f))
@@ -31,6 +34,13 @@ void TelePort::Initalize()
 	sr->SetMaterial(material);
 	
 	InitAnimation();
+
+	AudioSource* audio = AddComponent<AudioSource>();
+	std::weak_ptr<AudioClip>clip = ResourceManager::GetInstance()->Load<AudioClip>(L"TelePortSound", L"SoundResource\\teleport.wav");
+	audio->SetClip(clip);
+	audio->SetLoop(false);
+
+
 }
 
 void TelePort::Update()
@@ -50,6 +60,7 @@ void TelePort::FixedUpdate()
 		Animator* animator = mOwner->GetComponent<Animator>();
 		if (animator->GetPlayAnimation()->IsComplete())
 		{
+			GetComponent<AudioSource>()->Play(0.1f);
 			if (mMovePos.x >= 0 && mMovePos.y >= 0)
 			{
 				ownerTr->SetPosition(mMovePos);

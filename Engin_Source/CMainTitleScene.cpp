@@ -18,6 +18,10 @@
 #include "CButton.h"
 #include "CUIManager.h"
 #include "CSelectSystemButton.h"
+#include "CAudioListner.h"
+#include "CAudioClip.h"
+#include "CAudioSource.h"
+#include "CResourceManager.h"
 
 MainTitleScene::MainTitleScene()
 	: Scene(eSceneType::MainTitle)
@@ -50,6 +54,15 @@ void MainTitleScene::Initalize()
 		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
 		Renderer::mainCamera = cameraComp;
 		mMainCamera = cameraComp;
+
+		cameraObj->AddComponent<AudioListener>();
+		AudioSource* source = cameraObj->AddComponent<AudioSource>();
+		std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->
+			Load<AudioClip>(L"BackGround1", L"SoundResource\\Act0Intro.mp3");
+
+		source->SetClip(clip);
+		source->SetLoop(true);
+
 	}
 
 	{
@@ -109,6 +122,10 @@ void MainTitleScene::Initalize()
 	{
 		SelectSystemButton* button = new SelectSystemButton();
 		button->Initalize();
+		AudioSource* source = button->AddComponent<AudioSource>();
+
+		std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"ButtonClick", L"SoundResource\\Effect\\button.wav");
+		source->SetClip(clip);
 
 		SpriteRenderer* sr = button->AddComponent<SpriteRenderer>();
 		
@@ -137,6 +154,10 @@ void MainTitleScene::Initalize()
 	{
 		SelectSystemButton* button = new SelectSystemButton();
 		button->Initalize();
+		AudioSource* source = button->AddComponent<AudioSource>();
+
+		std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"ButtonClick", L"SoundResource\\Effect\\button.wav");
+		source->SetClip(clip);
 
 		SpriteRenderer* sr = button->AddComponent<SpriteRenderer>();
 
@@ -165,6 +186,10 @@ void MainTitleScene::Initalize()
 	{
 		SelectSystemButton* button = new SelectSystemButton();
 		button->Initalize();
+		AudioSource* source = button->AddComponent<AudioSource>();
+
+		std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"ButtonClick", L"SoundResource\\Effect\\button.wav");
+		source->SetClip(clip);
 
 		SpriteRenderer* sr = button->AddComponent<SpriteRenderer>();
 
@@ -213,10 +238,13 @@ void MainTitleScene::OnEnter()
 {
 	Renderer::mainCamera = GetMainCam();
 	Renderer::UiCamera = GetUiCam();
+
+	//GetMainCam()->GetOwner()->GetComponent<AudioSource>()->Play();
 }
 
 void MainTitleScene::OnExit()
 {
+	//GetMainCam()->GetOwner()->GetComponent<AudioSource>()->Stop();
 }
 
 void MainTitleScene::NextScene()
@@ -226,10 +254,20 @@ void MainTitleScene::NextScene()
 
 void MainTitleScene::PrevScene()
 {
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->
+		Load<AudioClip>(L"BackGround1", L"SoundResource\\Act0Intro.mp3");
+
+	clip.lock()->Stop();
+
 	SceneManager::GetInstance()->LoadScene(eSceneType::Title);
 }
 
 void MainTitleScene::ToolScene()
 {
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->
+		Load<AudioClip>(L"BackGround1", L"SoundResource\\Act0Intro.mp3");
+
+	clip.lock()->Stop();
+
 	SceneManager::GetInstance()->LoadScene(eSceneType::Tool);
 }

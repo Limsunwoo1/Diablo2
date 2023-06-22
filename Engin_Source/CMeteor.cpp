@@ -23,6 +23,10 @@ Meteor::Meteor()
 
 Meteor::~Meteor()
 {
+	mTargetPin->GetComponent<AudioSource>()->Stop();
+	GetComponent<AudioSource>()->Stop();
+
+
 	delete mTargetPin;
 	mTargetPin = nullptr;
 
@@ -75,6 +79,13 @@ void Meteor::Initalize()
 	Collider2D* col = AddComponent<Collider2D>();
 	col->SetType(eColliderType::Rect);
 	col->SetSize(Vector2(0.25f, 0.25f));
+
+	///////////////////
+	AudioSource* audio = AddComponent<AudioSource>();
+	std::weak_ptr<AudioClip>clip = ResourceManager::GetInstance()->Load<AudioClip>(L"FlameSound", L"SoundResource\\firelaunch1.wav");
+	audio->SetClip(clip);
+	audio->SetLoop(false);
+
 }
 
 void Meteor::Update()
@@ -180,6 +191,7 @@ void Meteor::OnMeteor()
 	Transform* pinTr = mTargetPin->GetComponent<Transform>();
 	pinTr->SetPosition(mPinPos);
 	mTargetPin->Active();
+	mTargetPin->GetComponent<AudioSource>()->Play(0.3f);
 
 	float runLine = 0.2f;
 
@@ -199,6 +211,7 @@ void Meteor::OnMeteor()
 		Vec = mPinPos - (Pos - size);
 		if (mPinPos.y >= Pos.y /*&& fabs(Vec.x) < 0.005f*/)
 		{
+			mTargetPin->GetComponent<AudioSource>()->Stop();
 			genericAnimator->Stop(true);
 			return;
 		}
@@ -207,6 +220,7 @@ void Meteor::OnMeteor()
 		// 일정시간후 메테오 낙하
 		if (runLine < InCurValue)
 		{
+			mTargetPin->GetComponent<AudioSource>()->Stop();
 			Vec.Normalize();
 			Pos.y += -1.0f * Time::GetInstance()->DeltaTime() * mSpeed * 0.5f;
 			mTr->SetPosition(Pos);
@@ -246,6 +260,15 @@ void Meteor::OnMeteor()
 
 void Meteor::OffMeteor()
 {
+	AudioSource* audio = this->GetMetorTargetPin()->GetComponent<AudioSource>();
+	audio->Stop();
+
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"MeteorImpact", L"SoundResource\\meteorimpact.wav");
+	audio->SetClip(clip);
+	audio->Play(0.3f);
+
+	GetComponent<AudioSource>()->Play();
+
 	GenericAnimator* genericAnimator = GetComponent<GenericAnimator>();
 
 	if (genericAnimator->IsRunning())
@@ -253,6 +276,8 @@ void Meteor::OffMeteor()
 
 	Animator* animator = GetComponent<Animator>();
 	animator->Play(L"MeteorEnd", false);
+
+
 
 	// 메테오 충돌위치 불길생성
 	Transform* tr = mFlames[0]->GetComponent<Transform>();

@@ -36,4 +36,7 @@ private:
 
 	bool mDirection;
 	float mYScale;
+
+	bool RunSound;
+	float Delta;
 };

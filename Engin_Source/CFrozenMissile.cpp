@@ -12,6 +12,7 @@
 #include "CCollisionManager.h"
 #include "CCollider2D.h"
 
+
 FrozenMissile::FrozenMissile()
 	: Skil()
 	, mKeyName(L"FrozenMisile_")
@@ -66,6 +67,13 @@ void FrozenMissile::Update()
 		for (GameObject* obj : Objects)
 		{
 			if (obj == nullptr)
+				continue;
+
+			Monster* monster = dynamic_cast<Monster*>(obj);
+			if (monster == nullptr)
+				continue;
+
+			if (monster->GetMonsterState() == Monster::MonsterState::Dead)
 				continue;
 
 			bool collistion = false;

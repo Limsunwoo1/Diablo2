@@ -3,9 +3,14 @@
 #include "CAnimator.h"
 #include "CSpriteRenderer.h"
 #include "CGenericAnimator.h"
+#include "CSceneManager.h"
 
 #include "CTime.h"
 #include "CResourceManager.h"
+#include "CWorldManager.h"
+
+#include "CAudioSource.h"
+#include "CAudioClip.h"
 
 FrozenOrb::FrozenOrb()
 	: Skil()
@@ -15,6 +20,7 @@ FrozenOrb::FrozenOrb()
 	, mRunningTime(0.0f)
 	, mbOff(false)
 	, mbOnOrb(false)
+	, soundV(1.0f)
 {
 	mCost = 45.f;
 }
@@ -81,6 +87,12 @@ void FrozenOrb::Initalize()
 
 	//
 	//this->Paused();
+	// audio
+
+	std::weak_ptr<AudioClip> orbclip = ResourceManager::GetInstance()->Load<AudioClip>(L"FrozenOrbAudio", L"Sound\\1\\skill\\sorceress\\icespike1.wav");
+	AudioSource* source = AddComponent<AudioSource>();
+	source->SetClip(orbclip);
+	source->SetLoop(false);
 }
 
 void FrozenOrb::Update()
@@ -196,6 +208,9 @@ void FrozenOrb::OnOrb()
 	if (animator->IsRunning())
 		animator->Stop();
 
+
+	GetComponent<AudioSource>()->Play();
+
 	AnimatorParam param;
 	param.AnimType = eAnimType::Linear;
 	param.StartValue = 0.0f;
@@ -216,6 +231,10 @@ void FrozenOrb::OnOrb()
 
 	float startLine = 0.1f;
 	float endLine = 0.9f;
+
+	/*AudioSource* audio = GetComponent<AudioSource>();
+	audio->SetLoop(false);
+	audio->Play();*/
 
 	param.DurationFunc = [this, startLine, endLine](float InCurValue)
 	{
@@ -264,7 +283,7 @@ void FrozenOrb::OnOrb()
 			Transform* tr = mFrozenMissile[i]->GetComponent<Transform>();
 			tr->SetPosition(pos);
 		}
-
+		GetComponent<AudioSource>()->Play();
 		OffOrb();
 	};
 
@@ -276,9 +295,11 @@ void FrozenOrb::RunningOrb()
 	if (mSpeakerIndex >= mSpeakerMissile.size())
 		return;
 
+
 	mRunningTime += Time::GetInstance()->DeltaTime();
 	if (mRunningTime >= 0.05f)
 	{
+
 		mRunningTime -= 0.05f;
 
 		mSpeakerMissile[mSpeakerIndex]->Active();
@@ -338,6 +359,14 @@ void FrozenOrb::OffOrb()
 	mFrozenIndex = 0;
 
 	float startLine = 0.05f;
+	/*AudioSource* source = GetComponent<AudioSource>();
+	source->Play();*/
+
+
+	std::weak_ptr<AudioClip> orbclip = ResourceManager::GetInstance()->Load<AudioClip>(L"FrozenOrbAudio", L"Sound\\1\\skill\\sorceress\\icespike1.wav");
+
+
+
 	param.DurationFunc = [this, startLine](float InCurValue)
 	{
 		for (int i = 0; i < 20; ++i)

@@ -11,10 +11,13 @@ public:
 
 	virtual HRESULT Load(const std::wstring& path) override;
 
-	void Play();
+	void Play(float volume = 0.5f);
 	void Stop();
 	void Set3DAttributes(const Vector3 pos, const Vector3 vel);
 	void SetLoop(bool loop) { mbLoop = loop; }
+	
+	void SetVolume(float vulume);
+	bool GetLoop() { return mbLoop; }
 
 private:
 	FMOD::Sound* mSound;

@@ -6,6 +6,9 @@
 #include "CMesh.h"
 #include "CResourceManager.h"
 #include "CGenericAnimator.h"
+#include "CAudioClip.h"
+#include "CAudioSource.h"
+
 
 FireTargetPin::FireTargetPin(Player* player)
 	: Skil(player)
@@ -40,6 +43,12 @@ void FireTargetPin::Initalize()
 	std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Find<Texture2D>(L"FirePin");
 	sr->SetMesh(mesh);
 	sr->SetMaterial(material);
+
+	AudioSource* audio = AddComponent<AudioSource>();
+	std::weak_ptr<AudioClip> Clip = ResourceManager::GetInstance()->Load<AudioClip>(L"MeteorLaunch", L"SoundResource\\meteorlaunch.wav");
+
+	audio->SetClip(Clip);
+	audio->SetLoop(false);
 }
 
 void FireTargetPin::Update()

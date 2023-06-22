@@ -18,6 +18,7 @@ public:
 	void SetSpeed(int speed) { mSpeed = speed; }
 
 	virtual void HitSkil(GameObject* obj) override;
+
 private:
 	int mSpeed;
 

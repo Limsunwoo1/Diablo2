@@ -30,6 +30,8 @@ public:
 	void OnMeteor();
 	void OffMeteor();
 
+	FireTargetPin* GetMetorTargetPin() { return mTargetPin; }
+
 	virtual void HitSkil(GameObject* obj) override;
 private:
 	FireTargetPin* mTargetPin;

@@ -1,5 +1,6 @@
 #pragma once
 #include "CComponent.h"
+#include "CAudioSource.h"
 
 using namespace Math;
 using namespace std;
@@ -45,6 +46,8 @@ public:
 	void SetTrace(GameObject* obj) { mTrace = obj; }
 	GameObject* GetTrace() { return mTrace; }
 
+	AudioSource* GetSound() { return mBackGroundSound; }
+
 private:
 	void SortGameObjects();
 	void RenderOpaqu();
@@ -74,5 +77,8 @@ private:
 	vector<GameObject*> mPostProcessGameObjects;
 
 	GameObject* mTrace;
+
+
+	AudioSource* mBackGroundSound;
 };
 

@@ -9,7 +9,7 @@ AudioClip::AudioClip()
 	, mMaxDistance(1000.0f)
 	, mbLoop(false)
 {
-
+	
 }
 
 AudioClip::~AudioClip()
@@ -32,14 +32,16 @@ HRESULT AudioClip::Load(const std::wstring& name)
 	return S_OK;
 }
 
-void AudioClip::Play()
+void AudioClip::Play(float volume)
 {
 	if (mbLoop)
 		mSound->setMode(FMOD_LOOP_NORMAL);
 	else
 		mSound->setMode(FMOD_LOOP_OFF);
 
+
 	Fmod::GetInstance()->SoundPlay(mSound, &mChannel);
+	mChannel->setVolume(volume);
 }
 
 void AudioClip::Stop()
@@ -53,4 +55,10 @@ void AudioClip::Set3DAttributes(const Vector3 pos, const Vector3 vel)
 	FMOD_VECTOR fmodVel(vel.x, vel.y, vel.z);
 
 	mChannel->set3DAttributes(&fmodPos, &fmodVel);
+}
+
+void AudioClip::SetVolume(float vulume)
+{
+	//0 ~ 1
+	mChannel->setVolume(vulume);
 }

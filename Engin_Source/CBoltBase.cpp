@@ -3,6 +3,8 @@
 #include "CTime.h"
 #include "CAnimator.h"
 #include "CBaseRenderer.h"
+#include "CAudioSource.h"
+#include "CSceneManager.h"
 
 BoltBase::BoltBase()
 	: mDirection(0.0f)

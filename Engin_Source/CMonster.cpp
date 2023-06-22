@@ -29,6 +29,7 @@
 #include "CSuitItem.h"
 
 #include "CItemManager.h"
+#include "CAudioSource.h"
 
 #include <random>
 
@@ -462,6 +463,9 @@ void Monster::DropItem()
 
 		itemTr->SetPosition(Tr->GetPosition());
 		itemTr->SetSize(item->GetWorldSize());
+
+		AudioSource* source = item->GetComponent<AudioSource>();
+		source->Play();
 	}
 }
 

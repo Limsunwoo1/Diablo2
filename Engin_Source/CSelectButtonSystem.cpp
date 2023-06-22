@@ -33,6 +33,10 @@
 
 #include "CLoaddingScene.h"
 
+#include "CAudioListner.h"
+#include "CAudioClip.h"
+#include "CAudioSource.h"
+
 
 SelectButtonSystem::SelectButtonSystem()
 	: UiBase(eUIType::Panel)
@@ -217,6 +221,11 @@ void SelectButtonSystem::Initalize()
 		mCreateButton->BindEvnet(std::bind(&SelectButtonSystem::CreateButton, this));
 		mCreateButton->SetName(L"CreateButton");
 
+		AudioSource* source = mCreateButton->AddComponent<AudioSource>();
+
+		std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"ButtonClick", L"SoundResource\\Effect\\button.wav");
+		source->SetClip(clip);
+
 		//Transform
 		Transform* tr = mCreateButton->GetComponent<Transform>();
 		tr->SetPosition(Vector3(-4.5f * 100.f, -380.f, 0.0f));
@@ -250,6 +259,11 @@ void SelectButtonSystem::Initalize()
 		mReturnSceneButton->BindEvnet(fun);
 		mReturnSceneButton->SetName(L"ReternButton");
 
+		AudioSource* source = mReturnSceneButton->AddComponent<AudioSource>();
+
+		std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"ButtonClick", L"SoundResource\\Effect\\button.wav");
+		source->SetClip(clip);
+
 		//Transform
 		Transform* tr = mReturnSceneButton->GetComponent<Transform>();
 		tr->SetPosition(Vector3(3.5f * 100.f, -380.f, 0.0f));
@@ -282,6 +296,11 @@ void SelectButtonSystem::Initalize()
 		auto fun = std::bind(&SelectButtonSystem::Select_Ok_Button, this);
 		mSelect_Ok_Button->BindEvnet(fun);
 		mSelect_Ok_Button->SetName(L"OkButton");
+
+		AudioSource* source = mSelect_Ok_Button->AddComponent<AudioSource>();
+
+		std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"ButtonClick", L"SoundResource\\Effect\\button.wav");
+		source->SetClip(clip);
 
 		//Transform
 		Transform* tr = mSelect_Ok_Button->GetComponent<Transform>();
@@ -368,6 +387,7 @@ void SelectButtonSystem::CreateButton()
 	if (str == L"")
 		return;*/
 
+	mCreateButton->GetComponent<AudioSource>()->Play();
 	CreateSelectButton();
 }
 
@@ -377,6 +397,7 @@ void SelectButtonSystem::RemoveButton()
 
 void SelectButtonSystem::RetrunSceneButton()
 {
+	mReturnSceneButton->GetComponent<AudioSource>()->Play();
 	SceneManager::GetInstance()->LoadScene(eSceneType::MainTitle);
 	mClickButton = nullptr;
 }
@@ -385,6 +406,8 @@ void SelectButtonSystem::Select_Ok_Button()
 {
 	if (mClickButton == nullptr)
 		return;
+
+	mSelect_Ok_Button->GetComponent<AudioSource>()->Play();
 
 	PlayerSelectButton::PlayerInfo info = mClickButton->GetInfo();
 

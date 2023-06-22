@@ -119,5 +119,8 @@ void CharacterSelectScene::OnEnter()
 
 void CharacterSelectScene::OnExit()
 {
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->
+		Load<AudioClip>(L"BackGround1", L"SoundResource\\Act0Intro.mp3");
 
+	clip.lock()->Stop();
 }

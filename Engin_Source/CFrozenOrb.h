@@ -35,5 +35,7 @@ private:
 	int mSpeakerIndex;
 	bool mbOnOrb;
 	bool mbOff;
+
+	float soundV;
 };
 

@@ -16,6 +16,12 @@
 #include "CObjectManager.h"
 
 #include "..//Dx11_Engine/GuiEditor.h"
+#include "CSceneManager.h"
+#include "CTitleScene.h"
+
+#include "CAudioSource.h"
+#include "CAudioClip.h"
+#include "CAudioListner.h"
 
 extern gui::Editor _Editor;
 
@@ -53,6 +59,8 @@ void ToolScene::Initalize()
 		cameraObj->SetName(L"ToolMainCamera");
 
 		camera->SetProjectionType(Camera::eProjectionType::Orthographic);
+
+		cameraObj->AddComponent<AudioListener>();
 
 		mMainCamera = camera;
 	}
@@ -102,6 +110,7 @@ void ToolScene::Update()
 			if (obj)
 				obj->Death();
 		}
+
 		return;
 	}
 
@@ -238,4 +247,9 @@ void ToolScene::OnExit()
 {
 	_Editor.SetWidgetsPused(true);
 	_Editor.SetActive(true);
+
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->
+		Load<AudioClip>(L"BackGround1", L"SoundResource\\Act0Intro.mp3");
+
+	clip.lock()->Play();
 }

@@ -46,6 +46,8 @@ void SceneManager::Initalize()
 	{
 		scene->Initalize();
 	}
+
+	mActiveScene->OnEnter();
 }
 
 void SceneManager::LateInitalize()

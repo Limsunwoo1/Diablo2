@@ -9,6 +9,7 @@
 #include "CItemManager.h"
 #include "CObjectManager.h"
 #include "CTime.h"
+#include "CAudioSource.h"
 
 extern CApplication Application;
 
@@ -29,19 +30,26 @@ Camera::Camera()
 
 Camera::~Camera()
 {
+	if(mBackGroundSound)
+		delete mBackGroundSound;
 }
 
 void Camera::Initalize()
 {
 	RegisterCameraInRenderer();
+	mBackGroundSound = new AudioSource();
+	mBackGroundSound->Initalize();
+	mBackGroundSound->SetOwner(GetOwner());
 }
 
 void Camera::Update()
 {
+	mBackGroundSound->Update();
 }
 
 void Camera::FixedUpdate()
 {
+	mBackGroundSound->FixedUpdate();
 	CreateViewMatrix();
 	CreateProjectionMatrix();
 

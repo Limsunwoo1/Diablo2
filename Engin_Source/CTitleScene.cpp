@@ -60,6 +60,13 @@ void TitleScene::Initalize()
 		mMainCamera = cameraComp;
 
 		cameraObj->AddComponent<AudioListener>();
+		AudioSource* source = cameraObj->AddComponent<AudioSource>();
+
+		std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->
+			Load<AudioClip>(L"BackGround1", L"SoundResource\\Act0Intro.mp3");
+
+		source->SetClip(clip);
+		source->SetLoop(true);
 	}
 	// Ui Camera
 	{
@@ -84,13 +91,6 @@ void TitleScene::Initalize()
 		BackGround* ground = Object::Instantiate<BackGround>(eLayerType::BackGround);
 		ground->SetName(L"BackGround");
 
-		AudioSource* audio = ground->AddComponent<AudioSource>();
-		std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->
-			Load<AudioClip>(L"BackGround1", L"Sound\\1\\ambient\\scene\\catacombs.wav");
-
-		audio->SetClip(clip);
-		audio->SetLoop(true);
-		audio->Play();
 		
 		Transform* tr = ground->GetComponent<Transform>();
 		tr->SetSize(Vector3(1600.f, 900.f, 1.0f));
@@ -180,9 +180,12 @@ void TitleScene::OnEnter()
 {
 	Renderer::mainCamera = GetMainCam();
 	Renderer::UiCamera = GetUiCam();
+
+
+	GetMainCam()->GetOwner()->GetComponent<AudioSource>()->Play();
 }
 
 void TitleScene::OnExit()
 {
-
+	//GetMainCam()->GetOwner()->GetComponent<AudioSource>()->Stop();
 }

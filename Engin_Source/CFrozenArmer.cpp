@@ -9,6 +9,9 @@
 #include "CWorldManager.h"
 #include "Cplayer.h"
 
+#include "CAudioSource.h"
+#include "CAudioClip.h"
+
 FrozenArmer::FrozenArmer()
 	: Skil()
 	, mDeathTime(8.0f)
@@ -43,6 +46,12 @@ void FrozenArmer::Initalize()
 
 	sr->SetMesh(mesh);
 	sr->SetMaterial(mMaterial);
+
+	AudioSource* audio = AddComponent<AudioSource>();
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"FrozenArmerSound", L"SoundResource\\frozenarmor.wav");
+	audio->SetClip(clip);
+	audio->SetLoop(false);
+	audio->Play(0.3f);
 }
 
 void FrozenArmer::Update()

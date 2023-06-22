@@ -15,6 +15,11 @@
 #include "CShockHit.h"
 #include "CMonster.h"
 
+#include "CSceneManager.h"
+#include "CAudioClip.h"
+#include "CAudioSource.h"
+#include "CTime.h"
+
 LightBolt::LightBolt()
 	: BoltBase()
 	, mArriveList {}
@@ -26,6 +31,8 @@ LightBolt::LightBolt()
 	, mBounceMaxCount(6)
 	, mDirection(false) // false Y 가 줄어듬 true Y 가 늘어남
 	, mYScale(0.0f)
+	, RunSound(false)
+	, Delta(0.5f)
 {
 	SetElementType(eElementType::HitLight);
 	mCost = 30.f;
@@ -56,6 +63,11 @@ void LightBolt::Initalize()
 
 	// 제네릭애니메이터
 	AddComponent<GenericAnimator>();
+
+	AudioSource* audio = AddComponent<AudioSource>();
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"LightBoltSound", L"Sound\\1\\skill\\sorceress\\chargedbolt1.wav");
+	audio->SetClip(clip);
+	audio->SetLoop(false);
 }
 
 void LightBolt::Update()
@@ -83,10 +95,21 @@ void LightBolt::Update()
 
 		SetRun(true);
 		renderer->SetRenderStop(false);
+
+		GetComponent<AudioSource>()->Play();
 	}
 
 	if (mCurObject == nullptr)
 		return;
+
+	if (Delta >= 0.0f)
+	{
+		Delta -= Time::GetInstance()->DeltaTime();
+		if (Delta < 0.0f)
+		{
+			GetComponent<AudioSource>()->Stop();
+		}
+	}
 
 	if (mNextObject == nullptr)
 	{
@@ -309,6 +332,8 @@ void LightBolt::LinghtingRun()
 
 	param.CompleteFunc = [this](float InCurValue)
 	{
+		std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"Lighting", L"SoundResource\\thunderbolt.wav");
+
 		ShockHit* shock = Object::Instantiate<ShockHit>(eLayerType::Effect, true);
 		shock->SetTarget(mCurObject);
 

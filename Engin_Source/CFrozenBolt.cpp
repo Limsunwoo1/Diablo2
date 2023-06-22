@@ -8,9 +8,14 @@
 #include "CCollisionManager.h"
 #include "CMonster.h"
 #include "CCollider2D.h"
+#include "CAudioSource.h"
+#include "CAudioClip.h"
+#include "CTime.h"
 
 FrozenBolt::FrozenBolt()
 	: BoltBase()
+	, RunSound(false)
+	, Delta(0.5f)
 {
 	SetElementType(eElementType::HitFrozen);
 }
@@ -43,6 +48,11 @@ void FrozenBolt::Initalize()
 	col->SetType(eColliderType::Rect);
 	col->SetSize(Vector2(0.05f, 0.1f));
 	col->SetCenter(Vector2(0.f, 0.f));
+
+	AudioSource* audio = AddComponent<AudioSource>();
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"IceBlot", L"Sound\\1\\skill\\sorceress\\icebolt2.wav");
+	audio->SetClip(clip);
+	audio->SetLoop(false);
 }
 
 void FrozenBolt::Update()
@@ -51,6 +61,23 @@ void FrozenBolt::Update()
 
 	if (GetRun() == false)
 		return;
+
+	if (!RunSound)
+	{
+		GetComponent<AudioSource>()->Play(0.3f);
+		RunSound = true;
+		return;
+	}
+
+	if (Delta >= 0.0f)
+	{
+		Delta -= Time::GetInstance()->DeltaTime();
+
+		if (Delta < 0.0f)
+		{
+			GetComponent<AudioSource>()->Stop();
+		}
+	}
 
 	Layer& layer = SceneManager::GetInstance()->GetActiveScene()->GetLayer(eLayerType::Monster);
 	const std::vector<GameObject*>& Objects = layer.GetGameObjects();

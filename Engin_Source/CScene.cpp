@@ -1,6 +1,7 @@
 #include "CScene.h"
 #include "CCamera.h"
 #include "CGameObject.h"
+#include "CRenderer.h"
 
 Scene::Scene(eSceneType type)
 	: mType(type)
@@ -24,6 +25,7 @@ void Scene::Initalize()
 
 void Scene::Update()
 {
+
 	for (Layer& layer : mLayers)
 	{
 		layer.Update();

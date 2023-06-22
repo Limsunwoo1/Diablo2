@@ -569,14 +569,44 @@ void PlayerScript::FixedUpdate()
 			auto Idx = WorldManager::GetInstance()->GetTileIndex(mousePos);
 			if (Idx.first >= 0 && Idx.second >= 0)
 			{
+				AudioSource* audio = player->GetComponent<AudioSource>();
 				if (astar->OnA_Star(Idx, mousePos))
 				{
+					if (player->GetRunMode())
+					{
+						std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>
+							(L"HeavyRun", L"Sound\\1\\ambient\\footstep\\HeavyDirtRun1.wav");
+
+						if (audio->GetClip().lock() != clip.lock())
+						{
+							audio->SetClip(clip);
+							audio->SetLoop(true);
+							audio->Play(0.5f);
+						}
+					}
+					else
+					{
+						std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>
+							(L"Move", L"Sound\\1\\ambient\\footstep\\HeavyDirt3.wav");
+
+						if (audio->GetClip().lock() != clip.lock())
+						{
+							audio->SetClip(clip);
+							audio->SetLoop(false, 0.8f);
+							audio->Play(0.5f);
+						}
+					}
+
 					ResetAStar();
 					mbInput = true;
 				}
 			}
 			///////////////////////////////////////////////////////////////////////////////////
 		}
+	}
+	else if (Input::GetInstance()->GetKeyUp(eKeyCode::RBTN))
+	{
+		player->GetComponent<AudioSource>()->Stop();
 	}
 
 	if (mNodePos == Vector2::Zero && mArrivePos == Vector2::Zero)
@@ -590,19 +620,6 @@ void PlayerScript::FixedUpdate()
 
 			Vector3 driection = Vector3(mArrivePos.x, mArrivePos.y, 1.0f);
 			SetPlayerDirection(driection);
-
-			if (player->GetRunMode())
-			{
-				std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>
-					(L"FootStep", L"Sound\\1\\ambient\\footstep\\flesh3.wav");
-
-				if (player->GetComponent<AudioSource>()->GetClip().lock() != clip.lock())
-				{
-					player->GetComponent<AudioSource>()->SetClip(clip);
-					player->GetComponent<AudioSource>()->SetLoop(true);
-					player->GetComponent<AudioSource>()->Play();
-				}
-			}
 		}
 	}
 
@@ -1140,6 +1157,8 @@ void PlayerScript::skil4()
 		return;
 	}
 
+	std::weak_ptr<AudioClip>clip = ResourceManager::GetInstance()->Load<AudioClip>(L"FrieBolt", L"Sound\\1\\skill\\sorceress\\firecast.wav");
+
 	player->SetState(Player::PlayerState::Skil);
 	player->SetMP(playerMp);
 
@@ -1176,6 +1195,10 @@ void PlayerScript::skil5()
 		player->SetMP(playerMp + frozenbolt->GetCost());
 		return;
 	}
+
+	std::weak_ptr<AudioClip>clip = ResourceManager::GetInstance()->Load<AudioClip>(L"IceBolt", L"SoundResource\\frozenarmor.wav");
+
+
 	player->SetState(Player::PlayerState::Skil);
 
 	player->SetMP(playerMp);

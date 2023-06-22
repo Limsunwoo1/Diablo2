@@ -20,4 +20,5 @@ public:
 
 private:
 	GameObject* Boss;
+	GameObject* mCameraTrace;
 };

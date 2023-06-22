@@ -16,6 +16,7 @@ public:
 	virtual void HitSkil(GameObject* obj) override;
 
 private:
-
+	bool RunSound;
+	float Delta;
 };
 

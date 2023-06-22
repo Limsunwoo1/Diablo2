@@ -15,6 +15,7 @@
 #include "CSkilTreePanel.h"
 #include "CAudioSource.h"
 #include "CAudioClip.h"
+#include "CAudioListner.h"
 
 using namespace graphics;
 
@@ -71,7 +72,6 @@ void Player::Initalize()
 
 
 	AudioSource* Audio = AddComponent<AudioSource>();
-
 }
 
 void Player::Update()

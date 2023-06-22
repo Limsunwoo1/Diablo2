@@ -8,9 +8,14 @@
 #include "CCollisionManager.h"
 #include "CMonster.h"
 #include "CCollider2D.h"
+#include "CAudioSource.h"
+#include "CAudioClip.h"
+#include "CTime.h"
 
 FireBolt::FireBolt()
 	: BoltBase()
+	, RunSound(false)
+	, Delta(0.5f)
 {
 	SetDamege(10.f);
 	SetElementType(eElementType::HitFire);
@@ -43,6 +48,12 @@ void FireBolt::Initalize()
 	col->SetType(eColliderType::Rect);
 	col->SetSize(Vector2(0.03f, 0.05f));
 	col->SetCenter(Vector2(0.f, 0.f));
+
+	//
+	AudioSource* audio = AddComponent<AudioSource>();
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"FireBlot", L"Sound\\1\\skill\\sorceress\\firebolt1.wav");
+	audio->SetClip(clip);
+	audio->SetLoop(false);
 }
 
 void FireBolt::Update()
@@ -51,6 +62,23 @@ void FireBolt::Update()
 
 	if (GetRun() == false)
 		return;
+
+	if (!RunSound)
+	{
+		GetComponent<AudioSource>()->Play(0.3f);
+		RunSound = true;
+		return;
+	}
+
+	if (Delta >= 0.0f)
+	{
+		Delta -= Time::GetInstance()->DeltaTime();
+
+		if (Delta < 0.0f)
+		{
+			GetComponent<AudioSource>()->Stop();
+		}
+	}
 
 	Layer& layer = SceneManager::GetInstance()->GetActiveScene()->GetLayer(eLayerType::Monster);
 	const std::vector<GameObject*>& Objects = layer.GetGameObjects();
@@ -61,6 +89,13 @@ void FireBolt::Update()
 		for (GameObject* obj : Objects)
 		{
 			if (obj == nullptr)
+				continue;
+
+			Monster* monster = dynamic_cast<Monster*>(obj);
+			if (monster == nullptr)
+				continue;
+
+			if (monster->GetMonsterState() == Monster::MonsterState::Dead)
 				continue;
 
 			bool collistion = false;
