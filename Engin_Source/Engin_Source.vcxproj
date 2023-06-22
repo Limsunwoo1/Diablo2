@@ -157,6 +157,9 @@
     <ClInclude Include="CAndarielMonster.h" />
     <ClInclude Include="CAndarielScript.h" />
     <ClInclude Include="CAttackCollider.h" />
+    <ClInclude Include="CAudioClip.h" />
+    <ClInclude Include="CAudioListner.h" />
+    <ClInclude Include="CAudioSource.h" />
     <ClInclude Include="CBoltBase.h" />
     <ClInclude Include="CButton.h" />
     <ClInclude Include="CAnimation.h" />
@@ -250,6 +253,7 @@
     <ClInclude Include="CSkilSelectPanel.h" />
     <ClInclude Include="CSKiltreeButton.h" />
     <ClInclude Include="CSkilTreePanel.h" />
+    <ClInclude Include="CFmodManager.h" />
     <ClInclude Include="CSpearMonster.h" />
     <ClInclude Include="CSpriteRenderer.h" />
     <ClInclude Include="CStructedBuffer.h" />
@@ -295,6 +299,9 @@
     <ClCompile Include="CAndarielMonster.cpp" />
     <ClCompile Include="CAndarielScript.cpp" />
     <ClCompile Include="CAttackCollider.cpp" />
+    <ClCompile Include="CAudioClip.cpp" />
+    <ClCompile Include="CAudioListner.cpp" />
+    <ClCompile Include="CAudioSource.cpp" />
     <ClCompile Include="CBoltBase.cpp" />
     <ClCompile Include="CButton.cpp" />
     <ClCompile Include="CAnimation.cpp" />
@@ -386,6 +393,7 @@
     <ClCompile Include="CSkilSelectPanel.cpp" />
     <ClCompile Include="CSKiltreeButton.cpp" />
     <ClCompile Include="CSkilTreePanel.cpp" />
+    <ClCompile Include="CFmodManager.cpp" />
     <ClCompile Include="CSpearMonster.cpp" />
     <ClCompile Include="CSpriteRenderer.cpp" />
     <ClCompile Include="CStructedBuffer.cpp" />

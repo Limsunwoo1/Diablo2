@@ -94,7 +94,7 @@ void Camera::CreateViewMatrix()
 	// 회전 정보
 	Vector3 up = transform->Up();
 	Vector3 right = transform->Right();
-	Vector3 forward = transform->Forward();
+	Vector3 forward = transform->Foward();
 
 	Matrix viewRotate;
 	viewRotate._11 = right.x; viewRotate._12 = up.x; viewRotate._13 = forward.x;

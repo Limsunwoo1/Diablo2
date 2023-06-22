@@ -52,6 +52,8 @@ enum class eComponentType
 	GenericAnimator,
 	AStar,
 	ParticleSystem,
+	AudioListener,
+	AudioSource,
 	Light,
 	UI,
 	Script,
@@ -69,6 +71,7 @@ enum class eResourceType
 	MeshData,
 	GraphicShader,
 	ComputeShader, // 병렬처리가 가능하게 해주는 쉐이더
+	AudioClip,
 	Script,
 	End,
 };

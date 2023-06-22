@@ -34,7 +34,7 @@ public:
 	void SetScale(Vector3 scale) { mScale = scale; }
 	void SetSize(Vector3 size) { mSize = size; }
 
-	Vector3 Forward() { return mForward; }
+	Vector3 Foward() { return mForward; }
 	Vector3 Right() { return mRight; }
 	Vector3 Up() { return mUp; }
 

@@ -319,6 +319,24 @@
     <Filter Include="GameObject\TriggerObject">
       <UniqueIdentifier>{e1318b30-1177-4d09-bd56-a224419a100c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\UI\Button\skilButton">
+      <UniqueIdentifier>{67bed916-ccec-44e5-a051-b0067a188df1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\Panel\SkilPanel">
+      <UniqueIdentifier>{ef9084a1-1adc-4046-9507-d7ba323fc2a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\SoundManager">
+      <UniqueIdentifier>{f28a0274-657d-4988-acf5-7f7bfd12d9e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\AudioSource">
+      <UniqueIdentifier>{213f47b1-5846-4fca-9fe3-2b3497afe1ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\AudioListener">
+      <UniqueIdentifier>{0c8ad471-4395-4b0e-b9cf-0c0fc5f67ba6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\AudioClip">
+      <UniqueIdentifier>{b0ea71c3-137c-4d47-8b31-6358986eb6c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -576,7 +594,6 @@
     <ClCompile Include="CMainPanel.cpp">
       <Filter>GameObject\UI\Panel</Filter>
     </ClCompile>
-    <ClCompile Include="CPotionButton.cpp" />
     <ClCompile Include="CHpPotionItem.cpp">
       <Filter>GameObject\CItem\Potion\HP</Filter>
     </ClCompile>
@@ -649,7 +666,6 @@
     <ClCompile Include="CAndarielScript.cpp">
       <Filter>Component\Script\Contents\MonsterScript</Filter>
     </ClCompile>
-    <ClCompile Include="CAndarielSkil.cpp" />
     <ClCompile Include="CPlayerSkilCollider.cpp">
       <Filter>Component\Collider\2D\PlayerSkilCollider</Filter>
     </ClCompile>
@@ -687,14 +703,46 @@
     <ClCompile Include="CDiabloScript.cpp">
       <Filter>Component\Script\Contents\MonsterScript</Filter>
     </ClCompile>
-    <ClCompile Include="CDiabloSkilBreath.cpp" />
-    <ClCompile Include="CDiabloSkilFireStom.cpp" />
-    <ClCompile Include="CSkilTreePanel.cpp" />
-    <ClCompile Include="CSKiltreeButton.cpp" />
-    <ClCompile Include="CSkilSelectPanel.cpp" />
-    <ClCompile Include="CSkilSelectButton.cpp" />
-    <ClCompile Include="CCurSelectSkilButton.cpp" />
     <ClCompile Include="CFontHUD.cpp" />
+    <ClCompile Include="CAndarielSkil.cpp">
+      <Filter>Component\Collider\2D\MonsterSkilCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="CDiabloSkilBreath.cpp">
+      <Filter>Component\Collider\2D\MonsterSkilCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="CDiabloSkilFireStom.cpp">
+      <Filter>Component\Collider\2D\MonsterSkilCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="CCurSelectSkilButton.cpp">
+      <Filter>GameObject\UI\Button\skilButton</Filter>
+    </ClCompile>
+    <ClCompile Include="CPotionButton.cpp">
+      <Filter>GameObject\UI\Button\skilButton</Filter>
+    </ClCompile>
+    <ClCompile Include="CSkilSelectButton.cpp">
+      <Filter>GameObject\UI\Button\skilButton</Filter>
+    </ClCompile>
+    <ClCompile Include="CSKiltreeButton.cpp">
+      <Filter>GameObject\UI\Button\skilButton</Filter>
+    </ClCompile>
+    <ClCompile Include="CSkilSelectPanel.cpp">
+      <Filter>GameObject\UI\Panel\SkilPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="CSkilTreePanel.cpp">
+      <Filter>GameObject\UI\Panel\SkilPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="CFmodManager.cpp">
+      <Filter>Manager\SoundManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CAudioClip.cpp">
+      <Filter>Component\AudioClip</Filter>
+    </ClCompile>
+    <ClCompile Include="CAudioListner.cpp">
+      <Filter>Component\AudioListener</Filter>
+    </ClCompile>
+    <ClCompile Include="CAudioSource.cpp">
+      <Filter>Component\AudioSource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -970,7 +1018,6 @@
     <ClInclude Include="CMainPanel.h">
       <Filter>GameObject\UI\Panel</Filter>
     </ClInclude>
-    <ClInclude Include="CPotionButton.h" />
     <ClInclude Include="CHpPotionItem.h">
       <Filter>GameObject\CItem\Potion\HP</Filter>
     </ClInclude>
@@ -1037,7 +1084,6 @@
     <ClInclude Include="CAndarielScript.h">
       <Filter>Component\Script\Contents\MonsterScript</Filter>
     </ClInclude>
-    <ClInclude Include="CAndarielSkil.h" />
     <ClInclude Include="CPlayerSkilCollider.h">
       <Filter>Component\Collider\2D\PlayerSkilCollider</Filter>
     </ClInclude>
@@ -1075,14 +1121,46 @@
     <ClInclude Include="CDiabloScript.h">
       <Filter>Component\Script\Contents\MonsterScript</Filter>
     </ClInclude>
-    <ClInclude Include="CDiabloSkilBreath.h" />
-    <ClInclude Include="CDiabloSkilFireStom.h" />
-    <ClInclude Include="CSkilTreePanel.h" />
-    <ClInclude Include="CSKiltreeButton.h" />
-    <ClInclude Include="CSkilSelectPanel.h" />
-    <ClInclude Include="CSkilSelectButton.h" />
-    <ClInclude Include="CCurSelectSkilButton.h" />
     <ClInclude Include="CFontHUD.h" />
+    <ClInclude Include="CAndarielSkil.h">
+      <Filter>Component\Collider\2D\MonsterSkilCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="CDiabloSkilBreath.h">
+      <Filter>Component\Collider\2D\MonsterSkilCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="CDiabloSkilFireStom.h">
+      <Filter>Component\Collider\2D\MonsterSkilCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="CSKiltreeButton.h">
+      <Filter>GameObject\UI\Button\skilButton</Filter>
+    </ClInclude>
+    <ClInclude Include="CCurSelectSkilButton.h">
+      <Filter>GameObject\UI\Button\skilButton</Filter>
+    </ClInclude>
+    <ClInclude Include="CPotionButton.h">
+      <Filter>GameObject\UI\Button\skilButton</Filter>
+    </ClInclude>
+    <ClInclude Include="CSkilSelectButton.h">
+      <Filter>GameObject\UI\Button\skilButton</Filter>
+    </ClInclude>
+    <ClInclude Include="CSkilTreePanel.h">
+      <Filter>GameObject\UI\Panel\SkilPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="CSkilSelectPanel.h">
+      <Filter>GameObject\UI\Panel\SkilPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="CFmodManager.h">
+      <Filter>Manager\SoundManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CAudioClip.h">
+      <Filter>Component\AudioClip</Filter>
+    </ClInclude>
+    <ClInclude Include="CAudioListner.h">
+      <Filter>Component\AudioListener</Filter>
+    </ClInclude>
+    <ClInclude Include="CAudioSource.h">
+      <Filter>Component\AudioSource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Math.inl">

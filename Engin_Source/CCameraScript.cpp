@@ -50,13 +50,13 @@ void CameraScript::Update()
 	}
 	else if (Input::GetInstance()->GetkeyState(eKeyCode::Q) == eKeyState::PRESSED)
 	{
-		pos += speed * tr->Forward() * Time::GetInstance()->DeltaTime();
+		pos += speed * tr->Foward() * Time::GetInstance()->DeltaTime();
 		/*Camera* camera = GetOwner()->GetComponent<Camera>();
 		camera->SetScale(camera->GetScale() + (Time::GetInstance()->DeltaTime()));*/
 	}
 	else if (Input::GetInstance()->GetkeyState(eKeyCode::E) == eKeyState::PRESSED)
 	{
-		pos += speed * -tr->Forward() * Time::GetInstance()->DeltaTime();
+		pos += speed * -tr->Foward() * Time::GetInstance()->DeltaTime();
 
 		/*Camera* camera = GetOwner()->GetComponent<Camera>();
 		camera->SetScale(camera->GetScale() - (Time::GetInstance()->DeltaTime()));*/

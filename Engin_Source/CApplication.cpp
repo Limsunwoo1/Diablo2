@@ -10,6 +10,7 @@
 #include "CItemManager.h"
 #include "FileManager.h"
 #include "CObjectManager.h"
+#include "CFmodManager.h"
 
 using namespace graphics;
 
@@ -38,6 +39,7 @@ void CApplication::Initalize()
 	SceneManager::GetInstance()->Initalize();
 	UIManager::GetInstance()->Initialize();
 	ItemManager::GetInstance()->Initalize();
+	Fmod::GetInstance()->Initialize();
 
 	SceneManager::GetInstance()->LateInitalize();
 }
@@ -111,11 +113,13 @@ void CApplication::Release()
 	// 동적 오브젝트 메모리 해제
 	//ResourceManager::GetInstance()->Release();
 	SceneManager::GetInstance()->Rlease();
+	Fmod::GetInstance()->Release();
 	ItemManager::GetInstance()->Rlease();
 	ObjectManager::GetInstance()->Realse();
 	UIManager::GetInstance()->Rlease();
 
 	// 싱글톤 매니저 메모리 해제
+	Fmod::GetInstance()->DestroyInstance();
 	FileManager::GetInstance()->DestroyInstance();
 	ItemManager::GetInstance()->DestroyInstance();
 	UIManager::GetInstance()->DestroyInstance();
