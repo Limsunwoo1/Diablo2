@@ -251,6 +251,117 @@ void PlayScene::Initalize()
 			Transform* minoTr3 = mino3->GetComponent<Transform>();
 			minoTr3->SetPosition(Vector3(4562.f + 100.f, 8890.f - 50.f, 1.0f));
 		}
+
+		
+		{
+			SpearMonster* mino = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr = mino->GetComponent<Transform>();
+			minoTr->SetPosition(Vector3(3609.f, 9873.f, 1.0f));
+
+			SpearMonster* mino2 = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr2 = mino2->GetComponent<Transform>();
+			minoTr2->SetPosition(Vector3(3609.f + 75.f, 9873.f + 75.f, 1.0f));
+
+			SpearMonster* mino3 = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr3 = mino3->GetComponent<Transform>();
+			minoTr3->SetPosition(Vector3(3609.f - 75.f, 9873.f - 75.f, 1.0f));
+
+			SpearMonster* mino4 = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr4 = mino4->GetComponent<Transform>();
+			minoTr4->SetPosition(Vector3(3609.f + 75.f, 9873.f - 75.f, 1.0f));
+
+			SpearMonster* mino5 = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr5 = mino5->GetComponent<Transform>();
+			minoTr5->SetPosition(Vector3(3609.f - 75.f, 9873.f + 75.f, 1.0f));
+		}
+
+		{
+			SpearMonster* mino = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr = mino->GetComponent<Transform>();
+			minoTr->SetPosition(Vector3(4003.f, 10148.f, 1.0f));
+
+			SpearMonster* mino2 = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr2 = mino2->GetComponent<Transform>();
+			minoTr2->SetPosition(Vector3(4003.f + 75.f, 10148.f + 75.f, 1.0f));
+
+			SpearMonster* mino3 = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr3 = mino3->GetComponent<Transform>();
+			minoTr3->SetPosition(Vector3(4003.f - 75.f, 10148.f - 75.f, 1.0f));
+
+			SpearMonster* mino4 = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr4 = mino4->GetComponent<Transform>();
+			minoTr4->SetPosition(Vector3(4003.f + 75.f, 10148.f - 75.f, 1.0f));
+
+			SpearMonster* mino5 = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr5 = mino5->GetComponent<Transform>();
+			minoTr5->SetPosition(Vector3(4003.f - 75.f, 10148.f + 75.f, 1.0f));
+		}
+
+		{
+			SpearMonster* mino = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr = mino->GetComponent<Transform>();
+			minoTr->SetPosition(Vector3(5228.f, 10068.f, 1.0f));
+
+			SpearMonster* mino2 = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr2 = mino2->GetComponent<Transform>();
+			minoTr2->SetPosition(Vector3(5228.f + 75.f, 10068.f + 75.f, 1.0f));
+
+			SpearMonster* mino3 = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr3 = mino3->GetComponent<Transform>();
+			minoTr3->SetPosition(Vector3(5228.f - 75.f, 10068.f - 75.f, 1.0f));
+
+			SpearMonster* mino4 = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr4 = mino4->GetComponent<Transform>();
+			minoTr4->SetPosition(Vector3(5228.f + 75.f, 10068.f - 75.f, 1.0f));
+
+			SpearMonster* mino5 = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr5 = mino5->GetComponent<Transform>();
+			minoTr5->SetPosition(Vector3(5228.f - 75.f, 10068.f + 75.f, 1.0f));
+		}
+
+		{
+			SpearMonster* mino = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr = mino->GetComponent<Transform>();
+			minoTr->SetPosition(Vector3(4000.f, 1523.f, 1.0f));
+
+			SpearMonster* mino2 = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr2 = mino2->GetComponent<Transform>();
+			minoTr2->SetPosition(Vector3(4000.f + 75.f, 1523.f + 75.f, 1.0f));
+
+			SpearMonster* mino3 = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr3 = mino3->GetComponent<Transform>();
+			minoTr3->SetPosition(Vector3(4000.f - 75.f, 1523.f - 75.f, 1.0f));
+
+			SpearMonster* mino4 = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr4 = mino4->GetComponent<Transform>();
+			minoTr4->SetPosition(Vector3(4000.f + 75.f, 1523.f - 75.f, 1.0f));
+
+			SpearMonster* mino5 = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr5 = mino5->GetComponent<Transform>();
+			minoTr5->SetPosition(Vector3(4000.f - 75.f, 1523.f + 75.f, 1.0f));
+		}
+
+		{
+			SpearMonster* mino = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr = mino->GetComponent<Transform>();
+			minoTr->SetPosition(Vector3(4091.f, 10550.f, 1.0f));
+
+			SpearMonster* mino2 = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr2 = mino2->GetComponent<Transform>();
+			minoTr2->SetPosition(Vector3(4091.f + 75.f, 10550.f + 75.f, 1.0f));
+
+			SpearMonster* mino3 = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr3 = mino3->GetComponent<Transform>();
+			minoTr3->SetPosition(Vector3(4091.f - 75.f, 10550.f - 75.f, 1.0f));
+
+			SpearMonster* mino4 = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr4 = mino4->GetComponent<Transform>();
+			minoTr4->SetPosition(Vector3(4091.f + 75.f, 10550.f - 75.f, 1.0f));
+
+			SpearMonster* mino5 = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr5 = mino5->GetComponent<Transform>();
+			minoTr5->SetPosition(Vector3(4091.f - 75.f, 10550.f + 75.f, 1.0f));
+		}
 	}
 	
 	Scene::Initalize();

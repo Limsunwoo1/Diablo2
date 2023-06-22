@@ -167,6 +167,118 @@ void PlayScene2::Initalize()
 		minoTr4->SetPosition(Vector3(4622, 10514.f, 1.0f));
 	}
 
+	{
+		MinosTauros* mino = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr = mino->GetComponent<Transform>();
+		minoTr->SetPosition(Vector3(6477.f, 8292.f, 1.0f));
+
+		MinosTauros* mino2 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr2 = mino2->GetComponent<Transform>();
+		minoTr2->SetPosition(Vector3(6477.f + 100.f, 8292.f + 100.f, 1.0f));
+
+		MinosTauros* mino3 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr3 = mino3->GetComponent<Transform>();
+		minoTr3->SetPosition(Vector3(6477.f - 100.f, 8292.f - 100.f, 1.0f));
+
+		MinosTauros* mino4 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr4 = mino4->GetComponent<Transform>();
+		minoTr4->SetPosition(Vector3(6477.f + 100.f, 8292.f - 100.f, 1.0f));
+
+		MinosTauros* mino5 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr5 = mino5->GetComponent<Transform>();
+		minoTr5->SetPosition(Vector3(6477.f - 100.f, 8292.f + 100.f, 1.0f));
+	}
+
+	{
+		MinosTauros* mino = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr = mino->GetComponent<Transform>();
+		minoTr->SetPosition(Vector3(7155.f, 8939.f, 1.0f));
+
+		MinosTauros* mino2 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr2 = mino2->GetComponent<Transform>();
+		minoTr2->SetPosition(Vector3(7155.f + 100.f, 8939.f + 100.f, 1.0f));
+
+		MinosTauros* mino3 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr3 = mino3->GetComponent<Transform>();
+		minoTr3->SetPosition(Vector3(7155.f - 100.f, 8939.f - 100.f, 1.0f));
+
+		MinosTauros* mino4 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr4 = mino4->GetComponent<Transform>();
+		minoTr4->SetPosition(Vector3(7155.f + 100.f, 8939.f - 100.f, 1.0f));
+
+		MinosTauros* mino5 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr5 = mino5->GetComponent<Transform>();
+		minoTr5->SetPosition(Vector3(7155.f - 100.f, 8939.f + 100.f, 1.0f));
+	}
+
+	{
+		MinosTauros* mino = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr = mino->GetComponent<Transform>();
+		minoTr->SetPosition(Vector3(6532.f, 9253.f, 1.0f));
+
+		MinosTauros* mino2 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr2 = mino2->GetComponent<Transform>();
+		minoTr2->SetPosition(Vector3(6532.f + 100.f, 9253.f + 100.f, 1.0f));
+
+		MinosTauros* mino3 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr3 = mino3->GetComponent<Transform>();
+		minoTr3->SetPosition(Vector3(6532.f - 100.f, 9253.f - 100.f, 1.0f));
+
+		MinosTauros* mino4 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr4 = mino4->GetComponent<Transform>();
+		minoTr4->SetPosition(Vector3(6532.f + 100.f, 9253.f - 100.f, 1.0f));
+
+		MinosTauros* mino5 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr5 = mino5->GetComponent<Transform>();
+		minoTr5->SetPosition(Vector3(6532.f - 100.f, 9253.f + 100.f, 1.0f));
+	}
+
+	{
+		MinosTauros* mino = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr = mino->GetComponent<Transform>();
+		minoTr->SetPosition(Vector3(5372.f, 9592.f, 1.0f));
+
+		MinosTauros* mino2 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr2 = mino2->GetComponent<Transform>();
+		minoTr2->SetPosition(Vector3(5372.f + 100.f, 9592.f + 100.f, 1.0f));
+
+		MinosTauros* mino3 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr3 = mino3->GetComponent<Transform>();
+		minoTr3->SetPosition(Vector3(5372.f - 100.f, 9592.f - 100.f, 1.0f));
+
+		MinosTauros* mino4 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr4 = mino4->GetComponent<Transform>();
+		minoTr4->SetPosition(Vector3(5372.f + 100.f, 9592.f - 100.f, 1.0f));
+
+		MinosTauros* mino5 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr5 = mino5->GetComponent<Transform>();
+		minoTr5->SetPosition(Vector3(5372.f - 100.f, 9592.f + 100.f, 1.0f));
+	}
+
+	{
+		MinosTauros* mino = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr = mino->GetComponent<Transform>();
+		minoTr->SetPosition(Vector3(3669.f, 9997.f, 1.0f));
+
+		MinosTauros* mino2 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr2 = mino2->GetComponent<Transform>();
+		minoTr2->SetPosition(Vector3(3669.f + 100.f, 9997.f + 100.f, 1.0f));
+
+		MinosTauros* mino3 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr3 = mino3->GetComponent<Transform>();
+		minoTr3->SetPosition(Vector3(3669.f - 100.f, 9997.f - 100.f, 1.0f));
+
+		MinosTauros* mino4 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr4 = mino4->GetComponent<Transform>();
+		minoTr4->SetPosition(Vector3(3669.f + 100.f, 9997.f - 100.f, 1.0f));
+
+		MinosTauros* mino5 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
+		Transform* minoTr5 = mino5->GetComponent<Transform>();
+		minoTr5->SetPosition(Vector3(3669.f - 100.f, 9997.f + 100.f, 1.0f));
+	}
+
+
+
 	Scene::Initalize();
 }
 
