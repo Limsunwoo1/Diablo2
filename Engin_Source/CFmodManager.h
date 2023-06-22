@@ -12,7 +12,7 @@
 #pragma comment(lib, "..\\External\\Fmod\\Library\\Debug\\fmodL_vc.lib")
 #pragma comment(lib, "..\\External\\Fmod\\Library\\Debug\\fmodstudioL_vc.lib")
 #else
-#pragma comment(lib, "..\\External\\Fmod\\Library\\Debug\\fmod_vc.lib")
+#pragma comment(lib, "..\\External\\Fmod\\Library\\Release\\fmod_vc.lib")
 #pragma comment(lib, "..\\External\\Fmod\\Library\\Release\\fmodstudio_vc.lib")
 #endif
 
