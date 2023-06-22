@@ -129,6 +129,14 @@
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PreBuildEvent>
+      <Command>copy "$(SolutionDir)fmodL.dll" "$(SolutionDir)\x64\Debug\"
+copy "$(SolutionDir)fmodstudioL.dll" "$(SolutionDir)\x64\Debug\"
+copy "$(SolutionDir)FW1FontWrapperL.dll" "$(SolutionDir)\x64\Debug\"
+copy "$(SolutionDir)fmod.dl" "$(SolutionDir)\x64\Release\"
+copy "$(SolutionDir)FW1FontWrapper.dll" "$(SolutionDir)\x64\Release\"
+copy "$(SolutionDir)fmodstudio.dll" "$(SolutionDir)\x64\Release\"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -151,6 +159,14 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PreBuildEvent>
+      <Command>copy "$(SolutionDir)fmodL.dll" "$(SolutionDir)\x64\Debug\"
+copy "$(SolutionDir)fmodstudioL.dll" "$(SolutionDir)\x64\Debug\"
+copy "$(SolutionDir)FW1FontWrapperL.dll" "$(SolutionDir)\x64\Debug\"
+copy "$(SolutionDir)fmod.dl" "$(SolutionDir)\x64\Release\"
+copy "$(SolutionDir)FW1FontWrapper.dll" "$(SolutionDir)\x64\Release\"
+copy "$(SolutionDir)fmodstudio.dll" "$(SolutionDir)\x64\Release\"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CAndarielSkil.h" />
