@@ -89,12 +89,19 @@ void FrozenBolt::Update()
 		{
 			if (obj == nullptr)
 				continue;
+			Monster* monster = dynamic_cast<Monster*>(obj);
+			if (monster == nullptr)
+				continue;
+
+			if (monster->GetMonsterState() == Monster::MonsterState::Dead)
+				continue;
 
 			bool collistion = false;
 			collistion = CollisionManager::GetInstance()->AABBRect_VS_Rect(col, obj->GetComponent<Collider2D>());
 
 			if (collistion)
 			{
+				monster->GetHit();
 				HitSkil(obj);
 				break;
 			}

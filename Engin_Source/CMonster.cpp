@@ -56,6 +56,7 @@ Monster::Monster()
 	, AttackSize(Vector2(200.f,200.f))
 {
 	mDirection[mIndex] = 1;
+	AddComponent<AudioSource>();
 
 	srand(time(NULL));
 }

@@ -333,6 +333,11 @@ void LightBolt::LinghtingRun()
 	param.CompleteFunc = [this](float InCurValue)
 	{
 		std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"Lighting", L"SoundResource\\thunderbolt.wav");
+		Monster* monster = dynamic_cast<Monster*>(mCurObject);
+		if (monster != nullptr)
+		{
+			monster->GetHit();
+		}
 
 		ShockHit* shock = Object::Instantiate<ShockHit>(eLayerType::Effect, true);
 		shock->SetTarget(mCurObject);

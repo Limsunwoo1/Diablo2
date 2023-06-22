@@ -103,6 +103,7 @@ void FireBolt::Update()
 
 			if (collistion)
 			{
+				monster->GetHit();
 				HitSkil(obj);
 				break;
 			}

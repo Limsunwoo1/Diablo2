@@ -65,7 +65,9 @@ public:
 	void CheckPointCollision();
 
 	virtual void Attack();
+	virtual void GetHit(){};
 	virtual void DropItem();
+
 
 protected:
 	virtual void idle()			{};

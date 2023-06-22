@@ -208,7 +208,7 @@ void Player::InitAnimation()
 			wstring name = L"Attack";
 			name += std::to_wstring(i);
 
-			animator->Create(name, tex, Vector2(0.0f, y * i), Vector2(x, y), Vector2(0.0f, 0.0f), 20, 0.03f);
+			animator->Create(name, tex, Vector2(0.0f, y * i), Vector2(x, y), Vector2(0.0f, 0.0f), 20, 0.02f);
 
 		}
 		// 124.95  78.8125
@@ -388,6 +388,12 @@ void Player::Attack()
 	if (name.find(L"Attack") == wstring::npos)
 	{
 		animator->Play(playName, false);
+
+		AudioSource* audio = GetComponent<AudioSource>();
+		std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"playerAttackSound", L"SoundResource\\attack.wav");
+		audio->SetClip(clip);
+		audio->SetLoop(false);
+		audio->Play(0.03f);
 	}
 	else
 	{

@@ -81,6 +81,7 @@ void FrozenMissile::Update()
 
 			if (collistion)
 			{
+				monster->GetHit();
 				HitSkil(obj);
 				break;
 			}

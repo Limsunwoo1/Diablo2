@@ -209,7 +209,7 @@ void FrozenOrb::OnOrb()
 		animator->Stop();
 
 
-	GetComponent<AudioSource>()->Play();
+	GetComponent<AudioSource>()->Play(0.3f);
 
 	AnimatorParam param;
 	param.AnimType = eAnimType::Linear;

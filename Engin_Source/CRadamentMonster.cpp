@@ -5,6 +5,8 @@
 #include "CAStar.h"
 #include "CWorldManager.h"
 #include "CMinoMonsterScript.h"
+#include "CAudioSource.h"
+#include "CAudioClip.h"
 
 
 RadamentMonster::RadamentMonster()
@@ -143,6 +145,26 @@ void RadamentMonster::InitAnimation()
 	animator->Play(L"RadamentIdle4");
 }
 
+void RadamentMonster::Attack()
+{
+	Monster::Attack();
+
+	AudioSource* audio = GetComponent<AudioSource>();
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"RadmentAttack", L"SoundResource\\Monster\\RadmentAttack.wav");
+	audio->SetClip(clip);
+
+	audio->Play(0.15f);
+}
+
+void RadamentMonster::GetHit()
+{
+	AudioSource* audio = GetComponent<AudioSource>();
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"RadmentHit", L"SoundResource\\Monster\\RadmentGetHit.wav");
+	audio->SetClip(clip);
+
+	audio->Play(0.7f);
+}
+
 void RadamentMonster::idle()
 {
 
@@ -241,6 +263,11 @@ void RadamentMonster::monsterDead()
 	if (playName == name)
 		return;
 
+	AudioSource* audio = GetComponent<AudioSource>();
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"RadmentDeath", L"SoundResource\\Monster\\RadmentDeath.wav");
+	audio->SetClip(clip);
+
+	audio->Play(0.15f);
 	animator->Play(playName, false);
 }
 

@@ -64,6 +64,7 @@ void AndarielMonster::Initalize()
 	mOverlay = new GameObject();
 	Animator* overlayAnimator = mOverlay->AddComponent<Animator>();
 	mOverlay->Paused();
+	mOverlay->AddComponent<AudioSource>();
 
 
 	{
@@ -457,6 +458,13 @@ void AndarielMonster::attack()
 
 			mOverlay->GetComponent<Animator>()->Play(cast, false);
 
+			AudioSource* sound = mOverlay->GetComponent<AudioSource>();
+			std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"AndarielSkilOver", L"SoundResource\\Monster\\castlarge.wav");
+			sound->SetClip(clip);
+			sound->SetLoop(false);
+			sound->Play();
+
+
 			AndarielSkil* skil = Object::Instantiate<AndarielSkil>(eLayerType::MonsterSkil, true);
 			Transform* skilTr = skil->GetComponent<Transform>();
 
@@ -502,6 +510,8 @@ void AndarielMonster::monsterDead()
 	if (name.find(L"Death") != wstring::npos)
 		return;
 
+
+
 	// overlayInit
 	Transform* Tr = GetComponent<Transform>();
 	Vector3 Pos = Tr->GetPosition();
@@ -517,6 +527,19 @@ void AndarielMonster::monsterDead()
 
 	mOverlay->GetComponent<Animator>()->Play(cast, false);
 	animator->Play(playName, false);
+
+	AudioSource* audio = GetComponent<AudioSource>();
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"AndarielDeathSound", L"SoundResource\\Monster\\AndarielDeath.wav");
+	audio->SetClip(clip);
+
+	audio->Play(0.1f);
+
+
+	AudioSource* overAudio = GetComponent<AudioSource>();
+	std::weak_ptr<AudioClip> overclip = ResourceManager::GetInstance()->Load<AudioClip>(L"AndarielOverDeathSound", L"SoundResource\\Monster\\AndarielDeathOverlay.wav");
+	overAudio->SetClip(overclip);
+
+	overAudio->Play(0.1f);
 }
 
 void AndarielMonster::hitFire()
@@ -532,3 +555,22 @@ void AndarielMonster::hitLight()
 {
 }
 
+void AndarielMonster::Attack()
+{
+	Monster::Attack();
+	AudioSource* audio = GetComponent<AudioSource>();
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>
+		(L"AndarielAttackSound", L"SoundResource\\Monster\\AndarielAttack.wav");
+	audio->SetClip(clip);
+
+	audio->Play(0.1f);
+}
+
+void AndarielMonster::GetHit()
+{
+	AudioSource* audio = GetComponent<AudioSource>();
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"AndarielHitSound", L"SoundResource\\Monster\\AndarielGetHit.wav");
+	audio->SetClip(clip);
+
+	audio->Play(0.1f);
+}

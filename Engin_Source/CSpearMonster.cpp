@@ -159,6 +159,26 @@ void SpearMonster::InitAnimation()
 	animator->Play(L"SpearIdle4");
 }
 
+void SpearMonster::Attack()
+{
+	Monster::Attack();
+
+	AudioSource* audio = GetComponent<AudioSource>();
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"SpaerAttack", L"SoundResource\\Monster\\SpearAttack.wav");
+	audio->SetClip(clip);
+
+	audio->Play(0.15f);
+}
+
+void SpearMonster::GetHit()
+{
+	AudioSource* audio = GetComponent<AudioSource>();
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"SpaerGetHit", L"SoundResource\\Monster\\SpearGetHit.wav");
+	audio->SetClip(clip);
+
+	audio->Play(0.15f);
+}
+
 void SpearMonster::idle()
 {
 
@@ -256,6 +276,11 @@ void SpearMonster::monsterDead()
 	if (playName == name)
 		return;
 
+	AudioSource* audio = GetComponent<AudioSource>();
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"SpaerDeath", L"SoundResource\\Monster\\SpearGetDeath.wav");
+	audio->SetClip(clip);
+
+	audio->Play(0.7f);
 	animator->Play(playName, false);
 }
 
