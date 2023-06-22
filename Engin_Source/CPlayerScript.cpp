@@ -977,10 +977,10 @@ void PlayerScript::skil2()
 	if (player == nullptr)
 		return;
 
-	Transform* tr = player->GetComponent<Transform>();
-	Vector3 pos = tr->GetPosition();
-
 	float playerMp = player->GetMP();
+	Transform* ptr = player->GetComponent<Transform>();
+	Vector3 pos = ptr->GetPosition();
+
 	player->SetState(Player::PlayerState::Skil);
 	Vector2 PlayerPos = Vector2(pos.x, pos.y);
 	Vector2 MousePos = Input::GetInstance()->GetMouseWorldPos(true);
@@ -1033,7 +1033,6 @@ void PlayerScript::skil2()
 
 		player->SetMP(playerMp);
 
-		Player* player = dynamic_cast<Player*>(GetOwner());
 		if (player)
 			teleport->SetOwner(player);
 
@@ -1043,7 +1042,38 @@ void PlayerScript::skil2()
 
 		SetPlayerDirection();
 		ResetAStar();
+
+		return;
 	}
+
+	TileObject* PickTile = ObjectManager::GetInstance()->GetTile(Idx.first, Idx.second);
+	TileObject* ArriveTile = ObjectManager::GetInstance()->GetTile(PosIdx.first, PosIdx.second);
+
+	if (PickTile == nullptr || ArriveTile == nullptr)
+		return;
+
+	Transform* PickTr = PickTile->GetComponent<Transform>();
+	Transform* AriveTr = ArriveTile->GetComponent<Transform>();
+
+	Vector3 PickPos = PickTr->GetPosition();
+	Vector3 ArrivePos = AriveTr->GetPosition();
+
+	Vector3 diffPos = ArrivePos - PickPos;
+
+	MousePos -= Vector2(diffPos.x, diffPos.y);
+	//PlayerPos += MousePos;
+
+	TelePort* teleport = Object::Instantiate<TelePort>(eLayerType::Effect, true);
+
+	if (player)
+		teleport->SetOwner(player);
+
+	//pos = Vector3(PlayerPos.x, PlayerPos.y, pos.z);
+	Vector3 MovePos = Vector3(MousePos.x, MousePos.y, 1.0f);
+	teleport->SetMovePos(MovePos);
+
+	SetPlayerDirection();
+	ResetAStar();
 }
 
 void PlayerScript::skil3()

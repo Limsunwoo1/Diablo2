@@ -24,8 +24,8 @@ void MinosTauros::Initalize()
 	minoTr->SetSize(Vector3(450.f, 450.f, 1.0f));
 
 	// hp
-	SetMaxHp(150.f);
-	SetHP(150.f);
+	SetMaxHp(75.f);
+	SetHP(75.f);
 
 	//SetMonsterStatusEffect(MonsterStatusEffect::HitFrozen);
 	

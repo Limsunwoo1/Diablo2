@@ -26,8 +26,8 @@ void MephistoMonster::Initalize()
 	minoTr->SetSize(Vector3(350.f, 350.f, 1.0f));
 
 	// hp
-	SetMaxHp(120.f);
-	SetHP(120.f);
+	SetMaxHp(90.f);
+	SetHP(90.f);
 
 	//SetMonsterStatusEffect(MonsterStatusEffect::HitFrozen);
 

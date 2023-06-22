@@ -17,8 +17,8 @@ AndarielMonster::AndarielMonster()
 	, mSkilCoolTime(8.0f)
 	, mSkilCurTime(0.0f)
 {
-	SetMaxHp(700.f);
-	SetHP(50.f);
+	SetMaxHp(110.f);
+	SetHP(110.f);
 	SetDamege(40.f);
 }
 

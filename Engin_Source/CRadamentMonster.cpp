@@ -26,8 +26,8 @@ void RadamentMonster::Initalize()
 	minoTr->SetSize(Vector3(350.f, 350.f, 1.0f));
 
 	// hp
-	SetMaxHp(100.f);
-	SetHP(100.f);
+	SetMaxHp(65.f);
+	SetHP(65.f);
 
 	//SetMonsterStatusEffect(MonsterStatusEffect::HitFrozen);
 

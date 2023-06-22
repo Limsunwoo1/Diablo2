@@ -10,6 +10,7 @@ MinoMonsterScript::MinoMonsterScript()
 	, mCurPos(Vector2(-1.f, -1.f))
 {
 	mMaxTime = 0.1f;
+	
 }
 
 MinoMonsterScript::~MinoMonsterScript()
@@ -18,6 +19,7 @@ MinoMonsterScript::~MinoMonsterScript()
 
 void MinoMonsterScript::Initalize()
 {
+
 }
 
 void MinoMonsterScript::Update()

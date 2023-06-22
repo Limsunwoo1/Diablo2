@@ -39,8 +39,8 @@ void DiabloMonster::Initalize()
 	minoTr->SetSize(Vector3(500.f, 500.f, 1.0f));
 
 	// hp
-	SetMaxHp(700.f);
-	SetHP(700.f);
+	SetMaxHp(500.f);
+	SetHP(500.f);
 	SetDamege(55.f);
 
 	//SetMonsterStatusEffect(eElementType::HitFrozen);

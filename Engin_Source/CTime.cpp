@@ -53,7 +53,7 @@ void Time::Update()
 
 void Time::Render(HDC hdc)
 {
-	Math::Vector2 pos = Input::GetInstance()->GetMouseWorldPos(false);
+	Math::Vector2 pos = Input::GetInstance()->GetMouseWorldPos(true);
 
 	if (_Editor.GetActive())
 	{

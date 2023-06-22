@@ -9,7 +9,7 @@ BoltBase::BoltBase()
 	, mSpeed(600.f)
 	, mbRun(false)
 {
-	SetDamege(10.f);
+	SetDamege(20.f);
 }
 
 BoltBase::~BoltBase()

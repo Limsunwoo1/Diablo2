@@ -236,6 +236,21 @@ void PlayScene::Initalize()
 		RadamentMonster* mino5 = Object::Instantiate<RadamentMonster>(eLayerType::Monster, this);
 		Transform* minoTr5 = mino5->GetComponent<Transform>();
 		minoTr5->SetPosition(Vector3(4072.f, 9045.f, 1.0f));
+
+
+		{
+			SpearMonster* mino = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr = mino->GetComponent<Transform>();
+			minoTr->SetPosition(Vector3(4152.f + 100.f, 8916.f - 50.f, 1.0f));
+
+			SpearMonster* mino2 = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr2 = mino2->GetComponent<Transform>();
+			minoTr2->SetPosition(Vector3(4392.f - 100.f, 8929.f - 100.f, 1.0f));
+
+			SpearMonster* mino3 = Object::Instantiate<SpearMonster>(eLayerType::Monster, this);
+			Transform* minoTr3 = mino3->GetComponent<Transform>();
+			minoTr3->SetPosition(Vector3(4562.f + 100.f, 8890.f - 50.f, 1.0f));
+		}
 	}
 	
 	Scene::Initalize();
