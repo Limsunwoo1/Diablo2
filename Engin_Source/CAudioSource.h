@@ -18,6 +18,7 @@ public:
 	void SetLoop(bool loop);
 
 	void SetClip(std::weak_ptr<AudioClip> clip) { mAudioClip = clip; }
+	void Clear();
 	std::weak_ptr<AudioClip> GetClip() { return mAudioClip; }
 
 private:

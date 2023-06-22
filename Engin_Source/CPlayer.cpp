@@ -13,6 +13,8 @@
 #include "CTime.h"
 #include "CUIManager.h"
 #include "CSkilTreePanel.h"
+#include "CAudioSource.h"
+#include "CAudioClip.h"
 
 using namespace graphics;
 
@@ -66,6 +68,9 @@ void Player::Initalize()
 
 	mr->SetMesh(mesh);
 	mr->SetMaterial(material);
+
+
+	AudioSource* Audio = AddComponent<AudioSource>();
 
 }
 
@@ -261,6 +266,15 @@ void Player::ChangeRunMode()
 {
 	bool mode = mbRunMode == true ? false : true;
 	mbRunMode = mode;
+
+	if (mode)
+	{
+
+	}
+	else
+	{
+		GetComponent<AudioSource>()->Stop();
+	}
 
 	SetRunSpeed(mbRunMode);
 }

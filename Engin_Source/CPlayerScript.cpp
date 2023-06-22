@@ -12,6 +12,7 @@
 #include "CLightBolt.h"
 #include "CFrozenArmer.h"
 #include "CSkilSelectPanel.h"
+#include "CAudioClip.h"
 
 // Component
 #include "CSpriteRenderer.h"
@@ -21,6 +22,7 @@
 #include "CRenderer.h"
 #include "CCamera.h"
 #include "CPanel.h"
+#include "CAudioSource.h"
 
 // Manager
 #include "CInput.h"
@@ -588,6 +590,19 @@ void PlayerScript::FixedUpdate()
 
 			Vector3 driection = Vector3(mArrivePos.x, mArrivePos.y, 1.0f);
 			SetPlayerDirection(driection);
+
+			if (player->GetRunMode())
+			{
+				std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>
+					(L"FootStep", L"Sound\\1\\ambient\\footstep\\flesh3.wav");
+
+				if (player->GetComponent<AudioSource>()->GetClip().lock() != clip.lock())
+				{
+					player->GetComponent<AudioSource>()->SetClip(clip);
+					player->GetComponent<AudioSource>()->SetLoop(true);
+					player->GetComponent<AudioSource>()->Play();
+				}
+			}
 		}
 	}
 
@@ -607,6 +622,9 @@ void PlayerScript::FixedUpdate()
 			astar->PopNode();
 
 			player->SetState(Player::PlayerState::Idle);
+
+			player->GetComponent<AudioSource>()->Stop();
+			player->GetComponent<AudioSource>()->Clear();
 			return;
 		}
 

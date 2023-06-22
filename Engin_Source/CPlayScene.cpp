@@ -18,6 +18,7 @@
 #include "CTriggerObject.h"
 #include "CItemManager.h"
 #include "CDiabloMonster.h"
+#include "CAudioListner.h"
 
 // Static
 #include "CObject.h"
@@ -96,6 +97,8 @@ void PlayScene::Initalize()
 		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
 		Renderer::mainCamera = cameraComp;
 		mMainCamera = cameraComp;
+
+		cameraObj->AddComponent<AudioListener>();
 	}
 	// Ui Camera
 	{

@@ -129,6 +129,7 @@ void CApplication::Release()
 	ObjectManager::GetInstance()->DestroyInstance();
 	Input::GetInstance()->DestroyInstance();
 	Time::GetInstance()->DestroyInstance();
+
 	ResourceManager::GetInstance()->DestroyInstance();
 
 	Fmod::GetInstance()->Release();

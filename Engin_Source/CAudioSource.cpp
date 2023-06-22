@@ -26,6 +26,10 @@ void AudioSource::Update()
 
 void AudioSource::FixedUpdate()
 {
+	if (mAudioClip.lock() == nullptr)
+		return;
+
+
 	Transform* tr = GetOwner()->GetComponent<Transform>();
 	Vector3 pos = tr->GetPosition();
 	Vector3 foward = tr->Foward();
@@ -39,13 +43,21 @@ void AudioSource::Render()
 
 void AudioSource::Play()
 {
-	mAudioClip.lock()->Play();
+	if (mAudioClip.lock() != nullptr)
+		mAudioClip.lock()->Play();
 }
 void AudioSource::Stop()
 {
-	mAudioClip.lock()->Stop();
+	if(mAudioClip.lock() != nullptr)
+		mAudioClip.lock()->Stop();
 }
 void AudioSource::SetLoop(bool loop)
 {
-	mAudioClip.lock()->SetLoop(loop);
+	if (mAudioClip.lock() != nullptr)
+		mAudioClip.lock()->SetLoop(loop);
+}
+
+void AudioSource::Clear()
+{
+	mAudioClip = {};
 }
