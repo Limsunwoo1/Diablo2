@@ -11,6 +11,7 @@
 #include "CFrozenBolt.h"
 #include "CLightBolt.h"
 #include "CFrozenArmer.h"
+#include "CSkilSelectPanel.h"
 
 // Component
 #include "CSpriteRenderer.h"
@@ -110,15 +111,14 @@ void PlayerScript::FixedUpdate()
 			panel->UnActive();
 		}
 	}
-
-	if (Input::GetInstance()->GetKeyDown(eKeyCode::K))
+	else if (Input::GetInstance()->GetKeyDown(eKeyCode::K))
 	{
 		Panel* inventory = UIManager::GetInstance()->GetUiInstance<Panel>(L"mainInventory");
 		UiBase* skiltree = UIManager::GetInstance()->GetUiInstance<UiBase>(L"SkilTree");
 		UiBase* panel = UIManager::GetInstance()->GetUiInstance<UiBase>(L"SkilSelect");
 
 		bool able = skiltree->GetIsAble();
-		
+
 		if (!able)
 		{
 			skiltree->OnActive();
@@ -130,6 +130,33 @@ void PlayerScript::FixedUpdate()
 		{
 			skiltree->UnActive();
 		}
+	}
+	else if (Input::GetInstance()->GetKeyDown(eKeyCode::SPACE))
+	{
+		SkilSelectPanel* panel = nullptr;
+		panel = UIManager::GetInstance()->GetUiInstance<SkilSelectPanel>(L"SkilSelect");
+		if (panel == nullptr)
+			return;
+
+		if (panel->GetCurButton() == nullptr)
+			return;
+		eSkilList type = panel->GetCurButton()->GetSkilType();
+
+		switch (type)
+		{
+		case eSkilList::FireBolt:		skil4(); break;
+		case eSkilList::FrozenBolt:		skil5(); break;
+		case eSkilList::LightBolt:		skil2(); break;
+		case eSkilList::TelePort:		skil6(); break;
+		case eSkilList::FrozenOrb:		skil1(); break;
+		case eSkilList::FrozenArmer:	skil7(); break;
+		case eSkilList::Meteor:			skil3(); break;
+		default:
+			break;
+		}
+
+
+		return;
 	}
 
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::A))
@@ -150,7 +177,7 @@ void PlayerScript::FixedUpdate()
 			|| player->GetState() == Player::PlayerState::Move)
 		{
 
-			FrozenOrb* orb = Object::Instantiate<FrozenOrb>(eLayerType::PlayerSKil, true);
+			/*FrozenOrb* orb = Object::Instantiate<FrozenOrb>(eLayerType::PlayerSKil, true);
 			orb->SetOwner(player);
 
 			playerMp -= orb->GetCost();
@@ -176,7 +203,8 @@ void PlayerScript::FixedUpdate()
 			tr->SetPosition(OwnerPos);
 
 			SetPlayerDirection();
-			ResetAStar();
+			ResetAStar();*/
+			skil1();
 			return;
 		}
 	}
@@ -186,101 +214,102 @@ void PlayerScript::FixedUpdate()
 			|| player->GetState() == Player::PlayerState::Move)
 		{
 
-			player->SetState(Player::PlayerState::Skil);
-			Vector2 PlayerPos = Vector2(pos.x,pos.y);
-			Vector2 MousePos = Input::GetInstance()->GetMouseWorldPos(true);
+			//player->SetState(Player::PlayerState::Skil);
+			//Vector2 PlayerPos = Vector2(pos.x,pos.y);
+			//Vector2 MousePos = Input::GetInstance()->GetMouseWorldPos(true);
 
-			// std::pair<int,int> 형 auto
-			auto Idx = Input::GetInstance()->GetIsoMetricIDX(MousePos);
-			auto PosIdx = Input::GetInstance()->GetIsoMetricIDX(PlayerPos);
+			//// std::pair<int,int> 형 auto
+			//auto Idx = Input::GetInstance()->GetIsoMetricIDX(MousePos);
+			//auto PosIdx = Input::GetInstance()->GetIsoMetricIDX(PlayerPos);
 
-			int X = Idx.first - PosIdx.first;
-			int Y = Idx.second - PosIdx.second;
+			//int X = Idx.first - PosIdx.first;
+			//int Y = Idx.second - PosIdx.second;
 
-			if (X >= 2)
-			{
-				Idx.first -= X;
-			}
-			if (Y >= 2)
-			{
-				Idx.second -= Y;
-			}
+			//if (X >= 2)
+			//{
+			//	Idx.first -= X;
+			//}
+			//if (Y >= 2)
+			//{
+			//	Idx.second -= Y;
+			//}
 
-			if (X < 2 && Y < 2)
-			{
-				TileObject* tile = ObjectManager::GetInstance()->GetTile(Idx.first,Idx.second);
-				if (tile == nullptr)
-					return;
+			//if (X < 2 && Y < 2)
+			//{
+			//	TileObject* tile = ObjectManager::GetInstance()->GetTile(Idx.first,Idx.second);
+			//	if (tile == nullptr)
+			//		return;
 
-				int num = -1;
+			//	int num = -1;
 
-				if		(tile->PickTile(MousePos, eTilePickType::Tile0)) {num = (UINT)eTilePickType::Tile0;}
-				else if (tile->PickTile(MousePos, eTilePickType::Tile1)) { num = (UINT)eTilePickType::Tile1; }
-				else if (tile->PickTile(MousePos, eTilePickType::Tile2)) { num = (UINT)eTilePickType::Tile2; }
-				else if (tile->PickTile(MousePos, eTilePickType::Tile3)) { num = (UINT)eTilePickType::Tile3; }
+			//	if		(tile->PickTile(MousePos, eTilePickType::Tile0)) {num = (UINT)eTilePickType::Tile0;}
+			//	else if (tile->PickTile(MousePos, eTilePickType::Tile1)) { num = (UINT)eTilePickType::Tile1; }
+			//	else if (tile->PickTile(MousePos, eTilePickType::Tile2)) { num = (UINT)eTilePickType::Tile2; }
+			//	else if (tile->PickTile(MousePos, eTilePickType::Tile3)) { num = (UINT)eTilePickType::Tile3; }
 
-				if (num < 0)
-					return;
+			//	if (num < 0)
+			//		return;
 
-				if (tile->GetArr()[num] == 1)
-					return;
+			//	if (tile->GetArr()[num] == 1)
+			//		return;
 
-				TelePort* teleport = Object::Instantiate<TelePort>(eLayerType::Effect, true);
+			//	TelePort* teleport = Object::Instantiate<TelePort>(eLayerType::Effect, true);
 
-				playerMp -= teleport->GetCost();
-				if (playerMp < 0)
-				{
-					teleport->Death();
-					player->SetMP(playerMp + teleport->GetCost());
-					return;
-				}
+			//	playerMp -= teleport->GetCost();
+			//	if (playerMp < 0)
+			//	{
+			//		teleport->Death();
+			//		player->SetMP(playerMp + teleport->GetCost());
+			//		return;
+			//	}
 
 
-				player->SetMP(playerMp);
+			//	player->SetMP(playerMp);
 
-				Player* player = dynamic_cast<Player*>(GetOwner());
-				if (player)
-					teleport->SetOwner(player);
+			//	Player* player = dynamic_cast<Player*>(GetOwner());
+			//	if (player)
+			//		teleport->SetOwner(player);
 
-				pos = Vector3(MousePos.x, MousePos.y, pos.z);
-				Vector3 MovePos = Vector3(MousePos.x, MousePos.y, 1.0f);
-				teleport->SetMovePos(MovePos);
+			//	pos = Vector3(MousePos.x, MousePos.y, pos.z);
+			//	Vector3 MovePos = Vector3(MousePos.x, MousePos.y, 1.0f);
+			//	teleport->SetMovePos(MovePos);
 
-				SetPlayerDirection();
-				ResetAStar();
+			//	SetPlayerDirection();
+			//	ResetAStar();
 
-				return;
-			}
+			//	return;
+			//}
 
-			TileObject* PickTile = ObjectManager::GetInstance()->GetTile(Idx.first, Idx.second);
-			TileObject* ArriveTile = ObjectManager::GetInstance()->GetTile(PosIdx.first, PosIdx.second);
+			//TileObject* PickTile = ObjectManager::GetInstance()->GetTile(Idx.first, Idx.second);
+			//TileObject* ArriveTile = ObjectManager::GetInstance()->GetTile(PosIdx.first, PosIdx.second);
 
-			if (PickTile == nullptr || ArriveTile == nullptr)
-				return;
+			//if (PickTile == nullptr || ArriveTile == nullptr)
+			//	return;
 
-			Transform* PickTr = PickTile->GetComponent<Transform>();
-			Transform* AriveTr = ArriveTile->GetComponent<Transform>();
+			//Transform* PickTr = PickTile->GetComponent<Transform>();
+			//Transform* AriveTr = ArriveTile->GetComponent<Transform>();
 
-			Vector3 PickPos = PickTr->GetPosition();
-			Vector3 ArrivePos = AriveTr->GetPosition();
+			//Vector3 PickPos = PickTr->GetPosition();
+			//Vector3 ArrivePos = AriveTr->GetPosition();
 
-			Vector3 diffPos = ArrivePos - PickPos;
+			//Vector3 diffPos = ArrivePos - PickPos;
 
-			MousePos -= Vector2(diffPos.x, diffPos.y);
-			//PlayerPos += MousePos;
+			//MousePos -= Vector2(diffPos.x, diffPos.y);
+			////PlayerPos += MousePos;
 
-			TelePort* teleport = Object::Instantiate<TelePort>(eLayerType::Effect, true);
+			//TelePort* teleport = Object::Instantiate<TelePort>(eLayerType::Effect, true);
 
-			Player* player = dynamic_cast<Player*>(GetOwner());
-			if (player)
-				teleport->SetOwner(player);
+			//Player* player = dynamic_cast<Player*>(GetOwner());
+			//if (player)
+			//	teleport->SetOwner(player);
 
-			//pos = Vector3(PlayerPos.x, PlayerPos.y, pos.z);
-			Vector3 MovePos = Vector3(MousePos.x, MousePos.y, 1.0f);
-			teleport->SetMovePos(MovePos);
+			////pos = Vector3(PlayerPos.x, PlayerPos.y, pos.z);
+			//Vector3 MovePos = Vector3(MousePos.x, MousePos.y, 1.0f);
+			//teleport->SetMovePos(MovePos);
 
-			SetPlayerDirection();
-			ResetAStar();
+			//SetPlayerDirection();
+			//ResetAStar();
+			skil2();
 			return;
 		}
 	}
@@ -290,35 +319,36 @@ void PlayerScript::FixedUpdate()
 			|| player->GetState() == Player::PlayerState::Move)
 		{
 
-			Meteor* meteor = Object::Instantiate<Meteor>(eLayerType::PlayerSKil, true);
-			Transform* MeteorTr = meteor->GetComponent<Transform>();
+			//Meteor* meteor = Object::Instantiate<Meteor>(eLayerType::PlayerSKil, true);
+			//Transform* MeteorTr = meteor->GetComponent<Transform>();
 
-			playerMp -= meteor->GetCost();
-			if (playerMp < 0)
-			{
-				meteor->Death();
-				player->SetMP(playerMp + meteor->GetCost());
-				return;
-			}
-			player->SetState(Player::PlayerState::Skil);
+			//playerMp -= meteor->GetCost();
+			//if (playerMp < 0)
+			//{
+			//	meteor->Death();
+			//	player->SetMP(playerMp + meteor->GetCost());
+			//	return;
+			//}
+			//player->SetState(Player::PlayerState::Skil);
 
-			player->SetMP(playerMp);
+			//player->SetMP(playerMp);
 
 
-			meteor->SetOwner(player);
+			//meteor->SetOwner(player);
 
-			Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos();
-			Vector3 pinPos = Vector3(mousePos.x, mousePos.y, 1.0f);
-			meteor->SetPinPos(pinPos);
+			//Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos();
+			//Vector3 pinPos = Vector3(mousePos.x, mousePos.y, 1.0f);
+			//meteor->SetPinPos(pinPos);
 
-			Vector3 meteorPos = tr->GetPosition();
-			// 화면밖렌더
-			meteorPos.y += 1000.f;
+			//Vector3 meteorPos = tr->GetPosition();
+			//// 화면밖렌더
+			//meteorPos.y += 1000.f;
 
-			MeteorTr->SetPosition(Vector3(mousePos.x, meteorPos.y, 1.0f));
+			//MeteorTr->SetPosition(Vector3(mousePos.x, meteorPos.y, 1.0f));
 
-			SetPlayerDirection();
-			ResetAStar();
+			//SetPlayerDirection();
+			//ResetAStar();
+			skil3();
 			return;
 		}
 	}
@@ -328,7 +358,7 @@ void PlayerScript::FixedUpdate()
 			|| player->GetState() == Player::PlayerState::Move)
 		{
 
-			FireBolt* firebolt = Object::Instantiate<FireBolt>(eLayerType::PlayerSKil, true);
+			/*FireBolt* firebolt = Object::Instantiate<FireBolt>(eLayerType::PlayerSKil, true);
 			playerMp -= firebolt->GetCost();
 			if (playerMp < 0)
 			{
@@ -351,7 +381,9 @@ void PlayerScript::FixedUpdate()
 
 
 			SetPlayerDirection();
-			ResetAStar();
+			ResetAStar();*/
+
+			skil4();
 			return;
 		}
 	}
@@ -361,7 +393,7 @@ void PlayerScript::FixedUpdate()
 			|| player->GetState() == Player::PlayerState::Move)
 		{
 
-			FrozenBolt* frozenbolt = Object::Instantiate<FrozenBolt>(eLayerType::PlayerSKil, true);
+			/*FrozenBolt* frozenbolt = Object::Instantiate<FrozenBolt>(eLayerType::PlayerSKil, true);
 			playerMp -= frozenbolt->GetCost();
 			if (playerMp < 0)
 			{
@@ -384,7 +416,8 @@ void PlayerScript::FixedUpdate()
 
 
 			SetPlayerDirection();
-			ResetAStar();
+			ResetAStar();*/
+			skil5();
 			return;
 		}
 	}
@@ -394,120 +427,122 @@ void PlayerScript::FixedUpdate()
 			|| player->GetState() == Player::PlayerState::Move)
 		{
 
-			Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos(true);
-			Vector2 direction = mousePos - Vector2(pos.x, pos.y);
+			//Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos(true);
+			//Vector2 direction = mousePos - Vector2(pos.x, pos.y);
 
-			float lenght = direction.Length();
-			float radius = 250.f;
+			//float lenght = direction.Length();
+			//float radius = 250.f;
 
-			Transform* tr = GetOwner()->GetComponent<Transform>();
+			//Transform* tr = GetOwner()->GetComponent<Transform>();
 
-			Vector3 pos = tr->GetPosition();
-			Vector2 vec = mousePos - Vector2(pos.x, pos.y);
-			Vector2 Vec1 = Vector2(0.0f, 0.0f);
+			//Vector3 pos = tr->GetPosition();
+			//Vector2 vec = mousePos - Vector2(pos.x, pos.y);
+			//Vector2 Vec1 = Vector2(0.0f, 0.0f);
 
-			if (vec.x <= 0.f)
-				Vec1 = Vector2(-1.0f, 0.0f);
-			else
-				Vec1 = Vector2(1.0f, 0.0f);
+			//if (vec.x <= 0.f)
+			//	Vec1 = Vector2(-1.0f, 0.0f);
+			//else
+			//	Vec1 = Vector2(1.0f, 0.0f);
 
-			Vec1.Normalize();
-			vec.Normalize();
+			//Vec1.Normalize();
+			//vec.Normalize();
 
-			float that = Vec1.Dot(vec);
-			float radian = acos(that);
+			//float that = Vec1.Dot(vec);
+			//float radian = acos(that);
 
-			// 원의 방정식
-			// https://nenara.com/68
-			int x = cosf(radian) * radius;
-			int y = sinf(radian) * radius;
+			//// 원의 방정식
+			//// https://nenara.com/68
+			//int x = cosf(radian) * radius;
+			//int y = sinf(radian) * radius;
 
-			if (vec.x < 0)
-				x *= -1.f;
-			if(vec.y < 0)
-				y *= -1.f;
+			//if (vec.x < 0)
+			//	x *= -1.f;
+			//if(vec.y < 0)
+			//	y *= -1.f;
 
-			Vector3 SearchPos = pos;
-			SearchPos.x += x;
-			SearchPos.y += y;
+			//Vector3 SearchPos = pos;
+			//SearchPos.x += x;
+			//SearchPos.y += y;
 
-			std::unordered_map<float, GameObject*> ArriveList;
-			// test
-			Layer& layer = SceneManager::GetInstance()->GetActiveScene()->GetLayer(eLayerType::Monster);
-			const std::vector<GameObject*>& objects = layer.GetGameObjects();
+			//std::unordered_map<float, GameObject*> ArriveList;
+			//// test
+			//Layer& layer = SceneManager::GetInstance()->GetActiveScene()->GetLayer(eLayerType::Monster);
+			//const std::vector<GameObject*>& objects = layer.GetGameObjects();
 
-			int lightRadius = 300.f;
-			for (GameObject* obj : objects)
-			{
-				if (obj == nullptr)
-					continue;
+			//int lightRadius = 300.f;
+			//for (GameObject* obj : objects)
+			//{
+			//	if (obj == nullptr)
+			//		continue;
 
-				if (obj->GetState() != GameObject::eState::active)
-					continue;
+			//	if (obj->GetState() != GameObject::eState::active)
+			//		continue;
 
-				Transform* objTr = obj->GetComponent<Transform>();
-				Vector3 objPos = objTr->GetPosition();
+			//	Transform* objTr = obj->GetComponent<Transform>();
+			//	Vector3 objPos = objTr->GetPosition();
 
-				Vector3 diff = objPos - SearchPos;
-				float len = diff.Length();
+			//	Vector3 diff = objPos - SearchPos;
+			//	float len = diff.Length();
 
-				if (len > lightRadius)
-					continue;
+			//	if (len > lightRadius)
+			//		continue;
 
-				ArriveList.insert(std::make_pair(len, obj));
-			}
+			//	ArriveList.insert(std::make_pair(len, obj));
+			//}
 
-			if (ArriveList.size() == 0)
-				return;
+			//if (ArriveList.size() == 0)
+			//	return;
 
-			LightBolt* lightbolt = Object::Instantiate<LightBolt>(eLayerType::PlayerSKil, true);
-			playerMp -= lightbolt->GetCost();
+			//LightBolt* lightbolt = Object::Instantiate<LightBolt>(eLayerType::PlayerSKil, true);
+			//playerMp -= lightbolt->GetCost();
+			//if (playerMp < 0)
+			//{
+			//	lightbolt->Death();
+			//	player->SetMP(playerMp + lightbolt->GetCost());
+			//	return;
+			//}
+
+			//player->SetState(Player::PlayerState::Skil);
+			//player->SetMP(playerMp);
+
+			//Transform* lightboltTr = lightbolt->GetComponent<Transform>();
+			//lightboltTr->SetPosition(pos);
+			//lightbolt->SetOwner(player);
+
+			//lightbolt->LightingOn(ArriveList.begin()->second);
+
+
+			//SetPlayerDirection();
+			//ResetAStar();
+			skil6();
+			return;
+		}
+	}
+	else if (Input::GetInstance()->GetKeyDown(eKeyCode::T))
+	{
+		if (player->GetState() == Player::PlayerState::Idle
+			|| player->GetState() == Player::PlayerState::Move)
+		{
+
+			/*FrozenArmer* frozenArmer = Object::Instantiate<FrozenArmer>(eLayerType::Effect, true);
+			playerMp -= frozenArmer->GetCost();
 			if (playerMp < 0)
 			{
-				lightbolt->Death();
-				player->SetMP(playerMp + lightbolt->GetCost());
+				frozenArmer->Death();
+				player->SetMP(playerMp + frozenArmer->GetCost());
 				return;
 			}
 
 			player->SetState(Player::PlayerState::Skil);
 			player->SetMP(playerMp);
 
-			Transform* lightboltTr = lightbolt->GetComponent<Transform>();
-			lightboltTr->SetPosition(pos);
-			lightbolt->SetOwner(player);
-
-			lightbolt->LightingOn(ArriveList.begin()->second);
-
+			frozenArmer->SetTarget(player);
 
 			SetPlayerDirection();
-			ResetAStar();
+			ResetAStar();*/
+			skil7();
 			return;
 		}
-	}
-	else if (Input::GetInstance()->GetKeyDown(eKeyCode::T))
-	{
-	if (player->GetState() == Player::PlayerState::Idle
-		|| player->GetState() == Player::PlayerState::Move)
-	{
-
-		FrozenArmer* frozenArmer = Object::Instantiate<FrozenArmer>(eLayerType::Effect, true);
-		playerMp -= frozenArmer->GetCost();
-		if (playerMp < 0)
-		{
-			frozenArmer->Death();
-			player->SetMP(playerMp + frozenArmer->GetCost());
-			return;
-		}
-
-		player->SetState(Player::PlayerState::Skil);
-		player->SetMP(playerMp);
-
-		frozenArmer->SetTarget(player);
-
-		SetPlayerDirection();
-		ResetAStar();
-		return;
-	}
 	}
 
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::R))
@@ -874,4 +909,367 @@ float PlayerScript::GetAngle(Vector2 point)
 	float angle = XMConvertToDegrees(radian);
 
 	return angle;
+}
+
+void PlayerScript::skil1()
+{
+	Player* player = nullptr;
+	player = dynamic_cast<Player*>(WorldManager::GetInstance()->GetPlayer());
+	if (player == nullptr)
+		return;
+
+	Transform* ptr = player->GetComponent<Transform>();
+	Vector3 pos = ptr->GetPosition();
+
+	float playerMp = player->GetMP();
+
+	FrozenOrb* orb = Object::Instantiate<FrozenOrb>(eLayerType::PlayerSKil, true);
+	orb->SetOwner(player);
+
+	playerMp -= orb->GetCost();
+	if (playerMp < 0)
+	{
+		orb->Death();
+		player->SetMP(playerMp + orb->GetCost());
+		return;
+	}
+	player->SetState(Player::PlayerState::Skil);
+
+	player->SetMP(playerMp);
+
+	Vector3 OwnerPos = GetOwner()->GetComponent<Transform>()->GetPosition();
+
+	Vector2 direction = (Input::GetInstance()->GetMouseWorldPos() - OwnerPos);
+	orb->SetDirection(direction);
+
+	Transform* tr = orb->GetComponent<Transform>();
+	direction.Normalize();
+	Vector3 SpawnPos = Vector3(direction.x, direction.y, 1.0f) * 1.f;
+	OwnerPos += SpawnPos;
+	tr->SetPosition(OwnerPos);
+
+	SetPlayerDirection();
+	ResetAStar();
+}
+
+void PlayerScript::skil2()
+{
+	Player* player = nullptr;
+	player = dynamic_cast<Player*>(WorldManager::GetInstance()->GetPlayer());
+	if (player == nullptr)
+		return;
+
+	Transform* tr = player->GetComponent<Transform>();
+	Vector3 pos = tr->GetPosition();
+
+	float playerMp = player->GetMP();
+	player->SetState(Player::PlayerState::Skil);
+	Vector2 PlayerPos = Vector2(pos.x, pos.y);
+	Vector2 MousePos = Input::GetInstance()->GetMouseWorldPos(true);
+
+	// std::pair<int,int> 형 auto
+	auto Idx = Input::GetInstance()->GetIsoMetricIDX(MousePos);
+	auto PosIdx = Input::GetInstance()->GetIsoMetricIDX(PlayerPos);
+
+	int X = Idx.first - PosIdx.first;
+	int Y = Idx.second - PosIdx.second;
+
+	if (X >= 2)
+	{
+		Idx.first -= X;
+	}
+	if (Y >= 2)
+	{
+		Idx.second -= Y;
+	}
+
+	if (X < 2 && Y < 2)
+	{
+		TileObject* tile = ObjectManager::GetInstance()->GetTile(Idx.first, Idx.second);
+		if (tile == nullptr)
+			return;
+
+		int num = -1;
+
+		if (tile->PickTile(MousePos, eTilePickType::Tile0)) { num = (UINT)eTilePickType::Tile0; }
+		else if (tile->PickTile(MousePos, eTilePickType::Tile1)) { num = (UINT)eTilePickType::Tile1; }
+		else if (tile->PickTile(MousePos, eTilePickType::Tile2)) { num = (UINT)eTilePickType::Tile2; }
+		else if (tile->PickTile(MousePos, eTilePickType::Tile3)) { num = (UINT)eTilePickType::Tile3; }
+
+		if (num < 0)
+			return;
+
+		if (tile->GetArr()[num] == 1)
+			return;
+
+		TelePort* teleport = Object::Instantiate<TelePort>(eLayerType::Effect, true);
+
+		playerMp -= teleport->GetCost();
+		if (playerMp < 0)
+		{
+			teleport->Death();
+			player->SetMP(playerMp + teleport->GetCost());
+			return;
+		}
+
+
+		player->SetMP(playerMp);
+
+		Player* player = dynamic_cast<Player*>(GetOwner());
+		if (player)
+			teleport->SetOwner(player);
+
+		pos = Vector3(MousePos.x, MousePos.y, pos.z);
+		Vector3 MovePos = Vector3(MousePos.x, MousePos.y, 1.0f);
+		teleport->SetMovePos(MovePos);
+
+		SetPlayerDirection();
+		ResetAStar();
+	}
+}
+
+void PlayerScript::skil3()
+{
+	Player* player = nullptr;
+	player = dynamic_cast<Player*>(WorldManager::GetInstance()->GetPlayer());
+	if (player == nullptr)
+		return;
+
+	Transform* tr = player->GetComponent<Transform>();
+	Vector3 pos = tr->GetPosition();
+	float playerMp = player->GetMP();
+
+
+
+	Meteor* meteor = Object::Instantiate<Meteor>(eLayerType::PlayerSKil, true);
+	Transform* MeteorTr = meteor->GetComponent<Transform>();
+
+	playerMp -= meteor->GetCost();
+	if (playerMp < 0)
+	{
+		meteor->Death();
+		player->SetMP(playerMp + meteor->GetCost());
+		return;
+	}
+	player->SetState(Player::PlayerState::Skil);
+
+	player->SetMP(playerMp);
+
+
+	meteor->SetOwner(player);
+
+	Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos();
+	Vector3 pinPos = Vector3(mousePos.x, mousePos.y, 1.0f);
+	meteor->SetPinPos(pinPos);
+
+	Vector3 meteorPos = tr->GetPosition();
+	// 화면밖렌더
+	meteorPos.y += 1000.f;
+
+	MeteorTr->SetPosition(Vector3(mousePos.x, meteorPos.y, 1.0f));
+
+	SetPlayerDirection();
+	ResetAStar();
+}
+
+void PlayerScript::skil4()
+{
+	Player* player = nullptr;
+	player = dynamic_cast<Player*>(WorldManager::GetInstance()->GetPlayer());
+	if (player == nullptr)
+		return;
+
+	Transform* tr = player->GetComponent<Transform>();
+	Vector3 pos = tr->GetPosition();
+	float playerMp = player->GetMP();
+
+	FireBolt* firebolt = Object::Instantiate<FireBolt>(eLayerType::PlayerSKil, true);
+	playerMp -= firebolt->GetCost();
+	if (playerMp < 0)
+	{
+		firebolt->Death();
+		player->SetMP(playerMp + firebolt->GetCost());
+		return;
+	}
+
+	player->SetState(Player::PlayerState::Skil);
+	player->SetMP(playerMp);
+
+	Transform* fireboltTr = firebolt->GetComponent<Transform>();
+	fireboltTr->SetPosition(pos);
+
+	Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos(true);
+	Vector2 direction = mousePos - Vector2(pos.x, pos.y);
+
+	firebolt->Angle(mousePos);
+	firebolt->SetOwner(player);
+
+
+	SetPlayerDirection();
+	ResetAStar();
+}
+
+void PlayerScript::skil5()
+{
+	Player* player = nullptr;
+	player = dynamic_cast<Player*>(WorldManager::GetInstance()->GetPlayer());
+	if (player == nullptr)
+		return;
+
+	Transform* tr = player->GetComponent<Transform>();
+	Vector3 pos = tr->GetPosition();
+
+	float playerMp = player->GetMP();
+	FrozenBolt* frozenbolt = Object::Instantiate<FrozenBolt>(eLayerType::PlayerSKil, true);
+	playerMp -= frozenbolt->GetCost();
+	if (playerMp < 0)
+	{
+		frozenbolt->Death();
+		player->SetMP(playerMp + frozenbolt->GetCost());
+		return;
+	}
+	player->SetState(Player::PlayerState::Skil);
+
+	player->SetMP(playerMp);
+
+	Transform* frozenboltTr = frozenbolt->GetComponent<Transform>();
+	frozenboltTr->SetPosition(pos);
+
+	Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos(true);
+	Vector2 direction = mousePos - Vector2(pos.x, pos.y);
+
+	frozenbolt->Angle(mousePos);
+	frozenbolt->SetOwner(player);
+
+
+	SetPlayerDirection();
+	ResetAStar();
+}
+
+void PlayerScript::skil6()
+{
+	Player* player = nullptr;
+	player = dynamic_cast<Player*>(WorldManager::GetInstance()->GetPlayer());
+	if (player == nullptr)
+		return;
+
+	Transform* tr = player->GetComponent<Transform>();
+	Vector3 pos = tr->GetPosition();
+
+	float playerMp = player->GetMP();
+
+	Vector2 mousePos = Input::GetInstance()->GetMouseWorldPos(true);
+	Vector2 direction = mousePos - Vector2(pos.x, pos.y);
+
+	float lenght = direction.Length();
+	float radius = 250.f;
+
+	Vector2 vec = mousePos - Vector2(pos.x, pos.y);
+	Vector2 Vec1 = Vector2(0.0f, 0.0f);
+
+	if (vec.x <= 0.f)
+		Vec1 = Vector2(-1.0f, 0.0f);
+	else
+		Vec1 = Vector2(1.0f, 0.0f);
+
+	Vec1.Normalize();
+	vec.Normalize();
+
+	float that = Vec1.Dot(vec);
+	float radian = acos(that);
+
+	// 원의 방정식
+	// https://nenara.com/68
+	int x = cosf(radian) * radius;
+	int y = sinf(radian) * radius;
+
+	if (vec.x < 0)
+		x *= -1.f;
+	if (vec.y < 0)
+		y *= -1.f;
+
+	Vector3 SearchPos = pos;
+	SearchPos.x += x;
+	SearchPos.y += y;
+
+	std::unordered_map<float, GameObject*> ArriveList;
+	// test
+	Layer& layer = SceneManager::GetInstance()->GetActiveScene()->GetLayer(eLayerType::Monster);
+	const std::vector<GameObject*>& objects = layer.GetGameObjects();
+
+	int lightRadius = 300.f;
+	for (GameObject* obj : objects)
+	{
+		if (obj == nullptr)
+			continue;
+
+		if (obj->GetState() != GameObject::eState::active)
+			continue;
+
+		Transform* objTr = obj->GetComponent<Transform>();
+		Vector3 objPos = objTr->GetPosition();
+
+		Vector3 diff = objPos - SearchPos;
+		float len = diff.Length();
+
+		if (len > lightRadius)
+			continue;
+
+		ArriveList.insert(std::make_pair(len, obj));
+	}
+
+	if (ArriveList.size() == 0)
+		return;
+
+	LightBolt* lightbolt = Object::Instantiate<LightBolt>(eLayerType::PlayerSKil, true);
+	playerMp -= lightbolt->GetCost();
+	if (playerMp < 0)
+	{
+		lightbolt->Death();
+		player->SetMP(playerMp + lightbolt->GetCost());
+		return;
+	}
+
+	player->SetState(Player::PlayerState::Skil);
+	player->SetMP(playerMp);
+
+	Transform* lightboltTr = lightbolt->GetComponent<Transform>();
+	lightboltTr->SetPosition(pos);
+	lightbolt->SetOwner(player);
+
+	lightbolt->LightingOn(ArriveList.begin()->second);
+
+
+	SetPlayerDirection();
+	ResetAStar();
+}
+
+void PlayerScript::skil7()
+{
+	Player* player = nullptr;
+	player = dynamic_cast<Player*>(WorldManager::GetInstance()->GetPlayer());
+	if (player == nullptr)
+		return;
+
+	Transform* tr = player->GetComponent<Transform>();
+	Vector3 pos = tr->GetPosition();
+
+	float playerMp = player->GetMP();
+
+	FrozenArmer* frozenArmer = Object::Instantiate<FrozenArmer>(eLayerType::Effect, true);
+	playerMp -= frozenArmer->GetCost();
+	if (playerMp < 0)
+	{
+		frozenArmer->Death();
+		player->SetMP(playerMp + frozenArmer->GetCost());
+		return;
+	}
+
+	player->SetState(Player::PlayerState::Skil);
+	player->SetMP(playerMp);
+
+	frozenArmer->SetTarget(player);
+
+	SetPlayerDirection();
+	ResetAStar();
 }

@@ -29,6 +29,15 @@ public:
 	void ClearAstar();
 
 	float GetAngle(Vector2 point);
+
+private:
+	void skil1();
+	void skil2();
+	void skil3();
+	void skil4();
+	void skil5();
+	void skil6();
+	void skil7();
 	
 private:
 	Vector2 mEndPos;

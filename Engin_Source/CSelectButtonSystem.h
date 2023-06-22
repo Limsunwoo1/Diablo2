@@ -30,7 +30,7 @@ public:
 
 	void InventorySetting(UINT index);
 	void Dynamic_ItemSetting(UINT type, UINT stage, UINT x, UINT y);
-	void SlotItemSetting(ItemBase* item);
+	void SlotItemSetting(class ItemBase* item);
 private:
 	vector<PlayerSelectButton*> mButton;
 	vector<wstring> mItemData;

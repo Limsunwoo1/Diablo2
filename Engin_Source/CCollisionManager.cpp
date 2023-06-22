@@ -261,7 +261,7 @@ bool CollisionManager::AABBRect_VS_Rect(Collider2D* left, Collider2D* right)
 	return true;
 }
 
-bool CollisionManager::AABBRect_VS_Point(Collider2D* left, Vector2 point)
+bool CollisionManager::AABBRect_VS_Point(Collider2D* left, Math::Vector2 point)
 {
 	Transform* leftTransform = left->GetOwner()->GetComponent<Transform>();
 
@@ -309,7 +309,3 @@ bool CollisionManager::Circle_VS_Circle(Collider2D* left, Collider2D* right)
 		return false;
 }
 
-bool CollisionManager::ButtonCollisionCheck(const Vector2& mousePos, Collider2D* button)
-{
-	return false;
-}

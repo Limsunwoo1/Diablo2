@@ -365,6 +365,22 @@ void Monster::Attack()
 
 void Monster::DropItem()
 {
+	Player* player = nullptr;
+	player = dynamic_cast<Player*>(WorldManager::GetInstance()->GetPlayer());
+	if (player == nullptr)
+		return;
+
+	float exp = player->GetExp();
+	exp += 50;
+
+	float max = player->GetMaxExp();
+	if (exp > max)
+	{
+		player->SetExp(exp - max);
+		player->LevelUp();
+	}
+
+	////////////////////////////// 플레이어 레벨업
 	ItemBase* item = nullptr;
 	
 	UINT itemType = type(gen);

@@ -8,6 +8,7 @@
 #include "CInput.h"
 #include "CObjectManager.h"
 
+using namespace Math;
 AStar::AStar()
 	: Component(eComponentType::AStar)
 	, mMaxX(0)

@@ -34,14 +34,6 @@ void FontHUD::Initalize()
 
 void FontHUD::Render()
 {
-	static float delt = 0.0f;
-	delt += Time::GetInstance()->DeltaTime();
-	if (delt >= 1.0f)
-	{
-		delt -= 1.0f;
-		mCurNum++;
-	}
-
 	float interver = 1.f / (float)mMaxNum;
 
 	Renderer::FadeCB info = {};

@@ -34,7 +34,7 @@ protected:
 	float mMaxTime;
 
 
-	Vector2 mNodePos;
-	Vector2 mArrivePos;
+	Math::Vector2 mNodePos;
+	Math::Vector2 mArrivePos;
 };
 

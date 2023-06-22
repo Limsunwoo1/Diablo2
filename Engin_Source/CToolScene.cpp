@@ -13,6 +13,7 @@
 #include "CWallObject.h"
 #include "CResourceManager.h"
 #include "CSceneManager.h"
+#include "CObjectManager.h"
 
 #include "..//Dx11_Engine/GuiEditor.h"
 
@@ -91,6 +92,17 @@ void ToolScene::Update()
 	else if (Input::GetInstance()->GetKeyDown(eKeyCode::ESC))
 	{
 		SceneManager::GetInstance()->LoadScene(eSceneType::MainTitle);
+
+		ObjectManager::GetInstance()->Clear();
+		Layer& layer = this->GetLayer(eLayerType::TileCarve);
+		std::vector<GameObject*> objects = layer.GetGameObjects();
+
+		for (GameObject* obj : objects)
+		{
+			if (obj)
+				obj->Death();
+		}
+		return;
 	}
 
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::UP))

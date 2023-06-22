@@ -11,6 +11,8 @@
 #include "CObjectManager.h"
 #include "CPlayerSelectButton.h"
 #include "CTime.h"
+#include "CUIManager.h"
+#include "CSkilTreePanel.h"
 
 using namespace graphics;
 
@@ -191,7 +193,7 @@ void Player::InitAnimation()
 	}
 
 	{
-		std::weak_ptr<Texture2D> tex =ResourceManager::GetInstance()->Load<Texture2D>(L"PlayerAttack", L"..//Resource//attack1.png");
+		std::weak_ptr<Texture2D> tex =ResourceManager::GetInstance()->Load<Texture2D>(L"PlayerAttack", L"attack1.png");
 
 		float x = 124.95f;
 		float y = 78.8125f;
@@ -208,7 +210,7 @@ void Player::InitAnimation()
 	}
 
 	{
-		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"PlayerSkil", L"..//Resource//skill1.png");
+		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"PlayerSkil", L"skill1.png");
 
 		float x = 88.7857142857f;
 		float y = 91.9375f;
@@ -409,4 +411,18 @@ void Player::SKil()
 void Player::Hit()
 {
 
+}
+
+void Player::LevelUp()
+{
+	mLevel++;
+
+	SkilTreePanel* panel = nullptr;
+	panel = UIManager::GetInstance()->GetUiInstance<SkilTreePanel>(L"SkilTree");
+	if (panel == nullptr)
+		return;
+
+	panel->UpPoint();
+
+	//mMaxExp += mMaxExp * 0.2f;
 }

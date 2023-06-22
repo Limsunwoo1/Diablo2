@@ -81,6 +81,8 @@ public:
 	const UINT GetSavePathIndex() { return mSavePathIndex; }
 	void SetSavePathIndex(UINT index) { mSavePathIndex = index; }
 
+	void LevelUp();
+
 private:
 	void Run();
 	void Idle();

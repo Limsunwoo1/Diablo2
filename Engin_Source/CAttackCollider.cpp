@@ -45,11 +45,16 @@ void AttackCollider::OnCollisionEnter(Collider2D* collider)
 
 	if (ownerType == eLayerType::Player)
 	{
-		Player* player = CastType<Player>(ownerType,mOwner);
-		OwnerDamege = player->GetDamege();
+		Player* player = nullptr;
+		player = CastType<Player>(ownerType,mOwner);
+		if(player != nullptr)
+			OwnerDamege = player->GetDamege();
 
-		Monster* monster = CastType<Monster>(other->GetLayerType(), other);
-		otherhp = monster->GetHP();
+
+		Monster* monster = nullptr;
+		monster = CastType<Monster>(other->GetLayerType(), other);
+		if(monster != nullptr)
+			otherhp = monster->GetHP();
 
 		otherhp -= OwnerDamege;
 		monster->SetHP(otherhp);
@@ -57,11 +62,15 @@ void AttackCollider::OnCollisionEnter(Collider2D* collider)
 		return;
 	}
 
-	Monster* monster = CastType<Monster>(ownerType, mOwner);
-	OwnerDamege = monster->GetDamege();
+	Monster* monster = nullptr;
+	monster = CastType<Monster>(ownerType, mOwner);
+	if(monster != nullptr)
+		OwnerDamege = monster->GetDamege();
 
-	Player* player = CastType<Player>(other->GetLayerType(), other);
-	otherhp = player->GetHP();
+	Player* player = nullptr;
+	player = CastType<Player>(other->GetLayerType(), other);
+	if (player != nullptr)
+		otherhp = player->GetHP();
 
 	otherhp -= OwnerDamege;
 	player->SetHP(otherhp);

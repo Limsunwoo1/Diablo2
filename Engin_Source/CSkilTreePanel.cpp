@@ -7,6 +7,7 @@
 
 SkilTreePanel::SkilTreePanel()
 	: UiBase(eUIType::Panel)
+	, mHavePoint(0)
 {
 	ButtonList[0] = new Button(eUIType::Button);
 	ButtonList[1] = new Button(eUIType::Button);
@@ -65,6 +66,8 @@ void SkilTreePanel::Initalize()
 {
 	mFont = new FontHUD();
 	mFont->Initalize();
+	mFont->SetCurNum(mHavePoint);
+
 	Transform* fontTr = mFont->GetComponent<Transform>();
 	fontTr->SetSize(Vector3(30.f, 30.f, 1.0f));
 	fontTr->SetPosition(Vector3(705.f, 326.f, 1.0f));
@@ -284,4 +287,10 @@ std::vector<eSkilList> SkilTreePanel::GetButtonChildType(UINT Idx)
 	}
 
 	return OutSkilList;
+}
+
+void SkilTreePanel::SetPoint(UINT point)
+{
+	mHavePoint = point;
+	mFont->SetCurNum(point);
 }

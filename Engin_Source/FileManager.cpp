@@ -4,6 +4,7 @@
 #include "Cplayer.h"
 #include "FileManager.h"
 #include "CItemManager.h"
+#include "CGameObject.h"
 
 #include <iostream>
 

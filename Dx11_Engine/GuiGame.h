@@ -1,6 +1,8 @@
 #pragma once
 #include "GuiWidget.h"
+#include "..//Engin_Source/CTexture2D.h"
 
+using namespace graphics;
 namespace gui
 {
 	class Game : public Widget
@@ -19,14 +21,14 @@ namespace gui
 		void SetCreateObject(bool obj) { mbCreateObject = obj; }
 		bool GetCreateObject() { return mbCreateObject; }
 
-		void SetTex(Texture2D* tex) { mTex = tex; }
-		Texture2D* GetTex() { return mTex; }
+		void SetTex(graphics::Texture2D* tex) { mTex = tex; }
+		graphics::Texture2D* GetTex() { return mTex; }
 	private:
 		bool mbCreateTile;
 		bool mbCreateObject;
 		bool mbTickOff;
 
-		Texture2D* mTex;
+		graphics::Texture2D* mTex;
 	};
 }
 

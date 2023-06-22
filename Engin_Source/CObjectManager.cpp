@@ -328,6 +328,7 @@ void ObjectManager::Clear()
 		tile.second = nullptr;
 	}
 	mTileObjects.clear();
+	mTiles.clear();
 
 	for (auto Wall : mWallObjects)
 	{
@@ -338,6 +339,7 @@ void ObjectManager::Clear()
 		Wall.second = nullptr;
 	}
 	mWallObjects.clear();
+	mWalls.clear();
 }
 
 TileObject* ObjectManager::GetTile(int x, int y)

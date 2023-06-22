@@ -1,8 +1,10 @@
 #pragma once
 #include "CEngine.h"
 #include "Math.h"
+#include "CGameObject.h"
 
 using namespace std;
+using namespace Math;
 class WorldManager
 {
 	SINGLE(WorldManager);

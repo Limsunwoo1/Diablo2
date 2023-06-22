@@ -22,9 +22,10 @@ public:
 	void ButtonSelect2();
 	void ButtonSelect3();
 
-	void SetPoint(UINT point) { mHavePoint = point; }
+	void SetPoint(UINT point);
 	UINT GetPoint() { return mHavePoint; }
-	void UpPoint() { mHavePoint++; }
+	void UpPoint() { mHavePoint++; SetPoint(mHavePoint); }
+	void DownPoint() { mHavePoint--; SetPoint(mHavePoint);}
 
 	std::vector<Button*> GetButtonChild(UINT Idx);
 	std::vector<eSkilList> GetButtonChildType(UINT Idx);

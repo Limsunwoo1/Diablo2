@@ -6,6 +6,7 @@
 #include "CResourceManager.h"
 #include "CSkilSelectPanel.h"
 #include "CUIManager.h"
+#include "CSkilTreePanel.h"
 
 #include "..//Dx11_Engine/GuiEditor.h"
 
@@ -88,15 +89,26 @@ void SkiltreeButton::Update()
 	// 마우스가 버튼이랑 충돌 0
 	SetPointToRect(1);
 
+	SkilTreePanel* panel = nullptr;
+	panel = UIManager::GetInstance()->GetUiInstance<SkilTreePanel>(L"SkilTree");
+
 	Transform* Tr = GetComponent<Transform>();
 
 	if (Input::GetInstance()->GetKeyUp(eKeyCode::LBTN))
 	{
+		if (panel->GetPoint() <= 0)
+			return;
+
 		UpPoint();
+		panel->DownPoint();
+
 		Tr->SetSize(Vector3(80.f, 80.f, 1.0f));
 	}
 	else if (Input::GetInstance()->GetKeyDown(eKeyCode::LBTN))
 	{
+		if (panel->GetPoint() <= 0)
+			return;
+
 		Tr->SetSize(Vector3(70.f, 70.f, 1.0f));
 	}
 }
