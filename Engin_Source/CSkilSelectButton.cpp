@@ -5,6 +5,9 @@
 #include "CSkilSelectPanel.h"
 #include "CCurSelectSkilButton.h"
 
+#include "CAudioClip.h"
+#include "CAudioSource.h"
+
 SkilSelectButton::SkilSelectButton()
 	: Button(eUIType::Button)
 	, mType(eSkilList::Attack)
@@ -21,6 +24,11 @@ SkilSelectButton::SkilSelectButton()
 	SpriteRenderer* sr = AddComponent<SpriteRenderer>();
 	sr->SetMesh(mesh);
 	sr->SetMaterial(mMaterial);
+
+	AudioSource* audio = AddComponent<AudioSource>();
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"ButtonClick", L"SoundResource\\Effect\\button.wav");
+	audio->SetClip(clip);
+	audio->SetLoop(false);
 }
 
 SkilSelectButton::~SkilSelectButton()
@@ -44,4 +52,8 @@ void SkilSelectButton::To_SkilSelectPanel()
 	CurSelectSkilButton* button = UIManager::GetInstance()->GetUiInstance<CurSelectSkilButton>(L"SkilSelectButton");
 	button->InItTex(mMaterial->GetTexture(eTextureSlot::T0));
 	button->SetSkilType(this->GetSkilType());
+
+	AudioSource* audio = GetComponent<AudioSource>();
+	audio->Stop();
+	audio->Play();
 }

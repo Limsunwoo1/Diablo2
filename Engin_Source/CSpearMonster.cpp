@@ -26,8 +26,8 @@ void SpearMonster::Initalize()
 	minoTr->SetSize(Vector3(350.f, 350.f, 1.0f));
 
 	// hp
-	SetMaxHp(40.f);
-	SetHP(40.f);
+	SetMaxHp(20.f);
+	SetHP(20.f);
 
 	//SetMonsterStatusEffect(eElementType::HitFrozen);
 

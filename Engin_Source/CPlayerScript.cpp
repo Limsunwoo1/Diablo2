@@ -101,6 +101,10 @@ void PlayerScript::FixedUpdate()
 
 		bool able = inventory->GetIsAble();
 
+		AudioSource* audio = inventory->GetComponent<AudioSource>();
+		audio->Stop();
+		audio->Play(0.3f);
+
 		if (able)
 		{
 			inventory->UnActive();
@@ -118,6 +122,10 @@ void PlayerScript::FixedUpdate()
 		Panel* inventory = UIManager::GetInstance()->GetUiInstance<Panel>(L"mainInventory");
 		UiBase* skiltree = UIManager::GetInstance()->GetUiInstance<UiBase>(L"SkilTree");
 		UiBase* panel = UIManager::GetInstance()->GetUiInstance<UiBase>(L"SkilSelect");
+
+		AudioSource* audio = skiltree->GetComponent<AudioSource>();
+		audio->Stop();
+		audio->Play(0.3f);
 
 		bool able = skiltree->GetIsAble();
 

@@ -13,6 +13,9 @@
 
 #include <iostream>
 
+#include "CAudioSource.h"
+#include "CAudioClip.h"
+
 extern gui::Editor _Editor;
 
 SkiltreeButton::SkiltreeButton()
@@ -20,6 +23,11 @@ SkiltreeButton::SkiltreeButton()
 {
 	Transform* Tr = GetComponent<Transform>();
 	Tr->SetSize(Vector3(80.f, 80.f, 1.0f));
+
+	AudioSource* audio = AddComponent<AudioSource>();
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"ButtonClick", L"SoundResource\\Effect\\button.wav");
+	audio->SetClip(clip);
+	audio->SetLoop(false);
 }
 
 SkiltreeButton::~SkiltreeButton()
@@ -108,6 +116,12 @@ void SkiltreeButton::Update()
 	{
 		if (panel->GetPoint() <= 0)
 			return;
+
+
+		AudioSource* source = GetComponent<AudioSource>();
+		source->Stop();
+		source->Play();
+
 
 		Tr->SetSize(Vector3(70.f, 70.f, 1.0f));
 	}

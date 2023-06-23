@@ -72,6 +72,12 @@ void SkilTreePanel::Initalize()
 	fontTr->SetSize(Vector3(30.f, 30.f, 1.0f));
 	fontTr->SetPosition(Vector3(705.f, 326.f, 1.0f));
 
+	/// //////////////////////////////////////////////////////////////////
+	AudioSource* audio = AddComponent<AudioSource>();
+	std::weak_ptr<AudioClip>clip = ResourceManager::GetInstance()->Load<AudioClip>(L"UiOn", L"SoundResource\\scroll.wav");
+	audio->SetClip(clip);
+	audio->SetLoop(false);
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	SkiltreeButton* fireBolt = new SkiltreeButton();	fireBolt->SetSkilType(eSkilList::FireBolt);
 	fireBolt->GetComponent<Transform>()->SetPosition(Vector3(400.f, 379.f, 1.0f));

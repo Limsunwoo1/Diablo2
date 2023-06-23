@@ -330,6 +330,13 @@ void AndarielMonster::CreateNextScenePotal()
 	GateObject* obj = Object::Instantiate<GateObject>(eLayerType::Gate, true);
 	obj->SetNextScenetype(eSceneType::Play2);
 
+	AudioSource* audio = obj->AddComponent<AudioSource>();
+	std::weak_ptr<AudioClip>clip = ResourceManager::GetInstance()->Load<AudioClip>(L"PotalSound", L"SoundResource\\portal.wav");
+	audio->SetClip(clip);
+	audio->SetLoop(false);
+
+	audio->Play(0.2f);
+
 	Transform* andarielTr = GetComponent<Transform>();
 	Vector3 Pos = andarielTr->GetPosition();
 

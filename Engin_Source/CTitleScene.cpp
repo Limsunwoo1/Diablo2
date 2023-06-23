@@ -182,7 +182,7 @@ void TitleScene::OnEnter()
 	Renderer::UiCamera = GetUiCam();
 
 
-	GetMainCam()->GetOwner()->GetComponent<AudioSource>()->Play();
+	GetMainCam()->GetOwner()->GetComponent<AudioSource>()->Play(0.3f);
 }
 
 void TitleScene::OnExit()

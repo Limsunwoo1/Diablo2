@@ -3,6 +3,9 @@
 #include "CEquipmentButton.h"
 #include "CInventoryButton.h"
 #include "CItemBase.h"
+#include "CAudioClip.h"
+#include "CAudioSource.h"
+#include "CResourceManager.h"
 
 InventoryPanel::InventoryPanel()
 	: Panel(eUIType::Panel)
@@ -159,6 +162,11 @@ void InventoryPanel::Initalize()
 		mSlotButton.emplace_back(button);
 		button->SetParent(nullptr);
 	}
+
+	AudioSource* audio = AddComponent<AudioSource>();
+	std::weak_ptr<AudioClip>clip = ResourceManager::GetInstance()->Load<AudioClip>(L"UiOn", L"SoundResource\\scroll.wav");
+	audio->SetClip(clip);
+	audio->SetLoop(false);
 }
 
 void InventoryPanel::Update()

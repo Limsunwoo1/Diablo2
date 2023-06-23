@@ -7,6 +7,9 @@
 #include "CResourceManager.h"
 #include "CFontHUD.h"
 
+#include "CAudioSource.h"
+#include "CAudioClip.h"
+
 SkilSelectPanel::SkilSelectPanel()
 	: UiBase(eUIType::Panel)
 {
