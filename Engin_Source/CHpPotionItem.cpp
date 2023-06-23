@@ -6,11 +6,17 @@
 #include "Cplayer.h"
 #include "CItemManager.h"
 
+#include "CAudioClip.h"
+#include "CAudioSource.h"
+#include "CResourceManager.h"
+
 HpPotionItem::HpPotionItem()
 	: PotionItem()
 {
 	SetFill(250);
 	SetItemType(eEquipmentType::HpPotion);
+
+
 }
 
 HpPotionItem::~HpPotionItem()
@@ -46,6 +52,15 @@ void HpPotionItem::UsePotion()
 		Player* player = dynamic_cast<Player*>(WorldManager::GetInstance()->GetPlayer());
 		if (player == nullptr)
 			return;
+
+		std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"PotionDrink", L"SoundResource\\Effect\\potiondrink.wav");
+
+
+		AudioSource* audio = GetComponent<AudioSource>();
+		audio->Stop();
+		audio->SetClip(clip);
+		audio->SetLoop(false);
+		audio->Play();
 
 		float hp = player->GetHP();
 		float maxHp = player->GetMaxHP();

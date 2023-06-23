@@ -7,6 +7,11 @@
 #include "CWorldManager.h"
 #include "CItemManager.h"
 
+#include "CAudioClip.h"
+#include "CAudioSource.h"
+#include "CResourceManager.h"
+
+
 MpPotionItem::MpPotionItem()
 	: PotionItem()
 {
@@ -50,6 +55,16 @@ void MpPotionItem::UsePotion()
 		Player* player = dynamic_cast<Player*>(WorldManager::GetInstance()->GetPlayer());
 		if (player == nullptr)
 			return;
+
+
+		std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"PotionDrink", L"SoundResource\\Effect\\potiondrink.wav");
+
+		AudioSource* audio = GetComponent<AudioSource>();
+		audio->Stop();
+		audio->SetClip(clip);
+		audio->SetLoop(false);
+		audio->Play();
+
 
 		float mp = player->GetMP();
 		float maxmp = player->GetMaxMP();
