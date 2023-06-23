@@ -458,12 +458,6 @@ void AndarielMonster::attack()
 
 			mOverlay->GetComponent<Animator>()->Play(cast, false);
 
-			AudioSource* sound = mOverlay->GetComponent<AudioSource>();
-			std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"AndarielSkilOver", L"SoundResource\\Monster\\castlarge.wav");
-			sound->SetClip(clip);
-			sound->SetLoop(false);
-			sound->Play();
-
 
 			AndarielSkil* skil = Object::Instantiate<AndarielSkil>(eLayerType::MonsterSkil, true);
 			Transform* skilTr = skil->GetComponent<Transform>();
@@ -532,14 +526,14 @@ void AndarielMonster::monsterDead()
 	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"AndarielDeathSound", L"SoundResource\\Monster\\AndarielDeath.wav");
 	audio->SetClip(clip);
 
-	audio->Play(0.1f);
+	audio->Play(0.3f);
 
 
-	AudioSource* overAudio = GetComponent<AudioSource>();
+	AudioSource* overAudio = mOverlay->GetComponent<AudioSource>();
 	std::weak_ptr<AudioClip> overclip = ResourceManager::GetInstance()->Load<AudioClip>(L"AndarielOverDeathSound", L"SoundResource\\Monster\\AndarielDeathOverlay.wav");
 	overAudio->SetClip(overclip);
 
-	overAudio->Play(0.1f);
+	overAudio->Play(0.3f);
 }
 
 void AndarielMonster::hitFire()
@@ -570,6 +564,7 @@ void AndarielMonster::GetHit()
 {
 	AudioSource* audio = GetComponent<AudioSource>();
 	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"AndarielHitSound", L"SoundResource\\Monster\\AndarielGetHit.wav");
+	clip.lock()->Stop();
 	audio->SetClip(clip);
 
 	audio->Play(0.1f);

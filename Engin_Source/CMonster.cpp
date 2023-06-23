@@ -466,6 +466,7 @@ void Monster::DropItem()
 		itemTr->SetSize(item->GetWorldSize());
 
 		AudioSource* source = item->GetComponent<AudioSource>();
+		source->Stop();
 		source->Play();
 	}
 }

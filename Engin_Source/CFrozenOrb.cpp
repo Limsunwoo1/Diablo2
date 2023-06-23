@@ -283,7 +283,7 @@ void FrozenOrb::OnOrb()
 			Transform* tr = mFrozenMissile[i]->GetComponent<Transform>();
 			tr->SetPosition(pos);
 		}
-		GetComponent<AudioSource>()->Play();
+		GetComponent<AudioSource>()->Play(0.3f);
 		OffOrb();
 	};
 

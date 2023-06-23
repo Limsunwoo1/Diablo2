@@ -256,6 +256,15 @@ void DiabloMonster::DiabloSpecialCast1()
 
 	Transform* monsterTr = GetComponent<Transform>();
 	skilTr->SetPosition(monsterTr->GetPosition());
+
+	AudioSource* audio = GetComponent<AudioSource>();
+	audio->Stop();
+
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"DiabloFireSound", L"SoundResource\\Monster\\DiabloFire.wav");
+	audio->SetClip(clip);
+	audio->SetLoop(false);
+
+	audio->Play(0.2f);
 }
 
 void DiabloMonster::DiabloSpecialCast2()
@@ -304,6 +313,29 @@ void DiabloMonster::DiabloSpecialCast2()
 	Transform* skilTr = skil->GetComponent<Transform>();
 
 	skilTr->SetPosition(SearchPos);
+}
+
+void DiabloMonster::Attack()
+{
+	Monster::Attack();
+	AudioSource* audio = GetComponent<AudioSource>();
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>
+		(L"DiabloAttackSound", L"SoundResource\\Monster\\diabloAttack.wav");
+	clip.lock()->Stop();
+	audio->SetClip(clip);
+
+	audio->Play(0.1f);
+}
+
+void DiabloMonster::GetHit()
+{
+	AudioSource* audio = GetComponent<AudioSource>();
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>
+		(L"DiabloGetHitSound", L"SoundResource\\Monster\\diabloGetHit.wav");
+	clip.lock()->Stop();
+	audio->SetClip(clip);
+
+	audio->Play(0.1f);
 }
 
 void DiabloMonster::idle()
@@ -429,6 +461,16 @@ void DiabloMonster::monsterDead()
 
 	if (playName == name)
 		return;
+
+	AudioSource* audio = GetComponent<AudioSource>();
+	audio->Stop();
+
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>
+		(L"DiabloDeathSound", L"SoundResource\\Monster\\DiabloDeath.wav");
+	clip.lock()->Stop();
+	audio->SetClip(clip);
+
+	audio->Play(0.1f);
 
 	animator->Play(playName, false);
 }

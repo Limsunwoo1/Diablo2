@@ -463,6 +463,8 @@ void PlayScene::OnExit()
 
 	AudioSource* source = GetMainCam()->GetSound();
 	source->Stop();
+
+	player->GetComponent<AudioSource>()->Stop();
 }
 
 void PlayScene::OnEvent()

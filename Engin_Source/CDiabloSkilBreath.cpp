@@ -62,12 +62,18 @@ void DiabloSkilBreath::Initalize()
 	mMaterial->SetShader(shader);
 	mMaterial->SetRenderingMode(graphics::eRenderingMode::Transparent);
 
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"DiabloLazer", L"SoundResource\\Monster\\DiabloLazer.wav");
+
+
 	for (int i = 0; i < mSpecialCastSkil.size(); ++i)
 	{
 		mSpecialCastSkil[i] = new BoltBase();
 		mSpecialCastSkil[i]->SetRun(true);
 		mSpecialCastSkil[i]->Paused();
 		mSpecialCastSkil[i]->SetSpeed(760.f);
+		AudioSource* audio = mSpecialCastSkil[i]->AddComponent<AudioSource>();
+		audio->SetClip(clip);
+		audio->SetLoop(false);
 
 		mSpecialCastSkil[i]->GetComponent<Transform>()->SetSize(Vector3(200.f, 650.f, 1.0f));
 		mSpecialCastSkil[i]->SetDamege(70.f);
@@ -117,6 +123,8 @@ void DiabloSkilBreath::Update()
 				Transform* objtr = obj->GetComponent<Transform>();
 				Transform* Tr = GetComponent<Transform>();
 				Vector3 Pos = Tr->GetPosition();
+
+				obj->GetComponent<AudioSource>()->Play(0.1f);
 
 
 				GameObject* player = WorldManager::GetInstance()->GetPlayer();

@@ -52,6 +52,7 @@ void DiabloSkilFireStom::Initalize()
 
 
 
+
 	mMaterial = std::make_shared<Material>();
 	std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
 	std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->

@@ -151,6 +151,7 @@ void RadamentMonster::Attack()
 
 	AudioSource* audio = GetComponent<AudioSource>();
 	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"RadmentAttack", L"SoundResource\\Monster\\RadmentAttack.wav");
+	clip.lock()->Stop();
 	audio->SetClip(clip);
 
 	audio->Play(0.15f);
@@ -160,9 +161,10 @@ void RadamentMonster::GetHit()
 {
 	AudioSource* audio = GetComponent<AudioSource>();
 	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"RadmentHit", L"SoundResource\\Monster\\RadmentGetHit.wav");
+	clip.lock()->Stop();
 	audio->SetClip(clip);
 
-	audio->Play(0.7f);
+	audio->Play(0.1f);
 }
 
 void RadamentMonster::idle()
@@ -265,6 +267,7 @@ void RadamentMonster::monsterDead()
 
 	AudioSource* audio = GetComponent<AudioSource>();
 	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"RadmentDeath", L"SoundResource\\Monster\\RadmentDeath.wav");
+	clip.lock()->Stop();
 	audio->SetClip(clip);
 
 	audio->Play(0.15f);

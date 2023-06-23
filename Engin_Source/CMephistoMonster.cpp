@@ -172,6 +172,31 @@ void MephistoMonster::InitAnimation()
 	animator->Play(L"MephistoDeath4");
 }
 
+void MephistoMonster::Attack()
+{
+	Monster::Attack();
+
+	AudioSource* audio = GetComponent<AudioSource>();
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"mephistoAttack", L"SoundResource\\Monster\\MephistoAttack.wav");
+	clip.lock()->Stop();
+
+	audio->SetClip(clip);
+
+	audio->Play(0.1f);
+}
+
+void MephistoMonster::GetHit()
+{
+	Monster::Attack();
+
+	AudioSource* audio = GetComponent<AudioSource>();
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"mephistoGetHit", L"SoundResource\\Monster\\MephistoGetHit.wav");
+	clip.lock()->Stop();
+	audio->SetClip(clip);
+
+	audio->Play(0.1f);
+}
+
 void MephistoMonster::idle()
 {
 
@@ -269,6 +294,13 @@ void MephistoMonster::monsterDead()
 
 	if (playName == name)
 		return;
+
+	AudioSource* audio = GetComponent<AudioSource>();
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"mephistoDeath", L"SoundResource\\Monster\\MephistoDeath.wav");
+	clip.lock()->Stop();
+	audio->SetClip(clip);
+
+	audio->Play(0.1f);
 
 	animator->Play(playName, false);
 }

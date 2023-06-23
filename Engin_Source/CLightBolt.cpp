@@ -65,7 +65,7 @@ void LightBolt::Initalize()
 	AddComponent<GenericAnimator>();
 
 	AudioSource* audio = AddComponent<AudioSource>();
-	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"LightBoltSound", L"Sound\\1\\skill\\sorceress\\chargedbolt1.wav");
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"LightBoltSound", L"SoundResource\\novaice.wav");
 	audio->SetClip(clip);
 	audio->SetLoop(false);
 }
@@ -95,8 +95,6 @@ void LightBolt::Update()
 
 		SetRun(true);
 		renderer->SetRenderStop(false);
-
-		GetComponent<AudioSource>()->Play();
 	}
 
 	if (mCurObject == nullptr)
@@ -205,6 +203,7 @@ void LightBolt::SearchArriveTarget()
 	{
 		mBounceCount = 0;
 		mCurObject = nullptr;
+		GetComponent<AudioSource>()->Stop();
 		Death();
 		return;
 	}
@@ -260,6 +259,7 @@ void LightBolt::SearchArriveTarget()
 	// 인접한 몬스터를 찾지못한경우 메모리 해제
 	if (arriveList.size() < 1)
 	{
+		GetComponent<AudioSource>()->Stop();
 		Death();
 		return;
 	}
@@ -332,11 +332,13 @@ void LightBolt::LinghtingRun()
 
 	param.CompleteFunc = [this](float InCurValue)
 	{
-		std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"Lighting", L"SoundResource\\thunderbolt.wav");
+		AudioSource* audio = GetComponent<AudioSource>();
+		audio->Stop();
+		audio->Play(0.2f);
 		Monster* monster = dynamic_cast<Monster*>(mCurObject);
 		if (monster != nullptr)
 		{
-			monster->GetHit();
+			//monster->GetHit();
 		}
 
 		ShockHit* shock = Object::Instantiate<ShockHit>(eLayerType::Effect, true);

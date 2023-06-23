@@ -137,6 +137,28 @@ void MinosTauros::InitAnimation()
 	animator->Play(L"MinoIdle4");
 }
 
+void MinosTauros::Attack()
+{
+	Monster::Attack();
+
+	AudioSource* audio = GetComponent<AudioSource>();
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"MinoAttackSound", L"SoundResource\\Monster\\minoAttack.wav");
+	clip.lock()->Stop();
+	audio->SetClip(clip);
+
+	audio->Play(0.11f);
+}
+
+void MinosTauros::GetHit()
+{
+	AudioSource* audio = GetComponent<AudioSource>();
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"MinotHit", L"SoundResource\\Monster\\minoGetHit.wav");
+	clip.lock()->Stop();
+	audio->SetClip(clip);
+
+	audio->Play(0.1f);
+}
+
 void MinosTauros::idle()
 {
 
@@ -233,6 +255,14 @@ void MinosTauros::monsterDead()
 
 	if (playName == name)
 		return;
+
+
+	AudioSource* audio = GetComponent<AudioSource>();
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"MinoDeathSound", L"SoundResource\\Monster\\minoDeath.wav");
+	clip.lock()->Stop();
+	audio->SetClip(clip);
+
+	audio->Play(0.15f);
 
 	animator->Play(playName, false);
 }

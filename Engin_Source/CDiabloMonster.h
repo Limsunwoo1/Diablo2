@@ -21,6 +21,10 @@ public:
 	void DiabloSpecialCast1();
 	void DiabloSpecialCast2();
 
+
+	virtual void Attack() override;
+	virtual void GetHit() override;
+
 protected:
 	virtual void idle() override;
 	virtual void move() override;

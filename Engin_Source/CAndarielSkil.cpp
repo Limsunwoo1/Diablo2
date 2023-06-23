@@ -72,6 +72,8 @@ void AndarielSkil::Initalize()
 		mSpecialCastSkil[i]->GetComponent<Transform>()->SetSize(Vector3(550.f, 550.f, 1.0f));
 		mSpecialCastSkil[i]->SetDamege(10.f);
 
+		mSpecialCastSkil[i]->AddComponent<AudioSource>();
+
 		Collider2D* col = mSpecialCastSkil[i]->AddComponent<Collider2D>();
 		col->SetType(eColliderType::Rect);
 		col->SetSize(Vector2(0.13f, 0.13f));
@@ -114,6 +116,7 @@ void AndarielSkil::Update()
 
 			if (obj->GetState() == eState::paused)
 			{
+
 				obj->Active();
 
 				// 포지션이랑 앵글 설정 해야함
@@ -150,6 +153,14 @@ void AndarielSkil::Update()
 
 				objtr->SetPosition(Pos);
 				obj->Angle(Vector2(DurationPos.x, DurationPos.y));
+
+				AudioSource* sound = obj->GetComponent<AudioSource>();
+				std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>(L"AndarielSkilOver", L"SoundResource\\Monster\\castsmall.wav");
+				sound->SetClip(clip);
+				sound->SetLoop(false);
+
+				sound->Play(0.1f);
+
 				break;
 			}
 			cout++;

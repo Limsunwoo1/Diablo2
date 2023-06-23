@@ -14,6 +14,9 @@ public:
 
 	virtual void InitAnimation() override;
 
+	virtual void Attack() override;
+	virtual void GetHit() override;
+
 protected:
 	virtual void idle() override;
 	virtual void move() override;

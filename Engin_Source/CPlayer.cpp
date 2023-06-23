@@ -443,6 +443,7 @@ void Player::LevelUp()
 		return;
 
 	panel->UpPoint();
+	panel->UpPoint();
 
 	//mMaxExp += mMaxExp * 0.2f;
 }

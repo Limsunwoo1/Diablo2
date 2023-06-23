@@ -102,6 +102,12 @@ void PlayScene2::Initalize()
 		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
 		Renderer::mainCamera = cameraComp;
 		mMainCamera = cameraComp;
+
+		AudioSource* audio = cameraObj->AddComponent<AudioSource>();
+		std::weak_ptr<AudioClip>clip = ResourceManager::GetInstance()->Load<AudioClip>(L"Ac4Sound", L"SoundResource\\Act4Mesa.mp3");
+		audio->SetClip(clip);
+		audio->SetLoop(true);
+		
 	}
 	// Ui Camera
 	{
@@ -262,19 +268,19 @@ void PlayScene2::Initalize()
 
 		MinosTauros* mino2 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
 		Transform* minoTr2 = mino2->GetComponent<Transform>();
-		minoTr2->SetPosition(Vector3(3669.f + 100.f, 9997.f + 100.f, 1.0f));
+		minoTr2->SetPosition(Vector3(3669.f + 100.f +100.f, 9997.f + 100.f, 1.0f));
 
 		MinosTauros* mino3 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
 		Transform* minoTr3 = mino3->GetComponent<Transform>();
-		minoTr3->SetPosition(Vector3(3669.f - 100.f, 9997.f - 100.f, 1.0f));
+		minoTr3->SetPosition(Vector3(3669.f - 100.f + 200.f, 9997.f - 100.f, 1.0f));
 
 		MinosTauros* mino4 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
 		Transform* minoTr4 = mino4->GetComponent<Transform>();
-		minoTr4->SetPosition(Vector3(3669.f + 100.f, 9997.f - 100.f, 1.0f));
+		minoTr4->SetPosition(Vector3(3669.f + 100.f + 300.f, 9997.f - 100.f, 1.0f));
 
 		MinosTauros* mino5 = Object::Instantiate<MinosTauros>(eLayerType::Monster, this);
 		Transform* minoTr5 = mino5->GetComponent<Transform>();
-		minoTr5->SetPosition(Vector3(3669.f - 100.f, 9997.f + 100.f, 1.0f));
+		minoTr5->SetPosition(Vector3(3669.f - 100.f + 400.f, 9997.f + 100.f, 1.0f));
 	}
 
 
@@ -358,11 +364,15 @@ void PlayScene2::OnEnter()
 	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::PlayerSKil, eLayerType::Wall, false);
 	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::MonsterSkil, eLayerType::Wall, false);
 	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::Player, eLayerType::Gate, false);
+
+	GetMainCam()->GetOwner()->GetComponent<AudioSource>()->Play(0.3f);
 }
 
 void PlayScene2::OnExit()
 {
 	ItemManager::GetInstance()->ClearWorldItem();
+
+	GetMainCam()->GetOwner()->GetComponent<AudioSource>()->Stop();
 }
 
 void PlayScene2::OnEvent()
