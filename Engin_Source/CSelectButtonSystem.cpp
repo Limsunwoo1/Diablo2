@@ -412,6 +412,7 @@ void SelectButtonSystem::Select_Ok_Button()
 	PlayerSelectButton::PlayerInfo info = mClickButton->GetInfo();
 
 	Player* player = new Player();
+	player->SetLayerType(eLayerType::Player);
 	player->Initalize();
 	player->SetSavePathIndex(mClickButton->GetDataPathIndex());
 

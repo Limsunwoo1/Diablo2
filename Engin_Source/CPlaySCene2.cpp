@@ -337,12 +337,6 @@ void PlayScene2::OnEnter()
 
 	pallet->Load(L"..//Resource//TileData//lavaMap", eSceneType::Play);
 
-	// collision
-	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::PlayerSKil, eLayerType::Monster);
-	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::Player, eLayerType::MonsterSkil);
-	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::PlayerSKil, eLayerType::Wall);
-	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::MonsterSkil, eLayerType::Wall);
-	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::Player, eLayerType::Gate);
 
 	UiBase* invenpanel = UIManager::GetInstance()->GetUiInstance<InventoryPanel>(L"mainInventory");
 	UiBase* mainpanel = UIManager::GetInstance()->GetUiInstance<MainPanel>(L"mainPanel");
@@ -365,7 +359,15 @@ void PlayScene2::OnEnter()
 	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::MonsterSkil, eLayerType::Wall, false);
 	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::Player, eLayerType::Gate, false);
 
-	GetMainCam()->GetOwner()->GetComponent<AudioSource>()->Play(0.3f);
+	// collision
+	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::PlayerSKil, eLayerType::Monster);
+	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::Player, eLayerType::MonsterSkil);
+	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::PlayerSKil, eLayerType::Wall);
+	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::MonsterSkil, eLayerType::Wall);
+	CollisionManager::GetInstance()->CollisionlayerCheck(eLayerType::Player, eLayerType::Gate);
+
+
+	GetMainCam()->GetOwner()->GetComponent<AudioSource>()->Play(0.1f);
 }
 
 void PlayScene2::OnExit()
@@ -373,6 +375,10 @@ void PlayScene2::OnExit()
 	ItemManager::GetInstance()->ClearWorldItem();
 
 	GetMainCam()->GetOwner()->GetComponent<AudioSource>()->Stop();
+
+	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>
+		(L"DiabloDeathSound", L"SoundResource\\Monster\\DiabloDeath.wav");
+	clip.lock()->Stop();
 }
 
 void PlayScene2::OnEvent()

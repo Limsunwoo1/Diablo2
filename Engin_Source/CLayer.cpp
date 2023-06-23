@@ -4,6 +4,7 @@
 #include "CObjectManager.h"
 #include "CWorldManager.h"
 #include "CSceneManager.h"
+#include "CPlayer.h"
 
 
 Layer::Layer()

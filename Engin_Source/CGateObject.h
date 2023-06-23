@@ -15,8 +15,10 @@ public:
 	void SetNextScenetype(eSceneType type) { mNextScene = type; }
 
 	void NextScene();
+	void SetNextScene(bool next) { mbNext = next; }
 private:
 	std::shared_ptr<class Material> mMaterial;
+	bool mbNext;
 	eSceneType mNextScene;
 };
 

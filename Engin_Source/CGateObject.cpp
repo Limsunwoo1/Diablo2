@@ -10,6 +10,7 @@
 GateObject::GateObject()
 	: GameObject()
 	, mNextScene(eSceneType::Endding)
+	, mbNext(false)
 {
  
 }
@@ -71,13 +72,20 @@ void GateObject::Render()
 
 void GateObject::NextScene()
 {
-	Scene* scene = SceneManager::GetInstance()->GetScene(eSceneType::Loadding);
-	LoaddingScene* load = dynamic_cast<LoaddingScene*>(scene);
-	if (load == nullptr)
-		return;
+	if (mbNext == false)
+	{
+		Scene* scene = SceneManager::GetInstance()->GetScene(eSceneType::Loadding);
+		LoaddingScene* load = dynamic_cast<LoaddingScene*>(scene);
+		if (load == nullptr)
+			return;
 
-	load->SeteSceneType(mNextScene);
+		load->SeteSceneType(mNextScene);
 
-	SceneManager::GetInstance()->LoadScene(eSceneType::Loadding);
+		SceneManager::GetInstance()->LoadScene(eSceneType::Loadding);
+	}
+	else
+	{
+		SceneManager::GetInstance()->LoadScene(mNextScene);
+	}
 
 }

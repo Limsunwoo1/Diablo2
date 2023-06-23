@@ -9,6 +9,7 @@
 #include "CObject.h"
 #include "CDiabloScript.h"
 #include "CDiabloSkilFireStom.h"
+#include "CGateObject.h"
 
 #include <random>
 
@@ -235,6 +236,8 @@ void DiabloMonster::InitAnimation()
 			animator->Create(name, tex,
 				Vector2(0.0f, y * (float)i), Vector2(x, y), Vector2::Zero, Vector2(200.f, 200.f), 15, 0.1f);
 
+			animator->GetCompleteEvent(name) = std::bind(&DiabloMonster::CreateNextScenePotal, this);
+
 			count++;
 
 			if (count >= 8)
@@ -247,6 +250,26 @@ void DiabloMonster::InitAnimation()
 
 void DiabloMonster::CreateNextScenePotal()
 {
+	GateObject* obj = Object::Instantiate<GateObject>(eLayerType::Gate, true);
+	obj->SetNextScenetype(eSceneType::Endding);
+	//obj->SetNextScene(true);
+
+	obj->GetComponent<Animator>()->Play(L"BlueGate", false);
+
+	AudioSource* audio = obj->AddComponent<AudioSource>();
+	std::weak_ptr<AudioClip>clip = ResourceManager::GetInstance()->Load<AudioClip>(L"PotalSound", L"SoundResource\\portal.wav");
+	audio->SetClip(clip);
+	audio->SetLoop(false);
+
+	audio->Play(0.2f);
+
+	Transform* andarielTr = GetComponent<Transform>();
+	Vector3 Pos = andarielTr->GetPosition();
+
+	Transform* objTr = obj->GetComponent<Transform>();
+	objTr->SetPosition(Pos);
+
+
 }
 
 void DiabloMonster::DiabloSpecialCast1()
@@ -324,18 +347,18 @@ void DiabloMonster::Attack()
 	clip.lock()->Stop();
 	audio->SetClip(clip);
 
-	audio->Play(0.1f);
+	audio->Play(0.2f);
 }
 
 void DiabloMonster::GetHit()
 {
-	AudioSource* audio = GetComponent<AudioSource>();
+	/*AudioSource* audio = GetComponent<AudioSource>();
 	std::weak_ptr<AudioClip> clip = ResourceManager::GetInstance()->Load<AudioClip>
 		(L"DiabloGetHitSound", L"SoundResource\\Monster\\diabloGetHit.wav");
 	clip.lock()->Stop();
 	audio->SetClip(clip);
 
-	audio->Play(0.1f);
+	audio->Play(0.2f);*/
 }
 
 void DiabloMonster::idle()
@@ -470,7 +493,7 @@ void DiabloMonster::monsterDead()
 	clip.lock()->Stop();
 	audio->SetClip(clip);
 
-	audio->Play(0.1f);
+	audio->Play(0.2f);
 
 	animator->Play(playName, false);
 }
