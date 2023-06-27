@@ -70,7 +70,7 @@ public:
 			return resource;
 
 		// 리소스가 없는경우
-		resource = make_shared<T>();
+		resource = std::make_shared<T>();
 		if (FAILED(resource->Load(path)))
 		{
 			MessageBox(nullptr, L"image Load Failed!!", L"Error", MB_OK);

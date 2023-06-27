@@ -35,6 +35,8 @@ namespace graphics
 
 		std::wstring extension(szExtension);
 
+		CoInitialize(NULL);
+
 		if (extension == L".dds" || extension == L".DDS")
 		{
 			if (FAILED(LoadFromDDSFile(path.c_str(), DDS_FLAGS::DDS_FLAGS_NONE, nullptr, mImage)))

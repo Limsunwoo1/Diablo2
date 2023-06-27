@@ -19,6 +19,7 @@ CApplication::CApplication()
 	, mWidth(0)
 	, mHeight(0)
 	, graphicDevice(nullptr)
+	, mbGameStart(false)
 {
 }
 
@@ -176,4 +177,11 @@ void CApplication::SetWindow(HWND hwnd, UINT width, UINT height)
 	GetMenuItemRect(hwnd, menu, 0, rect);
 
 	rect;*/
+}
+
+void CApplication::LoadScene()
+{
+	std::cout << "Load..." << std::endl;
+
+	Sleep(1.0f);
 }

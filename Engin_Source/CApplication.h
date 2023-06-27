@@ -19,6 +19,7 @@ public:
 	virtual void Render();
 
 	void ThreadInit();
+	void LoadScene();
 
 	void LateUpdate();
 	
@@ -34,6 +35,9 @@ public:
 	UINT GetWidth() { return mWidth; }
 	UINT GetHeight() { return mHeight; }
 
+	void ComplateInitialize() { mbGameStart = true; }
+	bool GetStatus() { return mbGameStart; }
+
 private:
 	bool initalized = false;
 	std::unique_ptr<graphics::CGraphicDevice_DX11> graphicDevice;
@@ -42,4 +46,6 @@ private:
 	HDC mHdc;
 	UINT mHeight;
 	UINT mWidth;
+
+	bool mbGameStart;
 };
