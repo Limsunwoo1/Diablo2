@@ -18,6 +18,8 @@ public:
 	virtual void FixedUpdate();
 	virtual void Render();
 
+	void ThreadInit();
+
 	void LateUpdate();
 	
 	// Running main engine loop

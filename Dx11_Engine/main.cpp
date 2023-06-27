@@ -6,6 +6,9 @@
 #include "Engin_Source//CApplication.h"
 #include "GuiEditor.h"
 #include <Resource.h>
+#include <thread>
+#include <future>
+#include <iostream>
 
 
 #ifdef _DEBUG
@@ -184,8 +187,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    UpdateWindow(hWnd);
 
    Application.SetWindow(hWnd, 1600, 900);
-   Application.Initalize();
-   _Editor.Initalize();
+   thread InitThread([]() {Application.Initalize(); _Editor.Initalize(); });
 
    return TRUE;
 }

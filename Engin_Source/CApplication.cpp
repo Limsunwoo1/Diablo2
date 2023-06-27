@@ -60,6 +60,11 @@ void CApplication::Update()
 	ItemManager::GetInstance()->Update();
 }
 
+void CApplication::ThreadInit()
+{
+	Renderer::Initialize();
+}
+
 void CApplication::Instantiate()
 {
 	SceneManager::GetInstance()->Instantiate();
