@@ -10,6 +10,11 @@
 #include <future>
 #include <iostream>
 #include <chrono>
+#include <mutex>
+
+#include "Engin_Source/CRenderer.h"
+#include "Engin_Source/CSceneManager.h"
+#include "Engin_Source/CFmodManager.h"
 
 
 #ifdef _DEBUG
@@ -66,7 +71,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	}
 
 	std::thread GameStart(ThreadEnd);
+
+	// 스레드가 백그라운드에서 돈다
 	GameStart.detach();
+
+	// 해당스레드 완료까지 Lock;
+	// GameStart.join();
 
 	//thread gameOn(std::move(InitFinish), true);
 	//gameOn.join();
@@ -209,10 +219,32 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 bool ThreadEnd()
 {
-	Application.Initalize();
-	_Editor.Initalize();
+	std::mutex m;
+	std::thread rendererInit([&m]() {
+		m.lock();
 
-	Application.ComplateInitialize();
+		Renderer::Initialize();
+		Fmod::GetInstance()->Initialize();
+		SceneManager::GetInstance()->Initalize();
+		m.unlock();
+
+		});
+
+	rendererInit.join();
+
+	std::thread ApllicationInit([]()
+		{
+			Application.Initalize();
+			Application.ComplateInitialize();
+		});
+
+	std::thread EditorInit([]()
+		{
+			_Editor.Initalize();
+		});
+
+	ApllicationInit.join();
+	EditorInit.join();
 
 	return true;
 }

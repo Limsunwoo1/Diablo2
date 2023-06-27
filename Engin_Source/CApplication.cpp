@@ -35,11 +35,8 @@ void CApplication::Initalize()
 	Input::GetInstance()->Initialize();
 	ObjectManager::GetInstance()->Initialize();
 	CollisionManager::GetInstance()->Initalize();
-	Renderer::Initialize();
 	WorldManager::GetInstance()->Initialize();
-	Fmod::GetInstance()->Initialize();
 
-	SceneManager::GetInstance()->Initalize();
 	UIManager::GetInstance()->Initialize();
 	ItemManager::GetInstance()->Initalize();
 
@@ -183,5 +180,5 @@ void CApplication::LoadScene()
 {
 	std::cout << "Load..." << std::endl;
 
-	Sleep(1.0f);
+	Sleep(10.f);
 }
