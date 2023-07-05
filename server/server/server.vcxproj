@@ -21,10 +21,9 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{4e1e43e1-11c6-46e4-8dbe-e0f340d16a45}</ProjectGuid>
-    <RootNamespace>Dx11Engine</RootNamespace>
+    <ProjectGuid>{a5bdbd8a-4148-4614-b929-ba78645f432e}</ProjectGuid>
+    <RootNamespace>server</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>Client</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -45,7 +44,6 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -53,7 +51,6 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -77,11 +74,11 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -91,11 +88,11 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -105,16 +102,13 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir);$(SolutionDir)Engine_Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalOptions>ws2_32.lib %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -123,106 +117,27 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir);$(SolutionDir)Engine_Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalOptions>ws2_32.lib %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="GuiBaseEditor.h" />
-    <ClInclude Include="GuiComponent.h" />
-    <ClInclude Include="GuiConsol.h" />
-    <ClInclude Include="GuiDebugObject.h" />
-    <ClInclude Include="GuiDockEditor.h" />
-    <ClInclude Include="GuiEditor.h" />
-    <ClInclude Include="GuiEditorObject.h" />
-    <ClInclude Include="GuiGame.h" />
-    <ClInclude Include="GuiHierachy.h" />
-    <ClInclude Include="GuiInspector.h" />
-    <ClInclude Include="GuiListWidget.h" />
-    <ClInclude Include="GuiMaterial.h" />
-    <ClInclude Include="GuiMesh.h" />
-    <ClInclude Include="GuiMeshRenderer.h" />
-    <ClInclude Include="GuiObejctTex.h" />
-    <ClInclude Include="GuiProject.h" />
-    <ClInclude Include="GuiResource.h" />
-    <ClInclude Include="GuiTexture2D.h" />
-    <ClInclude Include="GuiTransform.h" />
-    <ClInclude Include="GuiTreeWidget.h" />
-    <ClInclude Include="GuiWidget.h" />
-    <ClInclude Include="Dx11_Engine.h" />
-    <ClInclude Include="framework.h" />
-    <ClInclude Include="imconfig.h" />
-    <ClInclude Include="imgui.h" />
-    <ClInclude Include="imgui_impl_dx11.h" />
-    <ClInclude Include="imgui_impl_win32.h" />
-    <ClInclude Include="imgui_internal.h" />
-    <ClInclude Include="imstb_rectpack.h" />
-    <ClInclude Include="imstb_textedit.h" />
-    <ClInclude Include="imstb_truetype.h" />
-    <ClInclude Include="Resource.h" />
-    <ClInclude Include="targetver.h" />
+    <ClCompile Include="server.cpp" />
+    <ClCompile Include="SimpleServer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GuiBaseEditor.cpp" />
-    <ClCompile Include="GuiComponent.cpp" />
-    <ClCompile Include="GuiConsol.cpp" />
-    <ClCompile Include="GuiDebugObject.cpp" />
-    <ClCompile Include="GuiDockEditor.cpp" />
-    <ClCompile Include="GuiEditor.cpp" />
-    <ClCompile Include="GuiEditorObject.cpp" />
-    <ClCompile Include="GuiGame.cpp" />
-    <ClCompile Include="GuiHierachy.cpp" />
-    <ClCompile Include="GuiInspector.cpp" />
-    <ClCompile Include="GuiListWidget.cpp" />
-    <ClCompile Include="GuiMaterial.cpp" />
-    <ClCompile Include="GuiMesh.cpp" />
-    <ClCompile Include="GuiMeshRenderer.cpp" />
-    <ClCompile Include="GuiObejcTex.cpp" />
-    <ClCompile Include="GuiProject.cpp" />
-    <ClCompile Include="GuiResource.cpp" />
-    <ClCompile Include="GuiTexture2D.cpp" />
-    <ClCompile Include="GuiTransform.cpp" />
-    <ClCompile Include="GuiTreeWidget.cpp" />
-    <ClCompile Include="GuiWidget.cpp" />
-    <ClCompile Include="imgui.cpp" />
-    <ClCompile Include="imgui_demo.cpp" />
-    <ClCompile Include="imgui_draw.cpp" />
-    <ClCompile Include="imgui_impl_dx11.cpp" />
-    <ClCompile Include="imgui_impl_win32.cpp" />
-    <ClCompile Include="imgui_tables.cpp" />
-    <ClCompile Include="imgui_widgets.cpp" />
-    <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Dx11_Engine.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="C:\Users\tjsdn\OneDrive\바탕 화면\2.png" />
-    <Image Include="Dx11_Engine.ico" />
-    <Image Include="small.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Engin_Source\Engin_Source.vcxproj">
-      <Project>{c1832d75-3cc0-4fcf-b191-d86756c3ead8}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\0.cur" />
-    <None Include="..\cursor1.cur" />
-    <None Include="C:\Users\tjsdn\OneDrive\바탕 화면\0.cur" />
-    <None Include="cursor1.cur" />
-    <None Include="Dx11_Engine\0.cur" />
-    <None Include="POINTER.cur" />
+    <ClInclude Include="..\Packet\Packet.h" />
+    <ClInclude Include="def.h" />
+    <ClInclude Include="Engine.h" />
+    <ClInclude Include="enums.h" />
+    <ClInclude Include="SimpleServer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

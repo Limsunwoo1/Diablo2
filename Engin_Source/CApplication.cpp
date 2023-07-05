@@ -34,7 +34,6 @@ void CApplication::Initalize()
 {
 	Time::GetInstance()->Initialize();
 	Input::GetInstance()->Initialize();
-	GETSINGLE(Server::ServerManager)->Initalize();
 	ObjectManager::GetInstance()->Initialize();
 	CollisionManager::GetInstance()->Initalize();
 	WorldManager::GetInstance()->Initialize();
@@ -180,7 +179,7 @@ void CApplication::SetWindow(HWND hwnd, UINT width, UINT height)
 
 void CApplication::LoadScene()
 {
-	std::cout << "Load..." << std::endl;
+	//std::cout << "Load..." << std::endl;
 
 	Sleep(10.f);
 }

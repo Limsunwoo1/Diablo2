@@ -15,6 +15,7 @@
 #include "Engin_Source/CRenderer.h"
 #include "Engin_Source/CSceneManager.h"
 #include "Engin_Source/CFmodManager.h"
+#include "Engin_Source/CServerManager.h"
 
 
 #ifdef _DEBUG
@@ -219,15 +220,11 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 bool ThreadEnd()
 {
-	std::mutex m;
-	std::thread rendererInit([&m]() {
-		m.lock();
-
+	std::thread rendererInit([]() {
 		Renderer::Initialize();
 		Fmod::GetInstance()->Initialize();
+		GETSINGLE(Server::ServerManager)->Initalize();
 		SceneManager::GetInstance()->Initalize();
-		m.unlock();
-
 		});
 
 	rendererInit.join();
@@ -243,8 +240,8 @@ bool ThreadEnd()
 			_Editor.Initalize();
 		});
 
-	ApllicationInit.join();
-	EditorInit.join();
+	ApllicationInit.detach();
+	EditorInit.detach();
 
 	return true;
 }

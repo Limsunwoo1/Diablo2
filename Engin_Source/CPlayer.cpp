@@ -16,6 +16,7 @@
 #include "CAudioSource.h"
 #include "CAudioClip.h"
 #include "CAudioListner.h"
+#include "CServerManager.h"
 
 using namespace graphics;
 
@@ -39,6 +40,27 @@ Player::Player()
 	, mSaveName("sunwoo")
 {
 	SetName(L"Player");
+
+	// 플레이어 생성과 동시에 채팅 활성화
+	std::thread ChatThread([]() {
+
+		while (1)
+		{
+			if (GETSINGLE(Input)->GetKeyDown(eKeyCode::ENTER))
+			{
+				std::cout << "메시지를 입력하세요 : ";
+				ChatMassege_Packet packet = {};
+				char buf[1024] = {};
+				packet.Messege = gets_s(buf);
+				packet.type = ServerDataType::ChatMessege;
+				packet.name = GETSINGLE(Server::ServerManager)->GetClientName();
+
+				GETSINGLE(Server::ServerManager)->PushSend((void*)&packet);
+			}
+		}
+		});
+
+	ChatThread.detach();
 }
 
 Player::~Player()

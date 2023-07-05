@@ -32,6 +32,7 @@
 #include "CResourceManager.h"
 #include "CUIManager.h"
 #include "CObjectManager.h"
+#include "CServerManager.h"
 
 PlayerScript::PlayerScript()
 	: Script()
@@ -93,6 +94,7 @@ void PlayerScript::FixedUpdate()
 
 	float speed = 3.f;
 	float playerMp = player->GetMP();
+
 	if (Input::GetInstance()->GetKeyDown(eKeyCode::I))
 	{
 		Panel* inventory = UIManager::GetInstance()->GetUiInstance<Panel>(L"mainInventory");
