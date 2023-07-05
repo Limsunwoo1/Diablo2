@@ -743,6 +743,7 @@
     <ClCompile Include="CAudioSource.cpp">
       <Filter>Component\AudioSource</Filter>
     </ClCompile>
+    <ClCompile Include="CServerManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -1161,6 +1162,7 @@
     <ClInclude Include="CAudioSource.h">
       <Filter>Component\AudioSource</Filter>
     </ClInclude>
+    <ClInclude Include="CServerManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math.inl">

@@ -216,6 +216,19 @@ enum class eSkilList
 	Meteor,
 };
 
+enum class ServerDataType : int
+{
+	LoginData,
+	LogoutData,
+
+	ChatMessege,
+	WhisperMessege,
+	PositionData,
+	AnimationData,
+	DamegeData,
+	RigidbodyData,
+};
+
 extern const char* charComponentType[(int)eComponentType::End];
 extern const wchar_t* wcharComponentType[(int)eComponentType::End];
 extern const char* charResourceType[(int)eResourceType::End];

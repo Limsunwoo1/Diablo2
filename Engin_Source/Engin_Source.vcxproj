@@ -260,6 +260,7 @@ copy "$(SolutionDir)fmodstudio.dll" "$(SolutionDir)\x64\Release\"</Command>
     <ClInclude Include="CScript.h" />
     <ClInclude Include="CSelectButtonSystem.h" />
     <ClInclude Include="CSelectSystemButton.h" />
+    <ClInclude Include="CServerManager.h" />
     <ClInclude Include="CShader.h" />
     <ClInclude Include="CShockHit.h" />
     <ClInclude Include="CShoesItem.h" />
@@ -400,6 +401,7 @@ copy "$(SolutionDir)fmodstudio.dll" "$(SolutionDir)\x64\Release\"</Command>
     <ClCompile Include="CScript.cpp" />
     <ClCompile Include="CSelectButtonSystem.cpp" />
     <ClCompile Include="CSelectSystemButton.cpp" />
+    <ClCompile Include="CServerManager.cpp" />
     <ClCompile Include="CShader.cpp" />
     <ClCompile Include="CShockHit.cpp" />
     <ClCompile Include="CShoesItem.cpp" />

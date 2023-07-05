@@ -11,6 +11,7 @@
 #include "FileManager.h"
 #include "CObjectManager.h"
 #include "CFmodManager.h"
+#include "CServerManager.h"
 
 using namespace graphics;
 
@@ -33,6 +34,7 @@ void CApplication::Initalize()
 {
 	Time::GetInstance()->Initialize();
 	Input::GetInstance()->Initialize();
+	GETSINGLE(Server::ServerManager)->Initalize();
 	ObjectManager::GetInstance()->Initialize();
 	CollisionManager::GetInstance()->Initalize();
 	WorldManager::GetInstance()->Initialize();
