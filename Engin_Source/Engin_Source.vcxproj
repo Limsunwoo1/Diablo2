@@ -169,6 +169,7 @@ copy "$(SolutionDir)fmodstudio.dll" "$(SolutionDir)\x64\Release\"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\ToyServer\server\Packet\Packet.h" />
     <ClInclude Include="CAndarielSkil.h" />
     <ClInclude Include="CAndarielMonster.h" />
     <ClInclude Include="CAndarielScript.h" />

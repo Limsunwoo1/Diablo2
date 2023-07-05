@@ -131,52 +131,55 @@ struct TileCarveData
 };
 
 
-using namespace std;
+// 서버 패킷
 
-struct Login_Packet
-{
-	ServerDataType type;
-
-	string name;
-	string password;
-};
-
-struct Logout_Packet
-{
-	ServerDataType type;
-
-	string name;
-};
-
-struct ChatMassege_Packet
-{
-	ServerDataType type;
-
-	string name;
-	string Messege;
-};
-
-struct WhisperMessege_Packet
-{
-	ServerDataType type;
-
-	string name;
-	string Messege;
-
-	string otherName;
-};
-
-struct Position_Packet
-{
-	ServerDataType type;
-
-	Math::Vector3 position;
-};
-
-struct Animation_Packet
-{
-	ServerDataType type;
-
-	int animationIDX;
-	wstring animationName;
-};
+//using namespace std;
+//
+//struct Login_Packet
+//{
+//	ServerDataType type;
+//
+//	string name;
+//	string password;
+//	SOCKET socket;
+//};
+//
+//struct Logout_Packet
+//{
+//	ServerDataType type;
+//
+//	string name;
+//};
+//
+//struct ChatMassege_Packet
+//{
+//	ServerDataType type;
+//
+//	string name;
+//	string Messege;
+//};
+//
+//struct WhisperMessege_Packet
+//{
+//	ServerDataType type;
+//
+//	string name;
+//	string Messege;
+//
+//	string otherName;
+//};
+//
+//struct Position_Packet
+//{
+//	ServerDataType type;
+//
+//	Math::Vector3 position;
+//};
+//
+//struct Animation_Packet
+//{
+//	ServerDataType type;
+//
+//	int animationIDX;
+//	wstring animationName;
+//};

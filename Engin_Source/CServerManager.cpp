@@ -1,4 +1,6 @@
 #include "CServerManager.h"
+#include "CObjectManager.h"
+
 #include <functional>
 
 
@@ -100,7 +102,8 @@ namespace Server
 			Login_Packet packet = {};
 			packet.type = ServerDataType::LoginData;
 			packet.name = GetClientName();
-
+			packet.sock = mSocket;
+			
 			PushSend((void*)&packet);
 		};
 		loginFun();
@@ -150,7 +153,10 @@ namespace Server
 						Login_Packet* chatData = reinterpret_cast<Login_Packet*>(buf);
 						cout << endl;
 						cout << chatData->name << " 님이 입장하였습니다" << endl;
-						std::cout << "메세지 입력 : ";
+
+						if (chatData->sock != GETSINGLE(Server::ServerManager)->GetSocket())
+							GETSINGLE(ObjectManager)->PushOtherSocket(chatData->sock);
+
 					}
 					break;
 					case ServerDataType::LogoutData:
@@ -159,6 +165,8 @@ namespace Server
 						cout << endl;
 						cout << chatData->name << " 님의 퇴장하였습니다" << endl;
 						std::cout << "메세지 입력 : ";
+
+						GETSINGLE(ObjectManager)->DeleteOtherSocket(chatData->sock);
 					}
 					break;
 					case ServerDataType::ChatMessege:
@@ -179,13 +187,25 @@ namespace Server
 					}
 					break;
 
+					case ServerDataType::AnimationData:
+					{
+
+
+					}
+					break;
+
+					case ServerDataType::PositionData:
+					{
+						Position_Packet* positionPacket = reinterpret_cast<Position_Packet*>(buf);
+						Vector3 pos = Vector3(positionPacket->position.x, positionPacket->position.y, positionPacket->position.z);
+						
+						GETSINGLE(ObjectManager)->SetOtherPos(positionPacket->sock, pos);
+					}
+					break;
 					case ServerDataType::DamegeData:
 
 						break;
 
-					case ServerDataType::PositionData:
-
-						break;
 					case ServerDataType::RigidbodyData:
 
 						break;
@@ -213,6 +233,8 @@ namespace Server
 		case ServerDataType::WhisperMessege:	bufSize = sizeof(WhisperMessege_Packet);	break;
 		case ServerDataType::PositionData:		bufSize = sizeof(Position_Packet);			break;
 		case ServerDataType::AnimationData:		bufSize = sizeof(Animation_Packet);			break;
+
+			// 구조체 추가 해야함
 		case ServerDataType::DamegeData:
 		{
 		}
@@ -241,6 +263,7 @@ namespace Server
 		Logout_Packet packet = {};
 		packet.type = ServerDataType::LogoutData;
 		packet.name = GetClientName();
+		packet.sock = mSocket;
 
 		PushSend((void*)&packet);
 

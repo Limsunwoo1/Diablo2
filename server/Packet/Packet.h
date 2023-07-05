@@ -1,74 +1,84 @@
 #pragma once
 #include "def.h"
 #include <string>
+#include <WinSock2.h>
 
-using namespace std;
-
-struct Vec3
+namespace Server
 {
-	float x;
-	float y;
-	float z;
-};
+	struct Vec3
+	{
+		float x;
+		float y;
+		float z;
+
+		Vec3(){};
+		Vec3(float _x, float _y, float _z) : x(_x), y(_y), z(_z) {};
+	};
 
 
-enum class ServerDataType : int
-{
-	LoginData,
-	LogoutData,
+	enum class ServerDataType : int
+	{
+		LoginData,
+		LogoutData,
 
-	ChatMessege,
-	WhisperMessege,
-	PositionData,
-	AnimationData,
-	DamegeData,
-	RigidbodyData,
-};
+		ChatMessege,
+		WhisperMessege,
+		PositionData,
+		AnimationData,
+		DamegeData,
+		RigidbodyData,
+	};
 
-struct Login_Packet
-{
-	ServerDataType type;
+	struct Login_Packet
+	{
+		ServerDataType type;
+		SOCKET sock;
 
-	string name;
-	string password;
-};
+		std::string name;
+		std::string password;
+	};
 
-struct Logout_Packet
-{
-	ServerDataType type;
+	struct Logout_Packet
+	{
+		ServerDataType type;
+		SOCKET sock;
 
-	string name;
-};
+		std::string name;
+	};
 
-struct ChatMassege_Packet
-{
-	ServerDataType type;
+	struct ChatMassege_Packet
+	{
+		ServerDataType type;
 
-	string name;
-	string Messege;
-};
+		std::string name;
+		std::string Messege;
+	};
 
-struct WhisperMessege_Packet
-{
-	ServerDataType type;
+	struct WhisperMessege_Packet
+	{
+		ServerDataType type;
 
-	string name;
-	string Messege;
+		std::string name;
+		std::string Messege;
 
-	string otherName;
-};
+		std::string otherName;
+	};
 
-struct Position_Packet
-{
-	ServerDataType type;
+	struct Position_Packet
+	{
+		ServerDataType type;
+		SOCKET sock;
 
-	Vec3 position;
-};
+		Vec3 position;
+	};
 
-struct Animation_Packet
-{
-	ServerDataType type;
+	struct Animation_Packet
+	{
+		ServerDataType type;
+		SOCKET sock;
 
-	int animationIDX;
-	wstring animationName;
-};
+		int animationIDX;
+		std::string animationName;
+
+	};
+}

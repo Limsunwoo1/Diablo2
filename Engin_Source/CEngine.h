@@ -35,3 +35,5 @@
 #include "CEnums.h"
 #include "def.h"
 #include "Rtti.h"
+
+#include "..//server/Packet/Packet.h"

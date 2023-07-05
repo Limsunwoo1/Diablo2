@@ -5,12 +5,14 @@
 #include "CInput.h"
 #include "CTileObject.h"
 #include "CWallObject.h"
-
+#include <WinSock2.h>
 
 using namespace std;
 
 typedef std::map<std::pair<int, int>, TileObject*> TileObjectsIter;
 typedef std::map<std::pair<int, int>, WallObject*> WallObjectsIter;
+using OtherPlayer = std::unordered_map<SOCKET, GameObject*>;
+
 class ObjectManager
 {
 	SINGLE(ObjectManager);
@@ -59,6 +61,15 @@ public:
 
 	const std::map<std::pair<int, int>, TileObject*>& GetTileObjects() { return mTileObjects; };
 	const 	std::map<std::pair<int, int>, WallObject*>& GetWallObjects() { return mWallObjects; };
+
+	void PushOtherSocket(SOCKET sock);
+	void DeleteOtherSocket(SOCKET sock);
+
+	GameObject* GetOtherSocker(SOCKET sock);
+
+	void SetOtherPos(SOCKET sock, Vector3 pos);
+
+	const OtherPlayer& GetOthers() const { return mOthers; }
 private:
 	queue<Skil*> SkilContainer;
 	vector<Vector2> ObjectOffsetData;
@@ -75,5 +86,7 @@ private:
 	std::vector<GameObject*> mWalls;
 
 	std::pair<int, int> mCurIDX;
+
+	OtherPlayer mOthers;
 };
 

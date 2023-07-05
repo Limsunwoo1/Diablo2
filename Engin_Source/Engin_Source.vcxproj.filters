@@ -1163,6 +1163,9 @@
       <Filter>Component\AudioSource</Filter>
     </ClInclude>
     <ClInclude Include="CServerManager.h" />
+    <ClInclude Include="..\..\..\ToyServer\server\Packet\Packet.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Math.inl">

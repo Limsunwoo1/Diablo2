@@ -226,6 +226,22 @@ void Camera::SortGameObjects()
 
 			PushGameObjectToRenderingMode(obj);
 		}
+
+		if (layer.GetLayerType() == eLayerType::Player)
+		{
+			OtherPlayer Objects = GETSINGLE(ObjectManager)->GetOthers();
+
+			for (auto& object : Objects)
+			{
+				if (object.second == nullptr)
+					continue;
+
+				object.second->Update();
+				object.second->FixedUpdate();
+
+				PushGameObjectToRenderingMode(object.second);
+			}
+		}
 	}
 }
 

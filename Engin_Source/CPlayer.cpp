@@ -1,5 +1,4 @@
 #include "CPlayer.h"
-#include "CResourceManager.h"
 #include "CSpriteRenderer.h"
 #include "CMaterial.h"
 #include "CTexture2D.h"
@@ -7,8 +6,6 @@
 #include "CObject.h"
 #include "CSceneManager.h"
 #include "CAStar.h"
-#include "CWorldManager.h"
-#include "CObjectManager.h"
 #include "CPlayerSelectButton.h"
 #include "CTime.h"
 #include "CUIManager.h"
@@ -16,7 +13,12 @@
 #include "CAudioSource.h"
 #include "CAudioClip.h"
 #include "CAudioListner.h"
+
+
+#include "CResourceManager.h"
 #include "CServerManager.h"
+#include "CObjectManager.h"
+#include "CWorldManager.h"
 
 using namespace graphics;
 
@@ -42,17 +44,20 @@ Player::Player()
 	SetName(L"Player");
 
 	// 플레이어 생성과 동시에 채팅 활성화
-	std::thread ChatThread([]() {
+	std::thread ChatThread([this]() {
 
 		while (1)
 		{
+			if (this->GameObject::GetState() == eState::dead)
+				return;
+
 			if (GETSINGLE(Input)->GetKeyDown(eKeyCode::ENTER))
 			{
 				std::cout << "메시지를 입력하세요 : ";
-				ChatMassege_Packet packet = {};
+				Server::ChatMassege_Packet packet = {};
 				char buf[1024] = {};
 				packet.Messege = gets_s(buf);
-				packet.type = ServerDataType::ChatMessege;
+				packet.type = Server::ServerDataType::ChatMessege;
 				packet.name = GETSINGLE(Server::ServerManager)->GetClientName();
 
 				GETSINGLE(Server::ServerManager)->PushSend((void*)&packet);
@@ -61,6 +66,57 @@ Player::Player()
 		});
 
 	ChatThread.detach();
+
+	// 플레이어 위치정보 통신
+	std::thread TransformThread([this]()
+		{
+			float intervalDelta = 0.0f;
+			while (1)
+			{
+				if (this->GameObject::GetState() == eState::dead)
+					return;
+
+				intervalDelta += GETSINGLE(Time)->DeltaTime();
+				if (intervalDelta >= 1.0f)
+				{
+					intervalDelta -= 1.0f;
+
+					Server::Position_Packet packet = {};
+					packet.type = Server::ServerDataType::PositionData;
+					Math::Vector3 pos = this->GetComponent<Transform>()->GetPosition();
+					packet.position = Server::Vec3(pos.x, pos.y, pos.z);
+					packet.sock = GETSINGLE(Server::ServerManager)->GetSocket();
+
+					GETSINGLE(Server::ServerManager)->PushSend((void*)&packet);
+				}
+			}
+		});
+
+	TransformThread.detach();
+}
+
+
+Player::Player(bool dummy)
+	: GameObject()
+	, mHP(10)
+	, mMaxHP(500)
+	, mMP(10)
+	, mMaxMP(300)
+	, mDamege(5)
+	, mIndex(0)
+	, mbRunMode(false)
+	, mMaxRunTime(10.f)
+	, mRunTime(10.f)
+	, mRunSpeed(2)
+	, mState(PlayerState::Idle)
+	, mCharType((UINT)eCharType::Sorceress)
+	, mExp(0.0f)
+	, mMaxExp(20.f)
+	, mLevel(1)
+	, mSaveName("sunwoo")
+{
+	SetName(L"Player");
+
 }
 
 Player::~Player()

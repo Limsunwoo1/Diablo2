@@ -139,11 +139,11 @@ INT SimpleServer::ReceiveData(SOCKET sock, void* data, int dataLen, int flags)
 	int type = *dataType;
 
 
-	switch ((ServerDataType)type)
+	switch ((Server::ServerDataType)type)
 	{
-	case ServerDataType::LoginData:
+	case Server::ServerDataType::LoginData:
 	{
-		Login_Packet* packet = reinterpret_cast<Login_Packet*>(data);
+		Server::Login_Packet* packet = reinterpret_cast<Server::Login_Packet*>(data);
 		mAllSocketMap.insert(make_pair(packet->name, sock));
 
 		// 스레드로 함수 실행
@@ -153,16 +153,16 @@ INT SimpleServer::ReceiveData(SOCKET sock, void* data, int dataLen, int flags)
 
 			for (SOCKET _sock : mAllSocketList)
 			{
-				SendData(_sock, data, sizeof(Login_Packet));
+				SendData(_sock, data, sizeof(Server::Login_Packet));
 			}
 
 			});
 		ChatThread.join();
 	}
 		break;
-	case ServerDataType::LogoutData:
+	case Server::ServerDataType::LogoutData:
 	{
-		Logout_Packet* packet = reinterpret_cast<Logout_Packet*>(data);
+		Server::Logout_Packet* packet = reinterpret_cast<Server::Logout_Packet*>(data);
 
 		SocketList::iterator listiter = std::find(mAllSocketList.begin(), mAllSocketList.end(), sock);
 		if (listiter != mAllSocketList.end())
@@ -185,16 +185,16 @@ INT SimpleServer::ReceiveData(SOCKET sock, void* data, int dataLen, int flags)
 				if (sock == _sock)
 					continue;
 
-				SendData(_sock, data, sizeof(Logout_Packet));
+				SendData(_sock, data, sizeof(Server::Logout_Packet));
 			}
 
 			});
 		ChatThread.join();
 	}
 		break;
-	case ServerDataType::ChatMessege:
+	case Server::ServerDataType::ChatMessege:
 	{
-		ChatMassege_Packet* packet = reinterpret_cast<ChatMassege_Packet*>(data);
+		Server::ChatMassege_Packet* packet = reinterpret_cast<Server::ChatMassege_Packet*>(data);
 		// 스레드로 함수 실행
 		std::thread ChatThread([this, packet, sock, data, dataLen]() {
 			std::cout << packet->name << " 님의 메세지 : " << packet->Messege << std::endl;
@@ -204,16 +204,16 @@ INT SimpleServer::ReceiveData(SOCKET sock, void* data, int dataLen, int flags)
 				if (_sock == sock)
 					continue;
 
-				SendData(_sock, data, sizeof(ChatMassege_Packet));
+				SendData(_sock, data, sizeof(Server::ChatMassege_Packet));
 			}
 			});
 		ChatThread.join();
 	}
 		break;
 
-	case ServerDataType::WhisperMessege:
+	case Server::ServerDataType::WhisperMessege:
 	{
-		WhisperMessege_Packet* packet = reinterpret_cast<WhisperMessege_Packet*>(data);
+		Server::WhisperMessege_Packet* packet = reinterpret_cast<Server::WhisperMessege_Packet*>(data);
 		// 스레드로 함수 실행
 		std::thread ChatThread([this, packet, sock, data, dataLen]() {
 			SocketMap::iterator iter = mAllSocketMap.find(packet->otherName);
@@ -228,18 +228,31 @@ INT SimpleServer::ReceiveData(SOCKET sock, void* data, int dataLen, int flags)
 	}
 		break;
 
-	case ServerDataType::DamegeData:
+	case Server::ServerDataType::DamegeData:
 
 		break;
-	case ServerDataType::PositionData:
+	case Server::ServerDataType::PositionData:
+	{
+		Server::Position_Packet* packet = reinterpret_cast<Server::Position_Packet*>(data);
+		// 스레드로 함수 실행
+		std::thread ChatThread([this, packet, sock, data, dataLen]() {
+			for (SOCKET _sock : mAllSocketList)
+			{
+				if (_sock == sock)
+					continue;
+
+				send(_sock, reinterpret_cast<char*>(data), dataLen, 0);
+			}
+			});
+		ChatThread.join();
+	}
+		break;
+
+	case Server::ServerDataType::AnimationData:
 
 		break;
 
-	case ServerDataType::AnimationData:
-
-		break;
-
-	case ServerDataType::RigidbodyData:
+	case Server::ServerDataType::RigidbodyData:
 
 		break;
 	default:

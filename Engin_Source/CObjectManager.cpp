@@ -5,6 +5,10 @@
 #include "CSceneManager.h"
 #include "CLayer.h"
 #include "CWorldManager.h"
+#include "CResourceManager.h"
+#include "CSpriteRenderer.h"
+#include "CAnimator.h"
+
 #include "CObject.h"
 ObjectManager::ObjectManager()
 {
@@ -363,4 +367,47 @@ GameObject* ObjectManager::GetMonster(int x, int y)
 		return iter->second;
 
 	return nullptr;
+}
+
+void ObjectManager::PushOtherSocket(SOCKET sock)
+{
+	OtherPlayer::iterator iter = mOthers.find(sock);
+	if (iter != mOthers.end())
+		return;
+
+	Player* other = new Player();
+	other->Initalize();
+	other->InitAnimation();
+	
+	other->GetComponent<Animator>()->Play(L"Idle0");
+
+	mOthers.insert(std::make_pair(sock, other));
+}
+
+void ObjectManager::DeleteOtherSocket(SOCKET sock)
+{
+	OtherPlayer::iterator iter = mOthers.find(sock);
+	if (iter == mOthers.end())
+		return;
+
+	deleteObjects.emplace_back(iter->second);
+	mOthers.erase(iter);
+}
+
+GameObject* ObjectManager::GetOtherSocker(SOCKET sock)
+{
+	OtherPlayer::iterator iter = mOthers.find(sock);
+	if (iter == mOthers.end())
+		return nullptr;
+
+	return iter->second;
+}
+
+void ObjectManager::SetOtherPos(SOCKET sock, Vector3 pos)
+{
+	OtherPlayer::iterator iter = mOthers.find(sock);
+	if (iter == mOthers.end())
+		return;
+
+	iter->second->GetComponent<Transform>()->SetPosition(pos);
 }

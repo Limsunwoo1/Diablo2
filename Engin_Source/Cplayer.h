@@ -17,6 +17,7 @@ public:
 
 public:
 	Player();
+	Player(bool dummy);
 	virtual ~Player();
 
 	virtual void Initalize();
