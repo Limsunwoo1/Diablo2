@@ -369,11 +369,11 @@ GameObject* ObjectManager::GetMonster(int x, int y)
 	return nullptr;
 }
 
-void ObjectManager::PushOtherSocket(SOCKET sock)
+GameObject* ObjectManager::PushOtherSocket(SOCKET sock)
 {
 	OtherPlayer::iterator iter = mOthers.find(sock);
 	if (iter != mOthers.end())
-		return;
+		return nullptr;
 
 	Player* other = new Player();
 	other->Initalize();
@@ -382,6 +382,7 @@ void ObjectManager::PushOtherSocket(SOCKET sock)
 	other->GetComponent<Animator>()->Play(L"Idle0");
 
 	mOthers.insert(std::make_pair(sock, other));
+	return other;
 }
 
 void ObjectManager::DeleteOtherSocket(SOCKET sock)
@@ -407,7 +408,11 @@ void ObjectManager::SetOtherPos(SOCKET sock, Vector3 pos)
 {
 	OtherPlayer::iterator iter = mOthers.find(sock);
 	if (iter == mOthers.end())
+	{
+		GameObject* obj = PushOtherSocket(sock);
+		obj->GetComponent<Transform>()->SetPosition(pos);
 		return;
+	}
 
 	iter->second->GetComponent<Transform>()->SetPosition(pos);
 }

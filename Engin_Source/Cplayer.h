@@ -120,5 +120,7 @@ private:
 	UINT mSavePathIndex;
 
 	GameObject* mShadow;
+
+	float mSendPosDelta;
 };
 

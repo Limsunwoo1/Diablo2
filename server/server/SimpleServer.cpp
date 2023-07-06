@@ -241,7 +241,7 @@ INT SimpleServer::ReceiveData(SOCKET sock, void* data, int dataLen, int flags)
 				if (_sock == sock)
 					continue;
 
-				send(_sock, reinterpret_cast<char*>(data), dataLen, 0);
+				send(_sock, reinterpret_cast<char*>(data), sizeof(Server::Position_Packet), 0);
 			}
 			});
 		ChatThread.join();
@@ -259,7 +259,7 @@ INT SimpleServer::ReceiveData(SOCKET sock, void* data, int dataLen, int flags)
 		break;
 	}
 	
-	
+	ZeroMemory(data, dataLen, 0);
 
 	return iReceive;
 }

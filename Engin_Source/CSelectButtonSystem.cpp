@@ -435,12 +435,6 @@ void SelectButtonSystem::Select_Ok_Button()
 	tr->SetPosition(Vector3(info.Postion.x, info.Postion.y, info.Postion.z));
 	tr->SetSize(Vector3(300.f, 300.f, 1.f));
 
-	SpriteRenderer* spr = player->AddComponent<SpriteRenderer>();
-	std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
-	std::weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"SpriteMaterial");
-
-	spr->SetMesh(mesh);
-	spr->SetMaterial(material);
 
 	player->InitAnimation();
 	player->PlayAnimation(L"Idle0");

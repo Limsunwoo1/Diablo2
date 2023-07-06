@@ -213,8 +213,6 @@ namespace Server
 					default:
 						break;
 					}
-
-					return;
 				});
 			receiveThread.join();
 		}

@@ -43,11 +43,14 @@ Player::Player()
 {
 	SetName(L"Player");
 
+	GetComponent<Transform>()->SetSize(Vector3(300.f, 300.f, 1.0f));
+
 	// 플레이어 생성과 동시에 채팅 활성화
 	std::thread ChatThread([this]() {
 
 		while (1)
 		{
+			return;
 			if (this->GameObject::GetState() == eState::dead)
 				return;
 
@@ -61,38 +64,14 @@ Player::Player()
 				packet.name = GETSINGLE(Server::ServerManager)->GetClientName();
 
 				GETSINGLE(Server::ServerManager)->PushSend((void*)&packet);
+
+				Sleep(10);
 			}
 		}
 		});
 
 	ChatThread.detach();
 
-	// 플레이어 위치정보 통신
-	std::thread TransformThread([this]()
-		{
-			float intervalDelta = 0.0f;
-			while (1)
-			{
-				if (this->GameObject::GetState() == eState::dead)
-					return;
-
-				intervalDelta += GETSINGLE(Time)->DeltaTime();
-				if (intervalDelta >= 1.0f)
-				{
-					intervalDelta -= 1.0f;
-
-					Server::Position_Packet packet = {};
-					packet.type = Server::ServerDataType::PositionData;
-					Math::Vector3 pos = this->GetComponent<Transform>()->GetPosition();
-					packet.position = Server::Vec3(pos.x, pos.y, pos.z);
-					packet.sock = GETSINGLE(Server::ServerManager)->GetSocket();
-
-					GETSINGLE(Server::ServerManager)->PushSend((void*)&packet);
-				}
-			}
-		});
-
-	TransformThread.detach();
 }
 
 
@@ -116,7 +95,7 @@ Player::Player(bool dummy)
 	, mSaveName("sunwoo")
 {
 	SetName(L"Player");
-
+	GetComponent<Transform>()->SetSize(Vector3(300.f, 300.f, 1.0f));
 }
 
 Player::~Player()
@@ -172,7 +151,7 @@ void Player::Update()
 	}
 
 	GameObject::Update();
-	if(mShadow)
+	if (mShadow)
 		mShadow->Update();
 
 	Transform* shadowTr = mShadow->GetComponent<Transform>();
@@ -201,6 +180,35 @@ void Player::FixedUpdate()
 	GameObject::FixedUpdate();
 	if (mShadow)
 		mShadow->FixedUpdate();
+
+
+	mSendPosDelta += GETSINGLE(Time)->DeltaTime();
+
+	if (mSendPosDelta > 0.01f)
+	{
+		mSendPosDelta = 0.0f;
+
+
+		float intervalDelta = 0.0f;
+
+		/*if (this->GameObject::GetState() == eState::dead)
+			return;*/
+
+		intervalDelta += GETSINGLE(Time)->DeltaTime();
+		if (intervalDelta >= 0.01f)
+		{
+			intervalDelta = 0.0f;
+
+
+			Server::Position_Packet packet = {};
+			packet.type = Server::ServerDataType::PositionData;
+			Math::Vector3 pos = this->GetComponent<Transform>()->GetPosition();
+			packet.position = Server::Vec3(pos.x, pos.y, 0.0f);
+			packet.sock = GETSINGLE(Server::ServerManager)->GetSocket();
+
+			GETSINGLE(Server::ServerManager)->PushSend((void*)&packet);
+		}
+	}
 }
 
 void Player::Render()
@@ -208,7 +216,7 @@ void Player::Render()
 
 	SpriteRenderer* spr = GetComponent<SpriteRenderer>();
 	std::weak_ptr<Texture2D> texture = ResourceManager::GetInstance()->Find<Texture2D>(L"test");
-	spr->GetMaterial().lock()->SetTexture(eTextureSlot::T0 ,texture);
+	spr->GetMaterial().lock()->SetTexture(eTextureSlot::T0, texture);
 
 	if (mShadow)
 		mShadow->Render();
@@ -276,7 +284,7 @@ void Player::InitAnimation()
 	}
 
 	{
-		std::weak_ptr<Texture2D> tex =ResourceManager::GetInstance()->Load<Texture2D>(L"PlayerAttack", L"attack1.png");
+		std::weak_ptr<Texture2D> tex = ResourceManager::GetInstance()->Load<Texture2D>(L"PlayerAttack", L"attack1.png");
 
 		float x = 124.95f;
 		float y = 78.8125f;
@@ -309,6 +317,13 @@ void Player::InitAnimation()
 
 		// 88.7857142857 91.9375
 	}
+
+	SpriteRenderer* spr = this->AddComponent<SpriteRenderer>();
+	std::weak_ptr<Mesh> mesh = ResourceManager::GetInstance()->Find<Mesh>(L"RectMesh");
+	std::weak_ptr<Material> material = ResourceManager::GetInstance()->Find<Material>(L"SpriteMaterial");
+
+	spr->SetMesh(mesh);
+	spr->SetMaterial(material);
 }
 
 void Player::PlayAnimation(const std::wstring& name)
@@ -361,7 +376,7 @@ void Player::SetRunSpeed(bool mode)
 {
 	// 걷기 2, 뛰기 4
 
-	UINT speed = mode == true ? 3 : 2 ;
+	UINT speed = mode == true ? 3 : 2;
 	mRunSpeed = speed;
 }
 
@@ -405,7 +420,7 @@ void Player::Idle()
 {
 	Animator* animator = this->GetComponent<Animator>();
 	std::wstring& name = animator->GetPlayAnimation()->AnimationName();
-	
+
 	wstring playName = L"Idle";
 	playName += std::to_wstring(mIndex);
 

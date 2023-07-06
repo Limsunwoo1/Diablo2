@@ -62,7 +62,7 @@ public:
 	const std::map<std::pair<int, int>, TileObject*>& GetTileObjects() { return mTileObjects; };
 	const 	std::map<std::pair<int, int>, WallObject*>& GetWallObjects() { return mWallObjects; };
 
-	void PushOtherSocket(SOCKET sock);
+	GameObject* PushOtherSocket(SOCKET sock);
 	void DeleteOtherSocket(SOCKET sock);
 
 	GameObject* GetOtherSocker(SOCKET sock);
