@@ -197,9 +197,7 @@ namespace Server
 					case ServerDataType::PositionData:
 					{
 						Position_Packet* positionPacket = reinterpret_cast<Position_Packet*>(buf);
-						Vector3 pos = Vector3(positionPacket->position.x, positionPacket->position.y, positionPacket->position.z);
-						
-						GETSINGLE(ObjectManager)->SetOtherPos(positionPacket->sock, pos);
+						GETSINGLE(ObjectManager)->SetOtherPlayerState(positionPacket->sock, *positionPacket);
 					}
 					break;
 					case ServerDataType::DamegeData:

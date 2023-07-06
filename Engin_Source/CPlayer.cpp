@@ -209,6 +209,11 @@ void Player::FixedUpdate()
 			packet.position = Server::Vec3(pos.x, pos.y, 0.0f);
 			packet.sock = GETSINGLE(Server::ServerManager)->GetSocket();
 
+			Animator* animator = GetComponent<Animator>();
+			const wstring& AniName = animator->GetPlayAnimation()->GetName();
+			packet.animationName = string(AniName.begin(), AniName.end());
+			packet.animationIdx = animator->GetPlayAnimation()->GetIndex();
+
 			GETSINGLE(Server::ServerManager)->PushSend((void*)&packet);
 		}
 	}

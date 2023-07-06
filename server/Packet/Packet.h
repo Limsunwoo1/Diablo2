@@ -70,6 +70,8 @@ namespace Server
 		SOCKET sock;
 
 		Vec3 position;
+		int animationIdx;
+		std::string animationName;
 	};
 
 	struct Animation_Packet

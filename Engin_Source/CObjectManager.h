@@ -67,7 +67,7 @@ public:
 
 	GameObject* GetOtherSocker(SOCKET sock);
 
-	void SetOtherPos(SOCKET sock, Vector3 pos);
+	void SetOtherPlayerState(SOCKET sock, Server::Position_Packet packet);
 
 	const OtherPlayer& GetOthers() const { return mOthers; }
 private:

@@ -405,15 +405,25 @@ GameObject* ObjectManager::GetOtherSocker(SOCKET sock)
 	return iter->second;
 }
 
-void ObjectManager::SetOtherPos(SOCKET sock, Vector3 pos)
+void ObjectManager::SetOtherPlayerState(SOCKET sock, Server::Position_Packet packet)
 {
 	OtherPlayer::iterator iter = mOthers.find(sock);
+
+	Vector3 pos = Vector3(packet.position.x, packet.position.y, 0.0f);
+
 	if (iter == mOthers.end())
 	{
 		GameObject* obj = PushOtherSocket(sock);
 		obj->GetComponent<Transform>()->SetPosition(pos);
+		wstring animationName = wstring(packet.animationName.begin(), packet.animationName.end());
+		obj->GetComponent<Animator>()->Play(animationName);
+		obj->GetComponent<Animator>()->GetPlayAnimation()->SetIndex(packet.animationIdx);
+
 		return;
 	}
 
 	iter->second->GetComponent<Transform>()->SetPosition(pos);
+	wstring animationName = wstring(packet.animationName.begin(), packet.animationName.end());
+	iter->second->GetComponent<Animator>()->Play(animationName);
+	iter->second->GetComponent<Animator>()->GetPlayAnimation()->SetIndex(packet.animationIdx);
 }

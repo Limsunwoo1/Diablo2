@@ -64,6 +64,7 @@ public:
 	Animator* GetAnimator() { return mAnimator; }
 	void SetAnimator(Animator* animator) { mAnimator = animator; }
 
+	int GetIndex() { return mIndex; }
 	void SetIndex(int index) { mIndex = index; }
 
 	int GetMoveIndex() { return moveIndex; }
