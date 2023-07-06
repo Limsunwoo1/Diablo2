@@ -84,6 +84,8 @@ public:
 
 	void LevelUp();
 
+	void DummyObject(bool dummy = true) { mbDummyPlayer = dummy; }
+
 private:
 	void Run();
 	void Idle();
@@ -122,5 +124,6 @@ private:
 	GameObject* mShadow;
 
 	float mSendPosDelta;
+	bool mbDummyPlayer;
 };
 

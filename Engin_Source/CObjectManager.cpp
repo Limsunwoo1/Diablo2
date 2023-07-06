@@ -378,6 +378,7 @@ GameObject* ObjectManager::PushOtherSocket(SOCKET sock)
 	Player* other = new Player();
 	other->Initalize();
 	other->InitAnimation();
+	other->DummyObject(true);
 	
 	other->GetComponent<Animator>()->Play(L"Idle0");
 

@@ -40,6 +40,7 @@ Player::Player()
 	, mMaxExp(20.f)
 	, mLevel(1)
 	, mSaveName("sunwoo")
+	, mbDummyPlayer(false)
 {
 	SetName(L"Player");
 
@@ -181,6 +182,8 @@ void Player::FixedUpdate()
 	if (mShadow)
 		mShadow->FixedUpdate();
 
+	if (mbDummyPlayer)
+		return;
 
 	mSendPosDelta += GETSINGLE(Time)->DeltaTime();
 
