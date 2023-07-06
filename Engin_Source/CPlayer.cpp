@@ -173,6 +173,9 @@ void Player::Update()
 	shadowTr->SetSize(OwnerSize);
 
 
+	if (mbDummyPlayer)
+		return;
+
 	Run();
 }
 
