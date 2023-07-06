@@ -1,5 +1,6 @@
 #include "CServerManager.h"
 #include "CObjectManager.h"
+#include "CWorldManager.h"
 
 #include <functional>
 
@@ -138,6 +139,9 @@ namespace Server
 
 			exit(1);
 		}
+
+		if (GETSINGLE(WorldManager)->GetPlayer() == nullptr)
+			return;
 
 		if (iRecv != 0)
 		{

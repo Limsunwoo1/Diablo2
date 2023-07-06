@@ -210,7 +210,7 @@ void Player::FixedUpdate()
 			packet.sock = GETSINGLE(Server::ServerManager)->GetSocket();
 
 			Animator* animator = GetComponent<Animator>();
-			const wstring& AniName = animator->GetPlayAnimation()->GetName();
+			wstring AniName = animator->GetPlayAnimation()->AnimationName();
 			packet.animationName = string(AniName.begin(), AniName.end());
 			packet.animationIdx = animator->GetPlayAnimation()->GetIndex();
 
