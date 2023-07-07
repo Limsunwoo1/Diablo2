@@ -25,8 +25,8 @@ private:									\
 	type();									\
 	~type();								\
 
-#define GETSINGLE(type)	\
-type::GetInstance()		\
+#define GETSINGLE(type)						\
+type::GetInstance()							\
 
 // 반환형, 타겟, 생성되는 메소드명
 #define GETSET(__TYPE__, __TARGET__, __METHODNAME__) \

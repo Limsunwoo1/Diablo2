@@ -121,6 +121,7 @@ void CApplication::Release()
 	ItemManager::GetInstance()->Rlease();
 	ObjectManager::GetInstance()->Realse();
 	UIManager::GetInstance()->Rlease();
+	GETSINGLE(Server::ServerManager)->Rlease();
 
 	// 싱글톤 매니저 메모리 해제
 	FileManager::GetInstance()->DestroyInstance();
@@ -135,6 +136,7 @@ void CApplication::Release()
 	Time::GetInstance()->DestroyInstance();
 
 	ResourceManager::GetInstance()->DestroyInstance();
+	GETSINGLE(Server::ServerManager)->DestroyInstance();
 
 	Fmod::GetInstance()->Release();
 	Fmod::GetInstance()->DestroyInstance();
