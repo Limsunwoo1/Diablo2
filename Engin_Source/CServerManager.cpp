@@ -60,7 +60,8 @@ namespace Server
 		{
 			mServerIP = HOST_IP;
 		}
-		//mServerIP = HOST_IP;
+
+		std::cout << "[ IP : " << mServerIP << " ] ·Î ¿¬°á" << std::endl;
 
 		mServerAddr.sin_family = AF_INET;
 		mServerAddr.sin_port = htons(PORT_NUMBER);
