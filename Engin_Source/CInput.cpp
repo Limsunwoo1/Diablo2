@@ -324,6 +324,7 @@ Math::Vector2 Input::GetMouseScreenIndex()
 
 std::pair<int, int> Input::GetIsoMetricIDX(Vector2 MousePos)
 {
+	// 마우스의 월드좌표를 isometric 좌표계로 변환
 	float MouseX = MousePos.x;
 	float MouseY = MousePos.y;
 

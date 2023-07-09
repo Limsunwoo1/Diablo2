@@ -44,6 +44,6 @@ private:
 
 	AStar::Node* mNode;
 	vector<GameObject*> mRenderObj;
-
+	bool mbChat;
 };
 

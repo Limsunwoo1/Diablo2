@@ -38,6 +38,7 @@ PlayerScript::PlayerScript()
 	: Script()
 	, mNode(nullptr)
 	, mEndPos(Vector2(-1.f, -1.f))
+	, mbChat(false)
 {
 }
 
@@ -88,6 +89,29 @@ void PlayerScript::FixedUpdate()
 
 	if (player == nullptr)
 		return;
+
+	if (GETSINGLE(Input)->GetKeyDown(eKeyCode::ENTER))
+	{
+		if (!mbChat)
+		{
+			std::thread chatThread([this]() {
+				mbChat = true;
+				std::cout << "메시지를 입력하세요 : ";
+				Server::ChatMassege_Packet packet = {};
+				char buf[1024] = {};
+				packet.Messege = gets_s(buf);
+				packet.type = Server::ServerDataType::ChatMessege;
+				packet.name = GETSINGLE(Server::ServerManager)->GetClientName();
+
+				GETSINGLE(Server::ServerManager)->PushSend((void*)&packet);
+
+				Sleep(10);
+				mbChat = false;
+				});
+
+			chatThread.detach();
+		}
+	}
 
 	Transform* tr = player->GetComponent<Transform>();
 	Vector3 pos = tr->GetPosition();

@@ -46,33 +46,6 @@ Player::Player()
 
 	GetComponent<Transform>()->SetSize(Vector3(300.f, 300.f, 1.0f));
 
-	// 플레이어 생성과 동시에 채팅 활성화
-	std::thread ChatThread([this]() {
-
-		while (1)
-		{
-			return;
-			if (this->GameObject::GetState() == eState::dead)
-				return;
-
-			if (GETSINGLE(Input)->GetKeyDown(eKeyCode::ENTER))
-			{
-				std::cout << "메시지를 입력하세요 : ";
-				Server::ChatMassege_Packet packet = {};
-				char buf[1024] = {};
-				packet.Messege = gets_s(buf);
-				packet.type = Server::ServerDataType::ChatMessege;
-				packet.name = GETSINGLE(Server::ServerManager)->GetClientName();
-
-				GETSINGLE(Server::ServerManager)->PushSend((void*)&packet);
-
-				Sleep(10);
-			}
-		}
-		});
-
-	ChatThread.detach();
-
 }
 
 
