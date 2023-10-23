@@ -179,7 +179,7 @@ void Player::FixedUpdate()
 			intervalDelta = 0.0f;
 
 
-			Server::Position_Packet packet = {};
+			/*Server::Position_Packet packet = {};
 			packet.type = Server::ServerDataType::PositionData;
 			Math::Vector3 pos = this->GetComponent<Transform>()->GetPosition();
 			packet.position = Server::Vec3(pos.x, pos.y, 0.0f);
@@ -190,7 +190,7 @@ void Player::FixedUpdate()
 			packet.animationName = string(AniName.begin(), AniName.end());
 			packet.animationIdx = animator->GetPlayAnimation()->GetIndex();
 
-			GETSINGLE(Server::ServerManager)->PushSend((void*)&packet);
+			GETSINGLE(Server::ServerManager)->PushSend((void*)&packet);*/
 		}
 	}
 }

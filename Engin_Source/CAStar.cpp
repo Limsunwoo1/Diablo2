@@ -483,8 +483,8 @@ bool AStar::OnA_Star(std::pair<int, int> idx, Vector2 endPos)
 	auto RuntileIdx = Input::GetInstance()->GetIsoMetricIDX(endPos);
 	TileObject* tile = ObjectManager::GetInstance()->GetTile(RuntileIdx.first, RuntileIdx.second);
 	int arrNum = -1;
-	
-	if		(tile->PickTile(endPos, eTilePickType::Tile0)) { arrNum = (UINT)eTilePickType::Tile0; }
+
+	if (tile->PickTile(endPos, eTilePickType::Tile0)) { arrNum = (UINT)eTilePickType::Tile0; }
 	else if (tile->PickTile(endPos, eTilePickType::Tile1)) { arrNum = (UINT)eTilePickType::Tile1; }
 	else if (tile->PickTile(endPos, eTilePickType::Tile2)) { arrNum = (UINT)eTilePickType::Tile2; }
 	else if (tile->PickTile(endPos, eTilePickType::Tile3)) { arrNum = (UINT)eTilePickType::Tile3; }
@@ -494,7 +494,7 @@ bool AStar::OnA_Star(std::pair<int, int> idx, Vector2 endPos)
 
 	if (tile->GetArr()[arrNum] == 1)
 		return false;
-	
+
 	Tiles = WorldManager::GetInstance()->DropWordTileData();
 	mTilesCarveData = WorldManager::GetInstance()->DropWolrdTileCarveData();
 
@@ -852,53 +852,43 @@ void AStar::SaveCarvePosData()
 	unordered_map<UINT, Node>::iterator iter;
 	UINT count = 0;
 
-	std::stack<Vector2> test;
-	std::vector<Node> testNode;
+	std::stack<Vector2> pathStack;
+	std::vector<Node> temp;
 	Node node = mCarveCurNode;
-	
+
 	while (1)
 	{
 		if ((mCarveCurNode.Pos == mCarveStartNode.Pos))
 		{
 			vector<pair<int, int>> directionVec;
 
-			if (testNode.size() > 1)
+			if (temp.size() == 0)
+				return;
+
+			for (int i = 0; i < temp.size() - 1; ++i)
 			{
-				for (int i = 0; i < testNode.size() - 1; ++i)
+				directionVec.push_back(pair(temp[i].Pos.x - temp[i + 1].Pos.x
+					, temp[i].Pos.y - temp[i + 1].Pos.y));
+			}
+
+			if (directionVec.size() == 1)
+				return;
+
+			for (int i = 0; i < directionVec.size() - 1; ++i)
+			{
+				if (directionVec[i] != directionVec[i + 1])
 				{
-					directionVec.push_back(pair(testNode[i].Pos.x - testNode[i + 1].Pos.x
-						, testNode[i].Pos.y - testNode[i + 1].Pos.y));
+					Vector2 Pos = GetCarvePos(temp[i]);
+					pathStack.push(Pos);
 				}
 			}
 
-			if (directionVec.size() > 1)
-			{
-				for (int i = 0; i < directionVec.size() - 1; ++i)
-				{
-					if (directionVec[i] != directionVec[i + 1])
-					{
-						Vector2 Pos = GetCarvePos(testNode[i]);
-						test.push(Pos);
-					}
-				}
-			}
+			if (pathStack.empty())
+				pathStack.push(mEndPos);
 
-			if (test.empty())
-			{
-				test.push(mEndPos);
-			}
-			
-			// 맨 처음 시작 노드
-			/*Vector2 pos = Vector2(-1.f, -1.f);
-			pos = GetCarvePos(mCarveCurNode);
-
-			if(pos.x >= 0 && pos.y >= 0)
-				PosData.emplace(pos);*/
-			
-				PosData = test;
-				Script* script = GetOwner()->GetScript<Script>();
-				script->SetPosData(PosData);
-			
+			PosData = pathStack;
+			Script* script = GetOwner()->GetScript<Script>();
+			script->SetPosData(PosData);
 
 			return;
 		}
@@ -912,7 +902,7 @@ void AStar::SaveCarvePosData()
 		Vector2 pos = Vector2(-1.f, -1.f);
 		pos = GetCarvePos(mCarveCurNode);
 		//test.push(mCarveCurNode);
-		testNode.push_back(mCarveCurNode);
+		temp.push_back(mCarveCurNode);
 
 		if (pos.x < 0 || pos.y < 0)
 			return;

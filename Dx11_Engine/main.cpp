@@ -246,7 +246,7 @@ bool ThreadEnd()
 	std::thread rendererInit([]() {
 		Renderer::Initialize();
 		Fmod::GetInstance()->Initialize();
-		GETSINGLE(Server::ServerManager)->Initalize();
+		//GETSINGLE(Server::ServerManager)->Initalize();
 		SceneManager::GetInstance()->Initalize();
 		});
 

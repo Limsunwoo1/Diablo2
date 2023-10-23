@@ -84,6 +84,19 @@ void SelectButtonSystem::Initalize()
 
 	mItemData.resize(temp.size());
 
+	auto strFunc = [this](std::wstring& str, UINT& CurPos) ->std::wstring
+		{
+			std::wstring data = L"";
+
+			CurPos = str.find_first_of(L",");
+			str.erase(0, CurPos + 1);
+
+			CurPos = str.find_first_of(L"\n");
+			data = str.substr(0, CurPos);
+
+			return data;
+		};
+
 	UINT Index = 0;
 	UINT CurPos = 0;
 	PlayerSelectButton::PlayerInfo info;
@@ -91,86 +104,40 @@ void SelectButtonSystem::Initalize()
 	{
 		std::wstring data = L"";
 		// 타입추출
-		{
-			CurPos = str.find_first_of(L",");
-			str.erase(0, CurPos + 1);
-
-			CurPos = str.find_first_of(L"\n");
-			data = str.substr(0, CurPos);
-		}
+		data = strFunc(str, CurPos);
 		int type = stoi(data);
 		// \n 을 지우기위해 + 1
 		str.erase(0, CurPos + 1);
 
 		// 레벨 추출
-		{
-			CurPos = str.find_first_of(L",");
-			str.erase(0, CurPos + 1);
-
-			CurPos = str.find_first_of(L"\n");
-			data = str.substr(0, CurPos);
-		}
+		data = strFunc(str, CurPos);
 		int level = stoi(data);
 		str.erase(0, CurPos + 1);
 
 		// Hp 추출
-		{
-			CurPos = str.find_first_of(L",");
-			str.erase(0, CurPos + 1);
-
-			CurPos = str.find_first_of(L"\n");
-			data = str.substr(0, CurPos);
-		}
+		data = strFunc(str, CurPos);
 		float hp = stoi(data);
 		str.erase(0, CurPos + 1);
 
 		// Mp 추출
-		{
-
-			CurPos = str.find_first_of(L",");
-			str.erase(0, CurPos + 1);
-
-			CurPos = str.find_first_of(L"\n");
-			data = str.substr(0, CurPos);
-		}
+		data = strFunc(str, CurPos);
 		float mp = stoi(data);
 		str.erase(0, CurPos + 1);
 
 		// Exp추출
-		{
-			CurPos = str.find_first_of(L",");
-			str.erase(0, CurPos + 1);
-
-			CurPos = str.find_first_of(L"\n");
-			data = str.substr(0, CurPos);
-		}
+		data = strFunc(str, CurPos);
 		float exp = stoi(data);
 		str.erase(0, CurPos + 1);
 
 		// Name 추출
-		{
-			CurPos = str.find_first_of(L",");
-			str.erase(0, CurPos + 1);
+		data = strFunc(str, CurPos);
 
-			CurPos = str.find_first_of(L"\n");
-			data = str.substr(0, CurPos);
-		}
 		wstring name = data;
 		str.erase(0, CurPos + 1);
 
 		Vector3 pos = Vector3::Zero;
 		{ // Position
 			vector<float> posData = {};
-
-			//{
-			//	CurPos = str.find_first_of(L",");
-			//	str.erase(0, CurPos + 1);
-
-			//	CurPos = str.find_first_of(L"\n");
-			//	data = str.substr(0, CurPos);
-			//}
-			//posData.push_back(stoi(data));
-			//str.erase(0, CurPos + 1);
 
 			for (int i = 0; i < 3; ++i)
 			{
@@ -508,9 +475,9 @@ void SelectButtonSystem::CreateSelectButton()
 {
 	int index = FileManager::GetInstance()->GetDataSize_Int(eFileType::Char);
 	bool seucess = FileManager::GetInstance()->
-				CreateSaveFile(L"..//Resource//Data", 
-								L"test" + to_wstring(index), 
-								eCharType::Sorceress);
+		CreateSaveFile(L"..//Resource//Data",
+			L"test" + to_wstring(index),
+			eCharType::Sorceress);
 
 	if (!seucess)
 		return;
@@ -771,7 +738,7 @@ void SelectButtonSystem::SlotItemSetting(ItemBase* item)
 	{
 		for (EquipmentButton* button : InvenPanelSlot)
 		{
-			if (type == button->GetEquipmentType() 
+			if (type == button->GetEquipmentType()
 				&& button->GetItem() == nullptr)
 			{
 				button->DropItem(item);
