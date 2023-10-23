@@ -862,24 +862,27 @@ void AStar::SaveCarvePosData()
 		{
 			vector<pair<int, int>> directionVec;
 
-			if (temp.size() == 0)
-				return;
-
-			for (int i = 0; i < temp.size() - 1; ++i)
+			if (temp.size() > 1)
 			{
-				directionVec.push_back(pair(temp[i].Pos.x - temp[i + 1].Pos.x
-					, temp[i].Pos.y - temp[i + 1].Pos.y));
+
+
+				for (int i = 0; i < temp.size() - 1; ++i)
+				{
+					directionVec.push_back(pair(temp[i].Pos.x - temp[i + 1].Pos.x
+						, temp[i].Pos.y - temp[i + 1].Pos.y));
+				}
 			}
 
-			if (directionVec.size() == 1)
-				return;
-
-			for (int i = 0; i < directionVec.size() - 1; ++i)
+			if (directionVec.size() > 1)
 			{
-				if (directionVec[i] != directionVec[i + 1])
+
+				for (int i = 0; i < directionVec.size() - 1; ++i)
 				{
-					Vector2 Pos = GetCarvePos(temp[i]);
-					pathStack.push(Pos);
+					if (directionVec[i] != directionVec[i + 1])
+					{
+						Vector2 Pos = GetCarvePos(temp[i]);
+						pathStack.push(Pos);
+					}
 				}
 			}
 
@@ -891,6 +894,7 @@ void AStar::SaveCarvePosData()
 			script->SetPosData(PosData);
 
 			return;
+
 		}
 
 		if (count >= 100)

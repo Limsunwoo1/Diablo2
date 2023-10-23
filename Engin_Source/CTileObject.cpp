@@ -168,12 +168,12 @@ void TileObject::Update()
 
 void TileObject::FixedUpdate()
 {
-	if (mbUpdate == true)
+	if (mbUpdate == false)
 		return;
 
 	GameObject::FixedUpdate();
 
-	mbUpdate = true;
+	mbUpdate = false;
 }
 
 void TileObject::Render()
