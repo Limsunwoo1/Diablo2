@@ -48,7 +48,7 @@ TileObject::TileObject()
 	mMaxX = tex.lock()->GetMaxX();
 	mMaxY = tex.lock()->GetMaxY();
 
-	mbUpdate = false;
+	mbUpdate = true;
 	mArr.resize(4);
 
 	Transform* Tr = GetComponent<Transform>();
